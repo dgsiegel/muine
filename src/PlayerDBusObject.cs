@@ -3,16 +3,16 @@
  *           (C) 2004 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
+ * modify it under the terms of the GNU General public virtual License as
  * published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * General public virtual License for more details.
  *
- * You should have received a copy of the GNU General Public
+ * You should have received a copy of the GNU General public virtual
  * License along with this program; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
@@ -36,43 +36,43 @@ public class PlayerDBusObject
 	}
 
 	[Method]
-	public bool GetPlaying ()
+	public virtual bool GetPlaying ()
 	{
 		return player.Playing;
 	}
 	
 	[Method]
-	public void SetPlaying (bool playing)
+	public virtual void SetPlaying (bool playing)
 	{
 		player.Playing = playing;
 	}
 
 	[Method]
-	public bool HasNext ()
+	public virtual bool HasNext ()
 	{
 		return player.HasNext;
 	}
 
 	[Method]
-	public void Next ()
+	public virtual void Next ()
 	{
 		player.Next ();
 	}
 
 	[Method]
-	public bool HasPrevious ()
+	public virtual bool HasPrevious ()
 	{
 		return player.HasPrevious;
 	}
 
 	[Method]
-	public void Previous ()
+	public virtual void Previous ()
 	{
 		player.Previous ();
 	}
 
 	[Method]
-	public string GetCurrentSong ()
+	public virtual string GetCurrentSong ()
 	{
 		string value = "";
 		
@@ -83,61 +83,79 @@ public class PlayerDBusObject
 	}
 
 	[Method]
-	public bool GetWindowVisible ()
+	public virtual bool GetWindowVisible ()
 	{
 		return player.WindowVisible;
 	}
 	
 	[Method]
-	public void SetWindowVisible (bool visible)
+	public virtual void SetWindowVisible (bool visible)
 	{
 		player.WindowVisible = visible;
 	}
 
 	[Method]
-	public int GetVolume ()
+	public virtual int GetVolume ()
 	{
 		return player.Volume;
 	}
 
 	[Method]
-	public void SetVolume (int volume)
+	public virtual void SetVolume (int volume)
 	{
 		player.Volume = volume;
 	}
 
 	[Method]
-	public int GetPosition ()
+	public virtual int GetPosition ()
 	{
 		return player.Position;
 	}
 
 	[Method]
-	public void SetPosition (int pos)
+	public virtual void SetPosition (int pos)
 	{
 		player.Position = pos;
 	}
 
 	[Method]
-	public bool GetHasToplevelFocus ()
+	public virtual bool GetHasToplevelFocus ()
 	{
 		return player.WindowFocused; 
 	}
 
 	[Method]
-	public void PlayAlbum ()
+	public virtual void PlayAlbum ()
 	{
 		player.PlayAlbum ();
 	}
 
 	[Method]
-	public void PlaySong ()
+	public virtual void PlaySong ()
 	{
 		player.PlaySong ();
 	}
 
 	[Method]
-	public void WriteAlbumCoverToFile (string file)
+	public virtual void OpenPlaylist (string uri)
+	{
+		player.OpenPlaylist (uri);
+	}
+
+	[Method]
+	public virtual void PlayFile (string uri)
+	{
+		player.PlayFile (uri);
+	}
+
+	[Method]
+	public virtual void QueueFile (string uri)
+	{
+		player.QueueFile (uri);
+	}
+
+	[Method]
+	public virtual void WriteAlbumCoverToFile (string file)
 	{
 		if (player.PlayingSong.CoverImage == null)
 			return;
@@ -148,7 +166,7 @@ public class PlayerDBusObject
 	}
 
 	[Method]
-	public void Quit ()
+	public virtual void Quit ()
 	{
 		Muine.Exit ();
 	}

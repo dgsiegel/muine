@@ -54,6 +54,11 @@ public interface PlayerInterface
 	void PlaySong ();
 	void PlayAlbum ();
 
+	void OpenPlaylist (string uri);
+
+	void PlayFile (string uri);
+	void QueueFile (string uri);
+
 	bool WindowVisible {
 		get;
 		set;

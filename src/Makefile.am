@@ -33,7 +33,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/CoverDatabase.cs		\
-	$(srcdir)/MessageConnection.cs		\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/InfoWindow.cs			\
 	$(srcdir)/CoverImage.cs			\

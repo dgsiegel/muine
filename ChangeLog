@@ -1,5 +1,15 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Makefile.am:
+	* src/MessageConnection.cs:
+	* src/Muine.cs:
+	* src/PlayerDBusObject.cs:
+	* src/PlayerInterface.cs:
+
+	Obsolete MessageConnection - we use D-Bus now.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlayerDBusObject.cs:
 	* src/PlaylistWindow.cs:
 

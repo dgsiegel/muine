@@ -23,6 +23,7 @@ using System.IO;
 using Gtk;
 using GLib;
 using Gdk;
+using DBus;
 
 public class Muine : Gnome.Program
 {
@@ -58,8 +59,6 @@ public class Muine : Gnome.Program
 		}
 	}
 
-	private static MessageConnection conn;
-
 	private static Gnome.Client client;
 
 	private static bool opened_playlist = false;
@@ -75,22 +74,23 @@ public class Muine : Gnome.Program
 
 	public Muine (string [] args) : base ("muine", About.Version, Gnome.Modules.UI, args)
 	{
-		/* Create message connection */
-		conn = new MessageConnection ();
-		while (conn.Status == MessageConnection.StatusCode.Retry) {
-			conn = new MessageConnection ();
-		}
+		PlayerDBusObject dbo = null;
 
-		if (conn.Status != MessageConnection.StatusCode.OK) {
-			Console.WriteLine ("Error creating MessageConnection: " + conn.Status);
-			Environment.Exit (1);
-		}
-		
+		/* Try to find a running Muine */
+		try {
+			Connection conn = Bus.GetSessionBus ();
+			
+			Service service = Service.Get (conn, "org.gnome.Muine");
+			
+			dbo = (PlayerDBusObject) service.GetObject
+					(typeof (PlayerDBusObject), "/org/gnome/Muine/Player");
+
+		} catch {}
+
 		/* An instance already exists. Handle command line args and exit. */
-		if (conn.Role == MessageConnection.ConnectionType.Client)
+		if (dbo != null)
 		{
-			conn.Send (System.Text.Encoding.UTF8.GetBytes (String.Join ("\n", args)));
-			conn.Close ();
+			ProcessCommandLine (args, dbo);
 			Gdk.Global.NotifyStartupComplete ();
 			Environment.Exit (0);
 		}
@@ -130,9 +130,8 @@ public class Muine : Gnome.Program
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
 
-		/* Hook up connection callback */
-		conn.MessageReceivedHandler = new MessageConnection.MessageReceivedDelegate (HandleMessageReceived);
-		ProcessCommandLine (args);
+		/* Process command line options */
+		ProcessCommandLine (args, null);
 
 		/* Load playlist */
 		if (!opened_playlist)
@@ -157,7 +156,7 @@ public class Muine : Gnome.Program
 		client.SaveYourself += new Gnome.SaveYourselfHandler (HandleSaveYourselfEvent);
 	}
 
-	private void ProcessCommandLine (string [] args)
+	private void ProcessCommandLine (string [] args, PlayerDBusObject dbo)
 	{
 		for (int i = 0; i < args.Length; i++) {
 			System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
@@ -165,18 +164,31 @@ public class Muine : Gnome.Program
 			if (finfo.Exists) {
 				if (FileUtils.IsPlaylist (args [i])) {
 					/* load as playlist */
-					playlist.OpenPlaylist (finfo.FullName);
+					if (dbo != null)
+						dbo.OpenPlaylist (finfo.FullName);
+					else
+						playlist.OpenPlaylist (finfo.FullName);
 				} else {
 					/* load as music file */
-					if (i == 0)
-						playlist.PlayFile (finfo.FullName);
-					else
-						playlist.QueueFile (finfo.FullName);
+					if (i == 0) {
+						if (dbo != null)
+							dbo.PlayFile (finfo.FullName);
+						else
+							playlist.PlayFile (finfo.FullName);
+					} else {
+						if (dbo != null)
+							dbo.QueueFile (finfo.FullName);
+						else
+							playlist.QueueFile (finfo.FullName);
+					}
 				}
 
 				opened_playlist = true;
 			}
 		}
+
+		if (dbo != null && args.Length == 0)
+			dbo.SetWindowVisible (true);
 	}
 	
 	private void SetDefaultWindowIcon ()
@@ -184,14 +196,6 @@ public class Muine : Gnome.Program
 		Pixbuf [] default_icon_list = new Pixbuf [1];
 		default_icon_list [0] = new Pixbuf (null, "muine.png");
 		Gtk.Window.DefaultIconList = default_icon_list;
-	}
-
-	private void HandleMessageReceived (string [] message)
-	{
-		if (message == null)
-			playlist.WindowVisible = true;
-		else
-			ProcessCommandLine (message);
 	}
 
 	private void HandleCoversDoneLoading ()
@@ -215,8 +219,6 @@ public class Muine : Gnome.Program
 
 	public static void Exit ()
 	{
-		conn.Close ();
-
 		//Application.Quit ();
 		Environment.Exit (0);
 	}
