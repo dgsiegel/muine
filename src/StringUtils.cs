@@ -98,4 +98,17 @@ public class StringUtils
 	{
 		return System.Text.Encoding.UTF8.GetString (data.Data);
 	}
+
+	[DllImport ("libgnomevfs-2.dll")]
+	private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
+
+	public static string LocalPathFromUri (string uri)
+	{
+		IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
+
+		if (p == IntPtr.Zero)
+			return null;
+		else
+			return GLib.Marshaller.PtrToStringGFree (p);
+	}
 }

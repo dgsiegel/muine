@@ -256,7 +256,6 @@ public class CoverDatabase
 		try {
 			pix = new Pixbuf (filename);
 		} catch (Exception e) {
-			Console.WriteLine ("failed to create pixbuf: " + e.ToString ());
 			return null;
 		}
 

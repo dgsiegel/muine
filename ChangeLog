@@ -2,6 +2,15 @@
 
 	* src/CoverDatabase.cs:
 	* src/CoverImage.cs:
+	* src/StringUtils.cs:
+	* src/muine.exe.config.in:
+
+	Support non-ASCII filenames in cover image dnd.
+
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
 	* src/Metadata.cs:
 	* src/SongDatabase.cs:
 

@@ -90,7 +90,6 @@ public class CoverImage : EventBox
 
 		bool success = false;
 
-		Uri uri;
 		string [] uri_list;
 		string fn;
 		
@@ -99,7 +98,7 @@ public class CoverImage : EventBox
 			uri_list = Regex.Split (data, "\n");
 			fn = uri_list [0];
 			
-			uri = new Uri (fn);
+			Uri uri = new Uri (fn);
 
 			if (!(uri.Scheme == "http"))
 				break;
@@ -124,20 +123,15 @@ public class CoverImage : EventBox
 			break;
 		case (uint) TargetType.UriList:
 			uri_list = Regex.Split (data, "\r\n");
-			fn = uri_list [0];
-			
-			uri = new Uri (fn);
+			fn = StringUtils.LocalPathFromUri (uri_list [0]);
 
-			if (!(uri.Scheme == "file"))
+			if (fn == null)
 				break;
-
-			Console.WriteLine (" " + uri.LocalPath);
-			Console.WriteLine (fn);
 
 			try {
 				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
 					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCoverLocal (song.AlbumKey, uri.LocalPath);
+				song.CoverImage = Muine.CoverDB.AddCoverLocal (song.AlbumKey, fn);
 				Muine.DB.SyncAlbumCoverImageWithSong (song);
 
 				success = true;
