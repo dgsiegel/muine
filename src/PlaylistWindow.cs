@@ -256,7 +256,7 @@ namespace Muine
 			/* load last playlist */
 			System.IO.FileInfo finfo = new System.IO.FileInfo (FileUtils.PlaylistFile);
 			if (finfo.Exists)
-				OpenPlaylist (FileUtils.PlaylistFile);
+				OpenPlaylistInternal (FileUtils.PlaylistFile);
 		}
 
 		public void Run ()
@@ -927,6 +927,13 @@ namespace Muine
 		}
 
 		public void OpenPlaylist (string fn)
+		{
+			OpenPlaylistInternal (fn);
+
+			Playing = true;
+		}
+
+		private void OpenPlaylistInternal (string fn)
 		{
 			VfsStream stream;
 			StreamReader reader;

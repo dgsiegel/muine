@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Start playing when opening a playlist.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 	* src/SongDatabase.cs:
 	* src/ThreadBase.cs:
