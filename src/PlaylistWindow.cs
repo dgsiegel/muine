@@ -205,7 +205,7 @@ public class PlaylistWindow : Window
 		image.SetFromStock ("muine-add-album", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
-		tooltips.SetTip (previous_button, "Play the last song", null);
+		tooltips.SetTip (previous_button, "Play the previous song", null);
 		tooltips.SetTip (next_button, "Play the next song", null);
 		tooltips.SetTip (add_album_button, "Add an album to the playlist", null);
 		tooltips.SetTip (add_song_button, "Add a song to the playlist", null);
