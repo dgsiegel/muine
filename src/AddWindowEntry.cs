@@ -26,7 +26,7 @@ namespace Muine
 		// Variables
 		private static readonly int min_query_length = 3;
 
-		private string [] search_bits;
+		private string [] search_bits = new string [0];
 
 		// Constructor
 		public AddWindowEntry () : base ()
