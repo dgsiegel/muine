@@ -26,17 +26,22 @@ using Gdk;
 public class NotificationAreaIcon : GLib.Object
 {
 	[DllImport ("libmuine")]
-	private static extern IntPtr egg_status_icon_new_from_pixbuf (IntPtr pixbuf);
+	private static extern IntPtr egg_status_icon_new ();
 
 	[DllImport ("libgobject-2.0-0.dll")]
 	private static extern uint g_signal_connect_data (IntPtr obj, string name,
 							  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
+	private Pixbuf playing_pixbuf;
+	private Pixbuf paused_pixbuf;
+
 	public void Init ()
 	{
-		Pixbuf pixbuf = new Pixbuf (null, "muine-tray.png");
-		Raw = egg_status_icon_new_from_pixbuf (pixbuf.Handle);
+		Raw = egg_status_icon_new ();
+
+		playing_pixbuf = new Pixbuf (null, "muine-tray-playing.png");
+		paused_pixbuf = new Pixbuf (null, "muine-tray-paused.png");
 
 		g_signal_connect_data (Raw, "activate", new SignalDelegate (ActivateCallback),
 				       IntPtr.Zero, IntPtr.Zero, 0);
@@ -63,6 +68,19 @@ public class NotificationAreaIcon : GLib.Object
 		}
 	}
 
+	[DllImport ("libmuine")]
+	private static extern void egg_status_icon_set_from_pixbuf (IntPtr status_icon,
+								    IntPtr pixbuf);
+
+	public bool Playing {
+		set {
+			if (value == true)
+				egg_status_icon_set_from_pixbuf (Raw, playing_pixbuf.Handle);
+			else
+				egg_status_icon_set_from_pixbuf (Raw, paused_pixbuf.Handle);
+		}
+	}
+
 	private delegate void SignalDelegate (IntPtr obj);
 
 	public delegate void ActivateEventHandler ();
@@ -74,12 +92,5 @@ public class NotificationAreaIcon : GLib.Object
 
 		if (icon.ActivateEvent != null)
 			icon.ActivateEvent ();
-	}
-
-	public static void DestroyCallback (IntPtr obj)
-	{
-		NotificationAreaIcon icon = GLib.Object.GetObject (obj, false) as NotificationAreaIcon;
-
-		icon.Init ();
 	}
 }

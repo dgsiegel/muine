@@ -1,5 +1,18 @@
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/images/Makefile.am:
+	* data/images/muine-tray-paused.png:
+	* data/images/muine-tray-playing.png:
+	* data/images/muine-tray.png:
+	* src/Makefile.am:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Show playing status in tray icon, inspired by a patch from
+	Sergio Rubio <S0302298@newi.ac.uk>
+
+2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Nicer album tooltip.

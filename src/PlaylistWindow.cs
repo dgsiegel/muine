@@ -550,6 +550,8 @@ public class PlaylistWindow : Window
 			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
 		}
 
+		icon.Playing = playing;
+
 		playlist.StateChanged ();
 	}
 
@@ -866,16 +868,13 @@ public class PlaylistWindow : Window
 			playlist.Next ();
 
 			SongChanged (true);
-
-			NSongsChanged ();
 		} else {
 			had_last_eos = true;
 
 			player.Playing = false;
-
-			/* propagate the song.Duration changes */
-			UpdateTimeLabels (player.Position);
 		}
+
+		NSongsChanged ();
 	}
 
 	private void HandlePreviousCommand (object o, EventArgs args)
