@@ -34,10 +34,12 @@ namespace Muine
 		[Glade.Widget] private Label  song_position;
 
 		// Objects
-		IPlayer player;
+		private IPlayer player;
 
 		// Variables
-		bool from_tick;
+		private bool from_tick;
+		private const uint set_position_timeout = 100;
+		private uint set_position_timeout_id;
 		
 		// Constructor
 		public SkipToWindow (IPlayer p)
@@ -68,10 +70,24 @@ namespace Muine
 			window.Visible = false;
 		}
 
+		// Methods :: Private
+		// Methods :: Private :: SetPositionTimeoutFunc
+		private bool SetPositionTimeoutFunc ()
+		{
+			set_position_timeout_id = 0;
+
+			player.Position = (int) song_slider.Value;
+			
+			return false;
+		}
+
 		// Handlers
 		// Handlers :: OnTickEvent
 		private void OnTickEvent (int pos) 
 		{
+			if (set_position_timeout_id > 0)
+				return;
+
 			// Update label
 			String position   = StringUtils.SecondsToString (pos);
 			String total_time = StringUtils.SecondsToString (player.PlayingSong.Duration);
@@ -86,9 +102,13 @@ namespace Muine
 		// Handlers :: OnSongSliderValueChanged
 		private void OnSongSliderValueChanged (object o, EventArgs a) 
 		{
-			if (!from_tick)
-				player.Position = (int) song_slider.Value;
-			else
+			if (!from_tick) {
+				if (set_position_timeout_id > 0)
+					GLib.Source.Remove (set_position_timeout_id);
+
+				set_position_timeout_id = GLib.Timeout.Add (set_position_timeout,
+									    new GLib.TimeoutHandler (SetPositionTimeoutFunc));
+			} else
 				from_tick = false;
 		}
 

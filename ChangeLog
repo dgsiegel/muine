@@ -1,5 +1,16 @@
 2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Player.cs:
+
+	Small cleanup.
+	
+	* src/SkipToWindow.cs:
+
+	Do the actual seek from a timeout, bit smoother experience using
+	the GST backend.
+
+2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 
 	Make GStreamer the default backend.

@@ -62,7 +62,7 @@ namespace Muine
 		// Variables
 		private bool stopped = true;
 		private bool playing;
-		private uint set_file_idle = 0;
+		private uint set_file_idle_id = 0;
 
 		// Constructor
 		[DllImport ("libmuine")]
@@ -111,10 +111,10 @@ namespace Muine
 				if (playing)
 					player_pause (Raw);
 
-				if (set_file_idle > 0)
-					GLib.Source.Remove (set_file_idle);
+				if (set_file_idle_id > 0)
+					GLib.Source.Remove (set_file_idle_id);
 
-				set_file_idle = GLib.Idle.Add (new GLib.IdleHandler (SetFileIdleFunc));
+				set_file_idle_id = GLib.Idle.Add (new GLib.IdleHandler (SetFileIdleFunc));
 
 				if (TickEvent != null)
 					TickEvent (0);
@@ -144,7 +144,7 @@ namespace Muine
 			}
 
 			get {
-				if (set_file_idle > 0)
+				if (set_file_idle_id > 0)
 					return 0;
 				else
 					return player_tell (Raw);
@@ -176,7 +176,7 @@ namespace Muine
 					
 			playing = true;
 
-			if (set_file_idle == 0)
+			if (set_file_idle_id == 0)
 				player_play (Raw);
 
 			if (StateChanged != null)
@@ -225,7 +225,7 @@ namespace Muine
 		// Methods :: Private :: SetFileIdleFunc
 		private bool SetFileIdleFunc ()
 		{
-			set_file_idle = 0;
+			set_file_idle_id = 0;
 
 			IntPtr error_ptr;
 
