@@ -42,6 +42,8 @@ namespace Muine
 		public ImportDialog () 
 		: base (string_title, Global.Playlist, FileChooserAction.SelectFolder)
 		{
+			Global.Playlist.WindowGroup.AddWindow (this);
+
 			base.LocalOnly = true;
 			base.SelectMultiple = true;
 			base.AddButton (Stock.Cancel, ResponseType.Cancel);
@@ -54,12 +56,19 @@ namespace Muine
 
 			base.SetCurrentFolder (start_dir);
 
-			if (base.Run () != (int) ResponseType.Ok) {
+			base.Response += new ResponseHandler (OnResponse);
+
+			base.Visible = true;
+		}
+
+		// Handlers
+		// Handlers :: OnResponse
+		private void OnResponse (object o, ResponseArgs args)
+		{
+			if (args.ResponseId != ResponseType.Ok) {
 				base.Destroy ();
 				return;
 			}
-
-			base.Visible = false;
 
 			Config.Set (GConfKeyImportFolder, base.CurrentFolder);
 

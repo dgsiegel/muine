@@ -33,12 +33,14 @@ namespace Muine
 		[Glade.Widget] private Label  label;
 
 		// Constructor
-		public ErrorDialog (Window parent,
+		public ErrorDialog (PlaylistWindow playlist,
 				    string primary_text,
 				    string secondary_text)
 		: this (primary_text, secondary_text)
 		{
-			window.TransientFor = parent;
+			window.TransientFor = playlist;
+
+			playlist.WindowGroup.AddWindow (window);
 		}
 
 		public ErrorDialog (string primary_text, string secondary_text)

@@ -39,8 +39,7 @@ namespace Muine
 		[Glade.Widget] private Label label;
 
 		// Constructor
-		public OverwriteDialog (Window parent,
-					string fn)
+		public OverwriteDialog (Window parent, string fn)
 		{
 			Glade.XML gxml = new Glade.XML (null, "OverwriteDialog.glade", "window", null);
 			gxml.Autoconnect (this);
@@ -53,6 +52,7 @@ namespace Muine
 						      StringUtils.EscapeForPango (string_secondary_text));
 
 			window.TransientFor = parent;
+			Global.Playlist.WindowGroup.AddWindow (window);
 		}
 
 		// Methods

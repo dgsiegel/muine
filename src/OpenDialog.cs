@@ -39,7 +39,7 @@ namespace Muine
 
 		// Constructor
 		public OpenDialog () 
-		: base (string_title, Global.Playlist, FileChooserAction.Open, GConfKeyDefaultPlaylistFolder)
+		: base (string_title, FileChooserAction.Open, GConfKeyDefaultPlaylistFolder)
 		{
 			FileFilter filter = new FileFilter ();
 			filter.Name = string_filter;
@@ -47,9 +47,26 @@ namespace Muine
 			filter.AddPattern ("*.m3u");
 			base.AddFilter (filter);
 
-			string fn = base.GetFile ();
+			base.Response += new ResponseHandler (OnResponse);
 
-			if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
+			base.Visible = true;
+		}
+
+		// Handlers
+		// Handlers :: OnResponse
+		private void OnResponse (object o, ResponseArgs args)
+		{
+			if (args.ResponseId != ResponseType.Ok) {
+				base.Destroy ();
+
+				return;
+			}
+
+			string fn = Uri;
+
+			base.Destroy ();
+
+			if (!FileUtils.IsPlaylist (fn))
 				return;
 
 			if (FileUtils.Exists (fn))

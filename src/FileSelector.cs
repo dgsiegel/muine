@@ -34,9 +34,10 @@ namespace Muine
 		private string gconf_path;
 
 		// Constructor
-		public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
+		public FileSelector (string title, FileChooserAction action, string gcp) : base (title, Global.Playlist, action, "gnome-vfs")
 		{
-			TransientFor = parent;
+			Global.Playlist.WindowGroup.AddWindow (this);
+
 			LocalOnly = false;
 
 			AddButton (Stock.Cancel, ResponseType.Cancel);
@@ -64,24 +65,16 @@ namespace Muine
 				FileUtils.UriFromLocalPath (FileUtils.HomeDirectory));
 
 			SetCurrentFolderUri (start_dir);
+
+			base.Response += new ResponseHandler (OnResponse);
 		}
 
-		// Methods
-		// Methods :: Public
-		// Methods :: Public :: GetFile
-		public string GetFile ()
+		// Handlers
+		// Handlers :: OnResponse
+		private void OnResponse (object o, ResponseArgs args)
 		{
-			if (Run () != (int) ResponseType.Ok) {
-				Destroy ();
-				return "";
-			}
-
-			string ret = Uri;
-
-			Config.Set (gconf_path, CurrentFolderUri);
-
-			Destroy ();
-			return ret;
+			if (args.ResponseId == ResponseType.Ok)
+				Config.Set (gconf_path, CurrentFolderUri);
 		}
 	}
 }

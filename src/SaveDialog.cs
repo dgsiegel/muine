@@ -39,25 +39,41 @@ namespace Muine
 
 		// Constructor
 		public SaveDialog () 
-		: base (string_title, Global.Playlist, FileChooserAction.Save, GConfKeyDefaultPlaylistFolder)
+		: base (string_title, FileChooserAction.Save, GConfKeyDefaultPlaylistFolder)
 		{
 			base.CurrentName = string_save_default;
 
-			string fn = base.GetFile ();
+			base.Response += new ResponseHandler (OnResponse);
 
-			if (fn.Length == 0)
+			base.Visible = true;
+		}
+
+		// Handlers
+		// Handlers :: OnResponse
+		private void OnResponse (object o, ResponseArgs args)
+		{
+			if (args.ResponseId != ResponseType.Ok) {
+				base.Destroy ();
+
 				return;
+			}
+
+			string fn = base.Uri;
 
 			// make sure the extension is ".m3u"
 			if (!FileUtils.IsPlaylist (fn))
 				fn += ".m3u";
 
 			if (FileUtils.Exists (fn)) {
-				OverwriteDialog d = new OverwriteDialog (Global.Playlist, fn);
-				if (!d.GetAnswer ()) // user said don't overwrite
+				OverwriteDialog d = new OverwriteDialog (this, fn);
+				bool overwrite = d.GetAnswer ();
+
+				if (!overwrite)
 					return;
 			}
 			
+			base.Destroy ();
+
 			Global.Playlist.SavePlaylist (fn, false, false);
 		}
 	}

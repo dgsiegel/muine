@@ -101,10 +101,6 @@ namespace Muine
 		private static readonly string string_error_write =
 			Catalog.GetString ("Failed to write {0}:");
 
-		// Glade
-		private static readonly Glade.XML glade_xml = 
-			new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
-
 		// Events
 		// Events :: SongChangedEvent (IPlayer)
 		public event SongChangedEventHandler SongChangedEvent;
@@ -231,6 +227,8 @@ namespace Muine
 		public PlaylistWindow () : base (WindowType.Toplevel)
 		{
 			// Build the interface
+			Glade.XML glade_xml = 
+				new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
 			glade_xml.Autoconnect (this);	
 			base.Add (main_vbox);
 
@@ -240,6 +238,10 @@ namespace Muine
 			base.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 
 			Gtk.Drag.DestSet (this, DestDefaults.All, drag_entries, Gdk.DragAction.Copy);
+
+			// Grab group
+			window_group = new WindowGroup ();
+			window_group.AddWindow (this);
 
 			// Keep track of window visibility
 			base.VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
@@ -403,6 +405,12 @@ namespace Muine
 			get { return repeat; }
 		}
 
+		// Properties :: WindowGroup (get;)
+		private WindowGroup window_group;
+		public WindowGroup WindowGroup {
+			get { return window_group; }
+		}
+		
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: RestorePlaylist

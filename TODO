@@ -70,6 +70,8 @@ o Use Hashtable/dictionary in D-Bus song info code
   Depends on Freedesktop Bugzilla #2175
 o Create message dialogs ourselves, not through glade
   Once we have Gtk 2.6 support in Gtk#
+o Set Window.IconName on windows
+  Once we have Gtk 2.6 support in Gtk#
 
 We won't have:
 ==============

@@ -1,3 +1,20 @@
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
+	* data/glade/ErrorDialog.glade:
+	* data/glade/OverwriteDialog.glade:
+	* data/glade/ProgressWindow.glade:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/ImportDialog.cs:
+	* src/OpenDialog.cs:
+	* src/OverwriteDialog.cs:
+	* src/PlaylistWindow.cs:
+	* src/SaveDialog.cs:
+
+	Improve dialog behaviour, and don't keep glade_xml around
+	for the apps lifetime- that's wasting memory.
+
 2005-01-16  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:
