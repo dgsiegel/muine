@@ -101,12 +101,7 @@ public class SongDatabase
 		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
 
 		/* add file monitors */
-		string [] folders;
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
+		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
 
 		foreach (string folder in folders)
 			AddMonitor (folder);
@@ -253,13 +248,7 @@ public class SongDatabase
 	/*** monitoring ***/
 	public void AddWatchedFolder (string folder)
 	{
-		string [] folders;
-		
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
+		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
 
 		string [] new_folders = new string [folders.Length + 1];
 
@@ -273,7 +262,7 @@ public class SongDatabase
 
 		new_folders [folders.Length] = folder;
 
-		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
+		Muine.SetGConfValue ("/apps/muine/watched_folders", new_folders);
 
 		AddMonitor (folder);
 	}
@@ -480,12 +469,7 @@ public class SongDatabase
 		}
 
 		/* check for new songs */
-		string [] folders;
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
+		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
 
 		foreach (string folder in folders) {
 			DirectoryInfo dinfo = new DirectoryInfo (folder);

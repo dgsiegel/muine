@@ -55,19 +55,8 @@ public class InfoWindow : Window
 
 		window.Title = title;
 
-		int width;
-		try {
-			width = (int) Muine.GConfClient.Get ("/apps/muine/information_window/width");
-		} catch {
-			width = 350;
-		}
-
-		int height;
-		try {
-			height = (int) Muine.GConfClient.Get ("/apps/muine/information_window/height");
-		} catch {
-			height = 300;
-		}
+		int width = (int) Muine.GetGConfValue ("/apps/muine/information_window/width", 350);
+		int height = (int) Muine.GetGConfValue ("/apps/muine/information_window/height", 300);
 
 		window.SetDefaultSize (width, height);
 
@@ -91,8 +80,8 @@ public class InfoWindow : Window
 
 		window.GetSize (out width, out height);
 
-		Muine.GConfClient.Set ("/apps/muine/information_window/width", width);
-		Muine.GConfClient.Set ("/apps/muine/information_window/height", height);
+		Muine.SetGConfValue ("/apps/muine/information_window/width", width);
+		Muine.SetGConfValue ("/apps/muine/information_window/height", height);
 	}
 
 	public void Run ()

@@ -58,19 +58,8 @@ public class AddSongWindow : Window
 
 		window.Title = Muine.Catalog.GetString ("Play Song");
 
-		int width;
-		try {
-			width = (int) Muine.GConfClient.Get ("/apps/muine/add_song_window/width");
-		} catch {
-			width = 350;
-		}
-
-		int height;
-		try {
-			height = (int) Muine.GConfClient.Get ("/apps/muine/add_song_window/height");
-		} catch {
-			height = 300;
-		}
+		int width = (int) Muine.GetGConfValue ("/apps/muine/add_song_window/width", 500);
+		int height = (int) Muine.GetGConfValue ("/apps/muine/add_song_window/height", 475);
 
 		window.SetDefaultSize (width, height);
 
@@ -267,8 +256,8 @@ public class AddSongWindow : Window
 
 		window.GetSize (out width, out height);
 
-		Muine.GConfClient.Set ("/apps/muine/add_song_window/width", width);
-		Muine.GConfClient.Set ("/apps/muine/add_song_window/height", height);
+		Muine.SetGConfValue ("/apps/muine/add_song_window/width", width);
+		Muine.SetGConfValue ("/apps/muine/add_song_window/height", height);
 	}
 
 	private void HandleRowActivated (IntPtr handle)

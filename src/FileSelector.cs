@@ -40,12 +40,7 @@ public class FileSelector : FileChooserDialog
 
 		gconf_path = gcp;
 
-		string start_dir;
-		try {
-			start_dir = (string) Muine.GConfClient.Get (gconf_path);
-		} catch {
-			start_dir = "~";
-		}
+		string start_dir = (string) Muine.GetGConfValue (gconf_path, "~");
 
 		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
@@ -65,8 +60,8 @@ public class FileSelector : FileChooserDialog
 
 		string ret = Uri;
 
-		Muine.GConfClient.Set (gconf_path,
-		                       System.IO.Path.GetDirectoryName (ret) + "/");
+		Muine.SetGConfValue (gconf_path,
+		                     System.IO.Path.GetDirectoryName (ret) + "/");
 
 		Destroy ();
 

@@ -200,4 +200,27 @@ public class Muine : Gnome.Program
 		//Application.Quit ();
 		Environment.Exit (0);
 	}
+	
+	public static object GetGConfValue (string key)
+	{
+	       return GConfClient.Get (key);
+	}
+	
+	public static object GetGConfValue (string key, object default_val)
+        {
+                object val;
+
+                try {
+                        val = GetGConfValue (key);
+                } catch {
+                        val = default_val;
+                }
+
+                return val;
+        }
+        
+        public static void SetGConfValue (string key, object val)
+        {
+        	GConfClient.Set (key, val);        	
+        }
 }

@@ -28,26 +28,12 @@ public class GnomeProxy
 	
 	public GnomeProxy ()
 	{
-		try {
-			use = (bool) Muine.GConfClient.Get ("/system/http_proxy/use_http_proxy");
-		} catch {
-			use = false;
-		}
+		use = (bool) Muine.GetGConfValue ("/system/http_proxy/use_http_proxy", false);
 
 		if (use) {
-			string host;
-			try {
-				host = (string) Muine.GConfClient.Get ("/system/http_proxy/host");
-			} catch {
-				host = "";
-			}
+			string host = (string) Muine.GetGConfValue ("/system/http_proxy/host", "");
 
-			int port;
-			try {
-				port = (int) Muine.GConfClient.Get ("/system/http_proxy/port");
-			} catch {
-				port = 8080;
-			}
+			int port = (int) Muine.GetGConfValue ("/system/http_proxy/port", 8080);
 		
 			try {
 				proxy = new WebProxy (host, port);
@@ -57,27 +43,12 @@ public class GnomeProxy
 				return;
 			}
 
-			bool use_auth;
-			try {
-				use_auth = (bool) Muine.GConfClient.Get ("/system/http_proxy/use_authentication");
-			} catch {
-				use_auth = false;
-			}
+			bool use_auth = (bool) Muine.GetGConfValue ("/system/http_proxy/use_authentication", false);
 
 			if (use_auth) {
-				string user;
-				try {
-					user = (string) Muine.GConfClient.Get ("/system/http_proxy/authentication_user");
-				} catch {
-					user = "";
-				}
+				string user = (string) Muine.GetGConfValue ("/system/http_proxy/authentication_user", "");
 
-				string passwd;
-				try {
-					passwd = (string) Muine.GConfClient.Get ("/system/http_proxy/authentication_password");
-				} catch {
-					passwd = "";
-				}
+				string passwd = (string) Muine.GetGConfValue ("/system/http_proxy/authentication_password", "");
 				
 				try {
 					proxy.Credentials = new NetworkCredential (user, passwd);

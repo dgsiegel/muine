@@ -1,3 +1,17 @@
+2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/CoverDatabase.cs:
+	* src/FileSelector.cs:
+	* src/GnomeProxy.cs:
+	* src/InfoWindow.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+        Cleaned up GConf code.
+
 2004-12-26  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

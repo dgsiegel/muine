@@ -377,12 +377,7 @@ public class PlaylistWindow : Window
 
 	public void CheckFirstStartUp () 
  	{
-		bool first_start;
- 		try { 
- 			first_start = (bool) Muine.GConfClient.Get ("/apps/muine/first_start");
- 		} catch {
- 			first_start = true;
- 		}
+ 		bool first_start = (bool) Muine.GetGConfValue ("/apps/muine/first_start", true);
 
 		if (first_start == false)
 			return;
@@ -396,7 +391,7 @@ public class PlaylistWindow : Window
  		if (!musicdir.Exists) {
  			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
 
-	 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
+	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
  		} else { 
  			/* create a playlists directory if it still doesn't exists */
  			DirectoryInfo playlistsdir = new DirectoryInfo (dir + "Music/Playlists/");
@@ -409,7 +404,7 @@ public class PlaylistWindow : Window
  			Muine.DB.AddWatchedFolder (musicdir.FullName);
 
 			/* do this here, because the folder is watched now */
-	 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
+	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
 	
  			HandleDirectory (musicdir, pw);
 
@@ -419,19 +414,8 @@ public class PlaylistWindow : Window
 	
 	private void SetupWindowSize ()
 	{
-		int width;
-		try {
-			width = (int) Muine.GConfClient.Get ("/apps/muine/playlist_window/width");
-		} catch {
-			width = 500;
-		}
-		
-		int height;
-		try {
-			height = (int) Muine.GConfClient.Get ("/apps/muine/playlist_window/height");
-		} catch {
-			height = 400;
-		}
+		int width = (int) Muine.GetGConfValue ("/apps/muine/playlist_window/width", 450);
+		int height = (int) Muine.GetGConfValue ("/apps/muine/playlist_window/height", 475);
 
 		SetDefaultSize (width, height);
 
@@ -512,22 +496,13 @@ public class PlaylistWindow : Window
 		tooltips.SetTip (volume_button,
 				 Muine.Catalog.GetString ("Change the volume level"), null);
 
-		int vol;
-		try {
-			vol = (int) Muine.GConfClient.Get ("/apps/muine/volume");
-		} catch {
-			vol = 50;
-		}
+		int vol = (int) Muine.GetGConfValue ("/apps/muine/volume", 50);
 
 		volume_button.Volume = vol;
 		player.Volume = vol;
 
 		block_repeat_action = true;
-		try {
-			repeat_action.Active = (bool) Muine.GConfClient.Get ("/apps/muine/repeat");
-		} catch {
-			repeat_action.Active = false;
-		}
+		repeat_action.Active = (bool) Muine.GetGConfValue ("/apps/muine/repeat", false);
 		block_repeat_action = false;
 	}
 
@@ -1092,15 +1067,15 @@ public class PlaylistWindow : Window
 
 		GetSize (out width, out height);
 
-		Muine.GConfClient.Set ("/apps/muine/playlist_window/width", width);
-		Muine.GConfClient.Set ("/apps/muine/playlist_window/height", height);
+		Muine.SetGConfValue ("/apps/muine/playlist_window/width", width);
+		Muine.SetGConfValue ("/apps/muine/playlist_window/height", height);
 	}
 
 	private void HandleVolumeChanged (int vol)
 	{
 		player.Volume = vol;
 
-		Muine.GConfClient.Set ("/apps/muine/volume", vol);
+		Muine.SetGConfValue ("/apps/muine/volume", vol);
 	}
 
 	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
@@ -1474,12 +1449,7 @@ public class PlaylistWindow : Window
 		fc.AddButton (Muine.Catalog.GetString ("_Import"), ResponseType.Ok);
 		fc.DefaultResponse = ResponseType.Ok;
 		
-		string start_dir;
-		try {
-			start_dir = (string) Muine.GConfClient.Get ("/apps/muine/default_import_folder");
-		} catch {
-			start_dir = "~";
-		}
+		string start_dir = (string) Muine.GetGConfValue ("/apps/muine/default_import_folder", "~");
 
 		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
@@ -1498,7 +1468,7 @@ public class PlaylistWindow : Window
 
 		string res = StringUtils.LocalPathFromUri (fc.Uri);
 
-		Muine.GConfClient.Set ("/apps/muine/default_import_folder", res);
+		Muine.SetGConfValue ("/apps/muine/default_import_folder", res);
 
 		DirectoryInfo dinfo = new DirectoryInfo (res);
 			
@@ -1640,7 +1610,7 @@ public class PlaylistWindow : Window
 		if (block_repeat_action)
 			return;
 
-		Muine.GConfClient.Set ("/apps/muine/repeat", repeat_action.Active);
+		Muine.SetGConfValue ("/apps/muine/repeat", repeat_action.Active);
 
 		NSongsChanged ();
 	}

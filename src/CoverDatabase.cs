@@ -51,11 +51,7 @@ public class CoverDatabase
 						   
 	public CoverDatabase (int version)
 	{
-		try {
-			amazon_locale = (string) Muine.GConfClient.Get ("/apps/muine/amazon_locale");
-		} catch {
-			amazon_locale = "us";
-		}
+		amazon_locale = (string) Muine.GetGConfValue ("/apps/muine/amazon_locale", "us");
 
 		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
 		if (!dinfo.Exists) {
