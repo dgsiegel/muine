@@ -138,9 +138,15 @@ public class CoverDatabase
 			WebResponse resp = req.GetResponse ();
 			Stream s = resp.GetResponseStream ();
 	
-			cover = new Pixbuf (s);
+			try {
+				cover = new Pixbuf (s);
+			} catch {
+				resp.Close ();
 
-			s.Close ();
+				return null;
+			}
+
+			resp.Close ();
 		} catch {
 			return null;
 		}
