@@ -1,5 +1,16 @@
 2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/About.cs:
+
+	Use UTF-8 copyright symbol, and spell Viet Yen's name in proper 
+	Vietnamese.
+	
+	* src/Makefile.am:
+
+	Pass "-codepage:utf8" to mcs.
+
+2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/muine-tray-paused.png:
 	* data/images/muine-tray-playing.png:
 

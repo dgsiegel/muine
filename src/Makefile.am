@@ -1,4 +1,4 @@
-CSC = $(MCS) $(MCS_FLAGS)
+CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS)
 
 MUINE_CSFILES =					\
 	$(srcdir)/ActionThread.cs		\

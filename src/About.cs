@@ -37,9 +37,7 @@ public class About
 
 				authors [0] = Muine.Catalog.GetString ("Jorn Baayen (jbaayen@gnome.org)");
 				authors [1] = Muine.Catalog.GetString ("Lee Willis (lee@leewillis.co.uk)");
-				/* please use Vietnamese spelling, if the relevant characters occur in
-				 * your language. */
-				authors [2] = Muine.Catalog.GetString ("Viet Yen Nguyen (nguyen@cs.utwente.nl)");
+				authors [2] = Muine.Catalog.GetString ("Việt Yên Nguyễn (nguyen@cs.utwente.nl)");
 				authors [3] = "";
 				authors [4] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
 			}
@@ -57,8 +55,7 @@ public class About
 
 		Gnome.About about;
 		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), version,
-					 /* please use the UTF-8 copyright symbol in your translation .. */
-					 Muine.Catalog.GetString ("Copyright (C) 2003, 2004 Jorn Baayen"),
+					 Muine.Catalog.GetString ("Copyright © 2003, 2004 Jorn Baayen"),
 					 Muine.Catalog.GetString ("A music player"),
 					 Authors, documenters,
 					 (translator_credits == "translator-credits") ? null : translator_credits,
