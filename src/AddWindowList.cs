@@ -23,8 +23,8 @@ namespace Muine
 {
 	public class AddWindowList : HandleView
 	{
-		// Constants
-		public const int FakeLength = 150;
+		// Variables
+		private int fake_length;
 
 		// Constructor
 		public AddWindowList () : base ()
@@ -33,6 +33,12 @@ namespace Muine
 		}
 		
 		// Properties
+		// Properties :: FakeLength (set; get;)
+		public int FakeLength {
+			set { fake_length = value; }
+			get { return fake_length;  }
+		}
+
 		// Properties :: HasSelection (get;)
 		public bool HasSelection {
 			get { return (base.SelectedPointers.Count > 0); }

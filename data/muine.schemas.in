@@ -46,6 +46,44 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/add_song_window/enable_speed_hacks</key>
+      <applyto>/apps/muine/add_song_window/enable_speed_hacks</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short>Enables speed hacks on the "Add song" list.</short>
+	<long>Enables speed hacks on the "Add song" list. See also
+min_query_length and fake_length.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_song_window/min_query_length</key>
+      <applyto>/apps/muine/add_song_window/min_query_length</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+        <short>"Add song" list minimum query length (speed hack)</short>
+	<long>The minimum number of characters to do a full search.
+Less than this, and only fake_length results are shown. Only used if 
+enable_speed_hacks is set to "true".</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_song_window/fake_length</key>
+      <applyto>/apps/muine/add_song_window/fake_length</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>150</default>
+      <locale name="C">
+        <short>"Add song" list fake length (speed hack)</short>
+	<long>The maximum number of results to show if searching for less than
+min_query_length characters. Only used if enable_speed_hacks is set to 
+"true".</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/add_album_window/width</key>
       <applyto>/apps/muine/add_album_window/width</applyto>
       <owner>muine</owner>
@@ -65,6 +103,44 @@
       <locale name="C">
         <short>"Add album" window height</short>
         <long>Height of the "Add album" window.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_album_window/enable_speed_hacks</key>
+      <applyto>/apps/muine/add_album_window/enable_speed_hacks</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Enables speed hacks on the "Add album" list.</short>
+	<long>Enables speed hacks on the "Add album" list. See also
+min_query_length and fake_length.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_album_window/min_query_length</key>
+      <applyto>/apps/muine/add_album_window/min_query_length</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+        <short>"Add album" list minimum query length (speed hack)</short>
+	<long>The minimum number of characters to do a full search.
+Less than this, and only fake_length results are shown. Only used if 
+enable_speed_hacks is set to "true".</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_song_window/fake_length</key>
+      <applyto>/apps/muine/add_song_window/fake_length</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>150</default>
+      <locale name="C">
+        <short>"Add song" list fake length (speed hack)</short>
+	<long>The maximum number of results to show if searching for less than
+min_query_length characters. Only used if enable_speed_hacks is set to 
+"true".</long>
       </locale>
     </schema>
     <schema>

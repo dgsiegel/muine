@@ -1,3 +1,18 @@
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* data/muine.schemas.in:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	
+	Made min_query_length and fake_length settings in GConf per 
+	AddSongWindow and AddAlbumWindow. Default for enable_speed_hacks is 
+	'true' for AddSongWindow and 'false' for AddAlbumWindow. It's not setup
+	quite right yet (I haven't really used GConf much before). I still need 
+	to add GConfNotifyHandlers.
+
 2005-01-10  Jorn Baayen  <jbaayen@gnome.org>
 
 	* DBusLib/Makefile.am:

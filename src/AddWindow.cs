@@ -54,6 +54,9 @@ namespace Muine
 		private AddWindowList  list          = new AddWindowList    ();
 		private CellRenderer   text_renderer = new CellRendererText ();
 
+		// Object
+		private ICollection items;
+
 		// Variables
 		private string gconf_key_width, gconf_key_height;
 		private int gconf_default_width, gconf_default_height;
@@ -61,7 +64,7 @@ namespace Muine
 		private bool process_changes_immediately = false;
 		private uint search_idle_id = 0;
 
-		private ICollection items;
+		private bool enable_speed_hacks = false;
 
 		// Constructor
 		public AddWindow () : base (IntPtr.Zero)
@@ -110,6 +113,12 @@ namespace Muine
 			get { return items;  }
 		}
 
+		// Properties :: EnableSpeedHacks (set; get;)
+		public bool EnableSpeedHacks {
+			set { enable_speed_hacks = value; }
+			get { return enable_speed_hacks;  }
+		}
+
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Run
@@ -122,8 +131,8 @@ namespace Muine
 			
 		// Methods :: Protected
 		// Methods :: Protected :: SetGConfSize
-		protected void SetGConfSize (string key_width, string key_height, 
-					     int default_width, int default_height)
+		protected void SetGConfSize (string key_width , int default_width, 
+					     string key_height, int default_height)
 		{
 			gconf_key_width  = key_width;
 			gconf_key_height = key_height;
@@ -143,6 +152,26 @@ namespace Muine
 			SetDefaultSize (width, height);
 			
 			AddOnSizeAllocated ();
+		}
+
+		// Methods :: Protected :: SetGConfSpeedHacks
+		protected void SetGConfSpeedHacks (string key_enable_speed_hacks, bool default_speed_hacks,
+						   string key_min_query_length  , int  default_min_query_length,
+						   string key_fake_length       , int  default_fake_length)
+		{
+			enable_speed_hacks    = (bool) Config.Get (key_enable_speed_hacks, default_speed_hacks     );
+			int min_query_length  = (int)  Config.Get (key_min_query_length  , default_min_query_length);
+			int fake_length       = (int)  Config.Get (key_fake_length       , default_fake_length     );
+			
+			min_query_length = Math.Max (0, min_query_length);
+			fake_length      = Math.Max (0, fake_length     );
+			
+			Config.Set (key_enable_speed_hacks, enable_speed_hacks);
+			Config.Set (key_min_query_length  , min_query_length  );
+			Config.Set (key_fake_length       , fake_length       );
+			
+			entry.MinQueryLength = min_query_length;
+			list.FakeLength      = fake_length;
 		}
 
 		// Methods :: Protected :: Reset
@@ -205,7 +234,7 @@ namespace Muine
 
 			// Show max. FakeLength songs if < MinQueryLength chars are entered. 
 			// This is to fake speed.
-			if (entry.Text.Length < entry.MinQueryLength)
+			if (enable_speed_hacks && entry.Text.Length < entry.MinQueryLength)
 				max_len = list.FakeLength;
 
 			lock (Global.DB) {
@@ -337,7 +366,8 @@ namespace Muine
 		// Delegate Functions :: OnAdded
 		protected void OnAdded (Item item)
 		{
-			if (entry.Text.Length < entry.MinQueryLength &&
+			if (enable_speed_hacks &&
+			    entry.Text.Length < entry.MinQueryLength &&
 			    list.Length >= list.FakeLength)
 				return;
 
@@ -347,8 +377,9 @@ namespace Muine
 		// Delegate Functions :: OnChanged
 		protected void OnChanged (Item item)
 		{
-			bool may_append = (entry.Text.Length >= entry.MinQueryLength ||
-			                   list.Length < list.FakeLength);
+			bool may_append = (enable_speed_hacks &&
+					    (entry.Text.Length >= entry.MinQueryLength ||
+			                     list.Length < list.FakeLength));
 			
 			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits),
 				may_append);

@@ -21,8 +21,8 @@ namespace Muine
 {
 	public class AddWindowEntry : Gtk.Entry
 	{
-		// Constants
-		public const int MinQueryLength = 3;
+		// Variables
+		private int min_query_length;
 
 		// Constructor
 		public AddWindowEntry () : base ()
@@ -33,14 +33,18 @@ namespace Muine
 		// Properties
 		// Properties :: SearchBits (get;)
 		public string [] SearchBits {
-			get {
-				return base.Text.ToLower ().Split (' ');
-			}	
+			get { return base.Text.ToLower ().Split (' '); }	
+		}
+
+		// Properties :: MinQueryLength (set; get;)
+		public int MinQueryLength {
+			set { min_query_length = value; }
+			get { return min_query_length;  }
 		}
 
 		// Methods
 		// Methods :: Public
-		// Methods :: Public :: Clear		
+		// Methods :: Public :: Clear
 		public void Clear ()
 		{
 			base.Text = "";
