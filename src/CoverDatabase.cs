@@ -85,7 +85,7 @@ public class CoverDatabase
 		
 		db_unpack_pixbuf (data, out pix_handle);
 
-		Muine.CoverDB.Covers.Add (String.Copy (key), new Pixbuf (pix_handle));
+		Muine.CoverDB.Covers.Add (key, new Pixbuf (pix_handle));
 	}
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);

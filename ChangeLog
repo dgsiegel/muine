@@ -1,5 +1,12 @@
 2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/Metadata.cs:
+
+	More cleanups.
+
+2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/ActionThread.cs:
 	* src/Album.cs:
 	* src/CoverDatabase.cs:

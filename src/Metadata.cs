@@ -166,23 +166,21 @@ public class Metadata
 
 		s = metadata_get_title (md);
 		if (s != null)
-			title = String.Copy (s);
+			title = s;
 		else
 			title = "";
 
 		artists = new string [metadata_get_artist_count (md)];
-		for (int i = 0; i < artists.Length; i++) {
-			artists[i] = String.Copy (metadata_get_artist (md, i));
-		}
+		for (int i = 0; i < artists.Length; i++)
+			artists[i] = metadata_get_artist (md, i);
 
 		performers = new string [metadata_get_performer_count (md)];
-		for (int i = 0; i < performers.Length; i++) {
-			performers[i] = String.Copy (metadata_get_performer (md, i));
-		}
+		for (int i = 0; i < performers.Length; i++)
+			performers[i] = metadata_get_performer (md, i);
 		
 		s = metadata_get_album (md);
 		if (s != null)
-			album = String.Copy (s);
+			album = s;
 		else
 			album = "";
 
@@ -195,13 +193,13 @@ public class Metadata
 
 		s = metadata_get_year (md);
 		if (s != null)
-			year = String.Copy (s);
+			year = s;
 		else
 			year = "";
 
 		duration = metadata_get_duration (md);
 
-		mime_type = String.Copy (metadata_get_mime_type (md));
+		mime_type = metadata_get_mime_type (md);
 
 		mtime = metadata_get_mtime (md);
 
