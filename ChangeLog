@@ -1,5 +1,15 @@
 2004-04-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	R data/glade/GroupsWindow.glade:
+	* data/glade/Makefile.am:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Some cleanups, put info menuitem back again ..
+
+2004-04-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Correct error message.

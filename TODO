@@ -7,6 +7,7 @@ o A song information dialog (in tray and song menus, and in add album window)
   http://brokenbits.de/lars/cruft/edit-album-tab2.png
   http://brokenbits.de/lars/cruft/edit-album-tab3.png
   http://brokenbits.de/lars/cruft/track-info.png
+  Should also be launched by clicking the album cover.
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
