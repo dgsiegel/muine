@@ -1,5 +1,13 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/StringUtils.cs:
+	* src/muine.exe.config.in:
+
+	Map the gnomevfs dll import to libgnomevfs-2.so.0, in order to not
+	depend on gnomevfs-devel. As suggested by Dave Beckett.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/volume-button.c: (scale_key_press_event_cb):
 
 	Fix Escape behaviour on volume button. Patch by 

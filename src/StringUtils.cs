@@ -99,7 +99,7 @@ public class StringUtils
 		return System.Text.Encoding.UTF8.GetString (data.Data);
 	}
 
-	[DllImport ("libgnomevfs-2.dll")]
+	[DllImport ("libgnomevfs-2-0.dll")]
 	private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
 
 	public static string LocalPathFromUri (string uri)
