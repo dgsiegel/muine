@@ -1,5 +1,16 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/muine.schemas.in:
+	* src/Album.cs:
+	* src/SongDatabase.cs:
+
+	Add a only_complete_albums gconf key, so that the new
+	total track number matching behaviour can be turned off
+	for people who have their music collection burnt to CD,
+	without total track tags.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/metadata.c: (ensure_track_number), (metadata_load):
 
 	Take track number from file name if not in tag.

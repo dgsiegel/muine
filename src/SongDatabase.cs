@@ -32,6 +32,9 @@ namespace Muine
 		private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
 		private readonly string [] GConfDefaultWatchedFolders = new string [0];
 
+		private const string GConfKeyOnlyCompleteAlbums = "/apps/muine/only_complete_albums";
+		private const bool GConfDefaultOnlyCompleteAlbums = true;
+
 		// Events
 		public delegate void SongAddedHandler (Song song);
 		public event SongAddedHandler SongAdded;
@@ -227,6 +230,7 @@ namespace Muine
 		private Hashtable songs;
 		private Hashtable albums;
 		private string [] watched_folders;
+		private bool only_complete_albums;
 
 		// Properties
 		// 	When iterating Song or Albums of these don't forget to 
@@ -247,6 +251,11 @@ namespace Muine
 			get { return watched_folders; }
 		}
 
+		// Properties :: OnlyCompleteAlbums (get;)
+		public bool OnlyCompleteAlbums {
+			get { return only_complete_albums; }
+		}
+
 		// Constructor
 		public SongDatabase (int version)
 		{
@@ -260,6 +269,10 @@ namespace Muine
 			watched_folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 			Config.AddNotify (GConfKeyWatchedFolders,
 					  new GConf.NotifyEventHandler (OnWatchedFoldersChanged));
+
+			only_complete_albums = (bool) Config.Get (GConfKeyOnlyCompleteAlbums, GConfDefaultOnlyCompleteAlbums);
+			Config.AddNotify (GConfKeyOnlyCompleteAlbums,
+					  new GConf.NotifyEventHandler (OnOnlyCompleteAlbumsChanged));
 		}
 
 		// Methods
@@ -714,6 +727,12 @@ namespace Muine
 
 			if (new_dinfos.Count > 0)
 				new AddFoldersThread (new_dinfos);
+		}
+
+		// Handlers :: OnOnlyCompleteAlbumsChanged
+		private void OnOnlyCompleteAlbumsChanged (object o, GConf.NotifyEventArgs args)
+		{
+			only_complete_albums = (bool) args.Value;
 		}
 		
 		// Delegate Functions

@@ -167,7 +167,12 @@ namespace Muine
 
 		// Properties :: Public (get;)
 		public override bool Public {
-			get { return complete; }
+			get {
+				if (Global.DB.OnlyCompleteAlbums)
+					return complete;
+				else
+					return true;
+			}
 		}
 
 		// Properties :: Key (get;)
