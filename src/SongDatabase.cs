@@ -229,6 +229,8 @@ public class SongDatabase
 
 		int i = 0;
 		foreach (string s in folders) {
+			// check if folder is already monitored at a higher
+			// level
 			if (folder.IndexOf (s) == 0)
 				return;
 			new_folders [i] = folders [i];

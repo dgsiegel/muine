@@ -46,7 +46,8 @@ public class StockIcons
 		"stock_media-rew",
 		"stock_shuffle",
 		"stock_timer",
-		"gnome-dev-cdrom-audio"
+		"gnome-dev-cdrom-audio",
+		"gnome-mime-audio"
 	};
 
 	private static IconSize album_cover_size;

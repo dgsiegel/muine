@@ -105,9 +105,7 @@ public class Muine : Gnome.Program
 		try {
 			FileUtils.Init ();
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
-
-			Environment.Exit (1);
+			Error (e.Message);
 		}
 
 		/* Register stock icons */
@@ -123,24 +121,24 @@ public class Muine : Gnome.Program
 		try {
 			cover_db = new CoverDatabase (2);
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
-
-			Environment.Exit (1);
+			Error (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
 		}
 
 		/* Load song database */
 		try {
 			db = new SongDatabase (4);
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
-
-			Environment.Exit (1);
+			Error (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 		}
 
 		db.Load ();
 
 		/* Create playlist window */
-		playlist = new PlaylistWindow ();
+		try {
+			playlist = new PlaylistWindow ();
+		} catch (Exception e) {
+			Error (e.Message);
+		}
 
 		/* Hook up D-Bus object before loading any songs into the
 		   playlist, to make sure that the song change gets emitted
@@ -234,6 +232,13 @@ public class Muine : Gnome.Program
 		Pixbuf [] default_icon_list = new Pixbuf [1];
 		default_icon_list [0] = new Pixbuf (null, "muine.png");
 		Gtk.Window.DefaultIconList = default_icon_list;
+	}
+
+	private void Error (string message)
+	{
+		new ErrorDialog (message);
+
+		Environment.Exit (1);
 	}
 
 	private void OnCoversDoneLoading ()

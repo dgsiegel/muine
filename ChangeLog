@@ -1,5 +1,19 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/FileUtils.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+
+	Some error handling cleanups, and support for dragging a playlist
+	file from the "Playlist" label.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/AddWindow.cs:

@@ -8,6 +8,7 @@ o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o Fill in the gaps in the API docs
 o Write a simple manual
+o Proper RTL support
 
 Tough:
 ======
@@ -52,6 +53,12 @@ o Switch metadata and playback all over to GStreamer. But, GST should
 o Use Hashtable/dictionary in D-Bus song info code
   Blocked by Freedesktop Bugzilla #2175
 o Use Gst# and Egg# when they become "properly available".
+o Remove drop into row stuff
+  Depends on Gnome Bugzilla #163129
+o Fix drag-into-itself madness in add album window
+  Depends on Gnome Bugzilla #163141
+o Get m3u mime type icon properly
+  Depends on Ximian Bugzilla #71060
 
 We won't have:
 ==============

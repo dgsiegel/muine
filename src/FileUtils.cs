@@ -23,22 +23,38 @@ using System.Runtime.InteropServices;
 
 using Gnome.Vfs;
 
+using Mono.Posix;
+
 public class FileUtils
 {
 	// Filenames
 	public static void Init ()
 	{
-		config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
+		home_directory = Environment.GetEnvironmentVariable ("HOME");
+		
+		try {
+			config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
 
-		CreateDirectory (config_directory);
+			CreateDirectory (config_directory);
+		} catch (Exception e) {
+			throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+		}
 
 		playlist_file = Path.Combine (config_directory, playlist_filename);
 		songsdb_file = Path.Combine (config_directory, songsdb_filename);
 		coversdb_file = Path.Combine (config_directory, coversdb_filename);
 		user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
+		
+		try {
+			temp_directory = Path.Combine (System.IO.Path.GetTempPath (),
+							"muine-" + Environment.UserName);
+			CreateDirectory (temp_directory);
+		} catch (Exception e) {
+			throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting..."), e.Message));
+		}
 	}
 	
-	private static string home_directory = Environment.GetEnvironmentVariable ("HOME");
+	private static string home_directory;
 	public static string HomeDirectory {
 		get {
 			return home_directory;
@@ -87,6 +103,13 @@ public class FileUtils
 	public static string UserPluginDirectory {
 		get {
 			return user_plugin_directory;
+		}
+	}
+
+	private static string temp_directory;
+	public static string TempDirectory {
+		get {
+			return temp_directory;
 		}
 	}
 	

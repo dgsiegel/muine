@@ -76,7 +76,6 @@ public class AddAlbumWindow : AddWindow
 		SelectFirst ();
 
 		view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-		view.DragMotion += new DragMotionHandler (OnDragMotion);
 		Gtk.Drag.DestSet (view, DestDefaults.All,
 				  cover_drag_entries, Gdk.DragAction.Copy);
 	}
@@ -176,19 +175,6 @@ public class AddAlbumWindow : AddWindow
 		Album album = Album.FromHandle (album_ptr);
 
 		CoverImage.HandleDrop ((Song) album.Songs [0], args);
-	}
-
-	private void OnDragMotion (object o, DragMotionArgs args)
-	{
-		TreePath path;
-
-		if (!view.GetPathAtPos (args.X, args.Y, out path))
-			return;
-
-		if (Muine.CoverDB.Loading)
-			return;
-		
-		view.SetDragDestRow (path, Gtk.TreeViewDropPosition.IntoOrAfter);
 	}
 
 	private void OnCoversDoneLoading ()

@@ -6,6 +6,8 @@
 - D-Bus interface [Sergio Rubio, Jorn Baayen]
 - Plug-in and D-Bus client development documentation [Jorn Baayen]
 - Change play button text to be less confusing [Piret Vacht, Jorn Baayen]
+- Possible to drag a playlist file from the "Playlist" label [Jorn Baayen]
+- Support for dragging whole albums out of Muine [Jorn Baayen]
 - Major code cleanups [Tamara Roberson, Jorn Baayen]
 
 Updated translations:

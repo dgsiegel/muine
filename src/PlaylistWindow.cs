@@ -81,6 +81,8 @@ public class PlaylistWindow : Window, IPlayer
 	/* playlist area */
 	[Glade.Widget]
 	private Label playlist_label;
+	[Glade.Widget]
+	private EventBox playlist_label_event_box;
 	private HandleView playlist;
 
 	/* other widgets */
@@ -222,6 +224,7 @@ public class PlaylistWindow : Window, IPlayer
 		WindowStateEvent += new WindowStateEventHandler (OnWindowStateEvent);
 		DeleteEvent += new DeleteEventHandler (OnDeleteEvent);
 		DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+
 		Gtk.Drag.DestSet (this, DestDefaults.All,
 				  drag_entries, Gdk.DragAction.Copy);
 
@@ -263,6 +266,26 @@ public class PlaylistWindow : Window, IPlayer
 		}
 
 		WindowVisible = true;
+	}
+
+	private void OnPlaylistLabelDragDataGet (object o, DragDataGetArgs args)
+	{
+		switch (args.Info) {
+		case (uint) DndUtils.TargetType.UriList:
+			string file = System.IO.Path.Combine (FileUtils.TempDirectory,
+						Catalog.GetString ("Playlist.m3u"));
+
+			SavePlaylist (file, false, false);
+			
+			string uri = FileUtils.UriFromLocalPath (file);
+
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
+						8, System.Text.Encoding.UTF8.GetBytes (uri));
+						
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
@@ -549,7 +572,7 @@ public class PlaylistWindow : Window, IPlayer
 
 		playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
 						playlist_source_entries,
-						Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Move);
+						Gdk.DragAction.Copy | Gdk.DragAction.Move);
 		playlist.EnableModelDragDest (playlist_dest_entries,
 					      Gdk.DragAction.Copy | Gdk.DragAction.Move);
 
@@ -596,9 +619,7 @@ public class PlaylistWindow : Window, IPlayer
 		try {
 			player = new Player ();
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting..."), e.Message));
-
-			Environment.Exit (1);
+			throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting..."), e.Message));
 		}
 
 		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
@@ -620,6 +641,20 @@ public class PlaylistWindow : Window, IPlayer
 		cover_image = new CoverImage ();
 		((Container) glade_xml ["cover_image_container"]).Add (cover_image);
 		cover_image.ShowAll ();
+
+		// playlist label dnd
+		playlist_label_event_box.DragDataGet +=
+			new DragDataGetHandler (OnPlaylistLabelDragDataGet);
+			
+		Gtk.Drag.SourceSet (playlist_label_event_box,
+				    Gdk.ModifierType.Button1Mask,
+				    drag_entries, Gdk.DragAction.Move);
+
+		/* FIXME depends on Ximian Bugzilla #71060
+		string icon = Gnome.Icon.Lookup (IconTheme.GetForScreen (this.Screen), null, null, null, null, "audio/x-mpegurl", Gnome.IconLookupFlags.None, null);	*/
+
+		Gtk.Drag.SourceSetIconStock (playlist_label_event_box,
+					     "gnome-mime-audio");
 	}
 
 	private void PlayAndSelect (IntPtr ptr)
