@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 11:23+0100\n"
-"PO-Revision-Date: 2004-12-07 18:15+0100\n"
+"POT-Creation-Date: 2004-12-11 19:24+0100\n"
+"PO-Revision-Date: 2004-12-11 22:34+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -310,21 +310,13 @@ msgstr "Šířka okna se seznamem skladeb."
 msgid "false if Muine has been started before."
 msgstr "false, pokud byl již Muine spuštěn dříve."
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
-msgstr "Nemohu vytvořit objekt GstPlay"
+#: libmuine/player-gst.c:154
+msgid "Failed to create a GStreamer play object"
+msgstr "Nemohu vytvořit objekt přehrávání GStreameru"
 
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr "Nemohu vytvořit požadovaný element GStreamer gnomevfssrc"
-
-#: libmuine/player-gst.c:173
+#: libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Nemohu použít implicitní spotřebič GStreamer pro výstup zvuku "
-
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr "Nemohu najít element hlasitiosti v rouře GstPlay"
 
 #: libmuine/player-xine.c:283
 #, c-format
@@ -646,3 +638,9 @@ msgstr "{0} a další"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} a {1}"
+
+#~ msgid "Failed to create the required gnomevfssrc GStreamer element"
+#~ msgstr "Nemohu vytvořit požadovaný element GStreamer gnomevfssrc"
+
+#~ msgid "Could not find the volume element in the GstPlay pipeline"
+#~ msgstr "Nemohu najít element hlasitiosti v rouře GstPlay"
