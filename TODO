@@ -1,8 +1,6 @@
 Easy:
 =====
 
-o Register with D-Bus earlier on, rapidly launching two muine right after
-  each other goes bork.
 o Use GnomeVFS, but we need a new mono release for this
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html

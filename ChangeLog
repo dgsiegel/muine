@@ -1,5 +1,13 @@
 2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/Muine.cs:
+	* src/PlayerDBusObject.cs:
+
+	Register with D-Bus as early as possible.
+
+2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
+
 	* PluginLib/PlayerInterface.cs:
 	* PluginLib/Plugin.cs:
 	* TODO:

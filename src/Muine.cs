@@ -186,12 +186,28 @@ public class Muine : Gnome.Program
 
 		} catch {}
 
-		/* An instance already exists. Handle command line args and exit. */
-		if (dbo != null)
-		{
+		if (dbo != null) {
+			/* An instance already exists. Handle command line args
+			   and exit. */
 			ProcessCommandLine (args, dbo);
+			
 			Gdk.Global.NotifyStartupComplete ();
+			
 			Environment.Exit (0);
+		} else {
+			/* Register with D-Bus ASAP.
+			   Actual hooking up to PlayerInterface happens later,
+			   but this is safe, as D-Bus communication happens
+			   through the main thread anyway. For now it is
+			   just important to have the thing registered. */
+			try {
+				dbo = new PlayerDBusObject ();
+			
+				MuineDBusService.Instance.RegisterObject
+					(dbo, "/org/gnome/Muine/Player");
+			} catch (Exception e) {
+				Console.WriteLine (Muine.Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
+			}
 		}
 
 		/* Init GConf */
@@ -224,7 +240,7 @@ public class Muine : Gnome.Program
 			Exit ();
 		}
 
-		/* Open song database */
+		/* Load song database */
 		try {
 			db = new SongDatabase (4);
 		} catch (Exception e) {
@@ -233,21 +249,18 @@ public class Muine : Gnome.Program
 			Exit ();
 		}
 
+		db.Load ();
+
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
 
-		/* Export D-Bus object (also before playlist restoration for
-		   the same reason as below) */
-		try {
-			dbo = new PlayerDBusObject (playlist);
-			
-			MuineDBusService.Instance.RegisterObject (dbo, "/org/gnome/Muine/Player");
-		} catch (Exception e) {
-			Console.WriteLine (Muine.Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
-		}
+		/* Hook up D-Bus object before loading any songs into the
+		   playlist, to make sure that the song change gets emitted
+		   to the bus */
+		dbo.Player = playlist;
 
-		/* Initialize plug-ins (before playlist restoration,
-		   to be sure that the song change gets through to all the
+		/* Initialize plug-ins (also before loading any songs, to make
+		   sure that the song change gets through to all the
 		   plug-ins) */
 		PluginManager pm = new PluginManager (playlist);
 
@@ -256,10 +269,6 @@ public class Muine : Gnome.Program
 
 		/* Create tray icon */
 		icon = new NotificationAreaIcon (playlist);
-
-		/* Load songs -- after D-Bus export to make sure we register
-		   with D-Bus ASAP */
-		DB.Load ();
 
 		/* Process command line options */
 		ProcessCommandLine (args, null);
@@ -272,9 +281,9 @@ public class Muine : Gnome.Program
 		Run ();
 
 		/* Now we load the album covers, and after that start the changes thread */
-		CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
+		cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
 		
-		CoverDB.Load ();
+		cover_db.Load ();
 
 		/* And finally, check if this is the first start */
 		/* FIXME we dont do this for now as the issue isn't sorted out yet */

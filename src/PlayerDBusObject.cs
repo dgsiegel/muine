@@ -30,14 +30,19 @@ public class PlayerDBusObject
 {
 	PlayerInterface player;
 
-	public PlayerDBusObject (PlayerInterface player)
-	{
-		this.player = player;
+	public PlayerInterface Player {
+		set {
+			player = value;
 		
-		player.SongChangedEvent +=
-			new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
-		player.StateChangedEvent +=
-			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
+			player.SongChangedEvent +=
+				new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+			player.StateChangedEvent +=
+				new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
+		}
+
+		get {
+			return player;
+		}
 	}
 
 	[Method]
