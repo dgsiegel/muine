@@ -1,5 +1,15 @@
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/db.c: (db_store):
+	* libmuine/db.h:
+	* src/CoverDatabase.cs:
+	* src/Database.cs:
+	* src/SongDatabase.cs:
+
+	Don't require an EncodeFunction anymore.
+
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/HandleView.cs:
 
 	Fix for Mono 1.1.x. Patch by Peter Johanson.

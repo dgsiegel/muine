@@ -23,8 +23,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib.h>
 
-typedef gpointer (*EncodeFunc) (gpointer user_data,
-				int *len);
 typedef void (*ForeachDecodeFunc) (const char *key,
 				   gpointer data,
 				   gpointer user_data);
@@ -42,8 +40,8 @@ void     db_delete        (gpointer db,
 void     db_store         (gpointer db,
 	                   const char *key_str,
 	                   gboolean overwrite,
-	                   EncodeFunc func,
-	                   gpointer user_data);
+	                   gpointer data,
+	                   int data_size);
 void     db_foreach       (gpointer db,
 	                   ForeachDecodeFunc func,
 	                   gpointer user_data);

@@ -156,7 +156,6 @@ namespace Muine
 		public CoverDatabase (int version)
 		{
 			db = new Database (FileUtils.CoversDBFile, version);
-			db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 
 			covers = new Hashtable ();
 
@@ -209,8 +208,9 @@ namespace Muine
 
 				Covers.Add (key, pix);
 
-				db.Store (key, pix != null ?
-					       pix.Handle : IntPtr.Zero, replace);
+				int data_size;
+				IntPtr data = PackCover (pix, out data_size);
+				db.Store (key, data, data_size, replace);
 			}
 		}
 
@@ -240,18 +240,18 @@ namespace Muine
 		}
 				
 		// Methods :: Private
-		// Methods :: Private :: EncodeFunction
+		// Methods :: Private :: PackCover
 		// 	Database interaction
-		private IntPtr EncodeFunction (IntPtr handle, out int length)
+		private IntPtr PackCover (Pixbuf pixbuf, out int length)
 		{
 			IntPtr p = Database.PackStart ();
 
-			bool being_checked = (handle == IntPtr.Zero);
+			bool being_checked = (pixbuf == null);
 			
 			Database.PackBool (p, being_checked);
 
 			if (!being_checked)
-				Database.PackPixbuf (p, handle);
+				Database.PackPixbuf (p, pixbuf.Handle);
 
 			return Database.PackEnd (p, out length);
 		}

@@ -252,7 +252,6 @@ namespace Muine
 		{
 			db = new Database (FileUtils.SongsDBFile, version);
 			db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
-			db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 			
 			songs = new Hashtable ();
 			albums = new Hashtable ();
@@ -288,7 +287,7 @@ namespace Muine
 		public void SaveSong (Song song)
 		{
 			lock (this)
-				SaveSongInternal (song);
+				SaveSongInternal (song, true);
 		}
 
 		// Methods :: Public :: RemoveSong
@@ -382,7 +381,7 @@ namespace Muine
 
 				// Store after the album cover has been stored,
 				// in case of unexpected exit
-				db.Store (song.Filename, song.Handle);
+				SaveSongInternal (song, false);
 
 				rq.SongAdded = true;
 
@@ -405,7 +404,7 @@ namespace Muine
 				StartRemoveFromAlbum (rq);
 				StartAddToAlbum (rq);
 			
-				SaveSongInternal (song);
+				SaveSongInternal (song, true);
 
 				rq.SongChanged = true;
 				
@@ -414,9 +413,11 @@ namespace Muine
 		}
 
 		// Methods :: Private :: SaveSongInternal
-		private void SaveSongInternal (Song song)
+		private void SaveSongInternal (Song song, bool overwrite)
 		{
-			db.Store (song.Filename, song.Handle, true);
+			int data_size;
+			IntPtr data = song.Pack (out data_size);
+			db.Store (song.Filename, data, data_size, overwrite);
 		}
 
 		// Methods :: Private :: StartRemoveSong
@@ -727,14 +728,6 @@ namespace Muine
 			// we don't "Finish", as we do this before the UI is there,
 			// we don't need to emit signals
 			StartAddToAlbum (song);
-		}
-
-		// Delegate Functions :: EncodeFunction
-		private IntPtr EncodeFunction (IntPtr handle, out int length)
-		{
-			Song song = Song.FromHandle (handle);
-
-			return song.Pack (out length);
 		}
 	}
 }

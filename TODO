@@ -14,10 +14,6 @@ o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
 o Split out PlaylistWindow
-o Experiment a bit with cover images: See how it works if we'd load them
-  from the gdbm file on demand, instead of keeping them all in memory.
-  Would need to be done in a thread of course, notifying the UI of their
-  availability through an idle.
 
 Tough:
 ======

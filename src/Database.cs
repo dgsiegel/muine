@@ -25,9 +25,6 @@ namespace Muine
 	public class Database
 	{
 		// Delegates
-		public delegate IntPtr EncodeFunctionDelegate (IntPtr handle, out int length);
-		private                EncodeFunctionDelegate encode_function;
-		
 		public delegate void   DecodeFunctionDelegate (string key, IntPtr data);
 		private                DecodeFunctionDelegate decode_function;
 
@@ -54,12 +51,6 @@ namespace Muine
 			get { return db_ptr; }
 		}
 
-		// Properties :: EncodeFunction (set; get;)
-		public EncodeFunctionDelegate EncodeFunction {
-			set { encode_function = value; }
-			get { return encode_function;  }
-		}
-		
 		// Properties :: DecodeFunction (set; get;)
 		public DecodeFunctionDelegate DecodeFunction {
 			set { decode_function = value; }
@@ -79,21 +70,19 @@ namespace Muine
 			db_foreach (db_ptr, decode_function, IntPtr.Zero);
 		}
 			
-
 		// Methods :: Public :: Store
 		[DllImport ("libmuine")]
 		private static extern void db_store (IntPtr db_ptr, string key, bool overwrite,
-						     EncodeFunctionDelegate encode_function,
-						     IntPtr val);
+						     IntPtr data, int data_size);
 
-		public void Store (string key, IntPtr val)
+		public void Store (string key, IntPtr data, int data_size)
 		{
-			Store (key, val, false);
+			Store (key, data, data_size, false);
 		}
 		
-		public void Store (string key, IntPtr val, bool overwrite)
+		public void Store (string key, IntPtr data, int data_size, bool overwrite)
 		{
-			db_store (db_ptr, key, overwrite, encode_function, val);
+			db_store (db_ptr, key, overwrite, data, data_size);
 		} 
 
 		// Methods :: Public :: Delete

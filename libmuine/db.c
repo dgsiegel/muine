@@ -139,22 +139,23 @@ void
 db_store (gpointer db,
 	  const char *key_str,
 	  gboolean overwrite,
-	  EncodeFunc func,
-	  gpointer user_data)
+	  gpointer data,
+	  int data_size)
 {
-	datum key, data;
+	datum key, datum;
 
 	memset (&key, 0, sizeof (key));
 	key.dptr = (gpointer) key_str;
 	key.dsize = strlen (key_str);
 
-	memset (&data, 0, sizeof (data));
-	data.dptr = func (user_data, &data.dsize);
+	memset (&datum, 0, sizeof (datum));
+	datum.dptr = data;
+	datum.dsize = data_size;
 
-	gdbm_store ((GDBM_FILE) db, key, data,
+	gdbm_store ((GDBM_FILE) db, key, datum,
 		    overwrite ? GDBM_REPLACE : GDBM_INSERT);
 
-	g_free (data.dptr);
+	g_free (datum.dptr);
 }
 
 void
