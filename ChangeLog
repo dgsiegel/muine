@@ -1,5 +1,12 @@
 2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* README:
+
+	Updated.
+
+2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 
 	0.8.2.99 - forgot to bump version number after release.

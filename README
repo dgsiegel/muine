@@ -32,8 +32,8 @@ And optionally:
 
 And for playback either:
 
-  xine-lib >= 1.0.0rc3b   (Used by default)
+  GStreamer 0.8           (Used by default)
 
 or:
 
-  GStreamer 0.8
+  xine-lib >= 1.0.0rc3b

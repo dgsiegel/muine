@@ -1,3 +1,13 @@
+0.8.3
+=====
+
+- Workarounds for the various limitations of the GStreamer backend,
+  GStreamer backend is now the default [Jorn Baayen]
+- New PackWidget method on the IPlayer interface [Jorn Baayen]
+
+Updated translations:
+- Norwegian (bokmål) [Kjartan Maraas]
+
 0.8.2
 =====
 
