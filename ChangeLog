@@ -1,5 +1,12 @@
 2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Remove properties menu item from the tray menu.
+
+2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* data/images/Makefile.am:
 	R data/images/muine-groups.png:
