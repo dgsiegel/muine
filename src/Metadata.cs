@@ -25,13 +25,14 @@ using Mono.Posix;
 
 namespace Muine
 {
-	// This isn't really a GLib object but having base.Raw is consistent 
-	// with most of our other classes.
-	public class Metadata : GLib.Object
+	public class Metadata
 	{
 		// Strings
 		private static readonly string string_error_load =
 			Catalog.GetString ("Failed to load metadata: {0}");
+
+		// Objects
+		private IntPtr raw = IntPtr.Zero;
 
 		// Variables
 		private string title;
@@ -53,11 +54,11 @@ namespace Muine
 		private static extern IntPtr metadata_load (string filename,
 					                    out IntPtr error_message_return);
 		
-		public Metadata (string filename) : base (IntPtr.Zero)
+		public Metadata (string filename) // : base (IntPtr.Zero)
 		{
 			IntPtr error_ptr;
 			
-			base.Raw = metadata_load (filename, out error_ptr);
+			raw = metadata_load (filename, out error_ptr);
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 				throw new Exception (String.Format (string_error_load, error));
@@ -72,7 +73,7 @@ namespace Muine
 		public string Title {
 			get {
 				if (title == null) {
-					IntPtr p = metadata_get_title (base.Raw);
+					IntPtr p = metadata_get_title (raw);
 					title = (p == IntPtr.Zero)
 				       		? ""
 				       		: Marshal.PtrToStringAnsi (p);
@@ -92,9 +93,9 @@ namespace Muine
 		public string [] Artists {
 			get {
 				if (artists == null) {
-					artists = new string [metadata_get_artist_count (base.Raw)];
+					artists = new string [metadata_get_artist_count (raw)];
 					for (int i = 0; i < artists.Length; i++)
-						artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (base.Raw, i));
+						artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
 				}
 
 				return artists;
@@ -111,9 +112,9 @@ namespace Muine
 		public string [] Performers {
 			get {
 				if (performers == null) {
-					performers = new string [metadata_get_performer_count (base.Raw)];
+					performers = new string [metadata_get_performer_count (raw)];
 					for (int i = 0; i < performers.Length; i++)
-						performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (base.Raw, i));
+						performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
 				}
 				
 				return performers;
@@ -127,7 +128,7 @@ namespace Muine
 		public string Album {
 			get { 
 				if (album == null) {
-					IntPtr p = metadata_get_album (base.Raw);
+					IntPtr p = metadata_get_album (raw);
 					album = (p == IntPtr.Zero)
 					        ? ""
 					        : Marshal.PtrToStringAnsi (p);
@@ -144,7 +145,7 @@ namespace Muine
 		public Pixbuf AlbumArt {
 			get { 
 				if (album_art == null) {
-					IntPtr p = metadata_get_album_art (base.Raw);
+					IntPtr p = metadata_get_album_art (raw);
 					album_art = (p == IntPtr.Zero)
 				       		    ? null
 				       		    : new Pixbuf (p);
@@ -161,7 +162,7 @@ namespace Muine
 		public int TrackNumber {
 			get { 
 				if (track_number == 0)
-					track_number = metadata_get_track_number (base.Raw);
+					track_number = metadata_get_track_number (raw);
 				return track_number;
 			}
 		}
@@ -173,7 +174,7 @@ namespace Muine
 		public int DiscNumber {
 			get { 
 				if (disc_number == 0)
-					disc_number = metadata_get_disc_number (base.Raw);
+					disc_number = metadata_get_disc_number (raw);
 				return disc_number;
 			}
 		}
@@ -185,7 +186,7 @@ namespace Muine
 		public string Year {
 			get {
 				if (year == null) {
-					IntPtr p = metadata_get_year (base.Raw);
+					IntPtr p = metadata_get_year (raw);
 					year = (p == IntPtr.Zero)
 					       ? ""
 				               : Marshal.PtrToStringAnsi (p);
@@ -202,7 +203,7 @@ namespace Muine
 		public int Duration {
 			get { 
 				if (duration == 0)
-					duration = metadata_get_duration (base.Raw);
+					duration = metadata_get_duration (raw);
 				return duration;
 			}
 		}
@@ -214,7 +215,7 @@ namespace Muine
 		public string MimeType {
 			get {
 				if (mime_type == null) {
-					IntPtr p = metadata_get_mime_type (base.Raw);
+					IntPtr p = metadata_get_mime_type (raw);
 					mime_type = (p == IntPtr.Zero)
 					            ? ""
 				                    : Marshal.PtrToStringAnsi (p);
@@ -231,7 +232,7 @@ namespace Muine
 		public int MTime {
 			get {
 				if (mtime == 0)
-					mtime = metadata_get_mtime (base.Raw);
+					mtime = metadata_get_mtime (raw);
 					
 				return mtime; 
 			}
@@ -244,7 +245,7 @@ namespace Muine
 		public double Gain {
 			get { 
 				if (gain == 0)
-					gain = metadata_get_gain (base.Raw);
+					gain = metadata_get_gain (raw);
 				return gain; 
 			}
 		}
@@ -256,7 +257,7 @@ namespace Muine
 		public double Peak {
 			get { 
 				if (peak == 0)
-					peak = metadata_get_peak (base.Raw);
+					peak = metadata_get_peak (raw);
 
 				return peak; 
 			}
