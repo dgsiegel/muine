@@ -63,7 +63,7 @@ o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
   Depends on Gtk# supporting Gtk 2.3
 o Use the GTK+ 2.3 fileselector, if it is available.
   Depends on Gtk# supporting Gtk 2.3
-o Make the main window use a toolbar
+o Make the main window use a toolbar (and put "song info" button in it)
   Depends on Gtk# supporting Gtk 2.3
 
 We won't have:
