@@ -1,3 +1,9 @@
+2004-12-10  Jorn Baayen  <jbaayen@gnome.org>
+
+	* README:
+
+	Update README to reflect change in Gtk# requirements.
+
 2004-12-08  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

@@ -18,7 +18,7 @@ Requirements
 ============
 
 Mono >= 0.96
-Gtk# >= 0.98
+Gtk# >= 1.9
 libid3tag >= 0.15.0b
 vorbis >= 1.0
 FLAC >= 1.1.0
