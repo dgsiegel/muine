@@ -23,12 +23,9 @@
 #include <math.h>
 #include <xine.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnome/gnome-i18n.h>
 
 #include "player.h"
-
-/* currently not looking at the error messages anyway .. */
-#define _(x) x
-#define N_(x) x
 
 static void     player_class_init (PlayerClass  *klass);
 static void     player_init       (Player       *player);
@@ -36,19 +33,7 @@ static void     player_finalize   (GObject      *object);
 static gboolean player_playing    (Player       *player);
 static gboolean player_open       (Player       *player,
 				   const char   *uri,
-				   GError      **error);
-
-#define PLAYER_ERROR player_error_quark ()
-
-GQuark player_error_quark (void);
-
-enum {
-  PLAYER_ERROR_NO_INPUT_PLUGIN,
-  PLAYER_ERROR_NO_DEMUX_PLUGIN,
-  PLAYER_ERROR_DEMUX_FAILED,
-  PLAYER_ERROR_INTERNAL,
-  PLAYER_ERROR_NO_AUDIO
-};
+				   char        **error);
 
 enum {
   END_OF_STREAM,
@@ -267,7 +252,7 @@ xine_event (Player *player,
 
 static void
 player_construct (Player *player,
-		  GError **error)
+		  char  **error)
 {
   PlayerPriv *priv = player->priv;
   const char *audio_driver;
@@ -301,10 +286,7 @@ player_construct (Player *player,
     }
   
   if (priv->audio_driver == NULL)
-    g_set_error (error,
-		 PLAYER_ERROR,
-		 PLAYER_ERROR_NO_AUDIO,
-		 _("Failed to set up an audio driver; check your installation"));
+    *error = g_strdup (_("Failed to set up an audio driver"));
   
   priv->video_driver = NULL;
 
@@ -333,31 +315,23 @@ player_construct (Player *player,
 }
 
 Player *
-player_new (void)
+player_new (char **error)
 {
   Player *player;
 
   player = g_object_new (TYPE_PLAYER, NULL);
-  player_construct (player, NULL);
+
+  *error = NULL;
+
+  player_construct (player, error);
 
   return player;
 }
 
-GQuark
-player_error_quark (void)
-{
-  static GQuark quark = 0;
-
-  if (!quark)
-    quark = g_quark_from_static_string ("player_error");
-
-  return quark;
-}
-
 static gboolean
-player_open (Player *player,
+player_open (Player     *player,
 	     const char *uri,
-	     GError **error)
+	     char      **error)
 {
   PlayerPriv *priv = player->priv;
   int xine_error;
@@ -381,36 +355,21 @@ player_open (Player *player,
 	{
 	case XINE_ERROR_NO_INPUT_PLUGIN:
 	  unesc = gnome_vfs_unescape_string_for_display (uri);
-	  g_set_error (error,
-		       PLAYER_ERROR,
-		       PLAYER_ERROR_NO_INPUT_PLUGIN,
-		       _("No plugin available for \"%s\", check your installation."),
-		       unesc);
+	  *error = g_strdup_printf (_("No plugin available for \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
 	case XINE_ERROR_NO_DEMUX_PLUGIN:
 	  unesc = gnome_vfs_unescape_string_for_display (uri);
-	  g_set_error (error,
-		       PLAYER_ERROR,
-		       PLAYER_ERROR_NO_DEMUX_PLUGIN,
-		       _("No plugin available for \"%s\", check your installation."),
-		       unesc);
+	  *error = g_strdup_printf (_("No plugin available for \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
 	case XINE_ERROR_DEMUX_FAILED:
 	  unesc = gnome_vfs_unescape_string_for_display (uri);
-	  g_set_error (error,
-		       PLAYER_ERROR,
-		       PLAYER_ERROR_DEMUX_FAILED,
-		       _("Failed playing \"%s\", check your installation."),
-		       unesc);
+	  *error = g_strdup_printf (_("Failed playing \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
 	default:
-	  g_set_error (error,
-		       PLAYER_ERROR,
-		       PLAYER_ERROR_INTERNAL,
-		       _("Internal error, check your installation."));
+	  *error = g_strdup (_("Internal error"));
 	  break;
 	}
 
@@ -419,11 +378,7 @@ player_open (Player *player,
   else if (!xine_get_stream_info (priv->stream, XINE_STREAM_INFO_AUDIO_HANDLED))
     {
       unesc = gnome_vfs_unescape_string_for_display (uri);
-      g_set_error (error,
-		   PLAYER_ERROR,
-		   PLAYER_ERROR_NO_AUDIO,
-		   _("Could not play \"%s\", check your installation."),
-		   unesc);
+      *error = g_strdup_printf (_("Could not play \"%s\""), unesc);
       g_free (unesc);
       return FALSE;
     }
@@ -455,7 +410,8 @@ player_playing (Player *player)
 
 gboolean
 player_set_file (Player *player,
-		 const char *file)
+		 const char *file,
+		 char      **error)
 {
   PlayerPriv *priv;
   gboolean start;
@@ -466,7 +422,9 @@ player_set_file (Player *player,
 
   start = player_playing (player);
  
-  if (!player_open (player, file, NULL))
+  *error = NULL;
+
+  if (!player_open (player, file, error))
     return FALSE;
 
   if (start)

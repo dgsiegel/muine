@@ -47,9 +47,10 @@ struct _PlayerClass
 };
 
 GType        player_get_type       (void);
-Player *     player_new            (void);
+Player *     player_new            (char **error);
 gboolean     player_set_file       (Player     *player,
-				    const char *filename);
+				    const char *filename,
+				    char      **error);
 void         player_play           (Player     *player);
 void         player_stop           (Player     *player);
 void         player_pause          (Player     *player);

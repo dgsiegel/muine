@@ -397,8 +397,8 @@ public class PlaylistWindow : Window
 	{
 		try {
 			player = new Player ();
-		} catch {
-			new ErrorDialog (Muine.Catalog.GetString ("Failed to initialize the audio backend.\nExiting..."));
+		} catch (Exception e) {
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting..."), e.ToString ()));
 
 			Muine.Exit ();
 		}

@@ -26,6 +26,7 @@
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
 #include <gst/play/play.h>
+#include <libgnome/gnome-i18n.h>
 
 #include "player.h"
 
@@ -137,6 +138,11 @@ player_class_init (PlayerClass *klass)
 static void
 player_init (Player *player)
 {
+}
+
+static void
+player_construct (Player *player, char **error)
+{
 	PlayerPriv *priv;
 
 	gst_init (NULL, NULL);
@@ -147,22 +153,36 @@ player_init (Player *player)
 	priv->eos_idle_id = 0;
 
 	priv->play = gst_play_new (NULL);
-	if (!priv->play)
-		g_error ("Failed to create GstPlay object");
+	if (!priv->play) {
+		*error = g_strdup (_("Failed to create GstPlay object"));
+
+		return;
+	}
 
 	priv->source = gst_element_factory_make ("gnomevfssrc", "source");
-	if (!priv->source)
-		g_error ("The gnomevfssrc element is required.");
+	if (!priv->source) {
+		*error = g_strdup (_("Failed to create the required gnomevfssrc GStreamer element"));
+
+		return;
+	}
+
 	gst_play_set_data_src (priv->play, priv->source);
 
 	priv->sink = gst_gconf_get_default_audio_sink ();
-	if (!priv->sink)
-		g_error ("Could not render default GStreamer audio output sink "
-                         "from GConf /system/gstreamer/default/audiosink key. "
-                         "Check if it is set correctly.");
+	if (!priv->sink) {
+		*error = g_strdup (_("Could not render default GStreamer audio output sink"));
+
+		return;
+	}
+
 	gst_play_set_audio_sink (priv->play, priv->sink);
 
 	priv->volume = gst_bin_get_by_name (GST_BIN (priv->play), "volume");
+	if (!priv->volume) {
+		*error = g_strdup (_("Could not find the volume element in the GstPlay pipeline"));
+
+		return;
+	}
 
 	g_signal_connect (priv->play,
 			  "error",
@@ -194,9 +214,17 @@ player_finalize (GObject *object)
 }
 
 Player *
-player_new (void)
+player_new (char **error)
 {
-	return g_object_new (TYPE_PLAYER, NULL);
+	Player *player;
+
+	player = g_object_new (TYPE_PLAYER, NULL);
+
+	*error = NULL;
+
+	player_construct (player, error);
+
+	return player;
 }
 
 static gboolean
@@ -259,12 +287,15 @@ time_tick_cb (GstPlay *play, gint64 time_nanos, Player *player)
 }
 
 gboolean
-player_set_file (Player *player,
-		 const char *file)
+player_set_file (Player     *player,
+		 const char *file,
+		 char      **error)
 {
 	GstElementState new_state;
 
 	g_return_val_if_fail (IS_PLAYER (player), FALSE);
+
+	*error = NULL;
 
 	if (player->priv->eos_idle_id > 0) {
 		g_source_remove (player->priv->eos_idle_id);
@@ -360,7 +391,6 @@ player_get_volume (Player *player)
 
 	return player->priv->cur_volume;
 }
-
 
 void
 player_set_replaygain (Player *player, double gain, double peak)

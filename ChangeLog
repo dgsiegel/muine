@@ -1,3 +1,18 @@
+2004-04-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+	* libmuine/player-gst.c: (player_init), (player_construct),
+	(player_new), (player_set_file), (player_get_volume):
+	* libmuine/player-xine.c: (player_construct), (player_new),
+	(player_open), (player_set_file):
+	* libmuine/player.h:
+	* po/POTFILES.in:
+	* po/POTFILES.skip:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	Much improved error handling.
+
 2004-04-19  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/ColoredCellRendererPixbuf.cs:

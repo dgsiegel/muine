@@ -20,11 +20,14 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GLibSharp;
+
 public class Player : GLib.Object
 {
 	[DllImport ("libmuine")]
 	private static extern bool player_set_file (IntPtr player,
-	                                            string filename);
+	                                            string filename,
+						    out IntPtr error_ptr);
 	[DllImport ("libmuine")]
 	private static extern void player_set_replaygain (IntPtr player,
 							  double gain,
@@ -39,7 +42,16 @@ public class Player : GLib.Object
 		set {
 			song = value;
 
-			player_set_file (Raw, song.Filename);
+			IntPtr error_ptr;
+
+			player_set_file (Raw, song.Filename, out error_ptr);
+			if (error_ptr != IntPtr.Zero) {
+				string error = Marshaller.PtrToStringGFree (error_ptr);
+
+				new ErrorDialog (String.Format (Muine.Catalog.GetString ("Error opening {0}:\n{1}"),
+				                                                         song.Filename, error));
+			}
+			
 			player_set_replaygain (Raw, song.Gain, song.Peak);
 
 			if (TickEvent != null)
@@ -139,25 +151,49 @@ public class Player : GLib.Object
 	}
 
 	[DllImport ("libmuine")]
-	private static extern IntPtr player_new ();
+	private static extern IntPtr player_new (out IntPtr error_ptr);
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-	                                                  SignalDelegate cb, IntPtr data,
-							  IntPtr p, int flags);
+	private class Connect
+	{
+		[DllImport ("libgobject-2.0-0.dll")]
+		public static extern uint g_signal_connect_data (IntPtr obj, string name,
+	                                                         SignalDelegate cb, IntPtr data,
+							         IntPtr p, int flags);
+	}
+
+	private class ConnectInt
+	{
+		[DllImport ("libgobject-2.0-0.dll")]
+		public static extern uint g_signal_connect_data (IntPtr obj, string name,
+	                                                         IntSignalDelegate cb, IntPtr data,
+							         IntPtr p, int flags);
+	}
+
+	private class ConnectString
+	{
+		[DllImport ("libgobject-2.0-0.dll")]
+		public static extern uint g_signal_connect_data (IntPtr obj, string name,
+	                                                         StringSignalDelegate cb, IntPtr data,
+							         IntPtr p, int flags);
+	}
 
 	public Player () : base (IntPtr.Zero)
 	{
-		try {
-			Raw = player_new ();
-		} catch {
-			throw new Exception (Muine.Catalog.GetString ("Failed to create Player object"));
-		}
+		IntPtr error_ptr;
+		
+		Raw = player_new (out error_ptr);
+		if (error_ptr != IntPtr.Zero) {
+			string error = Marshaller.PtrToStringGFree (error_ptr);
 
-		g_signal_connect_data (Raw, "tick", new SignalDelegate (TickCallback),
-		                       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "end_of_stream", new SignalDelegate (EosCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
+			throw new Exception (error);
+		}
+		
+		ConnectInt.g_signal_connect_data (Raw, "tick", new IntSignalDelegate (TickCallback),
+		                                  IntPtr.Zero, IntPtr.Zero, 0);
+		Connect.g_signal_connect_data (Raw, "end_of_stream", new SignalDelegate (EosCallback),
+				               IntPtr.Zero, IntPtr.Zero, 0);
+		ConnectString.g_signal_connect_data (Raw, "error", new StringSignalDelegate (ErrorCallback),
+				                     IntPtr.Zero, IntPtr.Zero, 0);
 
 		playing = false;
 		song = null;
@@ -168,7 +204,9 @@ public class Player : GLib.Object
 		Dispose ();
 	}
 
-	private delegate void SignalDelegate (IntPtr obj, int data);
+	private delegate void SignalDelegate (IntPtr obj);
+	private delegate void IntSignalDelegate (IntPtr obj, int i);
+	private delegate void StringSignalDelegate (IntPtr obj, string s);
 
 	private static void TickCallback (IntPtr obj, int pos)
 	{	
@@ -181,11 +219,16 @@ public class Player : GLib.Object
 	public delegate void EndOfStreamEventHandler ();
 	public event EndOfStreamEventHandler EndOfStreamEvent;
 
-	private static void EosCallback (IntPtr obj, int data)
+	private static void EosCallback (IntPtr obj)
 	{
 		Player player = GLib.Object.GetObject (obj, false) as Player;
 
 		if (player.EndOfStreamEvent != null)
 			player.EndOfStreamEvent ();
+	}
+
+	private static void ErrorCallback (IntPtr obj, string error)
+	{
+		new ErrorDialog (String.Format (Muine.Catalog.GetString ("Audio backend error:\n{0}"), error));
 	}
 }

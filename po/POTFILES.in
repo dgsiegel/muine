@@ -10,6 +10,8 @@ data/glade/SkipToWindow.glade
 data/glade/YesNoDialog.glade
 data/muine.desktop.in
 data/muine.schemas.in
+libmuine/player-gst.c
+libmuine/player-xine.c
 src/About.cs
 src/AddAlbumWindow.cs
 src/AddSongWindow.cs
