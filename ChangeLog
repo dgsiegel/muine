@@ -2,6 +2,13 @@
 
 	* src/Album.cs:
 
+	Actually, let's just check that we have at least half
+	the album.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+
 	Improved album complete definition:
 
 	if (delta == 0)

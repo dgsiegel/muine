@@ -77,9 +77,6 @@ namespace Muine
 		private int total_n_tracks;
 		private bool complete = false;
 
-		// This fuzziness is for listing almost-complete albums
-		private static readonly int max_track_number_difference = 3;
-
 		private static Hashtable pointers = new Hashtable ();
 		private static IntPtr cur_ptr = IntPtr.Zero;
 		
@@ -450,23 +447,20 @@ namespace Muine
 		//	Returns true if completeness changed
 		private bool CheckCompleteness ()
 		{
-			bool new_complete;
+			bool new_complete = false;
 
 			if (total_n_tracks > 0) {
-				int delta = Math.Abs (total_n_tracks - n_tracks);
+				int delta = total_n_tracks - n_tracks;
 
-				if (delta == 0)
+				if (delta <= 0)
 					new_complete = true;
-				else if (delta <= max_track_number_difference &&
-				         total_n_tracks >= ((delta * 2) + 1)) {
-					// (delta * 2) + 1 gives us a decent
-					// minimum album size to allow, seems to
-					// work in most cases.
-					new_complete = true;
-				} else
-					new_complete = false;
-			} else
-				new_complete = false;
+				else {
+					int min_n_tracks = (int) Math.Ceiling (total_n_tracks / 2);
+
+					if (n_tracks >= min_n_tracks)
+						new_complete = true;
+				}
+			}
 
 			bool changed = (new_complete != complete);
 			
