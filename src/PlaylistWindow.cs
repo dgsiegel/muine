@@ -784,8 +784,10 @@ public class PlaylistWindow : Window
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
 	{
 		if (args.Event.changed_mask == Gdk.WindowState.Iconified) { 
-			playlist.Select (playlist.Playing);
-			playlist.ScrollTo (playlist.Playing);
+			if (playlist.Playing != IntPtr.Zero) {
+				playlist.Select (playlist.Playing);
+				playlist.ScrollTo (playlist.Playing);
+			}
 		}
 	}
 

@@ -1,5 +1,11 @@
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Fix assertions when having an empty playlist. Pointed out by Lee Willis.
+
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/SongDatabase.cs:
 
 	Remove album cover pixbuf when not needed anymore.
