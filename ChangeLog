@@ -3,6 +3,13 @@
 	* src/Player.cs:
 	* src/PlaylistWindow.cs:
 
+	Pause instead of stop at last eos. This is for seeking.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
 	Emit a Tick signal when a song's duration has changed at eos.
 
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>

@@ -1191,7 +1191,7 @@ namespace Muine
 				
 				// If that didn't work, try harder...
 				if (song == null) { 
-					lock (Global.DB) { // XXX: I don't think we need to lock since we're just reading...
+					lock (Global.DB) {
 						foreach (string key in Global.DB.Songs.Keys) {
 							string key_basename = System.IO.Path.GetFileName (key);
 
@@ -1287,7 +1287,7 @@ namespace Muine
 
 				had_last_eos = true;
 
-				player.Stop ();
+				player.Pause ();
 			}
 
 			// Update Changes

@@ -136,9 +136,6 @@ namespace Muine
 
 		public int Position {
 			set {
-				if (stopped)
-					Song = song; // load song, then seek
-					
 				player_seek (Raw, value);
 
 				if (TickEvent != null)
