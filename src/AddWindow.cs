@@ -43,6 +43,7 @@ namespace Muine
 
 		// Widgets
 		[Glade.Widget] private Window         window;
+		[Glade.Widget] private Label          search_label;
 		[Glade.Widget] private Container      entry_container;
 		[Glade.Widget] private Button         play_button;
 		[Glade.Widget] private Image          play_button_image;
@@ -76,6 +77,9 @@ namespace Muine
 
 			play_button_image.SetFromStock  ("stock_media-play", IconSize.Button);
 			queue_button_image.SetFromStock ("stock_timer"     , IconSize.Button);
+
+			// Label
+			search_label.MnemonicWidget = entry;
 
 			// Entry
 			entry.KeyPressEvent += new Gtk.KeyPressEventHandler (OnEntryKeyPressEvent);

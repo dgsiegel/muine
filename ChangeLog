@@ -1,5 +1,12 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/AddWindow.glade:
+	* src/AddWindow.cs:
+
+	Restore mnemonic behaviour.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddWindowEntry.cs:
 
 	Initialize search_bits to an empty array.
