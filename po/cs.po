@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-23 11:33+0100\n"
-"PO-Revision-Date: 2005-01-23 15:20+0100\n"
+"POT-Creation-Date: 2005-01-28 11:35+0100\n"
+"PO-Revision-Date: 2005-01-29 15:42+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,46 +34,6 @@ msgstr "_Hledat:"
 msgid "Error"
 msgstr "Chyba"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">Nebyla nalezena žádná hudba</span>"
-
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr "Muine nemohl najít vaši sbírku hudby. Co chcete, abych udělal?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine vytvoří adresáře Music a Music/Playlists ve vašem domovském adresáři "
-"pro ukládání vašich souborů hudby. Tato možnost se velice doporučuje. Jiné "
-"adresáře můžete kdykoli importovat ručně."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "Nenalezena žádná hudba"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"Budete muset svou hudbu importovat ručně. Toto je jen pro zkušené uživatele "
-"a proto se obecně nedoporučuje."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "_Vytořit prázdnou sbírku hudby"
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Nic, budu svou hudbu spravovat sám"
-
 #: data/glade/OverwriteDialog.glade.h:1
 msgid "Overwrite File?"
 msgstr "Přepsat soubor?"
@@ -86,11 +46,11 @@ msgstr "_Přepsat"
 msgid "Play"
 msgstr "Přehrávat"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Přehávat album"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Přehrávat skladbu"
 
@@ -135,94 +95,58 @@ msgid "Default playlist folder"
 msgstr "Implicitní adresář seznamů skladeb"
 
 #: data/muine.schemas.in.h:8
-msgid "Enable speed hacks on the \"Add album\" list."
-msgstr "Povolit finty pro rychlost v seznamu \"Přidat album\"."
-
-#: data/muine.schemas.in.h:9
-msgid "Enable speed hacks on the \"Add song\" list."
-msgstr "Povolit finty pro rychlost v seznamu \"Přidat skladbu\"."
-
-#: data/muine.schemas.in.h:10
-msgid "First start"
-msgstr "První spuštění"
-
-#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Adresáře, ve kterých jsou sledovány změny."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "Šířka okna \"Přidat album\"."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "Výška okna \"Přidat skladbu\"."
 
-#: data/muine.schemas.in.h:14
-msgid "Height of the information window."
-msgstr "Výška okna informací."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "Výška okna se seznamem skladeb."
 
-#: data/muine.schemas.in.h:16
-msgid "Information window height"
-msgstr "Výška okna informací"
-
-#: data/muine.schemas.in.h:17
-msgid "Information window width"
-msgstr "Šířka okna informací"
-
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Poslední používaný adresář z dialogu \"Importovat adresář\""
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Poslední používaný adresář z výběru souboru seznamu skladeb."
 
-#: data/muine.schemas.in.h:20
-msgid "Only complete albums"
-msgstr "Jen celá alba"
-
-#: data/muine.schemas.in.h:21
-msgid "Only deal with complete albums in the interface."
-msgstr "Pracovat v rozhraní jen s celými alby."
-
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "Výška okna se seznamem skladeb"
 
-#: data/muine.schemas.in.h:23
+#: data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "Šířka okna se seznamem skladeb"
 
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "Režim opakování"
 
-#: data/muine.schemas.in.h:25
-msgid "Speed hacks"
-msgstr "Finty pro rychlost"
-
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "Úroveň hlasitosti"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Úroveň hlasitosti. 0 = nejnižší, 100 = nejvyšší.."
 
-#: data/muine.schemas.in.h:28
+#: data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "Sledované adresáře"
 
-#: data/muine.schemas.in.h:29
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Jestli povolit režim opakování seznamu skladeb."
 
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -230,25 +154,17 @@ msgstr ""
 "Který server Amazon používat pro stahování obrázků alb, \"us\", \"uk\", \"de"
 "\", nebo \"jp\"."
 
-#: data/muine.schemas.in.h:31
+#: data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "Šířka okna \"Přidat album\"."
 
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "Šířka okna \"Přidat skladbu\"."
 
-#: data/muine.schemas.in.h:33
-msgid "Width of the information window."
-msgstr "Šířka okna informací."
-
-#: data/muine.schemas.in.h:34
+#: data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "Šířka okna se seznamem skladeb."
-
-#: data/muine.schemas.in.h:35
-msgid "false if Muine has been started before."
-msgstr "false, pokud byl již Muine spuštěn dříve."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
@@ -410,7 +326,7 @@ msgstr "O _aplikaci"
 msgid "R_epeat"
 msgstr "_Opakovat"
 
-#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Hraje {0}"
@@ -421,7 +337,7 @@ msgstr "Hraje {0}"
 #. when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. if "the" is included in this list. Also include the English "the"
 #. if English is generally spoken in your country.
-#: src/Album.cs:38
+#: src/Album.cs:39
 msgid "the dj"
 msgstr "the dj"
 
@@ -506,7 +422,9 @@ msgstr "Přepsat \"{0}\"?"
 msgid ""
 "A file with this name already exists. If you choose to overwrite this file, "
 "the contents will be lost."
-msgstr "Soubor s tímto názvem již existuje. Pokud se rozhodnete tento soubor přepsat, jeho obsah bude ztracen."
+msgstr ""
+"Soubor s tímto názvem již existuje. Pokud se rozhodnete tento soubor "
+"přepsat, jeho obsah bude ztracen."
 
 #: src/Player.cs:39
 msgid "Audio backend error:"
@@ -594,7 +512,7 @@ msgstr "Nemohu zavřít {0}:"
 msgid "Failed to write {0}:"
 msgstr "Nemohu zapisovat {0}:"
 
-#: src/PlaylistWindow.cs:946
+#: src/PlaylistWindow.cs:942
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
@@ -602,7 +520,7 @@ msgstr[0] "<b>Seznam skladeb</b> (opakuji {0} hodinu)"
 msgstr[1] "<b>Seznam skladeb</b> (opakuji {0} hodiny)"
 msgstr[2] "<b>Seznam skladeb</b> (opakuji {0} hodin)"
 
-#: src/PlaylistWindow.cs:951
+#: src/PlaylistWindow.cs:947
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
@@ -610,7 +528,7 @@ msgstr[0] "<b>Seznam skladeb</b> (opakuji {0} minutu)"
 msgstr[1] "<b>Seznam skladeb</b> (opakuji {0} minuty)"
 msgstr[2] "<b>Seznam skladeb</b> (opakuji {0} minut)"
 
-#: src/PlaylistWindow.cs:956
+#: src/PlaylistWindow.cs:952
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
@@ -618,7 +536,7 @@ msgstr[0] "<b>Seznam skladeb</b> (zbývá {0} hodina)"
 msgstr[1] "<b>Seznam skladeb</b> (zbývají {0} hodiny)"
 msgstr[2] "<b>Seznam skladeb</b> (zbývá {0} hodin)"
 
-#: src/PlaylistWindow.cs:961
+#: src/PlaylistWindow.cs:957
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -633,8 +551,8 @@ msgstr "Chyba při načítání zásuvného modulu {0}: {1}"
 
 #: src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}"
-msgstr "Importuji {0}"
+msgid "Importing \"{0}\""
+msgstr "Importuji \"{0}\""
 
 #: src/ProgressWindow.cs:35
 msgid "Loading:"
@@ -648,16 +566,16 @@ msgstr "Uložit seznam skladeb"
 msgid "Untitled"
 msgstr "Nepojmenovaný"
 
-#: src/StringUtils.cs:32
+#: src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: src/StringUtils.cs:34
+#: src/StringUtils.cs:33
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} a další"
 
-#: src/StringUtils.cs:36
+#: src/StringUtils.cs:35
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} a {1}"
