@@ -17,13 +17,14 @@ GNOME_DEBUG_CHECK
 GNOME_COMPILE_WARNINGS(error)
 AM_PATH_GLIB_2_0
 
-GSTREAMER_REQUIRED=0.6.3
+GSTREAMER_REQUIRED=0.8.0
 MONO_REQUIRED=0.30.1
 GTKSHARP_REQUIRED=0.18
 
 PKG_CHECK_MODULES(MUINE,
-		  gstreamer-0.6 >= $GSTREAMER_REQUIRED \
-		  gstreamer-gconf-0.6 >= $GSTREAMER_REQUIRED \
+		  gstreamer-0.8 >= $GSTREAMER_REQUIRED \
+		  gstreamer-gconf-0.8 >= $GSTREAMER_REQUIRED \
+		  gstreamer-play-0.8 >= $GSTREAMER_REQUIRED \
 		  gconf-2.0 \
 		  gdk-pixbuf-2.0 \
 		  gnome-vfs-2.0 \

@@ -36,12 +36,6 @@ typedef struct _Player      Player;
 typedef struct _PlayerClass PlayerClass;
 typedef struct _PlayerPriv  PlayerPriv;
 
-typedef enum {
-  PLAYER_STATE_STOPPED,
-  PLAYER_STATE_PLAYING,
-  PLAYER_STATE_PAUSED
-} PlayerState;
-
 struct _Player
 {
   GObject parent;
@@ -56,10 +50,8 @@ struct _PlayerClass
 GType        player_get_type       (void);
 Player *     player_new            (void);
 gboolean     player_set_file       (Player     *player,
-				    const char *filename,
-				    const char *mime_type);
-const char * player_get_file       (Player     *player);
-gboolean     player_play           (Player     *player);
+				    const char *filename);
+void         player_play           (Player     *player);
 void         player_stop           (Player     *player);
 void         player_pause          (Player     *player);
 void         player_set_volume     (Player     *player,
@@ -68,12 +60,8 @@ int          player_get_volume     (Player     *player);
 void         player_set_replaygain (Player     *player,
 				    double      gain,
 				    double      peak);
-void         player_toggle_mute    (Player     *player);
-PlayerState  player_get_state      (Player     *player);
 void         player_seek           (Player     *player,
 				    int         t);
 int          player_tell           (Player     *player);
-gboolean     player_is_playing     (Player     *player,
-				    const char *filename);
 
 #endif /* __PLAYER_H__ */

@@ -1,5 +1,21 @@
 2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* libmuine/player.c: (player_get_type), (player_class_init),
+	(player_init), (player_finalize), (player_new), (eos_idle_cb),
+	(eos_cb), (error_idle_cb), (error_cb), (time_tick_cb),
+	(player_set_file), (player_play), (player_stop), (player_pause),
+	(player_set_volume), (player_get_volume), (player_set_replaygain),
+	(player_seek), (player_tell):
+	* libmuine/player.h:
+	* src/Player.cs:
+
+	Use GStreamer 0.8 using GstPlay. 
+
+	Xine backend coming up soon.
+
+2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/id3-vfs/mp3bitrate.c: (mpg123_parse_xing_header):
 
 	Port xing header parsing fixes from Rhythmbox.
