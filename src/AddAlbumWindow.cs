@@ -110,7 +110,10 @@ public class AddAlbumWindow
 		view.SelectFirst ();
 		view.ScrollToPoint (0, 0);
 
-		window.Visible = true;
+		if (window.Visible == false)
+			window.Visible = true;
+		else
+			window.Present ();
 	}
 
 	public delegate void QueueAlbumsEventHandler (List songs);

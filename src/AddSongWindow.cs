@@ -111,7 +111,10 @@ public class AddSongWindow
 		view.SelectFirst ();
 		view.ScrollToPoint (0, 0);
 
-		window.Visible = true;
+		if (window.Visible == false)
+			window.Visible = true;
+		else
+			window.Present ();
 	}
 
 	public delegate void QueueSongsEventHandler (List songs);
