@@ -51,9 +51,9 @@ namespace Muine
 		[Glade.Widget] private Image          queue_button_image;
 		[Glade.Widget] private ScrolledWindow scrolledwindow;
 		
-		private AddWindowEntry entry         = new AddWindowEntry   ();
-		private AddWindowList  list          = new AddWindowList    ();
-		private CellRenderer   text_renderer = new CellRendererText ();
+		private AddWindowEntry entry         = new AddWindowEntry         ();
+		private AddWindowList  list          = new AddWindowList          ();
+		private CellRenderer   text_renderer = new Muine.CellRendererText ();
 
 		// Objects
 		private ICollection items;

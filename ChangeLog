@@ -1,5 +1,23 @@
 2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
 
+	* README:
+	* TODO:
+	* configure.in:
+	* data/glade/PlaylistWindow.glade:
+	* libmuine/Makefile.am:
+	R libmuine/rb-ellipsizing-label.c:
+	R libmuine/rb-ellipsizing-label.h:
+	* src/AddWindow.cs:
+	* src/CellRendererText.cs:
+	* src/EllipsizingLabel.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+
+	Use Gtk 2.6 ellipsizing label and ellipsizing text cell renderer.
+
+2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/AddAlbumWindow.cs:
 	* src/HandleView.cs:

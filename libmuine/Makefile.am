@@ -50,8 +50,6 @@ libmuine_la_SOURCES =			\
 	string-utils.h			\
 	rb-cell-renderer-pixbuf.c	\
 	rb-cell-renderer-pixbuf.h	\
-	rb-ellipsizing-label.c		\
-	rb-ellipsizing-label.h		\
 	db.c				\
 	db.h				\
 	mm-keys.c			\

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -21,11 +21,11 @@
 
 namespace Muine
 {
-	public class EllipsizingLabel : Gtk.Label
+	public class CellRendererText : Gtk.CellRendererText
 	{
-		public EllipsizingLabel () : base ("")
-		{
-			SetProperty ("ellipsize", new GLib.Value (3));
-		}
-	}
+                public CellRendererText ()
+                {
+                        SetProperty ("ellipsize", new GLib.Value (3));
+                }
+        }
 }

@@ -28,6 +28,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/StockIcons.cs			\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/EllipsizingLabel.cs		\
+	$(srcdir)/CellRendererText.cs		\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/CoverGetter.cs		\
 	$(srcdir)/GnomeProxy.cs			\

@@ -64,7 +64,7 @@ namespace Muine
 			Catalog.GetString ("<b>Playlist</b> (Repeating)");
 		private static readonly string string_playlist_under_minute =
 			Catalog.GetString ("<b>Playlist</b> (Less than one minute remaining)");
-		private static readonly string string_artists =
+		private static readonly string string_from_album =
 			Catalog.GetString ("From \"{0}\"");
 		private static readonly string string_album_unknown =
 			Catalog.GetString ("Album unknown");
@@ -154,8 +154,7 @@ namespace Muine
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
-		[Glade.Widget] private Container title_label_container;
-		[Glade.Widget] private Container artist_label_container;
+		[Glade.Widget] private Container song_label_container;
 		[Glade.Widget] private Container cover_image_container;
 
 		// Widgets :: Images
@@ -175,8 +174,7 @@ namespace Muine
 
 		// Widgets :: Player
 		private CoverImage cover_image;
-		private EllipsizingLabel title_label;
-		private EllipsizingLabel artist_label;
+		private EllipsizingLabel song_label;
 		[Glade.Widget] private Label time_label;
 
 		// Widgets :: Playlist
@@ -668,8 +666,6 @@ namespace Muine
 			random_sort_keys = new Hashtable ();
 
 			foreach (int i in playlist.Contents) {
-				Song song = Song.FromHandle ((IntPtr) i); // UNUSED
-
 				double val = (i == (int) playlist.Playing) ? -1.0 : rand.NextDouble ();
 				random_sort_keys.Add (i, val);
 			}
@@ -784,7 +780,7 @@ namespace Muine
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
 			pixbuf_renderer = new ColoredCellRendererPixbuf ();
-			text_renderer   = new CellRendererText ();
+			text_renderer   = new Muine.CellRendererText    ();
 			
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
@@ -827,17 +823,11 @@ namespace Muine
 			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
 			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
 
-			title_label = new EllipsizingLabel ("");
-			title_label.Visible = true;
-			title_label.Xalign = 0.0f;
-			title_label.Selectable = true;
-			title_label_container.Add (title_label);
-
-			artist_label = new EllipsizingLabel ("");
-			artist_label.Visible = true;
-			artist_label.Xalign = 0.0f;
-			artist_label.Selectable = true;
-			artist_label_container.Add (artist_label);
+			song_label = new EllipsizingLabel ();
+			song_label.Visible = true;
+			song_label.Xalign = 0.0f;
+			song_label.Selectable = true;
+			song_label_container.Add (song_label);
 
 			cover_image = new CoverImage ();
 			cover_image_container.Add (cover_image);
@@ -1048,7 +1038,7 @@ namespace Muine
 				cover_image.Song = song;
 
 				string tip = (song.Album.Length > 0)
-				             ? String.Format (string_artists, song.Album)
+				             ? String.Format (string_from_album, song.Album)
 				             : string_album_unknown;
 
 				if (song.Performers.Length > 0)
@@ -1059,10 +1049,10 @@ namespace Muine
 				
 				tooltips.SetTip (cover_image, tip, null);
 
-				title_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>",
-								    StringUtils.EscapeForPango (song.Title));
-
-				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
+				string artists = StringUtils.JoinHumanReadable (song.Artists);
+				song_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n{1}",
+								    StringUtils.EscapeForPango (song.Title),
+								    StringUtils.EscapeForPango (artists));
 
 				if (player.Song != song || restart) {
 					try {
@@ -1085,10 +1075,9 @@ namespace Muine
 
 				tooltips.SetTip (cover_image, null, null);
 
-				title_label.Markup = "";
+				song_label.Markup = "";
 
-				artist_label.Text = "";
-				time_label  .Text = "";
+				time_label.Text = "";
 
 				this.Title = string_program;
 

@@ -56,7 +56,7 @@ namespace Muine
 
 			window.SetDefaultSize (300, -1);
 
-			file_label = new EllipsizingLabel ("");
+			file_label = new EllipsizingLabel ();
 			file_label.Xalign = 0.0f;
 			file_label.Visible = true;
 			file_label_container.Add (file_label);
