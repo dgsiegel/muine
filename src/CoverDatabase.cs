@@ -139,6 +139,8 @@ public class CoverDatabase
 			Stream s = resp.GetResponseStream ();
 	
 			cover = new Pixbuf (s);
+
+			s.Close ();
 		} catch {
 			return null;
 		}
@@ -226,7 +228,7 @@ public class CoverDatabase
 
 	public string GetAlbumCoverURL (string artist, string album_title)
 	{
-		AmazonSearchService search_service = new AmazonSearchService();
+		AmazonSearchService search_service = new AmazonSearchService ();
 
 		string sane_album_title = SanitizeString (album_title);
 		
