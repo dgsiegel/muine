@@ -1,3 +1,17 @@
+2004-02-04  Jorn Baayen  <jbaayen@gnome.org>
+
+	* README:
+
+	Added FLAC dependency.
+	
+	* src/Album.cs:
+
+	Remove unused Year field.
+	
+	* src/Song.cs:
+
+	g_free strings we get from the DB.
+
 2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/AddAlbumWindow.cs:

@@ -46,13 +46,6 @@ public class Album
 		}
 	}
 
-	private string year;
-	public string Year {
-		get {
-			return year;
-		}
-	}
-
 	public Gdk.Pixbuf CoverImage;
 
 	[DllImport ("libglib-2.0-0.dll")]
@@ -108,7 +101,6 @@ public class Album
 		AddArtistsAndPerformers (initial_song);
 
 		name = initial_song.Album;
-		year = initial_song.Year;
 		CoverImage = initial_song.CoverImage;
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
@@ -181,6 +173,7 @@ public class Album
 
 		foreach (Song s in Songs) {
 			s.CoverImage = CoverImage;
+
 			Muine.DB.EmitSongChanged (s);
 		}
 	}

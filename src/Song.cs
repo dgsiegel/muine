@@ -15,8 +15,6 @@
  * License along with this program; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- *
- * TODO FileSystemWatcher, file import wizard (musicbrainz for tags, cover image, filename fixing)
  */
 
 using System;
@@ -25,6 +23,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Runtime.InteropServices;
+
+using GLibSharp;
 
 public class Song
 {
@@ -385,7 +385,7 @@ public class Song
 	}
 
 	[DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_string (IntPtr p, out string str);
+        private static extern IntPtr db_unpack_string (IntPtr p, out IntPtr str_ptr);
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_int (IntPtr p, out int i);
         [DllImport ("libmuine")]
@@ -395,6 +395,16 @@ public class Song
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_double (IntPtr p, out double d);
 
+	private IntPtr UnpackString (IntPtr p, out string str)
+	{
+		IntPtr ret, str_ptr;
+
+		ret = db_unpack_string (p, out str_ptr);
+		str = Marshaller.PtrToStringGFree (str_ptr);
+
+		return ret;
+	}
+
 	public Song (string fn,
 	             IntPtr data)
 	{
@@ -403,25 +413,25 @@ public class Song
 
 		filename = fn;
 
-		p = db_unpack_string (p, out title);
+		p = UnpackString (p, out title);
 
 		p = db_unpack_int (p, out len);
 		artists = new string [len];
 		for (int i = 0; i < len; i++) {
-			p = db_unpack_string (p, out artists [i]);
+			p = UnpackString (p, out artists [i]);
 		}
 
 		p = db_unpack_int (p, out len);
 		performers = new string [len];
 		for (int i = 0; i < len; i++) {
-			p = db_unpack_string (p, out performers [i]);
+			p = UnpackString (p, out performers [i]);
 		}
 
-		p = db_unpack_string (p, out album);
+		p = UnpackString (p, out album);
 		p = db_unpack_int (p, out track_number);
-		p = db_unpack_string (p, out year);
+		p = UnpackString (p, out year);
 		p = db_unpack_long (p, out duration);
-		p = db_unpack_string (p, out mime_type);
+		p = UnpackString (p, out mime_type);
 		p = db_unpack_long (p, out mtime);
 		p = db_unpack_bool (p, out checked_cover_image);
 		p = db_unpack_double (p, out gain);

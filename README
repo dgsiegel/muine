@@ -19,6 +19,7 @@ Gtk# >= 0.15
 GStreamer 0.6 >= 0.6.0 with mad, vorbisfile and volume plugins
 libid3tag >= 0.15.0b
 vorbis >= 1.0
+FLAC >= 1.1.0
 gdbm
 
 The GObject library should, if not installed in /usr/lib,
