@@ -107,7 +107,7 @@ AC_SUBST(MCS_FLAGS)
 AC_SUBST(MONO_FLAGS)
 
 dnl Intl
-ALL_LINGUAS="ca cs da de en_CA en_GB es eu fr hr hu is ja ko nl no pl pt pt_BR sr sr@Latn sv"
+ALL_LINGUAS="bg ca cs da de en_CA en_GB es eu fr hr hu is ja ko nl no pl pt pt_BR sr sr@Latn sv"
 GETTEXT_PACKAGE=muine
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
