@@ -84,10 +84,10 @@ public class NotificationAreaIcon : Plug
 		menu.Append (sep);
 		
 		previous_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Previous Song"));
-		previous_song_menu_item.Image = new Gtk.Image ("muine-previous", IconSize.Menu);
+		previous_song_menu_item.Image = new Gtk.Image ("stock_media-prev", IconSize.Menu);
 		menu.Append (previous_song_menu_item);
 		next_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Next Song"));
-		next_song_menu_item.Image = new Gtk.Image ("muine-next", IconSize.Menu);
+		next_song_menu_item.Image = new Gtk.Image ("stock_media-next", IconSize.Menu);
 		menu.Append (next_song_menu_item);
 
 		sep = new SeparatorMenuItem ();
@@ -97,7 +97,7 @@ public class NotificationAreaIcon : Plug
 		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
 		menu.Append (play_song_menu_item);
 		play_album_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Album..."));
-		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
+		play_album_menu_item.Image = new Gtk.Image ("gnome-dev-cdrom-audio", IconSize.Menu);
 		menu.Append (play_album_menu_item);
 
 		sep = new SeparatorMenuItem ();

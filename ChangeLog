@@ -1,5 +1,11 @@
 2004-11-18  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/NotificationAreaIcon.cs:
+
+	Use new stock icon names.
+
+2004-11-18  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/Makefile.am:
 	* data/images/muine-add-album-16.png:
 	* data/images/muine-add-album.png:
