@@ -1,3 +1,14 @@
+2004-12-31  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/CoverImage.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Defined drag-and-drop targets in Muine.
+	Moved TargetType enum from PlaylistWindow to Muine.	
+	
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:

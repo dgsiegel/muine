@@ -99,28 +99,20 @@ public class PlaylistWindow : Window, PlayerInterface
 	private MmKeys mmkeys;
 
 	/* Drag and drop targets. */
-	public enum TargetType {
-		UriList,
-		Uri,
-		SongList,
-		AlbumList,
-		ModelRow
-	};
-
 	private static TargetEntry [] drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+		Muine.TargetUriList
 	};
 
 	private static TargetEntry [] playlist_source_entries = new TargetEntry [] {
-		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow),
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+		Muine.TargetMuineTreeModelRow,
+		Muine.TargetUriList
  	};
 		
 	private static TargetEntry [] playlist_dest_entries = new TargetEntry [] {
-		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow),
-		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList),
-		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList),
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+		Muine.TargetMuineTreeModelRow,
+		Muine.TargetMuineSongList,
+		Muine.TargetMuineAlbumList,
+		Muine.TargetUriList
 	};
 
 	/* public properties, for plug-ins and for dbus interface */
@@ -428,7 +420,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		string fn;
 
 		switch (args.Info) {
-		case (uint) TargetType.UriList:
+		case (uint) Muine.TargetType.UriList:
 			uri_list = StringUtils.SplitSelectionData (args.SelectionData);
 			fn = FileUtils.LocalPathFromUri (uri_list [0]);
 
@@ -1823,7 +1815,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		List songs = playlist.SelectedPointers;
 
 		switch (args.Info) {
-		case (uint) TargetType.UriList:
+		case (uint) Muine.TargetType.UriList:
 			string files = "";
 
 			foreach (int p in songs) {
@@ -1831,22 +1823,24 @@ public class PlaylistWindow : Window, PlayerInterface
 				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
 			}
 	
-			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetUriList.Target, false),
 						8, System.Text.Encoding.UTF8.GetBytes (files));
 						
-			break;	
-		case (uint) TargetType.ModelRow:
-			string ptrs = "\tMUINE_TREE_MODEL_ROW\t";
+			break;
+
+		case (uint) Muine.TargetType.ModelRow:
+			string ptrs = String.Format ("\t{0}\t", Muine.TargetMuineTreeModelRow.Target);
 
 			foreach (int p in songs) {
 				IntPtr s = new IntPtr (p);
 				ptrs += s.ToString () + "\r\n";
 			}
 			
-			args.SelectionData.Set (Gdk.Atom.Intern ("MUINE_TREE_MODEL_ROW", false),
+			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetMuineTreeModelRow.Target, false),
 					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 					
 			break;
+
 		default:
 			break;	
 		}
@@ -1919,25 +1913,31 @@ public class PlaylistWindow : Window, PlayerInterface
 			pos.Position = tmp_pos;
 		}
 
-		uint type = (uint) TargetType.UriList;
+		uint type = (uint) Muine.TargetType.UriList;
 
 		/* work around gtk bug .. */
-		if (data.StartsWith ("\tMUINE_TREE_MODEL_ROW\t")) {
-			type = (uint) TargetType.ModelRow;
-			data = data.Substring ("\tMUINE_TREE_MODEL_ROW\t".Length);
-		} else if (data.StartsWith ("\tMUINE_SONG_LIST\t")) {
-			type = (uint) TargetType.SongList;
-			data = data.Substring ("\tMUINE_SONG_LIST\t".Length);
-		} else if (data.StartsWith ("\tMUINE_ALBUM_LIST\t")) {
-			type = (uint) TargetType.AlbumList;
-			data = data.Substring ("\tMUINE_ALBUM_LIST\t".Length);
+		string tree_model_row = String.Format ("\t{0}\t", Muine.TargetMuineTreeModelRow.Target);
+		string song_list      = String.Format ("\t{0}\t", Muine.TargetMuineSongList.Target);
+		string album_list     = String.Format ("\t{0}\t", Muine.TargetMuineAlbumList.Target);
+		
+		if (data.StartsWith (tree_model_row)) {
+			type = (uint) Muine.TargetType.ModelRow;
+			data = data.Substring (tree_model_row.Length);
+			
+		} else if (data.StartsWith (song_list)) {
+			type = (uint) Muine.TargetType.SongList;
+			data = data.Substring (song_list.Length);
+			
+		} else if (data.StartsWith (album_list)) {
+			type = (uint) Muine.TargetType.AlbumList;
+			data = data.Substring (album_list.Length);
 		}
 
 		string [] bits = StringUtils.SplitSelectionData (data);
 
 		switch (type) {
-		case (uint) TargetType.SongList:
-		case (uint) TargetType.ModelRow:
+		case (uint) Muine.TargetType.SongList:
+		case (uint) Muine.TargetType.ModelRow:
 			foreach (string s in bits) {
 				IntPtr ptr;
 
@@ -1951,7 +1951,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 				bool play = false;
 
-				if (type == (uint) TargetType.ModelRow) {
+				if (type == (uint) Muine.TargetType.ModelRow) {
 					// Reorder part 1: remove old row
 					if (ptr == pos.Pointer)
 						break;
@@ -1980,7 +1980,8 @@ public class PlaylistWindow : Window, PlayerInterface
 			PlaylistChanged ();
 
 			break;
-		case (uint) TargetType.AlbumList:
+			
+		case (uint) Muine.TargetType.AlbumList:
 			foreach (string s in bits) {
 				IntPtr ptr;
 				
@@ -2001,7 +2002,8 @@ public class PlaylistWindow : Window, PlayerInterface
 			PlaylistChanged ();
 
 			break;
-		case (uint) TargetType.UriList:
+
+		case (uint) Muine.TargetType.UriList:
 			foreach (string s in bits) {
 				string fn = FileUtils.LocalPathFromUri (s);
 

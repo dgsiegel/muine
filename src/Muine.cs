@@ -94,6 +94,33 @@ public class Muine : Gnome.Program
 		}
 	}
 	
+	// DnD targets
+	public enum TargetType {
+		UriList,
+		Uri,
+		SongList,
+		AlbumList,
+		ModelRow
+	};
+
+	public static readonly TargetEntry TargetUriList = 
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
+		
+	public static readonly TargetEntry TargetGnomeIconList = 
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList);
+		
+	public static readonly TargetEntry TargetNetscapeUrl = 
+		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri);
+		
+	public static readonly TargetEntry TargetMuineAlbumList = 
+		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList);
+
+	public static readonly TargetEntry TargetMuineSongList = 
+		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList);
+		
+	public static readonly TargetEntry TargetMuineTreeModelRow = 
+		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
+	
 	// objects
 	private static PlaylistWindow playlist;
 

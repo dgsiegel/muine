@@ -31,6 +31,7 @@ public class AddAlbumWindow : Window
         private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
         private const int GConfDefaultHeight = 475; 
 
+	// Widgets
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
@@ -49,18 +50,20 @@ public class AddAlbumWindow : Window
 	private CellRenderer text_renderer;
 	private CellRenderer pixbuf_renderer;
 	private Gdk.Pixbuf nothing_pixbuf;
-	
-	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) PlaylistWindow.TargetType.UriList),
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) PlaylistWindow.TargetType.Uri)
+
+	// DnD Targets	
+	private static TargetEntry [] cover_drag_entries = new TargetEntry [] { 
+		Muine.TargetUriList, 
+		Muine.TargetGnomeIconList, 
+		Muine.TargetNetscapeUrl 
 	};
 
 	private static TargetEntry [] source_entries = new TargetEntry [] {
-		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.AlbumList),
-		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList)
+		Muine.TargetMuineAlbumList,
+		Muine.TargetUriList
 	};
 
+	// Constructor
 	public AddAlbumWindow () : base (IntPtr.Zero)
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
@@ -383,7 +386,7 @@ public class AddAlbumWindow : Window
 		List albums = view.SelectedPointers;
 
 		switch (args.Info) {
-		case (uint) PlaylistWindow.TargetType.UriList:
+		case (uint) Muine.TargetType.UriList:
 			string files = "";
 
 			foreach (int i in albums) {
@@ -394,22 +397,24 @@ public class AddAlbumWindow : Window
 					files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
 			}
 	
-			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetUriList.Target, false),
 						8, System.Text.Encoding.UTF8.GetBytes (files));
 						
 			break;
-		case (uint) PlaylistWindow.TargetType.AlbumList:
-			string ptrs = "\tMUINE_ALBUM_LIST\t";
+
+		case (uint) Muine.TargetType.AlbumList:
+			string ptrs = String.Format ("\t{0}\t", Muine.TargetMuineAlbumList.Target);
 			
 			foreach (int p in albums) {
 				IntPtr s = new IntPtr (p);
 				ptrs += s.ToString () + "\r\n";
 			}
 			
-			args.SelectionData.Set (Gdk.Atom.Intern ("MUINE_ALBUM_LIST", false),
+			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetMuineAlbumList.Target, false),
 					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 						
 			break;
+
 		default:
 			break;	
 		}

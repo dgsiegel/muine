@@ -46,9 +46,9 @@ public class CoverImage : EventBox
 	}
 
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) PlaylistWindow.TargetType.UriList),
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) PlaylistWindow.TargetType.Uri)
+		Muine.TargetUriList,
+		Muine.TargetGnomeIconList,
+		Muine.TargetNetscapeUrl
 	};
 
 	private void Sync ()
@@ -90,17 +90,18 @@ public class CoverImage : EventBox
 		string fn;
 		
 		switch (args.Info) {
-		case (uint) PlaylistWindow.TargetType.Uri:
+		case (uint) Muine.TargetType.Uri:
 			uri_list = Regex.Split (data, "\n");
 			fn = uri_list [0];
 			
 			Uri uri = new Uri (fn);
 
-			if (!(uri.Scheme == "http"))
+			if (uri.Scheme != "http")
 				break;
 
 			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
 				Muine.CoverDB.RemoveCover (song.AlbumKey);
+
 			song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
 			Muine.DB.SyncAlbumCoverImageWithSong (song);
 				
@@ -109,7 +110,8 @@ public class CoverImage : EventBox
 			success = true;
 
 			break;
-		case (uint) PlaylistWindow.TargetType.UriList:
+			
+		case (uint) Muine.TargetType.UriList:
 			uri_list = StringUtils.SplitSelectionData (data);
 			fn = FileUtils.LocalPathFromUri (uri_list [0]);
 
@@ -134,6 +136,7 @@ public class CoverImage : EventBox
 			success = true;
 			
 			break;
+
 		default:
 			break;
 		}
