@@ -1,5 +1,23 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Fix OnChanged logic.
+	
+	* src/AddWindow.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	SingalRequest, BooleanBox and DragDropPosition have to be classes,
+	not structs!
+	We change their properties while they are being passed around.
+
+	Also, don't break out of the changes checking loop when one
+	of the songs doesn't have a change ;)
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/muine.schemas.in:
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:

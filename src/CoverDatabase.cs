@@ -264,7 +264,5 @@ namespace Muine
 			if (DoneLoading != null)
 				DoneLoading ();
 		}
-
-
 	}
 }

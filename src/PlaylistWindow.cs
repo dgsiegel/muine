@@ -118,14 +118,6 @@ namespace Muine
 		// Events :: SelectionChangedEvent (IPlayer)
 		public event GenericEventHandler SelectionChangedEvent;
 
-		// Structs
-		// Structs :: DragAddSongPosition
-		private struct DragAddSongPosition {
-			public IntPtr               Pointer;
-			public TreeViewDropPosition Position;
-			public bool                 First;
-		}
-
 		// Internal Classes
 		// Internal Classes :: InvalidSong
 		private class InvalidSong
@@ -142,6 +134,13 @@ namespace Muine
 				Global.DB.RemoveSong (song);
 				return false;
 			}
+		}
+
+		// Internal Classes :: DragAddSongPosition
+		private class DragAddSongPosition {
+			public IntPtr               Pointer;
+			public TreeViewDropPosition Position;
+			public bool                 First;
 		}
 
 		// Widgets

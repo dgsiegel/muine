@@ -51,8 +51,9 @@ namespace Muine
 		public delegate void AlbumRemovedHandler (Album album);
 		public event AlbumRemovedHandler AlbumRemoved;
 
-		// Structs :: BooleanBox
-		private struct BooleanBox {
+		// Internal Classes
+		// Internal Classes :: BooleanBox
+		private class BooleanBox {
 			// Fields
 			public bool Value;
 
@@ -63,8 +64,8 @@ namespace Muine
 			}
 		}
 
-		// Structs :: SignalRequest
-		private struct SignalRequest {
+		// Internal Classes :: SignalRequest
+		private class SignalRequest {
 			// Fields
 			public Song  Song;
 			public Album Album;
@@ -77,7 +78,6 @@ namespace Muine
 			public bool  AlbumSongsChanged;
 		}
 
-		// Internal Classes
 		// Internal Classes :: AddFoldersThread
 		//	TODO: Split off?
 		private class AddFoldersThread : ThreadBase
@@ -175,7 +175,7 @@ namespace Muine
 					FileInfo finfo = new FileInfo (file);
 					Song song = (Song) snapshot [file];
 
-					SignalRequest rq = new SignalRequest ();
+					SignalRequest rq = null;
 
 					if (!finfo.Exists) {
 						rq = Global.DB.StartRemoveSong (song);
@@ -194,10 +194,8 @@ namespace Muine
 						}
 					}
 
-					if (rq.Song == null)
-						break;
-
-					queue.Enqueue (rq);
+					if (rq != null)
+						queue.Enqueue (rq);
 				}
 
 				// check for new songs
@@ -601,7 +599,6 @@ namespace Muine
 		}
 
 		// Methods :: Private :: HandleSignalRequest
-		//	TODO: Make public?
 		private void HandleSignalRequest (SignalRequest rq)
 		{
 			lock (this) {

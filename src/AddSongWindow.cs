@@ -145,9 +145,11 @@ namespace Muine
 		// 	Remove if we depend on Mono 1.1+
 		protected void OnChanged (Song Song)
 		{
-			bool may_append = (base.EnableSpeedHacks &&
-					    (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
-			                     base.List.Length < base.List.FakeLength));
+			bool may_append = true;
+			if (base.EnableSpeedHacks) {
+				may_append = (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
+			                      base.List.Length < base.List.FakeLength);
+			}
 			
 			base.List.HandleChanged (Song.Handle, 
 						 Song.FitsCriteria (base.Entry.SearchBits),

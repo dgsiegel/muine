@@ -368,9 +368,11 @@ namespace Muine
 		// 	UNUSED: Requires Mono 1.1+
 		protected void OnChanged (Item item)
 		{
-			bool may_append = (enable_speed_hacks &&
-					    (entry.Text.Length >= entry.MinQueryLength ||
-			                     list.Length < list.FakeLength));
+			bool may_append = true;
+			if (enable_speed_hacks) {
+				may_append = (entry.Text.Length >= entry.MinQueryLength ||
+			                      list.Length < list.FakeLength);
+			}
 			
 			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits),
 				may_append);
