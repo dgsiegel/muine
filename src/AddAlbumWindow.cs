@@ -38,12 +38,6 @@ public class AddAlbumWindow : AddWindow
 	private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 
 	// DnD Targets	
-	private static TargetEntry [] cover_drag_entries = new TargetEntry [] { 
-		DndUtils.TargetUriList, 
-		DndUtils.TargetGnomeIconList, 
-		DndUtils.TargetNetscapeUrl 
-	};
-
 	private static TargetEntry [] source_entries = new TargetEntry [] {
 		DndUtils.TargetMuineAlbumList,
 		DndUtils.TargetUriList
@@ -77,7 +71,7 @@ public class AddAlbumWindow : AddWindow
 
 		view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 		Gtk.Drag.DestSet (view, DestDefaults.All,
-				  cover_drag_entries, Gdk.DragAction.Copy);
+				  CoverImage.DragEntries, Gdk.DragAction.Copy);
 	}
 
 	private int SortFunc (IntPtr a_ptr,

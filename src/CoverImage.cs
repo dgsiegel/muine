@@ -45,11 +45,14 @@ public class CoverImage : EventBox
 		Dispose ();
 	}
 
-	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
+	private static TargetEntry [] drag_entries = new TargetEntry [] {
 		DndUtils.TargetUriList,
 		DndUtils.TargetGnomeIconList,
 		DndUtils.TargetNetscapeUrl
 	};
+	public static TargetEntry [] DragEntries {
+		get { return drag_entries; }
+	}
 
 	private void Sync ()
 	{
@@ -64,7 +67,7 @@ public class CoverImage : EventBox
 	
 		if (song != null && song.Album.Length > 0 && !Muine.CoverDB.Loading) {
 			Gtk.Drag.DestSet (this, DestDefaults.All,
-					  cover_drag_entries, Gdk.DragAction.Copy);
+					  drag_entries, Gdk.DragAction.Copy);
 		} else {
 			Gtk.Drag.DestSet (this, DestDefaults.All,
 					  null, Gdk.DragAction.Copy);
