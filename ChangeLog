@@ -1,5 +1,16 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/AddWindow.glade:
+	* data/glade/ErrorDialog.glade:
+	* data/glade/ProgressWindow.glade:
+	* data/glade/SkipToWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Dialog fixes.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Tray icon show/hide fixes.

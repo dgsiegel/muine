@@ -5,7 +5,7 @@
 <requires lib="gnome"/>
 
 <widget class="GtkDialog" id="window">
-  <property name="border_width">5</property>
+  <property name="border_width">7</property>
   <property name="title" translatable="yes">TITLE</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -185,7 +185,7 @@
 
       <child>
 	<widget class="GtkVBox" id="vbox25">
-	  <property name="border_width">8</property>
+	  <property name="border_width">5</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
 	  <property name="spacing">6</property>
