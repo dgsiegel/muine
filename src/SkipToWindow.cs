@@ -44,12 +44,14 @@ public class SkipToWindow
 
 		player = p;
 		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
+
+		HandleTickEvent (player.Position);
 	}
 
 	public void Run ()
 	{
 		window.Visible = true;
-		
+
 		song_slider.GrabFocus ();
 	}
 

@@ -77,9 +77,9 @@ public class PlaylistWindow : Window
 	private NotificationAreaIcon icon;
 
 	/* windows */
-	SkipToWindow skip_to_window;
-	AddSongWindow add_song_window;
-	AddAlbumWindow add_album_window;
+	SkipToWindow skip_to_window = null;
+	AddSongWindow add_song_window = null;
+	AddAlbumWindow add_album_window = null;
 
 	/* the player object */
 	private Player player;
@@ -113,17 +113,6 @@ public class PlaylistWindow : Window
 		SetupPlayer (glade_xml);
 		SetupButtonsAndMenuItems (glade_xml);
 		SetupPlaylist (glade_xml);
-
-		/* set up the different windows we use */
-		skip_to_window = new SkipToWindow (this, player);
-
-		add_song_window = new AddSongWindow ();
-		add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
-		add_song_window.PlaySongsEvent += new AddSongWindow.PlaySongsEventHandler (HandlePlaySongsEvent);
-		
-		add_album_window = new AddAlbumWindow ();
-		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
-		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 
 		/* connect to song database signals */
 		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
@@ -622,7 +611,8 @@ public class PlaylistWindow : Window
 
 			icon.Tooltip = null;
 
-			skip_to_window.Hide ();
+			if (skip_to_window != null)
+				skip_to_window.Hide ();
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -1079,6 +1069,9 @@ public class PlaylistWindow : Window
 	{
 		playlist.Select (playlist.Playing);
 
+		if (skip_to_window == null)
+			skip_to_window = new SkipToWindow (this, player);
+
 		skip_to_window.Run ();
 	}
 
@@ -1111,6 +1104,13 @@ public class PlaylistWindow : Window
 
 	private void HandleAddSongCommand (object o, EventArgs args)
 	{
+		if (add_song_window == null) {
+			add_song_window = new AddSongWindow ();
+
+			add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
+			add_song_window.PlaySongsEvent += new AddSongWindow.PlaySongsEventHandler (HandlePlaySongsEvent);
+		}
+
 		add_song_window.Run ();
 		
 		AddChildWindowIfVisible (add_song_window);
@@ -1118,6 +1118,13 @@ public class PlaylistWindow : Window
 
 	private void HandleAddAlbumCommand (object o, EventArgs args)
 	{
+		if (add_album_window == null) {
+			add_album_window = new AddAlbumWindow ();
+			
+			add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
+			add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
+		}
+
 		add_album_window.Run ();
 
 		AddChildWindowIfVisible (add_album_window);

@@ -1,3 +1,10 @@
+2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+	* src/SkipToWindow.cs:
+
+	Defer initialization of dialogs till when they are requested.
+
 2004-04-14  Artur Flinta  <aflinta@cvs.gnome.org>
 
         * configure.in:
