@@ -22,7 +22,7 @@ namespace Muine
 	public class AddWindowEntry : Gtk.Entry
 	{
 		// Variables
-		private int min_query_length;
+		private static readonly int min_query_length = 3;
 
 		// Constructor
 		public AddWindowEntry () : base ()
@@ -36,9 +36,8 @@ namespace Muine
 			get { return base.Text.ToLower ().Split (' '); }	
 		}
 
-		// Properties :: MinQueryLength (set; get;)
+		// Properties :: MinQueryLength (get;)
 		public int MinQueryLength {
-			set { min_query_length = value; }
 			get { return min_query_length;  }
 		}
 

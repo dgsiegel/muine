@@ -24,7 +24,7 @@ namespace Muine
 	public class AddWindowList : HandleView
 	{
 		// Variables
-		private int fake_length;
+		private static readonly int fake_length = 150;
 
 		// Constructor
 		public AddWindowList () : base ()
@@ -33,9 +33,8 @@ namespace Muine
 		}
 		
 		// Properties
-		// Properties :: FakeLength (set; get;)
+		// Properties :: FakeLength (get;)
 		public int FakeLength {
-			set { fake_length = value; }
 			get { return fake_length;  }
 		}
 

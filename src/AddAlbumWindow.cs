@@ -39,12 +39,6 @@ namespace Muine
 		private const string GConfKeyEnableSpeedHacks = "/apps/muine/add_album_window/enable_speed_hacks";
 		private const bool GConfDefaultEnableSpeedHacks = false;
 
-		private const string GConfKeyMinQueryLength = "/apps/muine/add_album_window/min_query_length";
-		private const int    GConfDefaultMinQueryLength = 3;
-
-		private const string GConfKeyFakeLength = "/apps/muine/add_album_window/fake_length";
-		private const int    GConfDefaultFakeLength = 150;
-
 		// Strings
 		private static readonly string string_title = 
 			Catalog.GetString ("Play Album");
@@ -72,9 +66,7 @@ namespace Muine
 			base.SetGConfSize (GConfKeyWidth , GConfDefaultWidth, 
 					   GConfKeyHeight, GConfDefaultHeight);
 
-			base.SetGConfSpeedHacks (GConfKeyEnableSpeedHacks, GConfDefaultEnableSpeedHacks,
-						 GConfKeyMinQueryLength  , GConfDefaultMinQueryLength,
-						 GConfKeyFakeLength      , GConfDefaultFakeLength);
+			base.SetGConfSpeedHacks (GConfKeyEnableSpeedHacks, GConfDefaultEnableSpeedHacks);
 
 			base.Items = Global.DB.Albums.Values;
 						

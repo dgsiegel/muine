@@ -155,23 +155,13 @@ namespace Muine
 		}
 
 		// Methods :: Protected :: SetGConfSpeedHacks
-		protected void SetGConfSpeedHacks (string key_enable_speed_hacks, bool default_speed_hacks,
-						   string key_min_query_length  , int  default_min_query_length,
-						   string key_fake_length       , int  default_fake_length)
+		protected void SetGConfSpeedHacks (string key_enable_speed_hacks,
+						   bool default_speed_hacks)
 		{
-			enable_speed_hacks    = (bool) Config.Get (key_enable_speed_hacks, default_speed_hacks     );
-			int min_query_length  = (int)  Config.Get (key_min_query_length  , default_min_query_length);
-			int fake_length       = (int)  Config.Get (key_fake_length       , default_fake_length     );
-			
-			min_query_length = Math.Max (0, min_query_length);
-			fake_length      = Math.Max (0, fake_length     );
-			
-			Config.Set (key_enable_speed_hacks, enable_speed_hacks);
-			Config.Set (key_min_query_length  , min_query_length  );
-			Config.Set (key_fake_length       , fake_length       );
-			
-			entry.MinQueryLength = min_query_length;
-			list.FakeLength      = fake_length;
+			enable_speed_hacks = (bool) Config.Get (key_enable_speed_hacks, default_speed_hacks     );
+
+			Config.AddNotify (key_enable_speed_hacks,
+					  new GConf.NotifyEventHandler (OnEnableSpeedHacksChanged));
 		}
 
 		// Methods :: Protected :: Reset
@@ -391,6 +381,12 @@ namespace Muine
 		protected void OnRemoved (Item item)
 		{
 			list.HandleRemoved (item.Handle);
+		}
+
+		// Handlers :: OnEnableSpeedHacksChanged
+		private void OnEnableSpeedHacksChanged (object o, GConf.NotifyEventArgs args)
+		{
+			enable_speed_hacks = (bool) args.Value;
 		}
 	}
 }

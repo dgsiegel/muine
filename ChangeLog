@@ -1,5 +1,16 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/muine.schemas.in:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+
+	Remove fake_length and min_query_length gconf crack.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/Database.cs:
 	* src/Metadata.cs:
