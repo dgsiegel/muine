@@ -53,7 +53,7 @@ o Use storage
 o Support OGM files
   These will work once GStreamer supports them
 o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
-  we use GTK 2.3
+  we use GTK 2.3, also make app icon themable, and use different window icons
   Depends on Gtk# supporting Gtk 2.3
 o Use the GTK+ 2.3 fileselector, if it is available.
   Depends on Gtk# supporting Gtk 2.3
