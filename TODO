@@ -6,8 +6,6 @@ o Use GnomeVFS
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o D-BUS service (Sergio Rubio is on this)
-o Rewrite metadata backend to use TagLib, and add metadata writing support
-  http://developer.kde.org/~wheeler/taglib.html
 
 Tough:
 ======
@@ -55,6 +53,8 @@ o Figure out how to add new command line options (showing up in --help etc),
   Depends on popt support in Gtk#
 o Make SM work fully
   Depends on popt support in Gtk#
+o Switch metadata and playback all over to GStreamer. But, GST should
+  be a bit more reliable first.
 
 We won't have:
 ==============
