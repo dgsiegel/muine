@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-12 22:12+0200\n"
-"PO-Revision-Date: 2004-04-12 22:13+0200\n"
+"PO-Revision-Date: 2004-04-16 03:08+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -56,10 +56,7 @@ msgid ""
 "Muine will create the folders Music and Music/Playlists in your home folder "
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
-msgstr ""
-"Muine creará las carpetas Música y Música/Listas de Reproducción en su "
-"carpeta personal para almacenar sus archivos de música. Esta opción se "
-"recomienda. Puede importar otras carpetas manualmente."
+msgstr "Muine creará las carpetas Music y Music/Playlists en su carpeta personal para almacenar sus archivos de música. Esta opción se recomienda. Puede importar otras carpetas manualmente."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
@@ -79,7 +76,7 @@ msgstr "_Crear una colección de música vacía"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
-msgstr "_Nadam gestionaré mi música yo mismo"
+msgstr "_Nada, gestionaré mi música yo mismo"
 
 #: data/glade/PlaylistWindow.glade.h:1
 msgid "P_roperties"
@@ -227,7 +224,7 @@ msgstr "Anchura de la ventana de lista de reproducción."
 
 #: data/muine.schemas.in.h:11
 msgid "Last used folder from \"Import folder\" dialog."
-msgstr "Última carpeta usada desde el diálogo «Importar carpeta...»."
+msgstr "Última carpeta usada desde el diálogo «Importar carpeta»."
 
 #: data/muine.schemas.in.h:12
 msgid "Last used folder from the playlist file selectors."
@@ -282,7 +279,9 @@ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
 
 #: src/About.cs:52
 msgid "translator-credits"
-msgstr "Francisco Javier F. Serrador <serrador@cvs.gnome.org>"
+msgstr ""
+"Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"Sergio Rubio <sergio.rubio@hispalinux.es>"
 
 #: src/About.cs:57
 msgid "Muine"
@@ -306,7 +305,7 @@ msgstr ""
 #: src/AddAlbumWindow.cs:171 src/PlaylistWindow.cs:591
 #, csharp-format
 msgid "Performed by {0}"
-msgstr "Ejecutapo por {0}"
+msgstr "Ejecutado por {0}"
 
 #. Space-separated list of prefixes that will be taken off the front
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
@@ -319,7 +318,7 @@ msgstr "el dj"
 #: src/CoverDatabase.cs:66 src/SongDatabase.cs:76
 #, csharp-format
 msgid "Failed to open database: {0}"
-msgstr "Fallo al abrir la base de datos: {0}"
+msgstr "Falló al abrir la base de datos: {0}"
 
 #: src/Metadata.cs:165
 #, csharp-format
@@ -350,7 +349,7 @@ msgstr "Reproductor de música Muine"
 
 #: src/NotificationAreaIcon.cs:86
 msgid "_Previous Song"
-msgstr "_Canción anterior"
+msgstr "Canción _anterior"
 
 #: src/NotificationAreaIcon.cs:89
 msgid "_Next Song"
@@ -374,7 +373,7 @@ msgstr "Reproduce la canción anterior"
 
 #: src/PlaylistWindow.cs:280
 msgid "Play the next song"
-msgstr "Reproduce la canción siguiente"
+msgstr "Reproducir la canción siguiente"
 
 #: src/PlaylistWindow.cs:282
 msgid "Add an album to the playlist"
@@ -444,7 +443,7 @@ msgstr "Desde «{0}»"
 
 #: src/PlaylistWindow.cs:589
 msgid "Album unknown"
-msgstr "Album desconocido"
+msgstr "Álbum desconocido"
 
 #: src/PlaylistWindow.cs:594
 msgid "Drop an image here to use it as album cover"
@@ -453,7 +452,7 @@ msgstr "Suelte una imagen aquí para usarla como cubierta del álbum"
 #: src/PlaylistWindow.cs:605
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "Reproductor de Música Muine -{0}"
+msgstr "Reproductor de Música Muine - {0}"
 
 #: src/PlaylistWindow.cs:640
 msgid "Pause music playback"
@@ -484,7 +483,7 @@ msgstr "fallo al abrir {0} para lectura"
 #: src/PlaylistWindow.cs:800
 #, csharp-format
 msgid "Failed to open {0} for writing"
-msgstr "fallo al abrir {0} para escritura"
+msgstr "Falló al abrir {0} para escritura"
 
 #: src/PlaylistWindow.cs:1161
 msgid "Import Folder"
@@ -529,119 +528,3 @@ msgstr "{0} y otros"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
-
-#~ msgid "_Clear Playlist"
-#~ msgstr "_Limpiar lista de reproducción"
-
-#~ msgid "_Information"
-#~ msgstr "_Información"
-
-#~ msgid "Song _Information"
-#~ msgstr "_Información de la canción"
-
-#~ msgid ""
-#~ "Failed to create the required GStreamer elements.\n"
-#~ "Exiting..."
-#~ msgstr ""
-#~ "falló al crear los elementos requeridos de GStreamer.\n"
-#~ "Saliendo..."
-
-#~ msgid "<b>Groups</b>"
-#~ msgstr "<b>Grupos</b>"
-
-#~ msgid "<b>Songs</b> (30 minutes in total)"
-#~ msgstr "<b>Canciones</b> (30 minutos en total)"
-
-#~ msgid "Groups"
-#~ msgstr "Grupos"
-
-#~ msgid "_Add song"
-#~ msgstr "Añadir _canción"
-
-#~ msgid "Play _Album"
-#~ msgstr "Reproducir _álbum"
-
-#~ msgid "Play _Song"
-#~ msgstr "Reproducir _canción"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientación"
-
-#~ msgid "The orientation of the tray."
-#~ msgstr "La orientación de la bandeja."
-
-#~ msgid "TITLE"
-#~ msgstr "TÍTULO"
-
-#~ msgid "ERROR MESSAGE"
-#~ msgstr "MENSAJE DE ERROR"
-
-#~ msgid "Volume _Down"
-#~ msgstr "_Bajar Volumen"
-
-#~ msgid "Volume _Up"
-#~ msgstr "_Subir Volumen"
-
-#~ msgid "_Actions"
-#~ msgstr "_Acciones"
-
-#~ msgid "_Fill queue with random songs from selected groups"
-#~ msgstr ""
-#~ "_Llenar la cola con canciones aleatorias de los grupos seleccionados"
-
-#~ msgid "_Volume"
-#~ msgstr "_Volumen"
-
-#~ msgid "0 seconds"
-#~ msgstr "0 segundos"
-
-#~ msgid "_Skip to:"
-#~ msgstr "_Saltar a:"
-
-#~ msgid "seconds"
-#~ msgstr "segundos"
-
-#~ msgid "Playlist window visibility."
-#~ msgstr "Visibilidad de la ventana de lista de reproducción."
-
-#~ msgid "Playlist window visible (true) or not (false)."
-#~ msgstr "Ventana de lista de reproducción visible (true) o no (false)."
-
-#~ msgid "Pixbuf"
-#~ msgstr "Imagen"
-
-#~ msgid "A GdkPixbuf to display"
-#~ msgstr "El GdkPixbuf a mostrar"
-
-#~ msgid "Filename"
-#~ msgstr "Nombre del archivo"
-
-#~ msgid "Filename to load and display"
-#~ msgstr "Nombre del archivo para cargar y mostrar"
-
-#~ msgid "Stock ID"
-#~ msgstr "Stock ID"
-
-#~ msgid "Stock ID for a stock image to display"
-#~ msgstr "Stock ID de la imagen a mostrar"
-
-#~ msgid "GdkPixbufAnimation to display"
-#~ msgstr "GdkPixbufAnimation a mostrar"
-
-#~ msgid "Image type"
-#~ msgstr "Tipo de la imagen"
-
-#~ msgid "The representation being used for image data"
-#~ msgstr "La representación usada para los datos de la imagen"
-
-#~ msgid "Size"
-#~ msgstr "Tamaño"
-
-#~ msgid "The size of the icon"
-#~ msgstr "El tamaño del icono"
-
-#~ msgid "Blinking"
-#~ msgstr "Parpadeante"
-
-#~ msgid "Whether or not the status icon is blinking"
-#~ msgstr "Si el icono de estado es parpadeante"
