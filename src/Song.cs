@@ -93,7 +93,8 @@ public class Song
 		set {
 			cover_image = value;
 
-			checked_cover_image = true;
+			if (cover_image != null)
+				checked_cover_image = true;
 		}
 		
 		get {

@@ -1,5 +1,11 @@
 2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/Song.cs:
+
+	Fix checked_cover_image being set to true when it should be false.
+
+2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/PlaylistWindow.cs:
 

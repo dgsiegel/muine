@@ -11,6 +11,7 @@ o Add FLAC support
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
 o Create ~/Music if it doesn't exist, but ask first? (Viet Yen is on this)
+o D-BUS service
 
 Tough:
 ======
