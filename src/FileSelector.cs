@@ -46,23 +46,18 @@ public class FileSelector : FileSelection
 		Filename = start_dir;
 	}
 
-	public string GetFile (out bool exists)
+	public string GetFile ()
 	{
 		if (Run () != (int) ResponseType.Ok) {
 			Destroy ();
 
-			exists = false;
-
 			return "";
 		}
 		
-		FileInfo finfo = new FileInfo (Filename);
-
-		Muine.GConfClient.Set (gconf_path, finfo.DirectoryName + "/");
+		Muine.GConfClient.Set (gconf_path,
+		                       System.IO.Path.GetDirectoryName (Filename) + "/");
 
 		string ret = Filename;
-
-		exists = finfo.Exists;
 
 		Destroy ();
 

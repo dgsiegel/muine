@@ -743,10 +743,10 @@ public class PlaylistWindow : Window
 			/* DOS-to-UNIX */
 			line.Replace ('\\', '/');
 
-			FileInfo finfo;
-			
+			string basename = "";
+
 			try {
-				finfo = new FileInfo (line);
+				basename = System.IO.Path.GetFileName (line);
 			} catch {
 				continue;
 			}
@@ -754,8 +754,6 @@ public class PlaylistWindow : Window
 			Song song = (Song) Muine.DB.Songs [line];
 			if (song == null) {
 				/* not found, lets see if we can find it anyway.. */
-				string basename = finfo.Name;
-
 				foreach (string key in Muine.DB.Songs.Keys) {
 					string key_basename = System.IO.Path.GetFileName (key);
 
@@ -1217,13 +1215,14 @@ public class PlaylistWindow : Window
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Open Playlist"),
 						     "/apps/muine/default_playlist_folder");
 
-		bool exists;
-		string fn = sel.GetFile (out exists);
+		string fn = sel.GetFile ();
 
-		if (fn.Length == 0)
+		if (fn.Length == 0 || System.IO.Path.GetExtension (fn) != ".m3u")
 			return;
 
-		if (exists) {
+		FileInfo finfo = new FileInfo (fn);
+
+		if (finfo.Exists) {
 			OpenPlaylist (fn);
 			
 			EnsurePlaying ();
@@ -1237,13 +1236,18 @@ public class PlaylistWindow : Window
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Save Playlist"),
 						     "/apps/muine/default_playlist_folder");
 
-		bool exists;
-		string fn = sel.GetFile (out exists);
+		string fn = sel.GetFile ();
 
 		if (fn.Length == 0)
 			return;
 
-		if (exists) {
+		/* make sure the extension is ".m3u" */
+		if (!fn.EndsWith (".m3u"))
+			fn += ".m3u";
+
+		FileInfo finfo = new FileInfo (fn);
+
+		if (finfo.Exists) {
 			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), fn), this);
 			if (d.GetAnswer () == true)
 				SavePlaylist (fn, false, false);

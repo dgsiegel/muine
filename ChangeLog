@@ -1,3 +1,12 @@
+2004-04-17  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/FileSelector.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Always save playlists with an m3u extension, only open playlist
+	files with a m3u extension.
+
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/EllipsizingLabel.cs:

@@ -116,7 +116,7 @@ public class Muine : Gnome.Program
 			/* try to load first argument as playlist */
 			FileInfo finfo = new FileInfo (args [0]);
 			
-			if (finfo.Exists) {
+			if (finfo.Exists && Path.GetExtension (args [0]) == ".m3u") {
 				if (use_conn)
 					conn.Send (finfo.FullName);
 				else
