@@ -1,0 +1,308 @@
+# translation of muine to Deutsch
+# Copyright (C) 2004 The Free Software Foundation
+# This file is distributed under the same license as the muine package.
+# Matthias Debus <psic4t@netbands.de>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNOME 2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-23 20:41+0100\n"
+"PO-Revision-Date: 2004-02-09 19:45+0100\n"
+"Last-Translator: Matthias Debus <psic4t@netbands.de>\n"
+"Language-Team: Deutsch <psic4t@netbands.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
+msgid "TITLE"
+msgstr "TITEL"
+
+# Afspelen?
+#: data/glade/AddWindow.glade.h:3
+msgid "_Play"
+msgstr "_Abspielen"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Queue"
+msgstr "_Hinzufügen"
+
+#: data/glade/AddWindow.glade.h:5
+msgid "_Search:"
+msgstr "_Suchen:"
+
+#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
+msgid "ERROR MESSAGE"
+msgstr "ERROR MESSAGE"
+
+#: data/glade/ErrorDialog.glade.h:2
+msgid "Error"
+msgstr "Fehler"
+
+#: data/glade/GroupsWindow.glade.h:1
+msgid "<b>Groups</b>"
+msgstr "<b>Gruppen</b>"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr "<b>Songs</b> (30 Minuten gesamt)"
+
+#: data/glade/GroupsWindow.glade.h:3
+msgid "Groups"
+msgstr "Gruppen"
+
+#: data/glade/GroupsWindow.glade.h:4
+msgid "_Add song"
+msgstr "_Song spielen"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Add _Album"
+msgstr "_Album spielen"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Add _Album..."
+msgstr "_Album spielen..."
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Add _Song"
+msgstr "_Song spielen"
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Add _Song..."
+msgstr "_Song spielen..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "Remove _Played Songs"
+msgstr "_Bereits gespielte Songs löschen"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Skip _Backwards"
+msgstr "_Zurückspulen"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Forward"
+msgstr "_Vorspulen"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "_Clear Playlist"
+msgstr "Playliste _löschen"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "_Fill queue with random songs from selected groups"
+msgstr "Playliste mit _zufälligen Titeln aus den gewählten Gruppen füllen"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Groups"
+msgstr "_Gruppen"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Hide Window"
+msgstr "Fenster _verbergen"
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Import Folder..."
+msgstr "Ordner _importieren..."
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "_Nächstes"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "Playliste _öffnen..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Playliste"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "V_orheriges"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "Song _löschen"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "Playliste speichern _unter..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Spulen zu..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "_Song"
+
+# Bezig met laden:
+# Nu aan het laden:
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Laden:"
+
+#: data/glade/SearchMusicWindow.glade.h:1
+msgid "Search for Music"
+msgstr "Nach Musik suchen"
+
+#: data/glade/SearchMusicWindow.glade.h:2
+msgid "Welcome to Muine"
+msgstr "Willkommen bei Muine"
+
+#: data/glade/SearchMusicWindow.glade.h:3
+msgid "_Search"
+msgstr "_Suchen"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Spulen zu"
+
+#: data/glade/YesNoDialog.glade.h:2
+msgid "Question"
+msgstr "Frage"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Ihre Musik anhören"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine Music Player"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Album hinzufügen Fensterhöhe."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Album hinzufügen Fensterbreite."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Song hinzufügen Fensterhöhe."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Song hinzufügen Fensterbreite."
+
+#: data/muine.schemas.in.h:5
+msgid "Default \"Open Playlist\" folder."
+msgstr "Standardordner für \"Playliste öffnen\"."
+
+#: data/muine.schemas.in.h:6
+msgid "Default \"Save Playlist As\" folder."
+msgstr "Standardordner für \"Playliste speichern als...\"."
+
+#: data/muine.schemas.in.h:7
+msgid "Default import folder."
+msgstr "Standard Import-Ordner."
+
+#: data/muine.schemas.in.h:8
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Letzter benutzter Ordner des Dialogs \"Ordner importieren\"."
+
+#: data/muine.schemas.in.h:9
+msgid "Last used folder from \"Open Playlist\" dialog."
+msgstr "Letzter benutzter Ordner des Dialogs \"Playliste öffnen\"."
+
+#: data/muine.schemas.in.h:10
+msgid "Last used folder from \"Save Playlist As\" dialog."
+msgstr "Letzter benutzter Ordner des Dialogs \"Playliste speichern als...\"."
+
+#: data/muine.schemas.in.h:11
+msgid "Playlist window height."
+msgstr "Playliste Fensterhöhe."
+
+#: data/muine.schemas.in.h:12
+msgid "Playlist window visibility."
+msgstr "Playlistenfenster sichtbar."
+
+#: data/muine.schemas.in.h:13
+msgid "Playlist window visible (true) or not (false)."
+msgstr "Playlistenfenster sichtbar (true) oder nicht (false)."
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr "Playliste Fensterbreite ."
+
+#: data/muine.schemas.in.h:15
+msgid "Volume level."
+msgstr "Lautstärke."
+
+#: data/muine.schemas.in.h:16
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Lautstäke: 0 = minimal, 100 = maximal."
+
+#: libmuine/egg/eggstatusicon.c:154
+msgid "Pixbuf"
+msgstr "Pixbuf"
+
+#: libmuine/egg/eggstatusicon.c:155
+msgid "A GdkPixbuf to display"
+msgstr "Ein GdkPixbuf für die Anzeige"
+
+#: libmuine/egg/eggstatusicon.c:162
+msgid "Filename"
+msgstr "Dateiname"
+
+#: libmuine/egg/eggstatusicon.c:163
+msgid "Filename to load and display"
+msgstr "Dateiname zum Laden und Anzeigen"
+
+#: libmuine/egg/eggstatusicon.c:170
+msgid "Stock ID"
+msgstr "Standard ID"
+
+#: libmuine/egg/eggstatusicon.c:171
+msgid "Stock ID for a stock image to display"
+msgstr "Standard ID für die Anzeige eines Standardbilds"
+
+#: libmuine/egg/eggstatusicon.c:178
+msgid "Animation"
+msgstr "Animation"
+
+#: libmuine/egg/eggstatusicon.c:179
+msgid "GdkPixbufAnimation to display"
+msgstr "GdkPixbufAnimation für Wiedergabe"
+
+#: libmuine/egg/eggstatusicon.c:186
+msgid "Image type"
+msgstr "Bildtyp"
+
+#: libmuine/egg/eggstatusicon.c:187
+msgid "The representation being used for image data"
+msgstr "Die Darstellung von Bildinformationen"
+
+#: libmuine/egg/eggstatusicon.c:195
+msgid "Size"
+msgstr "Grö�e"
+
+#: libmuine/egg/eggstatusicon.c:196
+msgid "The size of the icon"
+msgstr "Die Icongrö�e"
+
+#: libmuine/egg/eggstatusicon.c:205
+msgid "Blinking"
+msgstr "Blinkend"
+
+#: libmuine/egg/eggstatusicon.c:206
+msgid "Whether or not the status icon is blinking"
+msgstr "Ob oder ob nicht das Statusicon blinkt"
+
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
+msgid "Orientation"
+msgstr "Position"
+
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
+msgid "The orientation of the tray."
+msgstr "Die Position des Trays."
+

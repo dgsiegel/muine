@@ -1,3 +1,9 @@
+2004-02-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+
+	Added "de" (German) to ALL_LINGUAS.
+
 2004-02-09  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
