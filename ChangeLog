@@ -1,5 +1,17 @@
 2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-model.c:
+	(pointer_list_model_get_moved_iter):
+	* libmuine/pointer-list-model.h:
+	* libmuine/pointer-list-view.c: (pointer_list_view_next):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Remove obsolete methods.
+
+2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/About.cs:
 
 	Don't keep the logo pixbuf in memory.

@@ -963,14 +963,6 @@ pointer_list_model_has_first (PointerListModel *model)
 }
 
 void
-pointer_list_model_state_changed (PointerListModel *model)
-{
-  g_return_if_fail (IS_POINTER_LIST_MODEL (model));
-
-  row_changed (model, model->current_pointer);
-}
-
-void
 pointer_list_model_get_moved_iter (PointerListModel *model,
 				   GtkTreeIter      *iter)
 {
@@ -979,20 +971,4 @@ pointer_list_model_get_moved_iter (PointerListModel *model,
 
   iter->stamp = model->stamp;
   iter->user_data = model->moved_pointer;
-}
-
-int
-pointer_list_model_get_index_of (PointerListModel *model,
-				 gpointer pointer)
-{
-  GSequencePtr ptr;
-
-  g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), -1);
-
-  ptr = g_hash_table_lookup (model->reverse_map, pointer);
-
-  if (!ptr)
-    return -1;
-
-  return g_sequence_ptr_get_position (ptr);
 }

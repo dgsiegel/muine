@@ -537,16 +537,3 @@ pointer_list_view_next (PointerListView *view)
 {
 	return pointer_list_model_next (view->model);
 }
-
-int
-pointer_list_view_get_index_of (PointerListView *view,
-				gpointer pointer)
-{
-	return pointer_list_model_get_index_of (view->model, pointer);
-}
-
-void
-pointer_list_view_state_changed (PointerListView *view)
-{
-	pointer_list_model_state_changed (view->model);
-}

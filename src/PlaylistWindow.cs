@@ -636,7 +636,7 @@ public class PlaylistWindow : Window
 
 		icon.Playing = playing;
 
-		playlist.StateChanged ();
+		playlist.Changed (playlist.Playing);
 	}
 
 	private void ClearPlaylist ()

@@ -80,8 +80,6 @@ gboolean         pointer_list_view_select_prev   (PointerListView *view,
 						  gboolean scroll);
 void             pointer_list_view_select        (PointerListView *view,
 						  gpointer pointer);
-void             pointer_list_view_scroll_to     (PointerListView *view,
-						  gpointer pointer);
 void             pointer_list_view_set_sort_func (PointerListView *view,
 				                  GCompareFunc sort_func);
 void             pointer_list_view_set_playing   (PointerListView *view,
@@ -94,8 +92,5 @@ gpointer         pointer_list_view_first         (PointerListView *view);
 gpointer	 pointer_list_view_last		 (PointerListView *view);
 gpointer         pointer_list_view_prev          (PointerListView *view);
 gpointer         pointer_list_view_next          (PointerListView *view);
-int              pointer_list_view_get_index_of  (PointerListView *view,
-						  gpointer pointer);
-void             pointer_list_view_state_changed (PointerListView *view);
 
 #endif /* __POINTER_LIST_VIEW_H__ */
