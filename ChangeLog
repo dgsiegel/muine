@@ -1,3 +1,10 @@
+2005-03-16  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/HandleView.cs:
+	
+	s/this.Model/this.model -- builds (wrongly) with
+	Mono 1.0.x but not with Mono 1.1.x, now fixed.
+
 2005-03-15  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/About.cs:

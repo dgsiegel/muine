@@ -33,8 +33,7 @@ namespace Muine
 		// Constructor
 		public HandleView ()
 		{
-			model = new HandleModel ();
-			this.Model = model;
+			this.model = new HandleModel ();
 
 			RulesHint      = true;
 			EnableSearch   = false;
