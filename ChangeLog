@@ -1,5 +1,13 @@
 2004-12-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.7.1.
+
+2004-12-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/MmKeys.cs:
 
 	Keep handles to the delegates being passed into the unmanaged world.

@@ -1,3 +1,17 @@
+0.7.1
+=====
+
+- Take disc number into account when sorting album tracks
+                                            [Mariano Suárez-Alvarez]
+- Fix high CPU usage with GStreamer backend [Jorn Baayen]
+- Fix the bug where pressing a multimedia key would crash with mono 1.1.x
+                                            [Jorn Baayen]
+- Remove libgnome dependency [Jorn Baayen]
+- Many code cleanups [Tamara Roberson, Jorn Baayen]
+
+Updated translations:
+- Russian [Alekseev Vladimir]
+
 0.7.0
 =====
 
