@@ -89,7 +89,7 @@ public class PlaylistWindow : Window
 	/* the playlist filename */
 	private string playlist_filename;
 
-	public PlaylistWindow () : base (Muine.Catalog.GetString ("Muine Music Player"))
+	public PlaylistWindow () : base ("")
 	{
 		/* build the interface */
 		Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
@@ -217,24 +217,35 @@ public class PlaylistWindow : Window
 	private int last_x = -1;
 	private int last_y = -1;
 
+	private bool window_visible;
+
 	public void SetWindowVisible (bool visible)
 	{
-		if (visible == false) {
-			GetPosition (out last_x, out last_y);
+		window_visible = visible;
 
-			Visible = false;
-			
-			((Label) icon.show_window_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Show _Window");
-		} else {
+		if (visible) {
 			if (Visible == false && last_x >= 0 && last_y >= 0)
 				Move (last_x, last_y);
 
+			Present ();
+		} else {
+			GetPosition (out last_x, out last_y);
+
+			Visible = false;
+		}
+
+		UpdateWindowVisibilityUI ();
+	}
+
+	public void UpdateWindowVisibilityUI ()
+	{
+		if (window_visible) {
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 
 			((Label) icon.show_window_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Hide _Window");
-
-			Present ();
+		} else {
+			((Label) icon.show_window_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Show _Window");
 		}
 	}
 
@@ -886,6 +897,13 @@ public class PlaylistWindow : Window
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 		}
+
+		bool old_window_visible = window_visible;
+		window_visible = ((args.Event.new_window_state != Gdk.WindowState.Iconified) &&
+				  (args.Event.new_window_state != Gdk.WindowState.Withdrawn));
+
+		if (old_window_visible != window_visible)
+			UpdateWindowVisibilityUI ();
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
@@ -910,7 +928,7 @@ public class PlaylistWindow : Window
 		if (GdkWindow.State == Gdk.WindowState.Iconified)
 			SetWindowVisible (true);
 		else
-			SetWindowVisible (!Visible);
+			SetWindowVisible (!window_visible);
 	}
 
 	private bool had_last_eos;
