@@ -463,7 +463,7 @@ namespace Muine
 			if (song == null)
 				return;
 
-			IntPtr p = AddSong (song);
+			AddSong (song);
 			EnsurePlaying ();
 			PlaylistChanged ();
 		}
@@ -749,7 +749,6 @@ namespace Muine
 			add_album_button  .Clicked += new EventHandler (OnAddAlbumButtonClicked );
 
 			// Images
-			Image image;
 			toggle_play_image.SetFromStock ("stock_media-play"     , IconSize.LargeToolbar);
 			previous_image   .SetFromStock ("stock_media-prev"     , IconSize.LargeToolbar);
 			next_image       .SetFromStock ("stock_media-next"     , IconSize.LargeToolbar);

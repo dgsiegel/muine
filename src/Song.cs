@@ -87,7 +87,6 @@ namespace Muine
 		public Song (string fn, IntPtr data)
 		{
 			IntPtr p = data;
-			int len;
 
 			filename = fn;
 

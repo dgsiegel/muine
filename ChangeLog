@@ -1,3 +1,17 @@
+2005-01-31  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+	* src/Global.cs:
+	* src/HandleModel.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Remove a couple of unused variables, and fix #165676 -
+	always refer to CoverDatabase.CoverSize as a static constant.
+
 2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

@@ -50,7 +50,6 @@ namespace Muine
 
 		private static DBusLib.Player dbus_object = null;
 		private static NotificationAreaIcon icon;
-		private static MmKeys mmkeys;
 		private static Gnome.Client session_client;
 		
 		// Properties
@@ -79,8 +78,8 @@ namespace Muine
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-			Gnome.Program program = new Gnome.Program ("muine", Defines.VERSION,
-								   Gnome.Modules.UI, args);
+			new Gnome.Program ("muine", Defines.VERSION,
+					   Gnome.Modules.UI, args);
 
 			// Try to find a running Muine
 			try {
@@ -163,10 +162,10 @@ namespace Muine
 			/* Initialize plug-ins (also before loading any songs, to make
 			   sure that the song change gets through to all the
 			   plug-ins) */
-			PluginManager pm = new PluginManager (playlist);
+			new PluginManager (playlist);
 
 			// Hook up multimedia keys
-			mmkeys = new MmKeys (playlist);
+			new MmKeys (playlist);
 
 			// Create tray icon
 			icon = new NotificationAreaIcon (playlist);

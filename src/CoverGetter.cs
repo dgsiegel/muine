@@ -415,7 +415,6 @@ namespace Muine
 					if (url == null || url.Length == 0)
 						continue;
 
-					double forward_match_percent = match_percent;
 					double backward_match_percent = 0.0;
 					int backward_match_count = 0;
 
@@ -500,7 +499,7 @@ namespace Muine
 			Pixbuf border;
 
 			// 1px border, so -2
-			int target_size = db.CoverSize - 2;
+			int target_size = CoverDatabase.CoverSize - 2;
 
 			// scale the cover image if necessary
 			if (cover.Height > target_size || cover.Width > target_size) {

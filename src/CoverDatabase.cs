@@ -192,7 +192,7 @@ namespace Muine
 		// Methods :: Public :: Load
 		public void Load ()
 		{
-			LoadThread l = new LoadThread (db);
+			new LoadThread (db);
 		}
 
 		// Methods :: Public :: SetCover

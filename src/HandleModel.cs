@@ -991,8 +991,6 @@ namespace GtkSharp
 	internal delegate bool TreeModelForeachFuncNative(IntPtr model, IntPtr path, ref Gtk.TreeIter iter, IntPtr data);
 
 	internal class TreeModelForeachFuncWrapper : GLib.DelegateWrapper {
-		static bool _dummy;
-
 		public bool NativeCallback (IntPtr model, IntPtr path, ref Gtk.TreeIter iter, IntPtr data)
 		{
 			Gtk.TreeModel _arg0 = (Gtk.TreeModel) GLib.Object.GetObject(model);

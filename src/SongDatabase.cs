@@ -315,7 +315,7 @@ namespace Muine
 		// Methods :: Public :: CheckChanges
 		public void CheckChanges ()
 		{
-			CheckChangesThread t = new CheckChangesThread ();
+			new CheckChangesThread ();
 		}
 
 		/*

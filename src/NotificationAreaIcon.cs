@@ -53,7 +53,6 @@ namespace Muine
 		private int menu_x;
 		private int menu_y;
 		
-		private bool button_down = false;
 		private bool visible = false;
 
 		private string tooltip = "";
