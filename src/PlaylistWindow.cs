@@ -1878,27 +1878,25 @@ public class PlaylistWindow : Window
 						OpenPlaylist (fn);
 						first = false;
 					} else {
-						if (pos_ptr == IntPtr.Zero) {
-							if (first) {
-								PlayFile (finfo.FullName);
-								first = false;
-							} else {
-								QueueFile (finfo.FullName);
-							}
-						} else {
-							Song song = GetSingleSong (finfo.FullName);
-							
-							if (song != null) {
-								IntPtr new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
-								pos_ptr = new_ptr;
-								pos = TreeViewDropPosition.After;
+						Song song = GetSingleSong (finfo.FullName);
+					
+						if (song != null) {
+							IntPtr new_ptr;
 
-								if (first) {
-									playlist.Select (new_ptr);
-									first = false;
-								}
+							if (pos_ptr != IntPtr.Zero)
+								new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
+							else
+								new_ptr = AddSong (song.Handle);
+
+							pos_ptr = new_ptr;
+							pos = TreeViewDropPosition.After;
+					
+							if (first) {
+								playlist.Select (new_ptr);
+	
+								first = false;
 							}
-						}	
+						}
 					}
 
 					EnsurePlaying ();

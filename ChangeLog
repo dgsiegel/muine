@@ -1,3 +1,9 @@
+2004-11-23  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	Clean up external file DND.
+
 2004-11-20  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/pointer-list-model.c:
