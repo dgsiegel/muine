@@ -6,6 +6,7 @@
       <menuitem action="OpenPlaylist" />
       <menuitem action="SavePlaylistAs" />
       <placeholder name="ExtraFileActions">
+        <separator />
       </placeholder>
       <separator />
       <menuitem action="ShowHideWindow" />

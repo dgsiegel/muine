@@ -2,6 +2,12 @@
 
 	* data/ui/PlaylistWindow.xml:
 
+	Add separator in front of new ExtraFileActions group.
+
+2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/ui/PlaylistWindow.xml:
+
 	Added ExtraFileActions placeholder.
 
 2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
