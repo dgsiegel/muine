@@ -1,5 +1,13 @@
 2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Released 0.6.2.
+
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Don't crash when dropping a file.

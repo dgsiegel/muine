@@ -1,3 +1,25 @@
+0.6.2
+=====
+
+- Works with Mono Beta 2 [Fernando Herrera, Peter Johanson, Jorn Baayen]
+- Plays files with unusual characters properly [Lee Willis]
+- DnD'ing folders to the playlist window imports them [iain, Jorn Baayen]
+- Album matching has been made case insensitive [Jorn Baayen]
+- Support non-ASCII filenames in cover image DnD [Jorn Baayen]
+- Code cleanups [Edd Dumbill, Jorn Baayen]
+
+Updated translations:
+- Brazilian Portuguese [Gustavo Maciel Dias Vieira]
+- British English [Gareth Owen]
+- Canadian English [Adam Weinberger]
+- Czech [Miloslav Trmac]
+- Dutch [Tino Meinen]
+- Hungarian [Andras Timar]
+- Spanish [Francisco Javier F. Serrador]
+- Swedish [Christian Rose]
+- Polish [GNOME PL Team]
+- Portuguese [Duarte Loreto]
+
 0.6.1
 =====
 
