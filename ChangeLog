@@ -1,5 +1,16 @@
 2005-01-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-xine.c: (signal_idle), (player_construct),
+	(player_open), (player_pause), (player_seek):
+
+	Cleanup GTimer code.
+	
+	* src/SkipToWindow.cs:
+
+	Set slider value after setting the range.
+
+2005-01-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Minor cleanup.

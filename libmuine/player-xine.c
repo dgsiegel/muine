@@ -207,6 +207,7 @@ signal_idle (Player *player)
   switch (data->signal)
     {
     case END_OF_STREAM:
+      g_timer_stop (priv->timer);
       g_signal_emit (player, signals[END_OF_STREAM], 0);
       break;
     }
@@ -327,7 +328,6 @@ player_construct (Player *player,
 
   priv->timer = g_timer_new ();
   g_timer_stop (priv->timer);
-  g_timer_reset (priv->timer);
   priv->timer_add = 0;
 
   xine_config_save (priv->xine, configfile);
@@ -405,7 +405,6 @@ player_open (Player     *player,
   else
     {
       g_timer_stop (priv->timer);
-      g_timer_reset (priv->timer);
       priv->timer_add = 0;
     }
   
@@ -510,7 +509,6 @@ player_pause (Player *player)
 
   priv->timer_add += floor (g_timer_elapsed (priv->timer, NULL) + 0.5);
   g_timer_stop (priv->timer);
-  g_timer_reset (priv->timer);
 }
 
 static void
@@ -590,7 +588,7 @@ player_seek (Player *player, int t)
     {
       xine_play (priv->stream, 0, t * 1000);
       
-      g_timer_reset (priv->timer);
+      g_timer_start (priv->timer);
       priv->timer_add = t;
     }
 }
