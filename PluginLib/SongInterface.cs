@@ -19,8 +19,6 @@
 
 using System;
 
-using Gdk;
-
 namespace MuinePluginLib
 {
 	public interface SongInterface
@@ -61,7 +59,7 @@ namespace MuinePluginLib
 			get;
 		}
 
-		Pixbuf CoverImage {
+		Gdk.Pixbuf CoverImage {
 			get;
 		}
 	}
