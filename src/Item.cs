@@ -54,6 +54,12 @@ namespace Muine
 			}
 		}
 
+		// Properties :: CoverImage
+		public abstract Gdk.Pixbuf CoverImage {
+			set;
+			get;
+		}
+
 		// Methods :: Abstract
 		protected abstract string GenerateSortKey ();
 		protected abstract string GenerateSearchKey ();

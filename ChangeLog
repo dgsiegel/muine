@@ -1,5 +1,14 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/Item.cs:
+	* src/Song.cs:
+
+	Optimize CoverDatabase loading.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Store song after the album cover has been stored,

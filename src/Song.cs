@@ -93,7 +93,7 @@ namespace Muine
 		}
 
 		private Gdk.Pixbuf cover_image;
-		public Gdk.Pixbuf CoverImage {
+		public override Gdk.Pixbuf CoverImage {
 			set {
 				cover_image = value;
 

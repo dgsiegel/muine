@@ -108,31 +108,19 @@ namespace Muine
 			private Database db;
 
 			private struct LoadedCover {
-				private string key;
-				public string Key {
-					get { return key; }
-				}
-				
 				private Pixbuf pixbuf;
 				public Pixbuf Pixbuf {
 					get { return pixbuf; }
 				} 
 
-				private bool being_checked;
-				public bool BeingChecked {
-					get { return being_checked; }
+				private Item item;
+				public Item Item {
+					get { return item; }
 				}
 
-				public LoadedCover (string key, IntPtr pixbuf_ptr) {
-					this.key = key;
-					pixbuf = new Pixbuf (pixbuf_ptr);
-					being_checked = false;
-				}
-
-				public LoadedCover (string key) {
-					this.key = key;
-					pixbuf = null;
-					being_checked = true;
+				public LoadedCover (Item item, Pixbuf pixbuf) {
+					this.item = item;
+					this.pixbuf = pixbuf;
 				}
 			}
 
@@ -149,28 +137,13 @@ namespace Muine
 
 				LoadedCover lc = (LoadedCover) queue.Dequeue ();
 			
-				if (lc.BeingChecked) {
-					Album ab = Muine.DB.GetAlbum (lc.Key);
+				if (lc.Pixbuf == null) {
+					// being checked
+					Album a = (Album) lc.Item;
 
-					if (ab != null)
-						ab.SetCoverAmazon ();
-							
-					return true;
-				}
-
-				lock (Muine.CoverDB)
-					if (!Muine.CoverDB.Covers.ContainsKey (lc.Key))
-						Muine.CoverDB.Covers.Add (lc.Key, lc.Pixbuf);
-
-				Album a = Muine.DB.GetAlbum (lc.Key);
-				if (a != null)
-					a.CoverImage = lc.Pixbuf;
-				else {
-					Song s = Muine.DB.GetSong (lc.Key);
-
-					if (s != null)
-						s.CoverImage = lc.Pixbuf;
-				}
+					a.SetCoverAmazon ();
+				} else
+					lc.Item.CoverImage = lc.Pixbuf;
 
 				return true;
 			}
@@ -192,17 +165,22 @@ namespace Muine
 				bool being_checked;
 				p = Database.UnpackBool (p, out being_checked);
 		
-				LoadedCover lc;
-				if (being_checked) {
-					lc = new LoadedCover (key);
-				} else {
+				Pixbuf pixbuf = null;
+				if (!being_checked) {
 					IntPtr pix_handle;
 					p = Database.UnpackPixbuf (p, out pix_handle);
-
-					lc = new LoadedCover (key, pix_handle);
+					pixbuf = new Pixbuf (pix_handle);
 				}
-	
-				queue.Enqueue (lc);
+
+				Muine.CoverDB.Covers.Add (key, pixbuf);
+
+				Item item = Muine.DB.GetAlbum (key);
+				if (item == null)
+					item = Muine.DB.GetSong (key);
+				if (item != null) {
+					LoadedCover lc = new LoadedCover (item, pixbuf);
+					queue.Enqueue (lc);
+				}
 			}
 
 			public LoadThread (Database db)
