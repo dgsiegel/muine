@@ -2,7 +2,7 @@ ASSEMBLY_NAME = muine-plugin
 ASSEMBLY = $(ASSEMBLY_NAME).dll
 TARGET = $(ASSEMBLY)
 
-CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
+CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 
 PLUGIN_LIB_CSFILES =			\
 	$(srcdir)/Plugin.cs		\

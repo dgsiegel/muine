@@ -1,4 +1,4 @@
-CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
+CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 
 TARGET = muine.exe
 WRAPPER = muine
