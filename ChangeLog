@@ -1,3 +1,15 @@
+2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/ActionThread.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:
+
+	Backend cleanups.
+
 2004-02-09  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

@@ -27,8 +27,6 @@ using Gnome;
 
 public class SongDatabase 
 {
-	private IntPtr dbf;
-
 	public Hashtable Songs; 
 
 	public Hashtable Albums;
@@ -51,13 +49,11 @@ public class SongDatabase
 	public delegate void AlbumRemovedHandler (Album album);
 	public event AlbumRemovedHandler AlbumRemoved;
 
-	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
-	
+	/*** constructor ***/
+	private IntPtr dbf;
+
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_open (string filename, int version, out string error);
-	[DllImport ("libmuine")]
-	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
-					       IntPtr user_data);
 
 	public SongDatabase (int version)
 	{
@@ -76,9 +72,8 @@ public class SongDatabase
 
 		dbf = db_open (filename, version, out error);
 
-		if (dbf == IntPtr.Zero) {
+		if (dbf == IntPtr.Zero)
 			throw new Exception ("Failed to open database: " + error);
-		}
 
 		Songs = Hashtable.Synchronized (new Hashtable ());
 		Albums = new Hashtable ();
@@ -86,14 +81,21 @@ public class SongDatabase
 		changing_mutex = new Mutex ();
 	}
 
+	/*** loading ***/
 	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
 	{
 		Song song = new Song (key, data);
 
-		Muine.DB.Songs.Add (key, song);
+		Songs.Add (key, song);
 
-		Muine.DB.DoAlbum (song, false);
+		AddToAlbum (song, false);
 	}
+
+	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
+
+	[DllImport ("libmuine")]
+	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
+					       IntPtr user_data);
 
 	public void Load ()
 	{
@@ -111,6 +113,7 @@ public class SongDatabase
 			AddMonitor (folder);
 	}
 
+	/*** storing ***/
 	private IntPtr EncodeFunc (IntPtr handle, out int length)
 	{
 		Song song = Song.FromHandle (handle);
@@ -132,7 +135,7 @@ public class SongDatabase
 
 		Songs.Add (song.Filename, song);
 
-		DoAlbum (song, true);
+		AddToAlbum (song, true);
 
 		if (SongAdded != null)
 			SongAdded (song);
@@ -151,6 +154,19 @@ public class SongDatabase
 		Songs.Remove (song.Filename);
 
 		RemoveFromAlbum (song);
+
+		song.Dead = true;
+	}
+
+	private void SyncSongWithMetadata (Song song, Metadata metadata)
+	{
+		song.Sync (metadata);
+
+		/* update album */
+		RemoveFromAlbum (song);
+		AddToAlbum (song, true);
+		
+		UpdateSong (song);
 	}
 
 	public void UpdateSong (Song song)
@@ -158,26 +174,19 @@ public class SongDatabase
 		db_store (dbf, song.Filename, true,
 			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
 	
-		/* update album */
-		RemoveFromAlbum (song);
-		DoAlbum (song, true);
-
-		EmitSongChanged (song);
-	}
-
-	public void EmitSongChanged (Song song)
-	{
 		if (SongChanged != null)
 			SongChanged (song);
 	}
 
-	public void AlbumChangedForSong (Song song)
+	/*** album management ***/
+	public void SyncAlbumCoverImageWithSong (Song song)
 	{
 		if (song.Album.Length == 0)
 			return;
 
 		Album album = (Album) Albums [song.AlbumKey];
 		album.SyncCoverImageWith (song);
+
 		if (AlbumChanged != null)
 			AlbumChanged (album);
 	}
@@ -191,7 +200,10 @@ public class SongDatabase
 		if (album == null)
 			return;
 			
-		if (album.RemoveSong (song)) {
+		bool album_empty;
+		album.RemoveSong (song, out album_empty);
+		
+		if (album_empty) {
 			Albums.Remove (song.AlbumKey);
 
 			Muine.CoverDB.RemoveCover (song.AlbumKey);
@@ -201,25 +213,28 @@ public class SongDatabase
 		}
 	}
 
-	public void DoAlbum (Song song, bool emit_signal)
+	private void AddToAlbum (Song song, bool emit_signal)
 	{
 		if (song.Album.Length == 0)
 			return;
 
+		bool changed = false;
+
 		Album album = (Album) Albums [song.AlbumKey];
+		
 		if (album == null) {
 			album = new Album (song);
 			Albums.Add (song.AlbumKey, album);
 
-			if (emit_signal && AlbumAdded != null)
-				AlbumAdded (album);
-		} else {
-			bool changed = album.AddSong (song);
-			if (changed && AlbumChanged != null)
-				AlbumChanged (album);
-		}
+			changed = true;
+		} else
+			album.AddSong (song, out changed);
+
+		if (emit_signal && changed && AlbumChanged != null)
+			AlbumChanged (album);
 	}
 
+	/*** monitoring ***/
 	public void AddWatchedFolder (string folder)
 	{
 		string [] folders;
@@ -287,6 +302,10 @@ public class SongDatabase
 		Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
 	}*/
 
+	/*** the thread that checks for changes on startup ***/
+
+	private bool thread_has_started;
+
 	public void CheckChanges ()
 	{
 		thread_has_started = false;
@@ -300,6 +319,69 @@ public class SongDatabase
 			Thread.Sleep (5);
 	}
 	
+	private Mutex changing_mutex;
+	public bool Changing {
+		set {
+			if (value)
+				changing_mutex.WaitOne ();
+			else
+				changing_mutex.ReleaseMutex ();
+		}
+	}
+
+	private Queue removed_songs;
+	private Queue changed_songs;
+	private Queue new_songs;
+
+	private class ChangedSong {
+		public Metadata Metadata;
+		public Song Song;
+
+		public ChangedSong (Song song, Metadata md) {
+			Song = song;
+			Metadata = md;
+		}
+	}
+
+	/* this is run from the main thread */
+	private bool ProcessActionsFromThread ()
+	{
+		if (removed_songs.Count > 0) {
+			Song song = (Song) removed_songs.Dequeue ();
+
+			if (song.Dead)
+				return true;
+
+			RemoveSong (song);
+
+			return true;
+		}
+
+		if (changed_songs.Count > 0) {
+			ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
+
+			if (cs.Song.Dead)
+				return true;
+
+			SyncSongWithMetadata (cs.Song, cs.Metadata);
+
+			return true;
+		}
+
+		if (new_songs.Count > 0) {
+			Song song = (Song) new_songs.Dequeue ();
+
+			if (Songs.ContainsKey (song.Filename))
+				return true;
+
+			AddSong (song);
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private void HandleDirectory (DirectoryInfo info,
 				      Queue new_songs)
 	{
@@ -321,72 +403,6 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 	}
 
-	private Queue removed_songs;
-	private Queue changed_songs;
-	private Queue new_songs;
-
-	private class ChangedSong {
-		public Metadata Metadata;
-		public Song Song;
-
-		public ChangedSong (Song song, Metadata md) {
-			Song = song;
-			Metadata = md;
-		}
-	}
-
-	/* this is run from the main thread */
-	private bool Proxy ()
-	{
-		if (removed_songs.Count > 0) {
-			Song song = (Song) removed_songs.Dequeue ();
-
-			if (!Songs.ContainsKey (song.Filename))
-				return true;
-
-			RemoveSong (song);
-			return true;
-		}
-
-		if (changed_songs.Count > 0) {
-			ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
-
-			if (!Songs.ContainsKey (cs.Song.Filename))
-				return true;
-
-			cs.Song.Sync (cs.Metadata);
-			UpdateSong (cs.Song);
-
-			return true;
-		}
-
-		if (new_songs.Count > 0) {
-			Song song = (Song) new_songs.Dequeue ();
-
-			if (Songs.ContainsKey (song.Filename))
-				return true;
-
-			AddSong (song);
-
-			return true;
-		}
-
-		return false;
-	}
-
-	private Mutex changing_mutex;
-	public bool Changing {
-		set {
-			if (value)
-				changing_mutex.WaitOne ();
-			else
-				changing_mutex.ReleaseMutex ();
-		}
-	}
-
-	private bool thread_has_started;
-
-	/* this is run from the thread */
 	private void CheckChangesThread ()
 	{
 		Changing = true;
@@ -439,7 +455,7 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 		}
 		
-		GLib.Timeout.Add (10, new GLib.TimeoutHandler (Proxy));
+		GLib.Timeout.Add (10, new GLib.TimeoutHandler (ProcessActionsFromThread));
 		
 		Changing = false;
 	}

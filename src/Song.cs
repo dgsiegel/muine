@@ -133,14 +133,11 @@ public class Song
 		}
 	}
 
-	[DllImport ("libglib-2.0-0.dll")]
-	private static extern string g_utf8_collate_key (string str, int len);
-
 	private string sort_key = null;
 	public string SortKey {
 		get {
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (title, -1);
+				sort_key = StringUtils.CollateKey (title);
 			
 			return sort_key;
 		}
@@ -172,6 +169,8 @@ public class Song
 		}
 	}
 
+	public bool Dead;
+
 	private static string [] cover_filenames = {
 		"cover.jpg",
 		"Cover.jpg",
@@ -189,10 +188,15 @@ public class Song
 
 	private bool checked_cover_image;
 
-	private bool Proxy ()
+	/* this is run from the main thread */
+	private bool ProcessDownloadedAlbumCover ()
 	{
+		if (Dead)
+			return false;
+
 		if (checked_cover_image == true) {
 			tmp_cover_image = null;
+
 			return false;
 		}
 
@@ -205,20 +209,18 @@ public class Song
 		
 		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
 		
-		Muine.DB.AlbumChangedForSong (this);
+		Muine.DB.SyncAlbumCoverImageWithSong (this);
 		
 		return false;
 	}
 
 	/* This is run from the action thread */
-	private void FetchAlbumCover (Action action)
+	private void DownloadAlbumCoverInThread (Action action)
 	{
-		string artist = (string) action.UserData0;
-		string album = (string) action.UserData1;
 		string url = null;
 
 		try {
-			url = Muine.CoverDB.GetAlbumCoverURL (artist, album);
+			url = Muine.CoverDB.GetAlbumCoverURL (this);
 		} catch (WebException e) {
 			/* Temporary web problem (Timeout etc.) - re-queue */
 			Thread.Sleep (60000); /* wait for a minute first */
@@ -231,7 +233,7 @@ public class Song
 
 		if (url != null) {
 			try {
-				tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
+				tmp_cover_image = Muine.CoverDB.DownloadCoverPixbuf (url);
 			} catch (WebException e) {
 				/* Temporary web problem (Timeout etc.) - re-queue */
 				Thread.Sleep (60000); /* wait for a minute first */
@@ -243,7 +245,7 @@ public class Song
 			}
 		}
 
-		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
+		GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
 	}
 
 	private void GetCoverImage (Metadata metadata)
@@ -269,6 +271,7 @@ public class Song
 			
 			if (cover.Exists) {
 				cover_image = Muine.CoverDB.AddCoverLocal (AlbumKey, cover.ToString ());
+
 				if (cover_image != null)
 					return;
 			}
@@ -277,6 +280,7 @@ public class Song
 		/* Check for an embedded image in the ID3 tag */
 		if (metadata != null && metadata.AlbumArt != null) {
 			cover_image = Muine.CoverDB.AddCoverEmbedded (AlbumKey, metadata.AlbumArt);
+
 			if (cover_image != null)
 				return;
 		}
@@ -288,10 +292,7 @@ public class Song
 
 		/* Failed to find a cover on disk - try the web */
 		Action action = new Action ();
-		/* This assumes the right artist is always in artists [0] */
-		action.UserData0 = (object) artists [0];
-		action.UserData1 = (object) album;
-		action.Perform += new Action.PerformHandler (FetchAlbumCover);
+		action.Perform += new Action.PerformHandler (DownloadAlbumCoverInThread);
 		Muine.ActionThread.QueueAction (action);
 
 		checked_cover_image = false;
@@ -372,6 +373,8 @@ public class Song
 
 	public Song (string fn)
 	{
+		Dead = false;
+
 		filename = fn;
 
 		Metadata metadata;
@@ -418,6 +421,8 @@ public class Song
 	{
 		IntPtr p = data;
 		int len;
+
+		Dead = false;
 
 		filename = fn;
 

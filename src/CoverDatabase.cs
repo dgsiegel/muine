@@ -31,21 +31,17 @@ using Gdk;
 
 public class CoverDatabase 
 {
-	private IntPtr dbf;
-
 	public Hashtable Covers;
 
 	public Pixbuf DownloadingPixbuf;
 	
+	/*** constructor ***/
+	private IntPtr dbf;
+
 	private GnomeProxy proxy;
 
-	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
-	
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_open (string filename, int version, out string error);
-	[DllImport ("libmuine")]
-	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
-					       IntPtr user_data);
 						   
 	public CoverDatabase (int version)
 	{
@@ -64,11 +60,12 @@ public class CoverDatabase
 
 		dbf = db_open (filename, version, out error);
 
-		if (dbf == IntPtr.Zero) {
+		if (dbf == IntPtr.Zero)
 			throw new Exception ("Failed to open database: " + error);
-		}
 
 		Covers = new Hashtable ();
+
+		proxy = new GnomeProxy ();
 
 		/* Hack to get the GtkStyle .. */
 		Gtk.Label label = new Gtk.Label ("");
@@ -76,15 +73,9 @@ public class CoverDatabase
 		DownloadingPixbuf = label.RenderIcon ("muine-cover-downloading",
 						      StockIcons.AlbumCoverSize, null);
 		label.Destroy ();
-
-		proxy = new GnomeProxy ();
 	}
 
-	public void Load ()
-	{
-		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
-	}
-
+	/*** loading ***/
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
 	
@@ -97,6 +88,18 @@ public class CoverDatabase
 		Muine.CoverDB.Covers.Add (String.Copy (key), new Pixbuf (pix_handle));
 	}
 
+	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
+
+	[DllImport ("libmuine")]
+	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
+					       IntPtr user_data);
+
+	public void Load ()
+	{
+		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+	}
+
+	/*** storing ***/
 	private Pixbuf BeautifyPixbuf (Pixbuf cover)
 	{
 		Pixbuf border;
@@ -118,7 +121,7 @@ public class CoverDatabase
 			cover = cover.ScaleSimple (new_width, new_height, InterpType.Bilinear);
 		}
 
-		/* create the background + border pixbuf */
+		/* create the background + black border pixbuf */
 		border = new Pixbuf (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
 		border.Fill (0x000000ff);
 			
@@ -129,17 +132,7 @@ public class CoverDatabase
 		return border;
 	}
 
-	public Pixbuf CoverPixbufFromFile (string filename)
-	{
-		Pixbuf cover;
-
-		/* read the cover image */
-		cover = new Pixbuf (filename);
-
-		return BeautifyPixbuf (cover);
-	}
-
-	public Pixbuf CoverPixbufFromURL (string album_url)
+	public Pixbuf DownloadCoverPixbuf (string album_url)
 	{
 		Pixbuf cover;
 
@@ -170,16 +163,11 @@ public class CoverDatabase
 		return BeautifyPixbuf (cover);
 	}
 
-	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
-
-	[DllImport ("libmuine")]
-	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
-					     EncodeFuncDelegate encode_func,
-					     IntPtr user_data);
-
 	public Pixbuf AddCoverLocal (string key, string filename)
 	{
-		Pixbuf pix = CoverPixbufFromFile (filename);
+		Pixbuf pix = new Pixbuf (filename);
+
+		pix = BeautifyPixbuf (pix);
 
 		AddCover (key, pix);
 
@@ -194,6 +182,20 @@ public class CoverDatabase
 
 		return pix;
 	}
+
+	public Pixbuf AddCoverDownloading (string key)
+	{
+		Covers.Add (key, DownloadingPixbuf);
+
+		return DownloadingPixbuf;
+	}
+
+	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
+
+	[DllImport ("libmuine")]
+	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
+					     EncodeFuncDelegate encode_func,
+					     IntPtr user_data);
 
 	public void AddCover (string key, Pixbuf pix)
 	{
@@ -211,13 +213,6 @@ public class CoverDatabase
 		Covers.Remove (key);
 
 		AddCover (key, pix);
-	}
-
-	public Pixbuf AddCoverDownloading (string key)
-	{
-		Covers.Add (key, DownloadingPixbuf);
-
-		return DownloadingPixbuf;
 	}
 
 	[DllImport ("libmuine")]
@@ -255,12 +250,13 @@ public class CoverDatabase
 		return s;
 	}
 
-	public string GetAlbumCoverURL (string artist, string album_title)
+	public string GetAlbumCoverURL (Song song)
 	{
 		AmazonSearchService search_service = new AmazonSearchService ();
 
-		string sane_album_title = SanitizeString (album_title);
-		string sane_artist = SanitizeString (artist);
+		string sane_album_title = SanitizeString (song.Album);
+		/* This assumes the right artist is always in Artists [0] */
+		string sane_artist = SanitizeString (song.Artists [0]);
 		
 		/* Prepare for handling multi-page results */
 		int total_pages = 1;

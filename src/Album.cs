@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
 
 public class Album
 {
@@ -48,22 +47,19 @@ public class Album
 
 	public Gdk.Pixbuf CoverImage;
 
-	[DllImport ("libglib-2.0-0.dll")]
-	private static extern string g_utf8_collate_key (string str, int len);
-
 	private string sort_key = null;
 	public string SortKey {
 		get {
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (SearchKey, -1);
+				sort_key = StringUtils.CollateKey (SearchKey);
 			
 			return sort_key;
 		}
 	}
 
 	private static string [] prefixes = {
-		"the ",
-		"dj "
+		"the",
+		"dj"
 	};
 
 	private string search_key = null;
@@ -76,10 +72,8 @@ public class Album
 					lower_artists [i] = ((string) artists [i]).ToLower ();
 					
 					foreach (string prefix in prefixes) {
-						if (lower_artists [i].StartsWith (prefix)) {
-							lower_artists [i] = lower_artists [i].Remove (0, prefix.Length);
-							lower_artists [i] += " " + prefix.Substring (0, prefix.Length - 1);
-						}
+						if (lower_artists [i].StartsWith (prefix + " "))
+							lower_artists [i] = StringUtils.PrefixToSuffix (lower_artists [i], prefix);
 					}
 				}
 
@@ -141,6 +135,7 @@ public class Album
 		foreach (string artist in song.Artists) {
 			if (artists.Contains (artist) == false) {
 				artists.Add (artist);
+
 				artists_changed = true;
 				search_key = null;
 				sort_key = null;
@@ -153,6 +148,7 @@ public class Album
 		foreach (string performer in song.Performers) {
 			if (performers.Contains (performer) == false) {
 				performers.Add (performer);
+
 				performers_changed = true;
 				search_key = null;
 				sort_key = null;
@@ -189,11 +185,11 @@ public class Album
 		foreach (Song s in Songs) {
 			s.CoverImage = CoverImage;
 
-			Muine.DB.EmitSongChanged (s);
+			Muine.DB.UpdateSong (s);
 		}
 	}
 
-	public bool AddSong (Song song)
+	public void AddSong (Song song, out bool album_changed)
 	{
 		Songs.Add (song);
 		Songs.Sort (song_comparer);
@@ -203,14 +199,13 @@ public class Album
 		else
 			song.CoverImage = CoverImage;
 		
-		return AddArtistsAndPerformers (song);
+		album_changed = AddArtistsAndPerformers (song);
 	}
 
-	/* returns true if empty now */
-	public bool RemoveSong (Song song)
+	public void RemoveSong (Song song, out bool album_empty)
 	{
 		Songs.Remove (song);
 
-		return (Songs.Count == 0);
+		album_empty = (Songs.Count == 0);
 	}
 }

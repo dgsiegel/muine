@@ -23,9 +23,6 @@ using System.Collections;
 
 public class Action
 {
-	public object UserData0;
-	public object UserData1;
-
 	public void EmitPerform ()
 	{
 		if (Perform != null)

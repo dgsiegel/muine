@@ -20,6 +20,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GLibSharp;
+
 public class StringUtils
 {
 	[DllImport ("libc")]
@@ -66,11 +68,31 @@ public class StringUtils
 		return JoinHumanReadable (strings, -1);
 	}
 
+	public static string PrefixToSuffix (string str, string prefix)
+	{
+		string ret;
+
+		ret = str.Remove (0, prefix.Length + 1);
+		ret = ret + " " + prefix;
+
+		return ret;
+	}
+
 	[DllImport ("libc")]
 	private static extern int strcmp (string a, string b);
 
 	public static int StrCmp (string a, string b)
 	{
 		return strcmp (a, b);
+	}
+
+	[DllImport ("libglib-2.0-0.dll")]
+	private static extern IntPtr g_utf8_collate_key (string str, int len);
+
+	public static string CollateKey (string key)
+	{
+		IntPtr str_ptr = g_utf8_collate_key (key, -1);
+		
+		return Marshaller.PtrToStringGFree (str_ptr);
 	}
 }
