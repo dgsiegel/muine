@@ -176,20 +176,29 @@ public class PlaylistWindow : Window, PlayerInterface
 		}
 	}
 
+	private SongInterface [] ArrayFromList (List list)
+	{
+		SongInterface [] array = new SongInterface [list.Count];
+			
+		int i = 0;
+		foreach (int p in list) {
+			array [i] = Song.FromHandle (new IntPtr (p));
+
+			i ++;
+		}
+
+		return array;
+	}
+
+	public SongInterface [] Playlist {
+		get {
+			return ArrayFromList (playlist.Contents);
+		}
+	}
+
 	public SongInterface [] Selection {
 		get {
-			List sel = playlist.SelectedPointers;
-			
-			SongInterface [] ret = new SongInterface [sel.Count];
-			
-			int i = 0;
-			foreach (int p in sel) {
-				ret [i] = Song.FromHandle (new IntPtr (p));
-
-				i ++;
-			}
-
-			return ret;
+			return ArrayFromList (playlist.SelectedPointers);
 		}
 	}
 

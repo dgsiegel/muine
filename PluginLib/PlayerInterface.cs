@@ -56,6 +56,10 @@ namespace MuinePluginLib
 		void PlaySong ();
 		void PlayAlbum ();
 
+		SongInterface [] Playlist {
+			get;
+		}
+
 		SongInterface [] Selection {
 			get;
 		}
