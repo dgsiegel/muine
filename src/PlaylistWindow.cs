@@ -688,7 +688,7 @@ public class PlaylistWindow : Window
 	{
 		playlist.Clear ();
 
-		player.Playing = false;
+		player.Stop ();
 
 		had_last_eos = false;
 	}
@@ -706,7 +706,7 @@ public class PlaylistWindow : Window
 
 				had_last_eos = true;
 
-				player.Playing = false;
+				player.Stop ();
 
 				NSongsChanged ();
 			}
@@ -997,7 +997,7 @@ public class PlaylistWindow : Window
 			} else {
 				had_last_eos = true;
 
-				player.Playing = false;
+				player.Stop ();
 			}
 		}
 
@@ -1256,7 +1256,7 @@ public class PlaylistWindow : Window
 				else {
 					playlist.Playing = IntPtr.Zero;
 
-					player.Playing = false;
+					player.Stop ();
 				}
 
 				SongChanged (true);
@@ -1388,7 +1388,7 @@ public class PlaylistWindow : Window
 				else {
 					playlist.Playing = IntPtr.Zero;
 
-					player.Playing = false;
+					player.Stop ();
 				}
 
 				SongChanged (true);

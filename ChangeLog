@@ -1,6 +1,14 @@
 2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	Fix last eos lockup with xine backend.
+
+2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
 	* configure.in:
 	* libmuine/Makefile.am:
 	R libmuine/metadata-gst.c:

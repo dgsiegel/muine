@@ -83,6 +83,16 @@ public class Player : GLib.Object
 		}
 	}
 
+	public void Stop ()
+	{
+		player_stop (Raw);
+
+		playing = false;
+
+		if (StateChanged != null)
+			StateChanged (playing);
+	}
+
 	public delegate void TickEventHandler (int pos);
 	public event TickEventHandler TickEvent;
 
