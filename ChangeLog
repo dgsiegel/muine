@@ -1,3 +1,9 @@
+2004-04-13  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	More constructor fixage.
+
 2004-04-13  Kenneth Christiansen  <kenneth@gnu.org>
 	    Jorn Baayen  <jbaayen@gnome.org>
 

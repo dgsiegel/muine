@@ -90,7 +90,7 @@ public class PlaylistWindow : Window
 	/* Multimedia Key handler */
 	private MmKeys mmkeys;
 
-	public PlaylistWindow () : base ("")
+	public PlaylistWindow () : base (WindowType.Toplevel)
 	{
 		/* build the interface */
 		Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
