@@ -203,11 +203,15 @@ namespace Muine
 					year = song.Year;
 
 					changed = true;
-				}
+				} else
+					song.Year = year;
 
-				// Save some memory
-				song.Year = year;
-				song.Album = name;
+				if (name != song.Album) {
+					name = song.Album;
+
+					changed = true;
+				} else
+					song.Album = name;
 
 				bool artists_changed = AddArtistsAndPerformers (song);
 				if (artists_changed)

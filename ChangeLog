@@ -1,5 +1,11 @@
 2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+
+	Update album name when necessary.
+
+2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 
 	Depend on Gtk# 1.9.2.
