@@ -786,9 +786,9 @@ namespace Muine
 			playlist.PlayingChanged   += new HandleView.PlayingChangedHandler   (OnPlaylistPlayingChanged  );
 
 			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask, playlist_source_entries,
-							Gdk.DragAction.Copy | Gdk.DragAction.Move);
+							Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
 			playlist.EnableModelDragDest   (playlist_dest_entries,
-						        Gdk.DragAction.Copy | Gdk.DragAction.Move);
+						        Gdk.DragAction.Copy);
 
 			playlist.DragDataGet      += new DragDataGetHandler      (OnPlaylistDragDataGet     );
 			playlist.DragDataReceived += new DragDataReceivedHandler (OnPlaylistDragDataReceived);
