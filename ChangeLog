@@ -1,5 +1,12 @@
 2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Don't remove album covers when albums from removable media are
+	removed.
+
+2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/AddAlbumWindow.cs:
 	* src/Album.cs:
