@@ -1,3 +1,9 @@
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	Avoid checking for changes & loading at the same time.
+
 2004-02-08  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jbaayen@gnome.org>
 
