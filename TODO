@@ -51,6 +51,8 @@ o Nicer default cover image
 
 Depends on other components:
 ============================
+o Make C# translations work
+  Depends on Mono, Ximian Bugzilla #54397
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
 o Monitor imported folders using FileWatcher
