@@ -39,8 +39,6 @@ o Handle non-UTF8 filenames and dirnames decently
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
-o Fix the bug where keysyms that are assigned while muine is running aren't
-  working.
 o Speedier startup
 
 Graphic artists needed:
@@ -70,6 +68,9 @@ o Use the GTK+ 2.3 fileselector, if it is available.
   Depends on Gtk# supporting Gtk 2.3
 o Make the main window use a toolbar (and put "song info" button in it)
   Depends on Gtk# supporting Gtk 2.3
+o Fix the bug where keysyms that are assigned while muine is running aren't
+  working.
+  Depends on GConf#, Ximian Bugzilla #55877
 
 We won't have:
 ==============
