@@ -22,6 +22,8 @@ using System;
 using Gtk;
 using GLib;
 
+using Muine.PluginLib;
+
 namespace Muine
 {
 	public class SkipToWindow
@@ -32,21 +34,21 @@ namespace Muine
 		[Glade.Widget] private Label  song_position;
 
 		// Objects
-		Player player;
+		IPlayer player;
 
 		// Variables
 		bool from_tick;
 		
 		// Constructor
-		public SkipToWindow (Window parent, Player p)
+		public SkipToWindow (IPlayer p)
 		{
 			Glade.XML gxml = new Glade.XML (null, "SkipToWindow.glade", "window", null);
 			gxml.Autoconnect (this);
 
-			window.TransientFor = parent;
+			window.TransientFor = p.Window;
 
 			player = p;
-			player.TickEvent += new Player.TickEventHandler (OnTickEvent);
+			player.TickEvent += new TickEventHandler (OnTickEvent);
 
 			OnTickEvent (player.Position);
 		}
@@ -72,25 +74,22 @@ namespace Muine
 		{
 			// Update label
 			String position   = StringUtils.SecondsToString (pos);
-			String total_time = StringUtils.SecondsToString (player.Song.Duration);
+			String total_time = StringUtils.SecondsToString (player.PlayingSong.Duration);
 			song_position.Text = String.Format ("{0} / {1}", position, total_time);
 
 			// Update slider
 			from_tick = true;
-			song_slider.SetRange (0, player.Song.Duration);
+			song_slider.SetRange (0, player.PlayingSong.Duration);
 			song_slider.Value = pos; 
 		}
 
 		// Handlers :: OnSongSliderValueChanged
 		private void OnSongSliderValueChanged (object o, EventArgs a) 
 		{
-			if (!from_tick) {
+			if (!from_tick)
 				player.Position = (int) song_slider.Value;
-				player.Play ();
-
-			} else {
+			else
 				from_tick = false;
-			}
 		}
 
 		// Handlers :: OnWindowDeleteEvent

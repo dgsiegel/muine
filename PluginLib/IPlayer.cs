@@ -93,8 +93,15 @@ namespace Muine.PluginLib
 	
 		event StateChangedEventHandler StateChangedEvent;
 
+		event TickEventHandler TickEvent;
+
 		event GenericEventHandler PlaylistChangedEvent;
 
 		event GenericEventHandler SelectionChangedEvent;
 	}
+
+	public delegate void SongChangedEventHandler (ISong song);
+	public delegate void StateChangedEventHandler (bool playing);
+	public delegate void TickEventHandler (int position);
+	public delegate void GenericEventHandler ();
 }

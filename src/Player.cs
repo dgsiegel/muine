@@ -214,13 +214,6 @@ namespace Muine
 				StateChanged (playing);
 		}
 
-		// Methods :: Public :: EmitTick
-		public void EmitTick ()
-		{
-			if (TickEvent != null)
-				TickEvent (Position);
-		}
-
 		// Handlers
 		// Handlers :: OnTick
 		private void OnTick (IntPtr obj, int pos)

@@ -307,10 +307,10 @@ player.BusyLevel --;
       </Docs>
     </Member>
     <Member MemberName="SongChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+SongChangedEventHandler SongChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.SongChangedEventHandler SongChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>Muine.PluginLib.Plugin+SongChangedEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.SongChangedEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -319,10 +319,22 @@ player.BusyLevel --;
       </Docs>
     </Member>
     <Member MemberName="StateChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+StateChangedEventHandler StateChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.StateChangedEventHandler StateChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>Muine.PluginLib.Plugin+StateChangedEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.StateChangedEventHandler</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added</summary>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TickEvent">
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.TickEventHandler TickEvent;" />
+      <MemberType>Event</MemberType>
+      <ReturnValue>
+        <ReturnType>Muine.PluginLib.TickEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -331,10 +343,10 @@ player.BusyLevel --;
       </Docs>
     </Member>
     <Member MemberName="PlaylistChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+GenericEventHandler PlaylistChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.GenericEventHandler PlaylistChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>Muine.PluginLib.Plugin+GenericEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.GenericEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -343,10 +355,10 @@ player.BusyLevel --;
       </Docs>
     </Member>
     <Member MemberName="SelectionChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+GenericEventHandler SelectionChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.GenericEventHandler SelectionChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>Muine.PluginLib.Plugin+GenericEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.GenericEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>

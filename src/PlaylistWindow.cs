@@ -111,6 +111,9 @@ namespace Muine
 		
 		// Events :: StateChangedEvent (IPlayer)
 		public event StateChangedEventHandler StateChangedEvent;
+
+		// Events :: TickEvent (IPlayer)
+		public event TickEventHandler TickEvent;
 		
 		// Events :: PlaylistChangedEvent (IPlayer)
 		public event GenericEventHandler PlaylistChangedEvent;
@@ -560,7 +563,7 @@ namespace Muine
 			playlist.Select (playlist.Playing);
 
 			if (skip_to_window == null)
-				skip_to_window = new SkipToWindow (this, player);
+				skip_to_window = new SkipToWindow (this);
 
 			skip_to_window.Run ();
 		}
@@ -1516,6 +1519,9 @@ namespace Muine
 		private void OnTickEvent (int pos)
 		{
 			UpdateTimeLabels (pos);
+
+			if (TickEvent != null)
+				TickEvent (pos);
 		}
 
 		// Handlers :: OnEndOfStreamEvent
@@ -1532,7 +1538,8 @@ namespace Muine
 
 				// So that any people listening to tick events
 				// update their time labels with the new duration
-				player.EmitTick ();
+				if (TickEvent != null)
+					TickEvent (song.Duration);
 			}
 			
 			// Do what else we need to do at the EOS
@@ -1593,7 +1600,6 @@ namespace Muine
 		}
 
 		// Handlers :: OnPlayingSongRemoved
-		//   TODO: See if we can merge this with EndOfStream.
 		private void OnPlayingSongRemoved ()
 		{
 			if (playlist.HasNext) {
