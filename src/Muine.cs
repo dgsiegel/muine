@@ -94,11 +94,17 @@ public class Muine : Gnome.Program
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
 		playlist.DeleteEvent += new DeleteEventHandler (HandlePlaylistDeleteEvent);
-		playlist.Run ();
+		playlist.Visible = true;
 
 		/* Hook up connection callback */
 		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
 		ProcessCommandLine (args, false);
+
+		/* Now start the changes thread */
+		DB.CheckChanges ();
+
+		/* And finally, check if this is the first start */
+		playlist.CheckFirstStartUp ();
 	}
 
 	private void ProcessCommandLine (string [] args, bool use_conn)

@@ -1,5 +1,13 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Improve startup mechanism.. and startup speed.
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/metadata.c: (get_mp3_picture_data):
 
 	Only use the cover image if its width & height are >= 64.

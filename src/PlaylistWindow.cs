@@ -154,15 +154,7 @@ public class PlaylistWindow : Window
 
 	private string playlist_filename;
 
-	public void Run ()
-	{
-		/* show */
-		Visible = true;
-
-		CheckFirstStartUp ();
-	}
-
-	private void CheckFirstStartUp () 
+	public void CheckFirstStartUp () 
  	{
 		bool first_start;
  		try { 

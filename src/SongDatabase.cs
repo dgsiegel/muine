@@ -33,8 +33,6 @@ public class SongDatabase
 
 	public Hashtable Albums;
 
-	private bool thread_has_started;
-
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
 	[DllImport ("libmuine")]
@@ -68,8 +66,6 @@ public class SongDatabase
 		Albums = new Hashtable ();
 
 		changing_mutex = new Mutex ();
-
-		thread_has_started = false;
 	}
 
 	public delegate void SongAddedHandler (Song song);
@@ -174,8 +170,10 @@ public class SongDatabase
 		}
 	}
 
+	private bool thread_has_started;
+
 	/* this is run from the thread */
-	private void CheckChanges ()
+	private void CheckChangesThread ()
 	{
 		changing_mutex.WaitOne ();
 
@@ -246,13 +244,17 @@ public class SongDatabase
 
 		foreach (string folder in folders)
 			AddMonitor (folder);
+	}
 
-		/* check for changes */
-		Thread thread = new Thread (new ThreadStart (CheckChanges));
+	public void CheckChanges ()
+	{
+		thread_has_started = false;
+		
+		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
+
 		thread.Start ();
 
-		/* wait until the thread has started, because we want to
-		   have the changes check going before anything else */
+		/* wait until the thread has started */
 		while (thread_has_started == false)
 			Thread.Sleep (5);
 	}
