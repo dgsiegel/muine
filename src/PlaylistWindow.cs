@@ -28,31 +28,27 @@ using GLib;
 
 public class PlaylistWindow : Window
 {
-	/* widgets */
-	[Glade.Widget]
-	private Menu file_menu;
+	/* menu widgets */
 	[Glade.Widget]
 	private ImageMenuItem play_pause_menu_item;
 	private Image play_pause_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem previous_menu_item;
-	private Image previous_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem next_menu_item;
-	private Image next_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem skip_to_menu_item;
 	[Glade.Widget]
 	private ImageMenuItem skip_backwards_menu_item;
-	private Image skip_backwards_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem skip_forward_menu_item;
-	private Image skip_forward_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem remove_song_menu_item;
 	[Glade.Widget]
 	private CheckMenuItem repeat_menu_item;
 	private bool setting_repeat_menu_item;
+
+	/* toolbar widgets */
 	[Glade.Widget]
 	private Button previous_button;
 	[Glade.Widget]
@@ -61,69 +57,61 @@ public class PlaylistWindow : Window
 	private Button next_button;
 	[Glade.Widget]
 	private Image play_pause_image;
-	[Glade.Widget]
-	private Button add_album_button;
-	[Glade.Widget]
-	private ImageMenuItem add_song_menu_item;
-	private Image add_song_menu_item_image;
-	[Glade.Widget]
-	private ImageMenuItem add_album_menu_item;
-	private Image add_album_menu_item_image;
-	[Glade.Widget]
-	private Button add_song_button;
+	private VolumeButton volume_button;
+
+	/* player area */
 	[Glade.Widget]
 	private Image cover_image;
 	[Glade.Widget]
 	private EventBox cover_ebox;
-	[Glade.Widget]
-	private Container title_label_container;
 	private EllipsizingLabel title_label;
-	[Glade.Widget]
-	private Container artist_label_container;
 	private EllipsizingLabel artist_label;
 	[Glade.Widget]
 	private Label time_label;
-	[Glade.Widget]
-	private ScrolledWindow scrolledwindow;
+
+	/* playlist area */
 	[Glade.Widget]
 	private Label playlist_label;
-	[Glade.Widget]
-	private CheckButton random_check;
-	private Tooltips tooltips;
 	private HandleView playlist;
-	[Glade.Widget]
-	private Container volume_button_container;
-	private VolumeButton volume_button;
-	private Glade.XML gxml;
+
+	/* other widgets */
+	private Tooltips tooltips;
 	private NotificationAreaIcon icon;
 
-	private Player player;
-
+	/* windows */
 	SkipToWindow skip_to_window;
-
 	AddSongWindow add_song_window;
 	AddAlbumWindow add_album_window;
 
+	/* the player object */
+	private Player player;
+
+	/* the playlist filename */
+	private string playlist_filename;
+
 	public PlaylistWindow () : base ("Muine Music Player")
 	{
-		gxml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
-		gxml.Autoconnect (this);
+		/* build the interface */
+		Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
+		glade_xml.Autoconnect (this);
 			
-		Add (gxml ["main_vbox"]);
+		Add (glade_xml ["main_vbox"]);
 
-		AddAccelGroup (file_menu.AccelGroup);
+		AddAccelGroup (((Menu) glade_xml ["file_menu"]).AccelGroup);
 
 		KeyPressEvent += new KeyPressEventHandler (HandleWindowKeyPressEvent);
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 
 		SetupWindowSize ();
-		SetupPlayer ();
-		SetupButtonsAndMenuItems ();
-		SetupPlaylist ();
+		SetupPlayer (glade_xml);
+		SetupButtonsAndMenuItems (glade_xml);
+		SetupPlaylist (glade_xml);
 
+		/* set up the notification area icon */
 		icon = new NotificationAreaIcon ();
 		icon.ActivateEvent += new NotificationAreaIcon.ActivateEventHandler (HandleNotificationAreaIconActivateEvent);
 
+		/* set up the different windows we use */
 		skip_to_window = new SkipToWindow (this, player);
 
 		add_song_window = new AddSongWindow (this);
@@ -134,6 +122,7 @@ public class PlaylistWindow : Window
 		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
 		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 
+		/* connect to song database signals */
 		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
 
@@ -143,6 +132,7 @@ public class PlaylistWindow : Window
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
 
+		/* make sure the interface is up to date */
 		if (!playlist.HasFirst) {
 			SongChanged (true);
 			NSongsChanged ();
@@ -152,7 +142,12 @@ public class PlaylistWindow : Window
 		StateChanged (false);
 	}
 
-	private string playlist_filename;
+	public void Run ()
+	{
+		Visible = true;
+
+		icon.Run ();
+	}
 
 	public void CheckFirstStartUp () 
  	{
@@ -234,10 +229,8 @@ public class PlaylistWindow : Window
 			if (Visible == false)
 				Move (last_x, last_y);
 
-			if (playlist.Playing != IntPtr.Zero) {
+			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
-				playlist.ScrollTo (playlist.Playing);
-			}
 
 			Visible = true;
 
@@ -245,26 +238,27 @@ public class PlaylistWindow : Window
 		}
 	}
 
-	private void SetupButtonsAndMenuItems ()
+	private void SetupButtonsAndMenuItems (Glade.XML glade_xml)
 	{
 		Image image;
-		image = (Image) gxml ["previous_image"];
+
+		image = (Image) glade_xml ["previous_image"];
 		image.SetFromStock ("muine-previous", IconSize.LargeToolbar);
-		image = (Image) gxml ["next_image"];
+		image = (Image) glade_xml ["next_image"];
 		image.SetFromStock ("muine-next", IconSize.LargeToolbar);
-		image = (Image) gxml ["add_song_image"];
+		image = (Image) glade_xml ["add_song_image"];
 		image.SetFromStock (Stock.Add, IconSize.LargeToolbar);
-		image = (Image) gxml ["add_album_image"];
+		image = (Image) glade_xml ["add_album_image"];
 		image.SetFromStock ("muine-add-album", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
 		tooltips.SetTip (previous_button, "Play the previous song", null);
 		tooltips.SetTip (next_button, "Play the next song", null);
-		tooltips.SetTip (add_album_button, "Add an album to the playlist", null);
-		tooltips.SetTip (add_song_button, "Add a song to the playlist", null);
+		tooltips.SetTip (glade_xml ["add_album_button"], "Add an album to the playlist", null);
+		tooltips.SetTip (glade_xml ["add_song_button"], "Add a song to the playlist", null);
 
 		volume_button = new VolumeButton ();
-		volume_button_container.Add (volume_button);
+		((Container) glade_xml ["volume_button_container"]).Add (volume_button);
 		volume_button.Visible = true;
 		volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (HandleVolumeChanged);
 
@@ -279,30 +273,30 @@ public class PlaylistWindow : Window
 
 		volume_button.Volume = vol;
 		player.Volume = vol;
-		
-		add_song_menu_item_image = new Image (Stock.Add, IconSize.Menu);
-		add_song_menu_item.Image = add_song_menu_item_image;
-		add_song_menu_item_image.Visible = true;
-		add_album_menu_item_image = new Image ("muine-add-album", IconSize.Menu);
-		add_album_menu_item.Image = add_album_menu_item_image;
-		add_album_menu_item_image.Visible = true;
+
+		image = new Image (Stock.Add, IconSize.Menu);
+		((ImageMenuItem) glade_xml ["add_song_menu_item"]).Image = image;
+		image.Visible = true;
+		image = new Image ("muine-add-album", IconSize.Menu);
+		((ImageMenuItem) glade_xml ["add_album_menu_item"]).Image = image;
+		image.Visible = true;
 
 		play_pause_menu_item_image = new Image ("muine-play", IconSize.Menu);
 		play_pause_menu_item.Image = play_pause_menu_item_image;
 		play_pause_menu_item_image.Visible = true;
-		previous_menu_item_image = new Image ("muine-previous", IconSize.Menu);
-		previous_menu_item.Image = previous_menu_item_image;
-		previous_menu_item_image.Visible = true;
-		next_menu_item_image = new Image ("muine-next", IconSize.Menu);
-		next_menu_item.Image = next_menu_item_image;
-		next_menu_item_image.Visible = true;
+		image = new Image ("muine-previous", IconSize.Menu);
+		previous_menu_item.Image = image;
+		image.Visible = true;
+		image = new Image ("muine-next", IconSize.Menu);
+		next_menu_item.Image = image;
+		image.Visible = true;
 
-		skip_backwards_menu_item_image = new Image ("muine-rewind", IconSize.Menu);
-		skip_backwards_menu_item.Image = skip_backwards_menu_item_image;
-		skip_backwards_menu_item_image.Visible = true;
-		skip_forward_menu_item_image = new Image ("muine-forward", IconSize.Menu);
-		skip_forward_menu_item.Image = skip_forward_menu_item_image;
-		skip_forward_menu_item_image.Visible = true;
+		image = new Image ("muine-rewind", IconSize.Menu);
+		skip_backwards_menu_item.Image = image;
+		image.Visible = true;
+		image = new Image ("muine-forward", IconSize.Menu);
+		skip_forward_menu_item.Image = image;
+		image.Visible = true;
 
 		setting_repeat_menu_item = true;
 		try {
@@ -318,7 +312,7 @@ public class PlaylistWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private CellRenderer text_renderer;
 
-	private void SetupPlaylist ()
+	private void SetupPlaylist (Glade.XML glade_xml)
 	{
 		playlist = new HandleView ();
 
@@ -337,7 +331,7 @@ public class PlaylistWindow : Window
 
 		playlist.Show ();
 
-		scrolledwindow.Add (playlist);
+		((Container) glade_xml ["scrolledwindow"]).Add (playlist);
 		
 		MarkupUtils.LabelSetMarkup (playlist_label, 0, (uint) "Playlist".Length,
 		                            false, true, false);
@@ -381,7 +375,7 @@ public class PlaylistWindow : Window
 		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
 	};
 
-	private void SetupPlayer ()
+	private void SetupPlayer (Glade.XML glade_xml)
 	{
 		try {
 			player = new Player ();
@@ -399,13 +393,13 @@ public class PlaylistWindow : Window
 		title_label.Visible = true;
 		title_label.Xalign = 0.0f;
 		title_label.Selectable = true;
-		title_label_container.Add (title_label);
+		((Container) glade_xml ["title_label_container"]).Add (title_label);
 
 		artist_label = new EllipsizingLabel ("");
 		artist_label.Visible = true;
 		artist_label.Xalign = 0.0f;
 		artist_label.Selectable = true;
-		artist_label_container.Add (artist_label);
+		((Container) glade_xml ["artist_label_container"]).Add (artist_label);
 
 		/* FIXME 
 		Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
@@ -420,7 +414,6 @@ public class PlaylistWindow : Window
 		    playlist.HasFirst) {
 			playlist.First ();
 			playlist.Select (playlist.Playing);
-			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
 		} 
@@ -445,7 +438,6 @@ public class PlaylistWindow : Window
 		if (had_last_eos == true) {
 			playlist.Playing = new_p;
 			playlist.Select (new_p);
-			playlist.ScrollTo (new_p);
 
 			SongChanged (true);
 		}
@@ -668,7 +660,6 @@ public class PlaylistWindow : Window
 				if (repeat_menu_item.Active) {
 					playlist.First ();
 					playlist.Select (playlist.Playing);
-					playlist.ScrollTo (playlist.Playing);
 
 					SongChanged (true);
 
@@ -693,7 +684,6 @@ public class PlaylistWindow : Window
 		}
 
 		playlist.Select (playlist.Playing);
-		playlist.ScrollTo (playlist.Playing);
 	}
 
 	public void OpenPlaylist (string fn)
@@ -755,7 +745,6 @@ public class PlaylistWindow : Window
 				if (playing_song) {
 					playlist.Playing = song.Handle;
 					playlist.Select (song.Handle);
-					playlist.ScrollTo (song.Handle);
 
 					SongChanged (true);
 
@@ -862,10 +851,8 @@ public class PlaylistWindow : Window
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
 	{
 		if (args.Event.changed_mask == Gdk.WindowState.Iconified) { 
-			if (playlist.Playing != IntPtr.Zero) {
+			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
-				playlist.ScrollTo (playlist.Playing);
-			}
 		}
 	}
 
@@ -917,7 +904,6 @@ public class PlaylistWindow : Window
 			if (first == true) {
 				playlist.Playing = new_p;
 				playlist.Select (new_p);
-				playlist.ScrollTo (new_p);
 
 				SongChanged (true);
 
@@ -959,7 +945,6 @@ public class PlaylistWindow : Window
 				if (first == true) {
 					playlist.Playing = new_p;
 					playlist.Select (new_p);
-					playlist.ScrollTo (new_p);
 
 					SongChanged (true);
 
@@ -1034,7 +1019,6 @@ public class PlaylistWindow : Window
 		}
 
 		playlist.Select (playlist.Playing);
-		playlist.ScrollTo (playlist.Playing);
 
 		player.Playing = true;
 	}
@@ -1044,7 +1028,6 @@ public class PlaylistWindow : Window
 		if (had_last_eos) {
 			playlist.First ();
 			playlist.Select (playlist.Playing);
-			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
 
@@ -1064,7 +1047,6 @@ public class PlaylistWindow : Window
 			playlist.First ();
 
 		playlist.Select (playlist.Playing);
-		playlist.ScrollTo (playlist.Playing);
 
 		SongChanged (true);
 
@@ -1076,7 +1058,6 @@ public class PlaylistWindow : Window
 	private void HandleSkipToCommand (object o, EventArgs args)
 	{
 		playlist.Select (playlist.Playing);
-		playlist.ScrollTo (playlist.Playing);
 
 		skip_to_window.Run ();
 	}
@@ -1269,7 +1250,6 @@ public class PlaylistWindow : Window
 		}
 
 		playlist.Select (playlist.Playing);
-		playlist.ScrollTo (playlist.Playing);
 	}
 
 	private void HandleClearPlaylistCommand (object o, EventArgs args)

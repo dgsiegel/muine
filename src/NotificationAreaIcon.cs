@@ -34,6 +34,8 @@ public class NotificationAreaIcon : Plug
 
 	private bool button_down = false;
 
+	private bool visible;
+
 	public void Init ()
 	{
 		Raw = egg_tray_icon_new ("Muine music player");
@@ -51,12 +53,15 @@ public class NotificationAreaIcon : Plug
 		UpdateImage ();
 		UpdateTooltip ();
 
-		ShowAll ();
+		if (visible)
+			ShowAll ();
 	}
 
 	public NotificationAreaIcon () : base ()
 	{
 		tooltips = new Tooltips ();
+
+		visible = false;
 
 		Init ();
 	}
@@ -64,6 +69,13 @@ public class NotificationAreaIcon : Plug
 	~NotificationAreaIcon ()
 	{
 		Dispose ();
+	}
+
+	public void Run ()
+	{
+		visible = true;
+
+		ShowAll ();
 	}
 
 	private string tooltip = "";

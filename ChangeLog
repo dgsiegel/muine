@@ -1,5 +1,19 @@
 2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (scroll_to_path),
+	(pointer_list_view_select_first), (pointer_list_view_select):
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+	* src/Muine.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Cleanups. Improve startup sequence. Reduce memory usage. Disable
+	first startup window until we've sorted the issue out.
+
+2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/ActionThread.cs:
 	* src/Song.cs:
 	* src/StringUtils.cs:

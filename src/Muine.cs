@@ -94,7 +94,7 @@ public class Muine : Gnome.Program
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
 		playlist.DeleteEvent += new DeleteEventHandler (HandlePlaylistDeleteEvent);
-		playlist.Visible = true;
+		playlist.Run ();
 
 		/* Hook up connection callback */
 		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
@@ -104,7 +104,8 @@ public class Muine : Gnome.Program
 		DB.CheckChanges ();
 
 		/* And finally, check if this is the first start */
-		playlist.CheckFirstStartUp ();
+		/* FIXME we dont do this for now as the issue isn't sorted out yet */
+		//playlist.CheckFirstStartUp ();
 	}
 
 	private void ProcessCommandLine (string [] args, bool use_conn)

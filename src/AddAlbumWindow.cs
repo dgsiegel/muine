@@ -109,7 +109,6 @@ public class AddAlbumWindow
 		search_entry.GrabFocus ();
 
 		view.SelectFirst ();
-		view.ScrollToPoint (0, 0);
 
 		if (window.Visible == false)
 			window.Visible = true;
@@ -243,7 +242,6 @@ public class AddAlbumWindow
 		}
 
 		view.SelectFirst ();
-		view.ScrollToPoint (0, 0);
 	}
 
 	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
@@ -302,10 +300,8 @@ public class AddAlbumWindow
 	private void SelectFirstIfNeeded ()
 	{
 		/* it is insensitive if we have no selection, see HandleSelectionChanged */
-		if (play_button.Sensitive == false) {
+		if (play_button.Sensitive == false)
 			view.SelectFirst ();
-			view.ScrollToPoint (0, 0);
-		}
 	}
 
 	private void HandleAlbumChanged (Album album)

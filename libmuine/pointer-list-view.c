@@ -342,20 +342,6 @@ pointer_list_view_get_selection (PointerListView *view)
 	return list;
 }
 
-void
-pointer_list_view_select_first (PointerListView *view)
-{
-	GtkTreePath *path;
-	GtkTreeSelection *sel;
-
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-
-	path = gtk_tree_path_new_first ();
-	gtk_tree_selection_unselect_all (sel);
-	gtk_tree_selection_select_path (sel, path);
-	gtk_tree_path_free (path);
-}
-
 static void
 scroll_to_path (PointerListView *view, GtkTreePath *path,
 		gboolean center)
@@ -363,6 +349,25 @@ scroll_to_path (PointerListView *view, GtkTreePath *path,
 	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path,
 				      gtk_tree_view_get_column (GTK_TREE_VIEW (view), 0),
 				      center, 0.5, 0.5);
+}
+
+void
+pointer_list_view_select_first (PointerListView *view)
+{
+	GtkTreePath *path;
+	GtkTreeSelection *sel;
+	GtkTreeIter iter;
+
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+
+	path = gtk_tree_path_new_first ();
+	if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, path))
+		return;
+
+	gtk_tree_selection_unselect_all (sel);
+	gtk_tree_selection_select_path (sel, path);
+	scroll_to_path (view, path, FALSE);
+	gtk_tree_path_free (path);
 }
 
 gboolean
@@ -455,27 +460,14 @@ pointer_list_view_select (PointerListView *view,
 {
 	GtkTreeIter iter;
 	GtkTreeSelection *sel;
+	GtkTreePath *path;
 
 	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
 
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_select_iter (sel, &iter);
-}
-
-void
-pointer_list_view_scroll_to (PointerListView *view,
-			     gpointer pointer)
-{
-	GtkTreeIter iter;
-	GtkTreePath *path;
-
-	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
-
-	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path,
-				      gtk_tree_view_get_column (GTK_TREE_VIEW (view), 0),
-				      TRUE, 0.5, 0.5);
-
+	scroll_to_path (view, path, FALSE);
 	gtk_tree_path_free (path);
 }
 
