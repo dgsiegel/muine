@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 12:21+0100\n"
-"PO-Revision-Date: 2004-12-05 10:13-0400\n"
+"POT-Creation-Date: 2004-12-09 19:23+0100\n"
+"PO-Revision-Date: 2004-12-09 10:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -309,21 +309,13 @@ msgstr "Width of the playlist window."
 msgid "false if Muine has been started before."
 msgstr "false if Muine has been started before."
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
-msgstr "Failed to create GstPlay object"
+#: libmuine/player-gst.c:154
+msgid "Failed to create a GStreamer play object"
+msgstr "Failed to create a GStreamer play object"
 
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr "Failed to create the required gnomevfssrc GStreamer element"
-
-#: libmuine/player-gst.c:173
+#: libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Could not render default GStreamer audio output sink"
-
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr "Could not find the volume element in the GstPlay pipeline"
 
 #: libmuine/player-xine.c:283
 #, c-format
