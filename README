@@ -14,9 +14,8 @@ Our IRC channel is #muine on irc.gimp.org.
 Requirements
 ============
 
-Mono (Compiled with ICU support) >= 0.30.1
-Gettext (Compiled with C# support) >= 0.14
-Gtk# >= 0.16
+Mono >= 0.30.1
+Gtk# >= 0.17
 GStreamer 0.6 >= 0.6.3 with the following elements:
    gnomevfssrc, mad, flacdec, vorbisfile, volume
 libid3tag >= 0.15.0b
