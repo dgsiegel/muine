@@ -82,7 +82,7 @@ msgstr "_Nada, Irei gerenciar pessoalmente a minha música"
 
 #: data/glade/PlaylistWindow.glade.h:1 src/AddAlbumWindow.cs:65
 msgid "Play Album"
-msgstr "_Tocar álbum"
+msgstr "Tocar álbum"
 
 #: data/glade/PlaylistWindow.glade.h:2 src/AddSongWindow.cs:54
 msgid "Play Song"
