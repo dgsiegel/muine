@@ -1,9 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 
 # Translation of muine to Croatiann
 # Copyright (C) Croatiann team
@@ -11,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine \n"
-"POT-Creation-Date: 2004-01-27 15:32+0100\n"
-"PO-Revision-Date: 2004-02-09 15:34+CET\n"
+"POT-Creation-Date: 2004-02-09 15:48+0100\n"
+"PO-Revision-Date: 2004-02-09 16:01+CET\n"
 "Last-Translator: Robert Sedak <robert.sedak@sk.tel.hr>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -64,105 +58,122 @@ msgstr "Grupe"
 msgid "_Add song"
 msgstr ""
 
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid "Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr ""
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
+msgid "Play _Album"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
+msgid "Play _Album..."
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
+msgid "Play _Song"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
+msgid "Play _Song..."
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:5
-msgid "Remove _Played Songs"
+msgid "R_epeat"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:6
-msgid "Skip _Backwards"
+msgid "Remove _Played Songs"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:7
-msgid "Skip _Forward"
+msgid "Skip _Backwards"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:8
-msgid "TMP"
+msgid "Skip _Forward"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:9
-msgid "_Clear Playlist"
+msgid "TMP"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:10
-msgid "_Fill queue with random songs from selected groups"
+msgid "_Clear Playlist"
 msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:11
-msgid "_Groups"
-msgstr "_Grupe"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Sakrij prozor"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr ""
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "_Sljedeći"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Open Playlist..."
 msgstr ""
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Playlist"
 msgstr "_Popis pjesama"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "_Prethodni"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr ""
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Save Playlist As..."
 msgstr ""
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr ""
 
-#: data/glade/PlaylistWindow.glade.h:21
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Song"
 msgstr ""
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
 msgstr ""
-
-#: data/glade/SearchMusicWindow.glade.h:1
-msgid "Search for Music"
-msgstr ""
-
-#: data/glade/SearchMusicWindow.glade.h:2
-msgid "Welcome to Muine"
-msgstr ""
-
-#: data/glade/SearchMusicWindow.glade.h:3
-msgid "_Search"
-msgstr "_&Traži"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -205,31 +216,31 @@ msgid "Default playlist folder."
 msgstr ""
 
 #: data/muine.schemas.in.h:7
-msgid "Folders that are monitored for changes."
+msgid "First start."
 msgstr ""
 
 #: data/muine.schemas.in.h:8
-msgid "Last used folder from \"Import folder\" dialog."
+msgid "Folders that are monitored for changes."
 msgstr ""
 
 #: data/muine.schemas.in.h:9
-msgid "Last used folder from the playlist file selectors."
+msgid "Last used folder from \"Import folder\" dialog."
 msgstr ""
 
 #: data/muine.schemas.in.h:10
-msgid "Playlist window height."
+msgid "Last used folder from the playlist file selectors."
 msgstr ""
 
 #: data/muine.schemas.in.h:11
-msgid "Playlist window visibility."
+msgid "Playlist window height."
 msgstr ""
 
 #: data/muine.schemas.in.h:12
-msgid "Playlist window visible (true) or not (false)."
+msgid "Playlist window width."
 msgstr ""
 
 #: data/muine.schemas.in.h:13
-msgid "Playlist window width."
+msgid "Repeat mode."
 msgstr ""
 
 #: data/muine.schemas.in.h:14
@@ -244,60 +255,12 @@ msgstr ""
 msgid "Watched folders."
 msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:154
-msgid "Pixbuf"
-msgstr "Pixbuf"
-
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
-msgstr "GdkPixbuf za prikazivanje"
-
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Ime datoteke"
-
-#: libmuine/egg/eggstatusicon.c:163
-msgid "Filename to load and display"
-msgstr "Ime datoteke za učitavanje i prikaz"
-
-#: libmuine/egg/eggstatusicon.c:170
-msgid "Stock ID"
-msgstr "ID dionice"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
-msgstr "ID pripremljene slike za prikaz"
-
-#: libmuine/egg/eggstatusicon.c:178
-msgid "Animation"
-msgstr "Animacija"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
-msgstr "GdkPixbufAnimation za prikaz"
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
 msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr "Način zapisa koji se koristi za podatke za sliku"
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Veličina"
-
-#: libmuine/egg/eggstatusicon.c:196
-msgid "The size of the icon"
-msgstr ""
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Ispisujem"
-
-#: libmuine/egg/eggstatusicon.c:206
-msgid "Whether or not the status icon is blinking"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
 msgstr ""
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145

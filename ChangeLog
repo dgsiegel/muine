@@ -1,3 +1,7 @@
+2004-02-09  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
 2004-02-08  Vaclav Slavik  <vaclav.slavik@matfyz.cz>
 
 	* libmuine/egg/eggmarshalers.c:
