@@ -912,18 +912,9 @@ namespace Muine
 		{
 			Song song = Song.FromHandle (playlist.Playing);
 
-			if (seconds >= song.Duration) {
-				if (playlist.HasNext ||
-				    (Repeat && playlist.HasFirst))
-					Next ();
-				else {
-					player.Position = song.Duration;
-
-					HadLastEos ();
-
-					PlaylistChanged ();
-				}
-			} else {
+			if (seconds >= song.Duration)
+				HandleEndOfStream (song, true);
+			else {
 				if (seconds < 0)
 					player.Position = 0;
 				else
@@ -1266,11 +1257,24 @@ namespace Muine
 			UpdateTimeLabels (pos);
 		}
 
-		private void HadLastEos ()
+		private void HandleEndOfStream (Song song, bool update_time)
 		{
-			had_last_eos = true;
+			if (playlist.HasNext)
+				playlist.Next ();
+			else {
+				if (Repeat)
+					playlist.First ();
+				else {
+					if (update_time)
+						player.Position = song.Duration;
 
-			player.Stop ();
+					had_last_eos = true;
+
+					player.Stop ();
+				}
+			}
+
+			PlaylistChanged ();
 		}
 
 		private void OnEndOfStreamEvent ()
@@ -1283,15 +1287,7 @@ namespace Muine
 				Global.DB.SaveSong (song);
 			}
 			
-			if (playlist.HasNext)
-				playlist.Next ();
-			else
-				if (Repeat)
-					playlist.First ();
-				else
-					HadLastEos ();
-
-			PlaylistChanged ();
+			HandleEndOfStream (song, false);
 		}
 
 		public void Previous ()
@@ -1300,17 +1296,18 @@ namespace Muine
 				return;
 
 			/* restart song if not in the first 3 seconds */
-			if (player.Position < 3 &&
-			    playlist.HasPrevious) {
-				playlist.Previous ();
+			if (player.Position < 3) {
+				if (playlist.HasPrevious) {
+					playlist.Previous ();
 
-				PlaylistChanged ();
-			} else if (player.Position < 3 &&
-				   !playlist.HasPrevious &&
-				   Repeat) {
-				playlist.Last ();
+					PlaylistChanged ();
+				} else if (Repeat) {
+					playlist.Last ();
 
-				PlaylistChanged ();
+					PlaylistChanged ();
+				} else {
+					player.Position = 0;
+				}
 			} else {
 				player.Position = 0;
 			}

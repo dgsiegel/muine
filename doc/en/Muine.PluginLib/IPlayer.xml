@@ -251,12 +251,12 @@
         <remarks>
 	  <example>
 	    <code lang="C#">
-ActionEntry [] action_entries = new ActionEntry [] {
-	new ActionEntry ("Poof", Stock.Execute, "_Poof", 
+ActionEntry [] action_entries = new Gtk.ActionEntry [] {
+	new ActionEntry ("Poof", Gtk.Stock.Execute, "_Poof", 
 		"&lt;control&gt;&lt;shift&gt;P", null, new EventHandler (OnPoof))
 };
 
-action_group = new ActionGroup ("PoofPluginActions");
+action_group = new Gtk.ActionGroup ("PoofPluginActions");
 action_group.Add (action_entries);
 
 player.UIManager.InsertActionGroup (action_group, -1);
