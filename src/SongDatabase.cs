@@ -75,7 +75,7 @@ public class SongDatabase
 		if (dbf == IntPtr.Zero)
 			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to open database: {0}"), error));
 
-		Songs = Hashtable.Synchronized (new Hashtable ());
+		Songs = new Hashtable ();
 		Albums = new Hashtable ();
 	}
 
@@ -305,27 +305,19 @@ public class SongDatabase
 
 	/*** the thread that checks for changes on startup ***/
 
-	private bool thread_has_started;
-
 	private uint timeout_id;
 
 	public void CheckChanges ()
 	{
-		removed_songs = new Queue ();
-		changed_songs = new Queue ();
-		new_songs = new Queue ();
+		removed_songs = Queue.Synchronized (new Queue ());
+		changed_songs = Queue.Synchronized (new Queue ());
+		new_songs = Queue.Synchronized (new Queue ());
 
 		timeout_id = GLib.Timeout.Add (10, new GLib.TimeoutHandler (ProcessActionsFromThread));
 
-		thread_has_started = false;
-		
 		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
 
 		thread.Start ();
-
-		/* wait until the thread has started */
-		while (thread_has_started == false)
-			Thread.Sleep (5);
 	}
 	
 	private Queue removed_songs;
@@ -409,8 +401,6 @@ public class SongDatabase
 
 	private void CheckChangesThread ()
 	{
-		thread_has_started = true;
-
 		/* check for removed songs and changes */
 		foreach (string file in Songs.Keys) {
 			FileInfo finfo = new FileInfo (file);

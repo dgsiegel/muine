@@ -1,5 +1,11 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Threading cleanups.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* src/About.cs:
 
