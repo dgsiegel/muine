@@ -1,5 +1,11 @@
 2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* doc/en/Muine.DBusLib/Player.xml:
+
+	Document GetAlbumCover.
+
+2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* configure.in:
 	* data/glade/PlaylistWindow.glade:

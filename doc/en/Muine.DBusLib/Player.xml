@@ -346,7 +346,7 @@ public class Example
       <Parameters />
       <Docs>
         <summary>To be added</summary>
-        <returns>a <see cref="T:System.Byte[]" /></returns>
+        <returns>a serialized <see cref="T:Gdk.Pixdata" /></returns>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
