@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 15:29+0200\n"
-"PO-Revision-Date: 2004-04-18 16:45+0200\n"
+"POT-Creation-Date: 2004-04-21 04:20+0200\n"
+"PO-Revision-Date: 2004-04-21 12:13+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -262,6 +262,45 @@ msgstr "Jestli povolit režim opakování seznamu skladeb."
 msgid "false if Muine has been started before."
 msgstr "false, pokud byl již Muine spuštěn dříve."
 
+#: libmuine/player-gst.c:157
+msgid "Failed to create GstPlay object"
+msgstr "Nemohu vytvořit objekt GstPlay"
+
+#: libmuine/player-gst.c:164
+msgid "Failed to create the required gnomevfssrc GStreamer element"
+msgstr "Nemohu vytvořit požadovaný element GStreamer gnomevfssrc"
+
+#: libmuine/player-gst.c:173
+msgid "Could not render default GStreamer audio output sink"
+msgstr "Nemohu použít implicitní spotřebič GStreamer pro výstup zvuku "
+
+#: libmuine/player-gst.c:182
+msgid "Could not find the volume element in the GstPlay pipeline"
+msgstr "Nemohu najít element hlasitiosti v rouře GstPlay"
+
+#: libmuine/player-xine.c:289
+msgid "Failed to set up an audio driver"
+msgstr "Nemohu nastavit ovladač zvuku"
+
+#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#, c-format
+msgid "No plugin available for \"%s\""
+msgstr "Pro \"%s\" není k dispozici zásuvný modul"
+
+#: libmuine/player-xine.c:368
+#, c-format
+msgid "Failed playing \"%s\""
+msgstr "Nemohu přehrávat \"%s\""
+
+#: libmuine/player-xine.c:372
+msgid "Internal error"
+msgstr "Interní chyba"
+
+#: libmuine/player-xine.c:381
+#, c-format
+msgid "Could not play \"%s\""
+msgstr "Nemohu přehrávat \"%s\""
+
 #: src/About.cs:38
 msgid "Jorn Baayen (jbaayen@gnome.org)"
 msgstr "Jorn Baayen (jbaayen@gnome.org)"
@@ -310,11 +349,6 @@ msgstr "Hraje {0}"
 msgid "the dj"
 msgstr "the dj"
 
-#: src/CoverDatabase.cs:67 src/SongDatabase.cs:76
-#, csharp-format
-msgid "Failed to open database: {0}"
-msgstr "Nemohu otevřít databázi: {0}"
-
 #: src/Metadata.cs:165
 #, csharp-format
 msgid "Failed to load metadata: {0}"
@@ -324,18 +358,22 @@ msgstr "Nemohu načíst metadata: {0}"
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 "Nemohu načíst databázi obálek: {0}\n"
+"\n"
 "Končím..."
 
 #: src/Muine.cs:88
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 "Nemohu načíst databázi skladeb: {0}\n"
+"\n"
 "Končím..."
 
 #: src/NotificationAreaIcon.cs:53
@@ -354,9 +392,23 @@ msgstr "_Následující skladba"
 msgid "Show _Window"
 msgstr "Zobrazit _okno"
 
-#: src/Player.cs:154
-msgid "Failed to create Player object"
-msgstr "Nemohu vytvořit objekt přehrávače"
+#: src/Player.cs:51
+#, csharp-format
+msgid ""
+"Error opening {0}:\n"
+"{1}"
+msgstr ""
+"Chyba při otevírání {0}:\n"
+"{1}"
+
+#: src/Player.cs:232
+#, csharp-format
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr ""
+"Chyba backendu zvuku:\n"
+"{0}"
 
 #: src/PlaylistWindow.cs:247
 msgid "Hide _Window"
@@ -388,11 +440,16 @@ msgid "Playlist"
 msgstr "Seznam skladeb"
 
 #: src/PlaylistWindow.cs:401
+#, csharp-format
 msgid ""
-"Failed to initialize the audio backend.\n"
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
 "Exiting..."
 msgstr ""
-"Nemohu inicializovat backend zvuku.\n"
+"Nemohu inicializovat backend zvuku:\n"
+"{0}\n"
+"\n"
 "Končím..."
 
 #: src/PlaylistWindow.cs:500
@@ -557,13 +614,6 @@ msgstr "{0} a {1}"
 
 #~ msgid "Song _Information"
 #~ msgstr "_Informace o skladbě"
-
-#~ msgid ""
-#~ "Failed to create the required GStreamer elements.\n"
-#~ "Exiting..."
-#~ msgstr ""
-#~ "Nemohu vytvořit požadavané elementy GStreamer.\n"
-#~ "Končím..."
 
 #~ msgid "TITLE"
 #~ msgstr "NÁZEV"
