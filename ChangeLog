@@ -1,5 +1,11 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Restore more DB logic ..
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/AddWindow.glade:
 	* data/glade/PlaylistWindow.glade:
 	* src/Actions.cs:

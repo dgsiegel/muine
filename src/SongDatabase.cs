@@ -188,9 +188,7 @@ namespace Muine
 						} catch {
 							try {
 								rq = Global.DB.StartRemoveSong (song);
-							} catch (InvalidOperationException e) {
-								return;
-							}
+							} catch (InvalidOperationException e) {}
 						}
 					}
 
@@ -294,7 +292,6 @@ namespace Muine
 			} catch (InvalidOperationException e) {
 				return;
 			}
-			
 		}
 
 		// Methods :: Public :: AddFolders
@@ -573,8 +570,8 @@ namespace Muine
 					SignalRequest rq;				
 					try {
 						rq = StartAddSong (song);
-					} catch {
-						break;
+					} catch (InvalidOperationException e) {
+						continue;
 					}
 
 					queue.Enqueue (rq);
