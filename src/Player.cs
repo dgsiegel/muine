@@ -152,7 +152,7 @@ public class Player : GLib.Object
 		try {
 			Raw = player_new ();
 		} catch {
-			throw new Exception ("Failed to create Player object");
+			throw new Exception (Muine.Catalog.GetString ("Failed to create Player object"));
 		}
 
 		g_signal_connect_data (Raw, "tick", new SignalDelegate (TickCallback),

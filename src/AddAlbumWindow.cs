@@ -156,7 +156,7 @@ public class AddAlbumWindow
 
 		string performers = "";
 		if (album.Performers.Length > 0)
-			performers = "Performed by " + StringUtils.JoinHumanReadable (album.Performers, 2);
+			performers = String.Format (Muine.Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
 
 		r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
 

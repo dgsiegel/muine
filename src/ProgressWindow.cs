@@ -41,7 +41,7 @@ public class ProgressWindow
 		gxml.Autoconnect (this);
 
 		window.TransientFor = parent;
-		window.Title = "Importing " + folder + "...";
+		window.Title = String.Format (Muine.Catalog.GetString ("Importing {0}..."), folder);
 
 		window.SetDefaultSize (300, -1);
 

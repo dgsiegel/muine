@@ -9,7 +9,6 @@ o Add folder DnD from Nautilus to the playlist window, adding to a) the library
   and b) the playlist.
 o DnD m3u files to the playlist window should load them
 o D-BUS service (Sergio Rubio is on this)
-o Finish marking strings for translation
 
 Tough:
 ======

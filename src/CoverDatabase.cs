@@ -61,7 +61,7 @@ public class CoverDatabase
 		dbf = db_open (filename, version, out error);
 
 		if (dbf == IntPtr.Zero)
-			throw new Exception ("Failed to open database: " + error);
+			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to open database: {0}"), error));
 
 		Covers = new Hashtable ();
 

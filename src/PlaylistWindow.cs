@@ -89,7 +89,7 @@ public class PlaylistWindow : Window
 	/* the playlist filename */
 	private string playlist_filename;
 
-	public PlaylistWindow () : base ("Muine Music Player")
+	public PlaylistWindow () : base (Muine.Catalog.GetString ("Muine Music Player"))
 	{
 		/* build the interface */
 		Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
@@ -224,7 +224,7 @@ public class PlaylistWindow : Window
 
 			Visible = false;
 			
-			((Label) icon.show_window_menu_item.Child).LabelProp = "Show _Window";
+			((Label) icon.show_window_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Show _Window");
 		} else {
 			if (Visible == false && last_x >= 0 && last_y >= 0)
 				Move (last_x, last_y);
@@ -232,7 +232,7 @@ public class PlaylistWindow : Window
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 
-			((Label) icon.show_window_menu_item.Child).LabelProp = "Hide _Window";
+			((Label) icon.show_window_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Hide _Window");
 
 			Present ();
 		}
@@ -252,17 +252,22 @@ public class PlaylistWindow : Window
 		image.SetFromStock ("muine-add-album", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
-		tooltips.SetTip (previous_button, "Play the previous song", null);
-		tooltips.SetTip (next_button, "Play the next song", null);
-		tooltips.SetTip (glade_xml ["add_album_button"], "Add an album to the playlist", null);
-		tooltips.SetTip (glade_xml ["add_song_button"], "Add a song to the playlist", null);
+		tooltips.SetTip (previous_button,
+		                 Muine.Catalog.GetString ("Play the previous song"), null);
+		tooltips.SetTip (next_button,
+		                 Muine.Catalog.GetString ("Play the next song"), null);
+		tooltips.SetTip (glade_xml ["add_album_button"],
+		                 Muine.Catalog.GetString ("Add an album to the playlist"), null);
+		tooltips.SetTip (glade_xml ["add_song_button"],
+			         Muine.Catalog.GetString ("Add a song to the playlist"), null);
 
 		volume_button = new VolumeButton ();
 		((Container) glade_xml ["volume_button_container"]).Add (volume_button);
 		volume_button.Visible = true;
 		volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (HandleVolumeChanged);
 
-		tooltips.SetTip (volume_button, "Change the volume level", null);
+		tooltips.SetTip (volume_button,
+				 Muine.Catalog.GetString ("Change the volume level"), null);
 
 		int vol;
 		try {
@@ -388,7 +393,7 @@ public class PlaylistWindow : Window
 		try {
 			player = new Player ();
 		} catch {
-			new ErrorDialog ("Failed to create the required GStreamer elements.\nExiting...");
+			new ErrorDialog (Muine.Catalog.GetString ("Failed to create the required GStreamer elements.\nExiting..."));
 
 			Muine.Exit ();
 		}
@@ -474,7 +479,7 @@ public class PlaylistWindow : Window
 	{
 		if (playlist.Playing == IntPtr.Zero) {
 			time_label.Text = "";
-			playlist_label.Text = "Playlist";
+			playlist_label.Text = Muine.Catalog.GetString ("Playlist");
 
 			return;
 		}
@@ -491,28 +496,28 @@ public class PlaylistWindow : Window
 
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-				playlist_label.Text = "Playlist (Repeating " + hours + " hours)";
+				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist (Repeating {0} hours)"), hours);
 			} else if (r_seconds > 60) {
 				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-				playlist_label.Text = "Playlist (Repeating " + minutes + " minutes)";
+				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist (Repeating {0} minutes)"), minutes);
 			} else if (r_seconds > 0) {
-				playlist_label.Text = "Playlist (Repeating)";
+				playlist_label.Text = Muine.Catalog.GetString ("Playlist (Repeating)");
 			} else {
-				playlist_label.Text = "Playlist";
+				playlist_label.Text = Muine.Catalog.GetString ("Playlist");
 			}
 		} else {
 			long r_seconds = remaining_songs_time + song.Duration - time;
 			
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-				playlist_label.Text = "Playlist (" + hours + " hours remaining)";
+				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist ({0} hours remaining)"), hours);
 			} else if (r_seconds > 60) {
 				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-				playlist_label.Text = "Playlist (" + minutes + " minutes remaining)";
+				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist ({0} minutes remaining)"), minutes);
 			} else if (r_seconds > 0) {
-				playlist_label.Text = "Playlist (Less than one minute remaining)";
+				playlist_label.Text = Muine.Catalog.GetString ("Playlist (Less than one minute remaining)");
 			} else {
-				playlist_label.Text = "Playlist";
+				playlist_label.Text = Muine.Catalog.GetString ("Playlist");
 			}
 		} 
 	}
@@ -575,11 +580,11 @@ public class PlaylistWindow : Window
 
 			string tip;
 			if (song.Album.Length > 0)
-				tip = "From \"" + song.Album + "\"";
+				tip = String.Format (Muine.Catalog.GetString ("From \"{0}\""), song.Album);
 			else
-				tip = "Album unknown";
+				tip = Muine.Catalog.GetString ("Album unknown");
 			if (song.Performers.Length > 0)
-				tip += "\n\n" + "Performed by " + StringUtils.JoinHumanReadable (song.Performers);
+				tip += "\n\n" + String.Format (Muine.Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (song.Performers));
 			tooltips.SetTip (cover_ebox, tip, null);
 
 			title_label.Text = song.Title;
@@ -589,7 +594,7 @@ public class PlaylistWindow : Window
 			if (player.Song != song || restart)
 				player.Song = song;
 
-			Title = song.Title + " - Muine Music Player";
+			Title = String.Format (Muine.Catalog.GetString ("{0} - Muine Music Player"), song.Title);
 
 			if (player.Playing)
 				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
@@ -606,7 +611,7 @@ public class PlaylistWindow : Window
 			artist_label.Text = "";
 			time_label.Text = "";
 
-			Title = "Muine Music Player";
+			Title = Muine.Catalog.GetString ("Muine Music Player");
 
 			icon.Tooltip = null;
 
@@ -625,38 +630,38 @@ public class PlaylistWindow : Window
 	private new void StateChanged (bool playing)
 	{
 		if (playing) {
-			tooltips.SetTip (play_pause_button, "Pause music playback", null);
+			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Pause music playback"), null);
 			play_pause_image.SetFromStock ("muine-pause", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "P_ause";
+			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("P_ause");
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
-			((Label) icon.play_pause_menu_item.Child).LabelProp = "P_ause";
+			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("P_ause");
 
 			icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 		} else if (playlist.Playing != IntPtr.Zero &&
 		           player.Position > 0 &&
 			   !had_last_eos) {
-			tooltips.SetTip (play_pause_button, "Resume music playback", null);
+			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Resume music playback"), null);
 			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
+			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 			
 			icon.Tooltip = null;
 		} else {
-			tooltips.SetTip (play_pause_button, "Start music playback", null);
+			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Start music playback"), null);
 			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
+			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
 			icon.Tooltip = null;
 		}
@@ -720,7 +725,7 @@ public class PlaylistWindow : Window
 		try {
 			reader = new StreamReader (fn);
 		} catch {
-			new ErrorDialog ("Failed to open " + fn + " for reading", this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), fn), this);
 			return;
 		}
 
@@ -794,7 +799,7 @@ public class PlaylistWindow : Window
 		try {
 			writer = new StreamWriter (fn, false);
 		} catch {
-			new ErrorDialog ("Failed to open " + fn + " for writing", this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), fn), this);
 			return;
 		}
 
@@ -1144,7 +1149,7 @@ public class PlaylistWindow : Window
 	{
 		FileSelection fs;
 		
-		fs = new FileSelection ("Import Folder");
+		fs = new FileSelection (Muine.Catalog.GetString ("Import Folder"));
 		fs.HideFileopButtons ();
 		fs.HistoryPulldown.Visible = false;
 		fs.FileList.Parent.Visible = false;
@@ -1194,7 +1199,7 @@ public class PlaylistWindow : Window
 
 	private void HandleOpenPlaylistCommand (object o, EventArgs args)
 	{
-		FileSelector sel = new FileSelector ("Open Playlist",
+		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Open Playlist"),
 						     "/apps/muine/default_playlist_folder");
 
 		bool exists;
@@ -1209,7 +1214,7 @@ public class PlaylistWindow : Window
 
 	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
 	{
-		FileSelector sel = new FileSelector ("Save Playlist",
+		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Save Playlist"),
 						     "/apps/muine/default_playlist_folder");
 
 		bool exists;
@@ -1219,9 +1224,7 @@ public class PlaylistWindow : Window
 			return;
 
 		if (exists) {
-			YesNoDialog d = new YesNoDialog ("File " + fn + " will be overwritten.\n" +
-			                                 "If you choose yes, the contents will be lost.\n\n" +
-							 "Do you want to continue?", this);
+			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), fn), this);
 			if (d.GetAnswer () == true)
 				SavePlaylist (fn, false, false);
 		} else

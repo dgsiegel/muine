@@ -51,7 +51,7 @@ public class NotificationAreaIcon : Plug
 
 	public void Init ()
 	{
-		Raw = egg_tray_icon_new ("Muine music player");
+		Raw = egg_tray_icon_new (Muine.Catalog.GetString ("Muine music player"));
 
 		DestroyEvent += new DestroyEventHandler (HandleDestroyEvent);
 
@@ -84,27 +84,27 @@ public class NotificationAreaIcon : Plug
 		SeparatorMenuItem sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 		
-		previous_song_menu_item = new ImageMenuItem ("_Previous Song");
+		previous_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Previous Song"));
 		previous_song_menu_item.Image = new Gtk.Image ("muine-previous", IconSize.Menu);
 		menu.Append (previous_song_menu_item);
-		next_song_menu_item = new ImageMenuItem ("_Next Song");
+		next_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Next Song"));
 		next_song_menu_item.Image = new Gtk.Image ("muine-next", IconSize.Menu);
 		menu.Append (next_song_menu_item);
 
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 
-		play_song_menu_item = new ImageMenuItem ("Play _Song...");
+		play_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Song..."));
 		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
 		menu.Append (play_song_menu_item);
-		play_album_menu_item = new ImageMenuItem ("Play _Album...");
+		play_album_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Album..."));
 		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
 		menu.Append (play_album_menu_item);
 
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 		
-		show_window_menu_item = new MenuItem ("Show _Window");
+		show_window_menu_item = new MenuItem (Muine.Catalog.GetString ("Show _Window"));
 		menu.Append (show_window_menu_item);
 
 		menu.ShowAll ();

@@ -162,7 +162,7 @@ public class Metadata
 		IntPtr md = metadata_load (filename, out error);
 
 		if (error != null)
-			throw new Exception ("Failed to load metadata: " + error);
+			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to load metadata: {0}"), error));
 
 		s = metadata_get_title (md);
 		if (s != null)

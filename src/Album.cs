@@ -57,15 +57,20 @@ public class Album
 		}
 	}
 
-	private static string [] prefixes = {
-		"the",
-		"dj"
-	};
+	private static string [] prefixes = null;
 
 	private string search_key = null;
 	public string SearchKey {
 		get {
 			if (search_key == null) {
+				if (prefixes == null) {
+					/* Space-separated list of prefixes that will be taken off the front
+					 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+					 * if "the" is included in this list. Also include the English "the"
+					 * if English is generally spoken in your country. */
+					prefixes = Muine.Catalog.GetString ("the dj").Split (' ');
+				}
+					
 				/* need to keep this in the order for sorting too */
 				string [] lower_artists = new string [artists.Count];
 				for (int i = 0; i < artists.Count; i++) {

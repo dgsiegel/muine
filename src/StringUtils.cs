@@ -44,13 +44,13 @@ public class StringUtils
 		string ret;
 
 		if (strings.Length == 0)
-			ret = "Unknown";
+			ret = Muine.Catalog.GetString ("Unknown");
 		else if (strings.Length == 1) 
 			ret = strings [0];
 		else if (max > 1 && strings.Length > max)
-			ret = String.Join (", ", strings, 0, max) + " and others";
+			ret = String.Format (Muine.Catalog.GetString ("{0} and others"), String.Join (", ", strings, 0, max));
 		else
-			ret = String.Join (", ", strings, 0, strings.Length - 1) + " and " + strings [strings.Length - 1];
+			ret = String.Format (Muine.Catalog.GetString ("{0} and {1}"), String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
 
 		return ret;
 	}
