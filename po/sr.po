@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-22 04:30+0100\n"
-"PO-Revision-Date: 2004-02-22 05:58+0100\n"
+"POT-Creation-Date: 2004-02-26 15:32+0100\n"
+"PO-Revision-Date: 2004-02-26 21:14+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Музика није нађена"
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
 "You will have to import your music manually. This is for experienced users "
-"only and therefor not generally recommended."
+"only and therefore not generally recommended."
 msgstr ""
 "Мораћете да увезете вашу музику ручно. Ово је намењено једино вештијим "
 "корисницима и зато се не препоручује у сваком случају."
@@ -99,7 +99,7 @@ msgstr "Н_ишта, сам ћу уредити моју музику"
 msgid "Play _Album"
 msgstr "Пусти _албум"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/NotificationAreaIcon.cs:108
+#: data/glade/PlaylistWindow.glade.h:2 src/NotificationAreaIcon.cs:100
 msgid "Play _Album..."
 msgstr "Пусти _албум..."
 
@@ -107,7 +107,7 @@ msgstr "Пусти _албум..."
 msgid "Play _Song"
 msgstr "Пусти _песму"
 
-#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:105
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:97
 msgid "Play _Song..."
 msgstr "Пусти _песму..."
 
@@ -143,7 +143,7 @@ msgstr "_Сакриј прозор"
 msgid "_Import Folder..."
 msgstr "У_вези директоријум..."
 
-#: data/glade/PlaylistWindow.glade.h:13 src/NotificationAreaIcon.cs:98
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Information"
 msgstr "Пода_ци"
 
@@ -195,7 +195,7 @@ msgstr "Питање"
 msgid "Listen to your music"
 msgstr "Слушајте вашу музику "
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:644
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:610
 msgid "Muine Music Player"
 msgstr "Музички програм Мујна"
 
@@ -307,7 +307,7 @@ msgstr "Музички програм"
 msgid "Thanks to Amazon.com for providing album cover images!"
 msgstr "Захваљујемо се Amazon.com-у за обезбеђивање насловница албума"
 
-#: src/AddAlbumWindow.cs:159 src/PlaylistWindow.cs:609
+#: src/AddAlbumWindow.cs:158 src/PlaylistWindow.cs:584
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Извршио {0}"
@@ -330,7 +330,7 @@ msgstr "Неуспело отварање базе: {0}"
 msgid "Failed to load metadata: {0}"
 msgstr "Неуспело учитавање метаподатака: {0}"
 
-#: src/Muine.cs:89
+#: src/Muine.cs:88
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
@@ -339,7 +339,7 @@ msgstr ""
 "Неуспешно учитавање базе насловница: {0}\n"
 "Излазим..."
 
-#: src/Muine.cs:100
+#: src/Muine.cs:99
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
@@ -348,19 +348,23 @@ msgstr ""
 "Неуспешно учитавање базе песама: {0}\n"
 "Излазим..."
 
-#: src/NotificationAreaIcon.cs:55
+#: src/NotificationAreaIcon.cs:54
 msgid "Muine music player"
 msgstr "Музички програм Мујна"
 
-#: src/NotificationAreaIcon.cs:88
+#: src/NotificationAreaIcon.cs:87
 msgid "_Previous Song"
 msgstr "_Претходна песма"
 
-#: src/NotificationAreaIcon.cs:91
+#: src/NotificationAreaIcon.cs:90
 msgid "_Next Song"
 msgstr "С_ледећа песма"
 
-#: src/NotificationAreaIcon.cs:115 src/PlaylistWindow.cs:250
+#: src/NotificationAreaIcon.cs:107
+msgid "Song _Information"
+msgstr "Подаци о пес_ми"
+
+#: src/NotificationAreaIcon.cs:114 src/PlaylistWindow.cs:250
 msgid "Show _Window"
 msgstr "При_кажи прозор"
 
@@ -392,7 +396,7 @@ msgstr "Додај песму у списак песама"
 msgid "Change the volume level"
 msgstr "Измени јачину звука"
 
-#: src/PlaylistWindow.cs:419
+#: src/PlaylistWindow.cs:399
 msgid ""
 "Failed to create the required GStreamer elements.\n"
 "Exiting..."
@@ -400,101 +404,109 @@ msgstr ""
 "Неуспех при образовању неопходних елемената ГСтримера.\n"
 "Излазим..."
 
-#: src/PlaylistWindow.cs:501 src/PlaylistWindow.cs:525
-#: src/PlaylistWindow.cs:539
+#: src/PlaylistWindow.cs:480 src/PlaylistWindow.cs:504
+#: src/PlaylistWindow.cs:518
 msgid "Playlist"
 msgstr "Списак песама"
 
-# bug: plural-forms
-#: src/PlaylistWindow.cs:518
+#: src/PlaylistWindow.cs:497
 #, csharp-format
-msgid "Playlist (Repeating {0} hours)"
-msgstr "Списак песама (понављање {0} часова)"
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Списак песама (понавља {0} час)"
+msgstr[1] "Списак песама (понавља {0} часа)"
+msgstr[2] "Списак песама (понавља {0} часова)"
 
-# bug: plural-forms
-#: src/PlaylistWindow.cs:521
+#: src/PlaylistWindow.cs:500
 #, csharp-format
-msgid "Playlist (Repeating {0} minutes)"
-msgstr "Списак песама (понављање {0} минута)"
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Списак песама (понавља {0} минут)"
+msgstr[1] "Списак песама (понавља {0} минута)"
+msgstr[2] "Списак песама (понавља {0} минута)"
 
-#: src/PlaylistWindow.cs:523
+#: src/PlaylistWindow.cs:502
 msgid "Playlist (Repeating)"
 msgstr "Списак песама (понављање)"
 
-# bug: plural-forms
-#: src/PlaylistWindow.cs:532
+#: src/PlaylistWindow.cs:511
 #, csharp-format
-msgid "Playlist ({0} hours remaining)"
-msgstr "Списак песама (преостало {0} часова)"
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Списак песама (преостао {0} час)"
+msgstr[1] "Списак песама (преостала {0} часа)"
+msgstr[2] "Списак песама (преостало {0} часова)"
 
-# bug: plural-forms
-#: src/PlaylistWindow.cs:535
+#: src/PlaylistWindow.cs:514
 #, csharp-format
-msgid "Playlist ({0} minutes remaining)"
-msgstr "Списак песама (преостало {0} минута)"
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Списак песама (преостао {0} минут)"
+msgstr[1] "Списак песама (преостала {0} минута)"
+msgstr[2] "Списак песама (преостало {0} минута)"
 
-#: src/PlaylistWindow.cs:537
+#: src/PlaylistWindow.cs:516
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Списак песама (преостало мање од минута)"
 
-#: src/PlaylistWindow.cs:605
+#: src/PlaylistWindow.cs:580
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Од „{0}“"
 
-#: src/PlaylistWindow.cs:607
+#: src/PlaylistWindow.cs:582
 msgid "Album unknown"
 msgstr "Непознат албум"
 
-#: src/PlaylistWindow.cs:619
+#: src/PlaylistWindow.cs:594
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} — музички програм Мујна"
 
-#: src/PlaylistWindow.cs:666
+#: src/PlaylistWindow.cs:629
 msgid "Pause music playback"
 msgstr "Паузирај пуштање музике"
 
-#: src/PlaylistWindow.cs:670 src/PlaylistWindow.cs:673
+#: src/PlaylistWindow.cs:633 src/PlaylistWindow.cs:636
 msgid "P_ause"
 msgstr "П_аузирај"
 
-#: src/PlaylistWindow.cs:679
+#: src/PlaylistWindow.cs:642
 msgid "Resume music playback"
 msgstr "Настави пуштање музике"
 
-#: src/PlaylistWindow.cs:683 src/PlaylistWindow.cs:686
-#: src/PlaylistWindow.cs:694 src/PlaylistWindow.cs:697
+#: src/PlaylistWindow.cs:646 src/PlaylistWindow.cs:649
+#: src/PlaylistWindow.cs:657 src/PlaylistWindow.cs:660
 msgid "Pl_ay"
 msgstr "_Пусти"
 
-#: src/PlaylistWindow.cs:690
+#: src/PlaylistWindow.cs:653
 msgid "Start music playback"
 msgstr "Пусти музику"
 
-#: src/PlaylistWindow.cs:761
+#: src/PlaylistWindow.cs:724
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Нисам успео да отворим {0} ради читања"
 
-#: src/PlaylistWindow.cs:835
+#: src/PlaylistWindow.cs:798
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Нисам успео да отворим {0} ради уписа"
 
-#: src/PlaylistWindow.cs:1198
+#: src/PlaylistWindow.cs:1148
 msgid "Import Folder"
 msgstr "Увези директоријум"
 
-#: src/PlaylistWindow.cs:1248
+#: src/PlaylistWindow.cs:1198
 msgid "Open Playlist"
 msgstr "Отвори списак песама"
 
-#: src/PlaylistWindow.cs:1263
+#: src/PlaylistWindow.cs:1213
 msgid "Save Playlist"
 msgstr "Сачувај списак песама"
 
-#: src/PlaylistWindow.cs:1273
+#: src/PlaylistWindow.cs:1223
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
@@ -507,7 +519,7 @@ msgstr ""
 "\n"
 "Желите ли да наставите?"
 
-#: src/ProgressWindow.cs:44
+#: src/ProgressWindow.cs:43
 #, csharp-format
 msgid "Importing {0}..."
 msgstr "Увозим {0}..."
@@ -569,6 +581,3 @@ msgstr "{0} и {1}"
 # bug: true, false in quotes
 #~ msgid "Playlist window visible (true) or not (false)."
 #~ msgstr "Прозор списка песама је видљив (true) или не (false)."
-
-
-
