@@ -176,10 +176,10 @@ public class PlaylistWindow : Window, PlayerInterface
 		}
 	}
 
-	private ActionGroup action_group;
-	public ActionGroup ActionGroup {
+	private UIManager ui_manager;
+	public UIManager UIManager {
 		get {
-			return action_group;
+			return ui_manager;
 		}
 	}
 
@@ -482,7 +482,7 @@ public class PlaylistWindow : Window, PlayerInterface
 					       new EventHandler (HandleRepeatCommand), false)
 		};
 	
-		action_group = new ActionGroup ("Actions");
+		ActionGroup action_group = new ActionGroup ("Actions");
 		action_group.Add (action_entries);
 		action_group.Add (toggle_action_entries);
 
@@ -497,13 +497,13 @@ public class PlaylistWindow : Window, PlayerInterface
 		play_pause_action        = (ToggleAction) action_group.GetAction ("PlayPause");
 		repeat_action            = (ToggleAction) action_group.GetAction ("Repeat");
 		
-		UIManager uim = new UIManager ();
-		uim.InsertActionGroup (action_group, 0);
-		uim.AddUiFromString (ui_info);
+		ui_manager = new UIManager ();
+		ui_manager.InsertActionGroup (action_group, 0);
+		ui_manager.AddUiFromString (ui_info);
 
-		AddAccelGroup (uim.AccelGroup);
+		AddAccelGroup (ui_manager.AccelGroup);
 		
-		((Box) glade_xml ["menu_bar_box"]).Add (uim.GetWidget ("/MenuBar"));
+		((Box) glade_xml ["menu_bar_box"]).Add (ui_manager.GetWidget ("/MenuBar"));
 
 		block_repeat_action = true;
 		repeat_action.Active = (bool) Muine.GetGConfValue (GConfKeyRepeat, GConfDefaultRepeat);

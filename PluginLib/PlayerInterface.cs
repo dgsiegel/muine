@@ -72,7 +72,7 @@ namespace MuinePluginLib
 			get;
 		}
 
-		Gtk.ActionGroup ActionGroup {
+		Gtk.UIManager UIManager {
 			get;
 		}
 

@@ -90,11 +90,9 @@ public class NotificationAreaIcon : Plug
 			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
 		
 		/* build menu */
-		UIManager uim = new UIManager ();
-		uim.InsertActionGroup (player.ActionGroup, 0);
-		uim.AddUiFromString (ui_info);
+		player.UIManager.AddUiFromString (ui_info);
 		
-		menu = (Menu) uim.GetWidget ("/Menu");
+		menu = (Menu) player.UIManager.GetWidget ("/Menu");
 		menu.Deactivated += new EventHandler (HandleMenuDeactivated);
 
 		/* init tooltips -- we init into "not playing" state */
