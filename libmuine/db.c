@@ -82,6 +82,8 @@ db_get_version (gpointer db)
 
 	db_unpack_int (data.dptr, &ret);
 
+	free (data.dptr);
+
 	return ret;
 }
 
@@ -103,6 +105,8 @@ db_set_version (gpointer db,
 	data.dptr = db_pack_end (string, &data.dsize);
 
 	gdbm_store ((GDBM_FILE) db, key, data, GDBM_REPLACE);
+
+	g_free (data.dptr);
 }
 
 gboolean
@@ -158,27 +162,38 @@ db_foreach (gpointer db,
 	    ForeachDecodeFunc func,
 	    gpointer user_data)
 {
-	datum key, data;
+	datum key, data, next_key;
+	char *keystr;
 
 	key = gdbm_firstkey ((GDBM_FILE) db);
+	while (key.dptr) {
+		next_key = gdbm_nextkey ((GDBM_FILE) db, key);
 
-	if (key.dptr == NULL)
-		return;
+		if (((char *) key.dptr)[0] == VERSION_KEY[0] && key.dsize == strlen (VERSION_KEY)) {
+			free (key.dptr);
 
-	while (TRUE) {
-		char *keystr;
+			key = next_key;
+			continue;
+		}
 
 		data = gdbm_fetch ((GDBM_FILE) db, key);
+
+		if (data.dptr == NULL) {
+			free (key.dptr);
+
+			key = next_key;
+			continue;
+		}
 
 		keystr = g_strndup (key.dptr, key.dsize);
 		if (strcmp (keystr, VERSION_KEY) != 0)
 			func ((const char *) keystr, (gpointer) data.dptr, user_data);
 		g_free (keystr);
 
-		key = gdbm_nextkey ((GDBM_FILE) db, key);
+		free (key.dptr);
+		free (data.dptr);
 
-		if (key.dptr == NULL)
-			break;
+		key = next_key;
 	}
 }
 
