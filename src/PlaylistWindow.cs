@@ -858,9 +858,7 @@ public class PlaylistWindow : Window
 
 	private void HandleDeleteEvent (object o, DeleteEventArgs args)
 	{
-		WindowVisible = false;
-
-		args.RetVal = true;
+		Muine.Exit ();
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
