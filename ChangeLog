@@ -1,4 +1,12 @@
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/Song.cs:
+	* src/StringUtils.cs:
+
+	Remove empty artist and performer listings which can sometimes occur
+	in metadata. This turns " and foo" into "foo".
+
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
 	
 	* data/glade/PlaylistWindow.glade:
 	* data/ui/NotificationAreaIcon.xml:

@@ -91,26 +91,32 @@ namespace Muine
 
 			filename = fn;
 
+			// Title
 			p = Database.UnpackString (p, out title);
 
+			// Artists
 			p = Database.UnpackInt (p, out len);
 			artists = new string [len];
 			for (int i = 0; i < len; i++)
 				p = Database.UnpackString (p, out artists [i]);
+			artists = StringUtils.CleanStringList (artists);
 
+			// Performers
 			p = Database.UnpackInt (p, out len);
 			performers = new string [len];
 			for (int i = 0; i < len; i++)
 				p = Database.UnpackString (p, out performers [i]);
+			performers = StringUtils.CleanStringList (performers);
 
-			p = Database.UnpackString (p, out album);
-			p = Database.UnpackInt (p, out track_number);
-			p = Database.UnpackInt (p, out disc_number);
-			p = Database.UnpackString (p, out year);
-			p = Database.UnpackInt (p, out duration);
-			p = Database.UnpackInt (p, out mtime);
-			p = Database.UnpackDouble (p, out gain);
-			p = Database.UnpackDouble (p, out peak);
+			// Everything else
+			p = Database.UnpackString (p, out album       );
+			p = Database.UnpackInt    (p, out track_number);
+			p = Database.UnpackInt    (p, out disc_number );
+			p = Database.UnpackString (p, out year        );
+			p = Database.UnpackInt    (p, out duration    );
+			p = Database.UnpackInt    (p, out mtime       );
+			p = Database.UnpackDouble (p, out gain        );
+			p = Database.UnpackDouble (p, out peak        );
 
 			// cover image is loaded later
 

@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 
 using Mono.Posix;
@@ -50,14 +51,33 @@ namespace Muine
 			       : String.Format (    "{0}:{1}",    m                , s.ToString ("d2"));
 		}
 
+		// Methods :: Public :: CleanStringList
+		public static string [] CleanStringList (string [] orig_strings)
+		{
+			ArrayList strings = new ArrayList ();
+			foreach (string s in orig_strings) {
+				string s2 = s.Trim ();
+				if (s2.Length == 0)
+					continue;
+				strings.Add (s2);
+			}
+			
+			string [] array = new string [strings.Count];
+			strings.CopyTo (array);
+			return array;
+		}
+
 		// Methods :: Public :: JoinHumanReadable
 		public static string JoinHumanReadable (string [] strings)
 		{
 			return JoinHumanReadable (strings, -1);
 		}
 
-		public static string JoinHumanReadable (string [] strings, int max)
+		public static string JoinHumanReadable (string [] orig_strings, int max)
 		{
+		
+			string [] strings = CleanStringList (orig_strings);
+		
 			return (strings.Length == 0)
 			       ? string_unknown
 			       :
