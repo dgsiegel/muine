@@ -26,6 +26,7 @@ using GLib;
 public class AddSongWindow : AddWindow
 {
 	private const int FakeLength = 150;
+	private const int MinQueryLength = 3;
 
         private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
         private const int GConfDefaultWidth = 500;
@@ -95,8 +96,8 @@ public class AddSongWindow : AddWindow
 
 		int max_len = -1;
 
-		/* show max. FakeLength songs if < 3 chars are entered. this is to fake speed. */
-		if (search_entry.Text.Length < 3)
+		/* show max. FakeLength songs if < MinQueryLength chars are entered. this is to fake speed. */
+		if (search_entry.Text.Length < MinQueryLength)
 			max_len = FakeLength;
 
 		int i = 0;
@@ -136,7 +137,8 @@ public class AddSongWindow : AddWindow
 
 	private void HandleSongAdded (Song song)
 	{
-		if (search_entry.Text.Length < 3 && view.Length >= FakeLength)
+		if (search_entry.Text.Length < MinQueryLength &&
+		    view.Length >= FakeLength)
 			return;
 
 		base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
@@ -144,7 +146,11 @@ public class AddSongWindow : AddWindow
 
 	private void HandleSongChanged (Song song)
 	{
-		base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits));
+		bool may_append = (search_entry.Text.Length >= MinQueryLength ||
+		                   view.Length < FakeLength);
+		
+		base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits),
+		                    may_append);
 	}
 
 	private void HandleSongRemoved (Song song)

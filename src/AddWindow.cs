@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2005 Tamara Roberson <foxxygirltamara@gmail.com>
+ *           (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -24,9 +25,10 @@ public abstract class AddWindow : Window
 {
 	// Enums
 	protected enum ResponseType {
-		Close = Gtk.ResponseType.Close,
-		Play  = 1,
-		Queue = 2,
+		Close       = Gtk.ResponseType.Close,
+		DeleteEvent = Gtk.ResponseType.DeleteEvent,
+		Play        = 1,
+		Queue       = 2
 	};
 
 	// Events
@@ -150,7 +152,6 @@ public abstract class AddWindow : Window
 	{
 		return (gconf_key_width  != String.Empty && gconf_default_width  > 0 &&
 			gconf_key_height != String.Empty && gconf_default_height > 0);
-	
 	}
 
 	private void AssertHasGConfSize ()
@@ -170,11 +171,8 @@ public abstract class AddWindow : Window
 	// Handlers
 	private void HandleWindowDeleteEvent (object o, DeleteEventArgs args)
 	{
-		window.Visible = false;
 		args.RetVal = true;
-		Reset ();
 	}
-
 
 	private void HandleRowActivated (IntPtr handle)
 	{
@@ -209,6 +207,7 @@ public abstract class AddWindow : Window
 	private void HandleWindowResponse (object o, ResponseArgs args)
 	{
 		switch ((int) args.ResponseId) {
+		case (int) ResponseType.DeleteEvent:
 		case (int) ResponseType.Close:
 			window.Visible = false;
 			
@@ -261,10 +260,15 @@ public abstract class AddWindow : Window
 
 	protected void HandleChanged (IntPtr ptr, bool fits)
 	{
+		HandleChanged (ptr, fits, true);
+	}
+
+	protected void HandleChanged (IntPtr ptr, bool fits, bool may_append)
+	{
 		if (fits) {
 			if (view.Contains (ptr))
 				view.Changed (ptr);
-			else
+			else if (may_append)
 				view.Append (ptr);
 		} else {
 			view.Remove (ptr);

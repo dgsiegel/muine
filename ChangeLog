@@ -1,3 +1,20 @@
+2005-01-03  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+
+	- Don't crash when pressing WM close button.
+	  (The response type when WM closing is DeleteEvent,
+	   which used to fall through, but now with the ArgumentException
+	   in place it threw an exception)
+	- Don't insert more songs than allowed by FakeLength from
+	  AddSongWindow.HandleSongChanged.
+
+	* configure.in:
+	* src/About.cs:
+	
+	Bump version number to 0.8.0pre1.
+
 2005-01-03  Tamara Roberson  <roberst@cvs.gnome.org>
 
 	* src/AddAlbumWindow.cs:
