@@ -157,11 +157,7 @@ public class PlaylistWindow : Window
 	public void Run ()
 	{
 		/* show */
-		try {
-			Visible = (bool) Muine.GConfClient.Get ("/apps/muine/playlist_window/visible");
-		} catch {
-			Visible = true;
-		}
+		Visible = true;
 
 		/* empty lib dialog */
 		if (Muine.DB.Empty) {
@@ -214,8 +210,6 @@ public class PlaylistWindow : Window
 
 			Present ();
 		}
-
-		Muine.GConfClient.Set ("/apps/muine/playlist_window/visible", visible);
 	}
 
 	private void SetupButtonsAndMenuItems ()

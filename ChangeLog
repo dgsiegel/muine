@@ -1,5 +1,12 @@
 2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/muine.schemas.in:
+	* src/PlaylistWindow.cs:
+
+	Do not remember window visibility state, it was confusing.
+
+2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 
 	"the artist" -> "artist the" in sort/search key.

@@ -24,17 +24,6 @@
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/muine/playlist_window/visible</key>
-      <applyto>/apps/muine/playlist_window/visible</applyto>
-      <owner>muine</owner>
-      <type>bool</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Playlist window visibility.</short>
-        <long>Playlist window visible (true) or not (false).</long>
-      </locale>
-    </schema>
-    <schema>
       <key>/schemas/apps/muine/add_song_window/width</key>
       <applyto>/apps/muine/add_song_window/width</applyto>
       <owner>muine</owner>
