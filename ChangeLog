@@ -1,5 +1,12 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	Emit a Tick signal when a song's duration has changed at eos.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddWindowList.cs:
 	* src/PlaylistWindow.cs:
 

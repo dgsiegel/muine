@@ -1529,6 +1529,10 @@ namespace Muine
 			if (song.Duration != player.Position) {
 				song.Duration = player.Position;
 				Global.DB.SaveSong (song);
+
+				// So that any people listening to tick events
+				// update their time labels with the new duration
+				player.EmitTick ();
 			}
 			
 			// Do what else we need to do at the EOS
