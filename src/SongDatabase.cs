@@ -68,6 +68,9 @@ public class SongDatabase
 	public delegate void SongAddedHandler (Song song);
 	public event SongAddedHandler SongAdded;
 
+	public delegate void SongChangedHandler (Song song);
+	public event SongChangedHandler SongChanged;
+
 	public delegate void SongRemovedHandler (Song song);
 	public event SongRemovedHandler SongRemoved;
 
@@ -102,6 +105,16 @@ public class SongDatabase
 	private Queue changed_songs;
 	private Queue new_songs;
 
+	private class ChangedSong {
+		public Metadata Metadata;
+		public Song Song;
+
+		public ChangedSong (Song song, Metadata md) {
+			Song = song;
+			Metadata = md;
+		}
+	}
+
 	/* this is run from the main thread */
 	private bool Proxy ()
 	{
@@ -112,8 +125,9 @@ public class SongDatabase
 		}
 
 		if (changed_songs.Count > 0) {
-			Song song = (Song) changed_songs.Dequeue ();
-			song.Reload ();
+			ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
+			cs.Song.Sync (cs.Metadata);
+			UpdateSong (cs.Song);
 			return true;
 		}
 
@@ -142,8 +156,19 @@ public class SongDatabase
 				/* mtime is in seconds (Pow (10, (9 - 2)) 100-nanosecond units) */
 				long jorns_constant = 621356040000000000; /* mtime starts at 1970, Ticks at 0001 */
 				long mtime_ticks = song.MTime * (long) Math.Pow (10, 7) + jorns_constant;
-				if (mtime_ticks < finfo.LastWriteTime.Ticks)
-					changed_songs.Enqueue (song);
+				if (mtime_ticks < finfo.LastWriteTime.Ticks) {
+					Metadata metadata;
+
+					try {
+						metadata = new Metadata (song.Filename);
+					} catch {
+						removed_songs.Enqueue (song);
+						continue;
+					}
+					
+					ChangedSong cs = new ChangedSong (song, metadata);
+					changed_songs.Enqueue (cs);
+				}
 			}
 		}
 
@@ -218,16 +243,7 @@ public class SongDatabase
 
 		Songs.Remove (song);
 
-		if (song.Album.Length == 0)
-			return;
-
-		Album album = (Album) Albums [song.Album];
-		if (album.RemoveSong (song)) {
-			Albums.Remove (album.Name);
-
-			if (AlbumRemoved != null)
-				AlbumRemoved (album);
-		}
+		RemoveFromAlbum (song);
 	}
 
 	private IntPtr EncodeFunc (IntPtr handle, out int length)
@@ -241,6 +257,28 @@ public class SongDatabase
 	{
 		db_store (dbf, song.Filename, true,
 			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
+	
+		/* update album */
+		RemoveFromAlbum (song);
+		DoAlbum (song, true);
+
+		/* emit changed signal */
+		if (SongChanged != null)
+			SongChanged (song);
+	}
+
+	private void RemoveFromAlbum (Song song)
+	{
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.Album];
+		if (album.RemoveSong (song)) {
+			Albums.Remove (album.Name);
+
+			if (AlbumRemoved != null)
+				AlbumRemoved (album);
+		}
 	}
 
 	public void DoAlbum (Song song, bool emit_signal)

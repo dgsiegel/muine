@@ -91,7 +91,7 @@ db_store (gpointer db,
 	data.dptr = func (user_data, &data.dsize);
 
 	gdbm_store ((GDBM_FILE) db, key, data,
-		    overwrite ? GDBM_INSERT : GDBM_REPLACE);
+		    overwrite ? GDBM_REPLACE : GDBM_INSERT);
 
 	g_free (data.dptr);
 }

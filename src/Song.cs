@@ -171,12 +171,12 @@ public class Song
 		string artist = (string) action.UserData0;
 		string album = (string) action.UserData1;
 
-		string [] urls = Muine.CoverDB.GetAlbumURLs (artist, album);
+		string url = Muine.CoverDB.GetAlbumCoverURL (artist, album);
 
-		if (urls == null)
+		if (url == null)
 			return;
 
-		tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (urls [0]);
+		tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
 		
 		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
 	}
@@ -263,23 +263,8 @@ public class Song
 		pointers.Remove (handle);
 	}
 
-	public void Reload ()
+	public void Sync (Metadata metadata)
 	{
-		Sync ();
-
-		/* FIXME signal.. update ui.. sync db.. */
-	}
-
-	private void Sync ()
-	{
-		Metadata metadata;
-			
-		try {
-			metadata = new Metadata (filename);
-		} catch (Exception e) {
-			throw e;
-		}
-
 		if (metadata.Titles.Length > 0)
 			titles = metadata.Titles;
 		else {
@@ -304,7 +289,15 @@ public class Song
 	{
 		filename = fn;
 
-		Sync ();
+		Metadata metadata;
+			
+		try {
+			metadata = new Metadata (filename);
+		} catch (Exception e) {
+			throw e;
+		}
+
+		Sync (metadata);
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;

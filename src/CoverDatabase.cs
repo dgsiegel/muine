@@ -223,7 +223,7 @@ public class CoverDatabase
 		return s;
 	}
 
-	public string [] GetAlbumURLs (string artist, string album_title)
+	public string GetAlbumCoverURL (string artist, string album_title)
 	{
 		AmazonSearchService search_service = new AmazonSearchService();
 
@@ -281,13 +281,8 @@ public class CoverDatabase
 				double match_percent;
 				match_percent = match_count / (double) album_title_array.Length;
 
-				if (match_percent > 0.6) {
-					string [] urls = new string [2];
-					urls [0] = pi.Details [i].ImageUrlMedium;
-					urls [1] = pi.Details [i].Url;
-					return urls;
-				}
-			
+				if (match_percent > 0.6)
+					return pi.Details [i].ImageUrlMedium;
 			}
 
 			current_page++;

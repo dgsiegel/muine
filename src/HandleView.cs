@@ -105,6 +105,15 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_changed (IntPtr view,
+							      IntPtr pointer);
+
+	public void Changed (IntPtr handle)
+	{
+		pointer_list_view_changed (Raw, handle);
+	}
+	
+	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_remove (IntPtr view,
 							     IntPtr pointer);
 

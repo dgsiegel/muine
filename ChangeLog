@@ -1,5 +1,18 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/db.c: (db_store):
+	* libmuine/pointer-list-view.c: (pointer_list_view_changed):
+	* libmuine/pointer-list-view.h:
+	* src/CoverDatabase.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	File existance/change/removal checking on startup works. And async ;)
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Check that we have no watched folders instead of an empty lib.

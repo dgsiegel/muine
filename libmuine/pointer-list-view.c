@@ -268,6 +268,19 @@ pointer_list_view_append (PointerListView *view,
 }
 
 void
+pointer_list_view_changed (PointerListView *view,
+			   gpointer pointer)
+{
+	GtkTreeIter iter;
+	GtkTreePath *path;
+
+	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
+	gtk_tree_model_row_changed (GTK_TREE_MODEL (view->model), path, &iter);
+	gtk_tree_path_free (path);
+}
+
+void
 pointer_list_view_remove (PointerListView *view,
 			  gpointer pointer)
 {

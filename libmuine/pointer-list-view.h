@@ -58,6 +58,8 @@ void             pointer_list_view_add_column    (PointerListView *view,
 						  CellDataFunc func);
 void             pointer_list_view_append        (PointerListView *view,
 				                  gpointer pointer);
+void             pointer_list_view_changed       (PointerListView *view,
+			                          gpointer pointer);
 void             pointer_list_view_remove        (PointerListView *view,
 			                          gpointer pointer);
 void             pointer_list_view_remove_delta  (PointerListView *view,

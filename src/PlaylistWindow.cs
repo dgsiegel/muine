@@ -129,6 +129,7 @@ public class PlaylistWindow : Window
 		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
 		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 
+		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
 
 		/* load last playlist */
@@ -137,7 +138,7 @@ public class PlaylistWindow : Window
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
 
-		SongChanged ();
+		SongChanged (true);
 		NSongsChanged ();
 		SelectionChanged ();
 		StateChanged (false);
@@ -388,12 +389,12 @@ public class PlaylistWindow : Window
 		if (playlist.Playing == IntPtr.Zero) {
 			playlist.First ();
 
-			SongChanged ();
+			SongChanged (true);
 		} else if (had_last_eos == true) {
 			playlist.Playing = new_p;
 			playlist.ScrollTo (new_p);
 
-			SongChanged ();
+			SongChanged (true);
 		}
 
 		had_last_eos = false;
@@ -478,7 +479,7 @@ public class PlaylistWindow : Window
 		SavePlaylist (playlist_filename, true);
 	}
 
-	private void SongChanged ()
+	private void SongChanged (bool restart)
 	{
 		if (playlist.Playing != IntPtr.Zero) {
 			Song song = Song.FromHandle (playlist.Playing);
@@ -504,7 +505,8 @@ public class PlaylistWindow : Window
 			else
 				artist_label.Text = "Unknown";
 
-			player.Song = song;
+			if (player.Song != song || restart)
+				player.Song = song;
 
 			Title = title_label.Text + " - Muine Music Player";
 
@@ -814,7 +816,7 @@ public class PlaylistWindow : Window
 				playlist.Playing = p;
 				playlist.ScrollTo (p);
 
-				SongChanged ();
+				SongChanged (true);
 
 				player.Playing = true;
 		
@@ -851,7 +853,7 @@ public class PlaylistWindow : Window
 					playlist.Playing = s.Handle;
 					playlist.ScrollTo (s.Handle);
 
-					SongChanged ();
+					SongChanged (true);
 
 					player.Playing = true;
 		
@@ -881,7 +883,7 @@ public class PlaylistWindow : Window
 		if (playlist.HasNext) {
 			playlist.Next ();
 
-			SongChanged ();
+			SongChanged (true);
 
 			NSongsChanged ();
 		} else {
@@ -908,7 +910,7 @@ public class PlaylistWindow : Window
 			playlist.Previous ();
 			playlist.ScrollTo (playlist.Playing);
 
-			SongChanged ();
+			SongChanged (true);
 
 			NSongsChanged ();
 		} else
@@ -923,7 +925,7 @@ public class PlaylistWindow : Window
 			playlist.First ();
 			playlist.ScrollTo (playlist.Playing);
 
-			SongChanged ();
+			SongChanged (true);
 
 			NSongsChanged ();
 
@@ -938,7 +940,7 @@ public class PlaylistWindow : Window
 		playlist.Next ();
 		playlist.ScrollTo (playlist.Playing);
 
-		SongChanged ();
+		SongChanged (true);
 
 		NSongsChanged ();
 
@@ -1107,7 +1109,7 @@ public class PlaylistWindow : Window
 					player.Playing = false;
 				}
 
-				SongChanged ();
+				SongChanged (true);
 			}
 			
 			RemoveSong (sel);
@@ -1123,7 +1125,7 @@ public class PlaylistWindow : Window
 
 		if (had_last_eos) {
 			ClearPlaylist ();
-			SongChanged ();
+			SongChanged (true);
 			NSongsChanged ();
 			return;
 		}
@@ -1141,7 +1143,7 @@ public class PlaylistWindow : Window
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
 	{
 		ClearPlaylist ();
-		SongChanged ();
+		SongChanged (true);
 		NSongsChanged ();
 	}
 
@@ -1154,7 +1156,7 @@ public class PlaylistWindow : Window
 	{
 		playlist.Playing = handle;
 
-		SongChanged ();
+		SongChanged (true);
 
 		NSongsChanged ();
 
@@ -1181,11 +1183,35 @@ public class PlaylistWindow : Window
 		About.ShowWindow (this);
 	}
 
-	private void HandleSongRemoved (Song song)
+	private void HandleSongChanged (Song song)
 	{
+		bool n_songs_changed = false;
+		
 		foreach (IntPtr h in song.Handles) {
 			if (!playlist.Contains (h))
 				continue;
+
+			n_songs_changed = true;
+			
+			if (h == playlist.Playing)
+				SongChanged (false);
+
+			playlist.Changed (h);
+		}
+		
+		if (n_songs_changed)
+			NSongsChanged ();
+	}
+
+	private void HandleSongRemoved (Song song)
+	{
+		bool n_songs_changed = false;
+		
+		foreach (IntPtr h in song.Handles) {
+			if (!playlist.Contains (h))
+				continue;
+
+			n_songs_changed = true;
 			
 			if (h == playlist.Playing) {
 				if (playlist.HasNext)
@@ -1198,12 +1224,13 @@ public class PlaylistWindow : Window
 					player.Playing = false;
 				}
 
-				SongChanged ();
+				SongChanged (true);
 			}
 
 			playlist.Remove (h);
 		}
-			
-		NSongsChanged ();
+		
+		if (n_songs_changed)
+			NSongsChanged ();
 	}
 }
