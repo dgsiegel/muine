@@ -1,3 +1,7 @@
+2004-12-04  Sigurd Gartmann  <sigurd-translate@brogar.org>
+
+	* configure.in: Added "nb" to ALL_LINGUAS.
+
 2004-11-30  Žygimantas Beručka  <uid0@akl.lt>
 
 	* configure.in: Added "lt" to ALL_LINGUAS.
