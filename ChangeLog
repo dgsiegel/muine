@@ -1,5 +1,13 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/PlaylistWindow.cs:
+
+	Make title_label and artist_label one, so that the text 
+	can be easier selected. As suggested by synap.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* src/CoverDatabase.cs:
 	* src/Muine.cs:

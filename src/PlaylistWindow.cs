@@ -73,11 +73,8 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private EventBox cover_ebox;
 	[Glade.Widget]
-	private Container title_label_container;
-	private EllipsizingLabel title_label;
-	[Glade.Widget]
-	private Container artist_label_container;
-	private EllipsizingLabel artist_label;
+	private Container player_label_container;
+	private EllipsizingLabel player_label;
 	[Glade.Widget]
 	private Label time_label;
 	[Glade.Widget]
@@ -363,17 +360,11 @@ public class PlaylistWindow : Window
 		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
 		player.StateChanged += new Player.StateChangedHandler (HandleStateChanged);
 
-		title_label = new EllipsizingLabel ("");
-		title_label.Visible = true;
-		title_label.Xalign = 0.0f;
-		title_label.Selectable = true;
-		title_label_container.Add (title_label);
-
-		artist_label = new EllipsizingLabel ("");
-		artist_label.Visible = true;
-		artist_label.Xalign = 0.0f;
-		artist_label.Selectable = true;
-		artist_label_container.Add (artist_label);
+		player_label = new EllipsizingLabel ("");
+		player_label.Visible = true;
+		player_label.Xalign = 0.0f;
+		player_label.Selectable = true;
+		player_label_container.Add (player_label);
 
 		/* FIXME 
 		Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
@@ -493,6 +484,8 @@ public class PlaylistWindow : Window
 
 	private void SongChanged (bool restart)
 	{
+		uint title_len;
+		
 		if (playlist.Playing != IntPtr.Zero) {
 			Song song = Song.FromHandle (playlist.Playing);
 
@@ -510,23 +503,24 @@ public class PlaylistWindow : Window
 				tip += "\n\n" + "Performed by " + StringUtils.JoinHumanReadable (song.Performers);
 			tooltips.SetTip (cover_ebox, tip, null);
 
-			title_label.Text = song.Title;
-
-			artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
+			string artists = StringUtils.JoinHumanReadable (song.Artists);
+			player_label.Text = song.Title + "\n" + artists;
+			title_len = StringUtils.GetByteLength (song.Title);
 
 			if (player.Song != song || restart)
 				player.Song = song;
 
 			Title = song.Title + " - Muine Music Player";
 
-			icon.Tooltip = artist_label.Text + " - " + song.Title;
+			icon.Tooltip = artists + " - " + song.Title;
 		} else {
 			cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
 
 			tooltips.SetTip (cover_ebox, null, null);
 
-			title_label.Text = "";
-			artist_label.Text = "";
+			player_label.Text = "";
+			title_len = 0;
+
 			time_label.Text = "";
 
 			Title = "Muine Music Player";
@@ -536,7 +530,7 @@ public class PlaylistWindow : Window
 			skip_to_window.Hide ();
 		}
 
-		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
+		MarkupUtils.LabelSetMarkup (player_label, 0, title_len,
 		                            true, true, false);
 	}
 
