@@ -1,5 +1,21 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* data/glade/ErrorDialog.glade:
+	* data/glade/Makefile.am:
+	* data/glade/OverwriteDialog.glade:
+	R data/glade/YesNoDialog.glade:
+	* src/Makefile.am:
+	* src/OverwriteDialog.cs:
+	* src/SaveDialog.cs:
+	R src/YesNoDialog.cs:
+
+	Much better overwrite dialog, UI taken from ephy. Done in glade for
+	now, we'll switch to using GtkMessageDialog once there is Gtk 2.6
+	support in Gtk#.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Emit SongChangedEvent also when the currently playing song itself

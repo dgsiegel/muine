@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -17,29 +17,39 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// TODO: Make HIG-compliant
-// TODO: Make the Dialog ourselves
-
 using System;
 
 using Gtk;
 using GLib;
 
+using Mono.Posix;
+
 namespace Muine
 {
-	public class YesNoDialog
+	public class OverwriteDialog
 	{
+		// Strings
+		private static readonly string string_primary_text =
+			Catalog.GetString ("A file {0} already exists.");
+		private static readonly string string_secondary_text =
+			Catalog.GetString ("If you choose to overwrite this file, the contents will be lost.");
+
 		// Widgets
 		[Glade.Widget] private Window window;
 		[Glade.Widget] private Label label;
 
 		// Constructor
-		public YesNoDialog (string text, Window parent)
+		public OverwriteDialog (Window parent,
+					string fn)
 		{
-			Glade.XML gxml = new Glade.XML (null, "YesNoDialog.glade", "window", null);
+			Glade.XML gxml = new Glade.XML (null, "OverwriteDialog.glade", "window", null);
 			gxml.Autoconnect (this);
 
-			label.Text = text;
+			string primary_text = String.Format (string_primary_text,
+						             FileUtils.MakeHumanReadable (fn));
+
+			label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
+						      primary_text, string_secondary_text);
 
 			window.TransientFor = parent;
 		}

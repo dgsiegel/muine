@@ -21,7 +21,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/SkipToWindow.cs		\
 	$(srcdir)/ProgressWindow.cs		\
 	$(srcdir)/ErrorDialog.cs		\
-	$(srcdir)/YesNoDialog.cs		\
+	$(srcdir)/OverwriteDialog.cs		\
 	$(srcdir)/VolumeButton.cs		\
 	$(srcdir)/HandleView.cs			\
 	$(srcdir)/StockIcons.cs			\
@@ -63,7 +63,7 @@ MUINE_RESOURCES =												\
 	-resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade			\
 	-resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade			\
 	-resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade				\
-	-resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade				\
+	-resource:$(top_srcdir)/data/glade/OverwriteDialog.glade,OverwriteDialog.glade			\
 	-resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
 	-resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
 	-resource:$(top_srcdir)/data/ui/PlaylistWindow.xml,PlaylistWindow.xml				\

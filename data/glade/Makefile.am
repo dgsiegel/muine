@@ -4,7 +4,7 @@ noinst_DATA =					\
 	SkipToWindow.glade			\
 	NoMusicFoundWindow.glade		\
 	ErrorDialog.glade			\
-	YesNoDialog.glade			\
+	OverwriteDialog.glade			\
 	ProgressWindow.glade			\
 	InfoWindow.glade			\
 	PlaylistFilling.glade			\

@@ -69,6 +69,8 @@ o Fix DnD hack in PlaylistWindow
   Depends on Gnome Bugzilla #164085
 o Use Hashtable/dictionary in D-Bus song info code
   Depends on Freedesktop Bugzilla #2175
+o Create message dialogs ourselves, not through glade
+  Once we have Gtk 2.6 support in Gtk#
 
 We won't have:
 ==============

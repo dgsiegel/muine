@@ -36,10 +36,6 @@ namespace Muine
 			Catalog.GetString ("Save Playlist");
 		private static readonly string string_save_default =
 			Catalog.GetString ("Untitled");
-		private static readonly string string_overwrite =
-			Catalog.GetString ("File {0} will be overwritten.\n" +
-					   "If you choose yes, the contents will be lost.\n\n" +
-					   "Do you want to continue?");
 
 		// Constructor
 		public SaveDialog () 
@@ -57,8 +53,7 @@ namespace Muine
 				fn += ".m3u";
 
 			if (FileUtils.Exists (fn)) {
-				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), 
-								 Global.Playlist);
+				OverwriteDialog d = new OverwriteDialog (Global.Playlist, fn);
 				if (!d.GetAnswer ()) // user said don't overwrite
 					return;
 			}
