@@ -1,3 +1,14 @@
+2004-06-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* NEWS:
+	* README:
+	* configure.in:
+	* src/About.cs:
+	* src/NotificationAreaIcon.cs:
+
+	Mono Beta 3 support (Patch provided by jeroen, edd and latexer),
+	and released 0.6.3.
+
 2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Muine.cs:

@@ -17,8 +17,8 @@ Our IRC channel is #muine on irc.gimp.org.
 Requirements
 ============
 
-Mono >= 0.30.1
-Gtk# >= 0.18
+Mono >= 0.96
+Gtk# >= 0.98
 libid3tag >= 0.15.0b
 vorbis >= 1.0
 FLAC >= 1.1.0

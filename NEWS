@@ -1,3 +1,22 @@
+0.6.3
+=====
+
+- Works with Mono Beta 3 [Jeroen Zwartepoorte, Edd Dumbill, Peter Johanson]
+- Support playing files that are not in the library [Jorn Baayen]
+- Basic session management support [Jorn Baayen]
+- Sort by album name if album has > 3 artists [Jorn Baayen]
+
+New translations:
+- Bulgarian [Alexander Shopov]
+- Japanese [Takeshi AIHANA]
+
+Updated translations:
+- Brazilian Portuguese [Raphael Higino]
+- Czech [Miloslav Trmac]
+- French [Vincent Carriere]
+- Hungarian [Andras Timar]
+- Polish [GNOME PL Team]
+
 0.6.2
 =====
 

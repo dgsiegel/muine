@@ -196,8 +196,7 @@ public class NotificationAreaIcon : Plug
 		int space_above = y - rect.Y;
 		int space_below = rect.Y + rect.Height - y;
 
-		Requisition requisition = new Requisition ();
-		menu.SizeRequest (ref requisition);
+		Requisition requisition = menu.SizeRequest ();
 
 		if (requisition.Height <= space_above ||
 		    requisition.Height <= space_below) {
