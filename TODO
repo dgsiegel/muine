@@ -24,6 +24,8 @@ o Support mastroska and mp3cue
 Depends on other components:
 ============================
 
+o Use stock volume icons
+  Depends on gnome-icon-theme, Gnome Bugzilla #159571
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
 o Monitor imported folders using FileWatcher
