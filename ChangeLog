@@ -1,5 +1,12 @@
 2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	When syncing a song, make sure the call to StartRemoveFromAlbum
+	refers to the old album instead of the new.
+
+2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/metadata.c: (metadata_free), (metadata_get_album_art):
 
 	Ref album art in get_album_art () and unref in metadata_free ()

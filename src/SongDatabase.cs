@@ -397,10 +397,8 @@ namespace Muine
 
 				SignalRequest rq = new SignalRequest (song);
 			
-				song.Sync (metadata);
-
-				// update album
 				StartRemoveFromAlbum (rq);
+				song.Sync (metadata);
 				StartAddToAlbum (rq);
 			
 				SaveSongInternal (song, true);
