@@ -1,5 +1,12 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/volume-button.c: (scale_key_press_event_cb):
+
+	Fix Escape behaviour on volume button. Patch by 
+	Florian Ragwitz <florian@mookooh.org>.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/Makefile.am:
 	* data/muine.applications (removed):
 

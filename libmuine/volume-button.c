@@ -155,9 +155,8 @@ scale_key_press_event_cb (GtkWidget   *widget,
     case GDK_Escape:
       hide_scale (button);
 
-      g_signal_emit (button, signals[VOLUME_CHANGED], 0,
-		     button->revert_volume);
-      
+      volume_button_set_volume (button, button->revert_volume);
+
       return TRUE;
       
     case GDK_KP_Enter:
