@@ -90,6 +90,17 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/repeat</key>
+      <applyto>/apps/muine/repeat</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Repeat mode.</short>
+        <long>Whether or not to enable repeat playlist mode.</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/watched_folders</key>
       <applyto>/apps/muine/watched_folders</applyto>
       <owner>muine</owner>

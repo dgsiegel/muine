@@ -1,5 +1,19 @@
 2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* data/muine.schemas.in:
+	* libmuine/pointer-list-model.c: (pointer_list_model_last):
+	* libmuine/pointer-list-model.h:
+	* libmuine/pointer-list-view.c: (pointer_list_view_last):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Add a repeat mode.
+
+2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Song.cs:
 
 	Nullify tmp_cover_image when not needed anymore.
