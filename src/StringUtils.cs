@@ -22,8 +22,6 @@ using System.Collections;
 
 using Mono.Posix;
 
-using GUnicode;
-
 namespace Muine
 {
 	public sealed class StringUtils
@@ -109,8 +107,8 @@ namespace Muine
 
 			bool different = false;
 			string stripped = "";
-			foreach (Unichar c in Unistring.GetUnichars (lower)) {
-				if (c.IsAlphaNumeric || c.IsSpace)
+			foreach (char c in lower) {
+				if (Char.IsLetterOrDigit (c) || Char.IsWhiteSpace (c))
 					stripped += c;
 				else
 					different = true;

@@ -1,5 +1,11 @@
 2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/StringUtils.cs:
+
+	Use System.Char.Is*.
+
+2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Database.cs:
 	* src/Song.cs:
 
