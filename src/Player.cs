@@ -215,26 +215,22 @@ public class Player : GLib.Object
 	private delegate void IntSignalDelegate (IntPtr obj, int i);
 	private delegate void StringSignalDelegate (IntPtr obj, string s);
 
-	private static void TickCallback (IntPtr obj, int pos)
+	private void TickCallback (IntPtr obj, int pos)
 	{	
-		Player player = GLib.Object.GetObject (obj, false) as Player;
-
-		if (player.TickEvent != null)
-			player.TickEvent (pos);
+		if (TickEvent != null)
+			TickEvent (pos);
 	}
 
 	public delegate void EndOfStreamEventHandler ();
 	public event EndOfStreamEventHandler EndOfStreamEvent;
 
-	private static void EosCallback (IntPtr obj)
+	private void EosCallback (IntPtr obj)
 	{
-		Player player = GLib.Object.GetObject (obj, false) as Player;
-
-		if (player.EndOfStreamEvent != null)
-			player.EndOfStreamEvent ();
+		if (EndOfStreamEvent != null)
+			EndOfStreamEvent ();
 	}
 
-	private static void ErrorCallback (IntPtr obj, string error)
+	private void ErrorCallback (IntPtr obj, string error)
 	{
 		new ErrorDialog (String.Format (Muine.Catalog.GetString ("Audio backend error:\n{0}"), error));
 	}

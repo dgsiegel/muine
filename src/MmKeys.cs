@@ -60,27 +60,23 @@ public class MmKeys : GLib.Object
 	public event EventHandler Next;
 	public event EventHandler Stop;
 
-	private static void MmPlayPauseCallback (IntPtr obj, int vol)
+	private void MmPlayPauseCallback (IntPtr obj, int vol)
 	{
-		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
-		mmkeys_object.PlayPause (null, null);
+		PlayPause (null, null);
 	}
 
-	private static void MmNextCallback (IntPtr obj, int vol)
+	private void MmNextCallback (IntPtr obj, int vol)
 	{
-		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
-		mmkeys_object.Next (null, null);
+		Next (null, null);
 	}
 
-	private static void MmPrevCallback (IntPtr obj, int vol)
+	private void MmPrevCallback (IntPtr obj, int vol)
 	{
-		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
-		mmkeys_object.Previous (null, null);
+		Previous (null, null);
 	}
 
-	private static void MmStopCallback (IntPtr obj, int vol)
+	private void MmStopCallback (IntPtr obj, int vol)
 	{
-		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
-		mmkeys_object.Stop (null, null);
+		Stop (null, null);
 	}
 }

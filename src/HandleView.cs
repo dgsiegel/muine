@@ -372,34 +372,28 @@ public class HandleView : TreeView
 
 	private delegate void SignalDelegate (IntPtr obj, IntPtr ptr);
 
-	private static void PointerActivatedCallback (IntPtr obj, IntPtr ptr)
+	private void PointerActivatedCallback (IntPtr obj, IntPtr ptr)
 	{
-		HandleView view = GLib.Object.GetObject (obj, false) as HandleView;
-
-		if (view.RowActivated != null)
-			view.RowActivated (ptr);
+		if (RowActivated != null)
+			RowActivated (ptr);
 	}
 
 	public new delegate void RowActivatedHandler (IntPtr handle);
 	public new event HandleView.RowActivatedHandler RowActivated;
 
-	private static void PointersReorderedCallback (IntPtr obj, IntPtr unused_data)
+	private void PointersReorderedCallback (IntPtr obj, IntPtr unused_data)
 	{
-		HandleView view = GLib.Object.GetObject (obj, false) as HandleView;
-
-		if (view.RowsReordered != null)
-			view.RowsReordered ();
+		if (RowsReordered != null)
+			RowsReordered ();
 	}
 
 	public delegate void RowsReorderedHandler ();
 	public event HandleView.RowsReorderedHandler RowsReordered;
 	
-	private static void SelectionChangedCallback (IntPtr obj, IntPtr unused_data)
+	private void SelectionChangedCallback (IntPtr obj, IntPtr unused_data)
 	{
-		HandleView view = GLib.Object.GetObject (obj, false) as HandleView;
-
-		if (view.SelectionChanged != null)
-			view.SelectionChanged ();
+		if (SelectionChanged != null)
+			SelectionChanged ();
 	}
 
 	public delegate void SelectionChangedHandler ();

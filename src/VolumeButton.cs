@@ -61,11 +61,9 @@ public class VolumeButton : Button
 
 	private delegate void SignalDelegate (IntPtr obj, int vol);
 
-	private static void VolumeChangedCallback (IntPtr obj, int vol)
+	private void VolumeChangedCallback (IntPtr obj, int vol)
 	{
-		VolumeButton btn = GLib.Object.GetObject (obj, false) as VolumeButton;
-
-		if (btn.VolumeChanged != null)
-			btn.VolumeChanged (vol);
+		if (VolumeChanged != null)
+			VolumeChanged (vol);
 	}
 }
