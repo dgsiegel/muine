@@ -1,5 +1,11 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Check that we have no watched folders instead of an empty lib.
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* data/muine.schemas.in:
 	* libmuine/metadata.c: (metadata_load), (metadata_get_mtime):

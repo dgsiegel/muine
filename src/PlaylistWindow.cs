@@ -155,7 +155,14 @@ public class PlaylistWindow : Window
 		}
 
 		/* empty lib dialog */
-		if (Muine.DB.Empty) {
+		string [] folders;
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+		
+		if (folders.Length == 0) {
 			SearchMusicWindow w = new SearchMusicWindow (this);
 			w.ImportFolderEvent += new SearchMusicWindow.ImportFolderEventHandler (HandleImportFolderEvent); 
 			w.Run ();
