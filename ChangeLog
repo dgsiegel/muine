@@ -1,5 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Support loading multiple folders in one loading session.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 
 	Re-commit CoverDB rehash. Bad Tamara! :)

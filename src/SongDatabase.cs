@@ -326,22 +326,29 @@ namespace Muine
 		}
 
 		// Folder watching
-		public void AddFolder (DirectoryInfo dinfo, ProgressWindow pw)
+		public void AddFolders (ArrayList folders)
 		{
-			AddToConfig (dinfo.FullName);
+			foreach (DirectoryInfo dinfo in folders)
+				AddToWatchedFolders (dinfo.FullName);
+			Config.Set (GConfKeyWatchedFolders, watched_folders);
 
-			AddFolderThread t = new AddFolderThread (dinfo, pw);
+			new AddFoldersThread (folders);
 		}
 
-		private class AddFolderThread : ThreadBase
+		private class AddFoldersThread : ThreadBase
 		{
-			private DirectoryInfo dinfo;
+			private ArrayList folders;
+			private DirectoryInfo current_folder;
 			private ProgressWindow pw;
 			private BooleanBox canceled_box = new BooleanBox (false);
 
 			protected override void ThreadFunc ()
 			{
-				Global.DB.HandleDirectory (dinfo, queue, canceled_box);
+				foreach (DirectoryInfo dinfo in folders) {
+					current_folder = dinfo;
+
+					Global.DB.HandleDirectory (dinfo, queue, canceled_box);
+				}
 
 				thread_done = true;
 			}
@@ -359,19 +366,22 @@ namespace Muine
 
 				SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-				canceled_box.Value = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
+				canceled_box.Value = pw.Report (current_folder.Name,
+				                                Path.GetFileName (rq.Song.Filename));
 
 				Global.DB.HandleSignalRequest (rq);
 	
 				return true;
 			}
 			
-			public AddFolderThread (DirectoryInfo dinfo, ProgressWindow pw)
+			public AddFoldersThread (ArrayList folders)
 			{
-				this.dinfo = dinfo;
-				this.pw = pw;
+				this.folders = folders;
 
-				canceled_box.Value = pw.Report (dinfo.Name, dinfo.Name);
+				pw = new ProgressWindow (Global.Playlist);
+
+				current_folder = (DirectoryInfo) folders [0];
+				pw.Report (current_folder.Name, current_folder.Name);
 
 				thread.Start ();
 			}
@@ -382,25 +392,30 @@ namespace Muine
 			get { return watched_folders; }
 		}
 
-		private void AddToConfig (string folder)
+		private void AddToWatchedFolders (string folder)
 		{
-			// Update config
-			string [] new_folders = new string [watched_folders.Length + 1];
+			ArrayList new_folders = new ArrayList ();
 
-			int i = 0;
-			foreach (string s in watched_folders) {
-				// check if folder is already monitored at a higher
-				// or same level
-				if (folder.IndexOf (s) == 0)
+			foreach (string cur in watched_folders) {
+				if (folder.IndexOf (cur) == 0 &&
+				    folder.Length >= cur.Length) {
+					// folder is already monitored at a
+					// higher or same level, don't add
 					return;
-				new_folders [i] = watched_folders [i];
-				i++;
+				} else if (cur.IndexOf (folder) == 0 &&
+				           folder.Length < cur.Length) {
+				        // we are now adding a lower level
+					// than 'cur', so don't add 'cur' to the
+					// new array.
+					continue;
+				}
+
+				new_folders.Add (cur);
 			}
 
-			new_folders [watched_folders.Length] = folder;
+			new_folders.Add (folder);
 
-			watched_folders = new_folders;
-			Config.Set (GConfKeyWatchedFolders, watched_folders);
+			watched_folders = (string []) new_folders.ToArray (typeof (string));
 		}
 
 		private void OnWatchedFoldersChanged (object o, GConf.NotifyEventArgs args)
@@ -408,16 +423,22 @@ namespace Muine
 			string [] old_watched_folders = watched_folders;
 			watched_folders = (string []) args.Value;
 
+			ArrayList new_dinfos = new ArrayList ();
+
+			Array.Sort (old_watched_folders); // Needed for the binary search
+
 			foreach (string s in watched_folders) {
 				if (Array.BinarySearch (old_watched_folders, s) < 0) {
 					DirectoryInfo dinfo = new DirectoryInfo (s);
 					if (!dinfo.Exists)
 						continue;
 
-					ProgressWindow pw = new ProgressWindow (Global.Playlist);
-					AddFolderThread t = new AddFolderThread (dinfo, pw);
+					new_dinfos.Add (dinfo);
 				}
 			}
+
+			if (new_dinfos.Count > 0)
+				new AddFoldersThread (new_dinfos);
 		}
 
 		// Changes thread

@@ -299,37 +299,49 @@ namespace Muine
 
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
-			string [] uri_list;
-			string fn;
+			if (args.Info != (uint) DndUtils.TargetType.UriList) {
+				Drag.Finish (args.Context, false, false, args.Time);
+				return;
+			}
 
-			switch (args.Info) {
-			case (uint) DndUtils.TargetType.UriList:
-				uri_list = DndUtils.SplitSelectionData (args.SelectionData);
-				fn = FileUtils.LocalPathFromUri (uri_list [0]);
+			string [] bits = DndUtils.SplitSelectionData (args.SelectionData);
 
-				if (fn == null) {
-					Drag.Finish (args.Context, false, false, args.Time);
-					return;
-				}
+			ArrayList new_dinfos = new ArrayList ();
+
+			bool success = false;
+
+			foreach (string s in bits) {
+				string fn = FileUtils.LocalPathFromUri (s);
+
+				if (fn == null)
+					continue;
+		
+				DirectoryInfo dinfo = new DirectoryInfo (fn);
 					
-				break;
+				if (dinfo.Exists)
+					new_dinfos.Add (dinfo);
+				else {
+					System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
+						
+					if (!finfo.Exists)
+						continue;
+						
+					if (!FileUtils.IsPlaylist (fn))
+						continue;
 
-			default:
-				Drag.Finish (args.Context, false, false, args.Time);
-				return;
+					OpenPlaylist (fn);
+
+					success = true;
+				}
 			}
 
-			DirectoryInfo dinfo = new DirectoryInfo (fn);
-			if (!dinfo.Exists) {
-				Drag.Finish (args.Context, false, false, args.Time);
-				return;
-			}
-				
-			ProgressWindow pw = new ProgressWindow (this);
-			
-			Global.DB.AddFolder (dinfo, pw);
+			if (new_dinfos.Count > 0) {
+				Global.DB.AddFolders (new_dinfos);
 
-			Drag.Finish (args.Context, true, false, args.Time);
+				success = true;
+			}
+
+			Drag.Finish (args.Context, success, false, args.Time);
 		}
 
 		private void RestoreState ()
@@ -1437,14 +1449,16 @@ namespace Muine
 
 			Config.Set (GConfKeyImportFolder, fc.CurrentFolder);
 
-			ProgressWindow pw = new ProgressWindow (this);
-
+			ArrayList new_dinfos = new ArrayList ();
 			foreach (string dir in fc.Filenames) {
 				DirectoryInfo dinfo = new DirectoryInfo (dir);
 				
 				if (dinfo.Exists)
-					Global.DB.AddFolder (dinfo, pw);
+					new_dinfos.Add (dinfo);
 			}
+
+			if (new_dinfos.Count > 0)
+				Global.DB.AddFolders (new_dinfos);
 
 			fc.Destroy ();
 		}
@@ -1824,6 +1838,7 @@ namespace Muine
 			string data = DndUtils.SelectionDataToString (args.SelectionData);
 			TreePath path;
 			TreeViewDropPosition tmp_pos;
+			bool success = true;
 
 			DragAddSongPosition pos = new DragAddSongPosition ();
 			pos.First = true;
@@ -1924,42 +1939,60 @@ namespace Muine
 				break;
 
 			case (uint) DndUtils.TargetType.UriList:
+				success = false;
+
+				bool added_files = false;
+
+				ArrayList new_dinfos = new ArrayList ();
+
 				foreach (string s in bits) {
 					string fn = FileUtils.LocalPathFromUri (s);
 
 					if (fn == null)
-						break;
+						continue;
 		
 					DirectoryInfo dinfo = new DirectoryInfo (fn);
 					
-					if (dinfo.Exists) {
-						ProgressWindow pw = new ProgressWindow (this);
-			
-						Global.DB.AddFolder (dinfo, pw);
-					} else {
+					if (dinfo.Exists)
+						new_dinfos.Add (dinfo);
+					else {
 						System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 						
-						if (!finfo.Exists) {
-							Drag.Finish (args.Context, false, false, args.Time);
-
-							return;
-						}	
+						if (!finfo.Exists)
+							continue;
 						
 						if (FileUtils.IsPlaylist (fn)) {
 							OpenPlaylist (fn);
 
 							pos.First = false;
+
+							success = true;
+
+							break;
 						} else {
 							Song song = GetSingleSong (finfo.FullName);
 						
-							if (song != null)
+							if (song != null) {
 								DragAddSong (song, pos);
+
+								added_files = true;
+							}
 						}
-
-						EnsurePlaying ();
-
-						PlaylistChanged ();
 					}
+				}
+
+				if (added_files) {
+					EnsurePlaying ();
+
+					PlaylistChanged ();
+
+					success = true;
+				}
+
+				if (new_dinfos.Count > 0) {
+					Global.DB.AddFolders (new_dinfos);
+
+					success = true;
 				}
 
 				break;
@@ -1967,7 +2000,7 @@ namespace Muine
 				break;
 			}
 
-			Drag.Finish (args.Context, true, false, args.Time);
+			Drag.Finish (args.Context, success, false, args.Time);
 		}
 	}
 }
