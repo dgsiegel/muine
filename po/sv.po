@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
-"POT-Creation-Date: 2004-05-09 16:47+0200\n"
-"PO-Revision-Date: 2004-05-09 16:47+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-20 10:49+0200\n"
+"PO-Revision-Date: 2004-05-20 10:49+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/glade/AddWindow.glade.h:1
@@ -80,19 +80,19 @@ msgstr "_Ingenting, jag kommer att hantera min musik själv"
 msgid "P_roperties"
 msgstr "_Egenskaper"
 
-#: data/glade/PlaylistWindow.glade.h:2
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
 msgid "Play Album"
 msgstr "Spela album"
 
-#: data/glade/PlaylistWindow.glade.h:3
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
 msgid "Play Song"
 msgstr "Spela låt"
 
-#: data/glade/PlaylistWindow.glade.h:4
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
 msgid "Play _Album..."
 msgstr "Spela _album..."
 
-#: data/glade/PlaylistWindow.glade.h:5
+#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
 msgid "Play _Song..."
 msgstr "Spela _låt..."
 
@@ -176,7 +176,7 @@ msgstr "Fråga"
 msgid "Listen to your music"
 msgstr "Lyssna på din musik"
 
-#: data/muine.desktop.in.h:2
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:617
 msgid "Muine Music Player"
 msgstr "Musikspelaren Muine"
 
@@ -349,6 +349,291 @@ msgstr "Internt fel"
 msgid "Could not play \"%s\""
 msgstr "Kunde inte spela \"%s\""
 
+#: src/About.cs:38
+msgid "Jorn Baayen (jbaayen@gnome.org)"
+msgstr "Jorn Baayen (jbaayen@gnome.org)"
+
+#: src/About.cs:39
+msgid "Lee Willis (lee@leewillis.co.uk)"
+msgstr "Lee Willis (lee@leewillis.co.uk)"
+
+#: src/About.cs:40
+msgid "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
+msgstr "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
+
+#: src/About.cs:42
+msgid "Album covers are provided by amazon.com."
+msgstr "Albumomslag tillhandahålls av amazon.com."
+
+#: src/About.cs:52
+msgid "translator-credits"
+msgstr ""
+"Christian Rose\n"
+"Skicka synpunkter på översättningen till sv@li.org"
+
+#: src/About.cs:57
+msgid "Muine"
+msgstr "Muine"
+
+#: src/About.cs:58
+msgid "Copyright © 2003, 2004 Jorn Baayen"
+msgstr "Copyright © 2003, 2004 Jorn Baayen"
+
+#: src/About.cs:59
+msgid "A music player"
+msgstr "En musikspelare"
+
+#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:587
+#, csharp-format
+msgid "Performed by {0}"
+msgstr "Spelad av {0}"
+
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
+#: src/Album.cs:83
+msgid "the dj"
+msgstr "the dj"
+
+#: src/Metadata.cs:165
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr "Misslyckades med att läsa in metadata: {0}"
+
+#: src/Muine.cs:79
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Misslyckades med att läsa in omslagsdatabasen: {0}\n"
+"\n"
+"Avslutar..."
+
+#: src/Muine.cs:88
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Misslyckades med att läsa in låtdatabasen: {0}\n"
+"\n"
+"Avslutar..."
+
+#: src/NotificationAreaIcon.cs:53
+msgid "Muine music player"
+msgstr "Musikspelaren Muine"
+
+#: src/NotificationAreaIcon.cs:86
+msgid "_Previous Song"
+msgstr "_Föregående låt"
+
+#: src/NotificationAreaIcon.cs:89
+msgid "_Next Song"
+msgstr "_Nästa låt"
+
+#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:250
+msgid "Show _Window"
+msgstr "Visa _fönster"
+
+#: src/Player.cs:55
+#, csharp-format
+msgid ""
+"Error opening {0}:\n"
+"{1}"
+msgstr ""
+"Fel vid öppnande av {0}:\n"
+"{1}"
+
+#: src/Player.cs:235
+#, csharp-format
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr ""
+"Ljudbakändesfel:\n"
+"{0}"
+
+#: src/PlaylistWindow.cs:248
+msgid "Hide _Window"
+msgstr "Dölj _fönster"
+
+#: src/PlaylistWindow.cs:269
+msgid "Play the previous song"
+msgstr "Spela föregående låt"
+
+#: src/PlaylistWindow.cs:271
+msgid "Play the next song"
+msgstr "Spela nästa låt"
+
+#: src/PlaylistWindow.cs:273
+msgid "Add an album to the playlist"
+msgstr "Lägg till ett album till spellistan"
+
+#: src/PlaylistWindow.cs:275
+msgid "Add a song to the playlist"
+msgstr "Lägg till en låt till spellistan"
+
+#: src/PlaylistWindow.cs:283
+msgid "Change the volume level"
+msgstr "Ändra volymnivån"
+
+#: src/PlaylistWindow.cs:366 src/PlaylistWindow.cs:484
+#: src/PlaylistWindow.cs:508 src/PlaylistWindow.cs:522
+msgid "Playlist"
+msgstr "Spellista"
+
+#: src/PlaylistWindow.cs:402
+#, csharp-format
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Misslyckades med att initiera i ljudbakänden:\n"
+"{0}\n"
+"\n"
+"Avslutar..."
+
+#: src/PlaylistWindow.cs:501
+#, csharp-format
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Spellista (upprepar {0} timme)"
+msgstr[1] "Spellista (upprepar {0} timmar)"
+
+#: src/PlaylistWindow.cs:504
+#, csharp-format
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Spellista (upprepar {0} minut)"
+msgstr[1] "Spellista (upprepar {0} minuter)"
+
+#: src/PlaylistWindow.cs:506
+msgid "Playlist (Repeating)"
+msgstr "Spellista (upprepar)"
+
+#: src/PlaylistWindow.cs:515
+#, csharp-format
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Spellista ({0} timme återstår)"
+msgstr[1] "Spellista ({0} timmar återstår)"
+
+#: src/PlaylistWindow.cs:518
+#, csharp-format
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Spellista ({0} minut återstår)"
+msgstr[1] "Spellista ({0} minuter återstår)"
+
+#: src/PlaylistWindow.cs:520
+msgid "Playlist (Less than one minute remaining)"
+msgstr "Spellista (mindre än en minut återstår)"
+
+#: src/PlaylistWindow.cs:583
+#, csharp-format
+msgid "From \"{0}\""
+msgstr "Från \"{0}\""
+
+#: src/PlaylistWindow.cs:585
+msgid "Album unknown"
+msgstr "Albumet okänt"
+
+#: src/PlaylistWindow.cs:590
+msgid "Drop an image here to use it as album cover"
+msgstr "Släpp en bild här för att använda den som albumomslag"
+
+#: src/PlaylistWindow.cs:601
+#, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Musikspelaren Muine"
+
+#: src/PlaylistWindow.cs:637
+msgid "Pause music playback"
+msgstr "Gör paus i musikuppspelningen"
+
+#: src/PlaylistWindow.cs:641 src/PlaylistWindow.cs:644
+msgid "P_ause"
+msgstr "Gör p_aus"
+
+#: src/PlaylistWindow.cs:650
+msgid "Resume music playback"
+msgstr "Återuppta musikspelningen"
+
+#: src/PlaylistWindow.cs:654 src/PlaylistWindow.cs:657
+#: src/PlaylistWindow.cs:665 src/PlaylistWindow.cs:668
+msgid "Pl_ay"
+msgstr "Sp_ela"
+
+#: src/PlaylistWindow.cs:661
+msgid "Start music playback"
+msgstr "Starta musikuppspelning"
+
+#: src/PlaylistWindow.cs:723
+#, csharp-format
+msgid "Failed to open {0} for reading"
+msgstr "Misslyckades med att öppna {0} för läsning"
+
+#: src/PlaylistWindow.cs:792
+#, csharp-format
+msgid "Failed to open {0} for writing"
+msgstr "Misslyckades med att öppna {0} för skrivning"
+
+#: src/PlaylistWindow.cs:1192
+msgid "Import Folder"
+msgstr "Importera mapp"
+
+#: src/PlaylistWindow.cs:1238
+msgid "Open Playlist"
+msgstr "Öppna spellista"
+
+#: src/PlaylistWindow.cs:1259
+msgid "Save Playlist"
+msgstr "Spara spellista"
+
+#: src/PlaylistWindow.cs:1274
+#, csharp-format
+msgid ""
+"File {0} will be overwritten.\n"
+"If you choose yes, the contents will be lost.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+"Filen {0} kommer att skrivas över.\n"
+"Om du väljer ja kommer innehållet att gå förlorat.\n"
+"\n"
+"Vill du fortsätta?"
+
+#: src/ProgressWindow.cs:43
+#, csharp-format
+msgid "Importing {0}..."
+msgstr "Importerar {0}..."
+
+#: src/StringUtils.cs:47
+msgid "Unknown"
+msgstr "Okänd"
+
+#: src/StringUtils.cs:51
+#, csharp-format
+msgid "{0} and others"
+msgstr "{0} med flera"
+
+#: src/StringUtils.cs:53
+#, csharp-format
+msgid "{0} and {1}"
+msgstr "{0} och {1}"
+
+#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+
+#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
+
 #~ msgid "Add album window height."
 #~ msgstr "Höjd på fönstret \"lägg till album\"."
 
@@ -373,199 +658,11 @@ msgstr "Kunde inte spela \"%s\""
 #~ msgid "Playlist window width."
 #~ msgstr "Bredd på spellistefönstret."
 
-#~ msgid "Jorn Baayen (jbaayen@gnome.org)"
-#~ msgstr "Jorn Baayen (jbaayen@gnome.org)"
-
-#~ msgid "Lee Willis (lee@leewillis.co.uk)"
-#~ msgstr "Lee Willis (lee@leewillis.co.uk)"
-
-#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-
-#~ msgid "Album covers are provided by amazon.com."
-#~ msgstr "Albumomslag tillhandahålls av amazon.com."
-
-#~ msgid "Muine"
-#~ msgstr "Muine"
-
 #~ msgid "A Music Player"
 #~ msgstr "En musikspelare"
 
-#~ msgid "Performed by {0}"
-#~ msgstr "Spelad av {0}"
-
-#~ msgid "the dj"
-#~ msgstr "the dj"
-
-#~ msgid "Failed to load metadata: {0}"
-#~ msgstr "Misslyckades med att läsa in metadata: {0}"
-
-#~ msgid ""
-#~ "Failed to load the cover database: {0}\n"
-#~ "\n"
-#~ "Exiting..."
-#~ msgstr ""
-#~ "Misslyckades med att läsa in omslagsdatabasen: {0}\n"
-#~ "\n"
-#~ "Avslutar..."
-
-#~ msgid ""
-#~ "Failed to load the song database: {0}\n"
-#~ "\n"
-#~ "Exiting..."
-#~ msgstr ""
-#~ "Misslyckades med att läsa in låtdatabasen: {0}\n"
-#~ "\n"
-#~ "Avslutar..."
-
-#~ msgid "_Previous Song"
-#~ msgstr "_Föregående låt"
-
-#~ msgid "_Next Song"
-#~ msgstr "_Nästa låt"
-
-#~ msgid "Show _Window"
-#~ msgstr "Visa _fönster"
-
-#~ msgid ""
-#~ "Error opening {0}:\n"
-#~ "{1}"
-#~ msgstr ""
-#~ "Fel vid öppnande av {0}:\n"
-#~ "{1}"
-
-#~ msgid ""
-#~ "Audio backend error:\n"
-#~ "{0}"
-#~ msgstr ""
-#~ "Ljudbakändesfel:\n"
-#~ "{0}"
-
-#~ msgid "Hide _Window"
-#~ msgstr "Dölj _fönster"
-
-#~ msgid "Play the previous song"
-#~ msgstr "Spela föregående låt"
-
-#~ msgid "Play the next song"
-#~ msgstr "Spela nästa låt"
-
-#~ msgid "Add an album to the playlist"
-#~ msgstr "Lägg till ett album till spellistan"
-
-#~ msgid "Add a song to the playlist"
-#~ msgstr "Lägg till en låt till spellistan"
-
-#~ msgid "Change the volume level"
-#~ msgstr "Ändra volymnivån"
-
-#~ msgid "Playlist"
-#~ msgstr "Spellista"
-
-#~ msgid ""
-#~ "Failed to initialize the audio backend:\n"
-#~ "{0}\n"
-#~ "\n"
-#~ "Exiting..."
-#~ msgstr ""
-#~ "Misslyckades med att initiera i ljudbakänden:\n"
-#~ "{0}\n"
-#~ "\n"
-#~ "Avslutar..."
-
-#~ msgid "Playlist (Repeating {0} hour)"
-#~ msgid_plural "Playlist (Repeating {0} hours)"
-#~ msgstr[0] "Spellista (upprepar {0} timme)"
-#~ msgstr[1] "Spellista (upprepar {0} timmar)"
-
-#~ msgid "Playlist (Repeating {0} minute)"
-#~ msgid_plural "Playlist (Repeating {0} minutes)"
-#~ msgstr[0] "Spellista (upprepar {0} minut)"
-#~ msgstr[1] "Spellista (upprepar {0} minuter)"
-
-#~ msgid "Playlist (Repeating)"
-#~ msgstr "Spellista (upprepar)"
-
-#~ msgid "Playlist ({0} hour remaining)"
-#~ msgid_plural "Playlist ({0} hours remaining)"
-#~ msgstr[0] "Spellista ({0} timme återstår)"
-#~ msgstr[1] "Spellista ({0} timmar återstår)"
-
-#~ msgid "Playlist ({0} minute remaining)"
-#~ msgid_plural "Playlist ({0} minutes remaining)"
-#~ msgstr[0] "Spellista ({0} minut återstår)"
-#~ msgstr[1] "Spellista ({0} minuter återstår)"
-
-#~ msgid "Playlist (Less than one minute remaining)"
-#~ msgstr "Spellista (mindre än en minut återstår)"
-
-#~ msgid "From \"{0}\""
-#~ msgstr "Från \"{0}\""
-
-#~ msgid "Album unknown"
-#~ msgstr "Albumet okänt"
-
-#~ msgid "Drop an image here to use it as album cover"
-#~ msgstr "Släpp en bild här för att använda den som albumomslag"
-
-#~ msgid "{0} - Muine Music Player"
-#~ msgstr "{0} - Musikspelaren Muine"
-
-#~ msgid "Pause music playback"
-#~ msgstr "Gör paus i musikuppspelningen"
-
-#~ msgid "P_ause"
-#~ msgstr "Gör p_aus"
-
-#~ msgid "Failed to open {0} for reading"
-#~ msgstr "Misslyckades med att öppna {0} för läsning"
-
-#~ msgid "Failed to open {0} for writing"
-#~ msgstr "Misslyckades med att öppna {0} för skrivning"
-
-#~ msgid "Import Folder"
-#~ msgstr "Importera mapp"
-
-#~ msgid "Open Playlist"
-#~ msgstr "Öppna spellista"
-
-#~ msgid "Save Playlist"
-#~ msgstr "Spara spellista"
-
-#~ msgid ""
-#~ "File {0} will be overwritten.\n"
-#~ "If you choose yes, the contents will be lost.\n"
-#~ "\n"
-#~ "Do you want to continue?"
-#~ msgstr ""
-#~ "Filen {0} kommer att skrivas över.\n"
-#~ "Om du väljer ja kommer innehållet att gå förlorat.\n"
-#~ "\n"
-#~ "Vill du fortsätta?"
-
-#~ msgid "Importing {0}..."
-#~ msgstr "Importerar {0}..."
-
-#~ msgid "Resume music playback"
-#~ msgstr "Återuppta musikspelningen"
-
-#~ msgid "Pl_ay"
-#~ msgstr "Sp_ela"
-
 #~ msgid "Play"
 #~ msgstr "Spela"
-
-#~ msgid "Start music playback"
-#~ msgstr "Starta musikuppspelning"
-
-#~ msgid "Unknown"
-#~ msgstr "Okänd"
-
-#~ msgid "{0} and others"
-#~ msgstr "{0} med flera"
-
-#~ msgid "{0} and {1}"
-#~ msgstr "{0} och {1}"
 
 #~ msgid "_Create an empty music collection "
 #~ msgstr "_Skapa en tom musiksamling "
@@ -600,22 +697,8 @@ msgstr "Kunde inte spela \"%s\""
 #~ msgid "Watched folders."
 #~ msgstr "Övervakade mappar."
 
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Christian Rose\n"
-#~ "Skicka synpunkter på översättningen till sv@li.org"
-
-#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-#~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
-
-#~ msgid "A music player"
-#~ msgstr "En musikspelare"
-
 #~ msgid "Music player"
 #~ msgstr "Musikspelare"
-
-#~ msgid "Muine music player"
-#~ msgstr "Musikspelaren Muine"
 
 #~ msgid "Groups"
 #~ msgstr "Grupper"
