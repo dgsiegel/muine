@@ -2,7 +2,7 @@ AC_INIT(src/Muine.cs)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(muine, 0.3.0-pre2)
+AM_INIT_AUTOMAKE(muine, 0.3.0)
 
 AM_MAINTAINER_MODE
 
@@ -32,7 +32,7 @@ AC_SUBST(MUINE_CFLAGS)
 AC_SUBST(MUINE_LIBS)
 
 PKG_CHECK_MODULES(GTKSHARP,
-		  mono >= $MONO_REQUIRED \
+		  mono = $MONO_REQUIRED \
 		  gtk-sharp >= $GTKSHARP_REQUIRED)
 
 dnl Handle GConf

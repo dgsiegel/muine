@@ -1,5 +1,12 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.3.0, and depend on mono = 0.29 due to the bug in Mono CVS.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* configure.in:
 	* src/About.cs:
