@@ -20,6 +20,9 @@
 #ifndef __STRING_UTILS_H__
 #define __STRING_UTILS_H__
 
-char *string_utils_strip_non_alnum (const char *in);
+#include <glib.h>
+
+char *string_utils_strip_non_alnum (const char *in,
+				    gboolean   *different);
 
 #endif /* __STRING_UTILS_H__ */

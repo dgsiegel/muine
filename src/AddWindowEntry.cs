@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+using System;
+
 namespace Muine
 {
 	public class AddWindowEntry : Gtk.Entry
@@ -24,16 +26,20 @@ namespace Muine
 		// Variables
 		private static readonly int min_query_length = 3;
 
+		private string [] search_bits;
+
 		// Constructor
 		public AddWindowEntry () : base ()
 		{
 			ActivatesDefault = true;
+
+			Changed += new EventHandler (OnChanged);
 		}
 
 		// Properties
 		// Properties :: SearchBits (get;)
 		public string [] SearchBits {
-			get { return base.Text.ToLower ().Split (' '); }	
+			get { return search_bits; }
 		}
 
 		// Properties :: MinQueryLength (get;)
@@ -47,6 +53,13 @@ namespace Muine
 		public void Clear ()
 		{
 			base.Text = "";
+		}
+
+		// Handlers
+		// Handlers :: OnChanged
+		private void OnChanged (object o, EventArgs args)
+		{
+			search_bits = base.Text.ToLower ().Split (' ');
 		}
 	}
 }

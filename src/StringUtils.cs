@@ -123,17 +123,20 @@ namespace Muine
 
 		// Methods :: Public :: SearchKey
 		[DllImport ("libmuine")]
-		private static extern IntPtr string_utils_strip_non_alnum (string str);
+		private static extern IntPtr string_utils_strip_non_alnum (string str,
+									   out bool different);
 
 		public static string SearchKey (string key)
 		{
 			string lower = key.ToLower ();
-			IntPtr str_ptr = string_utils_strip_non_alnum (lower);
+
+			bool different;
+			IntPtr str_ptr = string_utils_strip_non_alnum (lower, out different);
 			string stripped = GLib.Marshaller.PtrToStringGFree (str_ptr);
 
 			// Both, so that "R.E.M." will yield only "R.E.M.", but "rem"
 			// both "remix and "R.E.M.".
-			if (stripped != lower)
+			if (different)
 				return String.Format ("{0} {1}", stripped, lower);
 			else
 				return stripped;

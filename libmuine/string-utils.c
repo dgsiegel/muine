@@ -17,12 +17,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <glib.h>
-
 #include "string-utils.h"
 
 char *
-string_utils_strip_non_alnum (const char *in)
+string_utils_strip_non_alnum (const char *in,
+			      gboolean   *different)
 {
 	GString *string;
 	char *pos, *ret;
@@ -35,6 +34,8 @@ string_utils_strip_non_alnum (const char *in)
 
 		if (g_unichar_isalnum (c) || g_unichar_isspace (c))
 			g_string_append_unichar (string, c);
+		else
+			*different = TRUE;
 
 		pos = g_utf8_next_char (pos);
 	};

@@ -1,3 +1,16 @@
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/string-utils.c: (string_utils_strip_non_alnum):
+	* libmuine/string-utils.h:
+	* src/AddWindowEntry.cs:
+	* src/StringUtils.cs:
+
+	Stop the lunacy of regenerating SearchBits for each item
+	we are trying to match. Back on speed.
+
+	Also add a "different" bool to strip_non_alnum, so that we
+	don't have to strcmp.
+
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/Makefile.am:
