@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-15 01:10+0100\n"
-"PO-Revision-Date: 2004-02-10 20:19+0100\n"
+"POT-Creation-Date: 2004-02-20 04:27+0100\n"
+"PO-Revision-Date: 2004-02-20 14:48+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -141,34 +141,38 @@ msgid "_Import Folder..."
 msgstr "_Importovat adresář..."
 
 #: data/glade/PlaylistWindow.glade.h:13
+msgid "_Information"
+msgstr "_Informace"
+
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
 msgstr "_Následující"
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Open Playlist..."
 msgstr "_Otevřít seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Playlist"
 msgstr "_Seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
 msgstr "_Předchozí"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Remove Song"
 msgstr "_Odstranit skladbu"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Save Playlist As..."
 msgstr "_Uložit seznam skladeb jako..."
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "_Přeskočit na ..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:21
 msgid "_Song"
 msgstr "_Skladba"
 
@@ -225,42 +229,50 @@ msgid "Folders that are monitored for changes."
 msgstr "Adresáře, ve kterých jsou sledovány změny."
 
 #: data/muine.schemas.in.h:9
+msgid "Information window height."
+msgstr "Výška okna informací."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window width."
+msgstr "Šířka okna informací."
+
+#: data/muine.schemas.in.h:11
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Poslední používaný adresář z dialogu \"Importovat adresář\""
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from the playlist file selectors."
 msgstr "Poslední používaný adresář z výběru souboru seznamu skladeb."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:13
 msgid "Playlist window height."
 msgstr "Výška okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Šířka okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:15
 msgid "Repeat mode."
 msgstr "Režim opakování."
 
-#: data/muine.schemas.in.h:14
+#: data/muine.schemas.in.h:16
 msgid "Volume level."
 msgstr "Úroveň hlasitosti."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:17
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Úroveň hlasitosti. 0 = nejnižší, 100 = nejvyšší.."
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:18
 msgid "Watched folders."
 msgstr "Sledované adresáře."
 
-#: data/muine.schemas.in.h:17
+#: data/muine.schemas.in.h:19
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Jestli povolit režim opakování seznamu skladeb."
 
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:20
 msgid "false if Muine has been started before."
 msgstr "false, pokud byl již Muine spuštěn dříve."
 
@@ -271,33 +283,6 @@ msgstr "Orientace"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Orientace oznamovací oblasti."
-
-#: src/About.cs:52
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr ""
-
-#: src/About.cs:53
-#, fuzzy
-msgid "A music player"
-msgstr "Přehrávač hudby Muine"
-
-#: src/About.cs:62
-msgid "Thanks to Amazon.com for providing album cover images!"
-msgstr ""
-
-#: src/Muine.cs:83
-#, csharp-format
-msgid ""
-"Failed to load the cover database: {0}\n"
-"Exiting..."
-msgstr ""
-
-#: src/Muine.cs:94
-#, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"Exiting..."
-msgstr ""
 
 #~ msgid "TITLE"
 #~ msgstr "NÁZEV"
@@ -321,9 +306,6 @@ msgstr ""
 #~ msgid "Playlist window visible (true) or not (false)."
 #~ msgstr "Okno seznamu skladeb je (true) nebo není (false) viditelné."
 
-#~ msgid "Pixbuf"
-#~ msgstr "Pixbuf"
-
 #~ msgid "A GdkPixbuf to display"
 #~ msgstr "GdkPixbuf, který zobrazovat"
 
@@ -338,9 +320,6 @@ msgstr ""
 
 #~ msgid "Stock ID for a stock image to display"
 #~ msgstr "ID standardního obrázku, který zobrazovat"
-
-#~ msgid "Animation"
-#~ msgstr "Animace"
 
 #~ msgid "GdkPixbufAnimation to display"
 #~ msgstr "GdkPixbufAnimation, kterou zobrazovat"
