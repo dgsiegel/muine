@@ -85,6 +85,14 @@ namespace Muine
 			return false;
 		}
 
+		// Methods :: Private :: UpdateLabel
+		private void UpdateLabel (int pos)
+		{
+			String position   = StringUtils.SecondsToString (pos);
+			String total_time = StringUtils.SecondsToString (player.PlayingSong.Duration);
+			song_position.Text = String.Format ("{0} / {1}", position, total_time);
+		}
+
 		// Handlers
 		// Handlers :: OnTickEvent
 		private void OnTickEvent (int pos) 
@@ -92,10 +100,7 @@ namespace Muine
 			if (set_position_timeout_id > 0)
 				return;
 
-			// Update label
-			String position   = StringUtils.SecondsToString (pos);
-			String total_time = StringUtils.SecondsToString (player.PlayingSong.Duration);
-			song_position.Text = String.Format ("{0} / {1}", position, total_time);
+			UpdateLabel (pos);
 
 			// Update slider
 			from_tick = true;
@@ -114,6 +119,8 @@ namespace Muine
 
 				set_position_timeout_id = GLib.Timeout.Add (set_position_timeout,
 									    new GLib.TimeoutHandler (SetPositionTimeoutFunc));
+
+				UpdateLabel ((int) song_slider.Value);
 			} else
 				from_tick = false;
 		}

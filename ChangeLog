@@ -1,5 +1,11 @@
 2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SkipToWindow.cs:
+
+	Update label while dragging slider.
+
+2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/player-gst.c: (player_finalize):
 
 	Remove some idles and timeouts.
