@@ -1,5 +1,16 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/Action.cs:
+	* src/ActionThread.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Cleanups. Change labels of add buttons to "Play Song" and "Play Album".
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/gsequence.c: (g_sequence_ptr_is_begin):
 
 	Sync gsequence implementation.

@@ -1,7 +1,6 @@
 CSC = $(MCS) $(MCS_FLAGS)
 
 MUINE_CSFILES =					\
-	$(srcdir)/Action.cs			\
 	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
 	$(srcdir)/AddAlbumWindow.cs		\

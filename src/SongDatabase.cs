@@ -33,6 +33,24 @@ public class SongDatabase
 
 	public Hashtable Albums;
 
+	public delegate void SongAddedHandler (Song song);
+	public event SongAddedHandler SongAdded;
+
+	public delegate void SongChangedHandler (Song song);
+	public event SongChangedHandler SongChanged;
+
+	public delegate void SongRemovedHandler (Song song);
+	public event SongRemovedHandler SongRemoved;
+
+	public delegate void AlbumAddedHandler (Album album);
+	public event AlbumAddedHandler AlbumAdded;
+
+	public delegate void AlbumChangedHandler (Album album);
+	public event AlbumChangedHandler AlbumChanged;
+	
+	public delegate void AlbumRemovedHandler (Album album);
+	public event AlbumRemovedHandler AlbumRemoved;
+
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
 	[DllImport ("libmuine")]
@@ -68,24 +86,220 @@ public class SongDatabase
 		changing_mutex = new Mutex ();
 	}
 
-	public delegate void SongAddedHandler (Song song);
-	public event SongAddedHandler SongAdded;
+	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
+	{
+		Song song = new Song (key, data);
 
-	public delegate void SongChangedHandler (Song song);
-	public event SongChangedHandler SongChanged;
+		Muine.DB.Songs.Add (key, song);
 
-	public delegate void SongRemovedHandler (Song song);
-	public event SongRemovedHandler SongRemoved;
+		Muine.DB.DoAlbum (song, false);
+	}
 
-	public delegate void AlbumAddedHandler (Album album);
-	public event AlbumAddedHandler AlbumAdded;
+	public void Load ()
+	{
+		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
 
-	public delegate void AlbumChangedHandler (Album album);
-	public event AlbumChangedHandler AlbumChanged;
+		/* add file monitors */
+		string [] folders;
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		foreach (string folder in folders)
+			AddMonitor (folder);
+	}
+
+	private IntPtr EncodeFunc (IntPtr handle, out int length)
+	{
+		Song song = Song.FromHandle (handle);
+
+		return song.Pack (out length);
+	}
+
+	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
+
+	[DllImport ("libmuine")]
+	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
+					     EncodeFuncDelegate encode_func,
+					     IntPtr user_data);
+
+	public void AddSong (Song song)
+	{
+		db_store (dbf, song.Filename, false,
+		          new EncodeFuncDelegate (EncodeFunc), song.Handle);
+
+		Songs.Add (song.Filename, song);
+
+		DoAlbum (song, true);
+
+		if (SongAdded != null)
+			SongAdded (song);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void db_delete (IntPtr dbf, string key);
+
+	public void RemoveSong (Song song)
+	{
+		db_delete (dbf, song.Filename);
+
+		if (SongRemoved != null)
+			SongRemoved (song);
+
+		Songs.Remove (song.Filename);
+
+		RemoveFromAlbum (song);
+	}
+
+	public void UpdateSong (Song song)
+	{
+		db_store (dbf, song.Filename, true,
+			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
 	
-	public delegate void AlbumRemovedHandler (Album album);
-	public event AlbumRemovedHandler AlbumRemoved;
+		/* update album */
+		RemoveFromAlbum (song);
+		DoAlbum (song, true);
 
+		EmitSongChanged (song);
+	}
+
+	public void EmitSongChanged (Song song)
+	{
+		if (SongChanged != null)
+			SongChanged (song);
+	}
+
+	public void AlbumChangedForSong (Song song)
+	{
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.AlbumKey];
+		album.SyncCoverImageWith (song);
+		if (AlbumChanged != null)
+			AlbumChanged (album);
+	}
+
+	private void RemoveFromAlbum (Song song)
+	{
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.AlbumKey];
+		if (album == null)
+			return;
+			
+		if (album.RemoveSong (song)) {
+			Albums.Remove (song.AlbumKey);
+
+			Muine.CoverDB.RemoveCover (song.AlbumKey);
+
+			if (AlbumRemoved != null)
+				AlbumRemoved (album);
+		}
+	}
+
+	public void DoAlbum (Song song, bool emit_signal)
+	{
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.AlbumKey];
+		if (album == null) {
+			album = new Album (song);
+			Albums.Add (song.AlbumKey, album);
+
+			if (emit_signal && AlbumAdded != null)
+				AlbumAdded (album);
+		} else {
+			bool changed = album.AddSong (song);
+			if (changed && AlbumChanged != null)
+				AlbumChanged (album);
+		}
+	}
+
+	public void AddWatchedFolder (string folder)
+	{
+		string [] folders;
+		
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		string [] new_folders = new string [folders.Length + 1];
+
+		int i = 0;
+		foreach (string s in folders) {
+			if (folder.IndexOf (s) == 0)
+				return;
+			new_folders [i] = folders [i];
+			i++;
+		}
+
+		new_folders [folders.Length] = folder;
+
+		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
+
+		AddMonitor (folder);
+	}
+
+	private void AddMonitor (string folder)
+	{
+	/*
+		FileSystemWatcher watcher = new FileSystemWatcher (folder);
+
+		watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite |
+		                       NotifyFilters.Size | NotifyFilters.DirectoryName;
+		
+		watcher.IncludeSubdirectories = true;
+		
+		watcher.Changed += new FileSystemEventHandler (HandleFileChanged);
+		watcher.Created += new FileSystemEventHandler (HandleFileCreated);
+		watcher.Deleted += new FileSystemEventHandler (HandleFileDeleted);
+		watcher.Renamed += new RenamedEventHandler (HandleFileRenamed);
+
+		watcher.EnableRaisingEvents = true;
+		*/
+	}
+
+/*
+	private static void HandleFileChanged (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " changed");
+	}
+
+	private static void HandleFileCreated (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " created");
+	}
+
+	private static void HandleFileDeleted (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " deleted");
+	}
+
+	private static void HandleFileRenamed (object o, RenamedEventArgs e)
+	{
+		Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
+	}*/
+
+	public void CheckChanges ()
+	{
+		thread_has_started = false;
+		
+		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
+
+		thread.Start ();
+
+		/* wait until the thread has started */
+		while (thread_has_started == false)
+			Thread.Sleep (5);
+	}
+	
 	private void HandleDirectory (DirectoryInfo info,
 				      Queue new_songs)
 	{
@@ -175,7 +389,7 @@ public class SongDatabase
 	/* this is run from the thread */
 	private void CheckChangesThread ()
 	{
-		changing_mutex.WaitOne ();
+		Changing = true;
 
 		thread_has_started = true;
 
@@ -227,236 +441,6 @@ public class SongDatabase
 		
 		GLib.Timeout.Add (10, new GLib.TimeoutHandler (Proxy));
 		
-		changing_mutex.ReleaseMutex ();
+		Changing = false;
 	}
-
-	public void Load ()
-	{
-		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
-
-		/* add file monitors */
-		string [] folders;
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
-
-		foreach (string folder in folders)
-			AddMonitor (folder);
-	}
-
-	public void CheckChanges ()
-	{
-		thread_has_started = false;
-		
-		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
-
-		thread.Start ();
-
-		/* wait until the thread has started */
-		while (thread_has_started == false)
-			Thread.Sleep (5);
-	}
-	
-	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
-	{
-		Song song = new Song (key, data);
-
-		Muine.DB.Songs.Add (key, song);
-
-		Muine.DB.DoAlbum (song, false);
-	}
-
-	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
-
-	[DllImport ("libmuine")]
-	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
-					     EncodeFuncDelegate encode_func,
-					     IntPtr user_data);
-
-	public void AddSong (Song song)
-	{
-		db_store (dbf, song.Filename, false,
-		          new EncodeFuncDelegate (EncodeFunc), song.Handle);
-
-		Songs.Add (song.Filename, song);
-
-		DoAlbum (song, true);
-
-		if (SongAdded != null)
-			SongAdded (song);
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void db_delete (IntPtr dbf, string key);
-
-	public void RemoveSong (Song song)
-	{
-		db_delete (dbf, song.Filename);
-
-		if (SongRemoved != null)
-			SongRemoved (song);
-
-		Songs.Remove (song.Filename);
-
-		RemoveFromAlbum (song);
-	}
-
-	private IntPtr EncodeFunc (IntPtr handle, out int length)
-	{
-		Song song = Song.FromHandle (handle);
-
-		return song.Pack (out length);
-	}
-
-	public void UpdateSong (Song song)
-	{
-		db_store (dbf, song.Filename, true,
-			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
-	
-		/* update album */
-		RemoveFromAlbum (song);
-		DoAlbum (song, true);
-
-		EmitSongChanged (song);
-	}
-
-	public void EmitSongChanged (Song song)
-	{
-		if (SongChanged != null)
-			SongChanged (song);
-	}
-
-	public void AlbumChangedForSong (Song song)
-	{
-		if (song.Album.Length == 0)
-			return;
-
-		Album album = (Album) Albums [song.AlbumKey];
-		album.SyncCoverImageWith (song);
-		if (AlbumChanged != null)
-			AlbumChanged (album);
-	}
-
-	private void RemoveFromAlbum (Song song)
-	{
-		if (song.Album.Length == 0)
-			return;
-
-		Album album = (Album) Albums [song.AlbumKey];
-		if (album == null)
-			return;
-			
-		if (album.RemoveSong (song)) {
-			Albums.Remove (song.AlbumKey);
-
-			Muine.CoverDB.RemoveCover (song.AlbumKey);
-
-			if (AlbumRemoved != null)
-				AlbumRemoved (album);
-		}
-	}
-
-	public void DoAlbum (Song song, bool emit_signal)
-	{
-		if (song.Album.Length == 0)
-			return;
-
-		Album album = (Album) Albums [song.AlbumKey];
-		if (album == null) {
-			album = new Album (song);
-			Albums.Add (song.AlbumKey, album);
-
-			if (emit_signal && AlbumAdded != null)
-				AlbumAdded (album);
-		} else {
-			bool changed = album.AddSong (song);
-			if (changed && AlbumChanged != null)
-				AlbumChanged (album);
-		}
-	}
-
-	public bool HaveFile (string filename)
-	{
-		return (Songs [filename] != null);
-	}
-
-	public bool Empty {
-		get {
-			return (Songs.Count == 0);
-		}
-	}
-
-	public Song SongFromFile (string filename)
-	{
-		return (Song) Songs [filename];
-	}
-
-	public void AddWatchedFolder (string folder)
-	{
-		string [] folders;
-		
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
-
-		string [] new_folders = new string [folders.Length + 1];
-
-		int i = 0;
-		foreach (string s in folders) {
-			if (folder.IndexOf (s) == 0)
-				return;
-			new_folders [i] = folders [i];
-			i++;
-		}
-
-		new_folders [folders.Length] = folder;
-
-		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
-
-		AddMonitor (folder);
-	}
-
-	private void AddMonitor (string folder)
-	{
-	/*
-		FileSystemWatcher watcher = new FileSystemWatcher (folder);
-
-		watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite |
-		                       NotifyFilters.Size | NotifyFilters.DirectoryName;
-		
-		watcher.IncludeSubdirectories = true;
-		
-		watcher.Changed += new FileSystemEventHandler (HandleFileChanged);
-		watcher.Created += new FileSystemEventHandler (HandleFileCreated);
-		watcher.Deleted += new FileSystemEventHandler (HandleFileDeleted);
-		watcher.Renamed += new RenamedEventHandler (HandleFileRenamed);
-
-		watcher.EnableRaisingEvents = true;
-		*/
-	}
-
-/*
-	private static void HandleFileChanged (object o, FileSystemEventArgs e)
-	{
-		Console.WriteLine (e.FullPath + " changed");
-	}
-
-	private static void HandleFileCreated (object o, FileSystemEventArgs e)
-	{
-		Console.WriteLine (e.FullPath + " created");
-	}
-
-	private static void HandleFileDeleted (object o, FileSystemEventArgs e)
-	{
-		Console.WriteLine (e.FullPath + " deleted");
-	}
-
-	private static void HandleFileRenamed (object o, RenamedEventArgs e)
-	{
-		Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
-	}*/
 }

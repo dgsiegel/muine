@@ -735,7 +735,7 @@ public class PlaylistWindow : Window
 				continue;
 			}
 
-			Song song = Muine.DB.SongFromFile (line);
+			Song song = (Song) Muine.DB.Songs [line];
 			if (song == null) {
 				/* not found, lets see if we can find it anyway.. */
 				string basename = finfo.Name;
@@ -743,7 +743,7 @@ public class PlaylistWindow : Window
 				foreach (string key in Muine.DB.Songs.Keys) {
 					finfo = new FileInfo (key);
 					if (basename == finfo.Name) {
-						song = Muine.DB.SongFromFile (key);
+						song = (Song) Muine.DB.Songs [key];
 						break;
 					}
 				}
@@ -1107,7 +1107,7 @@ public class PlaylistWindow : Window
 		foreach (FileInfo finfo in info.GetFiles ()) {
 			Song song;
 
-			song = Muine.DB.SongFromFile (finfo.FullName);
+			song = (Song) Muine.DB.Songs [finfo.FullName];
 			if (song == null) {
 				bool ret = pw.ReportFile (finfo.Name);
 				if (ret == false)

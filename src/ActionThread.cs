@@ -21,6 +21,21 @@ using System;
 using System.Threading;
 using System.Collections;
 
+public class Action
+{
+	public object UserData0;
+	public object UserData1;
+
+	public void EmitPerform ()
+	{
+		if (Perform != null)
+			Perform (this);
+	}
+
+	public delegate void PerformHandler (Action action);
+	public event PerformHandler Perform;
+}
+
 public class ActionThread
 {
 	private Thread thread;
