@@ -1,5 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+
+	Don't keep looking for covers that are not on amazon.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
 	* src/CoverGetter.cs:

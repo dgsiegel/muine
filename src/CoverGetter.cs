@@ -154,7 +154,8 @@ namespace Muine
 					return false;
 				}
 
-				Global.CoverDB.SetCover (key, pixbuf);
+				if (pixbuf != null)
+					Global.CoverDB.SetCover (key, pixbuf);
 
 				done_func (pixbuf);
 
@@ -229,7 +230,10 @@ namespace Muine
 						return false;
 					}
 
-					Global.CoverDB.SetCover (key, pixbuf);
+					if (pixbuf != null)
+						Global.CoverDB.SetCover (key, pixbuf);
+					else
+						Global.CoverDB.UnmarkAsBeingChecked (key);
 
 					album.CoverImage = pixbuf;
 		

@@ -230,5 +230,10 @@ namespace Muine
 		{
 			SetCover (key, null);
 		}
+
+		public void UnmarkAsBeingChecked (string key)
+		{
+			RemoveCover (key);
+		}
 	}
 }
