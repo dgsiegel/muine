@@ -1,3 +1,9 @@
+2004-04-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* README:
+
+	Up xine version requirement to 1.0.0rc3b.
+
 2004-04-04  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
