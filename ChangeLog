@@ -1,5 +1,11 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Mark missing string for translation.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/muine.in:
 
 	Set both MONO_PATH and LD_LIBRARY_PATH. Grr.

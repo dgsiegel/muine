@@ -360,7 +360,7 @@ public class PlaylistWindow : Window
 
 		((Container) glade_xml ["scrolledwindow"]).Add (playlist);
 		
-		MarkupUtils.LabelSetMarkup (playlist_label, 0, (uint) "Playlist".Length,
+		MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (Muine.Catalog.GetString ("Playlist")),
 		                            false, true, false);
 
 		empty_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
