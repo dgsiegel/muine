@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-19 04:54+0100\n"
-"PO-Revision-Date: 2004-01-19 16:57+0100\n"
+"POT-Creation-Date: 2004-01-23 20:41+0100\n"
+"PO-Revision-Date: 2004-01-24 03:55+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,13 +36,29 @@ msgstr "_Wachtrij"
 msgid "_Search:"
 msgstr "_Zoeken:"
 
-#: data/glade/ErrorDialog.glade.h:1
+#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
 msgid "ERROR MESSAGE"
 msgstr "ERROR MESSAGE"
 
 #: data/glade/ErrorDialog.glade.h:2
 msgid "Error"
 msgstr "Fout"
+
+#: data/glade/GroupsWindow.glade.h:1
+msgid "<b>Groups</b>"
+msgstr "<b>Groepen</b>"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr "<b>Nummers</b> (30 minuten in totaal)"
+
+#: data/glade/GroupsWindow.glade.h:3
+msgid "Groups"
+msgstr "Groepen"
+
+#: data/glade/GroupsWindow.glade.h:4
+msgid "_Add song"
+msgstr "_Nummer toevoegen"
 
 #: data/glade/PlaylistWindow.glade.h:1
 msgid "Add _Album"
@@ -76,58 +92,57 @@ msgstr "_Vooruit"
 msgid "TMP"
 msgstr "TMP"
 
-# Of: geluidsvolume zachter
 #: data/glade/PlaylistWindow.glade.h:9
-msgid "Volume _Down"
-msgstr "_Zachter"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "Volume _Up"
-msgstr "_Harder"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Actions"
-msgstr "_Acties"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Clear Playlist"
 msgstr "Speellijst _wissen"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "_Fill queue with random songs from selected groups"
 msgstr "Wachtrij _vullen met willekeurige nummers uit geselecteerde groepen"
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:11
 msgid "_Groups"
 msgstr "_Groepen"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "Venster _verbergen"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Import Folder..."
 msgstr "Map _importeren..."
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
 msgstr "_Volgende"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "Speellijst _openen..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Speellijst"
+
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
 msgstr "V_orige"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Remove Song"
 msgstr "Nummer ver_wijderen"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "Speellijst opslaan _als..."
 
 #: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "_Vooruit naar..."
 
 #: data/glade/PlaylistWindow.glade.h:21
-msgid "_Volume"
-msgstr "_Geluidsvolume"
+msgid "_Song"
+msgstr "_Nummer"
 
 # Bezig met laden:
 # Nu aan het laden:
@@ -135,21 +150,25 @@ msgstr "_Geluidsvolume"
 msgid "Loading:"
 msgstr "Laden:"
 
-#: data/glade/SkipToWindow.glade.h:1
-msgid "0 seconds"
-msgstr "0 seconden"
+#: data/glade/SearchMusicWindow.glade.h:1
+msgid "Search for Music"
+msgstr "Zoeken naar muziek"
 
-#: data/glade/SkipToWindow.glade.h:2
+#: data/glade/SearchMusicWindow.glade.h:2
+msgid "Welcome to Muine"
+msgstr "Welkom bij Muine"
+
+#: data/glade/SearchMusicWindow.glade.h:3
+msgid "_Search"
+msgstr "_Zoeken"
+
+#: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Vooruit naar"
 
-#: data/glade/SkipToWindow.glade.h:3
-msgid "_Skip to:"
-msgstr "_Vooruit naar:"
-
-#: data/glade/SkipToWindow.glade.h:4
-msgid "seconds"
-msgstr "seconden"
+#: data/glade/YesNoDialog.glade.h:2
+msgid "Question"
+msgstr "Vragen"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -176,35 +195,51 @@ msgid "Add song window width."
 msgstr "Nummer toevoegen vensterbreedte."
 
 #: data/muine.schemas.in.h:5
+msgid "Default \"Open Playlist\" folder."
+msgstr "Standaard map \"Speellijst openen\"."
+
+#: data/muine.schemas.in.h:6
+msgid "Default \"Save Playlist As\" folder."
+msgstr "Standaard map \"Speellijst opslaan als\"."
+
+#: data/muine.schemas.in.h:7
 msgid "Default import folder."
 msgstr "Standaard importmap."
 
-#: data/muine.schemas.in.h:6
-msgid "Last used folder from \"Import folder...\" dialog."
-msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren...\"."
+#: data/muine.schemas.in.h:8
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: data/muine.schemas.in.h:7
+#: data/muine.schemas.in.h:9
+msgid "Last used folder from \"Open Playlist\" dialog."
+msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst openen\"."
+
+#: data/muine.schemas.in.h:10
+msgid "Last used folder from \"Save Playlist As\" dialog."
+msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst opslaan als\"."
+
+#: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Speellijst vensterhoogte."
 
-#: data/muine.schemas.in.h:8
+#: data/muine.schemas.in.h:12
 msgid "Playlist window visibility."
 msgstr "Speellijst vensterzichtbaarheid."
 
-#: data/muine.schemas.in.h:9
+#: data/muine.schemas.in.h:13
 msgid "Playlist window visible (true) or not (false)."
 msgstr "Speellijst zichtbaar (true) of niet (false)."
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Speellijst vensterbreedte."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:15
 msgid "Volume level."
 msgstr "Geluidsvolume."
 
 # highest volume level = maximaal geluidsvolume
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:16
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
@@ -272,3 +307,25 @@ msgstr "Oriëntatie"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "De oriëntatie van het blad."
+
+# Of: geluidsvolume zachter
+#~ msgid "Volume _Down"
+#~ msgstr "_Zachter"
+
+#~ msgid "Volume _Up"
+#~ msgstr "_Harder"
+
+#~ msgid "_Actions"
+#~ msgstr "_Acties"
+
+#~ msgid "_Volume"
+#~ msgstr "_Geluidsvolume"
+
+#~ msgid "0 seconds"
+#~ msgstr "0 seconden"
+
+#~ msgid "_Skip to:"
+#~ msgstr "_Vooruit naar:"
+
+#~ msgid "seconds"
+#~ msgstr "seconden"
