@@ -13,7 +13,7 @@
 - A new TickEvent on the IPlayer interface [Jorn Baayen]
 - Building MP3 support is now optional [Jorn Baayen]
 - A couple of minor UI improvements [Jorn Baayen]
-- Various bugfixes [Mark McLauchlan, Jorn Baayen]
+- Various bugfixes [Mark McLauchlan, Peter Johanson, Jorn Baayen]
 - More code cleanups [Tamara Roberson, Jorn Baayen]
 
 New translations:

@@ -34,7 +34,7 @@ namespace Muine
 		public HandleView ()
 		{
 			model = new HandleModel ();
-			Model = model;
+			((TreeView) this).Model = model;
 
 			RulesHint      = true;
 			EnableSearch   = false;
