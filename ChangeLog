@@ -1,5 +1,11 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverImage.cs:
+
+	Only show "loading" image when an image is actually loading.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Player.cs:
 	* src/PlaylistWindow.cs:
 

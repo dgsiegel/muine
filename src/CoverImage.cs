@@ -59,7 +59,7 @@ public class CoverImage : EventBox
 	{
 		if (song != null && song.CoverImage != null)
 			image.FromPixbuf = song.CoverImage;
-		else if (Muine.CoverDB.Loading)
+		else if (song != null && Muine.CoverDB.Loading)
 			image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
 		else {
 			image.SetFromStock ("muine-default-cover",
