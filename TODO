@@ -19,6 +19,8 @@ o Shift+Arrow keys selects in add windows
   Proxying events to treeview doesn't work, we manually need to mimic
   the multiple selection keybindings.
 o Improve first time dialog once again ..
+  Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
+  music, and muine monitors it .. 
 
 Tough:
 ======
