@@ -22,7 +22,7 @@ using Gdk;
 
 public class About
 {
-	public const string Version = "0.7.1";
+	public const string Version = "0.7.1.99";
 
 	private static string [] authors = null;
 	public static string [] Authors {

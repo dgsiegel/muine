@@ -29,19 +29,19 @@ public class MmKeys : GLib.Object
 	[DllImport ("libmuine")]
 	private static extern IntPtr mmkeys_new ();
 
-	private SignalUtils.SignalDelegateInt mm_playpause_cb;
-	private SignalUtils.SignalDelegateInt mm_prev_cb;
-	private SignalUtils.SignalDelegateInt mm_next_cb;
-	private SignalUtils.SignalDelegateInt mm_stop_cb;
+	private SignalUtils.SignalDelegate mm_playpause_cb;
+	private SignalUtils.SignalDelegate mm_prev_cb;
+	private SignalUtils.SignalDelegate mm_next_cb;
+	private SignalUtils.SignalDelegate mm_stop_cb;
 
 	public MmKeys () : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
 
-		mm_playpause_cb = new SignalUtils.SignalDelegateInt (MmPlayPauseCallback);
-		mm_prev_cb      = new SignalUtils.SignalDelegateInt (MmPrevCallback);
-		mm_next_cb      = new SignalUtils.SignalDelegateInt (MmNextCallback);
-		mm_stop_cb      = new SignalUtils.SignalDelegateInt (MmStopCallback);
+		mm_playpause_cb = new SignalUtils.SignalDelegate (MmPlayPauseCallback);
+		mm_prev_cb      = new SignalUtils.SignalDelegate (MmPrevCallback);
+		mm_next_cb      = new SignalUtils.SignalDelegate (MmNextCallback);
+		mm_stop_cb      = new SignalUtils.SignalDelegate (MmStopCallback);
 
 		SignalUtils.SignalConnect (Raw, "mm_playpause", mm_playpause_cb);
 		SignalUtils.SignalConnect (Raw, "mm_prev", mm_prev_cb);
@@ -59,22 +59,22 @@ public class MmKeys : GLib.Object
 	public event EventHandler Next;
 	public event EventHandler Stop;
 
-	private void MmPlayPauseCallback (IntPtr obj, int vol)
+	private void MmPlayPauseCallback (IntPtr obj)
 	{
 		PlayPause (null, null);
 	}
 
-	private void MmNextCallback (IntPtr obj, int vol)
+	private void MmNextCallback (IntPtr obj)
 	{
 		Next (null, null);
 	}
 
-	private void MmPrevCallback (IntPtr obj, int vol)
+	private void MmPrevCallback (IntPtr obj)
 	{
 		Previous (null, null);
 	}
 
-	private void MmStopCallback (IntPtr obj, int vol)
+	private void MmStopCallback (IntPtr obj)
 	{
 		Stop (null, null);
 	}
