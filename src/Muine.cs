@@ -149,9 +149,7 @@ public class Muine : Gnome.Program
 
 				opened_playlist = true;
 			}
-		}
-
-		if (use_conn)
+		} else if (use_conn)
 			conn.Send ("ShowWindow");
 	}
 
