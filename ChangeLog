@@ -1,5 +1,12 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/Makefile.am:
+	* data/muine.applications (removed):
+
+	Remove obsolete applications file.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs: Fix mtime to time ticks conversion.
 
 2004-07-20  Jorn Baayen  <jbaayen@gnome.org>

@@ -10,9 +10,6 @@ desktop_files = $(desktop_in_files:.desktop.in=.desktop)
 desktopdir = $(datadir)/applications
 desktop_DATA = $(desktop_files)
 
-applicationsdir = $(datadir)/application-registry
-applications_DATA = muine.applications
-
 schema_in_files = muine.schemas.in
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
 schema_DATA = $(schema_in_files:.schemas.in=.schemas)
@@ -23,8 +20,7 @@ EXTRA_DIST =			\
 	$(desktop_in_files)	\
 	$(desktop_DATA)		\
 	$(schema_in_files)	\
-	$(schema_DATA)		\
-	$(applications_DATA)
+	$(schema_DATA)
 
 DISTCLEANFILES = 		\
 	$(desktop_DATA) 	\
