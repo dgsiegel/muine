@@ -41,16 +41,17 @@ public class Song
 		}
 	}
 
-	private string [] lower_titles = null;
-	public string [] LowerTitles {
+	private string all_lower_titles = null;
+	public string AllLowerTitles {
 		get {
-			if (lower_titles == null) {
-				lower_titles = new string [titles.Length];
+			if (all_lower_titles == null) {
+				string [] lower_titles = new string [titles.Length];
 				for (int i = 0; i < titles.Length; i++)
 					lower_titles [i] = titles [i].ToLower ();
+				all_lower_titles = String.Join (", ", lower_titles);
 			}
 
-			return lower_titles;
+			return all_lower_titles;
 		}
 	}
 
@@ -61,16 +62,17 @@ public class Song
 		}
 	}
 
-	private string [] lower_artists = null;
-	public string [] LowerArtists {
+	private string all_lower_artists = null;
+	public string AllLowerArtists {
 		get {
-			if (lower_artists == null) {
-				lower_artists = new string [artists.Length];
+			if (all_lower_artists == null) {
+				string [] lower_artists = new string [artists.Length];
 				for (int i = 0; i < artists.Length; i++)
 					lower_artists [i] = artists [i].ToLower ();
+				all_lower_artists = String.Join (", ", lower_artists);
 			}
 
-			return lower_artists;
+			return all_lower_artists;
 		}
 	}
 

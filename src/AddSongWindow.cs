@@ -108,7 +108,10 @@ public class AddSongWindow
 
 	private void UpdateSelection ()
 	{
+		/* FIXME select altijd first */
 		/* FIXME: if no selection, select first (signal?) */
+
+		/* FIXME laat alleen wat zien bij Length >= 3, anders een rijtje met "Hallo" */
 	}
 
 	public delegate void QueueSongsEventHandler (ArrayList songs);
@@ -133,7 +136,7 @@ public class AddSongWindow
 		Song song = Song.FromHandle (handle);
 		CellRendererText r = (CellRendererText) cell;
 
-		String title = String.Join (", ", song.Titles);
+		string title = String.Join (", ", song.Titles);
 
 		r.Text = title + "\n" + String.Join (", ", song.Artists);
 
@@ -175,43 +178,25 @@ public class AddSongWindow
 		args.RetVal = true;
 	}
 
-	/* FIXME timeout ? */
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
-		foreach (Song s in Muine.DB.Songs.Values) {
-			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
+		foreach (Song s in Muine.DB.Songs.Values) {
 			int n_matches = 0;
 			
 			foreach (string search_bit in search_bits) {
-				bool do_continue = false;
-
-				foreach (string str in s.LowerTitles) {
-					if (str.IndexOf (search_bit) >= 0) {
-						n_matches++;
-						do_continue = true;
-						break;
-					}
-				}
-
-				if (do_continue)
-					continue;
-	
-				foreach (string str in s.LowerArtists) {
-					if (str.IndexOf (search_bit) >= 0) {
-						n_matches++;
-						do_continue = true;
-						break;
-					}
-				}
-
-				if (do_continue)
-					continue;
-
-				if (s.LowerAlbum.IndexOf (search_bit) >= 0)
+				if (s.AllLowerTitles.IndexOf (search_bit) >= 0) {
 					n_matches++;
+					continue;
+				}
+
+				if (s.AllLowerArtists.IndexOf (search_bit) >= 0) {
+					n_matches++;
+					continue;
+				}
 			}
 
 			if (n_matches == search_bits.Length)

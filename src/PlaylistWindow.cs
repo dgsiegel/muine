@@ -260,7 +260,7 @@ public class PlaylistWindow : Window
 		Song song = Song.FromHandle (handle);
 		CellRendererText r = (CellRendererText) cell;
 
-		String title = String.Join (", ", song.Titles);
+		string title = String.Join (", ", song.Titles);
 
 		r.Text = title + "\n" + String.Join (", ", song.Artists);
 

@@ -44,16 +44,17 @@ public class Album
 
 	public ArrayList Artists;
 
-	private ArrayList lower_artists = null;
-	public ArrayList LowerArtists {
+	private string all_lower_artists = null;
+	public string AllLowerArtists {
 		get {
-			if (lower_artists == null) {
-				lower_artists = new ArrayList ();
-				foreach (string str in Artists)
-					lower_artists.Add (str.ToLower ());
+			if (all_lower_artists == null) {
+				string [] lower_artists = new string [Artists.Count];
+				for (int i = 0; i < Artists.Count; i++)
+					lower_artists [i] = ((string) Artists [i]).ToLower ();
+				all_lower_artists = String.Join (", ", lower_artists);
 			}
 
-			return lower_artists;
+			return all_lower_artists;
 		}
 	}
 
