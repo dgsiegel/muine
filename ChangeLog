@@ -1,5 +1,13 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	0.3.0-pre1
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* data/Makefile.am:
 	* data/muine.applications:

@@ -1266,5 +1266,6 @@ public class PlaylistWindow : Window
 		default:
 			break;
 		}
+		/* FIXME finish drag */
 	}
 }

@@ -1,3 +1,19 @@
+0.3.0
+=====
+
+- Automatically fetch missing album cover images from Amazon.com [Lee Willis,
+  Jorn Baayen]
+- Multimedia key support (as configure by acme) [Jorn Baayen]
+- Can now load playlists from the commandline [Jorn Baayen]
+- Added an .applications file, so that Nautilus knows about us [Jorn Baayen]
+- Bugfixes [Jorn Baayen]
+- Tray icon shows playback status [Sergio Rubio, Jorn Baayen]
+- UI enhancements [Jorn Baayen]
+- Check imported folders for changes on startup [Jorn Baayen]
+
+- New translations (partial):
+   Spanish [Sergio Rubio]
+
 0.2.1
 =====
 
