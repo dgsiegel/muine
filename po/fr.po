@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
-"POT-Creation-Date: 2004-03-03 15:51+0100\n"
-"PO-Revision-Date: 2004-03-10 18:28+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-10 20:44+0100\n"
+"PO-Revision-Date: 2004-03-03 20:56+0100\n"
 "Last-Translator: Vincent Carriere <carriere_vincent@yahoo.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,20 +55,34 @@ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Aucune musique trouvée</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
-msgid "Muine was unable to find your music collection. What would you like me to do?"
-msgstr "Muine est incapable de trouver votre collection de musique. Que voulez vous faire ?"
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+"Muine est incapable de trouver votre collection de musique. Que voulez vous "
+"faire ?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
-msgid "Muine will create the folders Music and Music/Playlists in your home folder to store your music files. This option is highly recommended. You can always import other folders manually."
-msgstr "Muine va créer les dossiers Music et Music/Playlists dans votre répertoire personnel afin de ranger vos fichiers musicaux. Cette option est fortement recommandée. Vous avez toujours le choix d'importer vos autres dossiers manuellement."
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+"Muine va créer les dossiers Music et Music/Playlists dans votre répertoire "
+"personnel afin de ranger vos fichiers musicaux. Cette option est fortement "
+"recommandée. Vous avez toujours le choix d'importer vos autres dossiers "
+"manuellement."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
 msgstr "Pas de musique trouvée"
 
 #: data/glade/NoMusicFoundWindow.glade.h:5
-msgid "You will have to import your music manually. This is for experienced users only and therefore not generally recommended."
-msgstr "Vous devez importer votre musique manuellement. Ceci est pour les utilisateurs avancés seulement et n'est généralement pas recommandé."
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+msgstr ""
+"Vous devez importer votre musique manuellement. Ceci est pour les "
+"utilisateurs avancés seulement et n'est généralement pas recommandé."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
 msgid "_Create an empty music collection "
@@ -81,8 +96,7 @@ msgstr "_Rien, je gérerai ma musique moi même"
 msgid "Play _Album"
 msgstr "Lire un _Album"
 
-#: data/glade/PlaylistWindow.glade.h:2
-#: src/NotificationAreaIcon.cs:100
+#: data/glade/PlaylistWindow.glade.h:2 src/NotificationAreaIcon.cs:100
 msgid "Play _Album..."
 msgstr "Lire un _Album..."
 
@@ -90,8 +104,7 @@ msgstr "Lire un _Album..."
 msgid "Play _Song"
 msgstr "Lire une _Chanson"
 
-#: data/glade/PlaylistWindow.glade.h:4
-#: src/NotificationAreaIcon.cs:97
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:97
 msgid "Play _Song..."
 msgstr "Lire une _Chanson..."
 
@@ -109,7 +122,7 @@ msgstr "_Retour"
 
 #: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
-msgstr "_Avance"
+msgstr "A_vance"
 
 #: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
@@ -129,7 +142,7 @@ msgstr "_Ajouter le dossier..."
 
 #: data/glade/PlaylistWindow.glade.h:13
 msgid "_Information"
-msgstr "_Information"
+msgstr "_Informations"
 
 #: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
@@ -157,11 +170,11 @@ msgstr "_Sauver la liste de lecture sous..."
 
 #: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
-msgstr "_Aller à ..."
+msgstr "All_er à ..."
 
 #: data/glade/PlaylistWindow.glade.h:21
 msgid "_Song"
-msgstr "_Chanson"
+msgstr "C_hanson"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
@@ -179,8 +192,7 @@ msgstr "Question"
 msgid "Listen to your music"
 msgstr "Écouter votre musique"
 
-#: data/muine.desktop.in.h:2
-#: src/PlaylistWindow.cs:615
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:615
 msgid "Muine Music Player"
 msgstr "Muine Lecteur de Musique"
 
@@ -226,11 +238,14 @@ msgstr "Largeur de la fenêtre d'information."
 
 #: data/muine.schemas.in.h:11
 msgid "Last used folder from \"Import folder\" dialog."
-msgstr "Dossier dernièrement utilisé pour la boite de dialogue \"Ajouter le dossier\"."
+msgstr ""
+"Dossier dernièrement utilisé pour la boite de dialogue \"Ajouter le dossier"
+"\"."
 
 #: data/muine.schemas.in.h:12
 msgid "Last used folder from the playlist file selectors."
-msgstr "Dossier dernièrement utilisé pour la boite de dialogue des listes de lecture."
+msgstr ""
+"Dossier dernièrement utilisé pour la boite de dialogue des listes de lecture."
 
 #: data/muine.schemas.in.h:13
 msgid "Playlist window height."
@@ -264,13 +279,11 @@ msgstr "Indique si le mode répétition est activé ou pas."
 msgid "false if Muine has been started before."
 msgstr "faux si Muine a été démarré avant."
 
-#: libmuine/egg/eggtrayicon.c:118
-#: libmuine/egg/eggtraymanager.c:145
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
 msgstr "Orientation"
 
-#: libmuine/egg/eggtrayicon.c:119
-#: libmuine/egg/eggtraymanager.c:146
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "L'orientation dans la zone de notification."
 
@@ -284,6 +297,8 @@ msgstr "Lee Willis (lee@leewillis.co.uk)"
 
 #  please use Vietnamese spelling, if the relevant characters occur in
 #  * your language.
+#. please use Vietnamese spelling, if the relevant characters occur in
+#. * your language.
 #: src/About.cs:42
 msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
 msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
@@ -297,6 +312,7 @@ msgid "Muine"
 msgstr "Muine"
 
 #  please use the UTF-8 copyright symbol in your translation ..
+#. please use the UTF-8 copyright symbol in your translation ..
 #: src/About.cs:59
 msgid "Copyright (C) 2003, 2004 Jorn Baayen"
 msgstr "Copyright © 2003, 2004 Jorn Baayen"
@@ -313,8 +329,7 @@ msgstr "Merci à Amazon.com de fournir les images des albums !"
 msgid "Play Album"
 msgstr "Lire un Album"
 
-#: src/AddAlbumWindow.cs:155
-#: src/PlaylistWindow.cs:585
+#: src/AddAlbumWindow.cs:155 src/PlaylistWindow.cs:585
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Exécuté par {0}"
@@ -327,12 +342,15 @@ msgstr "Lire une Chanson"
 #  * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #  * if "the" is included in this list. Also include the English "the"
 #  * if English is generally spoken in your country.
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
 #: src/Album.cs:78
 msgid "the dj"
 msgstr "the dj la le les"
 
-#: src/CoverDatabase.cs:66
-#: src/SongDatabase.cs:76
+#: src/CoverDatabase.cs:66 src/SongDatabase.cs:76
 #, csharp-format
 msgid "Failed to open database: {0}"
 msgstr "Échec de l'ouverture de la base de donnée des chansons: {0}"
@@ -374,10 +392,9 @@ msgstr "Chanson _Suivante"
 
 #: src/NotificationAreaIcon.cs:107
 msgid "Song _Information"
-msgstr "_Information de la chanson"
+msgstr "_Informations sur la chanson"
 
-#: src/NotificationAreaIcon.cs:114
-#: src/PlaylistWindow.cs:251
+#: src/NotificationAreaIcon.cs:114 src/PlaylistWindow.cs:251
 msgid "Show _Window"
 msgstr "Afficher la _fenêtre"
 
@@ -409,10 +426,8 @@ msgstr "Ajouter une chanson à la liste de lecture"
 msgid "Change the volume level"
 msgstr "Modifier le volume"
 
-#: src/PlaylistWindow.cs:364
-#: src/PlaylistWindow.cs:481
-#: src/PlaylistWindow.cs:505
-#: src/PlaylistWindow.cs:519
+#: src/PlaylistWindow.cs:364 src/PlaylistWindow.cs:481
+#: src/PlaylistWindow.cs:505 src/PlaylistWindow.cs:519
 msgid "Playlist"
 msgstr "Liste de lecture"
 
@@ -425,16 +440,38 @@ msgstr ""
 "Quitte..."
 
 #: src/PlaylistWindow.cs:498
-#: src/PlaylistWindow.cs:501
-#: src/PlaylistWindow.cs:503
 #, csharp-format
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Liste de lecture (répétant {0} heure)"
+msgstr[1] "Liste de lecture (répétant {0} heures)"
+
+#: src/PlaylistWindow.cs:501
+#, csharp-format
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Liste de lecture (répétant {0} minute)"
+msgstr[1] "Liste de lecture (répétant {0} minutes)"
+
+#: src/PlaylistWindow.cs:503
 msgid "Playlist (Repeating)"
 msgstr "Liste de lecture (Répétition)"
 
 #: src/PlaylistWindow.cs:512
-#: src/PlaylistWindow.cs:515
-#: src/PlaylistWindow.cs:517
 #, csharp-format
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Liste de lecture ({0} heure restante)"
+msgstr[1] "Liste de lecture ({0} heures restantes)"
+
+#: src/PlaylistWindow.cs:515
+#, csharp-format
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Liste de lecture ({0} minute restante)"
+msgstr[1] "Liste de lecture ({0} minutes restantes)"
+
+#: src/PlaylistWindow.cs:517
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Liste de lecture (Moins d'une minute restante)"
 
@@ -460,8 +497,7 @@ msgstr "{0} - Muine Lecteur de Musique"
 msgid "Pause music playback"
 msgstr "Mettre en pause la lecture"
 
-#: src/PlaylistWindow.cs:638
-#: src/PlaylistWindow.cs:641
+#: src/PlaylistWindow.cs:638 src/PlaylistWindow.cs:641
 msgid "P_ause"
 msgstr "P_ause"
 
@@ -469,10 +505,8 @@ msgstr "P_ause"
 msgid "Resume music playback"
 msgstr "Reprendre la lecture"
 
-#: src/PlaylistWindow.cs:651
-#: src/PlaylistWindow.cs:654
-#: src/PlaylistWindow.cs:662
-#: src/PlaylistWindow.cs:665
+#: src/PlaylistWindow.cs:651 src/PlaylistWindow.cs:654
+#: src/PlaylistWindow.cs:662 src/PlaylistWindow.cs:665
 msgid "Pl_ay"
 msgstr "_Lire"
 
@@ -492,15 +526,15 @@ msgstr "Échec de l'ouverture de {0} pour écriture"
 
 #: src/PlaylistWindow.cs:1159
 msgid "Import Folder"
-msgstr "Ajouter le dossier"
+msgstr "_Ajouter le dossier"
 
 #: src/PlaylistWindow.cs:1209
 msgid "Open Playlist"
-msgstr "Ouvrir la liste de lecture"
+msgstr "_Ouvrir la liste de lecture"
 
 #: src/PlaylistWindow.cs:1224
 msgid "Save Playlist"
-msgstr "Sauver la liste de lecture"
+msgstr "_Sauver la liste de lecture"
 
 #: src/PlaylistWindow.cs:1234
 #, csharp-format
@@ -518,7 +552,7 @@ msgstr ""
 #: src/ProgressWindow.cs:43
 #, csharp-format
 msgid "Importing {0}..."
-msgstr "Ajoute {0}..."
+msgstr "_Ajoute {0}..."
 
 #: src/StringUtils.cs:47
 msgid "Unknown"
@@ -533,4 +567,3 @@ msgstr "{0} et autres"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} et {1}"
-
