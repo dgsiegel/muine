@@ -12,6 +12,8 @@ o Queueing files that are not contained in the library
 Tough:
 ======
 
+o Plug-in arch, so that we can add things like dashboard and gnotify support
+  without bloating the main build.
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
