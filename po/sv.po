@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
-"POT-Creation-Date: 2004-05-09 12:28+0200\n"
-"PO-Revision-Date: 2004-01-18 03:41+0100\n"
+"POT-Creation-Date: 2004-05-09 15:00+0200\n"
+"PO-Revision-Date: 2004-05-09 15:01+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,12 +39,12 @@ msgstr "Fel"
 
 #: data/glade/NoMusicFoundWindow.glade.h:1
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr ""
+msgstr "<span weight=\"bold\" size=\"larger\">Ingen musik hittades</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
 msgid ""
 "Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
+msgstr "Muine kunde inte hitta din musiksamling. Vad vill du att jag ska göra?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
 msgid ""
@@ -52,54 +52,53 @@ msgid ""
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
 msgstr ""
+"Muine kommer att skapa mapparna Music och Music/Playlists i din hemmapp för "
+"att lagra dina musikfiler. Detta alternativ rekommenderas varmt. Du kan "
+"alltid importera andra mappar manuellt."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
-msgstr ""
+msgstr "Ingen musik hittades"
 
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefore not generally recommended."
 msgstr ""
+"Du måste importera din musik manuellt. Detta är endast för erfarna användare "
+"och rekommenderas därför inte i allmänhet."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
-msgstr ""
+msgid "_Create an empty music collection"
+msgstr "_Skapa en tom musiksamling"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
-msgstr ""
+msgstr "_Ingenting, jag kommer att hantera min musik själv"
 
 #: data/glade/PlaylistWindow.glade.h:1
-#, fuzzy
 msgid "P_roperties"
-msgstr "Egenskaper"
+msgstr "_Egenskaper"
 
 #: data/glade/PlaylistWindow.glade.h:2
-#, fuzzy
 msgid "Play Album"
-msgstr "Lägg till _album"
+msgstr "Spela album"
 
 #: data/glade/PlaylistWindow.glade.h:3
-#, fuzzy
 msgid "Play Song"
-msgstr "Spelar"
+msgstr "Spela låt"
 
 #: data/glade/PlaylistWindow.glade.h:4
-#, fuzzy
 msgid "Play _Album..."
-msgstr "Lägg till _album..."
+msgstr "Spela _album..."
 
 #: data/glade/PlaylistWindow.glade.h:5
-#, fuzzy
 msgid "Play _Song..."
-msgstr "Lägg till _låt..."
+msgstr "Spela _låt..."
 
 #: data/glade/PlaylistWindow.glade.h:6
-#, fuzzy
 msgid "R_epeat"
-msgstr "Upprepningsläge"
+msgstr "_Upprepa"
 
 #: data/glade/PlaylistWindow.glade.h:7
 msgid "Remove _Played Songs"
@@ -119,7 +118,7 @@ msgstr "TMP"
 
 #: data/glade/PlaylistWindow.glade.h:11
 msgid "_Clear"
-msgstr ""
+msgstr "_Töm"
 
 #: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
@@ -134,14 +133,12 @@ msgid "_Next"
 msgstr "_Nästa"
 
 #: data/glade/PlaylistWindow.glade.h:15
-#, fuzzy
 msgid "_Open Playlist..."
-msgstr "_Töm spellista"
+msgstr "_Öppna spellista..."
 
 #: data/glade/PlaylistWindow.glade.h:16
-#, fuzzy
 msgid "_Playlist"
-msgstr "Spellista"
+msgstr "_Spellista"
 
 #: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
@@ -152,18 +149,16 @@ msgid "_Remove Song"
 msgstr "_Ta bort låt"
 
 #: data/glade/PlaylistWindow.glade.h:19
-#, fuzzy
 msgid "_Save Playlist As..."
-msgstr "Spara spellista"
+msgstr "_Spara spellista som..."
 
 #: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "_Hoppa till..."
 
 #: data/glade/PlaylistWindow.glade.h:21
-#, fuzzy
 msgid "_Song"
-msgstr "_Ljud"
+msgstr "_Låt"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
@@ -175,7 +170,7 @@ msgstr "Hoppa till"
 
 #: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
-msgstr ""
+msgstr "Fråga"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -186,114 +181,146 @@ msgid "Muine Music Player"
 msgstr "Musikspelaren Muine"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr ""
+msgid "Add album window height"
+msgstr "Höjd på fönstret \"lägg till album\""
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr ""
+msgid "Add album window height."
+msgstr "Höjd på fönstret \"lägg till album\"."
 
 #: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr ""
+msgid "Add album window width"
+msgstr "Bredd på fönstret \"lägg till album\""
 
 #: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr ""
+msgid "Add album window width."
+msgstr "Bredd på fönstret \"lägg till album\"."
 
 #: data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images."
-msgstr ""
+msgid "Add song window height"
+msgstr "Höjd på fönstret \"lägg till låt\""
 
 #: data/muine.schemas.in.h:6
-#, fuzzy
-msgid "Default import folder."
-msgstr "_Importera mapp..."
+msgid "Add song window height."
+msgstr "Höjd på fönstret \"lägg till låt\"."
 
 #: data/muine.schemas.in.h:7
-#, fuzzy
-msgid "Default playlist folder."
-msgstr "_Importera mapp..."
+msgid "Add song window width"
+msgstr "Bredd på fönstret \"lägg till låt\""
 
+# Detta borde buggrapporteras.
 #: data/muine.schemas.in.h:8
-msgid "First start."
-msgstr ""
+msgid "Add song window width."
+msgstr "Bredd på fönstret \"lägg till låt\"."
 
 #: data/muine.schemas.in.h:9
-msgid "Folders that are monitored for changes."
-msgstr ""
+msgid "Amazon site to use for album images"
+msgstr "Amazon-webbplats att använda för albumbilder"
 
 #: data/muine.schemas.in.h:10
-msgid "Information window height."
-msgstr ""
+msgid "Default import folder"
+msgstr "Standardmapp för import"
 
 #: data/muine.schemas.in.h:11
-msgid "Information window width."
-msgstr ""
+msgid "Default playlist folder"
+msgstr "Standardmapp för spellistor"
 
 #: data/muine.schemas.in.h:12
-msgid "Last used folder from \"Import folder\" dialog."
-msgstr ""
+msgid "First start"
+msgstr "Första start"
 
 #: data/muine.schemas.in.h:13
-msgid "Last used folder from the playlist file selectors."
-msgstr ""
+msgid "Folders that are monitored for changes."
+msgstr "Mappar som övervakas för ändringar."
 
 #: data/muine.schemas.in.h:14
-msgid "Playlist window height."
-msgstr ""
+msgid "Information window height"
+msgstr "Höjd på informationsfönstret"
 
 #: data/muine.schemas.in.h:15
-msgid "Playlist window width."
-msgstr ""
+msgid "Information window height."
+msgstr "Höjd på informationsfönstret."
 
 #: data/muine.schemas.in.h:16
-msgid "Repeat mode."
-msgstr "Upprepningsläge."
+msgid "Information window width"
+msgstr "Bredd på informationsfönstret"
 
 #: data/muine.schemas.in.h:17
-#, fuzzy
-msgid "Volume level."
-msgstr "Volym upp"
+msgid "Information window width."
+msgstr "Bredd på informationsfönstret."
 
 #: data/muine.schemas.in.h:18
-msgid "Volume level. 0 = lowest, 100 = highest."
-msgstr ""
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Senast använda mapp från dialogen \"Importera mapp\"."
 
 #: data/muine.schemas.in.h:19
-msgid "Watched folders."
-msgstr ""
+msgid "Last used folder from the playlist file selectors."
+msgstr "Senast använda mapp från spellistefilväljarna."
 
 #: data/muine.schemas.in.h:20
-msgid "Whether or not to enable repeat playlist mode."
-msgstr ""
+msgid "Playlist window height"
+msgstr "Höjd på spellistefönstret"
 
 #: data/muine.schemas.in.h:21
+msgid "Playlist window height."
+msgstr "Höjd på spellistefönstret."
+
+#: data/muine.schemas.in.h:22
+msgid "Playlist window width"
+msgstr "Bredd på spellistefönstret"
+
+#: data/muine.schemas.in.h:23
+msgid "Playlist window width."
+msgstr "Bredd på spellistefönstret."
+
+#: data/muine.schemas.in.h:24
+msgid "Repeat mode"
+msgstr "Upprepningsläge"
+
+#: data/muine.schemas.in.h:25
+msgid "Volume level"
+msgstr "Volymnivå"
+
+#: data/muine.schemas.in.h:26
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Volymnivå. 0 = lägsta, 100 = högsta."
+
+#: data/muine.schemas.in.h:27
+msgid "Watched folders"
+msgstr "Övervakade mappar"
+
+#: data/muine.schemas.in.h:28
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Huruvida läget upprepa spellista är aktiverat eller inte."
+
+#: data/muine.schemas.in.h:29
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
+"Vilken Amazon-webbplats som ska användas för hämtning för albumbilder, \"us"
+"\", \"uk\", \"de\", eller \"jp\"."
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
-msgstr ""
+msgstr "falskt om Muine har startats tidigare."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create GstPlay object"
-msgstr ""
+msgstr "Misslyckades med att skapa GstPlay-objekt"
 
 #: libmuine/player-gst.c:164
 msgid "Failed to create the required gnomevfssrc GStreamer element"
 msgstr ""
+"Misslyckades med att skapa det nödvändiga GStreamer-elementet gnomevfssrc"
 
 #: libmuine/player-gst.c:173
-#, fuzzy
 msgid "Could not render default GStreamer audio output sink"
-msgstr "Kunde inte hitta en lämplig videoutmatning."
+msgstr "Kunde inte rendera GStreamer-standardutgången för ljudutmatning"
 
 #: libmuine/player-gst.c:182
 msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr ""
+msgstr "Kunde inte hitta volymelementet i GstPlay-rörledningen"
 
 #: libmuine/player-xine.c:283
 #, c-format
@@ -305,151 +332,88 @@ msgstr ""
 "Kontrollera att enheten inte är upptagen."
 
 #: libmuine/player-xine.c:378 libmuine/player-xine.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "No plugin available for \"%s\""
-msgstr "Ingen videoinsticksmodul tillgänglig för avkodning av \"%s\"."
+msgstr "Ingen insticksmodul tillgänglig för \"%s\""
 
 #: libmuine/player-xine.c:388
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Misslyckades med att spela \"%s\""
 
 #: libmuine/player-xine.c:392
 msgid "Internal error"
-msgstr ""
+msgstr "Internt fel"
 
 #: libmuine/player-xine.c:401
-#, fuzzy, c-format
+#, c-format
 msgid "Could not play \"%s\""
-msgstr "Totem kunde inte spela \"%s\"."
+msgstr "Kunde inte spela \"%s\""
 
-#, fuzzy
+#~ msgid "_Create an empty music collection "
+#~ msgstr "_Skapa en tom musiksamling "
+
+#~ msgid "Properties"
+#~ msgstr "Egenskaper"
+
+#~ msgid "Repeat"
+#~ msgstr "Upprepa"
+
+#~ msgid "Save playlist"
+#~ msgstr "Spara spellista"
+
+#~ msgid "Song"
+#~ msgstr "Låt"
+
+# Detta borde buggrapporteras.
+#~ msgid "Default import folder."
+#~ msgstr "Standardmapp för import."
+
+# Detta borde buggrapporteras.
+#~ msgid "Default playlist folder."
+#~ msgstr "Standardmapp för spellistor."
+
+# Detta borde buggrapporteras.
+#~ msgid "First start."
+#~ msgstr "Första start."
+
+# Detta borde buggrapporteras.
+#~ msgid "Repeat mode."
+#~ msgstr "Upprepningsläge."
+
+# Detta borde buggrapporteras.
+#~ msgid "Volume level."
+#~ msgstr "Volymnivå."
+
+# Detta borde buggrapporteras.
+#~ msgid "Watched folders."
+#~ msgstr "Övervakade mappar."
+
 #~ msgid "translator-credits"
 #~ msgstr ""
 #~ "Christian Rose\n"
 #~ "Skicka synpunkter på översättningen till sv@li.org"
 
-# Använder samma konvention som i gnome-media, där jdahlin vill ha "tyst"
-# istället för "tysta"
-#, fuzzy
 #~ msgid "Muine"
-#~ msgstr "Tyst"
+#~ msgstr "Muine"
 
 #~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
 #~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
-#, fuzzy
 #~ msgid "A music player"
+#~ msgstr "En musikspelare"
+
+#~ msgid "Music player"
 #~ msgstr "Musikspelare"
 
-#, fuzzy
 #~ msgid "Muine music player"
 #~ msgstr "Musikspelaren Muine"
-
-#, fuzzy
-#~ msgid "_Previous Song"
-#~ msgstr "_Föregående"
-
-#, fuzzy
-#~ msgid "_Next Song"
-#~ msgstr "_Ljud"
-
-#, fuzzy
-#~ msgid "Show _Window"
-#~ msgstr "Visa _kontroller"
-
-#, fuzzy
-#~ msgid ""
-#~ "Audio backend error:\n"
-#~ "{0}"
-#~ msgstr "använder bakände:"
-
-#, fuzzy
-#~ msgid "Hide _Window"
-#~ msgstr "_Dölj fönster"
-
-#, fuzzy
-#~ msgid "Play the previous song"
-#~ msgstr "Spela filmer och låtar"
-
-#, fuzzy
-#~ msgid "Play the next song"
-#~ msgstr "Spela filmer och låtar"
-
-#, fuzzy
-#~ msgid "Add an album to the playlist"
-#~ msgstr "Kunde inte spara spellistan"
-
-#, fuzzy
-#~ msgid "Add a song to the playlist"
-#~ msgstr "Kunde inte spara spellistan"
-
-#, fuzzy
-#~ msgid "Change the volume level"
-#~ msgstr "Volym upp"
-
-#, fuzzy
-#~ msgid "Playlist"
-#~ msgstr "Spellista"
-
-#, fuzzy
-#~ msgid "Album unknown"
-#~ msgstr "Okänd"
-
-#, fuzzy
-#~ msgid "{0} - Muine Music Player"
-#~ msgstr "Musikspelaren Muine"
-
-#, fuzzy
-#~ msgid "Pause music playback"
-#~ msgstr "Musikspelare"
-
-#, fuzzy
-#~ msgid "P_ause"
-#~ msgstr "Gör paus"
-
-#, fuzzy
-#~ msgid "Resume music playback"
-#~ msgstr "Musikspelare"
-
-#, fuzzy
-#~ msgid "Pl_ay"
-#~ msgstr "_Spela"
-
-#, fuzzy
-#~ msgid "Start music playback"
-#~ msgstr "Musikspelare"
-
-#, fuzzy
-#~ msgid "Import Folder"
-#~ msgstr "_Importera mapp..."
-
-#, fuzzy
-#~ msgid "Open Playlist"
-#~ msgstr "_Töm spellista"
-
-#, fuzzy
-#~ msgid "Save Playlist"
-#~ msgstr "Spara spellista"
-
-#, fuzzy
-#~ msgid "Importing {0}..."
-#~ msgstr "_Importera mapp..."
 
 #~ msgid "Unknown"
 #~ msgstr "Okänd"
 
-#, fuzzy
-#~ msgid "<b>Groups</b>"
-#~ msgstr "<b>Allmänt</b>"
-
-#, fuzzy
 #~ msgid "Groups"
-#~ msgstr "_Grupper"
-
-#, fuzzy
-#~ msgid "_Add song"
-#~ msgstr "Lägg till _låt"
+#~ msgstr "Grupper"
 
 #~ msgid "_Clear Playlist"
 #~ msgstr "_Töm spellista"
@@ -493,38 +457,14 @@ msgstr "Totem kunde inte spela \"%s\"."
 #~ msgid "seconds"
 #~ msgstr "sekunder"
 
-#, fuzzy
-#~ msgid "Pixbuf"
-#~ msgstr "Pixbuf-objekt"
-
 #~ msgid "Filename"
 #~ msgstr "Filnamn"
-
-#, fuzzy
-#~ msgid "Filename to load and display"
-#~ msgstr "Misslyckades med att läsa in biblioteket!"
-
-#, fuzzy
-#~ msgid "Stock ID"
-#~ msgstr "Standardikon"
-
-#, fuzzy
-#~ msgid "Animation"
-#~ msgstr "Ytterligare"
 
 #~ msgid "Size"
 #~ msgstr "Storlek"
 
-#, fuzzy
-#~ msgid "The size of the icon"
-#~ msgstr "Ljusstyrkan för videon"
-
 #~ msgid "Blinking"
 #~ msgstr "Blinkar"
-
-#, fuzzy
-#~ msgid "Whether or not the status icon is blinking"
-#~ msgstr "Huruvida åtgärden är aktiverad."
 
 #~ msgid "Queue"
 #~ msgstr "Kölägg"
@@ -1000,9 +940,6 @@ msgstr "Totem kunde inte spela \"%s\"."
 
 #~ msgid "Path to the optical media device."
 #~ msgstr "Sökväg till enheten för optisk media."
-
-#~ msgid "Repeat mode"
-#~ msgstr "Upprepningsläge"
 
 #~ msgid "Resize the canvas automatically on file load"
 #~ msgstr "Ändra storleken automatiskt vid filinläsning"
