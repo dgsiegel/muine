@@ -29,7 +29,7 @@ public class StringUtils
 	{
 		return (uint) strlen (str);
 	}
-
+	
 	public static string SecondsToString (long time)
 	{
 		int h, m, s;

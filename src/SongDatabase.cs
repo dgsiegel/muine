@@ -51,7 +51,7 @@ public class SongDatabase
 			}
 		}
 		
-		string filename = dinfo.ToString () + "/songs.db";
+		string filename = dinfo.FullName + "/songs.db";
 
 		string error = null;
 
@@ -87,11 +87,11 @@ public class SongDatabase
 				      Queue new_songs)
 	{
 		foreach (FileInfo finfo in info.GetFiles ()) {
-			if (Songs [finfo.ToString ()] == null) {
+			if (Songs [finfo.FullName] == null) {
 				Song song;
 
 				try {
-					song = new Song (finfo.ToString ());
+					song = new Song (finfo.FullName);
 				} catch {
 					continue;
 				}

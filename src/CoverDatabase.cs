@@ -35,7 +35,7 @@ public class CoverDatabase
 
 	public Hashtable Covers;
 
-	private Pixbuf downloading_pixbuf;
+	public Pixbuf DownloadingPixbuf;
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
@@ -56,7 +56,7 @@ public class CoverDatabase
 			}
 		}
 		
-		string filename = dinfo.ToString () + "/covers.db";
+		string filename = dinfo.FullName + "/covers.db";
 
 		string error = null;
 
@@ -68,7 +68,7 @@ public class CoverDatabase
 
 		Covers = new Hashtable ();
 
-		downloading_pixbuf = new Pixbuf (null, "muine-cover-downloading.png");
+		DownloadingPixbuf = new Pixbuf (null, "muine-cover-downloading.png");
 	}
 
 	public void Load ()
@@ -195,9 +195,9 @@ public class CoverDatabase
 
 	public Pixbuf AddCoverDownloading (string key)
 	{
-		Covers.Add (key, downloading_pixbuf);
+		Covers.Add (key, DownloadingPixbuf);
 
-		return downloading_pixbuf;
+		return DownloadingPixbuf;
 	}
 
 	[DllImport ("libmuine")]

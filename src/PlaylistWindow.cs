@@ -995,14 +995,14 @@ public class PlaylistWindow : Window
 		foreach (FileInfo finfo in info.GetFiles ()) {
 			Song song;
 
-			song = Muine.DB.SongFromFile (finfo.ToString ());
+			song = Muine.DB.SongFromFile (finfo.FullName);
 			if (song == null) {
 				bool ret = pw.ReportFile (finfo.Name);
 				if (ret == false)
 					return false;
 
 				try {
-					song = new Song (finfo.ToString ());
+					song = new Song (finfo.FullName);
 				} catch (Exception e) {
 					continue;
 				}
@@ -1059,7 +1059,7 @@ public class PlaylistWindow : Window
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 			HandleDirectory (dinfo, pw);
-			AddWatchedFolder (dinfo.ToString ());
+			AddWatchedFolder (dinfo.FullName);
 			pw.Done ();
 		}
 
@@ -1106,7 +1106,7 @@ public class PlaylistWindow : Window
 	{
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		HandleDirectory (dinfo, pw);
-		AddWatchedFolder (dinfo.ToString ());
+		AddWatchedFolder (dinfo.FullName);
 		pw.Done ();
 	}
 

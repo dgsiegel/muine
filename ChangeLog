@@ -1,6 +1,20 @@
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:
+
+	A vain attempt to make b0rken filenames work, and fix the bug
+	where sometimes the "downloading image" would disappear after 
+	a restart.
+
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* data/images/Makefile.am:
 	* data/images/muine-cover-downloading.png:
 	* src/CoverDatabase.cs:

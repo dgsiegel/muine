@@ -189,8 +189,11 @@ public class Album
 	{
 		Songs.Add (song);
 		Songs.Sort (song_comparer);
-		
-		song.CoverImage = CoverImage;
+
+		if (CoverImage == null && song.CoverImage != null)
+			SyncCoverImageWith (song);
+		else
+			song.CoverImage = CoverImage;
 		
 		return AddArtistsAndPerformers (song);
 	}

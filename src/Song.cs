@@ -95,7 +95,7 @@ public class Song
 		set {
 			cover_image = value;
 
-			if (cover_image != null)
+			if (cover_image != null && cover_image != Muine.CoverDB.DownloadingPixbuf)
 				checked_cover_image = true;
 		}
 		
@@ -240,7 +240,7 @@ public class Song
 				tmp_cover_image = null;
 			}
 		}
-		
+
 		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
 	}
 
@@ -248,7 +248,7 @@ public class Song
 	{
 		checked_cover_image = true;
 
-		if (album.Length == 0 || artists.Length == 0) {
+		if (album.Length == 0) {
 			cover_image = null;
 			return;
 		}
@@ -272,6 +272,11 @@ public class Song
 			}
 		}
 
+		if (artists.Length == 0) {
+			cover_image = null;
+			return;
+		}
+
 		/* Failed to find a cover on disk - try the web */
 		Action action = new Action ();
 		/* This assumes the right artist is always in artists [0] */
@@ -281,7 +286,7 @@ public class Song
 		Muine.ActionThread.QueueAction (action);
 
 		checked_cover_image = false;
-			
+
 		cover_image = Muine.CoverDB.AddCoverDownloading (AlbumKey);
 	}
 
@@ -422,7 +427,7 @@ public class Song
 		p = db_unpack_double (p, out peak);
 
 		/* cover image */
-		if (album.Length == 0 || artists.Length == 0)
+		if (album.Length == 0)
 			cover_image = null;
 		else
 			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
