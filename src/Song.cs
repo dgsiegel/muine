@@ -153,6 +153,24 @@ public class Song
 		}
 	}
 
+	/*
+	- The album key is "dirname:album name" because of the following
+	reasons: (I should add a comment in the code ..)
+	We cannot do artist/performer matching, because it is very common for
+	albums to be made by different artists. Random example, the Sigur
+	Rós/Radiohead split. Using "Various Artists" as artist tag is whacky.
+	But, we cannot match only by album name either: a user may very well
+	have multiple albums with the title "Greatest Hits". We don't want to
+	incorrectly group all these together.
+	So, the best thing we've managed to come up with so far is using
+	dirname:albumname. This because most people who even have whole albums
+	have those organised in folders, or at the very least all music files in
+	the same folder. So for those it should more or less work. And for those
+	who have a decently organised music collection, the original target user
+	base, it should work flawlessly. And for those who have a REALLY poorly
+	organised collection, well, bummer. Moving all files to the same dir
+	will help a bit.
+	*/
 	public string AlbumKey {
 		get {
 			if (album.Length == 0)
