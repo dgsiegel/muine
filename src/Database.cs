@@ -158,6 +158,22 @@ namespace Muine
 			return db_unpack_string (p, out str_ptr);
 		}
 
+		// Methods :: Public :: Unpack :: UnpackStringArray
+		public static IntPtr UnpackStringArray (IntPtr p, out string [] array)
+		{
+			IntPtr ret = p;
+
+			int len;
+			ret = Database.UnpackInt (ret, out len);
+
+			array = new string [len];
+
+			for (int i = 0; i < len; i++)
+				ret = Database.UnpackString (ret, out array [i]);
+
+			return ret;
+		}
+
 		// Methods :: Public :: Pack :: PackStart
 		[DllImport ("libmuine")]
 		private static extern IntPtr db_pack_start ();

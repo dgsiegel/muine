@@ -91,32 +91,18 @@ namespace Muine
 
 			filename = fn;
 
-			// Title
-			p = Database.UnpackString (p, out title);
-
-			// Artists
-			p = Database.UnpackInt (p, out len);
-			artists = new string [len];
-			for (int i = 0; i < len; i++)
-				p = Database.UnpackString (p, out artists [i]);
-			artists = StringUtils.CleanStringList (artists);
-
-			// Performers
-			p = Database.UnpackInt (p, out len);
-			performers = new string [len];
-			for (int i = 0; i < len; i++)
-				p = Database.UnpackString (p, out performers [i]);
-			performers = StringUtils.CleanStringList (performers);
-
-			// Everything else
-			p = Database.UnpackString (p, out album       );
-			p = Database.UnpackInt    (p, out track_number);
-			p = Database.UnpackInt    (p, out disc_number );
-			p = Database.UnpackString (p, out year        );
-			p = Database.UnpackInt    (p, out duration    );
-			p = Database.UnpackInt    (p, out mtime       );
-			p = Database.UnpackDouble (p, out gain        );
-			p = Database.UnpackDouble (p, out peak        );
+			// Tags
+			p = Database.UnpackString      (p, out title       );
+			p = Database.UnpackStringArray (p, out artists     );
+			p = Database.UnpackStringArray (p, out performers  );
+			p = Database.UnpackString      (p, out album       );
+			p = Database.UnpackInt         (p, out track_number);
+			p = Database.UnpackInt         (p, out disc_number );
+			p = Database.UnpackString      (p, out year        );
+			p = Database.UnpackInt         (p, out duration    );
+			p = Database.UnpackInt         (p, out mtime       );
+			p = Database.UnpackDouble      (p, out gain        );
+			p = Database.UnpackDouble      (p, out peak        );
 
 			// cover image is loaded later
 
@@ -124,7 +110,7 @@ namespace Muine
 
 			RegisterHandle ();
 		}
-																
+
 		// Properties
 		// Properties :: Filename (get;)
 		public string Filename {
@@ -290,14 +276,14 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Sync
-		//	TODO: Split / clean this up.
 		public void Sync (Metadata metadata)
 		{
 			bool had_album = HasAlbum;
 
-			title = (metadata.Title.Length > 0)
-				? metadata.Title
-				: Path.GetFileNameWithoutExtension (filename);
+			if (metadata.Title.Length > 0)
+				title = metadata.Title;
+			else
+				title = Path.GetFileNameWithoutExtension (filename);
 			
 			artists      = metadata.Artists;
 			performers   = metadata.Performers;
@@ -310,6 +296,19 @@ namespace Muine
 			gain         = metadata.Gain;
 			peak         = metadata.Peak;
 
+			// We really need to do this here. It is ugly, we would
+			// like to keep all album cover stuff to the album class,
+			// but we can't, as cover image metadata just is stored
+			// in the song file itself.
+			GetCover (metadata, had_album);
+
+			sort_key = null;
+			search_key = null;
+		}
+
+		// Methods :: Private :: GetCover
+		private void GetCover (Metadata metadata, bool had_album)
+		{
 			// We need to do cover stuff here too, as we support 
 			// setting covers to songs that are not associated with
 			// any album. and, we also need this to support ID3 
@@ -347,9 +346,6 @@ namespace Muine
 				// Album itself will pick up change when this 
 				// song is added to it
 			}
-
-			sort_key = null;
-			search_key = null;
 		}
 
 		// Methods :: Public :: Pack

@@ -269,9 +269,11 @@ namespace Muine
 
 			// more than three artists, sort by album name
 			// three or less artists, sort by artist
-			string key = (artists.Count > 3)
-				     ? String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p)
-				     : String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
+			string key;
+			if (artists.Count > 3)
+				key = String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p);
+			else
+				key = String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
 
 			return StringUtils.CollateKey (key);
 		}				

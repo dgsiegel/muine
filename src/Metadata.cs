@@ -19,6 +19,8 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Collections;
+
 using Gdk;
 
 using Mono.Posix;
@@ -54,7 +56,7 @@ namespace Muine
 		private static extern IntPtr metadata_load (string filename,
 					                    out IntPtr error_message_return);
 		
-		public Metadata (string filename) // : base (IntPtr.Zero)
+		public Metadata (string filename)
 		{
 			IntPtr error_ptr;
 			
@@ -74,9 +76,10 @@ namespace Muine
 			get {
 				if (title == null) {
 					IntPtr p = metadata_get_title (raw);
-					title = (p == IntPtr.Zero)
-				       		? ""
-				       		: Marshal.PtrToStringAnsi (p);
+					if (p == IntPtr.Zero)
+						title = "";
+					else
+						title = Marshal.PtrToStringAnsi (p);
 				}
 				
 				return title;
@@ -93,9 +96,16 @@ namespace Muine
 		public string [] Artists {
 			get {
 				if (artists == null) {
-					artists = new string [metadata_get_artist_count (raw)];
-					for (int i = 0; i < artists.Length; i++)
-						artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
+					ArrayList strings = new ArrayList ();
+
+					int count = metadata_get_artist_count (raw);
+					for (int i = 0; i < count; i++) {
+						string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
+						if (tmp.Length > 0)
+							strings.Add (tmp);
+					}
+
+					artists = (string []) strings.ToArray (typeof (string));
 				}
 
 				return artists;
@@ -112,9 +122,16 @@ namespace Muine
 		public string [] Performers {
 			get {
 				if (performers == null) {
-					performers = new string [metadata_get_performer_count (raw)];
-					for (int i = 0; i < performers.Length; i++)
-						performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
+					ArrayList strings = new ArrayList ();
+
+					int count = metadata_get_performer_count (raw);
+					for (int i = 0; i < count; i++) {
+						string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
+						if (tmp.Length > 0)
+							strings.Add (tmp);
+					}
+
+					performers = (string []) strings.ToArray (typeof (string));
 				}
 				
 				return performers;
@@ -129,9 +146,10 @@ namespace Muine
 			get { 
 				if (album == null) {
 					IntPtr p = metadata_get_album (raw);
-					album = (p == IntPtr.Zero)
-					        ? ""
-					        : Marshal.PtrToStringAnsi (p);
+					if (p == IntPtr.Zero)
+						album = "";
+					else
+						album = Marshal.PtrToStringAnsi (p);
 				}
 				
 				return album;
@@ -146,9 +164,10 @@ namespace Muine
 			get { 
 				if (album_art == null) {
 					IntPtr p = metadata_get_album_art (raw);
-					album_art = (p == IntPtr.Zero)
-				       		    ? null
-				       		    : new Pixbuf (p);
+					if (p == IntPtr.Zero)
+						album_art = null;
+					else
+						album_art = new Pixbuf (p);
 				}
 				
 				return album_art;
@@ -187,9 +206,10 @@ namespace Muine
 			get {
 				if (year == null) {
 					IntPtr p = metadata_get_year (raw);
-					year = (p == IntPtr.Zero)
-					       ? ""
-				               : Marshal.PtrToStringAnsi (p);
+					if (p == IntPtr.Zero)
+						year = "";
+					else
+						year = Marshal.PtrToStringAnsi (p);
 				}
 				
 				return year;
@@ -216,9 +236,10 @@ namespace Muine
 			get {
 				if (mime_type == null) {
 					IntPtr p = metadata_get_mime_type (raw);
-					mime_type = (p == IntPtr.Zero)
-					            ? ""
-				                    : Marshal.PtrToStringAnsi (p);
+					if (p == IntPtr.Zero)
+						mime_type = "";
+					else
+						mime_type = Marshal.PtrToStringAnsi (p);
 				}
 				
 				return mime_type;

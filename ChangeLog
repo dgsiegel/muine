@@ -1,3 +1,15 @@
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+	* src/Database.cs:
+	* src/Metadata.cs:
+	* src/Song.cs:
+
+	Remove pointless CleanStringArray on loading from db. Clean
+	the arrays in Metadata itself instead.
+
+	Various other small cleanups and fixes.
+
 2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/Metadata.cs:
