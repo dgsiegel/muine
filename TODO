@@ -1,8 +1,6 @@
 Easy:
 =====
 
-o Make the main window use a toolbar (and put "song info" button in it),
-  and switch to Actions API
 o Use GnomeVFS
 
 o A song information dialog (Jorn is on this)

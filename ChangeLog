@@ -1,3 +1,18 @@
+2004-12-13  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/StockIcons.cs:
+
+	Use GtkActions API (needs gtk# CVS). Also change play button
+	to be a big toggle button, easier to hit.
+	
+	* data/muine.schemas.in:
+
+	Nicer default window sizes.
+
 2004-12-10  Jorn Baayen  <jbaayen@gnome.org>
 
 	* README:

@@ -37,7 +37,6 @@ public class StockIcons
 	private static string [] icon_theme_icons = {
 		"stock_media-fwd",
 		"stock_media-next",
-		"stock_media-pause",
 		"stock_media-play",
 		"stock_media-prev",
 		"stock_media-rew",

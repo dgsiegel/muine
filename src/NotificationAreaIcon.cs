@@ -36,13 +36,8 @@ public class NotificationAreaIcon : Plug
 	private int menu_y;
 	
 	private Menu menu;
-	public ImageMenuItem play_pause_menu_item;
-	public Gtk.Image play_pause_menu_item_image;
-	public ImageMenuItem previous_song_menu_item;
-	public ImageMenuItem next_song_menu_item;
-	public ImageMenuItem play_song_menu_item;
-	public ImageMenuItem play_album_menu_item;
-	public MenuItem show_window_menu_item;
+
+	private Action window_visibility_action;
 
 	private bool button_down = false;
 
@@ -56,7 +51,6 @@ public class NotificationAreaIcon : Plug
 
 		ebox = new EventBox ();
 		ebox.ButtonPressEvent += new ButtonPressEventHandler (HandleButtonPressEvent);
-		ebox.ButtonReleaseEvent += new ButtonReleaseEventHandler (HandleButtonReleaseEvent);
 		
 		image = new Gtk.Image ();
 
@@ -70,53 +64,16 @@ public class NotificationAreaIcon : Plug
 			ShowAll ();
 	}
 
-	private void CreatePopupMenu ()
+	public NotificationAreaIcon (Menu m, Action a) : base (IntPtr.Zero)
 	{
-		menu = new Menu ();
-		menu.SelectionDone += new EventHandler (HandleSelectionDone);
+		menu = m;
+		menu.Deactivated += new EventHandler (HandleMenuDeactivated);
+
+		window_visibility_action = a;
 		
-		play_pause_menu_item = new ImageMenuItem ("");
-		play_pause_menu_item_image = new Gtk.Image ();
-		play_pause_menu_item.Image = play_pause_menu_item_image;
-		menu.Append (play_pause_menu_item);
-
-		SeparatorMenuItem sep = new SeparatorMenuItem ();
-		menu.Append (sep);
-		
-		previous_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Previous Song"));
-		previous_song_menu_item.Image = new Gtk.Image ("stock_media-prev", IconSize.Menu);
-		menu.Append (previous_song_menu_item);
-		next_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Next Song"));
-		next_song_menu_item.Image = new Gtk.Image ("stock_media-next", IconSize.Menu);
-		menu.Append (next_song_menu_item);
-
-		sep = new SeparatorMenuItem ();
-		menu.Append (sep);
-
-		play_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Song..."));
-		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
-		menu.Append (play_song_menu_item);
-		play_album_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Album..."));
-		play_album_menu_item.Image = new Gtk.Image ("gnome-dev-cdrom-audio", IconSize.Menu);
-		menu.Append (play_album_menu_item);
-
-		sep = new SeparatorMenuItem ();
-		menu.Append (sep);
-
-		show_window_menu_item = new MenuItem (Muine.Catalog.GetString ("Show _Window"));
-		menu.Append (show_window_menu_item);
-
-		menu.ShowAll ();
-	}
-
-	public NotificationAreaIcon () : base (IntPtr.Zero)
-	{
 		tooltips = new Tooltips ();
 
 		visible = false;
-
-		/* create popup menu */
-		CreatePopupMenu ();
 
 		/* init icon */
 		Init ();
@@ -233,7 +190,7 @@ public class NotificationAreaIcon : Plug
 			break;
 
 		case 2:
-			show_window_menu_item.Activate ();
+			window_visibility_action.Activate ();
 
 			break;
 
@@ -244,23 +201,9 @@ public class NotificationAreaIcon : Plug
 		args.RetVal = false;
 	}
 
-	private void HandleButtonReleaseEvent (object o, ButtonReleaseEventArgs args)
+	private void HandleMenuDeactivated (object o, EventArgs args)
 	{
-		switch (args.Event.Button)
-		{
-		case 1:
-		case 3:
-			menu.Popdown ();
-			
-			break;
-
-		default:
-			break;
-		}
-
 		State = StateType.Normal;
-
-		args.RetVal = false;
 	}
 
 	private void HandleDestroyEvent (object o, DestroyEventArgs args)

@@ -25,468 +25,13 @@
       <property name="spacing">0</property>
 
       <child>
-	<widget class="GtkMenuBar" id="menubar1">
+	<widget class="GtkVBox" id="menu_bar_box">
 	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
 
 	  <child>
-	    <widget class="GtkMenuItem" id="file">
-	      <property name="visible">True</property>
-	      <property name="stock_item">GNOMEUIINFO_MENU_FILE_TREE</property>
-
-	      <child>
-		<widget class="GtkMenu" id="file_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="import_folder_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Import Folder...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleImportFolderCommand" last_modification_time="Sat, 17 Jan 2004 19:23:29 GMT"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image956">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-execute</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator8">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="_S">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Open Playlist...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleOpenPlaylistCommand" last_modification_time="Wed, 21 Jan 2004 17:11:19 GMT"/>
-		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image957">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-open</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="save_playlist_as1">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Save Playlist As...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleSavePlaylistAsCommand" last_modification_time="Wed, 21 Jan 2004 17:11:19 GMT"/>
-		      <accelerator key="S" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image958">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-save-as</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="before_recent_sep">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="hide_window_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Hide Window</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleHideWindowCommand" last_modification_time="Tue, 13 Jan 2004 22:52:58 GMT"/>
-		      <accelerator key="Escape" modifiers="0" signal="activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator3">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="quit1">
-		      <property name="visible">True</property>
-		      <property name="stock_item">GNOMEUIINFO_MENU_EXIT_ITEM</property>
-		      <signal name="activate" handler="HandleQuitCommand" last_modification_time="Sat, 03 Jan 2004 14:20:26 GMT"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkMenuItem" id="song">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Song</property>
-	      <property name="use_underline">True</property>
-
-	      <child>
-		<widget class="GtkMenu" id="song_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="play_pause_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">TMP</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandlePlayPauseCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="space" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image959">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator1">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="previous_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Previous</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandlePreviousCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="P" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image960">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="next_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Next</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleNextCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="N" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image961">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator2">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="skip_to_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Skip to...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleSkipToCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="T" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image962">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-jump-to</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="skip_backwards_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Skip _Backwards</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleSkipBackwardsCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="Left" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image963">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="skip_forward_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Skip _Forward</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleSkipForwardCommand" last_modification_time="Sun, 11 Jan 2004 17:45:18 GMT"/>
-		      <accelerator key="Right" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image964">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="information_menu_item_separator">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="information_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">P_roperties</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleInformationCommand" last_modification_time="Fri, 27 Feb 2004 21:36:20 GMT"/>
-		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image965">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-properties</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkMenuItem" id="playlist2">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Playlist</property>
-	      <property name="use_underline">True</property>
-
-	      <child>
-		<widget class="GtkMenu" id="playlist2_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_song_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Play _Song...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleAddSongCommand" last_modification_time="Sat, 17 Jan 2004 19:24:06 GMT"/>
-		      <accelerator key="S" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image966">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_album_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Play _Album...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleAddAlbumCommand" last_modification_time="Sat, 17 Jan 2004 23:31:04 GMT"/>
-		      <accelerator key="A" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image967">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator7">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="remove_song_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Remove Song</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleRemoveSongCommand" last_modification_time="Sun, 11 Jan 2004 21:28:39 GMT"/>
-		      <accelerator key="Delete" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image968">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-remove</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="clear_played1">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Remove _Played Songs</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleRemovePlayedSongsCommand" last_modification_time="Mon, 12 Jan 2004 17:15:04 GMT"/>
-		      <accelerator key="Delete" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="clear_playlist_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Clear</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleClearPlaylistCommand" last_modification_time="Sun, 11 Jan 2004 21:49:02 GMT"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator10">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkCheckMenuItem" id="repeat_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">R_epeat</property>
-		      <property name="use_underline">True</property>
-		      <property name="active">False</property>
-		      <signal name="activate" handler="HandleRepeatCommand" last_modification_time="Mon, 02 Feb 2004 13:30:19 GMT"/>
-		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="shuffle_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Shu_ffle</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleShuffleCommand" last_modification_time="Fri, 01 Oct 2004 12:58:31 GMT"/>
-		      <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image969">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkMenuItem" id="help1">
-	      <property name="visible">True</property>
-	      <property name="stock_item">GNOMEUIINFO_MENU_HELP_TREE</property>
-
-	      <child>
-		<widget class="GtkMenu" id="help1_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="about1">
-		      <property name="visible">True</property>
-		      <property name="stock_item">GNOMEUIINFO_MENU_ABOUT_ITEM</property>
-		      <signal name="activate" handler="HandleAboutCommand" last_modification_time="Sat, 03 Jan 2004 14:20:26 GMT"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
+	    <placeholder/>
 	  </child>
 	</widget>
 	<packing>
@@ -510,90 +55,139 @@
 	      <property name="spacing">18</property>
 
 	      <child>
-		<widget class="GtkHBox" id="hbox2">
+		<widget class="GtkHBox" id="hbox11">
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">6</property>
 
 		  <child>
-		    <widget class="GtkButton" id="previous_button">
+		    <widget class="GtkHBox" id="hbox2">
 		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePreviousCommand" last_modification_time="Sat, 03 Jan 2004 14:20:36 GMT"/>
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">6</property>
 
 		      <child>
-			<widget class="GtkImage" id="previous_image">
+			<widget class="GtkToggleButton" id="play_pause_button">
 			  <property name="visible">True</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
+			  <property name="can_focus">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <property name="active">False</property>
+			  <property name="inconsistent">False</property>
+			  <signal name="toggled" handler="HandlePlayPauseCommand" last_modification_time="Mon, 13 Dec 2004 14:23:16 GMT"/>
+
+			  <child>
+			    <widget class="GtkHBox" id="hbox11">
+			      <property name="visible">True</property>
+			      <property name="homogeneous">False</property>
+			      <property name="spacing">2</property>
+
+			      <child>
+				<widget class="GtkImage" id="play_pause_image">
+				  <property name="visible">True</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">True</property>
+				  <property name="fill">True</property>
+				</packing>
+			      </child>
+
+			      <child>
+				<widget class="GtkLabel" id="label5">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Playing</property>
+				  <property name="use_underline">False</property>
+				  <property name="use_markup">False</property>
+				  <property name="justify">GTK_JUSTIFY_LEFT</property>
+				  <property name="wrap">False</property>
+				  <property name="selectable">False</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
+			      </child>
+			    </widget>
+			  </child>
 			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkButton" id="previous_button">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="HandlePreviousCommand" last_modification_time="Sat, 03 Jan 2004 14:20:36 GMT"/>
+
+			  <child>
+			    <widget class="GtkImage" id="previous_image">
+			      <property name="visible">True</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkButton" id="next_button">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="HandleNextCommand" last_modification_time="Sat, 03 Jan 2004 14:20:56 GMT"/>
+
+			  <child>
+			    <widget class="GtkImage" id="next_image">
+			      <property name="visible">True</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
 		      </child>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkButton" id="play_pause_button">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePlayPauseCommand" last_modification_time="Sat, 03 Jan 2004 14:20:46 GMT"/>
-
-		      <child>
-			<widget class="GtkImage" id="play_pause_image">
-			  <property name="visible">True</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkButton" id="next_button">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandleNextCommand" last_modification_time="Sat, 03 Jan 2004 14:20:56 GMT"/>
-
-		      <child>
-			<widget class="GtkImage" id="next_image">
-			  <property name="visible">True</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
+		      <property name="expand">True</property>
+		      <property name="fill">True</property>
 		    </packing>
 		  </child>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
 		  <property name="expand">False</property>
-		  <property name="fill">True</property>
+		  <property name="fill">False</property>
 		</packing>
 	      </child>
 

@@ -6,7 +6,7 @@
       <applyto>/apps/muine/playlist_window/width</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>500</default>
+      <default>450</default>
       <locale name="C">
         <short>Playlist window width</short>
         <long>Width of the playlist window.</long>
@@ -17,7 +17,7 @@
       <applyto>/apps/muine/playlist_window/height</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>400</default>
+      <default>475</default>
       <locale name="C">
         <short>Playlist window height</short>
         <long>Height of the playlist window.</long>
@@ -28,7 +28,7 @@
       <applyto>/apps/muine/add_song_window/width</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>350</default>
+      <default>500</default>
       <locale name="C">
         <short>"Add song" window width</short>
         <long>Width of the "Add song" window.</long>
@@ -39,7 +39,7 @@
       <applyto>/apps/muine/add_song_window/height</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>300</default>
+      <default>450</default>
       <locale name="C">
         <short>"Add song" window height</short>
         <long>Height of the "Add song" window.</long>
@@ -50,7 +50,7 @@
       <applyto>/apps/muine/add_album_window/width</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>350</default>
+      <default>500</default>
       <locale name="C">
         <short>"Add album" window width</short>
         <long>Width of the "Add album" window.</long>
@@ -61,7 +61,7 @@
       <applyto>/apps/muine/add_album_window/height</applyto>
       <owner>muine</owner>
       <type>int</type>
-      <default>300</default>
+      <default>450</default>
       <locale name="C">
         <short>"Add album" window height</short>
         <long>Height of the "Add album" window.</long>
