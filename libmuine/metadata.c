@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "id3-vfs/id3-vfs.h"
 #include "ogg-helper.h"
@@ -45,6 +46,8 @@ struct _Metadata {
 	long duration;
 
 	char *mime_type;
+
+	long mtime;
 };
 
 static long
@@ -349,8 +352,10 @@ metadata_load (const char *filename,
 	else
 		*error_message_return = g_strdup ("Unknown format");
 
-	if (m != NULL)
+	if (m != NULL) {
 		m->mime_type = g_strdup (info->mime_type);
+		m->mtime = info->mtime;
+	}
 
 	gnome_vfs_file_info_unref (info);
 
@@ -453,4 +458,12 @@ metadata_get_mime_type (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, NULL);
 
 	return (const char *) metadata->mime_type;
+}
+
+long
+metadata_get_mtime (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->mtime;
 }

@@ -1,3 +1,24 @@
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* data/muine.schemas.in:
+	* libmuine/metadata.c: (metadata_load), (metadata_get_mtime):
+	* libmuine/metadata.h:
+	* src/Action.cs:
+	* src/ActionThread.cs:
+	* src/CoverDatabase.cs:
+	* src/Makefile.am:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	First stab at async stuff. This is not yet done.. will finish
+	tomorrow.
+
+	Again, the DB format changed.
+
 2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
 
 	* configure.in:

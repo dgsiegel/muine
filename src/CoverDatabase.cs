@@ -125,7 +125,7 @@ public class CoverDatabase
 		return BeautifyPixbuf (cover);
 	}
 
-	private Pixbuf CoverPixbufFromURL (string album_url)
+	public Pixbuf CoverPixbufFromURL (string album_url)
 	{
 		Pixbuf cover;
 
@@ -160,27 +160,27 @@ public class CoverDatabase
 	{
 		Pixbuf pix = CoverPixbufFromFile (filename);
 
-		Covers.Add (key, pix);
-
-		db_store (dbf, key, false,
-		          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+		AddCover (key, pix);
 
 		return pix;
 	}
 
-	public Pixbuf AddCoverWeb (string key, string album_url)
+	public void AddCover (string key, Pixbuf pix)
 	{
-		Pixbuf pix = CoverPixbufFromURL (album_url);
-
 		if (pix == null)
-			return null;
+			return;
 
 		Covers.Add (key, pix);
 
 		db_store (dbf, key, false,
 		          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+	}
 
-		return pix;
+	public void ReplaceCover (string key, Pixbuf pix)
+	{
+		Covers.Remove (key);
+
+		AddCover (key, pix);
 	}
 
 	public void AddCoverDummy (string key)

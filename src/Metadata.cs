@@ -71,6 +71,13 @@ public class Metadata
 		}
 	}
 
+	private long mtime;
+	public long MTime {
+		get {
+			return mtime;
+		}
+	}
+
 	[DllImport ("libmuine")]
 	private static extern IntPtr metadata_load (string filename,
 				                    out string error_message_return);
@@ -108,6 +115,9 @@ public class Metadata
 	[DllImport ("libmuine")]
 	private static extern string metadata_get_mime_type (IntPtr metadata);
 
+	[DllImport ("libmuine")]
+	private static extern long metadata_get_mtime (IntPtr metadata);
+
 	public Metadata (string filename)
 	{
 		string error = null;
@@ -142,6 +152,8 @@ public class Metadata
 		duration = metadata_get_duration (md);
 
 		mime_type = String.Copy (metadata_get_mime_type (md));
+
+		mtime = metadata_get_mtime (md);
 
 		metadata_free (md);
 	}

@@ -123,17 +123,10 @@ public class Song
 		}
 	}
 
-	public string WebUrl {
+	private long mtime;
+	public long MTime {
 		get {
-		/* FIXME slow
-			if (artists.Length > 0 && album.Length > 0)
-				string [] urls = Muine.CoverDB.GetAlbumURLs (artists [0], album);
-				if (urls != null)
-					return urls [1];
-			else
-				return null;
-		*/
-			return "http://www.amazon.com/";
+			return mtime;
 		}
 	}
 
@@ -160,6 +153,33 @@ public class Song
 		"cover.gif",
 		"Cover.gif"
 	};
+
+	private Gdk.Pixbuf tmp_cover_image;
+
+	private bool Proxy ()
+	{
+		/* FIXME change signal on song, change signal on album.. */
+		/* FIXME need some sort of CoverState field, because if we quite before all fetching is done we are not yet resuming on startup */
+		cover_image = tmp_cover_image;
+		Muine.CoverDB.ReplaceCover (album, cover_image);
+		return false;
+	}
+
+	/* This is run from the action thread */
+	private void FetchAlbumCover (Action action)
+	{
+		string artist = (string) action.UserData0;
+		string album = (string) action.UserData1;
+
+		string [] urls = Muine.CoverDB.GetAlbumURLs (artist, album);
+
+		if (urls == null)
+			return;
+
+		tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (urls [0]);
+		
+		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
+	}
 
 	private void GetCoverImage ()
 	{
@@ -188,16 +208,13 @@ public class Song
 		}
 
 		/* Failed to find a cover on disk - try the web */
-			
+		Action action = new Action ();
 		/* This assumes the right artist is always in artists [0] */
-		string [] urls = Muine.CoverDB.GetAlbumURLs (artists [0], album);
-
-		if (urls != null) {
-			cover_image = Muine.CoverDB.AddCoverWeb (album, urls [0]);
-			if (cover_image != null)
-				return;
-		}
-
+		action.UserData0 = (object) artists [0];
+		action.UserData1 = (object) album;
+		action.Perform += new Action.PerformHandler (FetchAlbumCover);
+		Muine.ActionThread.QueueAction (action);
+			
 		Muine.CoverDB.AddCoverDummy (album);
 	}
 
@@ -208,8 +225,10 @@ public class Song
 		}
 	}
 
-	private static Hashtable pointers = new Hashtable ();
+	private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
 	private static IntPtr cur_ptr = IntPtr.Zero;
+
+	private ArrayList handles;
 
 	/* support for having multiple handles to the same song,
 	 * used for, for example, having the same song in the playlist
@@ -220,6 +239,8 @@ public class Song
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
 
+		handles.Add (cur_ptr);
+
 		return cur_ptr;
 	}
 
@@ -229,15 +250,28 @@ public class Song
 		        (handle != h));
 	}
 
+	public ArrayList Handles {
+		get {
+			return handles;
+		}
+	}
+
 	public void UnregisterExtraHandle (IntPtr handle)
 	{
+		handles.Remove (cur_ptr);
+
 		pointers.Remove (handle);
 	}
 
-	public Song (string fn)
+	public void Reload ()
 	{
-		filename = fn;
+		Sync ();
 
+		/* FIXME signal.. update ui.. sync db.. */
+	}
+
+	private void Sync ()
+	{
 		Metadata metadata;
 			
 		try {
@@ -251,7 +285,7 @@ public class Song
 		else {
 			titles = new string [1];
 
-			FileInfo finfo = new FileInfo (fn);
+			FileInfo finfo = new FileInfo (filename);
 			titles [0] = finfo.Name;
 		}
 		
@@ -261,12 +295,23 @@ public class Song
 		year = metadata.Year;
 		duration = metadata.Duration;
 		mime_type = metadata.MimeType;
+		mtime = metadata.MTime;
 
 		GetCoverImage ();
+	}
+
+	public Song (string fn)
+	{
+		filename = fn;
+
+		Sync ();
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
 		handle = cur_ptr;
+
+		handles = new ArrayList ();
+		handles.Add (cur_ptr);
 	}
 
 	[DllImport ("libmuine")]
@@ -301,6 +346,7 @@ public class Song
 		p = db_unpack_string (p, out year);
 		p = db_unpack_long (p, out duration);
 		p = db_unpack_string (p, out mime_type);
+		p = db_unpack_long (p, out mtime);
 
 		/* cover image */
 		if (album.Length == 0 || artists.Length == 0)
@@ -311,6 +357,9 @@ public class Song
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
 		handle = cur_ptr;
+
+		handles = new ArrayList ();
+		handles.Add (cur_ptr);
 	}
 
 	~Song ()
@@ -350,6 +399,7 @@ public class Song
 		db_pack_string (p, year);
 		db_pack_long (p, duration);
 		db_pack_string (p, mime_type);
+		db_pack_long (p, mtime);
 		
 		return db_pack_end (p, out length);
 	}

@@ -31,9 +31,6 @@
 - drag album covers from nautilus to the gnome foot icon
 - dnd from album/song/group windows to playlist
 
-- async checking of file existance from files loaded from the db, and
- cechk for new files in imported folders.. also do the album cover web searches in this thread
-
 - use 2.6 filesel
 - support gstreamer 0.7
 

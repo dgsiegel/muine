@@ -34,6 +34,8 @@ public class Muine : Gnome.Program
 
 	public static CoverDatabase CoverDB;
 
+	public static ActionThread ActionThread;
+
 	public static void Main (string [] args)
 	{
 		Muine muine = new Muine (args);
@@ -51,6 +53,9 @@ public class Muine : Gnome.Program
 
 		/* Set default window icon */
 		SetDefaultWindowIcon ();
+
+		/* Start the action thread */
+		ActionThread = new ActionThread ();
 
 		/* Load cover database */
 		try {

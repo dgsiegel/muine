@@ -90,6 +90,18 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/watched_folders</key>
+      <applyto>/apps/muine/watched_folders</applyto>
+      <owner>muine</owner>
+      <type>list</type>
+      <list_type>string</list_type>
+      <default></default>
+      <locale name="C">
+        <short>Watched folders.</short>
+        <long>Folders that are monitored for changes.</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/default_import_folder</key>
       <applyto>/apps/muine/default_import_folder</applyto>
       <owner>muine</owner>

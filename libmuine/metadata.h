@@ -49,4 +49,6 @@ const char *metadata_get_year         (Metadata *metadata);
 
 const char *metadata_get_mime_type    (Metadata *metadata);
 
+long        metadata_get_mtime        (Metadata *metadata);
+
 #endif /* __METADATA_H__ */

@@ -129,6 +129,8 @@ public class PlaylistWindow : Window
 		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
 		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 
+		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+
 		/* load last playlist */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
 		FileInfo finfo = new FileInfo (playlist_filename);
@@ -671,6 +673,31 @@ public class PlaylistWindow : Window
 		writer.Close ();
 	}
 
+	private void AddWatchedFolder (string folder)
+	{
+		string [] folders;
+		
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		string [] new_folders = new string [folders.Length + 1];
+
+		int i = 0;
+		foreach (string s in folders) {
+			if (folder == s)
+				return;
+			new_folders [i] = folders [i];
+			i++;
+		}
+
+		new_folders [folders.Length] = folder;
+
+		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
+	}
+
 	private void HandleStateChanged (bool playing)
 	{
 		StateChanged (playing);
@@ -862,13 +889,7 @@ public class PlaylistWindow : Window
 
 	private void HandleCoverImageCommand (object o, EventArgs args)
 	{
-		if (playlist.Playing == IntPtr.Zero)
-			return;
-			
-		Song song = Song.FromHandle (playlist.Playing);
-
-		if (song.WebUrl.Length > 0)
-			Gnome.Url.Show (song.WebUrl);
+		Gnome.Url.Show ("http://people.nl.linux.org/~jorn/Muine/amazon.html");
 	}
 
 	private void HandlePreviousCommand (object o, EventArgs args)
@@ -1012,6 +1033,7 @@ public class PlaylistWindow : Window
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 			HandleDirectory (dinfo, pw);
+			AddWatchedFolder (dinfo.ToString ());
 			pw.Done ();
 		}
 
@@ -1058,6 +1080,7 @@ public class PlaylistWindow : Window
 	{
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		HandleDirectory (dinfo, pw);
+		AddWatchedFolder (dinfo.ToString ());
 		pw.Done ();
 	}
 
@@ -1149,5 +1172,31 @@ public class PlaylistWindow : Window
 	private void HandleAboutCommand (object o, EventArgs args)
 	{
 		About.ShowWindow (this);
+	}
+
+	private void HandleSongRemoved (Song song)
+	{
+		foreach (IntPtr h in song.Handles) {
+			if (!playlist.Contains (h))
+				continue;
+			
+			if (h == playlist.Playing) {
+				if (playlist.HasNext)
+					playlist.Next ();
+				else if (playlist.HasPrevious)
+					playlist.Previous ();
+				else {
+					playlist.Playing = IntPtr.Zero;
+
+					player.Playing = false;
+				}
+
+				SongChanged ();
+			}
+
+			playlist.Remove (h);
+		}
+			
+		NSongsChanged ();
 	}
 }

@@ -15,8 +15,6 @@
  * License along with this program; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- *
- * FIXME check file existance when loading db
  */
 
 using System;
@@ -63,7 +61,7 @@ public class SongDatabase
 			throw new Exception ("Failed to open database: " + error);
 		}
 
-		Songs = new Hashtable ();
+		Songs = Hashtable.Synchronized (new Hashtable ());
 		Albums = new Hashtable ();
 	}
 
@@ -79,9 +77,104 @@ public class SongDatabase
 	public delegate void AlbumRemovedHandler (Album album);
 	public event AlbumRemovedHandler AlbumRemoved;
 
+	private void HandleDirectory (DirectoryInfo info,
+				      Queue new_songs)
+	{
+		foreach (FileInfo finfo in info.GetFiles ()) {
+			if (Songs [finfo.ToString ()] == null) {
+				Song song;
+
+				try {
+					song = new Song (finfo.ToString ());
+				} catch {
+					continue;
+				}
+
+				new_songs.Enqueue (song);
+			}
+		}
+
+		foreach (DirectoryInfo dinfo in info.GetDirectories ())
+			HandleDirectory (dinfo, new_songs);
+	}
+
+	private Queue removed_songs;
+	private Queue changed_songs;
+	private Queue new_songs;
+
+	/* this is run from the main thread */
+	private bool Proxy ()
+	{
+		if (removed_songs.Count > 0) {
+			Song song = (Song) removed_songs.Dequeue ();
+			RemoveSong (song);
+			return true;
+		}
+
+		if (changed_songs.Count > 0) {
+			Song song = (Song) changed_songs.Dequeue ();
+			song.Reload ();
+			return true;
+		}
+
+		if (new_songs.Count > 0) {
+			Song song = (Song) new_songs.Dequeue ();
+			AddSong (song);
+			return true;
+		}
+
+		return false;
+	}
+
+	/* this is run from the action thread */
+	private void CheckChanges (Action action)
+	{
+		/* check for removed songs and changes */
+		removed_songs = new Queue ();
+		changed_songs = new Queue ();
+		foreach (string file in Songs.Keys) {
+			FileInfo finfo = new FileInfo (file);
+			Song song = (Song) Songs [file];
+			
+			if (!finfo.Exists)
+				removed_songs.Enqueue (song);
+			else {
+				/* mtime is in seconds (Pow (10, (9 - 2)) 100-nanosecond units) */
+				long jorns_constant = 621356040000000000; /* mtime starts at 1970, Ticks at 0001 */
+				long mtime_ticks = song.MTime * (long) Math.Pow (10, 7) + jorns_constant;
+				if (mtime_ticks < finfo.LastWriteTime.Ticks)
+					changed_songs.Enqueue (song);
+			}
+		}
+
+		/* check for new songs */
+		string [] folders;
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		new_songs = new Queue ();
+		foreach (string folder in folders) {
+			DirectoryInfo dinfo = new DirectoryInfo (folder);
+			if (!dinfo.Exists)
+				continue;
+
+			HandleDirectory (dinfo, new_songs);
+		}
+		
+		GLib.Timeout.Add (10, new GLib.TimeoutHandler (Proxy));
+	}
+
 	public void Load ()
 	{
 		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+
+		/* check for changes */
+		Action action = new Action ();
+		action.Perform += new Action.PerformHandler (CheckChanges);
+		Muine.ActionThread.QueueAction (action);
 	}
 	
 	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
@@ -122,6 +215,8 @@ public class SongDatabase
 
 		if (SongRemoved != null)
 			SongRemoved (song);
+
+		Songs.Remove (song);
 
 		if (song.Album.Length == 0)
 			return;
