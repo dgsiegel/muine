@@ -459,9 +459,9 @@ public class PlaylistWindow : Window
 
 		time_label.Text = pos + " / " + total;
 
-		long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
-
 		if (repeat_menu_item.Active) {
+			long r_seconds = remaining_songs_time / 1000;
+
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
 				playlist_label.Text = "Playlist (Repeating " + hours + " hours)";
@@ -474,6 +474,8 @@ public class PlaylistWindow : Window
 				playlist_label.Text = "Playlist";
 			}
 		} else {
+			long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
+			
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
 				playlist_label.Text = "Playlist (" + hours + " hours remaining)";

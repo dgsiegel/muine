@@ -2,6 +2,12 @@
 
 	* src/PlaylistWindow.cs:
 
+	Fix previous commit ..
+
+2004-02-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
 	Include playlist duration in playlist duration label when in repeat
 	mode.
 
