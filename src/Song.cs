@@ -120,6 +120,22 @@ public class Song
 		}
 	}
 
+	private static Hashtable cover_images = new Hashtable ();
+	
+	public Gdk.Pixbuf CoverImage {
+		get {
+			if (cover_image_filename.Length == 0)
+				return null;
+
+			if (cover_images [cover_image_filename] == null) {
+				cover_images.Add (cover_image_filename,
+						  PixbufUtils.CoverPixbufFromFile (cover_image_filename));
+			}
+
+			return (Gdk.Pixbuf) cover_images [cover_image_filename];
+		}
+	}
+
 	private string mime_type;
 	public string MimeType {
 		get {

@@ -15,7 +15,6 @@
   <property name="has_separator">False</property>
   <signal name="response" handler="HandleWindowResponse" last_modification_time="Sun, 11 Jan 2004 22:41:37 GMT"/>
   <signal name="delete_event" handler="HandleWindowDeleteEvent" last_modification_time="Sun, 11 Jan 2004 22:41:49 GMT"/>
-  <signal name="configure_event" handler="HandleConfigureEvent" last_modification_time="Thu, 15 Jan 2004 20:59:20 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox1">
@@ -251,7 +250,7 @@
 	    <widget class="GtkScrolledWindow" id="scrolledwindow">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 	      <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
 	      <property name="shadow_type">GTK_SHADOW_IN</property>
 	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>

@@ -246,6 +246,8 @@ pointer_list_view_add_column (PointerListView *view,
 	view->data = g_list_append (view->data, data);
 
 	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_sizing (column,
+					 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_pack_start (column,
 					 renderer,
 					 FALSE);

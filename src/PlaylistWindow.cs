@@ -62,9 +62,10 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private Image play_pause_image;
 	[Glade.Widget]
-	private ToggleButton albums_toggle;
+	private Button add_album_button;
 	[Glade.Widget]
-	private ToggleButton groups_toggle;
+	private ImageMenuItem add_album_menu_item;
+	private Image add_album_menu_item_image;
 	[Glade.Widget]
 	private Button add_song_button;
 	[Glade.Widget]
@@ -96,6 +97,7 @@ public class PlaylistWindow : Window
 	SkipToWindow skip_to_window;
 
 	AddSongWindow add_song_window;
+	AddAlbumWindow add_album_window;
 
 	public PlaylistWindow () : base ("Muine Music Player")
 	{
@@ -122,6 +124,10 @@ public class PlaylistWindow : Window
 		add_song_window = new AddSongWindow (this);
 		add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
 		add_song_window.PlaySongsEvent += new AddSongWindow.PlaySongsEventHandler (HandlePlaySongsEvent);
+		
+		add_album_window = new AddAlbumWindow (this);
+		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
+		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 			
 		SongChanged ();
 		SelectionChanged ();
@@ -153,7 +159,7 @@ public class PlaylistWindow : Window
 
 		SetDefaultSize (width, height);
 
-		ConfigureEvent += new ConfigureEventHandler (HandleConfigureEvent);
+		SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 	}
 
 	private void SetupButtonsAndMenuItems ()
@@ -165,12 +171,12 @@ public class PlaylistWindow : Window
 		image.SetFromStock ("muine-next", IconSize.LargeToolbar);
 		image = (Image) gxml ["albums_image"];
 		image.SetFromStock ("muine-albums", IconSize.LargeToolbar);
-		image = (Image) gxml ["groups_image"];
-		image.SetFromStock ("muine-groups", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
 		tooltips.SetTip (previous_button, "Play the last song", null);
 		tooltips.SetTip (next_button, "Play the next song", null);
+		tooltips.SetTip (add_album_button, "Add an album to the playlist", null);
+		tooltips.SetTip (add_song_button, "Add a song to the playlist", null);
 
 		volume_button = new VolumeButton ();
 		volume_button_container.Add (volume_button);
@@ -187,6 +193,10 @@ public class PlaylistWindow : Window
 		}
 
 		volume_button.Volume = vol;
+		
+		add_album_menu_item_image = new Image ("muine-albums", IconSize.Menu);
+		add_album_menu_item.Image = add_album_menu_item_image;
+		add_album_menu_item_image.Visible = true;
 
 		play_pause_menu_item_image = new Image ("muine-play", IconSize.Menu);
 		play_pause_menu_item.Image = play_pause_menu_item_image;
@@ -403,11 +413,10 @@ public class PlaylistWindow : Window
 		if (playlist.Playing != IntPtr.Zero) {
 			Song song = Song.FromHandle (playlist.Playing);
 
-			if (song.CoverImageFilename.Length > 0) {
-				cover_image.FromPixbuf = PixbufUtils.CoverPixbufFromFile (song.CoverImageFilename);
-			} else {
+			if (song.CoverImage != null)
+				cover_image.FromPixbuf = song.CoverImage;
+			else
 				cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
-			}
 
 			if (song.Album.Length > 0 && song.Year.Length > 0)
 				tooltips.SetTip (cover_ebox, song.Album + " (" + song.Year + ")", null);
@@ -519,7 +528,7 @@ public class PlaylistWindow : Window
 			break;
 		case 0x061: /* a */
 		case 0x041: /* A */
-			HandleAddSongCommand (null, null);
+			HandleAddAlbumCommand (null, null);
 			break;
 		case 0x070: /* p */
 		case 0x050: /* P */
@@ -533,8 +542,7 @@ public class PlaylistWindow : Window
 			break;
 		case 0x073: /* s */
 		case 0x053: /* S */
-			if (playlist.HasFirst)
-				HandleSkipToCommand (null, null);
+			HandleAddSongCommand (null, null);
 			break;
 		case 0xFF51: /* left */
 			if (playlist.HasFirst)
@@ -553,7 +561,7 @@ public class PlaylistWindow : Window
 	private int last_x;
 	private int last_y;
 
-	private void HandleConfigureEvent (object o, ConfigureEventArgs args)
+	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
 	{
 		int width, height;
 
@@ -629,6 +637,42 @@ public class PlaylistWindow : Window
 				SongChanged ();
 		
 				first = false;
+			}
+		}
+
+		NSongsChanged ();
+	}
+
+	private void HandleQueueAlbumsEvent (List albums)
+	{
+		foreach (int i in albums) {
+			Album a = Album.FromHandle (new IntPtr (i));
+
+			foreach (Song s in a.Songs) {
+				AddSong (s);
+			}
+		}
+
+		NSongsChanged ();
+	}
+
+	private void HandlePlayAlbumsEvent (List albums)
+	{
+		bool first = true;
+		foreach (int i in albums) {
+			Album a = Album.FromHandle (new IntPtr (i));
+
+			foreach (Song s in a.Songs) {
+				AddSong (s);
+
+				if (first == true) {
+					playlist.Playing = s.Handle;
+					player.Playing = true;
+
+					SongChanged ();
+		
+					first = false;
+				}
 			}
 		}
 
@@ -737,6 +781,11 @@ public class PlaylistWindow : Window
 	private void HandleAddSongCommand (object o, EventArgs args)
 	{
 		add_song_window.Run ();
+	}
+
+	private void HandleAddAlbumCommand (object o, EventArgs args)
+	{
+		add_album_window.Run ();
 	}
 
 	private bool HandleDirectory (DirectoryInfo info,

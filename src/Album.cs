@@ -42,15 +42,20 @@ public class Album
 
 	public ArrayList Songs;
 
-	public ArrayList Artists;
+	public ArrayList artists;
+	public string [] Artists {
+		get {
+			return (string []) artists.ToArray (typeof (string));
+		}
+	}
 
 	private string all_lower_artists = null;
 	public string AllLowerArtists {
 		get {
 			if (all_lower_artists == null) {
-				string [] lower_artists = new string [Artists.Count];
-				for (int i = 0; i < Artists.Count; i++)
-					lower_artists [i] = ((string) Artists [i]).ToLower ();
+				string [] lower_artists = new string [artists.Count];
+				for (int i = 0; i < artists.Count; i++)
+					lower_artists [i] = ((string) artists [i]).ToLower ();
 				all_lower_artists = String.Join (", ", lower_artists);
 			}
 
@@ -65,12 +70,7 @@ public class Album
 		}
 	}
 
-	private string cover_image_filename;
-	public string CoverImageFilename {
-		get {
-			return cover_image_filename;
-		}
-	}
+	public Gdk.Pixbuf CoverImage;
 
 	[DllImport ("libglib-2.0-0.dll")]
 	private static extern string g_utf8_collate_key (string str, int len);
@@ -88,7 +88,12 @@ public class Album
 	private static Hashtable pointers = new Hashtable ();
 	private static IntPtr cur_ptr = IntPtr.Zero;
 
-	private static IntPtr handle;
+	private IntPtr handle;
+	public IntPtr Handle {
+		get {
+			return handle;
+		}
+	}
 
 	public Album (Song initial_song)
 	{
@@ -96,13 +101,13 @@ public class Album
 
 		Songs.Add (initial_song);
 
-		Artists = new ArrayList ();
+		artists = new ArrayList ();
 
 		AddArtists (initial_song);
 
-		name = String.Copy (initial_song.Album);
-		year = String.Copy (initial_song.Year);
-		cover_image_filename = String.Copy (initial_song.CoverImageFilename);
+		name = initial_song.Album;
+		year = initial_song.Year;
+		CoverImage = initial_song.CoverImage;
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
@@ -122,9 +127,16 @@ public class Album
 	private void AddArtists (Song song)
 	{
 		foreach (string artist in song.Artists) {
-			if (Artists.BinarySearch (artist) < 0) {
-				Artists.Add (artist);
+			bool found = false;
+			foreach (string str in artists) {
+				if (str == artist) {
+					found = true;
+					break;
+				}
 			}
+
+			if (found == false)
+				artists.Add (artist);
 		}
 	}
 

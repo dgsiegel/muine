@@ -28,3 +28,5 @@ import/list/direct edit
    dir/loose file + 'add to playlist' checkbutton
 
 - panel crash
+
+- serialize cover images to strings and put them in the db

@@ -1,5 +1,21 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* data/glade/AddWindow.glade:
+	* data/glade/PlaylistWindow.glade:
+	* libmuine/pointer-list-view.c: (pointer_list_view_add_column):
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/LibraryWindow.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Implement "Add album" window, fix window size saving.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/AddWindow.glade:
 	* libmuine/pointer-list-view.c: (scroll_to_path),
 	(pointer_list_view_select_next), (pointer_list_view_select_prev):

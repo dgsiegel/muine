@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Collections;
 
 using Gtk;
 using GtkSharp;
@@ -30,11 +31,19 @@ public class AddAlbumWindow
 	[Glade.Widget]
 	Entry search_entry;
 	[Glade.Widget]
+	Button play_button;
+	[Glade.Widget]
 	Image play_button_image;
+	[Glade.Widget]
+	Button queue_button;
 	[Glade.Widget]
 	Image queue_button_image;
 	[Glade.Widget]
 	ScrolledWindow scrolledwindow;
+	private HandleView view;
+	private CellRenderer text_renderer;
+	private CellRenderer pixbuf_renderer;
+	private Gdk.Pixbuf nothing_pixbuf;
 	
 	public AddAlbumWindow (Window parent)
 	{
@@ -45,17 +54,113 @@ public class AddAlbumWindow
 
 		window.Title = "Add Album";
 
+		int width;
+		try {
+			width = (int) Muine.GConfClient.Get ("/apps/muine/add_album_window/width");
+		} catch {
+			width = 350;
+		}
+
+		int height;
+		try {
+			height = (int) Muine.GConfClient.Get ("/apps/muine/add_album_window/height");
+		} catch {
+			height = 300;
+		}
+
+		window.SetDefaultSize (width, height);
+
+		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+
 		play_button_image.SetFromStock ("muine-play", IconSize.Button);
 		queue_button_image.SetFromStock ("muine-queue", IconSize.Button);
+
+		view = new HandleView ();
+
+		view.Reorderable = false;
+		view.SortFunc = new HandleView.CompareFunc (SortFunc);
+		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
+		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
+
+		pixbuf_renderer = new CellRendererPixbuf ();
+		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc));
+		text_renderer = new CellRendererText ();
+		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc));
+
+		view.Show ();
+
+		scrolledwindow.Add (view);
+
+		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
+		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
+
+		nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
+
+		foreach (Album a in Muine.DB.Albums.Values) 
+			view.Append (a.Handle);
+		view.SelectFirst ();
 	}
 
 	public void Run ()
 	{
+		search_entry.GrabFocus ();
+
 		window.Visible = true;
 	}
 
-	public delegate void SeekEventHandler (int sec);
-	public event SeekEventHandler SeekEvent;
+	public delegate void QueueAlbumsEventHandler (List songs);
+	public event QueueAlbumsEventHandler QueueAlbumsEvent;
+	
+	public delegate void PlayAlbumsEventHandler (List songs);
+	public event PlayAlbumsEventHandler PlayAlbumsEvent;
+
+	private int SortFunc (IntPtr a_ptr,
+			      IntPtr b_ptr)
+	{
+		Album a = Album.FromHandle (a_ptr);
+		Album b = Album.FromHandle (b_ptr);
+
+		string a_key = null;
+		string b_key = null;
+
+		if (a != null)
+			a_key = a.SortKey;
+
+		if (b != null)
+			b_key = b.SortKey;
+
+		return String.Compare (a_key, b_key);
+	}
+
+	private void PixbufCellDataFunc (HandleView view,
+					 CellRenderer cell,
+					 IntPtr handle)
+	{
+		CellRendererPixbuf r = (CellRendererPixbuf) cell;
+		Album album = Album.FromHandle (handle);
+
+		if (album.CoverImage != null)
+			r.Pixbuf = album.CoverImage;
+		else
+			r.Pixbuf = nothing_pixbuf;
+
+		r.Height = 68;
+		r.Width = 68;
+	}
+
+	private void TextCellDataFunc (HandleView view,
+				       CellRenderer cell,
+				       IntPtr handle)
+	{
+		CellRendererText r = (CellRendererText) cell;
+		Album album = Album.FromHandle (handle);
+
+		r.Text = album.Name + "\n" + String.Join (", ", album.Artists);
+		r.Yalign = 0.25f;
+
+		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
+					   false, true, false);
+	}
 
 	private void HandleWindowResponse (object o, EventArgs a)
 	{
@@ -65,12 +170,20 @@ public class AddAlbumWindow
 
 		switch (args.ResponseId) {
 		case 1: /* Play */
+			if (PlayAlbumsEvent != null)
+				PlayAlbumsEvent (view.SelectedPointers);
+
 			break;
 		case 2: /* Queue */
+			if (QueueAlbumsEvent != null)
+				QueueAlbumsEvent (view.SelectedPointers);
+				
 			break;
 		default:
-			return;
+			break;
 		}
+
+		search_entry.Text = "";
 	}
 
 	private void HandleWindowDeleteEvent (object o, EventArgs a)
@@ -80,9 +193,119 @@ public class AddAlbumWindow
 		DeleteEventArgs args = (DeleteEventArgs) a;
 
 		args.RetVal = true;
+
+		search_entry.Text = "";
+	}
+
+	private bool FitsCriteria (Album a, string [] search_bits)
+	{
+		int n_matches = 0;
+			
+		foreach (string search_bit in search_bits) {
+			if (a.LowerName.IndexOf (search_bit) >= 0) {
+				n_matches++;
+				continue;
+			}
+
+			if (a.AllLowerArtists.IndexOf (search_bit) >= 0) {
+				n_matches++;
+				continue;
+			}
+		}
+
+		return (n_matches == search_bits.Length);
 	}
 
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
+		List l = new List (IntPtr.Zero, typeof (int));
+
+		view.Selection.Mode = SelectionMode.Multiple;
+
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+
+		foreach (Album a in Muine.DB.Albums.Values) {
+			if (FitsCriteria (a, search_bits))
+				l.Append (a.Handle);
+		}
+
+		view.RemoveDelta (l);
+
+		foreach (int i in l) {
+			IntPtr ptr = new IntPtr (i);
+
+			view.Append (ptr);
+		}
+
+		view.SelectFirst ();
+		view.ScrollToPoint (0, 0);
+	}
+
+	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
+	{
+		KeyPressEventArgs args = (KeyPressEventArgs) a;
+
+		args.RetVal = false;
+		
+		if (KeyUtils.HaveModifier (args.Event.state))
+			return;
+
+		switch (args.Event.keyval) {
+		case 0xFF52: /* up */
+			view.SelectPrevious ();
+			args.RetVal = true;
+			break;
+		case 0xFF54: /* down */
+			view.SelectNext ();
+			args.RetVal = true;
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
+	{
+		int width, height;
+
+		window.GetSize (out width, out height);
+
+		Muine.GConfClient.Set ("/apps/muine/add_album_window/width", width);
+		Muine.GConfClient.Set ("/apps/muine/add_album_window/height", height);
+	}
+
+	private void HandleRowActivated (IntPtr handle)
+	{
+		Album song = Album.FromHandle (handle);
+
+		if (song == null)
+			return;
+
+		if (PlayAlbumsEvent != null)
+			PlayAlbumsEvent (view.SelectedPointers);
+
+		window.Visible = false;
+
+		search_entry.Text = "";
+	}
+
+	private void HandleSelectionChanged ()
+	{
+		bool has_sel = (view.SelectedPointers.Count > 0);
+		
+		play_button.Sensitive = has_sel;
+		queue_button.Sensitive = has_sel;
+	}
+
+	private void HandleAlbumAdded (Album album)
+	{
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		if (FitsCriteria (album, search_bits))
+			view.Append (album.Handle);
+	}
+
+	private void HandleAlbumRemoved (Album album)
+	{
+		view.Remove (album.Handle);
 	}
 }

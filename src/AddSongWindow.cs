@@ -68,6 +68,8 @@ public class AddSongWindow
 
 		window.SetDefaultSize (width, height);
 
+		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+
 		play_button_image.SetFromStock ("muine-play", IconSize.Button);
 		queue_button_image.SetFromStock ("muine-queue", IconSize.Button);
 
@@ -140,7 +142,7 @@ public class AddSongWindow
 			r.Text = "Please enter 3 or more characters to search";
 
 			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (r.Text),
-						   false, false, false);
+						   false, false, true);
 		} else {
 			Song song = Song.FromHandle (handle);
 
@@ -152,9 +154,6 @@ public class AddSongWindow
 						   false, true, false);
 		}
 	}
-
-	public delegate void SeekEventHandler (int sec);
-	public event SeekEventHandler SeekEvent;
 
 	private void HandleWindowResponse (object o, EventArgs a)
 	{
@@ -265,7 +264,7 @@ public class AddSongWindow
 		}
 	}
 
-	private void HandleConfigureEvent (object o, EventArgs args)
+	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
 	{
 		int width, height;
 
