@@ -102,14 +102,12 @@ public class PlaylistWindow : Window
 		KeyPressEvent += new KeyPressEventHandler (HandleWindowKeyPressEvent);
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 
+		icon = new NotificationAreaIcon ();
+
 		SetupWindowSize ();
 		SetupPlayer (glade_xml);
 		SetupButtonsAndMenuItems (glade_xml);
 		SetupPlaylist (glade_xml);
-
-		/* set up the notification area icon */
-		icon = new NotificationAreaIcon ();
-		icon.ActivateEvent += new NotificationAreaIcon.ActivateEventHandler (HandleNotificationAreaIconActivateEvent);
 
 		/* set up the different windows we use */
 		skip_to_window = new SkipToWindow (this, player);
@@ -144,7 +142,7 @@ public class PlaylistWindow : Window
 
 	public void Run ()
 	{
-		Visible = true;
+		SetWindowVisible (true);
 
 		icon.Run ();
 	}
@@ -216,8 +214,8 @@ public class PlaylistWindow : Window
 		SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 	}
 
-	private int last_x;
-	private int last_y;
+	private int last_x = -1;
+	private int last_y = -1;
 
 	public void SetWindowVisible (bool visible)
 	{
@@ -225,14 +223,16 @@ public class PlaylistWindow : Window
 			GetPosition (out last_x, out last_y);
 
 			Visible = false;
+			
+			((Label) icon.show_window_menu_item.Child).LabelProp = "Show _Window";
 		} else {
-			if (Visible == false)
+			if (Visible == false && last_x >= 0 && last_y >= 0)
 				Move (last_x, last_y);
 
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 
-			Visible = true;
+			((Label) icon.show_window_menu_item.Child).LabelProp = "Hide _Window";
 
 			Present ();
 		}
@@ -305,6 +305,14 @@ public class PlaylistWindow : Window
 			repeat_menu_item.Active = false;
 		}
 		setting_repeat_menu_item = false;
+
+		/* connect tray icon signals */
+		icon.play_pause_menu_item.Activated += new EventHandler (HandlePlayPauseCommand);
+		icon.previous_song_menu_item.Activated += new EventHandler (HandlePreviousCommand);
+		icon.next_song_menu_item.Activated += new EventHandler (HandleNextCommand);
+		icon.play_song_menu_item.Activated += new EventHandler (HandleAddSongCommand);
+		icon.play_album_menu_item.Activated += new EventHandler (HandleAddAlbumCommand);
+		icon.show_window_menu_item.Activated += new EventHandler (HandleToggleWindowVisibilityCommand);
 	}
 
 	private Gdk.Pixbuf empty_pixbuf;
@@ -539,8 +547,11 @@ public class PlaylistWindow : Window
 		                        (repeat_menu_item.Active && has_first);
 
 		play_pause_menu_item.Sensitive = previous_button.Sensitive;
+		icon.play_pause_menu_item.Sensitive = previous_button.Sensitive;
 		previous_menu_item.Sensitive = play_pause_button.Sensitive;
+		icon.previous_song_menu_item.Sensitive = play_pause_button.Sensitive;
 		next_menu_item.Sensitive = next_button.Sensitive;
+		icon.next_song_menu_item.Sensitive = next_button.Sensitive;
 		
 		skip_to_menu_item.Sensitive = has_first;
 		skip_backwards_menu_item.Sensitive = has_first;
@@ -618,6 +629,9 @@ public class PlaylistWindow : Window
 
 			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = "P_ause";
+
+			icon.play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
+			((Label) icon.play_pause_menu_item.Child).LabelProp = "P_ause";
 		} else if (playlist.Playing != IntPtr.Zero &&
 		           player.Position > 0 &&
 			   !had_last_eos) {
@@ -626,12 +640,18 @@ public class PlaylistWindow : Window
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+
+			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
 		} else {
 			tooltips.SetTip (play_pause_button, "Start music playback", null);
 			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+
+			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
 		}
 
 		icon.Playing = playing;
@@ -873,7 +893,7 @@ public class PlaylistWindow : Window
 		Muine.GConfClient.Set ("/apps/muine/volume", vol);
 	}
 
-	private void HandleNotificationAreaIconActivateEvent ()
+	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
 	{
 		if (GdkWindow.State == Gdk.WindowState.Iconified)
 			SetWindowVisible (true);

@@ -29,8 +29,21 @@ public class NotificationAreaIcon : Plug
 	[DllImport ("libmuine")]
 	private static extern IntPtr egg_tray_icon_new (string name);
 
+	private EventBox ebox;
 	private Gtk.Image image;
 	private Tooltips tooltips;
+
+	private int menu_x;
+	private int menu_y;
+	
+	private Menu menu;
+	public ImageMenuItem play_pause_menu_item;
+	public Gtk.Image play_pause_menu_item_image;
+	public ImageMenuItem previous_song_menu_item;
+	public ImageMenuItem next_song_menu_item;
+	public ImageMenuItem play_song_menu_item;
+	public ImageMenuItem play_album_menu_item;
+	public MenuItem show_window_menu_item;
 
 	private bool button_down = false;
 
@@ -40,11 +53,12 @@ public class NotificationAreaIcon : Plug
 	{
 		Raw = egg_tray_icon_new ("Muine music player");
 
-		ButtonPressEvent += new ButtonPressEventHandler (HandleButtonPressEvent);
-		ButtonReleaseEvent += new ButtonReleaseEventHandler (HandleButtonReleaseEvent);
 		DestroyEvent += new DestroyEventHandler (HandleDestroyEvent);
 
-		EventBox ebox = new EventBox ();
+		ebox = new EventBox ();
+		ebox.ButtonPressEvent += new ButtonPressEventHandler (HandleButtonPressEvent);
+		ebox.ButtonReleaseEvent += new ButtonReleaseEventHandler (HandleButtonReleaseEvent);
+		
 		image = new Gtk.Image ();
 
 		ebox.Add (image);
@@ -57,12 +71,55 @@ public class NotificationAreaIcon : Plug
 			ShowAll ();
 	}
 
+	private void CreatePopupMenu ()
+	{
+		menu = new Menu ();
+		menu.SelectionDone += new EventHandler (HandleSelectionDone);
+		
+		play_pause_menu_item = new ImageMenuItem ("");
+		play_pause_menu_item_image = new Gtk.Image ();
+		play_pause_menu_item.Image = play_pause_menu_item_image;
+		menu.Append (play_pause_menu_item);
+
+		SeparatorMenuItem sep = new SeparatorMenuItem ();
+		menu.Append (sep);
+		
+		previous_song_menu_item = new ImageMenuItem ("_Previous Song");
+		previous_song_menu_item.Image = new Gtk.Image ("muine-previous", IconSize.Menu);
+		menu.Append (previous_song_menu_item);
+		next_song_menu_item = new ImageMenuItem ("_Next Song");
+		next_song_menu_item.Image = new Gtk.Image ("muine-next", IconSize.Menu);
+		menu.Append (next_song_menu_item);
+
+		sep = new SeparatorMenuItem ();
+		menu.Append (sep);
+
+		play_song_menu_item = new ImageMenuItem ("Play _Song");
+		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
+		menu.Append (play_song_menu_item);
+		play_album_menu_item = new ImageMenuItem ("Play _Album");
+		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
+		menu.Append (play_album_menu_item);
+
+		sep = new SeparatorMenuItem ();
+		menu.Append (sep);
+		
+		show_window_menu_item = new MenuItem ("Show _Window");
+		menu.Append (show_window_menu_item);
+
+		menu.ShowAll ();
+	}
+
 	public NotificationAreaIcon () : base ()
 	{
 		tooltips = new Tooltips ();
 
 		visible = false;
 
+		/* create popup menu */
+		CreatePopupMenu ();
+
+		/* init icon */
 		Init ();
 	}
 
@@ -119,28 +176,59 @@ public class NotificationAreaIcon : Plug
 		}
 	}
 
+	private void HandleSelectionDone (object o, EventArgs args)
+	{
+		State = StateType.Normal;
+	}
+
+	private void PositionMenu (Menu menu, out int x, out int y, out bool push_in)
+	{
+		x = menu_x;
+		y = menu_y;
+
+		push_in = true;
+	}
+
 	private void HandleButtonPressEvent (object o, ButtonPressEventArgs args)
 	{
-		if ((args.Event.button == 1) && !button_down) {
-			button_down = true;
-			args.RetVal = true;
-			return;
+		State = StateType.Active;
+
+		switch (args.Event.button)
+		{
+		case 1:
+		case 3:
+			menu_x = (int) args.Event.x_root - (int) args.Event.x;
+			menu_y = (int) args.Event.y_root - (int) args.Event.y + ebox.Allocation.height;
+			
+			menu.Popup (null, null, new MenuPositionFunc (PositionMenu), IntPtr.Zero,
+			            args.Event.button, args.Event.time);
+			
+			break;
+
+		default:
+			break;
 		}
 
 		args.RetVal = false;
 	}
 
-	public delegate void ActivateEventHandler ();
-	public event ActivateEventHandler ActivateEvent;
-
 	private void HandleButtonReleaseEvent (object o, ButtonReleaseEventArgs args)
 	{
-		if ((args.Event.button == 1) && button_down) {
-			button_down = false;
+		switch (args.Event.button)
+		{
+		case 1:
+		case 3:
+			menu.Popdown ();
 			
-			if (ActivateEvent != null)
-				ActivateEvent ();
+			break;
+
+		default:
+			break;
 		}
+
+		State = StateType.Normal;
+
+		args.RetVal = false;
 	}
 
 	private void HandleDestroyEvent (object o, DestroyEventArgs args)

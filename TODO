@@ -9,7 +9,7 @@ o Use Gst 0.7 tag reading
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
   we use GTK 2.3
-o A song information dialog
+o A song information dialog (both in tray menu and song menu)
 o D-BUS service (Sergio Rubio is on this)
 o Nicer application icon
   A harp would be cool ..
@@ -21,8 +21,6 @@ o Shift+Arrow keys selects in add windows
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
-o Make notification area a dropdown menu, pressed when clicked etc.
-  Menu with "Show window", "Play next", "Pause", etc.
 
 Tough:
 ======
