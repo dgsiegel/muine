@@ -1,5 +1,15 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/Album.cs:
+
+	Sort by artists, and then album name.
+	
+	* src/PlaylistWindow.cs:
+
+	Scroll to playing song when restoring window visibility.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* data/glade/PlaylistWindow.glade:
 	* libmuine/Makefile.am:

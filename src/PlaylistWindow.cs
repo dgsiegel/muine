@@ -169,15 +169,20 @@ public class PlaylistWindow : Window
 
 	private void SetWindowVisible (bool visible)
 	{
-		if (visible == false)
+		if (visible == false) {
 			GetPosition (out last_x, out last_y);
-		else {
+
+			Visible = false;
+		} else {
 			Move (last_x, last_y);
+
+			if (playlist.Playing != IntPtr.Zero)
+				playlist.ScrollTo (playlist.Playing);
+
+			Visible = true;
 
 			Present ();
 		}
-
-		Visible = visible;
 
 		Muine.GConfClient.Set ("/apps/muine/playlist_window/visible", visible);
 	}
