@@ -1,6 +1,13 @@
 2004-02-24  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/glade/InfoWindow.glade:
+	* src/InfoWindow.cs:
+
+	Fix keynav.
+
+2004-02-24  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/InfoWindow.glade:
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/ErrorDialog.cs:

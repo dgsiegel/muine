@@ -70,7 +70,7 @@
 	      <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 	      <child>
-		<widget class="GtkVBox" id="vbox2">
+		<widget class="GtkVBox" id="box">
 		  <property name="border_width">12</property>
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
