@@ -396,7 +396,8 @@ public class PlaylistWindow : Window
 
 	private void EnsurePlaying ()
 	{
-		if (playlist.Playing == IntPtr.Zero) {
+		if (playlist.Playing == IntPtr.Zero &&
+		    playlist.HasFirst) {
 			playlist.First ();
 			playlist.Select (playlist.Playing);
 			playlist.ScrollTo (playlist.Playing);

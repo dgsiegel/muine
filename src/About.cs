@@ -30,7 +30,7 @@ public class About
 	}
 
 	private static string [] authors = {
-		"Jorn Baayen (jorn@nl.linux.org)"
+		"Jorn Baayen (jbaayen@gnome.org)"
 	};
 	public static string [] Authors {
 		get {

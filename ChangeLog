@@ -1,3 +1,12 @@
+2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
+
+	* AUTHORS:
+	* MAINTAINERS:
+	* src/About.cs:
+	* src/PlaylistWindow.cs:
+
+	Fix assertions on empty playlist, change my email address.
+
 2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
