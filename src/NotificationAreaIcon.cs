@@ -188,10 +188,53 @@ public class NotificationAreaIcon : Plug
 		State = StateType.Normal;
 	}
 
+	private int Clamp (int x, int low, int high)
+	{
+		return ((x > high) ? high : ((x < low) ? low : x));
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void gtk_glue_get_monitor_dimensions (IntPtr screen,
+								    int x, int y,
+								    out int monitor_x,
+								    out int monitor_y,
+								    out int monitor_width,
+								    out int monitor_height);
+
 	private void PositionMenu (Menu menu, out int x, out int y, out bool push_in)
 	{
 		x = menu_x;
 		y = menu_y;
+
+		int monitor_x, monitor_y, monitor_width, monitor_height;
+
+		gtk_glue_get_monitor_dimensions (menu.Screen.Handle,
+						 x, y,
+						 out monitor_x,
+						 out monitor_y,
+						 out monitor_width,
+						 out monitor_height);
+
+		int space_above = y - monitor_y;
+		int space_below = monitor_y + monitor_height - y;
+
+		Requisition requisition = new Requisition ();
+		menu.SizeRequest (ref requisition);
+
+		if (requisition.Height <= space_above ||
+		    requisition.Height <= space_below) {
+			if (requisition.Height <= space_below)
+				y = y + ebox.Allocation.Height;
+			else
+				y = y - requisition.Height;
+		} else if (requisition.Height > space_below && requisition.Height > space_above) {
+			if (space_below >= space_above)
+				y = monitor_y + monitor_height - requisition.Height;
+			else
+				y = monitor_y;
+		} else {
+			y = monitor_y;
+		}
 
 		push_in = true;
 	}
@@ -205,8 +248,8 @@ public class NotificationAreaIcon : Plug
 		case 1:
 		case 3:
 			menu_x = (int) args.Event.XRoot - (int) args.Event.X;
-			menu_y = (int) args.Event.YRoot - (int) args.Event.Y + ebox.Allocation.Height;
-			
+			menu_y = (int) args.Event.YRoot - (int) args.Event.Y;
+
 			menu.Popup (null, null, new MenuPositionFunc (PositionMenu), IntPtr.Zero,
 			            args.Event.Button, args.Event.Time);
 			

@@ -46,7 +46,9 @@ libmuine_la_SOURCES =			\
 	bacon-message-connection.c	\
 	bacon-message-connection.h	\
 	gettext-utils.c			\
-	gettext-utils.h
+	gettext-utils.h			\
+	gtk-glue.c			\
+	gtk-glue.h
 	
 libmuine_la_LIBADD = id3-vfs/libid3-vfs.la egg/libegg.la $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS)
 

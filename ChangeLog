@@ -1,3 +1,13 @@
+2004-02-29  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/Makefile.am:
+	A libmuine/gtk-glue.c: (gtk_glue_get_monitor_dimensions):
+	A libmuine/gtk-glue.h:
+	* libmuine/markup-utils.c:
+	* src/NotificationAreaIcon.cs:
+
+	Fix tray icon popup positioning.
+
 2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
