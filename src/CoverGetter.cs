@@ -144,20 +144,26 @@ namespace Muine
 					pixbuf = getter.AddBorder (pixbuf);
 				} catch {}
 
+				if (Global.CoverDB.Covers [key] != null) {
+					// has been modified while we were downloading ..
+					return;
+				}
+
+				if (pixbuf != null)
+					Global.CoverDB.SetCover (key, pixbuf);
+
+				// Also do this if it is null, as we need to remove the
+				// downloading image ..
 				GLib.IdleHandler idle = new GLib.IdleHandler (SignalIdle);
 				GLib.Idle.Add (idle);
 			}
 			
 			private bool SignalIdle ()
 			{
-				if (Global.CoverDB.Covers [key] != null) {
-					// has been modified while we were downloading ..
-					return false;
-				}
-
-				if (pixbuf != null)
-					Global.CoverDB.SetCover (key, pixbuf);
-
+				// This is not entirely safe, as the user can in theory
+				// have changed the cover image between the thread and
+				// this idle. However, chances are very, very slim and
+				// things won't explode if it happens.
 				done_func (pixbuf);
 
 				return false;
@@ -205,10 +211,22 @@ namespace Muine
 							pixbuf = getter.AddBorder (pixbuf);
 						} catch (WebException e) {
 							// Temporary web problem (Timeout etc.) - re-queue
-							Thread.Sleep (60000); /* wait for a minute first */
+							Thread.Sleep (60000); // wait for a minute first
 							queue.Enqueue (album);
 							continue;
 						} catch (Exception e) {}
+
+						string key = album.Key;
+						
+						if (Global.CoverDB.Covers [key] != null) {
+							// has been modified while we were downloading ..
+							continue;
+						}
+
+						if (pixbuf != null)
+							Global.CoverDB.SetCover (key, pixbuf);
+						else
+							Global.CoverDB.UnmarkAsBeingChecked (key);
 
 						new IdleData (album, pixbuf);
 					}
@@ -224,18 +242,10 @@ namespace Muine
 
 				private bool IdleFunc ()
 				{
-					string key = album.Key;
-					
-					if (Global.CoverDB.Covers [key] != null) {
-						// has been modified while we were downloading ..
-						return false;
-					}
-
-					if (pixbuf != null)
-						Global.CoverDB.SetCover (key, pixbuf);
-					else
-						Global.CoverDB.UnmarkAsBeingChecked (key);
-
+					// This is not entirely safe, as the user can in theory
+					// have changed the cover image between the thread and
+					// this idle. However, chances are very, very slim and
+					// things won't explode if it happens.
 					album.CoverImage = pixbuf;
 		
 					return false;

@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverGetter.cs:
+
+	Move more things out of idles into threads. This should be it.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
 	* src/CoverGetter.cs:
