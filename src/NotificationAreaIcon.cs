@@ -43,7 +43,7 @@ public class NotificationAreaIcon : Plug
 
 	private bool button_down = false;
 
-	private bool visible;
+	private bool visible = false;
 
 	public void Init ()
 	{
@@ -97,12 +97,9 @@ public class NotificationAreaIcon : Plug
 		menu = (Menu) uim.GetWidget ("/Menu");
 		menu.Deactivated += new EventHandler (HandleMenuDeactivated);
 
-		/* init tooltips */
+		/* init tooltips -- we init into "not playing" state */
 		tooltips = new Tooltips ();
 		tooltips.Disable ();
-
-		/* not visible yet */
-		visible = false;
 
 		/* init icon */
 		Init ();
