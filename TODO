@@ -1,6 +1,7 @@
 Easy:
 =====
-o A song information dialog (both in tray menu and song menu)
+o A song information dialog (in tray and song menus, and in add album window)
+  This one is half done, I'm on this (Jorn)
 o Globally consume ACME keys
 o D-BUS service (Sergio Rubio is on this)
 
