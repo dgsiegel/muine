@@ -33,7 +33,7 @@ class VolumeButton : ToggleButton
 
 	public int Volume {
 		set {
-			string id = "muine-volume-";
+			string id = "volume-";
 			
 			volume = value;
 

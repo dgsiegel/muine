@@ -82,8 +82,8 @@ public class AddAlbumWindow : Window
 
 		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 
-		play_button_image.SetFromStock ("muine-play", IconSize.Button);
-		queue_button_image.SetFromStock ("muine-queue", IconSize.Button);
+		play_button_image.SetFromStock ("stock_media-play", IconSize.Button);
+		queue_button_image.SetFromStock ("stock_timer", IconSize.Button);
 
 		view = new HandleView ();
 

@@ -1,5 +1,34 @@
 2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/images/Makefile.am:
+	* data/images/muine-forward.png:
+	* data/images/muine-next-16.png:
+	* data/images/muine-next.png:
+	* data/images/muine-pause-16.png:
+	* data/images/muine-pause.png:
+	* data/images/muine-play-16.png:
+	* data/images/muine-play.png:
+	* data/images/muine-previous-16.png:
+	* data/images/muine-previous.png:
+	* data/images/muine-queue.png:
+	* data/images/muine-rewind.png:
+	* data/images/muine-shuffle-16.png:
+	* data/images/muine-shuffle.png:
+	* data/images/muine-volume-max.png:
+	* data/images/muine-volume-medium.png:
+	* data/images/muine-volume-min.png:
+	* data/images/muine-volume-zero.png:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/StockIcons.cs:
+	* src/VolumeButton.cs:
+
+	Use icons from icon theme.
+
+2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/FileSelector.cs:
 	* src/FileUtils.cs:
 	* src/PlaylistWindow.cs:

@@ -328,9 +328,9 @@ public class PlaylistWindow : Window
 		Image image;
 
 		image = (Image) glade_xml ["previous_image"];
-		image.SetFromStock ("muine-previous", IconSize.LargeToolbar);
+		image.SetFromStock ("stock_media-prev", IconSize.LargeToolbar);
 		image = (Image) glade_xml ["next_image"];
-		image.SetFromStock ("muine-next", IconSize.LargeToolbar);
+		image.SetFromStock ("stock_media-next", IconSize.LargeToolbar);
 		image = (Image) glade_xml ["add_song_image"];
 		image.SetFromStock (Stock.Add, IconSize.LargeToolbar);
 		image = (Image) glade_xml ["add_album_image"];
@@ -371,24 +371,24 @@ public class PlaylistWindow : Window
 		((ImageMenuItem) glade_xml ["add_album_menu_item"]).Image = image;
 		image.Visible = true;
 
-		play_pause_menu_item_image = new Image ("muine-play", IconSize.Menu);
+		play_pause_menu_item_image = new Image ("stock_media-play", IconSize.Menu);
 		play_pause_menu_item.Image = play_pause_menu_item_image;
 		play_pause_menu_item_image.Visible = true;
-		image = new Image ("muine-previous", IconSize.Menu);
+		image = new Image ("stock_media-prev", IconSize.Menu);
 		previous_menu_item.Image = image;
 		image.Visible = true;
-		image = new Image ("muine-next", IconSize.Menu);
+		image = new Image ("stock_media-next", IconSize.Menu);
 		next_menu_item.Image = image;
 		image.Visible = true;
 
-		image = new Image ("muine-rewind", IconSize.Menu);
+		image = new Image ("stock_media-rew", IconSize.Menu);
 		skip_backwards_menu_item.Image = image;
 		image.Visible = true;
-		image = new Image ("muine-forward", IconSize.Menu);
+		image = new Image ("stock_media-fwd", IconSize.Menu);
 		skip_forward_menu_item.Image = image;
 		image.Visible = true;
 
-		image = new Image ("muine-shuffle", IconSize.Menu);
+		image = new Image ("stock_shuffle", IconSize.Menu);
                 shuffle_menu_item.Image = image;
                 image.Visible = true;
 
@@ -451,9 +451,9 @@ public class PlaylistWindow : Window
 
 		if (handle == view.Playing) {
 			if (player.Playing)
-				r.Pixbuf = view.RenderIcon ("muine-playing", IconSize.Menu, null);
+				r.Pixbuf = view.RenderIcon ("stock_media-playing", IconSize.Menu, null);
 			else
-				r.Pixbuf = view.RenderIcon ("muine-paused", IconSize.Menu, null);
+				r.Pixbuf = view.RenderIcon ("stock_media-paused", IconSize.Menu, null);
 		} else {
 			r.Pixbuf = empty_pixbuf;
 		}
@@ -722,12 +722,12 @@ public class PlaylistWindow : Window
 	{
 		if (playing) {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Pause music playback"), null);
-			play_pause_image.SetFromStock ("muine-pause", IconSize.LargeToolbar);
+			play_pause_image.SetFromStock ("stock_media-pause", IconSize.LargeToolbar);
 
-			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
+			play_pause_menu_item_image.SetFromStock ("stock_media-pause", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("P_ause");
 
-			icon.play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
+			icon.play_pause_menu_item_image.SetFromStock ("stock_media-pause", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("P_ause");
 
 			icon.Tooltip = artist_label.Text + " - " + title_label.Text;
@@ -735,23 +735,23 @@ public class PlaylistWindow : Window
 		           player.Position > 0 &&
 			   !had_last_eos) {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Resume music playback"), null);
-			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
+			play_pause_image.SetFromStock ("stock_media-play", IconSize.LargeToolbar);
 
-			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			play_pause_menu_item_image.SetFromStock ("stock_media-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
-			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			icon.play_pause_menu_item_image.SetFromStock ("stock_media-play", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 			
 			icon.Tooltip = null;
 		} else {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Start music playback"), null);
-			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
+			play_pause_image.SetFromStock ("stock_media-play", IconSize.LargeToolbar);
 
-			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			play_pause_menu_item_image.SetFromStock ("stock_media-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
-			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			icon.play_pause_menu_item_image.SetFromStock ("stock_media-play", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
 
 			icon.Tooltip = null;

@@ -26,25 +26,28 @@ using System.IO;
 public class StockIcons 
 {
 	private static string [] stock_icons = {
-		"muine-play",
-		"muine-pause",
-		"muine-previous",
-		"muine-queue",
-		"muine-next",
-		"muine-rewind",
-		"muine-forward",
 		"muine-add-album",
-		"muine-volume-zero",
-		"muine-volume-min",
-		"muine-volume-medium",
-		"muine-volume-max",
 		"muine-tray-playing",
 		"muine-tray-paused",
 		"muine-default-cover",
 		"muine-cover-downloading",
 		"muine-playing",
-		"muine-paused",
-		"muine-shuffle"
+		"muine-paused"
+	};
+
+	private static string [] icon_theme_icons = {
+		"stock_media-fwd",
+		"stock_media-next",
+		"stock_media-pause",
+		"stock_media-play",
+		"stock_media-prev",
+		"stock_media-rew",
+		"stock_shuffle",
+		"stock_timer",
+		"volume-zero",
+		"volume-min",
+		"volume-medium",
+		"volume-max"
 	};
 
 	public static IconSize AlbumCoverSize;
@@ -69,6 +72,17 @@ public class StockIcons
 				iconset.AddSource (source);
 			}
 			
+			factory.Add (name, iconset);
+		}
+
+		foreach (string name in icon_theme_icons) {
+			IconSet iconset = new IconSet ();
+			IconSource iconsource = new IconSource ();
+
+			iconsource.IconName = name;
+
+			iconset.AddSource (iconsource);
+
 			factory.Add (name, iconset);
 		}
 
