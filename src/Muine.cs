@@ -29,11 +29,6 @@ public class Muine : Gnome.Program
 	private static PlaylistWindow playlist;
 
 	private static GConf.Client gconf_client;
-	public static GConf.Client GConfClient {
-		get {
-			return gconf_client;
-		}
-	}
 
 	private static SongDatabase db;
 	public static SongDatabase DB {
@@ -228,7 +223,7 @@ public class Muine : Gnome.Program
 	
 	public static object GetGConfValue (string key)
 	{
-	       return GConfClient.Get (key);
+	       return gconf_client.Get (key);
 	}
 	
 	public static object GetGConfValue (string key, object default_val)
@@ -246,6 +241,6 @@ public class Muine : Gnome.Program
         
         public static void SetGConfValue (string key, object val)
         {
-        	GConfClient.Set (key, val);        	
+        	gconf_client.Set (key, val);        	
         }
 }
