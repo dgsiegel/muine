@@ -668,8 +668,6 @@ public class PlaylistWindow : Window
 
 					SongChanged (true);
 
-					NSongsChanged ();
-
 					player.Playing = true;
 				} else {
 					player.Position = song.Duration;
@@ -678,6 +676,8 @@ public class PlaylistWindow : Window
 
 					player.Playing = false;
 				}
+
+				NSongsChanged ();
 			}
 		} else {
 			if (seconds < 0)

@@ -1,5 +1,11 @@
 2004-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Fix NSognsChanged usage in SeekTo.
+
+2004-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/muine-default-cover.png:
 
 	Fix image dimensions.
