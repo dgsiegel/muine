@@ -5,6 +5,7 @@ INCLUDES =							\
         -DG_LOG_DOMAIN=\"libmuine\"				\
 	-DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED		\
 	-DGDK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED	\
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"		\
 	$(MUINE_CFLAGS)						\
 	$(OGG_CFLAGS)						\
 	$(VORBIS_CFLAGS)					\
@@ -43,7 +44,9 @@ libmuine_la_SOURCES =			\
 	db.c				\
 	db.h				\
 	bacon-message-connection.c	\
-	bacon-message-connection.h
+	bacon-message-connection.h	\
+	gettext-utils.c			\
+	gettext-utils.h
 	
 libmuine_la_LIBADD = id3-vfs/libid3-vfs.la egg/libegg.la $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS)
 

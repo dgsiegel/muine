@@ -19,6 +19,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 using Gtk;
 using GtkSharp;
@@ -43,8 +44,13 @@ public class Muine : Gnome.Program
 
 	private static MessageConnection conn;
 
+	[DllImport ("libmuine")]
+	private static extern void init_intl ();
+
 	public static void Main (string [] args)
 	{
+		init_intl ();
+
 		Muine muine = new Muine (args);
 
 		Application.Run ();

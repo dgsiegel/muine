@@ -1,5 +1,14 @@
 2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/Makefile.am:
+	* libmuine/gettext-utils.c: (init_intl):
+	* libmuine/gettext-utils.h:
+	* src/Muine.cs:
+	
+	Setup intl on startup.
+
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
