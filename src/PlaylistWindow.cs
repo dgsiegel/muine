@@ -463,7 +463,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		};
 
 		ToggleActionEntry [] toggle_action_entries = new ToggleActionEntry [] {
-			new ToggleActionEntry ("PlayPause", "stock_media-play", Muine.Catalog.GetString ("_Playing"),
+			new ToggleActionEntry ("PlayPause", "stock_media-play", Muine.Catalog.GetString ("_Play"),
 					       "space", null,
 					       new EventHandler (HandlePlayPauseCommand), false),
 			new ToggleActionEntry ("Repeat", null, Muine.Catalog.GetString ("R_epeat"),

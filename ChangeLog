@@ -1,5 +1,13 @@
 2005-01-02  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/PlaylistWindow.cs:
+
+	Change playpause action's label to "Play" to avoid the confusion
+	"Playing" caused.
+
+2005-01-02  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 
 	Updated for when the new release is ready.
