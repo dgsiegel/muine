@@ -165,6 +165,7 @@ public class Album
 
 		foreach (Song s in Songs) {
 			s.CoverImage = CoverImage;
+			Muine.DB.EmitSongChanged (s);
 		}
 	}
 

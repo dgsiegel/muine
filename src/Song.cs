@@ -175,7 +175,6 @@ public class Song
 
 		Muine.CoverDB.ReplaceCover (album, cover_image);
 		
-		Muine.DB.EmitSongChanged (this);
 		Muine.DB.AlbumChangedForSong (this);
 		
 		return false;
