@@ -1331,6 +1331,8 @@ public class PlaylistWindow : Window
 
 	private void HandlePlaylistRowActivated (IntPtr handle)
 	{
+		had_last_eos = false;
+
 		playlist.Playing = handle;
 
 		SongChanged (true);

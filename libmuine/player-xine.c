@@ -34,7 +34,6 @@ static void     player_class_init (PlayerClass  *klass);
 static void     player_init       (Player       *player);
 static void     player_finalize   (GObject      *object);
 static gboolean player_playing    (Player       *player);
-static void     player_close      (Player       *player);
 static gboolean player_open       (Player       *player,
 				   const char   *uri,
 				   GError      **error);
@@ -366,7 +365,7 @@ player_open (Player *player,
 
   g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
-  player_close (player);
+  player_stop (player);
 
   if (uri == NULL)
     return FALSE;
@@ -440,23 +439,6 @@ player_open (Player *player,
   return TRUE;
 }
 
-static void
-player_close (Player *player)
-{
-  PlayerPriv *priv = player->priv;
-    
-  g_return_if_fail (IS_PLAYER (player));
-
-  if (priv->stream != NULL)
-    {
-      xine_stop (priv->stream);
-      xine_close (priv->stream);
-    }
-  
-  g_free (priv->current_file);
-  priv->current_file = NULL;
-}
-
 static gboolean
 player_playing (Player *player)
 {
@@ -526,7 +508,10 @@ player_stop (Player *player)
   priv->current_file = NULL;
 
   if (priv->stream != NULL)
+    {
       xine_stop (priv->stream);
+      xine_close (priv->stream);
+    }
 }
 
 void

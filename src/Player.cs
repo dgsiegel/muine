@@ -29,8 +29,6 @@ public class Player : GLib.Object
 	private static extern void player_set_replaygain (IntPtr player,
 							  double gain,
 							  double peak);
-	[DllImport ("libmuine")]
-	private static extern void player_stop (IntPtr player);
 
 	private Song song;
 	public Song Song {
@@ -41,7 +39,6 @@ public class Player : GLib.Object
 		set {
 			song = value;
 
-			player_stop (Raw);
 			player_set_file (Raw, song.Filename);
 			player_set_replaygain (Raw, song.Gain, song.Peak);
 
@@ -82,6 +79,9 @@ public class Player : GLib.Object
 				StateChanged (playing);
 		}
 	}
+
+	[DllImport ("libmuine")]
+	private static extern void player_stop (IntPtr player);
 
 	public void Stop ()
 	{
