@@ -382,12 +382,12 @@ public class PlaylistWindow : Window
 		*/
 	}
 
-	private void AddSong (Song song)
+	private IntPtr AddSong (Song song)
 	{
-		AddSong (song.Handle);
+		return AddSong (song.Handle);
 	}
 
-	private void AddSong (IntPtr p)
+	private IntPtr AddSong (IntPtr p)
 	{
 		IntPtr new_p = p;
 
@@ -410,6 +410,8 @@ public class PlaylistWindow : Window
 		}
 
 		had_last_eos = false;
+
+		return new_p;
 	}
 
 	private void RemoveSong (IntPtr p)
@@ -803,11 +805,11 @@ public class PlaylistWindow : Window
 		foreach (int i in songs) {
 			IntPtr p = new IntPtr (i);
 			
-			AddSong (p);
+			IntPtr new_p = AddSong (p);
 			
 			if (first == true) {
-				playlist.Playing = p;
-				playlist.ScrollTo (p);
+				playlist.Playing = new_p;
+				playlist.ScrollTo (new_p);
 
 				SongChanged (true);
 
@@ -840,11 +842,11 @@ public class PlaylistWindow : Window
 			Album a = Album.FromHandle (new IntPtr (i));
 
 			foreach (Song s in a.Songs) {
-				AddSong (s);
+				IntPtr new_p = AddSong (s);
 
 				if (first == true) {
-					playlist.Playing = s.Handle;
-					playlist.ScrollTo (s.Handle);
+					playlist.Playing = new_p;
+					playlist.ScrollTo (new_p);
 
 					SongChanged (true);
 

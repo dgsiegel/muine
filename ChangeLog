@@ -1,3 +1,10 @@
+2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/PlaylistWindow.cs:
+
+	Fix the bug where sometimes different songs than added would
+	be played.
+
 2004-01-28  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jorn@nl.linux.org>
 
