@@ -22,7 +22,7 @@ using Gdk;
 
 public class About
 {
-	private static string version = "0.5.2.99";
+	private static string version = "0.5.3";
 	public static string Version {
 		get {
 			return version;

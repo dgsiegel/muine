@@ -1,3 +1,11 @@
+2004-04-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Released 0.5.3.
+
 2004-04-06  Andras Timar  <timar@gnome.hu>
 
 	* configure.in: Added hu to ALL_LINGUAS.

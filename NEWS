@@ -1,3 +1,19 @@
+0.5.3
+=====
+
+- Fix sometimes not all files being loaded by the changes thread [Jorn Baayen]
+- Better Amazon album cover matching [Lee Willis, Jorn Baayen]
+
+Updated translations:
+- German [Matthias Debus]
+- Hungarian [Andras Timar]
+- Spanish [Francisco Javier F. Serrador]
+
+0.5.2
+=====
+
+- Fix compilation with Gnome 2.4 [Jorn Baayen]
+
 0.5.1
 =====
 
