@@ -49,7 +49,8 @@ namespace Muine
 						             FileUtils.MakeHumanReadable (fn));
 
 			label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-						      primary_text, string_secondary_text);
+						      StringUtils.EscapeForPango (primary_text),
+						      StringUtils.EscapeForPango (string_secondary_text));
 
 			window.TransientFor = parent;
 		}

@@ -93,13 +93,13 @@ namespace Muine
 
 		// Strings :: Errors
 		private static readonly string string_error_audio =
-			Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting...");
+			Catalog.GetString ("Failed to initialize the audio backend:\n{0}");
 		private static readonly string string_error_read =
-			Catalog.GetString ("Failed to open {0} for reading");
+			Catalog.GetString ("Failed to read {0}:");
 		private static readonly string string_error_close =
-			Catalog.GetString ("Failed to close {0}");
+			Catalog.GetString ("Failed to close {0}:");
 		private static readonly string string_error_write =
-			Catalog.GetString ("Failed to open {0} for writing");
+			Catalog.GetString ("Failed to write {0}:");
 
 		// Glade
 		private static readonly Glade.XML glade_xml = 
@@ -700,9 +700,9 @@ namespace Muine
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Create);
 				writer = new StreamWriter (stream);
-			} catch {
+			} catch (Exception e) {
 				string msg = String.Format (string_error_write, FileUtils.MakeHumanReadable (fn));
-				new ErrorDialog (msg, this);
+				new ErrorDialog (this, msg, e.Message);
 				if (remote)
 					BusyLevel --;
 				return;
@@ -734,9 +734,9 @@ namespace Muine
 
 			try {
 				writer.Close ();
-			} catch {
+			} catch (Exception e) {
 				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
-				new ErrorDialog (msg, this);
+				new ErrorDialog (this, msg, e.Message);
 			}
 
 			if (remote)
@@ -1160,9 +1160,9 @@ namespace Muine
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Open);
 				reader = new StreamReader (stream);
-			} catch {
+			} catch (Exception e) {
 				string msg = String.Format (string_error_read, FileUtils.MakeHumanReadable (fn));
-				new ErrorDialog (msg, this);
+				new ErrorDialog (this, msg, e.Message);
 				return;
 			}
 
@@ -1226,9 +1226,9 @@ namespace Muine
 			// Close File
 			try {
 				reader.Close ();
-			} catch {
+			} catch (Exception e) {
 				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
-				new ErrorDialog (msg, this);
+				new ErrorDialog (this, msg, e.Message);
 				return;
 			}
 		}

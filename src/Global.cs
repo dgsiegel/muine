@@ -36,9 +36,11 @@ namespace Muine
 		private static readonly string string_dbus_failed =
 			Catalog.GetString ("Failed to export D-Bus object: {0}");		
 		private static readonly string string_coverdb_failed =
-			Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting...");
+			Catalog.GetString ("Failed to load the cover database: {0}");
 		private static readonly string string_songdb_failed =
-			Catalog.GetString ("Failed to load the song database: {0}\n\nExiting...");
+			Catalog.GetString ("Failed to load the song database: {0}");
+		private static readonly string string_error_initializing =
+			Catalog.GetString ("Error initializing Muine.");
 	
 		// Variables
 		private static SongDatabase db;
@@ -244,7 +246,7 @@ namespace Muine
 		// Methods :: Private :: Error
 		private static void Error (string message)
 		{
-			new ErrorDialog (message);
+			new ErrorDialog (string_error_initializing, message);
 
 			Environment.Exit (1);
 		}

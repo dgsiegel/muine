@@ -28,29 +28,27 @@ namespace Muine
 {
 	public class ErrorDialog
 	{
-		// Strings
-		private static readonly string string_heading = 
-			Catalog.GetString ("An error occurred:");
-	
 		// Widgets
 		[Glade.Widget] private Dialog window;
 		[Glade.Widget] private Label  label;
 
 		// Constructor
-		public ErrorDialog (string text, Window parent)
-		: this (text)
+		public ErrorDialog (Window parent,
+				    string primary_text,
+				    string secondary_text)
+		: this (primary_text, secondary_text)
 		{
 			window.TransientFor = parent;
 		}
 
-		public ErrorDialog (string text)
+		public ErrorDialog (string primary_text, string secondary_text)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 			gxml.Autoconnect (this);
 
 			string full_text = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-			                                  StringUtils.EscapeForPango (string_heading),
-							  StringUtils.EscapeForPango (text));
+			                                  StringUtils.EscapeForPango (primary_text),
+							  StringUtils.EscapeForPango (secondary_text));
 
 			label.Markup = full_text;
 

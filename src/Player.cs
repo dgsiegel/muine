@@ -36,7 +36,7 @@ namespace Muine
 	{
 		// Strings
 		private static readonly string string_audio_error =
-			Catalog.GetString ("Audio backend error:\n{0}");		
+			Catalog.GetString ("Audio backend error:");
 
 		// Events
 		public delegate void StateChangedHandler (bool playing);
@@ -232,7 +232,8 @@ namespace Muine
 		// Handlers :: OnError
 		private void OnError (IntPtr obj, string error)
 		{
-			new ErrorDialog (String.Format (string_audio_error, error));
+			new ErrorDialog (Global.Playlist,
+					 string_audio_error, error);
 		}
 	}
 }
