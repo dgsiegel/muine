@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+
+	Re-commit CoverDB rehash. Bad Tamara! :)
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Small cleanup.
