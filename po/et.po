@@ -448,7 +448,7 @@ msgstr "<b>Esitusloend</b> (Korduv)"
 
 #: src/PlaylistWindow.cs:66
 msgid "<b>Playlist</b> (Less than one minute remaining)"
-msgstr "<b>Esitusloend</b> (Vähem kui üks minut jäänud)"
+msgstr "<b>Esitusloend</b> (Vähem kui üks minut on jäänud)"
 
 #: src/PlaylistWindow.cs:68
 #, csharp-format
