@@ -1,3 +1,9 @@
+2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
+
+	* configure.in:
+
+	Added "es" and "nl" to ALL_LINGUAS.
+
 2004-01-24  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jorn@nl.linux.org>
 
