@@ -18,6 +18,7 @@ o Shift+Arrow keys selects in add windows
   Depends on Gnome Bugzilla #133143
   Proxying events to treeview doesn't work, we manually need to mimic
   the multiple selection keybindings.
+o Improve first time dialog once again ..
 
 Tough:
 ======

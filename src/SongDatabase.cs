@@ -249,6 +249,7 @@ public class SongDatabase
 
 		/* check for changes */
 		Thread thread = new Thread (new ThreadStart (CheckChanges));
+		thread.Start ();
 
 		/* wait until the thread has started, because we want to
 		   have the changes check going before anything else */
