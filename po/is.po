@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Muine 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-28 23:47+0000\n"
-"PO-Revision-Date: 2004-04-28 23:33-0000\n"
-"Last-Translator: Samúel Jón Gunnarsson <sammi@techattack.nu>\n"
+"POT-Creation-Date: 2004-08-10 23:48+0000\n"
+"PO-Revision-Date: 2004-08-10 23:48-0000\n"
+"Last-Translator: Samuel Jon Gunnarsson <sammi@techattack.nu>\n"
 "Language-Team: Icelandic <gnome@techattack.nu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -45,7 +45,6 @@ msgid ""
 msgstr "Muine tókst ekki að finna tónlistarsafn, hvað viltu að ég geri?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
-#, fuzzy
 msgid ""
 "Muine will create the folders Music and Music/Playlists in your home folder "
 "to store your music files. This option is highly recommended. You can always "
@@ -68,7 +67,7 @@ msgstr ""
 "fyrir reynda notendur og er almennt ekki ráðlagt."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
+msgid "_Create an empty music collection"
 msgstr "_Stofna nýtt tónlistarsafn"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
@@ -76,16 +75,15 @@ msgid "_Nothing, I will manage my music myself"
 msgstr "_Ekkert, ég mun sjálf(ur) halda höndum yfir mína tónlist"
 
 #: data/glade/PlaylistWindow.glade.h:1
+#, fuzzy
 msgid "P_roperties"
-msgstr ""
+msgstr "Stillinga_r"
 
 #: data/glade/PlaylistWindow.glade.h:2
-#, fuzzy
 msgid "Play Album"
-msgstr "Spila _albúm"
+msgstr "Spila albúm"
 
 #: data/glade/PlaylistWindow.glade.h:3
-#, fuzzy
 msgid "Play Song"
 msgstr "Spila lag"
 
@@ -119,7 +117,7 @@ msgstr "TMP"
 
 #: data/glade/PlaylistWindow.glade.h:11
 msgid "_Clear"
-msgstr ""
+msgstr "_Hreinsa"
 
 #: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
@@ -182,152 +180,172 @@ msgid "Muine Music Player"
 msgstr "Muine tónlistarspilari"
 
 #: data/muine.schemas.in.h:1
-#, fuzzy
-msgid "Add album window height."
-msgstr "Hæð bæta við albúmi glugga."
+msgid "\"Add album\" window height"
+msgstr "Hæð \"bæta við albúm\" glugga."
 
 #: data/muine.schemas.in.h:2
-#, fuzzy
-msgid "Add album window width."
-msgstr "Breidd bæta við albúm glugga."
+msgid "\"Add album\" window width"
+msgstr "Breidd \"bæta við albúm\" glugga."
 
 #: data/muine.schemas.in.h:3
-#, fuzzy
-msgid "Add song window height."
-msgstr "Hæð bæta við lagi glugga."
+msgid "\"Add song\" window height"
+msgstr "Hæð \"bæta við lagi\" glugga."
 
 #: data/muine.schemas.in.h:4
-#, fuzzy
-msgid "Add song window width."
-msgstr "Breidd bæta við lagi glugga."
+msgid "\"Add song\" window width"
+msgstr "Breidd \"bæta við lagi\" glugga"
 
 #: data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images."
-msgstr ""
+msgid "Amazon site to use for album images"
+msgstr "Amazon svæði sem nota með myndum yfir albúm"
 
 #: data/muine.schemas.in.h:6
-msgid "Default import folder."
-msgstr "Sjálfgefin innflutningsmappa."
+msgid "Default import folder"
+msgstr "Sjálfgefin innflutningsmappa"
 
 #: data/muine.schemas.in.h:7
-msgid "Default playlist folder."
-msgstr "Sjálfgefin mappa afspilunarlista."
+msgid "Default playlist folder"
+msgstr "Sjálfgefin mappa afspilunarlista"
 
 #: data/muine.schemas.in.h:8
-msgid "First start."
-msgstr "Fyrsta keyrsla."
+msgid "First start"
+msgstr "Fyrsta keyrsla"
 
 #: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Möppur sem vaktaðar eftir breytingum."
 
 #: data/muine.schemas.in.h:10
-msgid "Information window height."
-msgstr "Hæð upplýsingaglugga."
+msgid "Height of the \"Add album\" window."
+msgstr "Hæð \"bæta við albúm\" glugga."
 
 #: data/muine.schemas.in.h:11
-msgid "Information window width."
-msgstr "Breidd upplýsingaglugga."
+msgid "Height of the \"Add song\" window."
+msgstr "Hæð \"bæta við lagi\" glugga."
 
 #: data/muine.schemas.in.h:12
-msgid "Last used folder from \"Import folder\" dialog."
-msgstr ""
+msgid "Height of the information window."
+msgstr "Hæð upplýsingaglugga."
 
 #: data/muine.schemas.in.h:13
-msgid "Last used folder from the playlist file selectors."
-msgstr ""
-
-#: data/muine.schemas.in.h:14
-msgid "Playlist window height."
+msgid "Height of the playlist window."
 msgstr "Hæð afspilunarglugga."
 
+#: data/muine.schemas.in.h:14
+msgid "Information window height"
+msgstr "Hæð upplýsingaglugga"
+
 #: data/muine.schemas.in.h:15
-msgid "Playlist window width."
-msgstr "Breidd afspilunarglugga."
+msgid "Information window width"
+msgstr "Breidd upplýsingaglugga"
 
 #: data/muine.schemas.in.h:16
-msgid "Repeat mode."
-msgstr ""
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Síðast notaða mappa frá \"Innflytja möppu\" glugganum."
 
 #: data/muine.schemas.in.h:17
-msgid "Volume level."
-msgstr "Hljóðstyrkur."
+msgid "Last used folder from the playlist file selectors."
+msgstr "Síðast notaða mappa frá afspilunarlista valmynd."
 
 #: data/muine.schemas.in.h:18
+msgid "Playlist window height"
+msgstr "Hæð afspilunarglugga"
+
+#: data/muine.schemas.in.h:19
+msgid "Playlist window width"
+msgstr "Breidd afspilunarglugga"
+
+#: data/muine.schemas.in.h:20
+msgid "Repeat mode"
+msgstr "Endurtaka"
+
+#: data/muine.schemas.in.h:21
+msgid "Volume level"
+msgstr "Hljóðstyrkur"
+
+#: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Hljóðstyrkur, 0 = lágmark, 100 = hámark."
 
-#: data/muine.schemas.in.h:19
-msgid "Watched folders."
+#: data/muine.schemas.in.h:23
+msgid "Watched folders"
 msgstr "Vaktaðar möppur."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Hvort að virkja eigi endurtekningu á afspilunarlista."
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:25
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
+"Hvaða Amazon svæði á að nota við niðurhal á myndum yfir albúm, \"us\",\"uk\","
+"\"de\" eða \"jp\"."
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:26
+msgid "Width of the \"Add album\" window."
+msgstr "Breidd \"Bæta við albúm\" glugga."
+
+#: data/muine.schemas.in.h:27
+msgid "Width of the \"Add song\" window."
+msgstr "Breidd \"Bæta við lagi\" glugga."
+
+#: data/muine.schemas.in.h:28
+msgid "Width of the information window."
+msgstr "Breidd upplýsingaglugga."
+
+#: data/muine.schemas.in.h:29
+msgid "Width of the playlist window."
+msgstr "Breidd afspilunarglugga."
+
+#: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
 msgstr "falskt ef Muine hefur ekki verið ræstur upp áður."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create GstPlay object"
-msgstr ""
+msgstr "Ekki tókst að stofna GstPlay object"
 
 #: libmuine/player-gst.c:164
+#, fuzzy
 msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr ""
+msgstr "Ekki tókst að stofna"
 
 #: libmuine/player-gst.c:173
+#, fuzzy
 msgid "Could not render default GStreamer audio output sink"
-msgstr ""
+msgstr "Ekki tókst að render-a sjálfgefna GStreamer hljóð-útgangs-vaskinn"
 
 #: libmuine/player-gst.c:182
+#, fuzzy
 msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr ""
+msgstr "Ekki tókst að vinna hljóstyrks element í GstPlay pípunni"
 
 #: libmuine/player-xine.c:283
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
 "Check that the device is not busy."
 msgstr ""
+"Ekki tókst að hlaða '%s' hljóðrekli\n"
+"Vinsamlegast athugið hvort eining sé ekki upptekinn."
 
 #: libmuine/player-xine.c:378 libmuine/player-xine.c:383
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr ""
+msgstr "Engar viðbætur til staðar fyrir \"%s\""
 
 #: libmuine/player-xine.c:388
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Ekki tókst að spila \"%s\""
 
 #: libmuine/player-xine.c:392
 msgid "Internal error"
-msgstr ""
+msgstr "Innri villa"
 
 #: libmuine/player-xine.c:401
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
-
-#~ msgid "<b>Groups</b>"
-#~ msgstr "<b>Hópar</b>"
-
-#~ msgid "Groups"
-#~ msgstr "Hópar"
-
-#~ msgid "_Add song"
-#~ msgstr "Bæt_a við lagi"
-
-#~ msgid "_Clear Playlist"
-#~ msgstr "_Hreinsa afspilunarlista"
-
-#~ msgid "Orientation"
-#~ msgstr "Snið"
+msgstr "Ekki tókst að spila \"%s\""
