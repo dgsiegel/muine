@@ -191,6 +191,14 @@ namespace Muine
 		{
 			db_pack_string (p, str);
 		}
+
+		// Methods :: Public :: Pack :: PackStringArray
+		public static void PackStringArray (IntPtr p, string [] array)
+		{
+			Database.PackInt (p, array.Length);
+			foreach (string s in array)
+				Database.PackString (p, s);
+		}
 		
 		// Methods :: Public :: Pack :: PackInt
 		[DllImport ("libmuine")]

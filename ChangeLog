@@ -1,5 +1,12 @@
 2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Database.cs:
+	* src/Song.cs:
+
+	Small cleanup: Introduce Database.PackStringArray.
+
+2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 
 	When using the last track hack to determine an album's completeness,

@@ -368,25 +368,18 @@ namespace Muine
 			
 			p = Database.PackStart ();
 
-			Database.PackString (p, title);
-
-			Database.PackInt (p, artists.Length);
-			foreach (string artist in artists)
-				Database.PackString (p, artist);
-
-			Database.PackInt (p, performers.Length);
-			foreach (string performer in performers)
-				Database.PackString (p, performer);
-			
-			Database.PackString (p, album);
-			Database.PackInt    (p, track_number);
-			Database.PackInt    (p, n_album_tracks);
-			Database.PackInt    (p, disc_number);
-			Database.PackString (p, year);
-			Database.PackInt    (p, duration);
-			Database.PackInt    (p, mtime);
-			Database.PackDouble (p, gain);
-			Database.PackDouble (p, peak);
+			Database.PackString      (p, title);
+			Database.PackStringArray (p, artists);
+			Database.PackStringArray (p, performers);
+			Database.PackString      (p, album);
+			Database.PackInt         (p, track_number);
+			Database.PackInt         (p, n_album_tracks);
+			Database.PackInt         (p, disc_number);
+			Database.PackString      (p, year);
+			Database.PackInt         (p, duration);
+			Database.PackInt         (p, mtime);
+			Database.PackDouble      (p, gain);
+			Database.PackDouble      (p, peak);
 
 			return Database.PackEnd (p, out length);
 		}
