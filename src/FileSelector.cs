@@ -27,19 +27,33 @@ namespace Muine
 {
 	public class FileSelector : FileChooserDialog
 	{
+		// Constants
 		private const string GConfDefaultStartDir = "~";
 		
+		// Variables
 		private string gconf_path;
 
+		// Constructor
 		public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
 		{
 			TransientFor = parent;
 			LocalOnly = false;
+
 			AddButton (Stock.Cancel, ResponseType.Cancel);
-			if (action == FileChooserAction.Open)
+
+			switch (action) {
+			case FileChooserAction.Open:
 				AddButton (Stock.Open, ResponseType.Ok);
-			else if (action == FileChooserAction.Save)
+				break;
+			
+			case FileChooserAction.Save:
 				AddButton (Stock.Save, ResponseType.Ok);
+				break;
+			
+			default:
+				break;
+			}
+			
 			DefaultResponse = ResponseType.Ok;
 
 			gconf_path = gcp;
@@ -52,11 +66,13 @@ namespace Muine
 			SetCurrentFolderUri (start_dir);
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: GetFile
 		public string GetFile ()
 		{
 			if (Run () != (int) ResponseType.Ok) {
 				Destroy ();
-
 				return "";
 			}
 
@@ -65,7 +81,6 @@ namespace Muine
 			Config.Set (gconf_path, CurrentFolderUri);
 
 			Destroy ();
-
 			return ret;
 		}
 	}

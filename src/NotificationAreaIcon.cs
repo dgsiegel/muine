@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Make into a plugin?
+
 using System;
 using System.Runtime.InteropServices;
 
@@ -35,27 +37,63 @@ namespace Muine
 		private static readonly string string_program =
 			Catalog.GetString ("Muine music player");
 
-		// song artists - song title
 		private static readonly string string_tooltip_format =
-			Catalog.GetString ("{0} - {1}");
-		
-		[DllImport ("libmuine")]
-		private static extern IntPtr egg_tray_icon_new (string name);
+			Catalog.GetString ("{0} - {1}"); // song artists - song title
 
+		// Widgets
 		private EventBox ebox;
 		private Gtk.Image image;
 		private Tooltips tooltips;
+		private Menu menu;
 
+		// Objects
 		private IPlayer player;
 
+		// Variables
 		private int menu_x;
 		private int menu_y;
 		
-		private Menu menu;
-
 		private bool button_down = false;
-
 		private bool visible = false;
+
+		private string tooltip = "";
+
+		private bool playing = false;
+
+		// Constructor
+		public NotificationAreaIcon (IPlayer player) : base (IntPtr.Zero)
+		{
+			// Connect to player
+			this.player = player;
+			
+			player.SongChangedEvent  += new SongChangedEventHandler  (OnSongChangedEvent );
+			player.StateChangedEvent += new StateChangedEventHandler (OnStateChangedEvent);
+			
+			// Build menu
+			player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
+			
+			menu = (Menu) player.UIManager.GetWidget ("/Menu");
+			menu.Deactivated += new EventHandler (OnMenuDeactivated);
+
+			// Init tooltips -- we init into "not playing" state
+			tooltips = new Tooltips ();
+			tooltips.Disable ();
+
+			// init icon
+			Init ();
+		}
+
+		// Destructor
+		~NotificationAreaIcon ()
+		{
+			Dispose ();
+		}
+		
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Init
+		[DllImport ("libmuine")]
+		private static extern IntPtr egg_tray_icon_new (string name);
 
 		public void Init ()
 		{
@@ -78,67 +116,40 @@ namespace Muine
 				ShowAll ();
 		}
 
-		public NotificationAreaIcon (IPlayer player) : base (IntPtr.Zero)
-		{
-			/* connect to player */
-			this.player = player;
-			
-			player.SongChangedEvent +=
-				new SongChangedEventHandler (OnSongChangedEvent);
-			player.StateChangedEvent +=
-				new StateChangedEventHandler (OnStateChangedEvent);
-			
-			/* build menu */
-			player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
-			
-			menu = (Menu) player.UIManager.GetWidget ("/Menu");
-			menu.Deactivated += new EventHandler (OnMenuDeactivated);
-
-			/* init tooltips -- we init into "not playing" state */
-			tooltips = new Tooltips ();
-			tooltips.Disable ();
-
-			/* init icon */
-			Init ();
-		}
-
-		~NotificationAreaIcon ()
-		{
-			Dispose ();
-		}
-
+		// Methods :: Public :: Run
 		public void Run ()
 		{
 			visible = true;
-
 			ShowAll ();
 		}
 
-		private string tooltip = "";
-
+		// Methods :: Private
+		// Methods :: Private :: UpdateTooltip
 		private void UpdateTooltip ()
 		{
 			tooltips.SetTip (this, tooltip, null);
 		}
 
-		private bool playing = false;
-
+		// Methods :: Private :: UpdateImage
 		private void UpdateImage ()
 		{
 			string icon = (playing) ? "muine-tray-playing" : "muine-tray-paused";
 			image.SetFromStock (icon, IconSize.Menu);
 		}
 
-		private void OnSelectionDone (object o, EventArgs args)
-		{
-			State = StateType.Normal;
-		}
-
+		// Methods :: Private :: Clamp
 		private int Clamp (int x, int low, int high)
 		{
-			return ((x > high) ? high : ((x < low) ? low : x));
+			return (x > high) 
+			       ? high 
+			       : 
+			       (x < low) 
+			       ? low 
+			       : 
+			       x;
 		}
 
+		// Methods :: Private :: PositionMenu
 		private void PositionMenu (Menu menu, out int x, out int y, out bool push_in)
 		{
 			x = menu_x;
@@ -170,6 +181,22 @@ namespace Muine
 			push_in = true;
 		}
 
+		// Methods :: Private :: CreateTooltip
+		private string CreateTooltip (ISong song)
+		{
+			return String.Format (string_tooltip_format,
+					      StringUtils.JoinHumanReadable (song.Artists),
+					      song.Title);
+		}
+
+		// Handlers
+		// Handlers :: OnSelectionDone
+		private void OnSelectionDone (object o, EventArgs args)
+		{
+			State = StateType.Normal;
+		}
+
+		// Handlers :: OnButtonPressEvent
 		private void OnButtonPressEvent (object o, ButtonPressEventArgs args)
 		{
 			switch (args.Event.Button)
@@ -198,33 +225,29 @@ namespace Muine
 			args.RetVal = false;
 		}
 
+		// Handlers :: OnMenuDeactivated
 		private void OnMenuDeactivated (object o, EventArgs args)
 		{
 			State = StateType.Normal;
 		}
 
+		// Handlers :: OnDestroyEvent
 		private void OnDestroyEvent (object o, DestroyEventArgs args)
 		{
 			Init ();
 		}
 
-		private string CreateTooltip (ISong song)
-		{
-			return String.Format (string_tooltip_format,
-					      StringUtils.JoinHumanReadable (song.Artists),
-					      song.Title);
-		}
-
+		// Handlers :: OnSongChangedEvent
 		private void OnSongChangedEvent (ISong song)
 		{
-			if (song != null)
-				tooltip = CreateTooltip (song);
-			else
-				tooltip = null;
+			tooltip = (song == null)
+				  ? null
+				  : CreateTooltip (song);
 
 			UpdateTooltip ();
 		}
 
+		// Handlers :: OnStateChangedEvent
 		private void OnStateChangedEvent (bool playing)
 		{
 			if (playing)

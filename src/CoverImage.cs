@@ -27,64 +27,21 @@ namespace Muine
 {
 	public class CoverImage : EventBox
 	{
-		private Gtk.Image image;
-		
-		public CoverImage () : base ()
-		{
-			image = new Gtk.Image ();	
-			image.SetSizeRequest (CoverDatabase.CoverSize, 
-					      CoverDatabase.CoverSize);
-			
-			Add (image);
-
-			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-
-			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
-		}
-
-		~CoverImage ()
-		{
-			Dispose ();
-		}
-
+		// Static
+		// Static :: Variables
+		// Static :: Variables :: Drag-and-Drop
 		private static TargetEntry [] drag_entries = new TargetEntry [] {
 			DndUtils.TargetUriList,
 			DndUtils.TargetGnomeIconList,
 			DndUtils.TargetNetscapeUrl
 		};
+
 		public static TargetEntry [] DragEntries {
 			get { return drag_entries; }
 		}
 
-		private void Sync ()
-		{
-			if (song != null && song.CoverImage != null)
-				image.FromPixbuf = song.CoverImage;
-			else if (song != null && Global.CoverDB.Loading)
-				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
-			else {
-				image.SetFromStock ("muine-default-cover",
-						    StockIcons.CoverSize);
-			}
-		
-			if (song != null && !Global.CoverDB.Loading) {
-				Gtk.Drag.DestSet (this, DestDefaults.All,
-						  drag_entries, Gdk.DragAction.Copy);
-			} else {
-				Gtk.Drag.DestSet (this, DestDefaults.All,
-						  null, Gdk.DragAction.Copy);
-			}
-		}
-
-		private Song song;
-		public Song Song {
-			set {
-				song = value;
-
-				Sync ();
-			}
-		}
-
+		// Static :: Methods
+		// Static :: Methods :: HandleDrop
 		public static void HandleDrop (Song song, DragDataReceivedArgs args)
 		{
 			string data = DndUtils.SelectionDataToString (args.SelectionData);
@@ -144,11 +101,70 @@ namespace Muine
 			Gtk.Drag.Finish (args.Context, success, false, args.Time);
 		}
 
+		// Objects
+		private Gtk.Image image;
+		private Song song;
+		
+		// Constructor
+		public CoverImage () : base ()
+		{
+			image = new Gtk.Image ();	
+			image.SetSizeRequest (CoverDatabase.CoverSize, 
+					      CoverDatabase.CoverSize);
+			
+			Add (image);
+
+			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+
+			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+		}
+
+		// Destructor
+		~CoverImage ()
+		{
+			Dispose ();
+		}
+
+		// Properties
+		// Properties :: Song (set;);
+		public Song Song {
+			set {
+				song = value;
+				Sync ();
+			}
+		}
+
+		// Methods
+		// Methods :: Private
+		// Methods :: Private :: Sync
+		private void Sync ()
+		{
+			if (song != null && song.CoverImage != null) {
+				image.FromPixbuf = song.CoverImage;
+
+			} else if (song != null && Global.CoverDB.Loading) {
+				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
+
+			} else {
+				image.SetFromStock ("muine-default-cover",
+						    StockIcons.CoverSize);
+			}
+		
+			TargetEntry [] entries = (song != null && !Global.CoverDB.Loading)
+						 ? drag_entries
+						 : null;
+						 
+			Gtk.Drag.DestSet (this, DestDefaults.All, entries, Gdk.DragAction.Copy);
+		}
+
+		// Handlers
+		// Handlers :: OnDragDataReceived
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			HandleDrop (song, args);
 		}
 
+		// Handlers :: OnCoversDoneLoading
 		private void OnCoversDoneLoading ()
 		{
 			Sync ();

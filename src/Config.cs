@@ -19,15 +19,20 @@
 
 namespace Muine
 {
-	public class Config 
+	public sealed class Config 
 	{
+		// Variables
 		private static GConf.Client gconf_client;
 		
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Init
 		public static void Init ()
 		{
 			gconf_client = new GConf.Client ();
 		}
-		
+
+		// Methods :: Public :: Get		
 		public static object Get (string key)
 		{
 		       return gconf_client.Get (key);
@@ -45,12 +50,14 @@ namespace Muine
 
 	                return val;
 	        }
-	        
+
+		// Methods :: Public :: Set
 	        public static void Set (string key, object val)
 	        {
 	        	gconf_client.Set (key, val);        	
 	        }
 
+		// Methods :: Public :: AddNotify
 		public static void AddNotify (string key, GConf.NotifyEventHandler notify)
 		{
 			gconf_client.AddNotify (key, notify);

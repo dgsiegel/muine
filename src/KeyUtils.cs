@@ -23,25 +23,25 @@ using Gdk;
 
 namespace Muine
 {
-	public class KeyUtils
+	public sealed class KeyUtils
 	{
-		/* If we have modifiers, and either Ctrl, Mod1 (Alt), or any
-		 * of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
-		 * let Gtk+ handle the key */
-
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: HaveModifier
+		//	If we have modifiers, and either Ctrl, Mod1 (Alt), or any
+		//	of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
+		//	let Gtk+ handle the key
 		public static bool HaveModifier (Gdk.EventKey e) {
-			if (e.State != 0
-			 	&& (((e.State & Gdk.ModifierType.ControlMask) != 0)
-				 || ((e.State & Gdk.ModifierType.Mod1Mask) != 0)
-				 || ((e.State & Gdk.ModifierType.Mod3Mask) != 0)
-				 || ((e.State & Gdk.ModifierType.Mod4Mask) != 0)
-				 || ((e.State & Gdk.ModifierType.Mod5Mask) != 0))) {
-				return true;
-			}
-
-			return false;
+			return (e.State != 0 && 
+			        (((e.State & Gdk.ModifierType.ControlMask) != 0) ||
+			         ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0) ||
+			         ((e.State & Gdk.ModifierType.Mod3Mask   ) != 0) ||
+			         ((e.State & Gdk.ModifierType.Mod4Mask   ) != 0) ||
+			         ((e.State & Gdk.ModifierType.Mod5Mask   ) != 0)));
 		}
 
+		// Methods :: Public :: IsModifier
+		//	TODO: use an array instead of a switch.
 		public static bool IsModifier (Gdk.EventKey e) {
 			bool ret = false;
 			

@@ -28,8 +28,7 @@ namespace Muine
 {
 	public class ImportDialog : FileChooserDialog
 	{	
-		// Constants
-		// Constants :: GConf
+		// GConf
 		private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
 		private const string GConfDefaultImportFolder = "~";
 

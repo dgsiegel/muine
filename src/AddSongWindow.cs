@@ -29,7 +29,7 @@ namespace Muine
 {
 	public class AddSongWindow : AddWindow
 	{
-		// Constants
+		// GConf
 	        private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
 	        private const int GConfDefaultWidth = 500;
 	        
@@ -93,27 +93,8 @@ namespace Muine
 			}
 		}
 
-		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
-		{
-			Song a = Song.FromHandle (a_ptr);
-			Song b = Song.FromHandle (b_ptr);
-
-			return String.CompareOrdinal (a.SortKey, b.SortKey);
-		}
-
-		private void CellDataFunc (HandleView view,
-					   CellRenderer cell,
-					   IntPtr handle)
-		{
-			CellRendererText r = (CellRendererText) cell;
-			Song song = Song.FromHandle (handle);
-
-			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
-						   false, true, false);
-		}
-
+		// Handlers
+		// Handlers :: OnDragDataGet
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
 			List songs = base.List.SelectedPointers;
@@ -148,6 +129,28 @@ namespace Muine
 			default:
 				break;	
 			}
+		}
+
+		// Delegate Functions
+		// Delegate Functions :: SortFunc		
+		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
+		{
+			Song a = Song.FromHandle (a_ptr);
+			Song b = Song.FromHandle (b_ptr);
+
+			return a.CompareTo (b);
+		}
+
+		// Delegate Functions :: CellDataFunc
+		private void CellDataFunc (HandleView view, CellRenderer cell, IntPtr handle)
+		{
+			CellRendererText r = (CellRendererText) cell;
+			Song song = Song.FromHandle (handle);
+
+			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
+
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
+						   false, true, false);
 		}
 	}
 }

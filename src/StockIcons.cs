@@ -25,9 +25,10 @@ using System.IO;
 
 namespace Muine
 {
-	public class StockIcons 
+	public sealed class StockIcons
 	{
-		private static string [] stock_icons = {
+		// Stock Icons
+		private static readonly string [] stock_icons = {
 			"muine-tray-playing",
 			"muine-tray-paused",
 			"muine-default-cover",
@@ -40,7 +41,8 @@ namespace Muine
 			"muine-volume-max"
 		};
 
-		private static string [] icon_theme_icons = {
+		// Themed Icons
+		private static readonly string [] icon_theme_icons = {
 			"stock_media-fwd",
 			"stock_media-next",
 			"stock_media-play",
@@ -52,13 +54,12 @@ namespace Muine
 			"gnome-mime-audio"
 		};
 
+		// Variables
 		private static IconSize cover_size;
-		public static IconSize CoverSize {
-			get {
-				return cover_size;
-			}
-		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Initalize		
 		public static void Initialize ()
 		{
 			IconFactory factory = new IconFactory ();
@@ -68,7 +69,7 @@ namespace Muine
 				Pixbuf pixbuf = new Pixbuf (null, name + ".png");
 				IconSet iconset = new IconSet (pixbuf);
 
-				/* add menu variant if we have it */
+				// add menu variant if we have it
 				Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
 				if (menu_stream != null) {
 					IconSource source = new IconSource ();
@@ -93,10 +94,16 @@ namespace Muine
 				factory.Add (name, iconset);
 			}
 
-			/* register cover image icon size */
+			// register cover image icon size
 			cover_size = Icon.SizeRegister ("muine-album-cover-size",
 							CoverDatabase.CoverSize,
 							CoverDatabase.CoverSize);
+		}
+
+		// Properties
+		// Properties :: CoverSize		
+		public static IconSize CoverSize {
+			get { return cover_size; }
 		}
 	}
 }

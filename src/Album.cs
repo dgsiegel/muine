@@ -28,73 +28,56 @@ namespace Muine
 {
 	public class Album : Item
 	{
-		// Space-separated list of prefixes that will be taken off the front
-		// when sorting. For example, "The Beatles" will be sorted as "Beatles",
-		// if "the" is included in this list. Also include the English "the"
-		// if English is generally spoken in your country. */
-		private static readonly string [] prefixes = 
-			Catalog.GetString ("the dj").Split (' ');
+		// Strings
+		// Strings :: Prefixes
+		// 	Space-separated list of prefixes that will be taken off the front
+		// 	when sorting. For example, "The Beatles" will be sorted as "Beatles",
+		// 	if "the" is included in this list. Also include the English "the"
+		// 	if English is generally spoken in your country.
+		private static readonly string string_prefixes =
+			Catalog.GetString ("the dj");
 
-		// Properties
-		private string name;
-		public string Name {
-			get { return name; }
+		// Static
+		// Static :: Methods
+		// Static :: Methods :: FromHandle
+		public static Album FromHandle (IntPtr handle)
+		{
+			return (Album) pointers [handle];
 		}
 
-		private ArrayList songs;
-		public ArrayList Songs {
-			get {
-				lock (this) {
-					return (ArrayList) songs.Clone ();
-				}
+		// Internal Classes
+		// Internal Classes :: SongComparer
+		private class SongComparer : IComparer {
+			int IComparer.Compare (object a, object b)
+			{
+				Song song_a = (Song) a;
+				Song song_b = (Song) b;
+
+				int ret = song_a.DiscNumber.CompareTo (song_b.DiscNumber);
+				
+				if (ret == 0)
+					ret = song_a.TrackNumber.CompareTo (song_b.TrackNumber);
+				
+				return ret;
 			}
 		}
 
-		private ArrayList artists;
-		public string [] Artists {
-			get {
-				lock (this) {
-					return (string []) artists.ToArray (typeof (string));
-				}
-			}
-		}
-
-		private ArrayList performers;
-		public string [] Performers {
-			get {
-				lock (this) {
-					return (string []) performers.ToArray (typeof (string));
-				}
-			}
-		}
-
-		private string year;
-		public string Year {
-			get { return year; }
-		}
-
+		// Objects
+		private IComparer  song_comparer = new SongComparer ();
 		private Gdk.Pixbuf cover_image;
-		public override Gdk.Pixbuf CoverImage {
-			set {
-				cover_image = value;
 
-				foreach (Song s in songs)
-					s.CoverImage = value;
-
-				Global.DB.EmitAlbumChanged (this);
-			}
-
-			get { return cover_image; }
-		}
-
+		// Variables
+		private string name;
+		private ArrayList songs;
+		private ArrayList artists;
+		private ArrayList performers;
+		private string year;
 		private string folder;
 
-		public string Key {
-			get {
-				return Global.DB.MakeAlbumKey (folder, name);
-			}
-		}
-
+		private static Hashtable pointers = new Hashtable ();
+		private static IntPtr cur_ptr = IntPtr.Zero;
+		
+		// Constructor
 		public Album (Song initial_song, bool check_cover)
 		{
 			songs = new ArrayList ();
@@ -122,11 +105,188 @@ namespace Muine
 			}
 		}
 
-		public static Album FromHandle (IntPtr handle)
-		{
-			return (Album) pointers [handle];
+		// Properties
+		// Properties :: Name (get;)
+		public string Name {
+			get { return name; }
 		}
 
+		// Properties :: Songs (get;)
+		public ArrayList Songs {
+			get {
+				lock (this) {
+					return (ArrayList) songs.Clone ();
+				}
+			}
+		}
+
+		// Properties :: Artists (get;)
+		public string [] Artists {
+			get {
+				lock (this) {
+					return (string []) artists.ToArray (typeof (string));
+				}
+			}
+		}
+
+		// Properties :: Performers (get;)
+		public string [] Performers {
+			get {
+				lock (this) {
+					return (string []) performers.ToArray (typeof (string));
+				}
+			}
+		}
+
+		// Properties :: Year (get;)
+		public string Year {
+			get { return year; }
+		}
+
+		// Properties :: CoverImage (set; get;) (Item)
+		public override Gdk.Pixbuf CoverImage {
+			set {
+				cover_image = value;
+
+				foreach (Song s in songs)
+					s.CoverImage = value;
+
+				Global.DB.EmitAlbumChanged (this);
+			}
+
+			get { return cover_image; }
+		}
+
+		// Properties :: Key (get;)
+		public string Key {
+			get { return Global.DB.MakeAlbumKey (folder, name); }
+		}
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Add
+		public void Add (Song song, bool check_cover,
+		                 out bool changed, out bool songs_changed)
+		{
+			changed = false;
+			songs_changed = false;
+
+			lock (this) {
+				if (check_cover) {
+					if (cover_image == null && song.CoverImage != null) {
+						// This is to pick up any embedded album covers
+						changed = true;
+						songs_changed = true;
+				
+						cover_image = song.CoverImage;
+						foreach (Song s in Songs)
+							s.SetCoverImageQuiet (cover_image);
+					} else
+						song.SetCoverImageQuiet (cover_image);
+				}
+
+				if (year.Length == 0 && song.Year.Length > 0) {
+					year = song.Year;
+
+					changed = true;
+				}
+
+				bool artists_changed = AddArtistsAndPerformers (song);
+				if (artists_changed)
+					changed = true;
+
+				songs.Add (song);
+				songs.Sort (song_comparer);
+			}
+		}
+
+		// Methods :: Public :: Remove
+		// 	Returns: 'true' if the album is now empty
+		public bool Remove (Song song)
+		{
+			lock (this) {
+				songs.Remove (song);
+
+				if (songs.Count > 0)
+					return false;
+
+				pointers.Remove (base.handle);
+
+				if (!FileUtils.IsFromRemovableMedia (folder))
+					Global.CoverDB.RemoveCover (Key);
+
+				return true;
+			}
+		}
+
+		// Methods :: Public :: SetCoverLocal
+		public void SetCoverLocal (string file)
+		{
+			CoverImage = Global.CoverDB.Getter.GetLocal (Key, file);
+		}
+
+		// Methods :: Public :: SetCoverWeb
+		public void SetCoverWeb (string url)
+		{
+			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
+					new CoverGetter.GotCoverDelegate (OnGotCover));
+		}
+
+		// Methods :: Protected
+		// Methods :: Protected :: GenerateSortKey
+		protected override string GenerateSortKey ()
+		{
+			string [] prefixes = string_prefixes.Split (' ');
+
+			string [] p_artists = new string [artists.Count];
+			for (int i = 0; i < artists.Count; i++) {
+				p_artists [i] = ((string) artists [i]).ToLower ();
+				
+				foreach (string prefix in prefixes) {
+					if (!p_artists [i].StartsWith (prefix + " "))
+						continue;
+
+					p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+					break;
+				}
+			}
+
+			string [] p_performers = new string [performers.Count];
+			for (int i = 0; i < performers.Count; i++) {
+				p_performers [i] = ((string) performers [i]).ToLower ();
+				
+				foreach (string prefix in prefixes) {
+					if (!p_performers [i].StartsWith (prefix + " "))
+						continue;
+
+					p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
+					break;
+				}
+			}
+
+			string a = String.Join (" ", p_artists);
+			string p = String.Join (" ", p_performers);
+
+			// more than three artists, sort by album name
+			// three or less artists, sort by artist
+			string key = (artists.Count > 3)
+				     ? String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p)
+				     : String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
+
+			return StringUtils.CollateKey (key);
+		}				
+
+		// Methods :: Protected :: GenerateSearchKey
+		protected override string GenerateSearchKey ()
+		{
+			string a = String.Join (" ", Artists).ToLower ();
+			string p = String.Join (" ", Performers).ToLower ();
+
+			return String.Format ("{0} {1} {2}", name.ToLower (), a, p);
+		}
+
+		// Methods :: Private
+		// Methods :: Private :: AddArtistsAndPerformers
 		private bool AddArtistsAndPerformers (Song song)
 		{
 			bool artists_changed = false;
@@ -161,84 +321,7 @@ namespace Muine
 			return (artists_changed || performers_changed);
 		}
 
-		private class SongComparer : IComparer {
-			int IComparer.Compare (object a, object b)
-			{
-				Song song_a = (Song) a;
-				Song song_b = (Song) b;
-
-				if (song_a.DiscNumber < song_b.DiscNumber)
-					return -1;
-				else if (song_a.DiscNumber > song_b.DiscNumber)
-					return 1;
-				else {
-					if (song_a.TrackNumber < song_b.TrackNumber)
-						return -1;
-					else if (song_a.TrackNumber > song_b.TrackNumber)
-						return 1;
-					else 
-						return 0;
-				}
-			}
-		}
-
-		private static IComparer song_comparer = new SongComparer ();
-
-		public void Add (Song song,
-				 bool check_cover,
-		                 out bool changed,
-				 out bool songs_changed)
-		{
-			changed = false;
-			songs_changed = false;
-
-			lock (this) {
-				if (check_cover) {
-					if (cover_image == null && song.CoverImage != null) {
-						// This is to pick up any embedded album covers
-						changed = true;
-						songs_changed = true;
-				
-						cover_image = song.CoverImage;
-						foreach (Song s in Songs)
-							s.SetCoverImageQuiet (cover_image);
-					} else
-						song.SetCoverImageQuiet (cover_image);
-				}
-
-				if (year.Length == 0 && song.Year.Length > 0) {
-					year = song.Year;
-
-					changed = true;
-				}
-
-				bool artists_changed = AddArtistsAndPerformers (song);
-				if (artists_changed)
-					changed = true;
-
-				songs.Add (song);
-				songs.Sort (song_comparer);
-			}
-		}
-
-		// returns true if the album is now empty
-		public bool Remove (Song song)
-		{
-			lock (this) {
-				songs.Remove (song);
-
-				if (songs.Count > 0)
-					return false;
-
-				pointers.Remove (base.handle);
-
-				if (!FileUtils.IsFromRemovableMedia (folder))
-					Global.CoverDB.RemoveCover (Key);
-
-				return true;
-			}
-		}
-
+		// Methods :: Private :: GetCover
 		private Pixbuf GetCover (Song initial_song)
 		{
 			string key = Key;
@@ -258,72 +341,11 @@ namespace Muine
 			return Global.CoverDB.Getter.GetAmazon (this);
 		}
 
-		public void SetCoverLocal (string file)
-		{
-			CoverImage = Global.CoverDB.Getter.GetLocal (Key, file);
-		}
-
-		public void SetCoverWeb (string url)
-		{
-			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
-					new CoverGetter.GotCoverDelegate (OnGotCover));
-		}
-
+		// Handlers
+		// Handlers :: OnGotCover
 		private void OnGotCover (Pixbuf pixbuf)
 		{
 			CoverImage = pixbuf;
-		}
-
-		private static Hashtable pointers = new Hashtable ();
-		private static IntPtr cur_ptr = IntPtr.Zero;
-		
-		protected override string GenerateSortKey ()
-		{
-			string [] p_artists = new string [artists.Count];
-			for (int i = 0; i < artists.Count; i++) {
-				p_artists [i] = ((string) artists [i]).ToLower ();
-				
-				foreach (string prefix in prefixes) {
-					if (p_artists [i].StartsWith (prefix + " ")) {
-						p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
-
-						break;
-					}
-				}
-			}
-
-			string [] p_performers = new string [performers.Count];
-			for (int i = 0; i < performers.Count; i++) {
-				p_performers [i] = ((string) performers [i]).ToLower ();
-				
-				foreach (string prefix in prefixes) {
-					if (p_performers [i].StartsWith (prefix + " ")) {
-						p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
-
-						break;
-					}
-				}
-			}
-
-			string a = String.Join (" ", p_artists);
-			string p = String.Join (" ", p_performers);
-
-			/* more than three artists, sort by album name
-			 * three or less artists, sort by artist */
-
-			string key = (artists.Count > 3)
-				     ? String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p)
-				     : String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
-
-			return StringUtils.CollateKey (key);
-		}				
-
-		protected override string GenerateSearchKey ()
-		{
-			string a = String.Join (" ", Artists).ToLower ();
-			string p = String.Join (" ", Performers).ToLower ();
-
-			return String.Format ("{0} {1} {2}", name.ToLower (), a, p);
 		}
 	}
 }

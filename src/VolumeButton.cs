@@ -23,30 +23,65 @@ using System;
 
 namespace Muine
 {
-	class VolumeButton : ToggleButton
+	public class VolumeButton : ToggleButton
 	{
+		// Constants
+		// 	GDK_CURRENT_TIME doesn't seem to have an equiv in gtk# yet.
+		private const uint CURRENT_TIME = 0;
+
+		// Events
+		public delegate void VolumeChangedHandler (int vol);
+		public event         VolumeChangedHandler VolumeChanged;
+				
+		// Widgets
 		private Image icon;
 		private Window popup;
+		
+		// Variables
 		private int volume;
+
+		// Variables :: revert_volume
+		// 	Volume to restore to if the user rejects the slider changes.
 		private int revert_volume;
 
-		/* GDK_CURRENT_TIME doesn't seem to have an equiv in gtk-sharp yet. */
-		const uint CURRENT_TIME = 0;
+		// Constructor
+		public VolumeButton () : base ()
+		{
+			icon = new Image ();
+			icon.Show ();
+			Add (icon);
 
+			popup = null;
+
+			base.ScrollEvent += new ScrollEventHandler (OnScrollEvent);
+			base.Toggled     += new EventHandler       (OnToggled    );
+			
+			base.Flags |= (int) WidgetFlags.NoWindow;
+		}
+
+		// Destructor
+		~VolumeButton ()
+		{
+			Dispose ();
+		}
+
+		// Properties
+		// Properties :: Volume (set; get;)
 		public int Volume {
 			set {
-				string id = "muine-volume-";
-				
 				volume = value;
 
-				if (volume <= 0)
-					id += "zero";
-				else if (volume <= 100 / 3)
-					id += "min";
-				else if (volume <= 200 / 3)
-					id += "medium";
-				else
-					id += "max";
+				string id = "muine-volume-";
+						
+				id += (volume <= 0)
+				      ? "zero"
+				      :
+				      (volume <= 100 / 3)
+				      ? "min"
+				      :
+				      (volume <= 200 / 3)
+				      ? "medium"
+				      : "max";
 
 				icon.SetFromStock (id, IconSize.LargeToolbar);
 
@@ -56,60 +91,30 @@ namespace Muine
 			get { return volume; }
 		}
 
-		public delegate void VolumeChangedHandler (int vol);
-		public event VolumeChangedHandler VolumeChanged;
-
-		public VolumeButton () : base ()
-		{
-			icon = new Image ();
-			icon.Show ();
-			Add (icon);
-
-			popup = null;
-
-			ScrollEvent += new ScrollEventHandler (OnScrollEvent);
-			Toggled += new EventHandler (OnToggled);
-			
-			Flags |= (int) WidgetFlags.NoWindow;
-		}
-
-		~VolumeButton ()
-		{
-			Dispose ();
-		}
-
+		// Methods
+		// Methods :: Private
+		// Methods :: Private :: ShowScale
 		private void ShowScale ()
 		{
-			VScale scale;
-			VBox box;
-			Adjustment adj;
-			Frame frame;
-			Label label;
-			Image vol_icon_top;
-			Image vol_icon_bottom;
-			Requisition req;
-			int x, y;
-			
-			/* Check point the volume so that we can restore it if the user rejects the slider changes. */
-			revert_volume = Volume;
+			revert_volume = this.Volume;
 
 			popup = new Window (WindowType.Popup);
-			popup.Screen = this.Screen;
+			popup.Screen = base.Screen;
 
-			frame = new Frame ();
+			Frame frame = new Frame ();
 			frame.Shadow = ShadowType.Out;
 			frame.Show ();
 
 			popup.Add (frame);
 
-			box = new VBox (false, 0);
+			VBox box = new VBox (false, 0);
 			box.Show();
 
 			frame.Add (box);
 
-			adj = new Adjustment (volume, 0, 100, 5, 10, 0);		
+			Adjustment adj = new Adjustment (volume, 0, 100, 5, 10, 0);		
 
-			scale = new VScale (adj);
+			VScale scale = new VScale (adj);
 			scale.ValueChanged += new EventHandler (OnScaleValueChanged);
 			scale.KeyPressEvent += new KeyPressEventHandler (OnScaleKeyPressEvent);
 			popup.ButtonPressEvent += new ButtonPressEventHandler (OnPopupButtonPressEvent);
@@ -122,7 +127,7 @@ namespace Muine
 
 			scale.Show ();
 
-			label = new Label ("+");
+			Label label = new Label ("+");
 			label.Show ();
 			box.PackStart (label, false, true, 0);
 
@@ -132,8 +137,9 @@ namespace Muine
 
 			box.PackStart (scale, true, true, 0);
 
-			req = SizeRequest ();
+			Requisition req = SizeRequest ();
 
+			int x, y;
 			GdkWindow.GetOrigin (out x, out y);
 
 			scale.SetSizeRequest (-1, 100);
@@ -166,6 +172,7 @@ namespace Muine
 			}
 		}
 
+		// Methods :: Private :: HideScale
 		private void HideScale ()
 		{
 			if (popup != null) {
@@ -180,6 +187,8 @@ namespace Muine
 			Active = false;
 		}
 
+		// Handlers
+		// Handlers :: OnToggled
 		private void OnToggled (object obj, EventArgs args)
 		{
 			if (Active)
@@ -188,6 +197,7 @@ namespace Muine
 				HideScale ();
 		}
 
+		// Handlers :: OnScrollEvent
 		private void OnScrollEvent (object obj, ScrollEventArgs args)
 		{
 			int tmp_vol = Volume;
@@ -196,32 +206,38 @@ namespace Muine
 			case Gdk.ScrollDirection.Up:
 				tmp_vol += 10;
 				break;
+
 			case Gdk.ScrollDirection.Down:
 				tmp_vol -= 10;
 				break;
+
 			default:
 				break;
 			}
 
-			// A CLAMP equiv doesn't seem to exist ... doing that manually
+			// Assure volume is between 0 and 100
 			tmp_vol = Math.Min (100, tmp_vol);
-			tmp_vol = Math.Max (0, tmp_vol);
+			tmp_vol = Math.Max (  0, tmp_vol);
 
-			Volume = tmp_vol;
+			this.Volume = tmp_vol;
 		}
 
+		// Handlers :: OnScaleValueChanged
 		private void OnScaleValueChanged (object obj, EventArgs args)
 		{
-			Volume = (int)((VScale)obj).Value;
+			VScale scale = (VScale) obj;
+			this.Volume = (int) scale.Value;
 		}
 
+		// Handlers :: OnScaleKeyPressEvent
 		private void OnScaleKeyPressEvent (object obj, KeyPressEventArgs args)
 		{
 			switch (args.Event.Key) {
 			case Gdk.Key.Escape:
 				HideScale ();
-				Volume = revert_volume;
+				this.Volume = revert_volume;
 				break;
+
 			case Gdk.Key.KP_Enter:
 			case Gdk.Key.ISO_Enter:
 			case Gdk.Key.Key_3270_Enter:
@@ -230,11 +246,13 @@ namespace Muine
 			case Gdk.Key.KP_Space:
 				HideScale ();
 				break;
+
 			default:
 				break;
 			}
 		}
 
+		// Handlers :: OnPopupButtonPressEvent
 		private void OnPopupButtonPressEvent (object obj, ButtonPressEventArgs args)
 		{
 			if (popup != null)

@@ -23,43 +23,37 @@ using System.Runtime.InteropServices;
 
 namespace Muine
 {
-	public class MarkupUtils 
+	public sealed class MarkupUtils 
 	{
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: LabelSetMarkup
 		[DllImport ("libmuine")]
 		private static extern void label_set_markup (IntPtr label,
-							     uint start_index,
-							     uint end_index,
-							     bool large,
-							     bool bold,
-							     bool italic);
+							     uint start_index, uint end_index,
+							     bool large, bool bold, bool italic);
 
 		public static void LabelSetMarkup (Label label,
-						   uint start_index,
-						   uint end_index,
-						   bool large,
-						   bool bold,
-						   bool italic)
+						   uint start_index, uint end_index,
+						   bool large, bool bold, bool italic)
 		{
-			label_set_markup (label.Handle, start_index, end_index,
+			label_set_markup (label.Handle, 
+					  start_index, end_index,
 					  large, bold, italic);
 		}
 
+		// Methods :: Public :: CellSetMarkup
 		[DllImport ("libmuine")]
 		private static extern void cell_set_markup (IntPtr label,
-							    uint start_index,
-							    uint end_index,
-							    bool large,
-							    bool bold,
-							    bool italic);
+							    uint start_index, uint end_index,
+							    bool large, bool bold, bool italic);
 
 		public static void CellSetMarkup (CellRendererText cell,
-						  uint start_index,
-						  uint end_index,
-						  bool large,
-						  bool bold,
-						  bool italic)
+						  uint start_index, uint end_index,
+						  bool large, bool bold, bool italic)
 		{
-			cell_set_markup (cell.Handle, start_index, end_index,
+			cell_set_markup (cell.Handle, 
+			                 start_index, end_index,
 					 large, bold, italic);
 		}
 	}

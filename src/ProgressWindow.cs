@@ -31,20 +31,20 @@ namespace Muine
 		// Strings
 		private static readonly string string_title =
 			Catalog.GetString ("Importing {0}...");
-		
-		// Widgets
-		[Glade.Widget]
-		Window window;
-		[Glade.Widget]
-		Label loading_label;
-		[Glade.Widget]
-		Container file_label_container;
-		private EllipsizingLabel file_label;
-
-		private bool canceled = false;
 
 		private static string title_format;
-		
+				
+		// Widgets
+		[Glade.Widget] private Window    window;
+		[Glade.Widget] private Label     loading_label;
+		[Glade.Widget] private Container file_label_container;
+
+		private EllipsizingLabel file_label;
+
+		// Variables
+		private bool canceled = false;
+
+		// Constructor
 		public ProgressWindow (Window parent)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
@@ -65,6 +65,9 @@ namespace Muine
 			title_format = string_title;
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Report
 		public bool Report (string folder, string file)
 		{
 			if (canceled)
@@ -80,26 +83,25 @@ namespace Muine
 			return false;
 		}
 
+		// Methods :: Public :: Done
 		public void Done ()
 		{
 			window.Destroy ();
 		}
 
+		// Handlers
+		// Handlers :: OnWindowResponse
 		private void OnWindowResponse (object o, EventArgs a)
 		{
 			window.Visible = false;
-
 			canceled = true;
 		}
 
-		private void OnWindowDeleteEvent (object o, EventArgs a)
+		// Handlers :: OnWindowDeleteEvent
+		private void OnWindowDeleteEvent (object o, DeleteEventArgs args)
 		{
 			window.Visible = false;
-
-			DeleteEventArgs args = (DeleteEventArgs) a;
-
 			args.RetVal = true;
-
 			canceled = true;
 		}
 	}

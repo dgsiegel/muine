@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Rename to DBusService since we now have the Muine namespace
+
 using System;
 
 using DBus;
@@ -26,15 +28,12 @@ namespace Muine
 {
 	public sealed class MuineDBusService
 	{
-		private Service service;
-		private Connection conn;
-		
-		private MuineDBusService ()
-		{
-			Init ();
-		}
-
+		// Static
+		// Static :: Objects
 		private static MuineDBusService instance;
+
+		// Static :: Properties
+		// Static :: Properties :: Instance (get;)
 		public static MuineDBusService Instance {
 			get {
 				if (instance == null)
@@ -43,12 +42,20 @@ namespace Muine
 			}
 		}
 
-		private void Init ()
+		// Objects
+		private Service service;
+		private Connection conn;
+		
+		// Constructor
+		private MuineDBusService ()
 		{
 			conn = Bus.GetSessionBus ();
 			service = new Service (conn, "org.gnome.Muine");
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: RegisterObject
 		public void RegisterObject (object obj, string path)
 		{
 			service.RegisterObject (obj, path);

@@ -24,7 +24,7 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class StringUtils
+	public sealed class StringUtils
 	{
 		// Strings
 		private static readonly string string_unknown =
@@ -34,6 +34,9 @@ namespace Muine
 		private static readonly string string_several =
 			Catalog.GetString ("{0} and {1}");
 		
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: SecondsToString		
 		public static string SecondsToString (long time)
 		{
 			long h, m, s;
@@ -42,34 +45,32 @@ namespace Muine
 			m = ((time % 3600) / 60);
 			s = ((time % 3600) % 60);
 
-			if (h > 0) {
-				return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
-			} else {
-				return m + ":" + s.ToString ("d2");
-			}
+			return (h > 0)
+  			       ? String.Format ("{0}:{1}:{2}", h, m.ToString ("d2"), s.ToString ("d2"))
+			       : String.Format (    "{0}:{1}",    m                , s.ToString ("d2"));
 		}
 
-		public static string JoinHumanReadable (string [] strings, int max)
-		{
-			string ret;
-
-			if (strings.Length == 0)
-				ret = string_unknown;
-			else if (strings.Length == 1) 
-				ret = strings [0];
-			else if (max > 1 && strings.Length > max)
-				ret = String.Format (string_many, String.Join (", ", strings, 0, max));
-			else
-				ret = String.Format (string_several, String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
-
-			return ret;
-		}
-
+		// Methods :: Public :: JoinHumanReadable
 		public static string JoinHumanReadable (string [] strings)
 		{
 			return JoinHumanReadable (strings, -1);
 		}
 
+		public static string JoinHumanReadable (string [] strings, int max)
+		{
+			return (strings.Length == 0)
+			       ? string_unknown
+			       :
+			       (strings.Length == 1)
+			       ? strings [0]
+			       :
+			       (max > 1 && strings.Length > max)
+			       ? String.Format (string_many   , String.Join (", ", strings, 0, max               ))
+			       : String.Format (string_several, String.Join (", ", strings, 0, strings.Length - 1), 
+			       						     strings [strings.Length - 1]);
+		}
+
+		// Methods :: Public :: PrefixToSuffix
 		public static string PrefixToSuffix (string str, string prefix)
 		{
 			string ret;
@@ -80,6 +81,7 @@ namespace Muine
 			return ret;
 		}
 
+		// Methods :: Public :: GetByteLength
 		[DllImport ("libc")]
 		private static extern int strlen (string str);
 
@@ -87,7 +89,8 @@ namespace Muine
 		{
 			return (uint) strlen (str);
 		}
-		
+
+		// Methods :: Public :: CollateKey		
 		[DllImport ("libglib-2.0-0.dll")]
 		private static extern IntPtr g_utf8_collate_key (string str, int len);
 

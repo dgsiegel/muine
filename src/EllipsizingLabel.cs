@@ -27,6 +27,7 @@ namespace Muine
 {
 	public class EllipsizingLabel : Label
 	{
+		// Constructor
 		[DllImport ("libmuine")]
 		private static extern IntPtr rb_ellipsizing_label_new (string text);
 		
@@ -35,23 +36,20 @@ namespace Muine
 			Raw = rb_ellipsizing_label_new (text);
 		}
 
+		// Destructor
 		~EllipsizingLabel ()
 		{
 			Dispose ();
 		}
 
+		// Properties
+		// Properties :: Text (set; get;)
 		[DllImport ("libmuine")]
-		private static extern void rb_ellipsizing_label_set_text (IntPtr label,
-									  string text);
+		private static extern void rb_ellipsizing_label_set_text (IntPtr label, string text);
 
 		public new string Text {
-			set {
-				rb_ellipsizing_label_set_text (Raw, value);
-			}
-			
-			get {
-				return ((Label) this).Text;
-			}
+			set { rb_ellipsizing_label_set_text (Raw, value); }
+			get { return base.Text;	}
 		}
 	}
 }

@@ -31,220 +31,40 @@ namespace Muine
 {
 	public class Song : Item, ISong
 	{
+		// Static
+		// Static :: Variables
+		private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
+		private static IntPtr cur_ptr = IntPtr.Zero;
+
+		// Static :: Methods
+		// Static :: Methods :: Public
+		// Static :: Methods :: Public :: FromHandle
+		public static Song FromHandle (IntPtr handle)
+		{
+			return (Song) pointers [handle];
+		}
+
+		// Variables
 		private string filename;
-		public string Filename {
-			get { return filename; }
-		}
-
-		public string Folder {
-			get {
-				return Path.GetDirectoryName (filename);
-			}
-		}
-		
 		private string title;
-		public string Title {
-			get { return title; }
-		}
-
 		private string [] artists;
-		public string [] Artists {
-			get { return artists; }
-		}
-
 		private string [] performers;
-		public string [] Performers {
-			get { return performers; }
-		}
-
 		private string album;
-		public string Album {
-			get { return album; }
-		}
-
-		public bool HasAlbum {
-			get {
-				return (album != null && album.Length > 0);
-			}
-		}
-
 		private int track_number;
-		public int TrackNumber {
-			get { return track_number; }
-		}
-
 		private int disc_number;
-		public int DiscNumber {
-			get { return disc_number; }
-		}
-
 		private string year;
-		public string Year {
-			get { return year; }
-		}
-
 		private int duration;
-		public int Duration {
-			// we have a setter too, because sometimes we want
-			// to correct the duration.
-			set {
-				duration = value;
-
-				Global.DB.EmitSongChanged (this);
-			}
-		
-			get { return duration; }
-		}
+		private double gain;
+		private double peak;
 
 		private Gdk.Pixbuf cover_image;
-		public override Gdk.Pixbuf CoverImage {
-			set {
-				cover_image = value;
-
-				Global.DB.EmitSongChanged (this);
-			}
-		
-			get { return cover_image; }
-		}
-
-		public void SetCoverImageQuiet (Pixbuf cover_image)
-		{
-			this.cover_image = cover_image;
-		}
-	
 		private int mtime;
-		public int MTime {
-			get { return mtime; }
-		}
-
-		private double gain;
-		public double Gain {
-			get { return gain; }
-		}
-
-		private double peak;
-		public double Peak {
-			get { return peak; }
-		}
-
-		public string AlbumKey {
-			get {
-				return Global.DB.MakeAlbumKey (Folder, album);
-			}
-		}
 
 		private bool dead = false;
-		public bool Dead {
-			get { return dead; }
-		}
-
-		public void Deregister ()
-		{
-			dead = true;
-
-			pointers.Remove (this.Handle);
-
-			foreach (IntPtr extra_handle in handles)
-				pointers.Remove (extra_handle);
-				
-			if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
-				Global.CoverDB.RemoveCover (filename);
-		}
-
-		public override IntPtr Handle {
-			get { return (IntPtr) handles [0]; }
-		}
 
 		private ArrayList handles;
-		public ArrayList Handles {
-			get { return handles; }
-		}
-
-		// support for having multiple handles to the same song,
-		// used for, for example, having the same song in the playlist
-		// more than once.
-		public IntPtr RegisterHandle ()
-		{
-			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
-			pointers [cur_ptr] = this;
-
-			handles.Add (cur_ptr);
-
-			return cur_ptr;
-		}
 	
-		public IntPtr RegisterExtraHandle ()
-		{
-			return RegisterHandle ();
-		}
-
-		public void UnregisterExtraHandle (IntPtr handle)
-		{
-			handles.Remove (cur_ptr);
-
-			pointers.Remove (handle);
-		}
-
-		public bool IsExtraHandle (IntPtr h)
-		{
-			return ((pointers [h] == this) &&
-				(Handle != h));
-		}
-
-		public void Sync (Metadata metadata)
-		{
-			bool had_album = HasAlbum;
-
-			if (metadata.Title.Length > 0)
-				title = metadata.Title;
-			else
-				title = Path.GetFileNameWithoutExtension (filename);
-			
-			artists = metadata.Artists;
-			performers = metadata.Performers;
-			album = metadata.Album;
-			track_number = metadata.TrackNumber;
-			disc_number = metadata.DiscNumber;
-			year = metadata.Year;
-			duration = metadata.Duration;
-			mtime = metadata.MTime;
-			gain = metadata.Gain;
-			peak = metadata.Peak;
-
-			// we need to do cover stuff here too, as we support setting covers
-			// to songs that are not associated with any album. and, we also need
-			// this to support ID3 embedded cover images.
-			// Note that CoverDB has the required thread safety for us to be able
-			// to do this from a thread.
-			// Also, this is safe here as Sync () is only called for new or 
-			// actually changed songs. Never from db.Load.
-			if (!had_album && HasAlbum && cover_image != null) {
-				// This used to be a single song, but not anymore, and it does
-				// have a cover- migrate the cover to the album, if there is
-				// none there yet
-				Global.CoverDB.RemoveCover (filename);
-
-				string akey = AlbumKey;
-				if (Global.CoverDB.Covers [akey] == null)
-					Global.CoverDB.SetCover (akey, cover_image);
-			} else if (!HasAlbum) // See if there is a cover for this single song
-				cover_image = (Pixbuf) Global.CoverDB.Covers [filename];
-
-			if (cover_image == null && metadata.AlbumArt != null) {
-				// Look for an ID3 embedded cover image, if it is there, and no
-				// cover image is set yet, set it as cover image if it is a single
-				// song, or as album cover image if it belongs to an album 
-				string key = HasAlbum ? AlbumKey : filename;
-
-				if (Global.CoverDB.Covers [key] == null)
-					cover_image = Global.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
-				// Album itself will pick up change when this song is added to it
-			}
-
-			sort_key = null;
-			search_key = null;
-		}
-
+		// Constructor
 		public Song (string fn)
 		{
 			filename = fn;
@@ -298,7 +118,235 @@ namespace Muine
 
 			RegisterHandle ();
 		}
+																
+		// Properties
+		// Properties :: Filename (get;)
+		public string Filename {
+			get { return filename; }
+		}
 
+		// Properties :: Folder (get;)
+		public string Folder {
+			get { return Path.GetDirectoryName (filename); }
+		}
+		
+		// Properties :: Title (get;)
+		public string Title {
+			get { return title; }
+		}
+
+		// Properties :: Artists (get;)
+		public string [] Artists {
+			get { return artists; }
+		}
+
+		// Properties :: Performers (get;)
+		public string [] Performers {
+			get { return performers; }
+		}
+
+		// Properties :: Album (get;)
+		public string Album {
+			get { return album; }
+		}
+
+		// Properties :: HasAlbum (get;)
+		public bool HasAlbum {
+			get { return (album != null && album.Length > 0); }
+		}
+
+		// Properties :: TrackNumber (get;)
+		public int TrackNumber {
+			get { return track_number; }
+		}
+
+		// Properties :: DiscNumber (get;)
+		public int DiscNumber {
+			get { return disc_number; }
+		}
+
+		// Properties :: Year (get;)
+		public string Year {
+			get { return year; }
+		}
+
+		// Properties :: Duration (set; get;)
+		// 	we have a setter too, because sometimes we want to 
+		//	correct the duration.
+		public int Duration {
+			set {
+				duration = value;
+				Global.DB.EmitSongChanged (this);
+			}
+		
+			get { return duration; }
+		}
+
+		// Properties :: CoverImage (set; get;)
+		public override Gdk.Pixbuf CoverImage {
+			set {
+				cover_image = value;
+				Global.DB.EmitSongChanged (this);
+			}
+		
+			get { return cover_image; }
+		}
+
+		// Properties :: MTime (get;)
+		public int MTime {
+			get { return mtime; }
+		}
+
+		// Properties :: Gain (get;)
+		public double Gain {
+			get { return gain; }
+		}
+
+		// Properties :: Peak (get;)
+		public double Peak {
+			get { return peak; }
+		}
+
+		// Properties :: AlbumKey (get;)
+		public string AlbumKey {
+			get { return Global.DB.MakeAlbumKey (Folder, album); }
+		}
+
+		// Properties :: Dead (get;)
+		public bool Dead {
+			get { return dead; }
+		}
+
+		// Properties :: Handle (get;)
+		public override IntPtr Handle {
+			get { return (IntPtr) handles [0]; }
+		}
+
+		// Properties :: Handles (get;)
+		public ArrayList Handles {
+			get { return handles; }
+		}
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: SetCoverImageQuiet
+		public void SetCoverImageQuiet (Pixbuf cover_image)
+		{
+			this.cover_image = cover_image;
+		}
+
+		// Methods :: Public :: Deregister
+		public void Deregister ()
+		{
+			dead = true;
+
+			pointers.Remove (this.Handle);
+
+			foreach (IntPtr extra_handle in handles)
+				pointers.Remove (extra_handle);
+				
+			if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
+				Global.CoverDB.RemoveCover (filename);
+		}
+
+		// Methods :: Public :: RegisterHandle
+		// 	Support for having multiple handles to the same song,
+		// 	used for, for example, having the same song in the 
+		//	playlist more than once.
+		public IntPtr RegisterHandle ()
+		{
+			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
+			pointers [cur_ptr] = this;
+
+			handles.Add (cur_ptr);
+
+			return cur_ptr;
+		}
+	
+		// Methods :: Public :: RegisterExtraHandle
+		public IntPtr RegisterExtraHandle ()
+		{
+			return RegisterHandle ();
+		}
+
+		// Methods :: Public :: UnregisterExtraHandle
+		public void UnregisterExtraHandle (IntPtr handle)
+		{
+			handles.Remove (cur_ptr);
+			pointers.Remove (handle);
+		}
+
+		// Methods :: Public :: IsExtraHandle
+		public bool IsExtraHandle (IntPtr h)
+		{
+			return ((pointers [h] == this) &&
+				(Handle != h));
+		}
+
+		// Methods :: Public :: Sync
+		//	TODO: Split / clean this up.
+		public void Sync (Metadata metadata)
+		{
+			bool had_album = HasAlbum;
+
+			title = (metadata.Title.Length > 0)
+				? metadata.Title
+				: Path.GetFileNameWithoutExtension (filename);
+			
+			artists      = metadata.Artists;
+			performers   = metadata.Performers;
+			album        = metadata.Album;
+			track_number = metadata.TrackNumber;
+			disc_number  = metadata.DiscNumber;
+			year         = metadata.Year;
+			duration     = metadata.Duration;
+			mtime        = metadata.MTime;
+			gain         = metadata.Gain;
+			peak         = metadata.Peak;
+
+			// We need to do cover stuff here too, as we support 
+			// setting covers to songs that are not associated with
+			// any album. and, we also need this to support ID3 
+			// embedded cover images.
+			//
+			// Note that CoverDB has the required thread safety for
+			// us to be able to do this from a thread.
+			//
+			// Also, this is safe here as Sync () is only called for new or 
+			// actually changed songs. Never from db.Load.
+			if (!had_album && HasAlbum && cover_image != null) {
+				// This used to be a single song, but not anymore, and it does
+				// have a cover- migrate the cover to the album, if there is
+				// none there yet
+				Global.CoverDB.RemoveCover (filename);
+
+				string akey = AlbumKey;
+				if (Global.CoverDB.Covers [akey] == null)
+					Global.CoverDB.SetCover (akey, cover_image);
+
+			} else if (!HasAlbum) { // See if there is a cover for this single song
+				cover_image = (Pixbuf) Global.CoverDB.Covers [filename];
+			}
+			
+			if (cover_image == null && metadata.AlbumArt != null) {
+				// Look for an ID3 embedded cover image, if it 
+				// is there, and no cover image is set yet, set
+				// it as cover image if it is a single song, or
+				// as album cover image if it belongs to an album 
+				string key = HasAlbum ? AlbumKey : filename;
+
+				if (Global.CoverDB.Covers [key] == null)
+					cover_image = Global.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
+
+				// Album itself will pick up change when this 
+				// song is added to it
+			}
+
+			sort_key = null;
+			search_key = null;
+		}
+
+		// Methods :: Public :: Pack
 		public IntPtr Pack (out int length)
 		{
 			IntPtr p;
@@ -316,43 +364,34 @@ namespace Muine
 				Database.PackString (p, performer);
 			
 			Database.PackString (p, album);
-			Database.PackInt (p, track_number);
-			Database.PackInt (p, disc_number);
+			Database.PackInt    (p, track_number);
+			Database.PackInt    (p, disc_number);
 			Database.PackString (p, year);
-			Database.PackInt (p, duration);
-			Database.PackInt (p, mtime);
+			Database.PackInt    (p, duration);
+			Database.PackInt    (p, mtime);
 			Database.PackDouble (p, gain);
 			Database.PackDouble (p, peak);
 
 			return Database.PackEnd (p, out length);
 		}
 
-		public static Song FromHandle (IntPtr handle)
-		{
-			return (Song) pointers [handle];
-		}
-
-
-		// Only call these if it is a single song
+		// Methods :: Public :: SetCoverLocal
+		// 	Only call if it is a single song
 		public void SetCoverLocal (string file)
 		{
 			CoverImage = Global.CoverDB.Getter.GetLocal (filename, file);
 		}
 
+		// Methods :: Public :: SetCoverWeb
+		// 	Only call if it is a single song
 		public void SetCoverWeb (string url)
 		{
 			CoverImage = Global.CoverDB.Getter.GetWeb (filename, url,
 				new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 
-		private void OnGotCover (Pixbuf pixbuf)
-		{
-			CoverImage = pixbuf;
-		}
-
-		private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
-		private static IntPtr cur_ptr = IntPtr.Zero;
-		
+		// Methods :: Protected
+		// Methods :: Protected :: GenerateSortKey
 		protected override string GenerateSortKey ()
 		{
 			string a = String.Join (" ", artists).ToLower ();
@@ -361,12 +400,20 @@ namespace Muine
 			return StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
 		}
 
+		// Methods :: Protected :: GenerateSearchKey
 		protected override string GenerateSearchKey ()
 		{
 			string a = String.Join (" ", artists).ToLower ();
 			string p = String.Join (" ", performers).ToLower ();
 				
 			return title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
+		}
+		
+		// Handlers
+		// Handlers :: OnGotCover
+		private void OnGotCover (Pixbuf pixbuf)
+		{
+			CoverImage = pixbuf;
 		}
 	}
 }

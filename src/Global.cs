@@ -30,7 +30,7 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class Global : Gnome.Program
+	public sealed class Global : Gnome.Program
 	{
 		// Strings
 		private static readonly string string_dbus_failed =
@@ -40,49 +40,54 @@ namespace Muine
 		private static readonly string string_songdb_failed =
 			Catalog.GetString ("Failed to load the song database: {0}\n\nExiting...");
 	
-		// Properties
+		// Variables
 		private static SongDatabase db;
-		public static SongDatabase DB {
-			get { return db; }
-		}
-
 		private static CoverDatabase cover_db;
-		public static CoverDatabase CoverDB {
-			get { return cover_db; }
-		}	
-
 		private static PlaylistWindow playlist;
-		public static PlaylistWindow Playlist {
-			get { return playlist; }
-		}
-
 		private static Actions actions;
-		public static Actions Actions {
-			get { return actions; }
-		}
 
 		private static DBusLib.Player dbus_object = null;
 		private static NotificationAreaIcon icon;
 		private static MmKeys mmkeys;
 		private static Gnome.Client session_client;
+		
+		// Properties
+		// Properties :: DB (get;)
+		public static SongDatabase DB {
+			get { return db; }
+		}
 
+		// Properties :: CoverDB (get;)
+		public static CoverDatabase CoverDB {
+			get { return cover_db; }
+		}	
+
+		// Properties :: Playlist (get;)
+		public static PlaylistWindow Playlist {
+			get { return playlist; }
+		}
+
+		// Properties :: Actions (get;)
+		public static Actions Actions {
+			get { return actions; }
+		}
+
+		// Main
 		public static void Main (string [] args)
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-			Gnome.Program program = new Gnome.Program ("muine",
-								   Defines.VERSION,
-								   Gnome.Modules.UI,
-								   args);
+			Gnome.Program program = new Gnome.Program ("muine", Defines.VERSION,
+								   Gnome.Modules.UI, args);
 
-			/* Try to find a running Muine */
+			// Try to find a running Muine
 			try {
 				dbus_object = DBusLib.Player.FindInstance ();
-			} catch {}
+			} catch {
+			}
 
 			if (dbus_object != null) {
-				/* An instance already exists. Handle command line args
-				   and exit. */
+				// An instance already exists. Handle command line args and exit.
 				if (args.Length > 0)
 					ProcessCommandLine (args);
 				else
@@ -98,39 +103,38 @@ namespace Muine
 				   through the main thread anyway. For now it is
 				   just important to have the thing registered. */
 				try {
-					dbus_object = new DBusLib.Player ();				
-					MuineDBusService.Instance.RegisterObject
-						(dbus_object, "/org/gnome/Muine/Player");
+					dbus_object = new DBusLib.Player ();
+					MuineDBusService.Instance.RegisterObject (dbus_object, "/org/gnome/Muine/Player");
 
 				} catch (Exception e) {
 					Console.WriteLine (string_dbus_failed, e.Message);
 				}
 			}
 
-			/* Init GConf */
+			// Init GConf
 			Config.Init ();
 
-			/* Init files */
+			// Init files
 			try {
 				FileUtils.Init ();
 			} catch (Exception e) {
 				Error (e.Message);
 			}
 
-			/* Register stock icons */
+			// Register stock icons
 			StockIcons.Initialize ();
 
-			/* Set default window icon */
+			// Set default window icon
 			SetDefaultWindowIcon ();
 
-			/* Open cover database */
+			// Open cover database
 			try {
 				cover_db = new CoverDatabase (3);
 			} catch (Exception e) {
 				Error (String.Format (string_coverdb_failed, e.Message));
 			}
 
-			/* Load song database */
+			// Load song database
 			try {
 				db = new SongDatabase (5);
 			} catch (Exception e) {
@@ -142,7 +146,7 @@ namespace Muine
 			// Setup Actions
 			actions = new Actions ();
 
-			/* Create playlist window */
+			// Create playlist window
 			try {
 				playlist = new PlaylistWindow ();
 			} catch (PlayerException e) {
@@ -159,43 +163,50 @@ namespace Muine
 			   plug-ins) */
 			PluginManager pm = new PluginManager (playlist);
 
-			/* Hook up multimedia keys */
+			// Hook up multimedia keys
 			mmkeys = new MmKeys (playlist);
 
-			/* Create tray icon */
+			// Create tray icon
 			icon = new NotificationAreaIcon (playlist);
 
-			/* Process command line options */
+			// Process command line options
 			bool opened_file = ProcessCommandLine (args);
 
-			/* Load playlist */
+			// Load playlist
 			if (!opened_file)
 				playlist.RestorePlaylist ();
 
-			/* Show UI */
+			// Show UI
 			playlist.Run ();
 
 			icon.Run ();
 
-			/* put on the screen immediately */
+			// put on the screen immediately
 			while (MainContext.Pending ())
 				Gtk.Main.Iteration ();
 
-			/* Now we load the album covers, and after that start the changes thread */
+			// Now we load the album covers, and after that start the changes thread
 			cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
-			
 			cover_db.Load ();
 
-			/* Hook up to the session manager */
+			// Hook up to the session manager
 			session_client = Gnome.Global.MasterClient ();
-
-			session_client.Die += new EventHandler (OnDieEvent);
+			session_client.Die          += new EventHandler              (OnDieEvent         );
 			session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
 
-			/* And run */
+			// And run
 			Application.Run ();
 		}
 
+		// Methods
+		// Methods :: Public :: Exit
+		public static void Exit ()
+		{
+			Environment.Exit (0);
+		}
+
+		// Methods :: Private
+		// Methods :: Private :: ProcessCommandLine 
 		private static bool ProcessCommandLine (string [] args)
 		{
 			bool opened_file = false;
@@ -206,11 +217,10 @@ namespace Muine
 				if (!finfo.Exists)
 					continue;
 
-				if (FileUtils.IsPlaylist (args [i]))
-					/* load as playlist */
+				if (FileUtils.IsPlaylist (args [i])) { // load as playlist
 					dbus_object.OpenPlaylist (finfo.FullName);
-				else {
-					/* load as music file */
+
+				} else { // load as music file
 					if (i == 0)
 						dbus_object.PlayFile (finfo.FullName);
 					else
@@ -222,7 +232,8 @@ namespace Muine
 
 			return opened_file;
 		}
-		
+
+		// Methods :: Private :: SetDefaultWindowIcon		
 		private static void SetDefaultWindowIcon ()
 		{
 			Pixbuf [] default_icon_list = new Pixbuf [1];
@@ -230,6 +241,7 @@ namespace Muine
 			Gtk.Window.DefaultIconList = default_icon_list;
 		}
 
+		// Methods :: Private :: Error
 		private static void Error (string message)
 		{
 			new ErrorDialog (message);
@@ -237,28 +249,27 @@ namespace Muine
 			Environment.Exit (1);
 		}
 
+		// Handlers
+		// Handlers :: OnCoversDoneLoading
 		private static void OnCoversDoneLoading ()
 		{
-			/* covers done loading, start the changes thread */
+			// covers done loading, start the changes thread
 			db.CheckChanges ();
 		}
 
+		// Handlers :: OnDieEvent
 		private static void OnDieEvent (object o, EventArgs args)
 		{
 			Exit ();
 		}
 
+		// Handlers :: OnSaveYourselfEvent
 		private static void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
 		{
-			/* FIXME */
+			// FIXME
 			string [] argv = { "muine" };
 
 			session_client.SetRestartCommand (1, argv);
-		}
-
-		public static void Exit ()
-		{
-			Environment.Exit (0);
 		}
 	}
 }

@@ -23,12 +23,20 @@ namespace Muine
 {
 	public abstract class Item : IComparable
 	{
+		// Variables
 		protected IntPtr handle;
 
 		protected string sort_key   = null;
 		protected string search_key = null;
 	
 		// Properties
+		// Properties :: Abstract
+		// Properties :: Abstract :: CoverImage (set; get;)
+		public abstract Gdk.Pixbuf CoverImage {
+			set;
+			get;
+		}
+
 		// Properties :: Handle (get;)
 		public virtual IntPtr Handle {
 			get { return handle; }
@@ -54,12 +62,7 @@ namespace Muine
 			}
 		}
 
-		// Properties :: CoverImage (set; get;)
-		public abstract Gdk.Pixbuf CoverImage {
-			set;
-			get;
-		}
-
+		// Methods
 		// Methods :: Abstract
 		protected abstract string GenerateSortKey ();
 		protected abstract string GenerateSearchKey ();
@@ -85,10 +88,10 @@ namespace Muine
 			int n_matches = 0;
 				
 			foreach (string search_bit in search_bits) {
-				if (SearchKey.IndexOf (search_bit) >= 0) {
-					n_matches++;
+				if (SearchKey.IndexOf (search_bit) < 0)
 					continue;
-				}
+					
+				n_matches++;
 			}
 
 			return (n_matches == search_bits.Length);

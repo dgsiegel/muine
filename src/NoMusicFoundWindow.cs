@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// UNUSED
+
 using System;
 using System.IO;
 
@@ -27,11 +29,10 @@ namespace Muine
 {
 	public class NoMusicFoundWindow
 	{
-		[Glade.Widget]
-		private Window window;
-		[Glade.Widget]
-		private RadioButton empty_radiobutton;
+		[Glade.Widget] private Window      window;
+		[Glade.Widget] private RadioButton empty_radiobutton;
 
+		// Constructor
 		public NoMusicFoundWindow (Window parent)
 		{
 			Glade.XML gxml = new Glade.XML (null, "NoMusicFoundWindow.glade", "window", null);
@@ -41,14 +42,9 @@ namespace Muine
 			window.Visible = true;
 		}
 
-		private void OnOkClicked (object o, EventArgs a) 
-		{
-			window.Destroy ();
-
-			if (empty_radiobutton.Active) 
-				CreateEmptyMusicCollection ();
-		}
-
+		// Methods
+		// Methods :: Private
+		// Methods :: Private :: CreateEmptyMusicCollection
 		private void CreateEmptyMusicCollection ()
 		{
 			// get $HOME from environment
@@ -67,6 +63,16 @@ namespace Muine
 				playlistsdir.Create ();
 
 			Muine.DB.AddWatchedFolder (musicdir.FullName);
+		}
+		
+		// Handlers
+		// Handlers :: OnOkClicked
+		private void OnOkClicked (object o, EventArgs a) 
+		{
+			window.Destroy ();
+
+			if (empty_radiobutton.Active) 
+				CreateEmptyMusicCollection ();
 		}
 	}
 }

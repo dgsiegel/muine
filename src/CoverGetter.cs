@@ -31,112 +31,59 @@ namespace Muine
 {
 	public class CoverGetter
 	{
+		// GConf
 		private const string GConfKeyAmazonLocale = "/apps/muine/amazon_locale";
 		private const string GConfDefaultAmazonLocale = "us";
-		
-		private CoverDatabase db;
-		private GnomeProxy proxy;
-		private string amazon_locale;
-		private GetAmazonThread amazon_thread;
 
-		private static string [] cover_filenames = {
-			"cover.jpg",
-			"Cover.jpg",
-			"cover.jpeg",
-			"Cover.jpeg",
-			"cover.png",
-			"Cover.png",
-			"folder.jpg",
-			"Folder.jpg",
-			"cover.gif",
-			"Cover.gif"
-		};
+		// Delegates
+		public delegate void GotCoverDelegate (Pixbuf pixbuf);
 
-		public CoverGetter (CoverDatabase db)
-		{
-			this.db = db;
-			
-			amazon_locale = (string) Config.Get (GConfKeyAmazonLocale,
-							     GConfDefaultAmazonLocale);
-			Config.AddNotify (GConfKeyAmazonLocale,
-					  new GConf.NotifyEventHandler (OnAmazonLocaleChanged));
-
-			proxy = new GnomeProxy ();
-
-			amazon_thread = new GetAmazonThread (this);
-		}
-
-		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
-		{
-			amazon_locale = (string) args.Value;
-		}
-
-		// Getters
-		public Pixbuf GetLocal (string key, string file)
-		{
-			// May throw an exception
-			Pixbuf pix = new Pixbuf (file);
-
-			pix = AddBorder (pix);
-
-			db.SetCover (key, pix);
-
-			return pix;
-		}
-
-		public Pixbuf GetEmbedded (string key, Pixbuf pixbuf)
-		{
-			Pixbuf pix = AddBorder (pixbuf);
-
-			db.SetCover (key, pix);
-
-			return pix;
-		}
-
-		public Pixbuf GetFolderImage (string key, string folder)
-		{
-			foreach (string fn in cover_filenames) {
-				FileInfo cover = new FileInfo (Path.Combine (folder, fn));
-				
-				if (cover.Exists) {
-					Pixbuf pix;
-
-					try {
-						pix = new Pixbuf (cover.FullName);
-					} catch {
-						continue;
-					}
-
-					pix = AddBorder (pix);
-
-					db.SetCover (key, pix);
-
-					return pix;
-				}
-			}
-
-			return null;
-		}
-
-		// Web getting
-		public Pixbuf GetWeb (string key, string url,
-				      GotCoverDelegate done_func)
-		{
-			db.RemoveCover (key);
-
-			new GetWebThread (this, key, url, done_func);
-
-			return db.DownloadingPixbuf;
-		}
-
+		// Internal Classes
+		// Internal Classes :: GetWebThread
+		// 	TODO: Split off? This is big.
 		private class GetWebThread
 		{
-			private CoverGetter getter;
-			private string key;
-			private string url;
+			// Delegates
 			private GotCoverDelegate done_func;
+			
+			// Objects
+			private CoverGetter getter;
 			private Pixbuf pixbuf = null;
 
+			// Variables
+			private string key;
+			private string url;
+
+			// Constructor
+			public GetWebThread (CoverGetter getter, string key, string url,
+					     GotCoverDelegate done_func)
+			{
+				this.getter = getter;
+				this.key = key;
+				this.url = url;
+				this.done_func = done_func;
+
+				Thread thread = new Thread (new ThreadStart (ThreadFunc));
+				thread.Priority = ThreadPriority.BelowNormal;
+				thread.Start ();
+			}
+
+			// Methods
+			// Methods :: Private
+			// Methods :: Private :: SignalIdle
+			private bool SignalIdle ()
+			{
+				// This is not entirely safe, as the user can in theory
+				// have changed the cover image between the thread and
+				// this idle. However, chances are very, very slim and
+				// things won't explode if it happens.
+				done_func (pixbuf);
+
+				return false;
+			}			
+
+			// Delegate Functions
+			// Delegate Functions :: ThreadFunc
 			private void ThreadFunc ()
 			{
 				try {
@@ -157,54 +104,69 @@ namespace Muine
 				GLib.IdleHandler idle = new GLib.IdleHandler (SignalIdle);
 				GLib.Idle.Add (idle);
 			}
-			
-			private bool SignalIdle ()
-			{
-				// This is not entirely safe, as the user can in theory
-				// have changed the cover image between the thread and
-				// this idle. However, chances are very, very slim and
-				// things won't explode if it happens.
-				done_func (pixbuf);
+		}
 
-				return false;
+		// Internal Classes :: GetAmazonThread
+		// 	TODO: Split off? This is big.
+		private class GetAmazonThread
+		{
+			// Objects
+			private CoverGetter getter;
+			private Queue queue;
+
+			// Internal Classes
+			// Internal Classes :: IdleData
+			// 	XXX: Internal classes inside internal classes? ick!
+			private class IdleData
+			{
+				private Album album;
+				private Pixbuf pixbuf;
+
+				// Constructor
+				public IdleData (Album album, Pixbuf pixbuf)
+				{
+					this.album = album;
+					this.pixbuf = pixbuf;
+
+					GLib.IdleHandler idle = new GLib.IdleHandler (IdleFunc);
+					GLib.Idle.Add (idle);
+				}
+
+				// Delegate Functions
+				// Delegate Functions :: IdleFunc
+				private bool IdleFunc ()
+				{
+					// This is not entirely safe, as the user can in theory
+					// have changed the cover image between the thread and
+					// this idle. However, chances are very, very slim and
+					// things won't explode if it happens.
+					album.CoverImage = pixbuf;
+		
+					return false;
+				}
 			}
-			
-			public GetWebThread (CoverGetter getter,
-					     string key, string url,
-					     GotCoverDelegate done_func)
+
+			// Constructor
+			public GetAmazonThread (CoverGetter getter)
 			{
 				this.getter = getter;
-				this.key = key;
-				this.url = url;
-				this.done_func = done_func;
+
+				queue = Queue.Synchronized (new Queue ());
 
 				Thread thread = new Thread (new ThreadStart (ThreadFunc));
 				thread.Priority = ThreadPriority.BelowNormal;
 				thread.Start ();
 			}
-		}
 
-		// Amazon getting
-		public Pixbuf GetAmazon (Album album)
-		{
-			return GetAmazon (album, true);
-		}
-		
-		public Pixbuf GetAmazon (Album album, bool mark)
-		{
-			if (mark)
-				db.MarkAsBeingChecked (album.Key);
+			// Properties
+			// Properties :: Queue (get;)
+			public Queue Queue {
+				get { return queue; }
+			}
 
-			amazon_thread.Queue.Enqueue (album);
-
-			return db.DownloadingPixbuf;
-		}
-
-		private class GetAmazonThread
-		{
-			private CoverGetter getter;
-			private Queue queue;
-
+			// Delegate Functions
+			// Delegate Functions :: ThreadFunc
+			// 	TODO: Split this up.
 			private void ThreadFunc ()
 			{
 				while (true) {
@@ -239,98 +201,164 @@ namespace Muine
 
 					Thread.Sleep (1000);
 				}
-			}
+			}						
+		}
+																
+		// Objects
+		private CoverDatabase db;
+		private GnomeProxy proxy;
+		private GetAmazonThread amazon_thread;
+
+		// Variables
+		private string amazon_locale;
+
+		private string [] cover_filenames = {
+			"cover.jpg",
+			"Cover.jpg",
+			"cover.jpeg",
+			"Cover.jpeg",
+			"cover.png",
+			"Cover.png",
+			"folder.jpg",
+			"Folder.jpg",
+			"cover.gif",
+			"Cover.gif"
+		};
+
+		// Constructor
+		public CoverGetter (CoverDatabase db)
+		{
+			this.db = db;
 			
-			private class IdleData
-			{
-				private Album album;
-				private Pixbuf pixbuf;
+			amazon_locale = (string) Config.Get (GConfKeyAmazonLocale, GConfDefaultAmazonLocale);
+			Config.AddNotify (GConfKeyAmazonLocale,
+					  new GConf.NotifyEventHandler (OnAmazonLocaleChanged));
 
-				private bool IdleFunc ()
-				{
-					// This is not entirely safe, as the user can in theory
-					// have changed the cover image between the thread and
-					// this idle. However, chances are very, very slim and
-					// things won't explode if it happens.
-					album.CoverImage = pixbuf;
-		
-					return false;
-				}
+			proxy = new GnomeProxy ();
 
-				public IdleData (Album album, Pixbuf pixbuf)
-				{
-					this.album = album;
-					this.pixbuf = pixbuf;
-
-					GLib.IdleHandler idle = new GLib.IdleHandler (IdleFunc);
-					GLib.Idle.Add (idle);
-				}
-			}
-			
-			public GetAmazonThread (CoverGetter getter)
-			{
-				this.getter = getter;
-
-				queue = Queue.Synchronized (new Queue ());
-
-				Thread thread = new Thread (new ThreadStart (ThreadFunc));
-				thread.Priority = ThreadPriority.BelowNormal;
-				thread.Start ();
-			}
-
-			public Queue Queue {
-				get { return queue; }
-			}
+			amazon_thread = new GetAmazonThread (this);
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: GetLocal
+		public Pixbuf GetLocal (string key, string file)
+		{
+			// May throw an exception
+			Pixbuf pix = new Pixbuf (file);
+			pix = AddBorder (pix);
+			db.SetCover (key, pix);
+			return pix;
+		}
+
+		// Methods :: Public :: GetEmbedded
+		public Pixbuf GetEmbedded (string key, Pixbuf pixbuf)
+		{
+			Pixbuf pix = AddBorder (pixbuf);
+			db.SetCover (key, pix);
+			return pix;
+		}
+
+		// Methods :: Public :: GetFolderImage
+		public Pixbuf GetFolderImage (string key, string folder)
+		{
+			foreach (string fn in cover_filenames) {
+				FileInfo cover = new FileInfo (Path.Combine (folder, fn));
+				
+				if (cover.Exists) {
+					Pixbuf pix;
+
+					try {
+						pix = new Pixbuf (cover.FullName);
+					} catch {
+						continue;
+					}
+
+					pix = AddBorder (pix);
+					db.SetCover (key, pix);
+					return pix;
+				}
+			}
+
+			return null;
+		}
+
+		// Methods :: Public :: GetWeb
+		public Pixbuf GetWeb (string key, string url, GotCoverDelegate done_func)
+		{
+			db.RemoveCover (key);
+			new GetWebThread (this, key, url, done_func);
+			return db.DownloadingPixbuf;
+		}
+
+
+		// Methods :: Public :: GetAmazon
+		public Pixbuf GetAmazon (Album album)
+		{
+			return GetAmazon (album, true);
+		}
+		
+		
+		public Pixbuf GetAmazon (Album album, bool mark)
+		{
+			if (mark)
+				db.MarkAsBeingChecked (album.Key);
+
+			amazon_thread.Queue.Enqueue (album);
+
+			return db.DownloadingPixbuf;
+		}
+
+		// Methods :: Public :: DownloadFromAmazon
+		// 	TODO: Split this up.
 		public Pixbuf DownloadFromAmazon (Album album)
 		{
 			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
 
 			string sane_album_title = SanitizeString (album.Name);
-			/* remove "disc 1" and family */
+
+			// remove "disc 1" and family
 			sane_album_title =  Regex.Replace (sane_album_title, @"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
 
 			string [] album_title_array = sane_album_title.Split (' ');
 			Array.Sort (album_title_array);
 
-			/* This assumes the right artist is always in Artists [0] */
+			// This assumes the right artist is always in Artists [0]
 			string sane_artist = SanitizeString (album.Artists [0]);
 			
-			/* Prepare for handling multi-page results */
+			// Prepare for handling multi-page results
 			int total_pages = 1;
 			int current_page = 1;
-			int max_pages = 2; /* check no more than 2 pages */
+			int max_pages = 2; // check no more than 2 pages
 			
-			/* Create Encapsulated Request */
+			// Create Encapsulated Request
 			Amazon.ArtistRequest asearch = new Amazon.ArtistRequest ();
-			asearch.devtag = "INSERT DEV TAG HERE";
+			asearch.devtag = "INSERT DEV TAG HERE"; // TODO: We really should have a devtag
 			asearch.artist = sane_artist;
 			asearch.keywords = sane_album_title;
 			asearch.type = "heavy";
 			asearch.mode = "music";
 			asearch.tag = "webservices-20";
 
-			/* Use selected Amazon service */
+			// Use selected Amazon service
 			switch (amazon_locale) {
 			case "uk":
 				search_service.Url = "http://soap-eu.amazon.com/onca/soap3";
 				asearch.locale = "uk";
-
 				break;
+
 			case "de":
 				search_service.Url = "http://soap-eu.amazon.com/onca/soap3";
 				asearch.locale = "de";
-
 				break;
+
 			case "jp":
 				search_service.Url = "http://soap.amazon.com/onca/soap3";
 				asearch.locale = "jp";
-
 				break;
+
 			default:
 				search_service.Url = "http://soap.amazon.com/onca/soap3";
-
 				break;
 			}
 
@@ -342,36 +370,38 @@ namespace Muine
 
 				Amazon.ProductInfo pi;
 				
-				/* Amazon API requires this .. */
+				// Amazon API requires this
 				Thread.Sleep (1000);
 			
-				/* Web service calls timeout after 30 seconds */
+				// Web service calls timeout after 30 seconds
 				search_service.Timeout = 30000;
 				if (proxy.Use)
 					search_service.Proxy = proxy.Proxy;
 				
-				/* This may throw an exception, we catch it in the calling function */
+				// This may throw an exception, we catch it in the calling function
 				pi = search_service.ArtistSearchRequest (asearch);
 
 				int num_results = pi.Details.Length;
 				total_pages = Convert.ToInt32 (pi.TotalPages);
 
-				/* Work out how many matches are on this page */
+				// Work out how many matches are on this page
 				if (num_results < 1)
 					return null;
 
 				for (int i = 0; i < num_results; i++) {
-					/* Ignore bracketed text on the result from Amazon */
+					// Ignore bracketed text on the result from Amazon
 					string sane_product_name = SanitizeString (pi.Details[i].ProductName);
 
-					/* Compare the two strings statistically */
+					// Compare the two strings statistically
 					string [] product_name_array = sane_product_name.Split (' ');
 					Array.Sort (product_name_array);
 
 					int match_count = 0;
 					foreach (string s in album_title_array) {
-						if (Array.BinarySearch (product_name_array, s) >= 0)
-							match_count++;
+						if (Array.BinarySearch (product_name_array, s) < 0)
+							continue;
+
+						match_count++;
 					}
 
 					double match_percent;
@@ -390,8 +420,10 @@ namespace Muine
 					int backward_match_count = 0;
 
 					foreach (string s in product_name_array) {
-						if (Array.BinarySearch (album_title_array, s) >= 0)
-							backward_match_count++;
+						if (Array.BinarySearch (album_title_array, s) < 0)
+							continue;
+
+						backward_match_count++;
 					}
 					backward_match_percent = backward_match_count / (double) product_name_array.Length;
 
@@ -409,8 +441,10 @@ namespace Muine
 							url = Regex.Replace (url, "[.]0[0-9][.]", ".01.");
 							pix = Download (url);
 						}
+
 					} catch (WebException e) {
 						throw e;
+
 					} catch (Exception e) {
 						pix = null;
 					}
@@ -430,35 +464,22 @@ namespace Muine
 			return best_match;
 		}
 
-		private string SanitizeString (string s)
-		{
-			s = s.ToLower ();
-			s = Regex.Replace (s, "\\(.*\\)", "");
-			s = Regex.Replace (s, "\\[.*\\]", "");
-			s = s.Replace ("-", " ");
-			s = s.Replace ("_", " ");
-			s = Regex.Replace (s, " +", " ");
-
-			return s;
-		}
-
-		// Utility functions
+		// Methods :: Public :: Download
 		public Pixbuf Download (string url)
 		{
 			Pixbuf cover;
 
-			/* read the cover image */
+			// read the cover image
 			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (url);
 			req.UserAgent = "Muine";
 			req.KeepAlive = false;
-			req.Timeout = 30000; /* Timeout after 30 seconds */
+			req.Timeout = 30000; // Timeout after 30 seconds
 			if (proxy.Use)
 				req.Proxy = proxy.Proxy;
 				
 			WebResponse resp = null;
 		
-			/* May throw an exception, but we catch it in the calling
-			 * function */
+			// May throw an exception, but we catch it in the calling function
 			resp = req.GetResponse ();
 
 			Stream s = resp.GetResponseStream ();
@@ -467,7 +488,7 @@ namespace Muine
 
 			resp.Close ();
 
-			/* Trap Amazon 1x1 images */
+			// Trap Amazon 1x1 images
 			if (cover.Height == 1 && cover.Width == 1)
 				return null;
 
@@ -478,10 +499,10 @@ namespace Muine
 		{
 			Pixbuf border;
 
-			/* 1px border, so -2 .. */
+			// 1px border, so -2
 			int target_size = db.CoverSize - 2;
 
-			/* scale the cover image if necessary */
+			// scale the cover image if necessary
 			if (cover.Height > target_size || cover.Width > target_size) {
 				int new_width, new_height;
 
@@ -496,17 +517,37 @@ namespace Muine
 				cover = cover.ScaleSimple (new_width, new_height, InterpType.Bilinear);
 			}
 
-			/* create the background + black border pixbuf */
+			// create the background + black border pixbuf
 			border = new Pixbuf (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
 			border.Fill (0x000000ff);
 				
-			/* put the cover image on the border area */
+			// put the cover image on the border area
 			cover.CopyArea (0, 0, cover.Width, cover.Height, border, 1, 1);
 
-			/* done */
+			// done
 			return border;
 		}
 
-		public delegate void GotCoverDelegate (Pixbuf pixbuf);
+		// Methods :: Private
+		// Methods :: Private :: SanitizeString
+		// 	TODO: Move to StringUtils?
+		private string SanitizeString (string s)
+		{
+			s = s.ToLower ();
+			s = Regex.Replace (s, "\\(.*\\)", "");
+			s = Regex.Replace (s, "\\[.*\\]", "");
+			s = s.Replace ("-", " ");
+			s = s.Replace ("_", " ");
+			s = Regex.Replace (s, " +", " ");
+
+			return s;
+		}
+
+		// Handlers
+		// Handlers :: OnAmazonLocaleChanged
+		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
+		{
+			amazon_locale = (string) args.Value;
+		}
 	}
 }

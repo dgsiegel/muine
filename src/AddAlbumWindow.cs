@@ -29,7 +29,7 @@ namespace Muine
 {
 	public class AddAlbumWindow : AddWindow
 	{
-		// Constants
+		// GConf
 		private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
 		private const int GConfDefaultWidth = 500;
 
@@ -51,15 +51,18 @@ namespace Muine
 		private static readonly string string_artists = 
 			Catalog.GetString ("Performed by {0}");
 
-		// Widgets
-		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
-		private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
-
 		// DnD Targets	
 		private static TargetEntry [] source_entries = new TargetEntry [] {
 			DndUtils.TargetMuineAlbumList,
 			DndUtils.TargetUriList
 		};
+
+		// Widgets
+		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
+		private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
+
+		// Variables
+		private bool drag_dest_enabled = false;
 
 		// Constructor
 		public AddAlbumWindow ()
@@ -98,47 +101,31 @@ namespace Muine
 				EnableDragDest ();
 		}
 
-		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
+		// Methods
+		// Methods :: Private
+		// Methods :: Private :: EnableDragDest
+		private void EnableDragDest ()
 		{
-			Album a = Album.FromHandle (a_ptr);
-			Album b = Album.FromHandle (b_ptr);
+			if (drag_dest_enabled)
+				return;
 
-			return String.CompareOrdinal (a.SortKey, b.SortKey);
+			base.List.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			Gtk.Drag.DestSet (base.List, DestDefaults.All,
+					  CoverImage.DragEntries, Gdk.DragAction.Copy);
+
+			drag_dest_enabled = true;
 		}
 
-		private void PixbufCellDataFunc (HandleView view,
-						 CellRenderer cell,
-						 IntPtr album_ptr)
+		// Handlers
+		// Handlers :: OnCoversDoneLoading
+		private void OnCoversDoneLoading ()
 		{
-			CellRendererPixbuf r = (CellRendererPixbuf) cell;
-			Album album = Album.FromHandle (album_ptr);
+			EnableDragDest ();
 
-			r.Pixbuf = (album.CoverImage != null)
-				? album.CoverImage
-				: (Global.CoverDB.Loading)
-					? Global.CoverDB.DownloadingPixbuf
-					: nothing_pixbuf;
-
-			r.Width = r.Height = CoverDatabase.CoverSize + 5 * 2;
+			base.List.QueueDraw ();
 		}
 
-		private void TextCellDataFunc (HandleView view,
-					       CellRenderer cell,
-					       IntPtr album_ptr)
-		{
-			CellRendererText r = (CellRendererText) cell;
-			Album album = Album.FromHandle (album_ptr);
-
-			string performers = "";
-			if (album.Performers.Length > 0)
-				performers = String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2));
-
-			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
-						   false, true, false);
-		}
-
+		// Handlers :: OnDragDataReceived
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			TreePath path;
@@ -152,26 +139,7 @@ namespace Muine
 			CoverImage.HandleDrop ((Song) album.Songs [0], args);
 		}
 
-		private void OnCoversDoneLoading ()
-		{
-			EnableDragDest ();
-
-			base.List.QueueDraw ();
-		}
-
-		private bool drag_dest_enabled = false;
-		private void EnableDragDest ()
-		{
-			if (drag_dest_enabled)
-				return;
-
-			base.List.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-			Gtk.Drag.DestSet (base.List, DestDefaults.All,
-					  CoverImage.DragEntries, Gdk.DragAction.Copy);
-
-			drag_dest_enabled = true;
-		}
-
+		// Handlers :: OnDragDataGet
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
 			List albums = base.List.SelectedPointers;
@@ -209,6 +177,47 @@ namespace Muine
 			default:
 				break;	
 			}
+		}
+
+		// Delegate Functions		
+		// Delegate Functions :: SortFunc
+		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
+		{
+			Album a = Album.FromHandle (a_ptr);
+			Album b = Album.FromHandle (b_ptr);
+
+			return String.CompareOrdinal (a.SortKey, b.SortKey);
+		}
+
+		// Delegate Functions :: PixbufCellDataFunc
+		private void PixbufCellDataFunc (HandleView view, CellRenderer cell, IntPtr album_ptr)
+		{
+			CellRendererPixbuf r = (CellRendererPixbuf) cell;
+			Album album = Album.FromHandle (album_ptr);
+
+			r.Pixbuf = (album.CoverImage != null)
+				? album.CoverImage
+				: (Global.CoverDB.Loading)
+					? Global.CoverDB.DownloadingPixbuf
+					: nothing_pixbuf;
+
+			r.Width = r.Height = CoverDatabase.CoverSize + 5 * 2;
+		}
+
+		// Delegate Functions :: TextCellDataFunc
+		private void TextCellDataFunc (HandleView view, CellRenderer cell, IntPtr album_ptr)
+		{
+			CellRendererText r = (CellRendererText) cell;
+			Album album = Album.FromHandle (album_ptr);
+
+			string performers = "";
+			if (album.Performers.Length > 0)
+				performers = String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2));
+
+			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
+
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
+						   false, true, false);
 		}
 	}
 }

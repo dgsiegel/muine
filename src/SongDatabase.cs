@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Split off WatchedFolders stuff.
+
 using System;
 using System.Collections;
 using System.IO;
@@ -25,23 +27,12 @@ namespace Muine
 {
 	public class SongDatabase 
 	{
-		// MCS doesn't support array constants yet (as of 1.0)
+		// GConf
+		// 	MCS doesn't support array constants yet (as of 1.0)
 		private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
 		private readonly string [] GConfDefaultWatchedFolders = new string [0];
 
-		/* when iterating either of these don't forget to lock the DB;
-		   the hash might be changed by another thread while iterating
-		   otherwise */
-		private Hashtable songs;
-		public Hashtable Songs {
-			get { return songs; }
-		}
-
-		private Hashtable albums;
-		public Hashtable Albums {
-			get { return albums; }
-		}
-
+		// Events
 		public delegate void SongAddedHandler (Song song);
 		public event SongAddedHandler SongAdded;
 
@@ -60,7 +51,195 @@ namespace Muine
 		public delegate void AlbumRemovedHandler (Album album);
 		public event AlbumRemovedHandler AlbumRemoved;
 
+		// Structs :: BooleanBox
+		private struct BooleanBox {
+			// Fields
+			public bool Value;
+
+			// Constructor
+			public BooleanBox (bool val)
+			{
+				Value = val;
+			}
+		}
+
+		// Structs :: SignalRequest
+		private struct SignalRequest {
+			// Fields
+			public Song  Song;
+			public Album Album;
+			public bool  SongAdded;
+			public bool  SongChanged;
+			public bool  SongRemoved;
+			public bool  AlbumAdded;
+			public bool  AlbumChanged;
+			public bool  AlbumRemoved;
+			public bool  AlbumSongsChanged;
+		}
+
+		// Internal Classes
+		// Internal Classes :: AddFoldersThread
+		//	TODO: Split off?
+		private class AddFoldersThread : ThreadBase
+		{
+			// Objects
+			private ProgressWindow pw;
+			private BooleanBox canceled_box = new BooleanBox (false);
+			
+			// Variables
+			private ArrayList folders;
+			private DirectoryInfo current_folder;
+			
+			// Constructor
+			public AddFoldersThread (ArrayList folders)
+			{
+				this.folders = folders;
+
+				pw = new ProgressWindow (Global.Playlist);
+
+				current_folder = (DirectoryInfo) folders [0];
+				pw.Report (current_folder.Name, current_folder.Name);
+
+				thread.Start ();
+			}
+
+			// Delegate Functions
+			// Delegate Functions :: ThreadFunc
+			protected override void ThreadFunc ()
+			{
+				foreach (DirectoryInfo dinfo in folders) {
+					current_folder = dinfo;
+
+					Global.DB.HandleDirectory (dinfo, queue, canceled_box);
+				}
+
+				thread_done = true;
+			}
+			
+			// Delegate Functions :: MainLoopIdle
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0) {
+					if (thread_done) {
+						pw.Done ();
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
+
+				canceled_box.Value = pw.Report (current_folder.Name,
+				                                Path.GetFileName (rq.Song.Filename));
+
+				Global.DB.HandleSignalRequest (rq);
+	
+				return true;
+			}
+		}
+
+		// Internal Classes :: CheckChangesThread
+		//	TODO: Split off?
+		private class CheckChangesThread : ThreadBase
+		{
+			// Constructor
+			public CheckChangesThread ()
+			{
+				thread.Start ();
+			}
+
+			// Delegate Functions
+			// Delegate Functions :: MainLoopIdle
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0)
+					return !thread_done;
+
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
+
+				Global.DB.HandleSignalRequest (rq);
+
+				return true;
+			}
+
+			// Delegate Functions :: ThreadFunc
+			protected override void ThreadFunc ()
+			{
+				Hashtable snapshot;
+				lock (Global.DB)
+					snapshot = (Hashtable) Global.DB.Songs.Clone ();
+
+				// check for removed songs and changes
+				foreach (string file in snapshot.Keys) {
+					FileInfo finfo = new FileInfo (file);
+					Song song = (Song) snapshot [file];
+
+					SignalRequest rq = new SignalRequest ();
+
+					if (!finfo.Exists) {
+						rq = Global.DB.StartRemoveSong (song);
+
+					} else if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
+						try {
+							Metadata metadata = new Metadata (song.Filename);
+							rq = Global.DB.StartSyncSong (song, metadata);
+
+						} catch {
+							try {
+								rq = Global.DB.StartRemoveSong (song);
+							} catch (InvalidOperationException e) {
+								return;
+							}
+						}
+					}
+
+					if (rq.Song == null)
+						break;
+
+					queue.Enqueue (rq);
+				}
+
+				// check for new songs
+				foreach (string folder in Global.DB.WatchedFolders) {
+					DirectoryInfo dinfo = new DirectoryInfo (folder);
+					if (!dinfo.Exists)
+						continue;
+
+					BooleanBox canceled = new BooleanBox (false);
+					Global.DB.HandleDirectory (dinfo, queue, canceled);
+				}
+
+				thread_done = true;
+			}
+		}
+
+		// Objects
 		private Database db;
+
+		// Variables
+		private Hashtable songs;
+		private Hashtable albums;
+		private string [] watched_folders;
+
+		// Properties
+		// 	When iterating Song or Albums of these don't forget to 
+		//	lock the DB, otherwise the hash might be changed by another 
+		//	thread while iterating.
+		// Properties :: Songs (get;)
+		public Hashtable Songs {
+			get { return songs; }
+		}
+
+		// Properties :: Albums (get;)
+		public Hashtable Albums {
+			get { return albums; }
+		}
+
+		// Properties :: WatchedFolders (get;)
+		public string [] WatchedFolders {
+			get { return watched_folders; }
+		}
 
 		// Constructor
 		public SongDatabase (int version)
@@ -77,50 +256,122 @@ namespace Muine
 					  new GConf.NotifyEventHandler (OnWatchedFoldersChanged));
 		}
 
-		// Database interaction
-		private void DecodeFunction (string key, IntPtr data)
-		{
-			Song song = new Song (key, data);
-
-			Songs.Add (key, song);
-			
-			/* we don't "Finish", as we do this before the UI is there,
-			   we don't need to emit signals */
-			StartAddToAlbum (song);
-		}
-
-		private IntPtr EncodeFunction (IntPtr handle, out int length)
-		{
-			Song song = Song.FromHandle (handle);
-
-			return song.Pack (out length);
-		}
-
-		// Loading
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Load
 		public void Load ()
 		{
 			lock (this)
 				db.Load ();
 		}
 
-		// Song management
+		// Methods :: Public :: AddSong
 		public void AddSong (Song song)
 		{
-			SignalRequest rq = StartAddSong (song);
-			if (rq != null)
+			SignalRequest rq;
+			try {
+				rq = StartAddSong (song);
 				HandleSignalRequest (rq);
+
+			} catch (InvalidOperationException e) {
+				return;
+			}
 		}
-	
+
+		// Methods :: Public :: SaveSong
+		public void SaveSong (Song song)
+		{
+			lock (this)
+				SaveSongInternal (song);
+		}
+
+		// Methods :: Public :: RemoveSong
+		public void RemoveSong (Song song)
+		{
+			SignalRequest rq;
+			try {
+				rq = StartRemoveSong (song);
+				HandleSignalRequest (rq);
+
+			} catch (InvalidOperationException e) {
+				return;
+			}
+			
+		}
+
+		// Methods :: Public :: AddFolders
+		public void AddFolders (ArrayList folders)
+		{
+			foreach (DirectoryInfo dinfo in folders)
+				AddToWatchedFolders (dinfo.FullName);
+			Config.Set (GConfKeyWatchedFolders, watched_folders);
+
+			new AddFoldersThread (folders);
+		}
+
+		// Methods :: Public :: CheckChanges
+		public void CheckChanges ()
+		{
+			CheckChangesThread t = new CheckChangesThread ();
+		}
+
+		/*
+		The album key is "folder:album name" because of the following
+		reasons:
+		
+			We cannot do artist/performer matching, because it is 
+		very common for albums to be made by different artists. Random 
+		example, the Sigur Rós/Radiohead split. Using "Various Artists"
+		as artist tag is whacky.
+		
+			But, we cannot match only by album name either: a user
+		may very well have multiple albums with the title "Greatest 
+		Hits". We don't want to	incorrectly group all these together.
+		
+			So, the best thing we've managed to come up with so far
+		is using "folder:albumname". This because most people who even 
+		have whole albums have those organised in folders, or at the 
+		very least all music files in the same folder. So for those it 
+		should more or less work. And for those who have a decently 
+		organised music collection, the original target user base, it 
+		should work flawlessly. And for those who have a REALLY poorly
+		organised collection, well, bummer. Moving all files to the 
+		same dir will help a bit.
+		*/
+		public string MakeAlbumKey (string folder, string album_name)
+		{
+			return String.Format ("{0}:{1}", folder, album_name.ToLower ());
+		}
+
+		// Methods :: Public :: Getters :: GetSong
+		public Song GetSong (string filename)
+		{
+			return (Song) Songs [filename];
+		}
+
+		// Methods :: Public :: Getters :: GetAlbum
+		public Album GetAlbum (Song song)
+		{
+			return GetAlbum (song.AlbumKey);
+		}
+
+		public Album GetAlbum (string key)
+		{
+			return (Album) Albums [key];
+		}
+							
+		// Methods :: Private
+		// Methods :: Private :: StartAddSong
 		private SignalRequest StartAddSong (Song song)
 		{
 			lock (this) {
-				SignalRequest rq = new SignalRequest (song);
+				SignalRequest rq = new SignalRequest ();
+				rq.Song = song;
 			
 				try {
 					Songs.Add (song.Filename, song);
-				} catch (ArgumentException e) {
-					// Already exists, ignore
-					return null;
+				} catch (ArgumentException e) { // already exists
+					throw new InvalidOperationException ();
 				}
 
 				StartAddToAlbum (rq);
@@ -135,17 +386,19 @@ namespace Muine
 			}
 		}
 
+		// Methods :: Private :: StartSyncSong
 		private SignalRequest StartSyncSong (Song song, Metadata metadata)
 		{
 			lock (this) {
 				if (song.Dead)
-					return null;
+					throw new InvalidOperationException ();
 
-				SignalRequest rq = new SignalRequest (song);
+				SignalRequest rq = new SignalRequest ();
+				rq.Song = song;
 			
 				song.Sync (metadata);
 
-				/* update album */
+				// update album
 				StartRemoveFromAlbum (rq);
 				StartAddToAlbum (rq);
 			
@@ -157,31 +410,21 @@ namespace Muine
 			}
 		}
 
-		public void SaveSong (Song song)
-		{
-			lock (this)
-				SaveSongInternal (song);
-		}
-
+		// Methods :: Private :: SaveSongInternal
 		private void SaveSongInternal (Song song)
 		{
 			db.Store (song.Filename, song.Handle, true);
 		}
 
-		public void RemoveSong (Song song)
-		{
-			SignalRequest rq = StartRemoveSong (song);
-			if (rq != null)
-				HandleSignalRequest (rq);
-		}
-
+		// Methods :: Private :: StartRemoveSong
 		private SignalRequest StartRemoveSong (Song song)
 		{
 			lock (this) {
 				if (song.Dead)
-					return null;
+					throw new InvalidOperationException ();
 
-				SignalRequest rq = new SignalRequest (song);
+				SignalRequest rq = new SignalRequest ();
+				rq.Song = song;
 
 				db.Delete (song.Filename);
 
@@ -195,32 +438,17 @@ namespace Muine
 			}
 		}
 
-		private void EmitSongAdded (Song song)
-		{
-			if (SongAdded != null)
-				SongAdded (song);
-		}
-
-		public void EmitSongChanged (Song song)
-		{
-			if (SongChanged != null)
-				SongChanged (song);
-		}
-
-		private void EmitSongRemoved (Song song)
-		{
-			if (SongRemoved != null)
-				SongRemoved (song);
-		}
-
-		// Album management
+		// Methods :: Private :: AddToAlbum
 		private void AddToAlbum (Song song)
 		{
-			SignalRequest rq = new SignalRequest (song);
+			SignalRequest rq = new SignalRequest ();
+			rq.Song = song;
+			
 			StartAddToAlbum (rq);
 			HandleSignalRequest (rq);
 		}
 
+		// Methods :: Private :: StartAddToAlbum
 		private void StartAddToAlbum (SignalRequest rq)
 		{
 			StartAddToAlbum (rq, null);
@@ -228,18 +456,17 @@ namespace Muine
 
 		private void StartAddToAlbum (Song song)
 		{
-			StartAddToAlbum (null, song);
+			SignalRequest rq = new SignalRequest ();
+			StartAddToAlbum (rq, song);
 		}
 
 		private void StartAddToAlbum (SignalRequest rq, Song s)
 		{
-			Song song;
-
 			bool from_db = (s != null);
-			if (from_db)
-				song = s;
-			else
-				song = rq.Song;
+			
+			Song song = (from_db)
+				     ? s
+				     : rq.Song;
 			
 			if (!song.HasAlbum)
 				return;
@@ -272,6 +499,7 @@ namespace Muine
 			}
 		}
 
+		// Methods :: Private :: StartRemoveFromAlbum
 		private void StartRemoveFromAlbum (SignalRequest rq)
 		{
 			if (!rq.Song.HasAlbum)
@@ -292,107 +520,7 @@ namespace Muine
 			}
 		}
 
-		private void EmitAlbumAdded (Album album)
-		{
-			if (AlbumAdded != null)
-				AlbumAdded (album);
-		}
-
-		public void EmitAlbumChanged (Album album)
-		{
-			if (AlbumChanged != null)
-				AlbumChanged (album);
-		}
-
-		private void EmitAlbumRemoved (Album album)
-		{
-			if (AlbumRemoved != null)
-				AlbumRemoved (album);
-		}
-
-		// Getters
-		public Song GetSong (string filename)
-		{
-			return (Song) Songs [filename];
-		}
-
-		public Album GetAlbum (Song song)
-		{
-			return GetAlbum (song.AlbumKey);
-		}
-
-		public Album GetAlbum (string key)
-		{
-			return (Album) Albums [key];
-		}
-
-		// Folder watching
-		public void AddFolders (ArrayList folders)
-		{
-			foreach (DirectoryInfo dinfo in folders)
-				AddToWatchedFolders (dinfo.FullName);
-			Config.Set (GConfKeyWatchedFolders, watched_folders);
-
-			new AddFoldersThread (folders);
-		}
-
-		private class AddFoldersThread : ThreadBase
-		{
-			private ArrayList folders;
-			private DirectoryInfo current_folder;
-			private ProgressWindow pw;
-			private BooleanBox canceled_box = new BooleanBox (false);
-
-			protected override void ThreadFunc ()
-			{
-				foreach (DirectoryInfo dinfo in folders) {
-					current_folder = dinfo;
-
-					Global.DB.HandleDirectory (dinfo, queue, canceled_box);
-				}
-
-				thread_done = true;
-			}
-			
-			protected override bool MainLoopIdle ()
-			{
-				if (queue.Count == 0) {
-					if (thread_done) {
-						pw.Done ();
-					
-						return false;
-					} else
-						return true;
-				}
-
-				SignalRequest rq = (SignalRequest) queue.Dequeue ();
-
-				canceled_box.Value = pw.Report (current_folder.Name,
-				                                Path.GetFileName (rq.Song.Filename));
-
-				Global.DB.HandleSignalRequest (rq);
-	
-				return true;
-			}
-			
-			public AddFoldersThread (ArrayList folders)
-			{
-				this.folders = folders;
-
-				pw = new ProgressWindow (Global.Playlist);
-
-				current_folder = (DirectoryInfo) folders [0];
-				pw.Report (current_folder.Name, current_folder.Name);
-
-				thread.Start ();
-			}
-		}
-
-		private string [] watched_folders;
-		public string [] WatchedFolders {
-			get { return watched_folders; }
-		}
-
+		// Methods :: Private :: AddToWatchedFolders
 		private void AddToWatchedFolders (string folder)
 		{
 			ArrayList new_folders = new ArrayList ();
@@ -419,6 +547,139 @@ namespace Muine
 			watched_folders = (string []) new_folders.ToArray (typeof (string));
 		}
 
+		// Methods :: Private :: HandleDirectory
+		// 	Directory walking
+		private bool HandleDirectory (DirectoryInfo info, Queue queue, BooleanBox canceled_box)
+		{
+			FileInfo [] finfos;
+			
+			try {
+				finfos = info.GetFiles ();
+			} catch {
+				return true;
+			}
+
+			foreach (FileInfo finfo in finfos) {
+				if (canceled_box.Value)
+					return false;
+
+				if (Songs [finfo.FullName] == null) {
+					Song song;
+
+					try {
+						song = new Song (finfo.FullName);
+					} catch {
+						continue;
+					}
+	
+					SignalRequest rq;				
+					try {
+						rq = StartAddSong (song);
+					} catch {
+						break;
+					}
+
+					queue.Enqueue (rq);
+				}
+			}
+
+			DirectoryInfo [] dinfos;
+			
+			try {
+				dinfos = info.GetDirectories ();
+			} catch {
+				return true;
+			}
+
+			foreach (DirectoryInfo dinfo in dinfos) {
+				bool ret = HandleDirectory (dinfo, queue, canceled_box);
+				if (!ret)
+					return false;
+			}
+
+			return true;
+		}
+
+		// Methods :: Private :: HandleSignalRequest
+		//	TODO: Make public?
+		private void HandleSignalRequest (SignalRequest rq)
+		{
+			lock (this) {
+				if (rq.Song.Dead)
+					return;
+
+				if (rq.SongAdded) {
+					EmitSongAdded (rq.Song);
+
+				} else if (rq.SongChanged) {
+					EmitSongChanged (rq.Song);
+
+				} else if (rq.SongRemoved) {
+					EmitSongRemoved (rq.Song);
+					rq.Song.Deregister ();
+				}
+				
+				if (rq.AlbumAdded) {
+					EmitAlbumAdded (rq.Album);
+
+				} else if (rq.AlbumChanged) {
+					EmitAlbumChanged (rq.Album);
+
+					if (rq.AlbumSongsChanged)
+						foreach (Song s in rq.Album.Songs)
+							EmitSongChanged (s);
+
+				} else if (rq.AlbumRemoved) {
+					EmitAlbumRemoved (rq.Album);
+				}
+			}
+		}
+
+		// Methods :: Private :: Signal Emitters
+		// Methods :: Private :: Signal Emitters :: EmitSongAdded
+		private void EmitSongAdded (Song song)
+		{
+			if (SongAdded != null)
+				SongAdded (song);
+		}
+
+		// Methods :: Private :: Signal Emitters :: EmitSongChanged
+		public void EmitSongChanged (Song song)
+		{
+			if (SongChanged != null)
+				SongChanged (song);
+		}
+
+		// Methods :: Private :: Signal Emitters :: EmitSongRemoved
+		private void EmitSongRemoved (Song song)
+		{
+			if (SongRemoved != null)
+				SongRemoved (song);
+		}
+
+		// Methods :: Private :: Signal Emitters :: EmitAlbumAdded
+		private void EmitAlbumAdded (Album album)
+		{
+			if (AlbumAdded != null)
+				AlbumAdded (album);
+		}
+
+		// Methods :: Private :: Signal Emitters :: EmitAlbumChanged
+		public void EmitAlbumChanged (Album album)
+		{
+			if (AlbumChanged != null)
+				AlbumChanged (album);
+		}
+
+		// Methods :: Private :: Signal Emitters :: EmitAlbumRemoved
+		private void EmitAlbumRemoved (Album album)
+		{
+			if (AlbumRemoved != null)
+				AlbumRemoved (album);
+		}
+
+		// Handlers
+		// Handlers :: OnWatchedFoldersChanged
 		private void OnWatchedFoldersChanged (object o, GConf.NotifyEventArgs args)
 		{
 			string [] old_watched_folders = watched_folders;
@@ -441,259 +702,26 @@ namespace Muine
 			if (new_dinfos.Count > 0)
 				new AddFoldersThread (new_dinfos);
 		}
-
-		// Changes thread
-		public void CheckChanges ()
-		{
-			CheckChangesThread t = new CheckChangesThread ();
-		}
 		
-		private class CheckChangesThread : ThreadBase
+		// Delegate Functions
+		// Delegate Functions :: DecodeFunction
+		private void DecodeFunction (string key, IntPtr data)
 		{
-			protected override bool MainLoopIdle ()
-			{
-				if (queue.Count == 0)
-					return !thread_done;
+			Song song = new Song (key, data);
 
-				SignalRequest rq = (SignalRequest) queue.Dequeue ();
-
-				Global.DB.HandleSignalRequest (rq);
-
-				return true;
-			}
-
-			protected override void ThreadFunc ()
-			{
-				Hashtable snapshot;
-				lock (Global.DB)
-					snapshot = (Hashtable) Global.DB.Songs.Clone ();
-
-				/* check for removed songs and changes */
-				foreach (string file in snapshot.Keys) {
-					FileInfo finfo = new FileInfo (file);
-					Song song = (Song) snapshot [file];
-
-					SignalRequest rq = null;
-
-					if (!finfo.Exists)
-						rq = Global.DB.StartRemoveSong (song);
-					else {
-						if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
-							try {
-								Metadata metadata = new Metadata (song.Filename);
-								rq = Global.DB.StartSyncSong (song, metadata);
-							} catch {
-								rq = Global.DB.StartRemoveSong (song);
-							}
-						}
-					}
-
-					if (rq != null)
-						queue.Enqueue (rq);
-				}
-
-				/* check for new songs */
-				foreach (string folder in Global.DB.WatchedFolders) {
-					DirectoryInfo dinfo = new DirectoryInfo (folder);
-					if (!dinfo.Exists)
-						continue;
-
-					BooleanBox canceled = new BooleanBox (false);
-					Global.DB.HandleDirectory (dinfo, queue, canceled);
-				}
-
-				thread_done = true;
-			}
-
-			public CheckChangesThread ()
-			{
-				thread.Start ();
-			}
+			Songs.Add (key, song);
+			
+			// we don't "Finish", as we do this before the UI is there,
+			// we don't need to emit signals
+			StartAddToAlbum (song);
 		}
 
-		// Directory walking
-		private bool HandleDirectory (DirectoryInfo info,
-					      Queue queue,
-					      BooleanBox canceled_box)
+		// Delegate Functions :: EncodeFunction
+		private IntPtr EncodeFunction (IntPtr handle, out int length)
 		{
-			FileInfo [] finfos;
-			
-			try {
-				finfos = info.GetFiles ();
-			} catch {
-				return true;
-			}
+			Song song = Song.FromHandle (handle);
 
-			foreach (FileInfo finfo in finfos) {
-				if (canceled_box.Value)
-					return false;
-
-				if (Songs [finfo.FullName] == null) {
-					Song song;
-
-					try {
-						song = new Song (finfo.FullName);
-					} catch {
-						continue;
-					}
-					
-					SignalRequest rq = StartAddSong (song);
-					if (rq != null)
-						queue.Enqueue (rq);
-				}
-			}
-
-			DirectoryInfo [] dinfos;
-			
-			try {
-				dinfos = info.GetDirectories ();
-			} catch {
-				return true;
-			}
-
-			foreach (DirectoryInfo dinfo in dinfos) {
-				bool ret = HandleDirectory (dinfo, queue, canceled_box);
-				if (!ret)
-					return false;
-			}
-
-			return true;
-		}
-
-		private class BooleanBox {
-			private bool val;
-			public bool Value {
-				set { val = value; }
-				get { return val; }
-			}
-
-			public BooleanBox (bool value)
-			{
-				val = value;
-			}
-		}
-			
-		// SignalRequest
-		private class SignalRequest
-		{
-			private Song song;
-			public Song Song {
-				get { return song; }
-			}
-			
-			private Album album;
-			public Album Album {
-				set { album = value; }
-				get { return album; }
-			}
-
-			private bool song_added;
-			public bool SongAdded {
-				set { song_added = value; }
-				get { return song_added; }
-			}
-
-			private bool song_changed;
-			public bool SongChanged {
-				set { song_changed = value; }
-				get { return song_changed; }
-			}
-
-			private bool song_removed;
-			public bool SongRemoved {
-				set { song_removed = value; }
-				get { return song_removed; }
-			}
-			
-			private bool album_added;
-			public bool AlbumAdded {
-				set { album_added = value; }
-				get { return album_added; }
-			}
-
-			private bool album_changed;
-			public bool AlbumChanged {
-				set { album_changed = value; }
-				get { return album_changed; }
-			}
-
-			private bool album_removed;
-			public bool AlbumRemoved {
-				set { album_removed = value; }
-				get { return album_removed; }
-			}
-
-			private bool album_songs_changed;
-			public bool AlbumSongsChanged {
-				set { album_songs_changed = value; }
-				get { return album_songs_changed; }
-			}
-
-			public SignalRequest (Song song) {
-				this.song = song;
-				album = null;
-
-				song_added = false;
-				song_changed = false;
-				song_removed = false;
-
-				album_added = false;
-				album_changed = false;
-				album_removed = false;
-				album_songs_changed = false;
-			}
-		}
-
-		private void HandleSignalRequest (SignalRequest rq)
-		{
-			lock (this) {
-				if (rq.Song.Dead)
-					return;
-
-				if (rq.SongAdded)
-					EmitSongAdded (rq.Song);
-				else if (rq.SongChanged)
-					EmitSongChanged (rq.Song);
-				else if (rq.SongRemoved) {
-					EmitSongRemoved (rq.Song);
-
-					rq.Song.Deregister ();
-				}
-				
-				if (rq.AlbumAdded)
-					EmitAlbumAdded (rq.Album);
-				else if (rq.AlbumChanged) {
-					EmitAlbumChanged (rq.Album);
-
-					if (rq.AlbumSongsChanged)
-						foreach (Song s in rq.Album.Songs)
-							EmitSongChanged (s);
-				} else if (rq.AlbumRemoved)
-					EmitAlbumRemoved (rq.Album);
-			}
-		}
-
-		/*
-		The album key is "folder:album name" because of the following
-		reasons:
-		We cannot do artist/performer matching, because it is very common for
-		albums to be made by different artists. Random example, the Sigur
-		Rós/Radiohead split. Using "Various Artists" as artist tag is whacky.
-		But, we cannot match only by album name either: a user may very well
-		have multiple albums with the title "Greatest Hits". We don't want to
-		incorrectly group all these together.
-		So, the best thing we've managed to come up with so far is using
-		folder:albumname. This because most people who even have whole albums
-		have those organised in folders, or at the very least all music files in
-		the same folder. So for those it should more or less work. And for those
-		who have a decently organised music collection, the original target user
-		base, it should work flawlessly. And for those who have a REALLY poorly
-		organised collection, well, bummer. Moving all files to the same dir
-		will help a bit.
-		*/
-		public string MakeAlbumKey (string folder, string album_name)
-		{
-			return folder + ":" + album_name.ToLower ();
+			return song.Pack (out length);
 		}
 	}
 }

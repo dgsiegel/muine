@@ -24,23 +24,25 @@ namespace Muine
 {
 	public class ColoredCellRendererPixbuf : Gtk.CellRenderer 
 	{
+		// Constructor
+		[DllImport ("libmuine")]
+		private static extern IntPtr rb_cell_renderer_pixbuf_new ();
+
+		public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
+		{
+			base.Raw = rb_cell_renderer_pixbuf_new ();
+		}
+
+		// Destructor
 		~ColoredCellRendererPixbuf ()
 		{
 			Dispose ();
 		}
 
-		[DllImport ("libmuine")]
-		static extern IntPtr rb_cell_renderer_pixbuf_new ();
-
-		public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
-		{
-			Raw = rb_cell_renderer_pixbuf_new ();
-		}
-
+		// Properties
+		// Properties :: Pixbuf (set;)
 		public Gdk.Pixbuf Pixbuf {
-			set {
-				SetProperty ("pixbuf", new GLib.Value (value));
-			}
+			set { SetProperty ("pixbuf", new GLib.Value (value)); }
 		}
 	}
 }

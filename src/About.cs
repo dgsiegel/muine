@@ -24,11 +24,9 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class About
+	public class About : Gnome.About
 	{
-		// Static
-		// Static :: Variables :: Private
-		// Static :: Variables :: Private :: Strings
+		// Strings
 		private static readonly string string_translators = 
 			Catalog.GetString ("translator-credits");
 		private static readonly string string_muine =
@@ -38,6 +36,7 @@ namespace Muine
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
 		
+		// Authors
 		private static readonly string [] authors = new string [] {
 			Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>"),
 			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
@@ -47,27 +46,31 @@ namespace Muine
 			Catalog.GetString ("Album covers are provided by amazon.com."),
 		};
 		
+		// Documenters
 		private static readonly string [] documenters = new string [] {
 		};
 
+		// Icon
 		private static readonly Gdk.Pixbuf pixbuf = new Gdk.Pixbuf (null, "muine-about.png");
-
-		// Static :: Methods
-		// Static :: Methods :: ShowWindow
-		public static void ShowWindow (Gtk.Window parent)
+	
+		// Variables
+		private static string translators;
+		
+		// Static Constructor
+		static About ()
 		{
-			string translators = (string_translators == "translator-credits") 
-			                     ? null 
-			                     : string_translators;
-			
-			Gnome.About about = new Gnome.About (string_muine, Defines.VERSION,
-							     string_copyright,
-							     string_description,
-							     authors, documenters, translators,
-							     pixbuf);
+			translators = (string_translators == "translator-credits") 
+		                      ? null 
+		                      : string_translators;
+		}
 
-			about.TransientFor = parent;
-			about.Show ();
+		// Constructor
+		public About (Gtk.Window parent)
+		: base (string_muine, Defines.VERSION, string_copyright, string_description,
+			authors, documenters, translators, pixbuf)
+		{
+			base.TransientFor = parent;
+			base.Show ();
 		}
 	}
 }

@@ -27,15 +27,35 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class FileUtils
+	public sealed class FileUtils
 	{
+		// Constants
+		private const string playlist_filename = "playlist.m3u";
+		private const string songsdb_filename = "songs.db";
+		private const string coversdb_filename = "covers.db";
+		private const string plugin_dirname = "plugins";
+
+		private readonly static DateTime date_time_1970 = 
+			new DateTime (1970, 1, 1, 0, 0, 0, 0);
+
 		// Strings
 		private static readonly string string_init_config_failed = 
 			Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting...");
 		private static readonly string string_init_temp_failed =
 			Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting...");
-	
-		// Filenames
+
+		// Variables
+		private static string home_directory;
+		private static string config_directory;
+		private static string playlist_file;
+		private static string songsdb_file;
+		private static string coversdb_file;
+		private static string user_plugin_directory;
+		private static string temp_directory;
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Init
 		public static void Init ()
 		{
 			home_directory = Environment.GetEnvironmentVariable ("HOME");
@@ -49,7 +69,7 @@ namespace Muine
 			}
 
 			playlist_file = Path.Combine (config_directory, playlist_filename);
-			songsdb_file = Path.Combine (config_directory, songsdb_filename);
+			songsdb_file  = Path.Combine (config_directory, songsdb_filename );
 			coversdb_file = Path.Combine (config_directory, coversdb_filename);
 			user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
 			
@@ -62,67 +82,51 @@ namespace Muine
 				throw new Exception (String.Format (string_init_temp_failed, e.Message));
 			}
 		}
-		
-		private static string home_directory;
+
+		// Properties
+		// Properties :: HomeDirectory (get;)
 		public static string HomeDirectory {
-			get {
-				return home_directory;
-			}
+			get { return home_directory; }
 		}
-		
-		private static string config_directory;
+
+		// Properties :: ConfigDirectory (get;)		
 		public static string ConfigDirectory {
-			get {
-				return config_directory;
-			}
+			get { return config_directory; }
 		}
 		
-		private static string playlist_file;
-		private const string playlist_filename = "playlist.m3u";
+		// Properties :: PlaylistFile (get;)
 		public static string PlaylistFile {
-			get {
-				return playlist_file;
-			}
+			get { return playlist_file; }
 		}
 
-		private static string songsdb_file;
-		private const string songsdb_filename = "songs.db";
+		// Properties :: SongsDBFile (get;)
 		public static string SongsDBFile {
-			get {
-				return songsdb_file;
-			}
+			get { return songsdb_file; }
 		}
 
-		private static string coversdb_file;
-		private const string coversdb_filename = "covers.db";
+		// Properties :: CoversDBFile (get;)
 		public static string CoversDBFile {
-			get {
-				return coversdb_file;
-			}
+			get { return coversdb_file; }
 		}
 
+		// Properties :: SystemPluginDirectory (get;)
 		public static string SystemPluginDirectory {
-			get {
-				return Defines.PLUGIN_DIR;
-			}
+			get { return Defines.PLUGIN_DIR; }
 		}
 
-		private const string plugin_dirname = "plugins";
-		private static string user_plugin_directory;
+		// Properties :: UserPluginDirectory (get;)
 		public static string UserPluginDirectory {
-			get {
-				return user_plugin_directory;
-			}
+			get { return user_plugin_directory; }
 		}
 
-		private static string temp_directory;
+		// Properties :: TempDirectory (get;)
 		public static string TempDirectory {
-			get {
-				return temp_directory;
-			}
+			get { return temp_directory; }
 		}
 		
 		// Methods
+		// Methods :: Public
+		// Methods :: Public :: IsFromRemovableMedia
 		public static bool IsFromRemovableMedia (string fn)
 		{
 			return (fn.StartsWith ("/mnt/") ||
@@ -131,24 +135,24 @@ namespace Muine
 				fn.StartsWith ("file:///media/"));
 		}
 
+		// Methods :: Public :: IsPlaylist
 		public static bool IsPlaylist (string fn)
 		{
 			string ext = Path.GetExtension (fn).ToLower ();
-
 			return (ext == ".m3u");
 		}
 
+		// Methods :: Public :: Exists
 		public static bool Exists (string fn)
 		{
 			Gnome.Vfs.Uri u = new Gnome.Vfs.Uri (fn);
-
 			return u.Exists;
 		}
 
+		// Methods :: Public :: MakeHumanReadable
 		public static string MakeHumanReadable (string fn)
 		{
 			System.Uri u = new System.Uri (fn);
-
 			string ret = u.ToString ();
 
 			if (ret.StartsWith ("file://"))
@@ -157,13 +161,13 @@ namespace Muine
 			return ret;
 		}
 
-		readonly static DateTime datetTime1970 = new DateTime (1970, 1, 1, 0, 0, 0, 0);
-
+		// Methods :: Public :: MTimeToTicks
 		public static long MTimeToTicks (int mtime)
 		{
-			return (long) (mtime * 10000000L) + datetTime1970.Ticks;
+			return (long) (mtime * 10000000L) + date_time_1970.Ticks;
 		}
 
+		// Methods :: Public :: CreateDirectory
 		private static void CreateDirectory (string dir)
 		{
 			DirectoryInfo dinfo = new DirectoryInfo (dir);
@@ -173,7 +177,8 @@ namespace Muine
 			dinfo.Create ();
 		}
 
-		/* these two go away once we have vfs support everywhere */
+		// Methods :: Public :: LocalPathFromUri
+		// 	TODO: Replace with GnomeVfs#
 		[DllImport ("libgnomevfs-2-0.dll")]
 		private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
 
@@ -181,17 +186,20 @@ namespace Muine
 		{
 			IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
 
-			if (p == IntPtr.Zero)
-				return null;
-			else
-				return GLib.Marshaller.PtrToStringGFree (p);
+			return (p == IntPtr.Zero)
+				? null
+				: GLib.Marshaller.PtrToStringGFree (p);
 		}
 
+		// Methods :: Public :: UriFromLocalPath
+		//	TODO: Replace with GnomeVfs#
 		public static string UriFromLocalPath (string uri)
 		{
 			return "file://" + uri;
 		}
 
+		// Methods :: Public ::: IsRemove
+		// 	TODO: Make portable
 		public static bool IsRemote (string uri)
 		{
 			return (uri [0] != '/' && !uri.StartsWith ("file://"));

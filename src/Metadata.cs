@@ -30,73 +30,23 @@ namespace Muine
 		// Strings
 		private static readonly string string_load_failed =
 			Catalog.GetString ("Failed to load metadata: {0}");
-		
-		// Properties
+
+		// Variables
 		private string title;
-		public string Title {
-			get { return title; }
-		}
-
 		private string [] artists;
-		public string [] Artists {
-			get { return artists; }
-		}
-
 		private string [] performers;
-		public string [] Performers {
-			get { return performers; }
-		}
-
 		private string album;
-		public string Album {
-			get { return album; }
-		}
-
 		private Pixbuf album_art;
-		public Pixbuf AlbumArt {
-			get { return album_art; }
-		}
-
 		private int track_number;
-		public int TrackNumber {
-			get { return track_number; }
-		}
-
 		private int disc_number;
-		public int DiscNumber {
-			get { return disc_number; }
-		}
-
 		private string year;
-		public string Year {
-			get { return year; }
-		}
-
 		private int duration;
-		public int Duration {
-			get { return duration; }
-		}
-
 		private string mime_type;
-		public string MimeType {
-			get { return mime_type; }
-		}
-
 		private int mtime;
-		public int MTime {
-			get { return mtime; }
-		}
-
 		private double gain;
-		public double Gain {
-			get { return gain; }
-		}
-
 		private double peak;
-		public double Peak {
-			get { return peak; }
-		}
 
+		// Constructor
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_load (string filename,
 					                    out IntPtr error_message_return);
@@ -156,15 +106,13 @@ namespace Muine
 			IntPtr md = metadata_load (filename, out error_ptr);
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-
 				throw new Exception (String.Format (string_load_failed, error));
 			}
 
 			p = metadata_get_title (md);
-			if (p != IntPtr.Zero)
-				title = Marshal.PtrToStringAnsi (p);
-			else
-				title = "";
+			title = (p == IntPtr.Zero)
+				 ? ""
+				 : Marshal.PtrToStringAnsi (p);
 
 			artists = new string [metadata_get_artist_count (md)];
 			for (int i = 0; i < artists.Length; i++)
@@ -175,24 +123,22 @@ namespace Muine
 				performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (md, i));
 			
 			p = metadata_get_album (md);
-			if (p != IntPtr.Zero)
-				album = Marshal.PtrToStringAnsi (p);
-			else
-				album = "";
+			album = (p == IntPtr.Zero)
+				 ? ""
+				 : Marshal.PtrToStringAnsi (p);
 
-			if (metadata_get_album_art (md) != IntPtr.Zero)
-				album_art = new Pixbuf (metadata_get_album_art (md));
-			else
-				album_art = null;
+			p = metadata_get_album_art (md);
+			album_art = (p == IntPtr.Zero)
+				     ? null
+				     : new Pixbuf (metadata_get_album_art (md));
 
 			track_number = metadata_get_track_number (md);
 			disc_number = metadata_get_disc_number (md);
 
 			p = metadata_get_year (md);
-			if (p != IntPtr.Zero)
-				year = Marshal.PtrToStringAnsi (p);
-			else
-				year = "";
+			year = (p == IntPtr.Zero)
+				? ""
+				: Marshal.PtrToStringAnsi (p);
 
 			duration = metadata_get_duration (md);
 
@@ -204,6 +150,72 @@ namespace Muine
 			peak = metadata_get_peak (md);
 
 			metadata_free (md);
+		}
+								
+		// Properties
+		// Properties :: Title (get;)
+		public string Title {
+			get { return title; }
+		}
+
+		// Properties :: Artists (get;)
+		public string [] Artists {
+			get { return artists; }
+		}
+
+		// Properties :: Performers (get;)
+		public string [] Performers {
+			get { return performers; }
+		}
+
+		// Properties :: Album (get;)
+		public string Album {
+			get { return album; }
+		}
+
+		// Properties :: AlbumArt (get;)
+		public Pixbuf AlbumArt {
+			get { return album_art; }
+		}
+
+		// Properties :: TrackNumber (get;)
+		public int TrackNumber {
+			get { return track_number; }
+		}
+
+		// Properties :: DiscNumber (get;)
+		public int DiscNumber {
+			get { return disc_number; }
+		}
+
+		// Properties :: Year (get;)
+		public string Year {
+			get { return year; }
+		}
+
+		// Properties :: Duration (get;)
+		public int Duration {
+			get { return duration; }
+		}
+
+		// Properties :: MimeType (get;)
+		public string MimeType {
+			get { return mime_type; }
+		}
+
+		// Properties :: MTime (get;)
+		public int MTime {
+			get { return mtime; }
+		}
+
+		// Properties :: Gain (get;)
+		public double Gain {
+			get { return gain; }
+		}
+
+		// Properties :: Peak (get;)
+		public double Peak {
+			get { return peak; }
 		}
 	}
 }

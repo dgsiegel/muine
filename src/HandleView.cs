@@ -366,7 +366,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: ForwardKeyPress
-		// hack to forward key press events to the treeview
+		// 	Hack to forward key press events to the treeview
 		public bool ForwardKeyPress (Widget orig_widget, Gdk.EventKey e)
 		{
 			bool go  = false;

@@ -17,6 +17,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// FIXME: albumchanged signal?
+// FIXME: accessible from add album window? 
+// FIXME: songinfo on selection in playlist
+
 using System;
 using System.IO;
 using System.Text;
@@ -28,32 +32,25 @@ namespace Muine
 {
 	public class InfoWindow : Window
 	{
+		// GConf
 	        private const string GConfKeyWidth = "/apps/muine/information_window/width";
 	        private const int GConfDefaultWidth = 350; 
 
 	        private const string GConfKeyHeight = "/apps/muine/information_window/height";
 	        private const int GConfDefaultHeight = 300; 
 
-		[Glade.Widget]
-		Window window;
-		[Glade.Widget]
-		ScrolledWindow scrolledwindow;
-		[Glade.Widget]
-		Viewport viewport;
-		[Glade.Widget]
-		Box box;
-		[Glade.Widget]
-		Label name_label;
-		[Glade.Widget]
-		Label year_label;
-		[Glade.Widget]
-		Table tracks_table;
+		// Widgets
+		[Glade.Widget] private Window         window;
+		[Glade.Widget] private ScrolledWindow scrolledwindow;
+		[Glade.Widget] private Viewport       viewport;
+		[Glade.Widget] private Box            box;
+		[Glade.Widget] private Label          name_label;
+		[Glade.Widget] private Label          year_label;
+		[Glade.Widget] private Table          tracks_table;
+
 		private CoverImage cover_image;
 
-		/* FIXME albumchanged signal? */
-		/* FIXME accessible from add album window? */
-		/* FIXME songinfo on selection in playlist */
-
+		// Constructor
 		public InfoWindow (string title) : base (IntPtr.Zero)
 		{
 			Glade.XML gxml = new Glade.XML (null, "InfoWindow.glade", "window", null);
@@ -63,47 +60,52 @@ namespace Muine
 
 			window.Title = title;
 
-			int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);
+			int width  = (int) Muine.GetGConfValue (GConfKeyWidth , GConfDefaultWidth );
 			int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
 
 			window.SetDefaultSize (width, height);
 
-			window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);
 
 			cover_image = new CoverImage ();
 			((Container) gxml ["cover_image_container"]).Add (cover_image);
 
-			/* Keynav */
+			// Keynav
 			box.FocusHadjustment = scrolledwindow.Hadjustment;
 			box.FocusVadjustment = scrolledwindow.Vadjustment;
 
-			/* white background.. */
-	//		viewport.EnsureStyle ();
-	//		viewport.ModifyBg (StateType.Normal, viewport.Style.Base (StateType.Normal));
+			// White background
+//			viewport.EnsureStyle ();
+//			viewport.ModifyBg (StateType.Normal, viewport.Style.Base (StateType.Normal));
 		}
 
-		private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
-		{
-			int width, height;
-
-			window.GetSize (out width, out height);
-
-			Muine.SetGConfValue (GConfKeyWidth, width);
-			Muine.SetGConfValue (GConfKeyHeight, height);
-		}
-
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Run
 		public void Run ()
 		{
 			window.ShowAll ();
-
 			window.Present ();
 		}
 
-		private void HandleCloseButtonClicked (object o, EventArgs args)
+		// Methods :: Public
+		public void Load (Album album) 
 		{
-			window.Destroy ();
+			cover_image.Song = (Song) album.Songs [0];
+
+			name_label.Text = album.Name;
+			MarkupUtils.LabelSetMarkup (name_label, 0, StringUtils.GetByteLength (album.Name),
+			                            true, true, false);
+
+			year_label.Text = album.Year;
+			
+			// insert tracks
+			foreach (Song song in album.Songs)
+				InsertTrack (song);
 		}
 
+		// Methods :: Private
+		// Methods :: Private :: InsertTrack
 		private void InsertTrack (Song song)
 		{
 			tracks_table.NRows ++;
@@ -129,19 +131,23 @@ namespace Muine
 					     0, 0, 0);
 		}
 
-		public void Load (Album album) 
+
+		// Handlers
+		// Handlers :: OnSizeAllocated
+		private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 		{
-			cover_image.Song = (Song) album.Songs [0];
+			int width, height;
 
-			name_label.Text = album.Name;
-			MarkupUtils.LabelSetMarkup (name_label, 0, StringUtils.GetByteLength (album.Name),
-			                            true, true, false);
+			window.GetSize (out width, out height);
 
-			year_label.Text = album.Year;
-			
-			/* insert tracks */
-			foreach (Song song in album.Songs)
-				InsertTrack (song);
+			Muine.SetGConfValue (GConfKeyWidth, width);
+			Muine.SetGConfValue (GConfKeyHeight, height);
+		}
+
+		// Handlers :: OnCloseButtonClicked
+		private void OnCloseButtonClicked (object o, EventArgs args)
+		{
+			window.Destroy ();
 		}
 	}
 }

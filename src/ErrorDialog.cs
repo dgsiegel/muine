@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Use Gnome Error Dialog
+
 using System;
 
 using Gtk;
@@ -33,12 +35,17 @@ namespace Muine
 			Catalog.GetString ("An error occurred:");
 	
 		// Widgets
-		[Glade.Widget]
-		Dialog window;
-		[Glade.Widget]
-		Label label;
+		[Glade.Widget] private Dialog window;
+		[Glade.Widget] private Label  label;
 
-		public void Setup (string text)
+		// Constructor
+		public ErrorDialog (string text, Window parent)
+		: this (text)
+		{
+			window.TransientFor = parent;
+		}
+
+		public ErrorDialog (string text)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 			gxml.Autoconnect (this);
@@ -51,20 +58,7 @@ namespace Muine
 			label.Text = full_text;
 
 			window.Run ();
-
 			window.Destroy ();
-		}
-		
-		public ErrorDialog (string text)
-		{
-			Setup (text);
-		}
-
-		public ErrorDialog (string text, Window parent)
-		{
-			Setup (text);
-
-			window.TransientFor = parent;
-		}
+		}		
 	}
 }

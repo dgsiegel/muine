@@ -28,8 +28,7 @@ namespace Muine
 {
 	public class SaveDialog : FileSelector
 	{	
-		// Constants
-		// Constants :: GConf
+		// GConf
 		private const string GConfKeyDefaultPlaylistFolder = "/apps/muine/default_playlist_folder";
 		
 		// Strings

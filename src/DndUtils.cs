@@ -23,9 +23,10 @@ using Gtk;
 
 namespace Muine
 {
-	public class DndUtils 
+	public sealed class DndUtils 
 	{
-		// DnD targets
+		// Enums
+		// Enums :: Drag-and-Drop TargetType
 		public enum TargetType {
 			UriList,
 			Uri,
@@ -34,6 +35,7 @@ namespace Muine
 			ModelRow
 		};
 
+		// Drag-and-Drop Targets
 		public static readonly TargetEntry TargetUriList = 
 			new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
 			
@@ -53,15 +55,17 @@ namespace Muine
 			new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
 
 		// Methods
+		// Methods :: Public
+		// Methods :: Public :: SelectionDataToString
 		public static string SelectionDataToString (Gtk.SelectionData data)
 		{
 			return System.Text.Encoding.UTF8.GetString (data.Data);
 		}
 
+		// Methods :: Public :: SplitSelectionData
 		public static string [] SplitSelectionData (Gtk.SelectionData data)
 		{
 			string str = SelectionDataToString (data);
-
 			return SplitSelectionData (str);
 		}
 

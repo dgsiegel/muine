@@ -33,19 +33,40 @@ namespace Muine
 		private static readonly string string_error_load =
 			Catalog.GetString ("Error loading plug-in {0}: {1}");
 	
+		// Objects
 		private IPlayer player;
-		
+
+		// Constructor
+		public PluginManager (IPlayer player)
+		{
+			this.player = player;
+
+			string path = Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
+
+			if (path != null)
+				foreach (string dir in path.Split (':'))
+					FindAssemblies (dir);
+
+			FindAssemblies (FileUtils.SystemPluginDirectory);
+			FindAssemblies (FileUtils.UserPluginDirectory);
+		}
+
+		// Methods
+		// Methods :: Private
+		// Methods :: Private :: ScanAssemblyForPlugins
+		//	TODO: is "assembly" a reserved word? it's highlighted in GtkSourceView...
 		private void ScanAssemblyForPlugins (Assembly assembly)
 		{
 			foreach (Type t in assembly.GetTypes ()) {
-				if (t.IsSubclassOf (typeof (Plugin)) && !t.IsAbstract) {
-					Plugin plugin = (Plugin) Activator.CreateInstance (t);
+				if (!t.IsSubclassOf (typeof (Plugin)) || t.IsAbstract)
+					continue;
 
-					plugin.Initialize (player);
-				}
+				Plugin plugin = (Plugin) Activator.CreateInstance (t);
+				plugin.Initialize (player);
 			}
 		}
 
+		// Methods :: Private :: FindAssemblies
 		private void FindAssemblies (string dir)
 		{
 			if (dir == null || dir == "")
@@ -66,20 +87,6 @@ namespace Muine
 					}
 				}
 			}
-		}
-
-		public PluginManager (IPlayer player)
-		{
-			this.player = player;
-
-			string path = Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
-
-			if (path != null)
-				foreach (string dir in path.Split (':'))
-					FindAssemblies (dir);
-
-			FindAssemblies (FileUtils.SystemPluginDirectory);
-			FindAssemblies (FileUtils.UserPluginDirectory);
 		}
 	}
 }

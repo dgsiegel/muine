@@ -26,17 +26,18 @@ namespace Muine
 {
 	public class SkipToWindow
 	{
-		[Glade.Widget]
-		Window window;
-		[Glade.Widget]
-		HScale song_slider;
-		[Glade.Widget]
-		Label song_position;
+		// Widgets
+		[Glade.Widget] private Window window;
+		[Glade.Widget] private HScale song_slider;
+		[Glade.Widget] private Label  song_position;
 
+		// Objects
 		Player player;
 
+		// Variables
 		bool from_tick;
 		
+		// Constructor
 		public SkipToWindow (Window parent, Player p)
 		{
 			Glade.XML gxml = new Glade.XML (null, "SkipToWindow.glade", "window", null);
@@ -50,41 +51,49 @@ namespace Muine
 			OnTickEvent (player.Position);
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Run
 		public void Run ()
 		{
 			window.Visible = true;
-
 			song_slider.GrabFocus ();
 		}
 
+		// Methods :: Public :: Hide
 		public void Hide ()
 		{
 			window.Visible = false;
 		}
 
+		// Handlers
+		// Handlers :: OnTickEvent
 		private void OnTickEvent (int pos) 
 		{
-			/* update label */
-			String position = StringUtils.SecondsToString (pos);
+			// Update label
+			String position   = StringUtils.SecondsToString (pos);
 			String total_time = StringUtils.SecondsToString (player.Song.Duration);
-			song_position.Text = position + " / " + total_time;
+			song_position.Text = String.Format ("{0} / {1}", position, total_time);
 
-			/* update slider */
+			// Update slider
 			from_tick = true;
 			song_slider.Value = pos; 
 			song_slider.SetRange (0, player.Song.Duration);
 		}
 
+		// Handlers :: OnSongSliderValueChanged
 		private void OnSongSliderValueChanged (object o, EventArgs a) 
 		{
 			if (!from_tick) {
 				player.Position = (int) song_slider.Value;
-
 				player.Play ();
-			} else
+
+			} else {
 				from_tick = false;
+			}
 		}
 
+		// Handlers :: OnWindowDeleteEvent
 		private void OnWindowDeleteEvent (object o, EventArgs a)
 		{
 			window.Visible = false;
@@ -93,6 +102,7 @@ namespace Muine
 			args.RetVal = true;
 		}
 
+		// Handlers :: OnCloseButtonClicked
 		private void OnCloseButtonClicked (object o, EventArgs a)
 		{
 			window.Visible = false;

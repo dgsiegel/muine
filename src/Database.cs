@@ -24,14 +24,20 @@ namespace Muine
 {
 	public class Database
 	{
+		// Delegates
 		public delegate IntPtr EncodeFunctionDelegate (IntPtr handle, out int length);
+		private                EncodeFunctionDelegate encode_function;
+		
 		public delegate void   DecodeFunctionDelegate (string key, IntPtr data);
+		private                DecodeFunctionDelegate decode_function;
 
+		// Variables
 		private IntPtr db_ptr;
-		private EncodeFunctionDelegate encode_function;
-		private DecodeFunctionDelegate decode_function;
 
 		// Constructor
+		[DllImport ("libmuine")]
+		private static extern IntPtr db_open (string filename, int version, out IntPtr error);
+
 		public Database (string filename, int version)
 		{
 			IntPtr error_ptr;
@@ -42,40 +48,44 @@ namespace Muine
 				throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
 		}
 
-		[DllImport ("libmuine")]
-		private static extern IntPtr db_open (string filename, int version,
-		                                      out IntPtr error);
-
-		// Handle
+		// Properties
+		// Properties :: Handle (get;)
 		public IntPtr Handle {
 			get { return db_ptr; }
 		}
 
-		// EncodeFunction
+		// Properties :: EncodeFunction (set; get;)
 		public EncodeFunctionDelegate EncodeFunction {
-			get { return encode_function; }
 			set { encode_function = value; }
+			get { return encode_function;  }
 		}
 		
-		// DecodeFunction
+		// Properties :: DecodeFunction (set; get;)
 		public DecodeFunctionDelegate DecodeFunction {
-			get { return decode_function; }
-			
 			set { decode_function = value; }
+			get { return decode_function;  }
 		}
 			
-		// Load
-		public void Load ()
-		{
-			db_foreach (db_ptr, decode_function, IntPtr.Zero);
-		}
-			
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Load
 		[DllImport ("libmuine")]
 		private static extern void db_foreach (IntPtr db_ptr, 
 						       DecodeFunctionDelegate decode_function, 
 						       IntPtr data);
 
-		// Store
+		public void Load ()
+		{
+			db_foreach (db_ptr, decode_function, IntPtr.Zero);
+		}
+			
+
+		// Methods :: Public :: Store
+		[DllImport ("libmuine")]
+		private static extern void db_store (IntPtr db_ptr, string key, bool overwrite,
+						     EncodeFunctionDelegate encode_function,
+						     IntPtr val);
+
 		public void Store (string key, IntPtr val)
 		{
 			Store (key, val, false);
@@ -86,58 +96,55 @@ namespace Muine
 			db_store (db_ptr, key, overwrite, encode_function, val);
 		} 
 
+		// Methods :: Public :: Delete
 		[DllImport ("libmuine")]
-		private static extern void db_store (IntPtr db_ptr, string key, bool overwrite,
-						     EncodeFunctionDelegate encode_function,
-						     IntPtr val);
+		private static extern void db_delete (IntPtr db_ptr, string key);
 
-		// Delete
 		public void Delete (string key)
 		{
 			db_delete (db_ptr, key);
 		}
 		
+		// Methods :: Public :: Unpack :: UnpackBool
 		[DllImport ("libmuine")]
-		private static extern void db_delete (IntPtr db_ptr, string key);
+		private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
 
-	// ---------- Unpack ----------
-		// UnpackBool
 		public static IntPtr UnpackBool (IntPtr p, out bool b)
 		{
 			return db_unpack_bool (p, out b);        
 		}
 
+		// Methods :: Public :: Unpack :: UnpackDouble
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
+		private static extern IntPtr db_unpack_double (IntPtr p, out double d);
 
-		// UnpackDouble
 		public static IntPtr UnpackDouble (IntPtr p, out double d)
 		{
 			return db_unpack_double (p, out d);
 		}
 
+		// Methods :: Public :: Unpack :: UnpackInt
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_double (IntPtr p, out double d);
+		private static extern IntPtr db_unpack_int (IntPtr p, out int i);
 
-		// UnpackInt
 		public static IntPtr UnpackInt (IntPtr p, out int i)
 		{
 			return db_unpack_int (p, out i);
 		}
 
+		// Methods :: Public :: Unpack :: UnpackPixbuf
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_int (IntPtr p, out int i);
+		private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
 
-		// UnpackPixbuf
 		public static IntPtr UnpackPixbuf (IntPtr p, out IntPtr pixbuf)
 		{
 			return db_unpack_pixbuf (p, out pixbuf);
 		}
 
+		// Methods :: Public :: Unpack :: UnpackString
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
+		private static extern IntPtr db_unpack_string (IntPtr p, out IntPtr str_ptr);
 
-		// UnpackString
 		public static IntPtr UnpackString (IntPtr p, out string str)
 		{
 			IntPtr str_ptr;
@@ -150,73 +157,68 @@ namespace Muine
 		{
 			return db_unpack_string (p, out str_ptr);
 		}
-			
+
+		// Methods :: Public :: Pack :: PackStart
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_string (IntPtr p, out IntPtr str_ptr);
+		private static extern IntPtr db_pack_start ();
 
-	// ---------- Pack ----------
-
-		// PackStart
 		public static IntPtr PackStart ()
 		{
 			return db_pack_start ();
 		}
 		
+		// Methods :: Public :: Pack :: PackEnd
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_pack_start ();
+		private static extern IntPtr db_pack_end (IntPtr p, out int length);
 
-		// PackEnd
 		public static IntPtr PackEnd (IntPtr p, out int length)
 		{
 			return db_pack_end (p, out length);
 		}
 		
+		// Methods :: Public :: Pack :: PackPixbuf
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_pack_end (IntPtr p, out int length);
+		private static extern void db_pack_pixbuf (IntPtr p, IntPtr pixbuf);
 
-		// PackPixbuf
 		public static void PackPixbuf (IntPtr p, IntPtr pixbuf)
 		{
 			db_pack_pixbuf (p, pixbuf);	
 		}
 		
+		// Methods :: Public :: Pack :: PackString
 		[DllImport ("libmuine")]
-		private static extern void db_pack_pixbuf (IntPtr p, IntPtr pixbuf);
-
-		// PackString
+		private static extern void db_pack_string (IntPtr p, string str);
+		
 		public static void PackString (IntPtr p, string str)
 		{
 			db_pack_string (p, str);
 		}
 		
+		// Methods :: Public :: Pack :: PackInt
 		[DllImport ("libmuine")]
-		private static extern void db_pack_string (IntPtr p, string str);
-		
-		// PackInt
+		private static extern void db_pack_int (IntPtr p, int i);
+
 		public static void PackInt (IntPtr p, int i)
 		{
 			db_pack_int (p, i);
 		}
 		
+		// Methods :: Public :: Pack :: PackBool
 		[DllImport ("libmuine")]
-		private static extern void db_pack_int (IntPtr p, int i);
-		
-		// PackBool
+		private static extern void db_pack_bool (IntPtr p, bool b);
+
 		public static void PackBool (IntPtr p, bool b)
 		{
 			db_pack_bool (p, b);
 		}
-		
+				
+		// Methods :: Public :: Pack :: PackDouble
 		[DllImport ("libmuine")]
-		private static extern void db_pack_bool (IntPtr p, bool b);
-		
-		// PackDouble
+		private static extern void db_pack_double (IntPtr p, double d);
+
 		public static void PackDouble (IntPtr p, double d)
 		{
 			db_pack_double (p, d);
-		}
-		
-		[DllImport ("libmuine")]
-		private static extern void db_pack_double (IntPtr p, double d);
+		}		
 	} 
 }

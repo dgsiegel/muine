@@ -40,7 +40,7 @@ namespace Muine
 		private const int MinShowHours = 6000; // seconds over which to show remaining time in hours
 		private const int MinShowMinutes = 60; // seconds over which to show remaining time in minutes
 		
-		// Constants :: GConf
+		// GConf
 		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
 		private const int GConfDefaultWidth = 450; 
 
@@ -76,7 +76,7 @@ namespace Muine
 			Catalog.GetString ("{0} - Muine Music Player");
 
 		// Strings :: Tooltips
-		private static readonly string string_tooltip_play_pause =
+		private static readonly string string_tooltip_toggle_play =
 			Catalog.GetString ("Switch music playback on or off");
 		private static readonly string string_tooltip_previous =
 			Catalog.GetString ("Play the previous song");
@@ -161,14 +161,14 @@ namespace Muine
 		[Glade.Widget] private Container cover_image_container;
 
 		// Widgets :: Images
-		[Glade.Widget] private Image play_pause_image;
+		[Glade.Widget] private Image toggle_play_image;
 		[Glade.Widget] private Image previous_image;
 		[Glade.Widget] private Image next_image;
 		[Glade.Widget] private Image add_song_image;
 		[Glade.Widget] private Image add_album_image;
 
 		// Widgets :: Toolbar
-		[Glade.Widget] private ToggleButton play_pause_button;
+		[Glade.Widget] private ToggleButton toggle_play_button;
 		[Glade.Widget] private Button       previous_button;
 		[Glade.Widget] private Button       next_button;
 		[Glade.Widget] private Button       add_song_button;
@@ -215,7 +215,7 @@ namespace Muine
 		};
 
 		// Variables
-		private bool block_play_pause_action = false;
+		private bool block_toggle_play_action = false;
 		private bool setting_volume = false;
 		private uint busy_level = 0;
 
@@ -399,14 +399,14 @@ namespace Muine
 			set {
 				setting_repeat = true;
 				
-				Global.Actions.Repeat.Active = value;
+				Global.Actions.ToggleRepeat.Active = value;
 				Config.Set (GConfKeyRepeat, value);			
 				PlaylistChanged ();
 
 				setting_repeat = false;
 			}
 
-			get { return Global.Actions.Repeat.Active; }
+			get { return Global.Actions.ToggleRepeat.Active; }
 		}
 
 		// Methods
@@ -443,9 +443,9 @@ namespace Muine
 			if (WindowVisible && playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 
-			Global.Actions.Visibility.Label = (WindowVisible)
-							  ? Actions.StringHideWindow
-							  : Actions.StringShowWindow;
+			Global.Actions.ToggleVisible.Label = (WindowVisible)
+							     ? Actions.StringToggleVisibleHide
+							     : Actions.StringToggleVisibleShow;
 		}
 
 		// Methods :: Public :: PlayFile (IPlayer)
@@ -574,8 +574,8 @@ namespace Muine
 			skip_to_window.Run ();
 		}
 
-		// Methods :: Public :: ToggleVisibility				
-		public void ToggleVisibility ()
+		// Methods :: Public :: ToggleVisible
+		public void ToggleVisible ()
 		{
 			WindowVisible = !WindowVisible;
 		}
@@ -592,8 +592,8 @@ namespace Muine
 			SeekTo (player.Position + Step);
 		}
 
-		// Methods :: Public :: RemoveSelectedSong		
-		public void RemoveSelectedSong ()
+		// Methods :: Public :: RemoveSelected
+		public void RemoveSelected ()
 		{
 			List selected_pointers = playlist.SelectedPointers;
 
@@ -629,8 +629,8 @@ namespace Muine
 			PlaylistChanged ();
 		}
 		
-		// Methods :: Public :: RemovePlayedSongs
-		public void RemovePlayedSongs ()
+		// Methods :: Public :: RemovePlayed
+		public void RemovePlayed ()
 		{
 			if (playlist.Playing == IntPtr.Zero)
 				return;
@@ -685,13 +685,13 @@ namespace Muine
 				playlist.Select (playlist.Playing);
 		}
 		
-		// Methods :: Public :: TogglePlaying
-		public void TogglePlaying ()
+		// Methods :: Public :: TogglePlay
+		public void TogglePlay ()
 		{
-			if (block_play_pause_action)
+			if (block_toggle_play_action)
 				return;
 
-			Playing = !Playing;
+			this.Playing = !this.Playing;
 		}
 		
 		// Methods :: Public :: ToggleRepeat
@@ -700,7 +700,7 @@ namespace Muine
 			if (setting_repeat)
 				return;
 
-			this.Repeat = Global.Actions.Repeat.Active;
+			this.Repeat = Global.Actions.ToggleRepeat.Active;
 		}
 
 		// Methods :: Public :: SavePlaylist
@@ -764,19 +764,19 @@ namespace Muine
 		private void SetupButtons ()
 		{
 			// Callbacks
-			play_pause_button.Clicked += new EventHandler (OnPlayPauseButtonClicked);
-			previous_button  .Clicked += new EventHandler (OnPreviousButtonClicked );
-			next_button      .Clicked += new EventHandler (OnNextButtonClicked     );
-			add_song_button  .Clicked += new EventHandler (OnAddSongButtonClicked  );
-			add_album_button .Clicked += new EventHandler (OnAddAlbumButtonClicked );
+			toggle_play_button.Clicked += new EventHandler (OnTogglePlayButtonClicked);
+			previous_button   .Clicked += new EventHandler (OnPreviousButtonClicked );
+			next_button       .Clicked += new EventHandler (OnNextButtonClicked     );
+			add_song_button   .Clicked += new EventHandler (OnAddSongButtonClicked  );
+			add_album_button  .Clicked += new EventHandler (OnAddAlbumButtonClicked );
 
 			// Images
 			Image image;
-			play_pause_image.SetFromStock ("stock_media-play"     , IconSize.LargeToolbar);
-			previous_image  .SetFromStock ("stock_media-prev"     , IconSize.LargeToolbar);
-			next_image      .SetFromStock ("stock_media-next"     , IconSize.LargeToolbar);
-			add_song_image  .SetFromStock (Stock.Add              , IconSize.LargeToolbar);
-			add_album_image .SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
+			toggle_play_image.SetFromStock ("stock_media-play"     , IconSize.LargeToolbar);
+			previous_image   .SetFromStock ("stock_media-prev"     , IconSize.LargeToolbar);
+			next_image       .SetFromStock ("stock_media-next"     , IconSize.LargeToolbar);
+			add_song_image   .SetFromStock (Stock.Add              , IconSize.LargeToolbar);
+			add_album_image  .SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
 
 			// Volume
 			volume_button = new VolumeButton ();
@@ -786,12 +786,12 @@ namespace Muine
 
 			// Tooltips
 			tooltips = new Tooltips ();
-			tooltips.SetTip (play_pause_button, string_tooltip_play_pause, null);
-			tooltips.SetTip (previous_button  , string_tooltip_previous  , null);
-			tooltips.SetTip (next_button      , string_tooltip_next      , null);
-			tooltips.SetTip (add_album_button , string_tooltip_add_album , null);
-			tooltips.SetTip (add_song_button  , string_tooltip_add_song  , null);
-			tooltips.SetTip (volume_button    , string_tooltip_volume    , null);
+			tooltips.SetTip (toggle_play_button, string_tooltip_toggle_play, null);
+			tooltips.SetTip (previous_button   , string_tooltip_previous   , null);
+			tooltips.SetTip (next_button       , string_tooltip_next       , null);
+			tooltips.SetTip (add_album_button  , string_tooltip_add_album  , null);
+			tooltips.SetTip (add_song_button   , string_tooltip_add_song   , null);
+			tooltips.SetTip (volume_button     , string_tooltip_volume     , null);
 		}
 
 		// Methods :: Private :: SetupPlaylist
@@ -1031,13 +1031,13 @@ namespace Muine
 
 			bool has_first = playlist.HasFirst;
 
-			previous_button  .Sensitive = has_first;
-			play_pause_button.Sensitive = has_first;
-			next_button      .Sensitive = playlist.HasNext || (Repeat && has_first);
+			previous_button   .Sensitive = has_first;
+			toggle_play_button.Sensitive = has_first;
+			next_button       .Sensitive = playlist.HasNext || (this.Repeat && has_first);
 
-			Global.Actions.PlayPause.Sensitive = previous_button  .Sensitive;
-			Global.Actions.Previous .Sensitive = play_pause_button.Sensitive;
-			Global.Actions.Next     .Sensitive = next_button      .Sensitive;
+			Global.Actions.TogglePlay.Sensitive = previous_button   .Sensitive;
+			Global.Actions.Previous  .Sensitive = toggle_play_button.Sensitive;
+			Global.Actions.Next      .Sensitive = next_button       .Sensitive;
 			
 			Global.Actions.SkipTo       .Sensitive = has_first;
 			Global.Actions.SkipBackwards.Sensitive = has_first;
@@ -1135,12 +1135,12 @@ namespace Muine
 		private new void StateChanged (bool playing, bool dont_signal)
 		{
 			// Update action entry and button states
-			block_play_pause_action = true;
+			block_toggle_play_action = true;
 
-			Global.Actions.PlayPause.Active = playing;
-			play_pause_button       .Active = playing;
+			Global.Actions.TogglePlay .Active = playing;
+			toggle_play_button        .Active = playing;
 
-			block_play_pause_action = false;
+			block_toggle_play_action = false;
 
 			// Update
 			playlist.Changed (playlist.Playing);
@@ -1880,10 +1880,10 @@ namespace Muine
 			Drag.Finish (args.Context, success, false, args.Time);
 		}
 
-		// Handlers :: OnPlayPauseButtonClicked
-		private void OnPlayPauseButtonClicked (object o, EventArgs args)
+		// Handlers :: OnTogglePlayButtonClicked
+		private void OnTogglePlayButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.PlayPause.Activate ();
+			Global.Actions.TogglePlay.Activate ();
 		}
 		
 		// Handlers :: OnPreviousButtonClicked

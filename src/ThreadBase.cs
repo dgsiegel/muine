@@ -25,13 +25,14 @@ namespace Muine
 {
 	public abstract class ThreadBase
 	{
-		protected bool thread_done = false;
+		// Objects
 		protected Thread thread;
 		protected Queue queue;
 
-		protected abstract void ThreadFunc ();
-		protected abstract bool MainLoopIdle ();
+		// Variables				
+		protected bool thread_done = false;
 
+		// Constructor
 		public ThreadBase ()
 		{
 			queue = Queue.Synchronized (new Queue ());
@@ -42,5 +43,10 @@ namespace Muine
 			thread = new Thread (new ThreadStart (ThreadFunc));
 			thread.Priority = ThreadPriority.BelowNormal;
 		}
+
+		// Methods
+		// Methods :: Abstract
+		protected abstract void ThreadFunc ();
+		protected abstract bool MainLoopIdle ();
 	}
 }

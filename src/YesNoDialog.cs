@@ -17,6 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Make HIG-compliant
+// TODO: Make the Dialog ourselves
+
 using System;
 
 using Gtk;
@@ -26,11 +29,11 @@ namespace Muine
 {
 	public class YesNoDialog
 	{
-		[Glade.Widget]
-		Window window;
-		[Glade.Widget]
-		Label label;
+		// Widgets
+		[Glade.Widget] private Window window;
+		[Glade.Widget] private Label label;
 
+		// Constructor
 		public YesNoDialog (string text, Window parent)
 		{
 			Glade.XML gxml = new Glade.XML (null, "YesNoDialog.glade", "window", null);
@@ -41,12 +44,13 @@ namespace Muine
 			window.TransientFor = parent;
 		}
 
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: GetAnswer
 		public bool GetAnswer ()
 		{
 			bool ret = (((Dialog) window).Run () == (int) ResponseType.Yes);
-
 			window.Destroy ();
-
 			return ret;
 		}
 	}

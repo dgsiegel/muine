@@ -54,7 +54,7 @@ namespace Muine
 		private AddWindowList  list          = new AddWindowList    ();
 		private CellRenderer   text_renderer = new CellRendererText ();
 
-		// Object
+		// Objects
 		private ICollection items;
 
 		// Variables
