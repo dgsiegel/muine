@@ -2,6 +2,12 @@
 
 	* src/SongDatabase.cs:
 
+	Add a missing null check.
+
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SongDatabase.cs:
+
 	Mark song as dead earlier.
 
 2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
