@@ -1,5 +1,12 @@
 2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+
+	Release 0.8.2.
+
+2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Item.cs:
 	* src/Song.cs:
 
