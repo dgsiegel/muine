@@ -1,3 +1,15 @@
+2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* libmuine/pointer-list-view.c: (scroll_to_path),
+	(pointer_list_view_select_next), (pointer_list_view_select_prev):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+
+	Scrolling improvements.
+
 2004-01-23  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/AddAlbumWindow.cs:

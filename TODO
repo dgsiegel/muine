@@ -36,3 +36,4 @@
 
 - groups: include a "Single songs" group.. songs without associated album, smart group creation. (and "never played", "most played"), menuitem to create groups from genres.. 
    'Select groups' button in main ui without editnig support, includes genres + 'never played' by default
+   - groups in group menu met number accels

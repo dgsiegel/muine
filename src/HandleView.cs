@@ -180,19 +180,21 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
-	private static extern void pointer_list_view_select_prev (IntPtr view);
+	private static extern void pointer_list_view_select_prev (IntPtr view,
+								  bool center);
 
-	public void SelectPrevious ()
+	public void SelectPrevious (bool center)
 	{
-		pointer_list_view_select_prev (Raw);
+		pointer_list_view_select_prev (Raw, center);
 	}
 
 	[DllImport ("libmuine")]
-	private static extern void pointer_list_view_select_next (IntPtr view);
+	private static extern void pointer_list_view_select_next (IntPtr view,
+								  bool center);
 
-	public void SelectNext ()
+	public void SelectNext (bool center)
 	{
-		pointer_list_view_select_next (Raw);
+		pointer_list_view_select_next (Raw, center);
 	}
 
 	[DllImport ("libmuine")]

@@ -189,7 +189,7 @@ public class AddAlbumWindow
 			search_entry.GrabFocus ();
 			search_entry.SelectRegion (0, -1);
 
-			view.SelectNext ();
+			view.SelectNext (true);
 
 			play_button.HasDefault = false;
 			queue_button.HasDefault = true;
@@ -268,11 +268,11 @@ public class AddAlbumWindow
 
 		switch (args.Event.keyval) {
 		case 0xFF52: /* up */
-			view.SelectPrevious ();
+			view.SelectPrevious (false);
 			args.RetVal = true;
 			break;
 		case 0xFF54: /* down */
-			view.SelectNext ();
+			view.SelectNext (false);
 			args.RetVal = true;
 			break;
 		default:
