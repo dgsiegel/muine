@@ -94,7 +94,7 @@
       <applyto>/apps/muine/default_import_folder</applyto>
       <owner>muine</owner>
       <type>string</type>
-      <default>~</default>
+      <default>~/Music/</default>
       <locale name="C">
         <short>Default import folder.</short>
         <long>Last used folder from "Import folder" dialog.</long>
@@ -105,7 +105,7 @@
       <applyto>/apps/muine/default_open_playlist_folder</applyto>
       <owner>muine</owner>
       <type>string</type>
-      <default>~</default>
+      <default>~/Playlists/</default>
       <locale name="C">
         <short>Default "Open Playlist" folder.</short>
         <long>Last used folder from "Open Playlist" dialog.</long>
@@ -116,7 +116,7 @@
       <applyto>/apps/muine/default_save_playlist_as_folder</applyto>
       <owner>muine</owner>
       <type>string</type>
-      <default>~</default>
+      <default>~/Playlists/</default>
       <locale name="C">
         <short>Default "Save Playlist As" folder.</short>
         <long>Last used folder from "Save Playlist As" dialog.</long>

@@ -39,8 +39,7 @@ public class FileSelector : FileSelection
 			start_dir = "~";
 		}
 
-		if (start_dir == "~")
-			start_dir = Environment.GetEnvironmentVariable ("HOME");
+		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
 		if (start_dir.EndsWith ("/") == false)
 			start_dir += "/";

@@ -131,7 +131,7 @@ public class PlaylistWindow : Window
 			
 		SongChanged ();
 		SelectionChanged ();
-		HandleStateChanged (false);
+		StateChanged (false);
 
 		/* show */
 		try {
@@ -143,7 +143,7 @@ public class PlaylistWindow : Window
 		/* empty lib dialog */
 		if (Muine.DB.Empty) {
 			SearchMusicWindow w = new SearchMusicWindow (this);
-			w.ImportHomeFolderEvent += new SearchMusicWindow.ImportHomeFolderEventHandler (HandleImportHomeFolderEvent); 
+			w.ImportFolderEvent += new SearchMusicWindow.ImportFolderEventHandler (HandleImportFolderEvent); 
 			w.Run ();
 		}
 	}
@@ -501,6 +501,44 @@ public class PlaylistWindow : Window
 		remove_song_menu_item.Sensitive = (playlist.SelectedPointers.Count > 0);
 	}
 
+	private new void StateChanged (bool playing)
+	{
+		if (playing) {
+			tooltips.SetTip (play_pause_button, "Pause music playback", null);
+			play_pause_image.SetFromStock ("muine-pause", IconSize.LargeToolbar);
+
+			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
+			((Label) play_pause_menu_item.Child).LabelProp = "P_ause";
+		} else if (playlist.Playing != IntPtr.Zero &&
+		           player.Position > 0 &&
+			   !had_last_eos) {
+			tooltips.SetTip (play_pause_button, "Resume music playback", null);
+			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
+
+			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+		} else {
+			tooltips.SetTip (play_pause_button, "Start music playback", null);
+			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
+
+			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
+			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
+		}
+
+		playlist.StateChanged ();
+	}
+
+	private void ClearPlaylist ()
+	{
+		playlist.Clear ();
+
+		player.Playing = false;
+
+		SongChanged ();
+
+		NSongsChanged ();
+	}
+
 	private void SeekTo (long seconds)
 	{
 		Song song = Song.FromHandle (playlist.Playing);
@@ -536,19 +574,28 @@ public class PlaylistWindow : Window
 			return;
 		}
 
+		ClearPlaylist ();
+
 		string line = null;
 
 		while ((line = reader.ReadLine ()) != null) {
-			if (line [0] == '#')
-				break; /* we don't handle comments */
+			if (line.Length == 0 || line [0] == '#')
+				continue; /* we don't handle comments */
 
 			/* DOS-to-UNIX */
 			line.Replace ('\\', '/');
 
+			FileInfo finfo;
+			
+			try {
+				finfo = new FileInfo (line);
+			} catch {
+				continue;
+			}
+
 			Song song = Muine.DB.SongFromFile (line);
 			if (song == null) {
 				/* not found, lets see if we can find it anyway.. */
-				FileInfo finfo = new FileInfo (line);
 				string basename = finfo.Name;
 
 				foreach (string key in Muine.DB.Songs.Keys) {
@@ -591,29 +638,7 @@ public class PlaylistWindow : Window
 
 	private void HandleStateChanged (bool playing)
 	{
-		if (playing) {
-			tooltips.SetTip (play_pause_button, "Pause music playback", null);
-			play_pause_image.SetFromStock ("muine-pause", IconSize.LargeToolbar);
-
-			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "P_ause";
-		} else if (playlist.Playing != IntPtr.Zero &&
-		           player.Position > 0 &&
-			   !had_last_eos) {
-			tooltips.SetTip (play_pause_button, "Resume music playback", null);
-			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
-
-			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
-		} else {
-			tooltips.SetTip (play_pause_button, "Start music playback", null);
-			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
-
-			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
-			((Label) play_pause_menu_item.Child).LabelProp = "Pl_ay";
-		}
-
-		playlist.StateChanged ();
+		StateChanged (playing);
 	}
 
 	private void HandleFileActivated (string file)
@@ -909,8 +934,7 @@ public class PlaylistWindow : Window
 			start_dir = "~";
 		}
 
-		if (start_dir == "~")
-			start_dir = Environment.GetEnvironmentVariable ("HOME");
+		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
 		if (start_dir.EndsWith ("/") == false)
 			start_dir += "/";
@@ -974,13 +998,8 @@ public class PlaylistWindow : Window
 			SavePlaylist (fn);
 	}
 
-	private void HandleImportHomeFolderEvent ()
+	private void HandleImportFolderEvent (DirectoryInfo dinfo)
 	{
-		string homedir = Environment.GetEnvironmentVariable ("HOME");
-	        if (homedir.EndsWith ("/") == false)
-			homedir += "/";
-		
-		DirectoryInfo dinfo = new DirectoryInfo (homedir);
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		HandleDirectory (dinfo, pw);
 	}
@@ -1016,7 +1035,7 @@ public class PlaylistWindow : Window
 			return;
 
 		if (had_last_eos) {
-			HandleClearPlaylistCommand (null, null);
+			ClearPlaylist ();
 			return;
 		}
 
@@ -1032,13 +1051,7 @@ public class PlaylistWindow : Window
 
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
 	{
-		playlist.Clear ();
-
-		player.Playing = false;
-
-		SongChanged ();
-
-		NSongsChanged ();
+		ClearPlaylist ();
 	}
 
 	private void HandleHideWindowCommand (object o, EventArgs args)
