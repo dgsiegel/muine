@@ -1,3 +1,7 @@
+2004-07-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/muine.desktop.in: Add MimeType stuff.
+
 2004-07-12  Bryan Forbes  <bryan@reigndropsfall.net>
 
 	* libmuine/player-gst.c: Fix issue where big endian machines don't
