@@ -44,6 +44,7 @@ ASSEMBLIES =					\
 	/r:gnome-sharp				\
 	/r:gtk-sharp				\
 	/r:pango-sharp				\
+	/r:gtkhtml-sharp			\
 	/r:GNU.Gettext.dll			\
 	/r:AmazonSearchService.dll		\
 	/r:System.Web.Services

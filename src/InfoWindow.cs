@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.IO;
 
 using Gtk;
 using GtkSharp;
@@ -29,10 +30,13 @@ public class InfoWindow
 	Window window;
 	[Glade.Widget]
 	TextView textview;
-	private TextBuffer buffer;
+	private HTML html;
 
 	/* FIXME destructor, static?.. */
 	/* FIXME cleanup tray menu */
+	/* FIXME vis from tray */
+	/* FIXME albumchanged signal? */
+	/* FIXME consider async loading? */
 
 	public InfoWindow (string title, Window parent)
 	{
@@ -60,17 +64,12 @@ public class InfoWindow
 
 		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 
-		buffer = textview.Buffer;
+		html = new HTML ();
+		html.Editable = false;
 
-		AddTags ();
-	}
+	    	html.UrlRequested += new UrlRequestedHandler (HandleUrlRequested);
 
-	private void AddTags ()
-	{
-		TextTag tag = new TextTag ("title");
-		tag.Weight = Pango.Weight.Bold;
-		tag.Scale = Pango.Scale.Large;
-		buffer.TagTable.Add (tag);
+		((Container) gxml ["scrolledwindow"]).Add (html);
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
@@ -98,37 +97,43 @@ public class InfoWindow
 		window.Destroy ();
 	}
 
-	private void InsertTextWithTag (string text, string tag)
-	{
-		TextIter iter = buffer.GetIterAtMark (buffer.InsertMark);
-
-		int begin, end;
-		
-		begin = buffer.CharCount;
-		buffer.Insert (iter, text);
-		end = buffer.CharCount;
-		
-		if (tag != null) {
-			TextIter begin_iter = buffer.GetIterAtOffset (begin);
-			TextIter end_iter = buffer.GetIterAtOffset (end);
-
-			buffer.ApplyTag (tag, begin_iter, end_iter);
-		}
-	}
-
 	private void InsertTrack (Song song, int n)
 	{
-		InsertTextWithTag ("\n" + n + " " + song.Title, null);
+	}
+
+	private string DumpCoverImageToFile (Gdk.Pixbuf pixbuf)
+	{
+		if (pixbuf == null)
+			return null;
+
+		string path = Path.GetTempFileName ();
+
+		try {
+			pixbuf.Savev (path, "png", null, null);
+		} catch {
+			return null;
+		}
+
+		return path;
 	}
 
 	public void Load (Album album) 
 	{
-		/* insert album cover */
-		TextIter iter = buffer.GetIterAtOffset (0);
-		buffer.InsertPixbuf (iter, album.CoverImage);
+		HTMLStream stream = html.Begin ("text/html");
+
+		/* in order to be able to inject the album cover into HTML, we
+		   are gonna spit it out to disk first */
+		string cover_image_fn = DumpCoverImageToFile (album.CoverImage);
+
+		if (cover_image_fn != null) {
+			stream.Write ("<img src=\"" + cover_image_fn + "\"/>");
+		}
 		
 		/* insert album name */
-		InsertTextWithTag (album.Name, "title");
+		stream.Write ("<b>" + album.Name + "</b>");
+
+		/* insert year of release */
+		stream.Write ("<i>" + album.Year + "</i>");
 
 		/* insert tracks */
 		int n = 1;
@@ -136,5 +141,39 @@ public class InfoWindow
 			InsertTrack (song, n);
 			n++;
 		}
+
+		html.End (stream, HTMLStreamStatus.Ok);
+
+		if (cover_image_fn != null) {
+			/* clean up */
+			FileInfo cover_image_finfo = new FileInfo (cover_image_fn);
+
+			cover_image_finfo.Delete ();
+		}
+	}
+
+	private void HandleUrlRequested (object obj, UrlRequestedArgs args)
+	{
+		/* we only read from local files anyway, so this'll do. */
+		FileStream stream;
+		BinaryReader reader;
+		
+		try {
+			stream = new FileStream (args.Url, FileMode.Open);
+			reader = new BinaryReader (stream);
+		} catch {
+			args.Handle.Close (HTMLStreamStatus.Error);
+
+			return;
+		}
+
+		byte [] bytes = new byte [8192];
+		while (reader.Read (bytes, 0 , 8192) > 0)
+			args.Handle.Write (bytes, bytes.Length);
+
+		args.Handle.Close (HTMLStreamStatus.Ok);
+
+		reader.Close ();
+		stream.Close ();
 	}
 }
