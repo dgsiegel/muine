@@ -1,5 +1,12 @@
 2004-05-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Bump version number to 0.6.0.99.
+
+2004-05-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* data/images/Makefile.am:
 	* data/images/muine-default-cover.png:
