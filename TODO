@@ -38,6 +38,8 @@ o Handle non-UTF8 filenames and dirnames decently
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
+o Fix the bug where keysyms that are assigned while muine is running aren't
+  working.
 
 Graphic artists needed:
 =======================
