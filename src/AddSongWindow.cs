@@ -111,6 +111,9 @@ public class AddSongWindow
 		view.SelectFirst ();
 		view.ScrollToPoint (0, 0);
 
+		play_button.HasDefault = true;
+		queue_button.HasDefault = false;
+
 		if (window.Visible == false)
 			window.Visible = true;
 		else
@@ -149,12 +152,12 @@ public class AddSongWindow
 
 	private void HandleWindowResponse (object o, EventArgs a)
 	{
-		window.Visible = false;
-
 		ResponseArgs args = (ResponseArgs) a;
 
 		switch (args.ResponseId) {
 		case 1: /* Play */
+			window.Visible = false;
+			
 			if (PlaySongsEvent != null)
 				PlaySongsEvent (view.SelectedPointers);
 
@@ -163,8 +166,18 @@ public class AddSongWindow
 			if (QueueSongsEvent != null)
 				QueueSongsEvent (view.SelectedPointers);
 				
+			search_entry.GrabFocus ();
+
+			view.SelectFirst ();
+			view.ScrollToPoint (0, 0);
+
+			play_button.HasDefault = false;
+			queue_button.HasDefault = true;
+				
 			break;
 		default:
+			window.Visible = false;
+
 			break;
 		}
 
@@ -271,17 +284,10 @@ public class AddSongWindow
 
 	private void HandleRowActivated (IntPtr handle)
 	{
-		Song song = Song.FromHandle (handle);
-
-		if (song == null)
-			return;
-
-		if (PlaySongsEvent != null)
-			PlaySongsEvent (view.SelectedPointers);
-
-		window.Visible = false;
-
-		search_entry.Text = "";
+		if (queue_button.HasDefault)
+			queue_button.Click ();
+		else
+			play_button.Click ();
 	}
 
 	private void HandleSelectionChanged ()

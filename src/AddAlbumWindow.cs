@@ -110,6 +110,9 @@ public class AddAlbumWindow
 		view.SelectFirst ();
 		view.ScrollToPoint (0, 0);
 
+		play_button.HasDefault = true;
+		queue_button.HasDefault = false;
+
 		if (window.Visible == false)
 			window.Visible = true;
 		else
@@ -167,12 +170,12 @@ public class AddAlbumWindow
 
 	private void HandleWindowResponse (object o, EventArgs a)
 	{
-		window.Visible = false;
-
 		ResponseArgs args = (ResponseArgs) a;
 
 		switch (args.ResponseId) {
 		case 1: /* Play */
+			window.Visible = false;
+
 			if (PlayAlbumsEvent != null)
 				PlayAlbumsEvent (view.SelectedPointers);
 
@@ -180,9 +183,19 @@ public class AddAlbumWindow
 		case 2: /* Queue */
 			if (QueueAlbumsEvent != null)
 				QueueAlbumsEvent (view.SelectedPointers);
+
+			search_entry.GrabFocus ();
+
+			view.SelectFirst ();
+			view.ScrollToPoint (0, 0);
+
+			play_button.HasDefault = false;
+			queue_button.HasDefault = true;
 				
 			break;
 		default:
+			window.Visible = false;
+
 			break;
 		}
 
@@ -277,17 +290,10 @@ public class AddAlbumWindow
 
 	private void HandleRowActivated (IntPtr handle)
 	{
-		Album song = Album.FromHandle (handle);
-
-		if (song == null)
-			return;
-
-		if (PlayAlbumsEvent != null)
-			PlayAlbumsEvent (view.SelectedPointers);
-
-		window.Visible = false;
-
-		search_entry.Text = "";
+		if (queue_button.HasDefault)
+			queue_button.Click ();
+		else
+			play_button.Click ();
 	}
 
 	private void HandleSelectionChanged ()

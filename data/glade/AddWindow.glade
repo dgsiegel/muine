@@ -40,7 +40,6 @@
 	    </widget>
 	  </child>
 
-
 	  <child>
 	    <widget class="GtkButton" id="queue_button">
 	      <property name="visible">True</property>
@@ -175,9 +174,6 @@
 	      </child>
 	    </widget>
 	  </child>
-
-
-
 	</widget>
 	<packing>
 	  <property name="padding">0</property>

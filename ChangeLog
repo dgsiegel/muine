@@ -1,5 +1,13 @@
 2004-01-23  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/AddWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Don't close the add window when queueing stuff.
+
+2004-01-23  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Muine.cs:
 	* src/PlaylistWindow.cs:
 
