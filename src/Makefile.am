@@ -112,5 +112,6 @@ EXTRA_DIST =					\
 
 CLEANFILES =					\
 	muine					\
+	AmazonSearchService.cs			\
 	AmazonSearchService.dll			\
 	muine.exe

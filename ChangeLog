@@ -1,5 +1,13 @@
 2004-03-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* Makefile.am:
+	* data/Makefile.am:
+	* src/Makefile.am:
+
+	Clean out more files on distclean and clean.
+
+2004-03-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/NotificationAreaIcon.cs:
 
 	Middle-click on tray icon toggles window visibility.

@@ -21,10 +21,14 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 EXTRA_DIST =			\
 	$(desktop_in_files)	\
-	$(desktop_files)	\
+	$(desktop_DATA)		\
 	$(schema_in_files)	\
 	$(schema_DATA)		\
 	$(applications_DATA)
+
+DISTCLEANFILES = 		\
+	$(desktop_DATA) 	\
+	$(schema_DATA)
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
