@@ -1,29 +1,61 @@
-- fix drop at end
-- pango stuff directly in C# with Gtk# CVS
-- listen to multimedia keys
-- panel crash
-- dnd from nautilus
-- gapless transition
-- volume normalization
-- songinfo + tagging
-- enable fixed height mode for gtk 2.3 treeview
-- add wma, mp4 and flac support
-- musicbrainz support
-- clicking an m3u should load it in muine, mp3/ogg add to collection, etc
-- monitor imported folders using FileWatcher
-- cd burning (Brad Griffith):
- - audio cd
- - mp3 cd:
-   - create folders for different albums (Artist - Album)
-   - create a playlist.m3u keeping the playlist order
-   with numbers prepended so that the original playlist order is maintained.
-- drag album covers from nautilus to the gnome foot icon
-- dnd from album/song/group windows to playlist
-- use 2.6 filesel
-- support gstreamer 0.7 [Richard Hult]
-- groups: include a "Single songs" group.. songs without associated album, smart group creation. (and "never played", "most played"), menuitem to create groups from genres.. 
-   'Select groups' button in main ui without editnig support, includes genres + 'never played' by default
-   - groups in group menu met number accels
-- translation (gettext 0.14 (not yet released) supports C#)
-- integrate with portable players somehow?
-- replaygain support for mp3 (vorbis is implemented)
+Easy:
+=====
+o Make the notification area icon survive a panel crash
+o Add DnD from Nautilus to the playlist window, adding to a) the library
+  and b) the playlist.
+o Use the GTK+ 2.3 fileselector, if it is available.
+o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?)
+  The 0.6 backend should stay supported because 0.7 is not very solid yet.
+o Drag images from Nautilus or Epiphany to the album cover area in
+  the PlaylistWindow to change the cover image.
+o Clicking an m3u file in Nautilus should load it in Muine.
+o Add WMA support
+o Add MP4 support
+  This code can be stolen from Rhythmbox
+o Add FLAC support
+  This code can be stolen from Rhythmbox
+o Enable fixed height mode for the GTK 2.3 treeview when it is available.
+o A song information dialog, which will later be used for tag editing.
+o Listen to XFree86 multimedia keys (as configured using ACME)
+
+Tough:
+======
+o Volume normalization
+  We need a volume normalization algorithm. We can just change the relative
+  volume on the Player.
+o Portable player integration
+  Need to discuss the UI first
+o Read replay gain data from MP3 files
+  This is not stored in standard tags, needs some research.
+o Implement music groups (Jorn is working on this)
+  Need to discuss the UI first
+
+  Include a group with orphan songs, and with never played songs by default.
+
+  Groups editor, and a group selector that can be brought up from a button
+  in the PlaylistWindow.
+o CD burning (Brad Griffith is workong on this)
+  Support both audio and MP3 cds.
+  
+  Create folders for different albums (Artist - Album format)
+  
+  Create a playlist.m3u with the playlist order.
+o Gapless transition/crossfading
+  This should be possible with the current GStreamer components, but
+  it's a tough one. Well, we could emit EOS a bit earlier than usual
+  and have a fancy adder somewhere in the pipeline that does the mixing
+  when a new song comes in ..
+o Make drop-at-end work in the PlaylistWindow.
+
+Depends on other components:
+============================
+o Directly use Pango# instead of using pango-utils.c
+  Depends on Gtk#, Ximian Bugzilla #52575
+o Musicbrainz support
+  We need a musicbrainz element for GStreamer
+o Translation
+  Depends on gettext. Gettext 0.14 will have C# support.
+o Monitor imported folders using FileWatcher
+  Depends on mono 0.30, which will have the FileWatcher class.
+o Tag editing
+  Depends on this to work nicely in GStreamer
