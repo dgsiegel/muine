@@ -1,3 +1,7 @@
+2004-02-09  Jorn Baayen  <jorn@nl.linux.org>
+
+	* POTFILES.in: Add missing file
+
 2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
 
 	* fr.po: Added French translation by Vincent Carriere
