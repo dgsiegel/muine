@@ -1,5 +1,13 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/Song.cs:
+
+	First iteration of cover image handling cleanup.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* data/glade/PlaylistWindow.glade:
 	* src/AddAlbumWindow.cs:

@@ -130,7 +130,7 @@ public class CoverImage : EventBox
 
 			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
 				Muine.CoverDB.RemoveCover (song.AlbumKey);
-			song.CoverImage = Muine.CoverDB.AddCoverEmbedded (song.AlbumKey, pixbuf);
+			song.CoverImage = Muine.CoverDB.AddCover (song.AlbumKey, pixbuf);
 			Muine.DB.SyncAlbumCoverImageWithSong (song);
 
 			success = true;

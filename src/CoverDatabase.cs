@@ -229,33 +229,7 @@ public class CoverDatabase
 		if (cover.Height == 1 && cover.Width == 1)
 			return null;
 
-		return BeautifyPixbuf (cover);
-	}
-
-	public Pixbuf AddCoverLocal (string key, string filename)
-	{
-		Pixbuf pix;
-
-		try {
-			pix = new Pixbuf (filename);
-		} catch (Exception e) {
-			return null;
-		}
-
-		pix = BeautifyPixbuf (pix);
-
-		AddCover (key, pix);
-
-		return pix;
-	}
-
-	public Pixbuf AddCoverEmbedded (string key, Pixbuf cover_image)
-	{
-		Pixbuf pix = BeautifyPixbuf (cover_image);
-
-		AddCover (key, pix);
-
-		return pix;
+		return cover;
 	}
 
 	public Pixbuf AddCoverDownloading (string key)
@@ -265,28 +239,28 @@ public class CoverDatabase
 		return DownloadingPixbuf;
 	}
 
-	public void AddCover (string key, Pixbuf pix)
+	// Return value is important, as it is the scaled and beautified
+	// version
+	public Pixbuf AddCover (string key, Pixbuf cover_image)
 	{
-		if (pix == null)
-			return;
+		if (cover_image == null)
+			return null;
+
+		Pixbuf pix = BeautifyPixbuf (cover_image);
 
 		Covers.Add (key, pix);
 
 		lock (db)
 			db.Store (key, pix.Handle);
-	}
 
-	public void ReplaceCover (string key, Pixbuf pix)
-	{
-		Covers.Remove (key);
-
-		AddCover (key, pix);
+		return pix;
 	}
 
 	public void RemoveCover (string key)
 	{
-		lock (db)
-			db.Delete (key);
+		if (Covers [key] != downloading_pixbuf)
+			lock (db)
+				db.Delete (key);
 
 		Covers.Remove (key);
 	}

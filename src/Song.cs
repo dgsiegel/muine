@@ -235,10 +235,9 @@ public class Song : ISong
 
 		CheckedCoverImage = true;
 
-		cover_image = tmp_cover_image;
+		Muine.CoverDB.RemoveCover (AlbumKey);
+		cover_image = Muine.CoverDB.AddCover (AlbumKey, tmp_cover_image);
 		tmp_cover_image = null;
-		
-		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
 
 		Muine.DB.UpdateSong (this);
 		
@@ -312,16 +311,21 @@ public class Song : ISong
 			FileInfo cover = new FileInfo (dirname + "/" + fn);
 			
 			if (cover.Exists) {
-				cover_image = Muine.CoverDB.AddCoverLocal (key, cover.ToString ());
+				try {
+					cover_image = new Pixbuf (cover.FullName);
+				} catch {
+					continue;
+				}
 
-				if (cover_image != null)
-					return;
+				cover_image = Muine.CoverDB.AddCover (key, cover_image);
+
+				return;
 			}
 		}
 
 		/* Check for an embedded image in the ID3 tag */
 		if (metadata != null && metadata.AlbumArt != null) {
-			cover_image = Muine.CoverDB.AddCoverEmbedded (key, metadata.AlbumArt);
+			cover_image = Muine.CoverDB.AddCover (key, metadata.AlbumArt);
 
 			if (cover_image != null)
 				return;
