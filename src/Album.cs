@@ -112,7 +112,13 @@ public class Album
 				string a = String.Join (" ", p_artists);
 				string p = String.Join (" ", p_performers);
 
-				sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
+				if (artists.Count > 3) {
+					/* more than three artists, sort by album name */
+					sort_key = StringUtils.CollateKey (name.ToLower () + " " + year + " " + a + " " + p);
+				} else {
+					/* three or less artists, sort by artist */
+					sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
+				}
 			}
 			
 			return sort_key;

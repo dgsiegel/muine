@@ -1,3 +1,9 @@
+2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+
+	Sort by album name if the album has > 3 artists.
+
 2004-06-06  Alexander Shopov <ash@contact.bg>
 
 	* configure.in: Added "bg" (Bulgarian) to ALL_LINGUAS
