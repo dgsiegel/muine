@@ -6,6 +6,7 @@ SUBDIRS = 		\
 
 EXTRA_DIST =			\
 	TODO			\
+	HACKING			\
 	MAINTAINERS		\
 	intltool-extract.in	\
 	intltool-merge.in	\
