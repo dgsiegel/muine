@@ -521,7 +521,7 @@ msgstr "Ei õnnestund kirjutada {0}"
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Esitusloend</b> (Korratakse {0} tundi)"
-msgstr[1]"<b>Esitusloend</b> (Korratakse {0} tundi)"
+msgstr[1] "<b>Esitusloend</b> (Korratakse {0} tundi)"
 
 #: src/PlaylistWindow.cs:951
 #, csharp-format
@@ -534,15 +534,15 @@ msgstr[1] "<b>Esitusloend</b> (Korratakse {0} minutit)"
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
-msgstr[0] "<b>Esitusloend</b> (<b>Esitusloend</b ({0} tund on jäänud)"
-msgstr[1] "<b>Esitusloend</b> (<b>Esitusloend</b ({0} tundi on jäänud)"
+msgstr[0] "<b>Esitusloend</b> ({0} tund on jäänud)"
+msgstr[1] "<b>Esitusloend</b> ({0} tundi on jäänud)"
 
 #: src/PlaylistWindow.cs:961
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
-msgstr[0] "<b>Esitusloend</b> ({0} minut jäänud)"
-msgstr[1] "<b>Esitusloend</b> ({0} minutit jäänud)"
+msgstr[0] "<b>Esitusloend</b> ({0} minut on jäänud)"
+msgstr[1] "<b>Esitusloend</b> ({0} minutit on jäänud)"
 
 #: src/PluginManager.cs:34
 #, csharp-format
@@ -560,7 +560,7 @@ msgstr "Laen:"
 
 #: src/SaveDialog.cs:36
 msgid "Save Playlist"
-msgstr "Salvesta Esitusloend"
+msgstr "Salvesta esitusloend"
 
 #: src/SaveDialog.cs:38
 msgid "Untitled"
