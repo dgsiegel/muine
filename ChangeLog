@@ -1,3 +1,33 @@
+2005-03-15  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/About.cs:
+	* src/Actions.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	* src/Album.cs:
+	* src/CellRendererText.cs:
+	* src/ColoredCellRendererPixbuf.cs:
+	* src/Config.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+	* src/CoverImage.cs:
+	* src/Database.cs:
+	* src/DBusService.cs:
+	* src/DndUtils.cs:
+	* src/EllipsizingLabel.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/Global.cs:
+	* src/GnomeProxy.cs:
+	* src/StringUtils.cs:
+	
+	Internal documentation (first wave); some rearrangement;
+	added more TODOs.
+
 2005-03-12  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/About.cs:
