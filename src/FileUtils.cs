@@ -158,7 +158,7 @@ namespace Muine
 			if (ret.StartsWith ("file://"))
 				ret = ret.Substring ("file://".Length);
 
-			return ret;
+			return Path.GetFileName (ret);
 		}
 
 		// Methods :: Public :: MTimeToTicks

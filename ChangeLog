@@ -1,5 +1,13 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/OverwriteDialog.glade:
+	* src/FileUtils.cs:
+	* src/OverwriteDialog.cs:
+
+	Improve overwrite dialog some more.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 
 	Actually, let's just check that we have at least half

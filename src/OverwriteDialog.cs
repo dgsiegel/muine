@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.IO;
 
 using Gtk;
 using GLib;
@@ -30,9 +31,9 @@ namespace Muine
 	{
 		// Strings
 		private static readonly string string_primary_text =
-			Catalog.GetString ("A file {0} already exists.");
+			Catalog.GetString ("Overwrite \"{0}\"?");
 		private static readonly string string_secondary_text =
-			Catalog.GetString ("If you choose to overwrite this file, the contents will be lost.");
+			Catalog.GetString ("A file with this name already exists. If you choose to overwrite this file, the contents will be lost.");
 
 		// Widgets
 		[Glade.Widget] private Window window;
