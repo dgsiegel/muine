@@ -1,5 +1,19 @@
-0.6
-===
+0.6.1
+=====
+
+- Work around wsdl bug to make AmazonSearchService compilation work for
+  everyone [Jorn Baayen]
+- Compile with Jeroen's Gtk# Gtk 2.4 branch [Jeroen Zwartepoorte]
+- New application icon [Jorn Baayen]
+- Various string fixes [Jorn Baayen, Christian Rose]
+- Exit Muine when clicking the WM close button again [Jorn Baayen]
+- Catch errors when loading folders [Jorn Baayen]
+
+Updated translations:
+- Swedish [Christian Rose]
+
+0.6.0
+=====
 
 - Major speed improvements [Jorn Baayen]
 - Support latest Mono and Gtk# [Jorn Baayen, Peter Johanson]

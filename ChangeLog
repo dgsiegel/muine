@@ -1,5 +1,13 @@
 2004-05-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.6.1.
+
+2004-05-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Makefile.am:
 
 	Set MONO_XMLSERIALIZER_THS to "no" for AmazonSearchService.cs
