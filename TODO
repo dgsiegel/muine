@@ -21,6 +21,8 @@ o Shift+Arrow keys selects in add windows
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
+o Make notification area a dropdown menu, pressed when clicked etc.
+  Menu with "Show window", "Play next", "Pause", etc.
 
 Tough:
 ======
