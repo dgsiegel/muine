@@ -1,3 +1,5 @@
 #!/bin/sh
 
+export MUINE_PLUGIN_PATH=$MUINE_PLUGIN_PATH:@prefix@/lib/muine/plugins
+
 exec @MONO@ @MONO_FLAGS@ @prefix@/lib/muine/muine.exe "$@"

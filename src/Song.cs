@@ -25,7 +25,7 @@ using System.Threading;
 
 using Gdk;
 
-public class Song
+public class Song : SongInterface
 {
 	private string filename;
 	public string Filename {

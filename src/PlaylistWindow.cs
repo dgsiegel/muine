@@ -25,7 +25,7 @@ using Gtk;
 using GLib;
 using Gnome.Vfs;
 
-public class PlaylistWindow : Window
+public class PlaylistWindow : Window, PlayerInterface
 {
 	/* menu widgets */
 	private Action previous_action;
@@ -109,11 +109,71 @@ public class PlaylistWindow : Window
 		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
 	};
 
-	public delegate void PlayerChangedSongHandler (Song song, bool hasfocus);
+	/* public properties, for plug-ins and for dbus interface */
+	public SongInterface PlayingSong {
+		get {
+			if (playlist.Playing != IntPtr.Zero)
+				return Song.FromHandle (playlist.Playing);
+			else
+				return null;
+		}
+	}
 
-	/* Event to notify when song changed: plugins like
-	   Dashboard can use this.  */
-	public event PlayerChangedSongHandler PlayerChangedSong;
+	public bool Playing {
+		set {
+			if (!playlist.HasFirst)
+				return;
+
+			if (value) {
+				if (had_last_eos) {
+					PlayFirstAndSelect ();
+	
+					PlaylistChanged ();
+				}
+
+				player.Play ();
+			} else
+				player.Pause ();
+		}
+
+		get {
+			return player.Playing;
+		}
+	}
+
+	public int Volume {
+		set {
+			volume_button.Volume = value;
+		}
+		
+		get {
+			return volume_button.Volume;
+		}
+	}
+
+	public int Position {
+		set {
+			SeekTo (value);
+		}
+
+		get {
+			return player.Position;
+		}
+	}
+
+	public bool HasNext {
+		get {
+			return playlist.HasNext;
+		}
+	}
+
+	public bool HasPrevious {
+		get {
+			return playlist.HasPrevious;
+		}
+	}
+
+	public event Plugin.SongEventHandler PlayingSongChanged;
 
 	/* Actions */
 	private const string ui_info = 
@@ -215,10 +275,10 @@ public class PlaylistWindow : Window
 					 new EventHandler (HandleSkipForwardCommand)),
 			new ActionEntry ("PlaySong", Stock.Add, Muine.Catalog.GetString ("Play _Song..."),
 			                 "S", null,
-					 new EventHandler (HandleAddSongCommand)),
+					 new EventHandler (HandlePlaySongCommand)),
 			new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", Muine.Catalog.GetString ("Play _Album..."),
 			                 "A", null,
-					 new EventHandler (HandleAddAlbumCommand)),
+					 new EventHandler (HandlePlayAlbumCommand)),
 			new ActionEntry ("RemoveSong", Stock.Remove, Muine.Catalog.GetString ("_Remove Song"),
 			                 "Delete", null,
 					 new EventHandler (HandleRemoveSongCommand)),
@@ -303,8 +363,19 @@ public class PlaylistWindow : Window
 		mmkeys.PlayPause += new EventHandler (HandlePlayPauseCommand);
 		mmkeys.Stop += new EventHandler (HandleStopCommand);
 
-		/* Add Dashboard support */
-		PlayerChangedSong += DashboardFrontend.PlayerChangedSong;
+		/* Export Player DBus Object */
+		PlayerDBusObject dbo;
+		
+		try {
+			dbo = new PlayerDBusObject (this);
+			
+			MuineDBusService.Instance.RegisterObject (dbo, "/org/gnome/Muine/Player");
+		} catch (Exception e) {
+			Console.WriteLine ("Failed to export D-BUS object: {0}", e.Message);
+		}
+
+		/* Initialize plug-ins */
+		PluginManager pm = new PluginManager (this);
 
 		/* set up playlist filename */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
@@ -448,6 +519,12 @@ public class PlaylistWindow : Window
 
 		get {
 			return window_visible;
+		}
+	}
+
+	public bool WindowFocused  {
+		get {
+			return HasToplevelFocus;
 		}
 	}
 
@@ -762,11 +839,10 @@ public class PlaylistWindow : Window
 
 	private void SongChanged (bool restart)
 	{
-		if (restart)
-			had_last_eos = false;
+		Song song = null;
 
 		if (playlist.Playing != IntPtr.Zero) {
-			Song song = Song.FromHandle (playlist.Playing);
+			song = Song.FromHandle (playlist.Playing);
 
 			cover_image.Song = song;
 
@@ -802,11 +878,6 @@ public class PlaylistWindow : Window
 
 			if (player.Playing)
 				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
-
-			if (restart) {
-				PlayerChangedSong (song, HasToplevelFocus);
-			}
-
 		} else {
 			cover_image.Song = null;
 
@@ -822,6 +893,12 @@ public class PlaylistWindow : Window
 
 			if (skip_to_window != null)
 				skip_to_window.Hide ();
+		}
+		
+		if (restart) {
+			had_last_eos = false;
+
+			PlayingSongChanged (song);
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -870,7 +947,7 @@ public class PlaylistWindow : Window
 		if (seconds >= song.Duration) {
 			if (playlist.HasNext ||
 			    (repeat_action.Active && playlist.HasFirst))
-				HandleNextCommand (null, null);
+				Next ();
 			else {
 				player.Position = song.Duration;
 
@@ -1230,7 +1307,7 @@ public class PlaylistWindow : Window
 		PlaylistChanged ();
 	}
 
-	private void HandlePreviousCommand (object o, EventArgs args)
+	public void Previous ()
 	{
 		if (!playlist.HasFirst)
 			return;
@@ -1256,21 +1333,17 @@ public class PlaylistWindow : Window
 		player.Play ();
 	}
 
+	private void HandlePreviousCommand (object o, EventArgs args)
+	{
+		Previous ();
+	}
+
 	private void HandlePlayPauseCommand (object o, EventArgs args)
 	{
-		if (!playlist.HasFirst || block_play_pause_action)
+		if (block_play_pause_action)
 			return;
 
-		if (had_last_eos) {
-			PlayFirstAndSelect ();
-
-			PlaylistChanged ();
-		}
-
-		if (player.Playing)
-			player.Pause ();
-		else
-			player.Play ();
+		Playing = !Playing;
 	}
 
 	private void HandleStopCommand (object o, EventArgs args)
@@ -1281,7 +1354,7 @@ public class PlaylistWindow : Window
 		player.Pause ();
 	}
 
-	private void HandleNextCommand (object o, EventArgs args)
+	public void Next ()
 	{
 		if (playlist.HasNext)
 			playlist.Next ();
@@ -1295,6 +1368,11 @@ public class PlaylistWindow : Window
 		PlaylistChanged ();
 
 		player.Play ();
+	}
+
+	private void HandleNextCommand (object o, EventArgs args)
+	{
+		Next ();
 	}
 
 	private void HandleSkipToCommand (object o, EventArgs args)
@@ -1334,7 +1412,7 @@ public class PlaylistWindow : Window
 		AddChildWindowIfVisible (id);
 	}
 
-	private void HandleAddSongCommand (object o, EventArgs args)
+	public void PlaySong ()
 	{
 		if (add_song_window == null) {
 			add_song_window = new AddSongWindow ();
@@ -1348,7 +1426,12 @@ public class PlaylistWindow : Window
 		AddChildWindowIfVisible (add_song_window);
 	}
 
-	private void HandleAddAlbumCommand (object o, EventArgs args)
+	private void HandlePlaySongCommand (object o, EventArgs args)
+	{
+		PlaySong ();
+	}
+
+	public void PlayAlbum ()
 	{
 		if (add_album_window == null) {
 			add_album_window = new AddAlbumWindow ();
@@ -1360,6 +1443,11 @@ public class PlaylistWindow : Window
 		add_album_window.Run ();
 
 		AddChildWindowIfVisible (add_album_window);
+	}
+
+	private void HandlePlayAlbumCommand (object o, EventArgs args)
+	{
+		PlayAlbum ();
 	}
 
 	private bool HandleDirectory (DirectoryInfo info,

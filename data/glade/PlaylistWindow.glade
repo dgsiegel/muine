@@ -220,7 +220,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandleAddSongCommand" last_modification_time="Tue, 06 Jan 2004 18:09:02 GMT"/>
+		      <signal name="clicked" handler="HandlePlaySongCommand" last_modification_time="Wed, 29 Dec 2004 19:52:09 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment3">
@@ -295,7 +295,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandleAddAlbumCommand" last_modification_time="Sat, 17 Jan 2004 23:30:05 GMT"/>
+		      <signal name="clicked" handler="HandlePlayAlbumCommand" last_modification_time="Wed, 29 Dec 2004 19:52:14 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment4">

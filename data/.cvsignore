@@ -2,3 +2,4 @@ Makefile
 Makefile.in
 muine.schemas
 muine.desktop
+muine.pc

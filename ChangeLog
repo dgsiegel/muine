@@ -1,3 +1,32 @@
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
+	* Makefile.am:
+	* PLUGINS:
+	* TODO:
+	* configure.in:
+	* data/.cvsignore:
+	* data/Makefile.am:
+	* data/glade/PlaylistWindow.glade:
+	* data/muine.pc.in:
+	* plugins/.cvsignore:
+	* plugins/DashboardPlugin.cs:
+	* plugins/Makefile.am:
+	* src/.cvsignore:
+	R src/DashboardFrontend.cs:
+	* src/Makefile.am:
+	* src/MuineDBusService.cs:
+	* src/PlayerDBusObject.cs:
+	* src/PlayerInterface.cs:
+	* src/PlaylistWindow.cs:
+	* src/Plugin.cs:
+	* src/PluginManager.cs:
+	* src/Song.cs:
+	* src/SongInterface.cs:
+	* src/muine.in:
+
+	Simple plugin support with a sample Dashboard plugin, and a
+	D-Bus interface which is based on an old patch from Sergio Rubio.
+
 2004-12-29  Jorn Baayen  <jbaayen@gnome.org>
 
 	* README:

@@ -23,6 +23,7 @@ LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.8.0
 MONO_REQUIRED=1.0
 GTKSHARP_REQUIRED=1.9.1
+DBUSSHARP_REQUIRED=0.21
 
 dnl Audio backend stuff
 
@@ -62,6 +63,9 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  glade-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED)
+
+PKG_CHECK_MODULES(DBUSSHARP,
+                  dbus-sharp >= $DBUSSHARP_REQUIRED)
 
 dnl Handle GConf
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
@@ -118,6 +122,7 @@ AC_OUTPUT([
 Makefile
 muine.spec
 data/Makefile
+data/muine.pc
 data/glade/Makefile
 data/images/Makefile
 libmuine/Makefile
@@ -126,6 +131,7 @@ libmuine/egg/Makefile
 src/Makefile
 src/muine
 src/muine.exe.config
+plugins/Makefile
 m4/Makefile
 po/Makefile.in
 ])

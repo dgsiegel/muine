@@ -24,14 +24,25 @@ using System.Net.Sockets;
 using System.Xml;
 using System.Text;
 
-public class DashboardFrontend
+public class DashboardFrontend : Plugin
 {
-	public static void PlayerChangedSong (Song song, bool has_focus)
+	private PlayerInterface player;
+
+	public override void Initialize (PlayerInterface player)
 	{
+		this.player = player;
+		
+		player.PlayingSongChanged += new Plugin.SongEventHandler (HandleSongChanged);
+	}
+	
+	private void HandleSongChanged (SongInterface song)
+	{
+		bool has_focus = player.WindowFocused;
+
 		SendClue (song.Artists, song.Album, song.Title, has_focus);
 	}
 
-        public static void SendClue (string [] artists, string album, string song_title, bool has_focus)
+        private void SendClue (string [] artists, string album, string song_title, bool has_focus)
         {
 		TcpClient tcp_client = new TcpClient ();
 			

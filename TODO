@@ -1,17 +1,13 @@
 Easy:
 =====
 
-o Use GnomeVFS
-
+o Use GnomeVFS, but we need a new mono release for this
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
-o D-BUS service (Sergio Rubio is on this)
 
 Tough:
 ======
 
-o Plug-in arch, so that we can add things like dashboard and gnotify support
-  without bloating the main build.
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)

@@ -1,5 +1,10 @@
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS)
 
+MUINE_PLUGIN_LIB_CSFILES =			\
+	$(srcdir)/Plugin.cs			\
+	$(srcdir)/PlayerInterface.cs		\
+	$(srcdir)/SongInterface.cs
+
 MUINE_CSFILES =					\
 	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
@@ -28,7 +33,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/CoverDatabase.cs		\
-	$(srcdir)/DashboardFrontend.cs		\
 	$(srcdir)/MessageConnection.cs		\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/InfoWindow.cs			\
@@ -37,14 +41,17 @@ MUINE_CSFILES =					\
 	$(srcdir)/GettextCatalog.cs		\
 	$(srcdir)/FileUtils.cs			\
 	$(srcdir)/SignalUtils.cs		\
-	$(srcdir)/Database.cs
+	$(srcdir)/Database.cs			\
+	$(srcdir)/MuineDBusService.cs		\
+	$(srcdir)/PlayerDBusObject.cs		\
+	$(srcdir)/PluginManager.cs
 
 ASSEMBLIES =					\
 	-r:AmazonSearchService.dll		\
+	-r:MuinePluginLib.dll			\
 	-r:System.Web.Services			\
 	-r:Mono.Posix
 	
-
 RESOURCES =												\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade			\
 	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade			\
@@ -73,15 +80,18 @@ AmazonSearchService.cs: AmazonSearchService.wsdl
 	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
 
 AmazonSearchService.dll: AmazonSearchService.cs
-	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll AmazonSearchService.cs -r:System.Web.Services
+	$(CSC) -target:library $(LIBFLAGS) -out:$@ AmazonSearchService.cs -r:System.Web.Services
 
-muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll
-	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES) $(GTKSHARP_LIBS)
+MuinePluginLib.dll: $(MUINE_PLUGIN_LIB_CSFILES)
+	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(MUINE_PLUGIN_LIB_CSFILES) $(GTKSHARP_LIBS)
 
-all: AmazonSearchService.dll muine.exe
+muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll MuinePluginLib.dll
+	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
+
+all: AmazonSearchService.dll MuinePluginLib.dll muine.exe
 
 muinelibdir = $(prefix)/lib/muine
-muinelib_DATA = muine.exe muine.exe.config AmazonSearchService.dll
+muinelib_DATA = muine.exe muine.exe.config AmazonSearchService.dll MuinePluginLib.dll
 
 bin_SCRIPTS = muine
 
@@ -95,4 +105,5 @@ CLEANFILES =					\
 	muine					\
 	AmazonSearchService.cs			\
 	AmazonSearchService.dll			\
+	MuinePluginLib.dll			\
 	muine.exe

@@ -16,15 +16,20 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 @INTLTOOL_SCHEMAS_RULE@
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = muine.pc
+
 EXTRA_DIST =			\
 	$(desktop_in_files)	\
 	$(desktop_DATA)		\
 	$(schema_in_files)	\
-	$(schema_DATA)
+	$(schema_DATA)		\
+	$(pkgconfig_DATA)
 
 DISTCLEANFILES = 		\
 	$(desktop_DATA) 	\
-	$(schema_DATA)
+	$(schema_DATA)		\
+	$(pkgconfig_DATA)
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
