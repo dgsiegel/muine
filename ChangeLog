@@ -1,3 +1,9 @@
+2004-02-12  Julio M. Merino Vidal  <jmmv@menta.net>
+
+	* data/Makefile.am:
+
+	Honour the --disable-schemas-install option
+
 2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
