@@ -41,7 +41,7 @@ MUINE_CSFILES =					\
 
 MUINE_ASSEMBLIES =					\
 	-r:$(top_builddir)/PluginLib/muine-plugin.dll	\
-	-r:$(top_builddir)/ClientLib/muine-dbus.dll	\
+	-r:$(top_builddir)/DBusLib/muine-dbus.dll	\
 	-r:System.Web.Services				\
 	-r:Mono.Posix
 	
@@ -72,7 +72,7 @@ MUINE_RESOURCES =												\
 AmazonSearchService.cs: AmazonSearchService.wsdl
 	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
 
-muine.exe: $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/ClientLib/muine-dbus.dll
+muine.exe: $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll
 	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
 
 all: muine.exe

@@ -1,5 +1,22 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	R ClientLib/.cvsignore:
+	R ClientLib/AssemblyInfo.cs:
+	R ClientLib/Makefile.am:
+	R ClientLib/Player.cs:
+	* DBusLib/.cvsignore:
+	* DBusLib/AssemblyInfo.cs:
+	* DBusLib/Makefile.am:
+	* DBusLib/Player.cs:
+	* Makefile.am:
+	* configure.in:
+	* doc/Makefile.am:
+	* src/Makefile.am:
+
+	Move muine-dbus from ClientLib to DBusLib.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/PlaylistWindow.cs:
 

@@ -2,7 +2,7 @@ SUBDIRS = 		\
 	data		\
 	libmuine	\
 	PluginLib	\
-	ClientLib	\
+	DBusLib		\
 	src		\
 	plugins		\
 	doc		\

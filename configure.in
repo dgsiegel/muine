@@ -144,7 +144,7 @@ libmuine/Makefile
 libmuine/id3-vfs/Makefile
 libmuine/egg/Makefile
 PluginLib/Makefile
-ClientLib/Makefile
+DBusLib/Makefile
 src/Makefile
 src/muine
 src/muine.exe.config

@@ -19,7 +19,7 @@ muine-docs.zip muine-docs.tree: $(srcdir)/en/*/*.xml $(srcdir)/en/*.xml
 
 update:
 	$(UPDATER) $(top_builddir)/PluginLib/muine-plugin.dll -o ./en -f
-	$(UPDATER) $(top_builddir)/ClientLib/muine-dbus.dll -o ./en -f
+	$(UPDATER) $(top_builddir)/DBusLib/muine-dbus.dll -o ./en -f
 
 CLEANFILES = muine-docs.zip muine-docs.tree
 
