@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
-"POT-Creation-Date: 2004-05-09 15:00+0200\n"
-"PO-Revision-Date: 2004-05-09 15:01+0200\n"
+"POT-Creation-Date: 2004-05-09 16:47+0200\n"
+"PO-Revision-Date: 2004-05-09 16:47+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -181,125 +181,124 @@ msgid "Muine Music Player"
 msgstr "Musikspelaren Muine"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height"
-msgstr "Höjd på fönstret \"lägg till album\""
+msgid "\"Add album\" window height"
+msgstr "Höjd på fönstret \"Lägg till album\""
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window height."
-msgstr "Höjd på fönstret \"lägg till album\"."
+msgid "\"Add album\" window width"
+msgstr "Bredd på fönstret \"Lägg till album\""
 
 #: data/muine.schemas.in.h:3
-msgid "Add album window width"
-msgstr "Bredd på fönstret \"lägg till album\""
+msgid "\"Add song\" window height"
+msgstr "Höjd på fönstret \"Lägg till låt\""
 
 #: data/muine.schemas.in.h:4
-msgid "Add album window width."
-msgstr "Bredd på fönstret \"lägg till album\"."
+msgid "\"Add song\" window width"
+msgstr "Bredd på fönstret \"Lägg till låt\""
 
 #: data/muine.schemas.in.h:5
-msgid "Add song window height"
-msgstr "Höjd på fönstret \"lägg till låt\""
-
-#: data/muine.schemas.in.h:6
-msgid "Add song window height."
-msgstr "Höjd på fönstret \"lägg till låt\"."
-
-#: data/muine.schemas.in.h:7
-msgid "Add song window width"
-msgstr "Bredd på fönstret \"lägg till låt\""
-
-# Detta borde buggrapporteras.
-#: data/muine.schemas.in.h:8
-msgid "Add song window width."
-msgstr "Bredd på fönstret \"lägg till låt\"."
-
-#: data/muine.schemas.in.h:9
 msgid "Amazon site to use for album images"
 msgstr "Amazon-webbplats att använda för albumbilder"
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:6
 msgid "Default import folder"
 msgstr "Standardmapp för import"
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:7
 msgid "Default playlist folder"
 msgstr "Standardmapp för spellistor"
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:8
 msgid "First start"
 msgstr "Första start"
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Mappar som övervakas för ändringar."
+
+#: data/muine.schemas.in.h:10
+msgid "Height of the \"Add album\" window."
+msgstr "Höjd på fönstret \"Lägg till album\"."
+
+#: data/muine.schemas.in.h:11
+msgid "Height of the \"Add song\" window."
+msgstr "Höjd på fönstret \"Lägg till låt\"."
+
+#: data/muine.schemas.in.h:12
+msgid "Height of the information window."
+msgstr "Höjd på informationsfönstret."
+
+#: data/muine.schemas.in.h:13
+msgid "Height of the playlist window."
+msgstr "Höjd på spellistefönstret."
 
 #: data/muine.schemas.in.h:14
 msgid "Information window height"
 msgstr "Höjd på informationsfönstret"
 
 #: data/muine.schemas.in.h:15
-msgid "Information window height."
-msgstr "Höjd på informationsfönstret."
-
-#: data/muine.schemas.in.h:16
 msgid "Information window width"
 msgstr "Bredd på informationsfönstret"
 
-#: data/muine.schemas.in.h:17
-msgid "Information window width."
-msgstr "Bredd på informationsfönstret."
-
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Senast använda mapp från dialogen \"Importera mapp\"."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:17
 msgid "Last used folder from the playlist file selectors."
 msgstr "Senast använda mapp från spellistefilväljarna."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:18
 msgid "Playlist window height"
 msgstr "Höjd på spellistefönstret"
 
-#: data/muine.schemas.in.h:21
-msgid "Playlist window height."
-msgstr "Höjd på spellistefönstret."
-
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:19
 msgid "Playlist window width"
 msgstr "Bredd på spellistefönstret"
 
-#: data/muine.schemas.in.h:23
-msgid "Playlist window width."
-msgstr "Bredd på spellistefönstret."
-
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:20
 msgid "Repeat mode"
 msgstr "Upprepningsläge"
 
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:21
 msgid "Volume level"
 msgstr "Volymnivå"
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Volymnivå. 0 = lägsta, 100 = högsta."
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:23
 msgid "Watched folders"
 msgstr "Övervakade mappar"
 
-#: data/muine.schemas.in.h:28
+#: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Huruvida läget upprepa spellista är aktiverat eller inte."
 
-#: data/muine.schemas.in.h:29
+#: data/muine.schemas.in.h:25
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
 "Vilken Amazon-webbplats som ska användas för hämtning för albumbilder, \"us"
 "\", \"uk\", \"de\", eller \"jp\"."
+
+#: data/muine.schemas.in.h:26
+msgid "Width of the \"Add album\" window."
+msgstr "Bredd på fönstret \"Lägg till album\"."
+
+#: data/muine.schemas.in.h:27
+msgid "Width of the \"Add song\" window."
+msgstr "Bredd på fönstret \"Lägg till låt\"."
+
+#: data/muine.schemas.in.h:28
+msgid "Width of the information window."
+msgstr "Bredd på informationsfönstret."
+
+#: data/muine.schemas.in.h:29
+msgid "Width of the playlist window."
+msgstr "Bredd på spellistefönstret."
 
 #: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
@@ -350,6 +349,224 @@ msgstr "Internt fel"
 msgid "Could not play \"%s\""
 msgstr "Kunde inte spela \"%s\""
 
+#~ msgid "Add album window height."
+#~ msgstr "Höjd på fönstret \"lägg till album\"."
+
+#~ msgid "Add album window width."
+#~ msgstr "Bredd på fönstret \"lägg till album\"."
+
+#~ msgid "Add song window height."
+#~ msgstr "Höjd på fönstret \"lägg till låt\"."
+
+#~ msgid "Add song window width."
+#~ msgstr "Bredd på fönstret \"lägg till låt\"."
+
+#~ msgid "Information window height."
+#~ msgstr "Höjd på informationsfönstret."
+
+#~ msgid "Information window width."
+#~ msgstr "Bredd på informationsfönstret."
+
+#~ msgid "Playlist window height."
+#~ msgstr "Höjd på spellistefönstret."
+
+#~ msgid "Playlist window width."
+#~ msgstr "Bredd på spellistefönstret."
+
+#~ msgid "Jorn Baayen (jbaayen@gnome.org)"
+#~ msgstr "Jorn Baayen (jbaayen@gnome.org)"
+
+#~ msgid "Lee Willis (lee@leewillis.co.uk)"
+#~ msgstr "Lee Willis (lee@leewillis.co.uk)"
+
+#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+
+#~ msgid "Album covers are provided by amazon.com."
+#~ msgstr "Albumomslag tillhandahålls av amazon.com."
+
+#~ msgid "Muine"
+#~ msgstr "Muine"
+
+#~ msgid "A Music Player"
+#~ msgstr "En musikspelare"
+
+#~ msgid "Performed by {0}"
+#~ msgstr "Spelad av {0}"
+
+#~ msgid "the dj"
+#~ msgstr "the dj"
+
+#~ msgid "Failed to load metadata: {0}"
+#~ msgstr "Misslyckades med att läsa in metadata: {0}"
+
+#~ msgid ""
+#~ "Failed to load the cover database: {0}\n"
+#~ "\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Misslyckades med att läsa in omslagsdatabasen: {0}\n"
+#~ "\n"
+#~ "Avslutar..."
+
+#~ msgid ""
+#~ "Failed to load the song database: {0}\n"
+#~ "\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Misslyckades med att läsa in låtdatabasen: {0}\n"
+#~ "\n"
+#~ "Avslutar..."
+
+#~ msgid "_Previous Song"
+#~ msgstr "_Föregående låt"
+
+#~ msgid "_Next Song"
+#~ msgstr "_Nästa låt"
+
+#~ msgid "Show _Window"
+#~ msgstr "Visa _fönster"
+
+#~ msgid ""
+#~ "Error opening {0}:\n"
+#~ "{1}"
+#~ msgstr ""
+#~ "Fel vid öppnande av {0}:\n"
+#~ "{1}"
+
+#~ msgid ""
+#~ "Audio backend error:\n"
+#~ "{0}"
+#~ msgstr ""
+#~ "Ljudbakändesfel:\n"
+#~ "{0}"
+
+#~ msgid "Hide _Window"
+#~ msgstr "Dölj _fönster"
+
+#~ msgid "Play the previous song"
+#~ msgstr "Spela föregående låt"
+
+#~ msgid "Play the next song"
+#~ msgstr "Spela nästa låt"
+
+#~ msgid "Add an album to the playlist"
+#~ msgstr "Lägg till ett album till spellistan"
+
+#~ msgid "Add a song to the playlist"
+#~ msgstr "Lägg till en låt till spellistan"
+
+#~ msgid "Change the volume level"
+#~ msgstr "Ändra volymnivån"
+
+#~ msgid "Playlist"
+#~ msgstr "Spellista"
+
+#~ msgid ""
+#~ "Failed to initialize the audio backend:\n"
+#~ "{0}\n"
+#~ "\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Misslyckades med att initiera i ljudbakänden:\n"
+#~ "{0}\n"
+#~ "\n"
+#~ "Avslutar..."
+
+#~ msgid "Playlist (Repeating {0} hour)"
+#~ msgid_plural "Playlist (Repeating {0} hours)"
+#~ msgstr[0] "Spellista (upprepar {0} timme)"
+#~ msgstr[1] "Spellista (upprepar {0} timmar)"
+
+#~ msgid "Playlist (Repeating {0} minute)"
+#~ msgid_plural "Playlist (Repeating {0} minutes)"
+#~ msgstr[0] "Spellista (upprepar {0} minut)"
+#~ msgstr[1] "Spellista (upprepar {0} minuter)"
+
+#~ msgid "Playlist (Repeating)"
+#~ msgstr "Spellista (upprepar)"
+
+#~ msgid "Playlist ({0} hour remaining)"
+#~ msgid_plural "Playlist ({0} hours remaining)"
+#~ msgstr[0] "Spellista ({0} timme återstår)"
+#~ msgstr[1] "Spellista ({0} timmar återstår)"
+
+#~ msgid "Playlist ({0} minute remaining)"
+#~ msgid_plural "Playlist ({0} minutes remaining)"
+#~ msgstr[0] "Spellista ({0} minut återstår)"
+#~ msgstr[1] "Spellista ({0} minuter återstår)"
+
+#~ msgid "Playlist (Less than one minute remaining)"
+#~ msgstr "Spellista (mindre än en minut återstår)"
+
+#~ msgid "From \"{0}\""
+#~ msgstr "Från \"{0}\""
+
+#~ msgid "Album unknown"
+#~ msgstr "Albumet okänt"
+
+#~ msgid "Drop an image here to use it as album cover"
+#~ msgstr "Släpp en bild här för att använda den som albumomslag"
+
+#~ msgid "{0} - Muine Music Player"
+#~ msgstr "{0} - Musikspelaren Muine"
+
+#~ msgid "Pause music playback"
+#~ msgstr "Gör paus i musikuppspelningen"
+
+#~ msgid "P_ause"
+#~ msgstr "Gör p_aus"
+
+#~ msgid "Failed to open {0} for reading"
+#~ msgstr "Misslyckades med att öppna {0} för läsning"
+
+#~ msgid "Failed to open {0} for writing"
+#~ msgstr "Misslyckades med att öppna {0} för skrivning"
+
+#~ msgid "Import Folder"
+#~ msgstr "Importera mapp"
+
+#~ msgid "Open Playlist"
+#~ msgstr "Öppna spellista"
+
+#~ msgid "Save Playlist"
+#~ msgstr "Spara spellista"
+
+#~ msgid ""
+#~ "File {0} will be overwritten.\n"
+#~ "If you choose yes, the contents will be lost.\n"
+#~ "\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "Filen {0} kommer att skrivas över.\n"
+#~ "Om du väljer ja kommer innehållet att gå förlorat.\n"
+#~ "\n"
+#~ "Vill du fortsätta?"
+
+#~ msgid "Importing {0}..."
+#~ msgstr "Importerar {0}..."
+
+#~ msgid "Resume music playback"
+#~ msgstr "Återuppta musikspelningen"
+
+#~ msgid "Pl_ay"
+#~ msgstr "Sp_ela"
+
+#~ msgid "Play"
+#~ msgstr "Spela"
+
+#~ msgid "Start music playback"
+#~ msgstr "Starta musikuppspelning"
+
+#~ msgid "Unknown"
+#~ msgstr "Okänd"
+
+#~ msgid "{0} and others"
+#~ msgstr "{0} med flera"
+
+#~ msgid "{0} and {1}"
+#~ msgstr "{0} och {1}"
+
 #~ msgid "_Create an empty music collection "
 #~ msgstr "_Skapa en tom musiksamling "
 
@@ -365,27 +582,21 @@ msgstr "Kunde inte spela \"%s\""
 #~ msgid "Song"
 #~ msgstr "Låt"
 
-# Detta borde buggrapporteras.
 #~ msgid "Default import folder."
 #~ msgstr "Standardmapp för import."
 
-# Detta borde buggrapporteras.
 #~ msgid "Default playlist folder."
 #~ msgstr "Standardmapp för spellistor."
 
-# Detta borde buggrapporteras.
 #~ msgid "First start."
 #~ msgstr "Första start."
 
-# Detta borde buggrapporteras.
 #~ msgid "Repeat mode."
 #~ msgstr "Upprepningsläge."
 
-# Detta borde buggrapporteras.
 #~ msgid "Volume level."
 #~ msgstr "Volymnivå."
 
-# Detta borde buggrapporteras.
 #~ msgid "Watched folders."
 #~ msgstr "Övervakade mappar."
 
@@ -393,9 +604,6 @@ msgstr "Kunde inte spela \"%s\""
 #~ msgstr ""
 #~ "Christian Rose\n"
 #~ "Skicka synpunkter på översättningen till sv@li.org"
-
-#~ msgid "Muine"
-#~ msgstr "Muine"
 
 #~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
 #~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
@@ -408,9 +616,6 @@ msgstr "Kunde inte spela \"%s\""
 
 #~ msgid "Muine music player"
 #~ msgstr "Musikspelaren Muine"
-
-#~ msgid "Unknown"
-#~ msgstr "Okänd"
 
 #~ msgid "Groups"
 #~ msgstr "Grupper"
@@ -926,9 +1131,6 @@ msgstr "Kunde inte spela \"%s\""
 #~ msgid "Enable deinterlacing."
 #~ msgstr "Aktivera sammanflätning."
 
-#~ msgid "Height of the video widget"
-#~ msgstr "Höjd på videowidgeten"
-
 #~ msgid "Name of the visual effects plugins"
 #~ msgstr "Namn på insticksmodulerna för visuella effekter"
 
@@ -991,9 +1193,6 @@ msgstr "Kunde inte spela \"%s\""
 
 #~ msgid "Whether to enable debug for the playback engine."
 #~ msgstr "Huruvida felsökning för uppspelningsmotorn ska aktiveras."
-
-#~ msgid "Width of the video widget"
-#~ msgstr "Bredd på videowidgeten"
 
 #~ msgid "X coordinate for the Playlist"
 #~ msgstr "X-koordinat för spellistan"
