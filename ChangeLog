@@ -1,5 +1,15 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* libmuine/pointer-list-view.c: (pointer_list_view_scroll_to):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Scroll to playing cell when playing a newly added song or album.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 	* src/ProgressWindow.cs:
 

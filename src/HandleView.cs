@@ -196,6 +196,15 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_scroll_to (IntPtr view, 
+								IntPtr handle);
+
+	public void ScrollTo (IntPtr handle)
+	{
+		pointer_list_view_scroll_to (Raw, handle);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_set_sort_func (IntPtr view,
 	                                                            CompareFuncNative sort_func);
 

@@ -530,6 +530,7 @@ public class PlaylistWindow : Window
 		playlist.StateChanged ();
 	}
 
+	/* FIXME this is not called anymore with Gtk# 0.15? */
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
 	{
 		if (KeyUtils.HaveModifier (args.Event.state)) {
@@ -637,6 +638,7 @@ public class PlaylistWindow : Window
 			
 			if (first == true) {
 				playlist.Playing = p;
+				playlist.ScrollTo (p);
 				player.Playing = true;
 
 				SongChanged ();
@@ -672,6 +674,7 @@ public class PlaylistWindow : Window
 
 				if (first == true) {
 					playlist.Playing = s.Handle;
+					playlist.ScrollTo (s.Handle);
 					player.Playing = true;
 
 					SongChanged ();
