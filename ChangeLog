@@ -1,5 +1,12 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* src/PlaylistWindow.cs:
+
+	Release preparation.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Song.cs:
 
 	Do some AlbumKey caching.

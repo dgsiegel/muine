@@ -315,6 +315,10 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item.Image = image;
 		image.Visible = true;
 
+		/* FIXME */
+		glade_xml ["information_menu_item_separator"].Visible = false;
+		information_menu_item.Visible = false;
+
 		setting_repeat_menu_item = true;
 		try {
 			repeat_menu_item.Active = (bool) Muine.GConfClient.Get ("/apps/muine/repeat");
