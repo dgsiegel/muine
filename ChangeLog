@@ -1,5 +1,11 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Makefile.am:
+
+	Split off MUINE_GENERATED_CSFILES from MUINE_CSFILES.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* data/Makefile.am:
 	* data/org.gnome.Muine.service.in:

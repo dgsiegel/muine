@@ -38,7 +38,9 @@ MUINE_CSFILES =					\
 	$(srcdir)/Database.cs			\
 	$(srcdir)/MuineDBusService.cs		\
 	$(srcdir)/PluginManager.cs		\
-	$(srcdir)/AddWindow.cs			\
+	$(srcdir)/AddWindow.cs
+
+MUINE_GENERATED_CSFILES =			\
 	$(srcdir)/AmazonSearchService.cs	\
 	$(srcdir)/Defines.cs
 
@@ -93,8 +95,8 @@ Defines.cs: $(srcdir)/Defines.cs.in
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $^ > $@
 
-$(TARGET): $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll Defines.cs
-	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
+$(TARGET): $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll
+	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
 
 all: $(TARGET)
 
@@ -111,8 +113,7 @@ EXTRA_DIST =					\
 	Defines.cs.in
 
 CLEANFILES =					\
-	AmazonSearchService.cs			\
-	Defines.cs				\
+	$(MUINE_GENERATED_CSFILES)		\
 	$(TARGET)				\
 	$(TARGET).config			\
 	$(WRAPPER)
