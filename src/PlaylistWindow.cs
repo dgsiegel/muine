@@ -145,6 +145,10 @@ public class PlaylistWindow : Window
 		WindowVisible = true;
 
 		icon.Run ();
+
+		/* put on the screen immediately please */
+		while (Global.EventsPending () > 0)
+			Main.Iteration ();
 	}
 
 	public void CheckFirstStartUp () 

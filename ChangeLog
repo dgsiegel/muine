@@ -1,5 +1,11 @@
 2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Show window as soon as possible.
+
+2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Don't remove album covers when albums from removable media are
