@@ -1012,6 +1012,31 @@ public class PlaylistWindow : Window
 		NSongsChanged ();
 	}
 
+	public void QueueFile (string file)
+	{
+		Song song = (Song) Muine.DB.Songs [file];
+
+		if (song == null) {
+			/* try to create a new song object */
+			try {
+				song = new Song (file);
+			} catch {
+				return;
+			}
+
+			song.Orphan = true;
+		}
+
+		if (song == null)
+			return;
+
+		IntPtr p = AddSong (song);
+
+		EnsurePlaying ();
+
+		NSongsChanged ();
+	}
+
 	private void HandlePlaySongsEvent (List songs)
 	{
 		bool first = true;

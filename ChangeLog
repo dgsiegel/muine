@@ -1,3 +1,13 @@
+2004-06-19  Fernando Herrera  <fherrera@onirica.com>
+2004-06-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/muine.applications:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Support for multiple files in the command line (play the first, enqueue
+	the rest)
+
 2004-06-20  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/AddAlbumWindow.cs:

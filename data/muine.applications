@@ -1,7 +1,7 @@
 muine
 	command=muine
 	name=Muine Music Player
-	can_open_multiple_files=false
+	can_open_multiple_files=true
 	expects_uris=false
 	requires_terminal=false
 	startup_notify=true

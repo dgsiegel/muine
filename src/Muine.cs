@@ -129,25 +129,32 @@ public class Muine : Gnome.Program
 	private void ProcessCommandLine (string [] args, bool use_conn)
 	{
 		if (args.Length > 0) {
-			/* try to load first argument as a playlist or music file */
-			System.IO.FileInfo finfo = new System.IO.FileInfo (args [0]);
+			for (int i = 0; i < args.Length; i++) {
+				System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
 			
-			if (finfo.Exists) {
-				if (FileUtils.IsPlaylist (args [0])) {
-					/* load as playlist */
-					if (use_conn)
-						conn.Send ("LoadPlaylist " + finfo.FullName);
-					else
-						playlist.OpenPlaylist (finfo.FullName);
-				} else {
-					/* load as music file */
-					if (use_conn)
-						conn.Send ("PlayFile " + finfo.FullName);
-					else
-						playlist.PlayFile (finfo.FullName);
-				}
+				if (finfo.Exists) {
+					if (FileUtils.IsPlaylist (args [i])) {
+						/* load as playlist */
+						if (use_conn)
+							conn.Send ("LoadPlaylist " + finfo.FullName);
+						else
+							playlist.OpenPlaylist (finfo.FullName);
+					} else {
+						/* load as music file */
+						if (use_conn)
+							if (i == 0)
+								conn.Send ("PlayFile " + finfo.FullName);
+							else
+								conn.Send ("QueueFile " + finfo.FullName);
+						else
+							if (i == 0)
+								playlist.PlayFile (finfo.FullName);
+							else
+								playlist.QueueFile (finfo.FullName);
+					}
 
-				opened_playlist = true;
+					opened_playlist = true;
+				}
 			}
 		} else if (use_conn)
 			conn.Send ("ShowWindow");
@@ -169,6 +176,8 @@ public class Muine : Gnome.Program
 			playlist.OpenPlaylist (message.Substring (13));
 		else if (message.StartsWith ("PlayFile "))
 			playlist.PlayFile (message.Substring (9));
+		else if (message.StartsWith ("QueueFile "))
+			playlist.QueueFile (message.Substring (10));
 	}
 
 	private void HandleCoversDoneLoading ()
