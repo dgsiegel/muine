@@ -76,6 +76,7 @@ public class PlaylistWindow : Window
 
 	/* the player object */
 	private Player player;
+	private bool had_last_eos;
 
 	/* the playlist filename */
 	private string playlist_filename;
@@ -601,13 +602,23 @@ public class PlaylistWindow : Window
 		cover_image.ShowAll ();
 	}
 
+	private void PlayAndSelect (IntPtr ptr)
+	{
+		playlist.Playing = ptr;
+		playlist.Select (ptr);
+	}
+
+	private void PlayFirstAndSelect ()
+	{
+		playlist.First ();
+		playlist.Select (playlist.Playing);
+	}
+
 	private void EnsurePlaying ()
 	{
 		if (playlist.Playing == IntPtr.Zero) {
-			if (playlist.HasFirst) {
-				playlist.First ();
-				playlist.Select (playlist.Playing);
-			}
+			if (playlist.HasFirst)
+				PlayFirstAndSelect ();
 
 			SongChanged (true);
 		} 
@@ -620,7 +631,15 @@ public class PlaylistWindow : Window
 
 	private IntPtr AddSong (IntPtr p)
 	{
-		return AddSongAtPos (p, IntPtr.Zero, TreeViewDropPosition.Before);
+		IntPtr ret = AddSongAtPos (p, IntPtr.Zero, TreeViewDropPosition.Before);
+
+		if (had_last_eos == true) {
+			PlayAndSelect (ret);
+
+			SongChanged (true);
+		}
+
+		return ret;
 	}
 
 	private IntPtr AddSongAtPos (IntPtr p, IntPtr pos,
@@ -638,15 +657,6 @@ public class PlaylistWindow : Window
 		else
 			playlist.Insert (new_p, pos, dp);
 
-		if (had_last_eos == true) {
-			playlist.Playing = new_p;
-			playlist.Select (new_p);
-
-			SongChanged (true);
-		}
-
-		had_last_eos = false;
-		
 		return new_p;
 	}
 
@@ -755,6 +765,9 @@ public class PlaylistWindow : Window
 
 	private void SongChanged (bool restart)
 	{
+		if (restart)
+			had_last_eos = false;
+
 		if (playlist.Playing != IntPtr.Zero) {
 			Song song = Song.FromHandle (playlist.Playing);
 
@@ -851,8 +864,6 @@ public class PlaylistWindow : Window
 		playlist.Clear ();
 
 		player.Stop ();
-
-		had_last_eos = false;
 	}
 
 	private void SeekTo (int seconds)
@@ -953,8 +964,7 @@ public class PlaylistWindow : Window
 				AddSong (song);
 
 				if (playing_song) {
-					playlist.Playing = song.Handle;
-					playlist.Select (song.Handle);
+					PlayAndSelect (song.Handle);
 
 					SongChanged (true);
 
@@ -988,30 +998,27 @@ public class PlaylistWindow : Window
 			return;
 		}
 
-		bool had_playing_song = false;
-		foreach (int i in playlist.Contents) {
-			IntPtr ptr = new IntPtr (i);
+		if (!(exclude_played && had_last_eos)) {
+			bool had_playing_song = false;
+			foreach (int i in playlist.Contents) {
+				IntPtr ptr = new IntPtr (i);
 
-			if (exclude_played) {
-				if (ptr == playlist.Playing) {
-					had_playing_song = true;
-
-					if (had_last_eos)
+				if (exclude_played) {
+					if (ptr == playlist.Playing)
+						had_playing_song = true;
+					else if (!had_playing_song)
 						continue;
 				}
-
-				if (!had_playing_song)
-					continue;
-			}
 			
-			if (store_playing) {
-				if (ptr == playlist.Playing)
-					writer.WriteLine ("# PLAYING");
-			}
+				if (store_playing &&
+				    ptr == playlist.Playing) {
+						writer.WriteLine ("# PLAYING");
+				}
 			
-			Song song = Song.FromHandle (ptr);
+				Song song = Song.FromHandle (ptr);
 
-			writer.WriteLine (song.Filename);
+				writer.WriteLine (song.Filename);
+			}
 		}
 
 		try {
@@ -1083,8 +1090,6 @@ public class PlaylistWindow : Window
 		WindowVisible = !WindowVisible;
 	}
 
-	private bool had_last_eos;
-
 	private void HandleQueueSongsEvent (List songs)
 	{
 		foreach (int i in songs)
@@ -1122,8 +1127,7 @@ public class PlaylistWindow : Window
 
 		IntPtr p = AddSong (song);
 
-		playlist.Playing = p;
-		playlist.Select (p);
+		PlayAndSelect (p);
 
 		SongChanged (true);
 
@@ -1157,8 +1161,7 @@ public class PlaylistWindow : Window
 			IntPtr new_p = AddSong (p);
 			
 			if (first == true) {
-				playlist.Playing = new_p;
-				playlist.Select (new_p);
+				PlayAndSelect (new_p);
 
 				SongChanged (true);
 
@@ -1198,8 +1201,7 @@ public class PlaylistWindow : Window
 				IntPtr new_p = AddSong (s);
 
 				if (first == true) {
-					playlist.Playing = new_p;
-					playlist.Select (new_p);
+					PlayAndSelect (new_p);
 
 					SongChanged (true);
 
@@ -1254,8 +1256,6 @@ public class PlaylistWindow : Window
 		if (!playlist.HasFirst)
 			return;
 
-		had_last_eos = false;
-
 		/* restart song if not in the first 3 seconds */
 		if (player.Position < 3 &&
 		    playlist.HasPrevious) {
@@ -1287,14 +1287,11 @@ public class PlaylistWindow : Window
 			return;
 
 		if (had_last_eos) {
-			playlist.First ();
-			playlist.Select (playlist.Playing);
+			PlayFirstAndSelect ();
 
 			SongChanged (true);
 
 			NSongsChanged ();
-
-			had_last_eos = false;
 		}
 
 		player.Playing = !player.Playing;
@@ -1540,8 +1537,6 @@ public class PlaylistWindow : Window
 			IntPtr sel = new IntPtr (i);
 
 			if (sel == playlist.Playing) {
-				had_last_eos = false;
-
 				if (playlist.HasNext)
 					playlist.Next ();
 				else if (playlist.HasPrevious)
@@ -1662,8 +1657,6 @@ public class PlaylistWindow : Window
 
 	private void HandlePlaylistRowActivated (IntPtr handle)
 	{
-		had_last_eos = false;
-
 		playlist.Playing = handle;
 
 		SongChanged (true);
