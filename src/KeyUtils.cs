@@ -19,6 +19,8 @@
 
 using System;
 
+using Gdk;
+
 public class KeyUtils
 {
 	/* If we have modifiers, and either Ctrl, Mod1 (Alt), or any
@@ -26,12 +28,12 @@ public class KeyUtils
 	 * let Gtk+ handle the key */
 
 	public static bool HaveModifier (Gdk.EventKey e) {
-		if (e.state != 0
-		 	&& (((e.state & (uint) Gdk.ModifierType.ControlMask) != 0)
-			 || ((e.state & (uint) Gdk.ModifierType.Mod1Mask) != 0)
-			 || ((e.state & (uint) Gdk.ModifierType.Mod3Mask) != 0)
-			 || ((e.state & (uint) Gdk.ModifierType.Mod4Mask) != 0)
-			 || ((e.state & (uint) Gdk.ModifierType.Mod5Mask) != 0))) {
+		if (e.State != 0
+		 	&& (((e.State & Gdk.ModifierType.ControlMask) != 0)
+			 || ((e.State & Gdk.ModifierType.Mod1Mask) != 0)
+			 || ((e.State & Gdk.ModifierType.Mod3Mask) != 0)
+			 || ((e.State & Gdk.ModifierType.Mod4Mask) != 0)
+			 || ((e.State & Gdk.ModifierType.Mod5Mask) != 0))) {
 			return true;
 		}
 
@@ -41,20 +43,21 @@ public class KeyUtils
 	public static bool IsModifier (Gdk.EventKey e) {
 		bool ret = false;
 		
-		switch (e.keyval) {
-		case 0xFFE1: /* left shift */
-		case 0xFFE2: /* right shift */
-		case 0xFFE5: /* caps lock */
-		case 0xFFE3: /* left control */
-		case 0xFFE4: /* right control */
-		case 0xFFE7: /* left meta */
-		case 0xFFE8: /* right meta */
-		case 0XFFE9: /* left alt */
-		case 0xFFEA: /* right alt */
-		case 0xFFEB: /* left super */
-		case 0xFFEC: /* right super */
-		case 0xFFED: /* left hyper */
-		case 0xFFEE: /* right hyper */
+		switch (e.Key) {
+		case Key.Shift_L:
+		case Key.Shift_R:
+		case Key.Caps_Lock:
+		case Key.Shift_Lock:
+		case Key.Control_L:
+		case Key.Control_R:
+		case Key.Meta_L:
+		case Key.Meta_R:
+		case Key.Alt_L:
+		case Key.Alt_R:
+		case Key.Super_L:
+		case Key.Super_R:
+		case Key.Hyper_L:
+		case Key.Hyper_R:
 			ret = true;
 			break;
 		default:

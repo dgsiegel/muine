@@ -21,7 +21,6 @@ using System;
 using System.IO;
 
 using Gtk;
-using GtkSharp;
 using GLib;
 
 public class FileSelector : FileSelection

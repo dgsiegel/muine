@@ -22,7 +22,6 @@ using System.Runtime.InteropServices;
 
 using Gtk;
 using Gdk;
-using GtkSharp;
 
 public class NotificationAreaIcon : Plug
 {
@@ -95,19 +94,19 @@ public class NotificationAreaIcon : Plug
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 
-		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Information"));
-		information_menu_item.Image = new Gtk.Image (Stock.DialogInfo, IconSize.Menu);
-		menu.Append (information_menu_item);
-
-		sep = new SeparatorMenuItem ();
-		menu.Append (sep);
-
 		play_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Song..."));
 		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
 		menu.Append (play_song_menu_item);
 		play_album_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Play _Album..."));
 		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
 		menu.Append (play_album_menu_item);
+
+		sep = new SeparatorMenuItem ();
+		menu.Append (sep);
+
+		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Song _Information"));
+		information_menu_item.Image = new Gtk.Image (Stock.DialogInfo, IconSize.Menu);
+		menu.Append (information_menu_item);
 
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
@@ -201,15 +200,15 @@ public class NotificationAreaIcon : Plug
 	{
 		State = StateType.Active;
 
-		switch (args.Event.button)
+		switch (args.Event.Button)
 		{
 		case 1:
 		case 3:
-			menu_x = (int) args.Event.x_root - (int) args.Event.x;
-			menu_y = (int) args.Event.y_root - (int) args.Event.y + ebox.Allocation.height;
+			menu_x = (int) args.Event.XRoot - (int) args.Event.X;
+			menu_y = (int) args.Event.YRoot - (int) args.Event.Y + ebox.Allocation.Height;
 			
 			menu.Popup (null, null, new MenuPositionFunc (PositionMenu), IntPtr.Zero,
-			            args.Event.button, args.Event.time);
+			            args.Event.Button, args.Event.Time);
 			
 			break;
 
@@ -222,7 +221,7 @@ public class NotificationAreaIcon : Plug
 
 	private void HandleButtonReleaseEvent (object o, ButtonReleaseEventArgs args)
 	{
-		switch (args.Event.button)
+		switch (args.Event.Button)
 		{
 		case 1:
 		case 3:

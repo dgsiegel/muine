@@ -22,7 +22,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 using Gtk;
-using GtkSharp;
 using GLib;
 using Gdk;
 
@@ -141,9 +140,8 @@ public class Muine : Gnome.Program
 
 	private void SetDefaultWindowIcon ()
 	{
-		List default_icon_list = new List ((IntPtr) 0, typeof (Pixbuf));
-		Pixbuf pixbuf = new Pixbuf (null, "muine-playlist.png");
-		default_icon_list.Append (pixbuf.Handle);
+		Pixbuf [] default_icon_list = new Pixbuf [1];
+		default_icon_list [0] = new Pixbuf (null, "muine-playlist.png");
 		Gtk.Window.DefaultIconList = default_icon_list;
 	}
 

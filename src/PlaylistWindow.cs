@@ -23,7 +23,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 using Gtk;
-using GtkSharp;
 using GLib;
 
 public class PlaylistWindow : Window
@@ -879,33 +878,20 @@ public class PlaylistWindow : Window
 
 		args.RetVal = true;
 
-		switch (args.Event.keyval) {
+		switch ((int) args.Event.Key) {
 		case 0x1008FF14: /* XF86XK_AudioPlay */
 		case 0x1008FF31: /* XF86XK_AudioPause */
-		case 0x020: /* space */
 			if (playlist.HasFirst)
 				HandlePlayPauseCommand (null, null);
 			break;
-		case 0x061: /* a */
-		case 0x041: /* A */
-			HandleAddAlbumCommand (null, null);
-			break;
 		case 0x1008FF16: /* XF86XK_AudioPrev */
-		case 0x070: /* p */
-		case 0x050: /* P */
 			if (playlist.HasFirst)
 				HandlePreviousCommand (null, null);
 			break;
 		case 0x1008FF17: /* XF86XK_AudioNext */
-		case 0x06e: /* n */
-		case 0x04e: /* N */
 			if (playlist.HasNext ||
 			    (repeat_menu_item.Active && playlist.HasFirst))
 				HandleNextCommand (null, null);
-			break;
-		case 0x073: /* s */
-		case 0x053: /* S */
-			HandleAddSongCommand (null, null);
 			break;
 		default:
 			args.RetVal = false;
@@ -916,8 +902,8 @@ public class PlaylistWindow : Window
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
 	{
 		bool old_window_visible = window_visible;
-		window_visible = ((args.Event.new_window_state != Gdk.WindowState.Iconified) &&
-				  (args.Event.new_window_state != Gdk.WindowState.Withdrawn));
+		window_visible = ((args.Event.NewWindowState != Gdk.WindowState.Iconified) &&
+				  (args.Event.NewWindowState != Gdk.WindowState.Withdrawn));
 
 		if (old_window_visible != window_visible)
 			UpdateWindowVisibilityUI ();

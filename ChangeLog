@@ -1,3 +1,28 @@
+2004-02-24  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/InfoWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/HandleView.cs:
+	* src/InfoWindow.cs:
+	* src/KeyUtils.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/YesNoDialog.cs:
+
+	Updates for Gtk# CVS. 
+
+	And stop using GtkHTML for the information window, without any CSS
+	we had to use very hackish table layouts which were, well, hackish.
+	So we now just use normal widgets. 
+
 2004-02-23  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/glade/InfoWindow.glade:

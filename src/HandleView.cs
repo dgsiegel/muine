@@ -323,18 +323,18 @@ public class HandleView : TreeView
 		
 		Gdk.ModifierType mod = 0;
 
-		if ((e.state != 0) &&
-		    ((e.state & (uint) Gdk.ModifierType.ControlMask) != 0)) {
+		if ((e.State != 0) &&
+		    ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
 		    	go = true;
 
 			mod = Gdk.ModifierType.ControlMask;
-		} else if ((e.state != 0) &&
-		           ((e.state & (uint) Gdk.ModifierType.Mod1Mask) != 0)) {
+		} else if ((e.State != 0) &&
+		           ((e.State & Gdk.ModifierType.Mod1Mask) != 0)) {
 			go = true;
 
 			mod = Gdk.ModifierType.Mod1Mask;
-		} else if ((e.state != 0) &&
-		           ((e.state & (uint) Gdk.ModifierType.ShiftMask) != 0)) {
+		} else if ((e.State != 0) &&
+		           ((e.State & Gdk.ModifierType.ShiftMask) != 0)) {
 			go = true;
 
 			mod = Gdk.ModifierType.ShiftMask;
@@ -346,13 +346,13 @@ public class HandleView : TreeView
 		}
 
 		if (go) {
-			/* big-ass hack to forward key press events to the treeview */
+			/* hack to forward key press events to the treeview */
 			Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
 			Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
 
 			GrabFocus ();
 
-			ret = Global.BindingsActivate (this, e.keyval, mod);
+			ret = Global.BindingsActivate (this, (uint) e.Key, mod);
 
 			Style.SetBaseGC (StateType.Selected, saved_gc);
 
@@ -373,7 +373,7 @@ public class HandleView : TreeView
 	}
 
 	public new delegate void RowActivatedHandler (IntPtr handle);
-	public new event RowActivatedHandler RowActivated;
+	public new event HandleView.RowActivatedHandler RowActivated;
 
 	private static void PointersReorderedCallback (IntPtr obj, IntPtr unused_data)
 	{
@@ -384,7 +384,7 @@ public class HandleView : TreeView
 	}
 
 	public delegate void RowsReorderedHandler ();
-	public event RowsReorderedHandler RowsReordered;
+	public event HandleView.RowsReorderedHandler RowsReordered;
 	
 	private static void SelectionChangedCallback (IntPtr obj, IntPtr unused_data)
 	{

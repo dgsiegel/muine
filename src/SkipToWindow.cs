@@ -20,7 +20,6 @@
 using System;
 
 using Gtk;
-using GtkSharp;
 using GLib;
 
 public class SkipToWindow

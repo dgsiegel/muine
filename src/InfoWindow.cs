@@ -19,9 +19,9 @@
 
 using System;
 using System.IO;
+using System.Text;
 
 using Gtk;
-using GtkSharp;
 using GLib;
 
 public class InfoWindow
@@ -29,14 +29,21 @@ public class InfoWindow
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
-	TextView textview;
-	private HTML html;
+	Viewport viewport;
+	[Glade.Widget]
+	Image cover_image;
+	[Glade.Widget]
+	Label name_label;
+	[Glade.Widget]
+	Label year_label;
+	[Glade.Widget]
+	Table tracks_table;
 
 	/* FIXME destructor, static?.. */
-	/* FIXME cleanup tray menu */
-	/* FIXME vis from tray */
 	/* FIXME albumchanged signal? */
-	/* FIXME consider async loading? */
+	/* FIXME start creating dialogs on demand to save startup time */
+	/* FIXME accessible from add album window? */
+	/* FIXME dinges hidden when opened from tray */
 
 	public InfoWindow (string title, Window parent)
 	{
@@ -64,12 +71,9 @@ public class InfoWindow
 
 		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 
-		html = new HTML ();
-		html.Editable = false;
-
-	    	html.UrlRequested += new UrlRequestedHandler (HandleUrlRequested);
-
-		((Container) gxml ["scrolledwindow"]).Add (html);
+		/* white background.. */
+//		viewport.EnsureStyle ();
+//		viewport.ModifyBg (StateType.Normal, viewport.Style.Base (StateType.Normal));
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
@@ -99,81 +103,44 @@ public class InfoWindow
 
 	private void InsertTrack (Song song, int n)
 	{
-	}
+		tracks_table.NRows++;
 
-	private string DumpCoverImageToFile (Gdk.Pixbuf pixbuf)
-	{
-		if (pixbuf == null)
-			return null;
+		Label number = new Label ("" + n);
+		number.Selectable = true;
+		number.Xalign = 0.5F;
+		number.Show ();
+		tracks_table.Attach (number, 0, 1,
+		                     tracks_table.NRows - 1,
+				     tracks_table.NRows,
+				     AttachOptions.Fill,
+				     0, 0, 0);
 
-		string path = Path.GetTempFileName ();
-
-		try {
-			pixbuf.Savev (path, "png", null, null);
-		} catch {
-			return null;
-		}
-
-		return path;
+		Label track = new Label (song.Title);
+		track.Selectable = true;
+		track.Xalign = 0.0F;
+		track.Show ();
+		tracks_table.Attach (track, 1, 2,
+		                     tracks_table.NRows - 1,
+				     tracks_table.NRows,
+				     AttachOptions.Expand | AttachOptions.Shrink | AttachOptions.Fill,
+				     0, 0, 0);
 	}
 
 	public void Load (Album album) 
 	{
-		HTMLStream stream = html.Begin ("text/html");
+		cover_image.Pixbuf = album.CoverImage;
 
-		/* in order to be able to inject the album cover into HTML, we
-		   are gonna spit it out to disk first */
-		string cover_image_fn = DumpCoverImageToFile (album.CoverImage);
+		name_label.Text = album.Name;
+		MarkupUtils.LabelSetMarkup (name_label, 0, StringUtils.GetByteLength (album.Name),
+		                            true, true, false);
 
-		if (cover_image_fn != null) {
-			stream.Write ("<img src=\"" + cover_image_fn + "\"/>");
-		}
+		year_label.Text = album.Year;
 		
-		/* insert album name */
-		stream.Write ("<b>" + album.Name + "</b>");
-
-		/* insert year of release */
-		stream.Write ("<i>" + album.Year + "</i>");
-
 		/* insert tracks */
 		int n = 1;
 		foreach (Song song in album.Songs) {
 			InsertTrack (song, n);
 			n++;
 		}
-
-		html.End (stream, HTMLStreamStatus.Ok);
-
-		if (cover_image_fn != null) {
-			/* clean up */
-			FileInfo cover_image_finfo = new FileInfo (cover_image_fn);
-
-			cover_image_finfo.Delete ();
-		}
-	}
-
-	private void HandleUrlRequested (object obj, UrlRequestedArgs args)
-	{
-		/* we only read from local files anyway, so this'll do. */
-		FileStream stream;
-		BinaryReader reader;
-		
-		try {
-			stream = new FileStream (args.Url, FileMode.Open);
-			reader = new BinaryReader (stream);
-		} catch {
-			args.Handle.Close (HTMLStreamStatus.Error);
-
-			return;
-		}
-
-		byte [] bytes = new byte [8192];
-		while (reader.Read (bytes, 0 , 8192) > 0)
-			args.Handle.Write (bytes, bytes.Length);
-
-		args.Handle.Close (HTMLStreamStatus.Ok);
-
-		reader.Close ();
-		stream.Close ();
 	}
 }
