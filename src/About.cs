@@ -22,7 +22,7 @@ using Gdk;
 
 public class About
 {
-	private static string version = "0.6.2";
+	private static string version = "0.6.2.99";
 	public static string Version {
 		get {
 			return version;
@@ -35,9 +35,9 @@ public class About
 			if (authors == null) {
 				authors = new string [5];
 
-				authors [0] = Muine.Catalog.GetString ("Jorn Baayen (jbaayen@gnome.org)");
-				authors [1] = Muine.Catalog.GetString ("Lee Willis (lee@leewillis.co.uk)");
-				authors [2] = Muine.Catalog.GetString ("Việt Yên Nguyễn (nguyen@cs.utwente.nl)");
+				authors [0] = Muine.Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>");
+				authors [1] = Muine.Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>");
+				authors [2] = Muine.Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>");
 				authors [3] = "";
 				authors [4] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
 			}

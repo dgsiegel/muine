@@ -369,9 +369,9 @@ msgstr "Album covers are provided by amazon.com."
 #: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
-"David Lodge (dave@cirt.net)\n"
-"Jorn Baayen (jbaayen@gnome.org)\n"
-"Gareth Owen (gowen72@yahoo.com)"
+"David Lodge <dave@cirt.net>\n"
+"Jorn Baayen <jbaayen@gnome.org>\n"
+"Gareth Owen <gowen72@yahoo.com>"
 
 #: src/About.cs:57
 msgid "Muine"
