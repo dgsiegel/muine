@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-17 14:52-0400\n"
-"PO-Revision-Date: 2004-05-16 09:42-0300\n"
+"POT-Creation-Date: 2004-05-18 14:04-0400\n"
+"PO-Revision-Date: 2004-05-18 10:12-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -73,9 +73,8 @@ msgstr ""
 "avançados e, portanto, não é geralmente recomendado."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-#, fuzzy
 msgid "_Create an empty music collection"
-msgstr "_Criar uma coleção de música vazia "
+msgstr "_Criar uma coleção de música vazia"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
@@ -186,76 +185,64 @@ msgid "Muine Music Player"
 msgstr "Reprodutor de Músicas Muine"
 
 #: data/muine.schemas.in.h:1
-#, fuzzy
 msgid "\"Add album\" window height"
-msgstr "Altura da janela de inclusão de álbum."
+msgstr "Altura da janela \"Adicionar álbum\""
 
 #: data/muine.schemas.in.h:2
-#, fuzzy
 msgid "\"Add album\" window width"
-msgstr "Largura da janela de inclusão de álbum."
+msgstr "Largura da janela \"Adicionar álbum\""
 
 #: data/muine.schemas.in.h:3
-#, fuzzy
 msgid "\"Add song\" window height"
-msgstr "Altura da janela de inclusão de música."
+msgstr "Altura da janela \"Adicionar música\""
 
 #: data/muine.schemas.in.h:4
-#, fuzzy
 msgid "\"Add song\" window width"
-msgstr "Largura da janela de inclusão de música."
+msgstr "Largura da janela \"Adicionar música\""
 
 #: data/muine.schemas.in.h:5
-#, fuzzy
 msgid "Amazon site to use for album images"
-msgstr "Site da Amazon para usar para imagens de álbuns."
+msgstr "Site da Amazon para buscar imagens de álbuns"
 
 #: data/muine.schemas.in.h:6
-#, fuzzy
 msgid "Default import folder"
-msgstr "Pasta padrão de importação."
+msgstr "Pasta padrão de importação"
 
 #: data/muine.schemas.in.h:7
-#, fuzzy
 msgid "Default playlist folder"
-msgstr "Pasta padrão de lista de reprodução."
+msgstr "Pasta padrão de listas de reprodução"
 
 #: data/muine.schemas.in.h:8
-#, fuzzy
 msgid "First start"
-msgstr "Primeiro início."
+msgstr "Primeira execução"
 
 #: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Pastas que são monitoradas por alterações."
 
 #: data/muine.schemas.in.h:10
-#, fuzzy
 msgid "Height of the \"Add album\" window."
-msgstr "Largura da janela de inclusão de álbum."
+msgstr "Altura da janela \"Adicionar álbum\"."
 
 #: data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
-msgstr ""
+msgstr "Altura da janela \"Adicionar música\"."
 
 #: data/muine.schemas.in.h:12
-#, fuzzy
 msgid "Height of the information window."
-msgstr "Largura da janela de informação."
+msgstr "Altura da janela de informação."
 
 #: data/muine.schemas.in.h:13
 msgid "Height of the playlist window."
-msgstr ""
+msgstr "Altura da janela de lista de reprodução."
 
 #: data/muine.schemas.in.h:14
-#, fuzzy
 msgid "Information window height"
-msgstr "Altura da janela de informação."
+msgstr "Altura da janela de informação"
 
 #: data/muine.schemas.in.h:15
-#, fuzzy
 msgid "Information window width"
-msgstr "Largura da janela de informação."
+msgstr "Largura da janela de informação"
 
 #: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
@@ -266,33 +253,28 @@ msgid "Last used folder from the playlist file selectors."
 msgstr "Última pasta usada ao selecionar um arquivo de lista de reprodução."
 
 #: data/muine.schemas.in.h:18
-#, fuzzy
 msgid "Playlist window height"
-msgstr "Altura da janela de lista de reprodução."
+msgstr "Altura da janela de lista de reprodução"
 
 #: data/muine.schemas.in.h:19
-#, fuzzy
 msgid "Playlist window width"
-msgstr "Largura da janela de lista de reprodução."
+msgstr "Largura da janela de lista de reprodução"
 
 #: data/muine.schemas.in.h:20
-#, fuzzy
 msgid "Repeat mode"
-msgstr "Modo de repetição."
+msgstr "Modo de repetição"
 
 #: data/muine.schemas.in.h:21
-#, fuzzy
 msgid "Volume level"
-msgstr "Nível de volume."
+msgstr "Nível de volume"
 
 #: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Nível de volume. 0 = mais baixo, 100 = mais alto."
 
 #: data/muine.schemas.in.h:23
-#, fuzzy
 msgid "Watched folders"
-msgstr "Pastas monitoradas."
+msgstr "Pastas monitoradas"
 
 #: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
@@ -307,27 +289,24 @@ msgstr ""
 "\" ou \"jp\"."
 
 #: data/muine.schemas.in.h:26
-#, fuzzy
 msgid "Width of the \"Add album\" window."
-msgstr "Largura da janela de inclusão de álbum."
+msgstr "Largura da janela de \"Adicionar álbum\"."
 
 #: data/muine.schemas.in.h:27
-#, fuzzy
 msgid "Width of the \"Add song\" window."
-msgstr "Largura da janela de inclusão de música."
+msgstr "Largura da janela de \"Adicionar música\"."
 
 #: data/muine.schemas.in.h:28
-#, fuzzy
 msgid "Width of the information window."
 msgstr "Largura da janela de informação."
 
 #: data/muine.schemas.in.h:29
 msgid "Width of the playlist window."
-msgstr ""
+msgstr "Largura da janela de lista de reprodução."
 
 #: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
-msgstr "Falso se o Muine já foi anteriormente iniciado."
+msgstr "Falso se o Muine já foi iniciado anteriormente."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create GstPlay object"
@@ -381,8 +360,8 @@ msgstr "Não foi possível reproduzir \"%s\""
 #~ msgid "Lee Willis (lee@leewillis.co.uk)"
 #~ msgstr "Lee Willis (lee@leewillis.co.uk)"
 
-#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#~ msgid "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
+#~ msgstr "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
 
 #~ msgid "Album covers are provided by amazon.com."
 #~ msgstr "Capas de álbuns são providas por amazon.com."
@@ -396,8 +375,8 @@ msgstr "Não foi possível reproduzir \"%s\""
 #~ msgid "Muine"
 #~ msgstr "Muine"
 
-#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-#~ msgstr "Copyright (C) 2003, 2004 Jorn Baayen"
+#~ msgid "Copyright © 2003, 2004 Jorn Baayen"
+#~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
 #~ msgid "A music player"
 #~ msgstr "Um reprodutor de músicas"
@@ -406,7 +385,7 @@ msgstr "Não foi possível reproduzir \"%s\""
 #~ msgstr "Executado por {0}"
 
 #~ msgid "the dj"
-#~ msgstr "a as o os the dj mc"
+#~ msgstr "a as o os the dj mc grupo"
 
 #~ msgid "Failed to load metadata: {0}"
 #~ msgstr "Falha ao carregar meta-dados: {0}"
