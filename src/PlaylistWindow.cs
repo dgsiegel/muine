@@ -788,7 +788,10 @@ public class PlaylistWindow : Window
 
 	private void HandleNotificationAreaIconActivateEvent ()
 	{
-		SetWindowVisible (!Visible);
+		if (GdkWindow.State == Gdk.WindowState.Iconified)
+			SetWindowVisible (true);
+		else
+			SetWindowVisible (!Visible);
 	}
 
 	private bool had_last_eos;

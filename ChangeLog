@@ -1,5 +1,15 @@
 2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+
+	Updated for upcoming 0.3.1 release.
+	
+	* src/PlaylistWindow.cs:
+
+	De-iconify window when tray icon is clicked.
+
+2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 
