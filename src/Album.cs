@@ -443,6 +443,14 @@ namespace Muine
 			return Global.CoverDB.Getter.GetAmazon (this);
 		}
 
+		// Methods :: Private :: HaveHalfAlbum
+		private bool HaveHalfAlbum (int total_n_tracks, int n_tracks)
+		{
+			int min_n_tracks = (int) Math.Ceiling (total_n_tracks / 2);
+			
+			return (n_tracks >= min_n_tracks);
+		}
+
 		// Methods :: Private :: CheckCompleteness
 		//	Returns true if completeness changed
 		private bool CheckCompleteness ()
@@ -454,20 +462,31 @@ namespace Muine
 			
 				if (delta <= 0)
 					new_complete = true;
-				else {
-					// Must have at least half of the album
-					int min_n_tracks = (int) Math.Ceiling (total_n_tracks / 2);
-				
-					if (n_tracks >= min_n_tracks)
-						new_complete = true;
-				}
+				else
+					new_complete = HaveHalfAlbum (total_n_tracks, n_tracks);
 			} else {
 				// Take track number of last song
-				int last_track = ((Song) songs [songs.Count - 1]).TrackNumber;
+				Song last_song = (Song) songs [songs.Count - 1];
+				int last_track = last_song.TrackNumber;
 
-				if (last_track > 0)
-					if ((last_track - n_tracks) <= 0)
+				if (last_track == 1) {
+					// If we are dealing with a potential one-song album,
+					// we only let it through if it is at least 10 minutes
+					// long. This is to work around the case where any single
+					// song with track number '1' would be seen as an album.
+					if (n_tracks == 1 && last_song.Duration >= 600)
 						new_complete = true;
+				} else if (last_track > 1) {
+					int delta = last_track - n_tracks;
+					
+					if (delta <= 0)
+						new_complete = true;
+					else if (last_track >= 8) {
+						// Only do the half album checking if we have at least
+						// 8 tracks. Otherwise too much rubbish falls through.
+						new_complete = HaveHalfAlbum (last_track, n_tracks);
+					}
+				}
 			}
 
 			bool changed = (new_complete != complete);

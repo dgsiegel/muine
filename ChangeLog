@@ -1,5 +1,16 @@
 2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+
+	When using the last track hack to determine an album's completeness,
+	special case the case where there is only one track: Only mark it as
+	an album if the track is at least 10 minutes long.
+
+	Also do "half album" checking in the "last track" case if the 
+	last track is at least 8. Otherwise too much junk falls through.
+
+2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/AddWindow.glade:
 	* data/glade/PlaylistWindow.glade:
 
