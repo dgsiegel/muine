@@ -24,6 +24,14 @@ namespace Muine
 	public class AddWindowList : HandleView
 	{
 		// Constructor
+		/// <summary>
+		/// 	Creates a new <see cref="HandleView">HandleView</see>.
+		/// </summary>
+		/// <remarks>
+		///	This widget is intended for use with 
+		///	<see cref="AddWindow" /> and should not be used by
+		///	other classes.
+		/// </remarks>
 		public AddWindowList () : base ()
 		{
 			base.Selection.Mode = Gtk.SelectionMode.Multiple;
@@ -31,11 +39,20 @@ namespace Muine
 		
 		// Properties
 		// Properties :: HasSelection (get;)
+		/// <summary>
+		/// 	Whether any rows are currently selected.
+		/// </summary>
+		/// <returns>
+		/// 	True if at least one row is selected, otherwise false.
+		/// </returns>
 		public bool HasSelection {
 			get { return (base.Selection.CountSelectedRows () > 0); }
 		}
 		
 		// Properties :: DragSource (set;)
+		/// <summary>
+		/// 	Set the Drag-and-Drop types for the list.
+		/// </summary>
 		public Gtk.TargetEntry [] DragSource {
 			set {
 				base.EnableModelDragSource (Gdk.ModifierType.Button1Mask, value,
@@ -44,6 +61,10 @@ namespace Muine
 		}
 
 		// Properties :: Selected (get;)
+		//	TODO: Does it *have* to be a GLib.List?
+		/// <summary>
+		/// 	A <see cref="GLib.List" /> of selected items.
+		/// </summary>
 		public GLib.List Selected {
 			get { return base.SelectedHandles; }
 		}
@@ -51,6 +72,21 @@ namespace Muine
 		// Methods
 		// Methods :: Public 
 		// Methods :: Public :: HandleAdded
+		/// <summary>
+		/// 	Append the item given by <paramref name="ptr" /> if it
+		/// 	<paramref name="fits" />.
+		/// </summary>
+		/// <remarks>
+		/// 	This is used when an <see cref="Item" /> has been added
+		///	to the database.
+		/// </summary>
+		/// <param name="ptr">
+		/// 	<see cref="Item" /> handle to add.
+		/// </param>
+		/// <param name="fits">
+		/// 	Whether the item fits or not, as returned by
+		/// 	<see cref="Item.FitsCriteria" />.
+		/// </param>
 		public void HandleAdded (IntPtr ptr, bool fits)
 		{
 			if (fits)
@@ -58,6 +94,20 @@ namespace Muine
 		}
 
 		// Methods :: Public :: HandleChanged
+		/// <summary>
+		/// 	Modify the item given by <paramref name="ptr" /> if it
+		/// 	<paramref name="fits" />.
+		/// </summary>
+		/// <remarks>
+		///	This is used when an <see cref="Item" /> has been changed.
+		/// </remarks>
+		/// <param name="ptr">
+		/// 	<see cref="Item" /> handle.
+		/// </param>
+		/// <param name="fits">
+		/// 	Whether the item fits or not, as returned by
+		/// 	<see cref="Item.FitsCriteria" />.
+		/// </param>
 		public void HandleChanged (IntPtr ptr, bool fits)
 		{
 			if (fits) {
@@ -73,6 +123,16 @@ namespace Muine
 		}
 
 		// Methods :: Public :: HandleRemoved
+		/// <summary>
+		/// 	Remove the <see cref="Item" /> given by 
+		///	<paramref name="ptr" />.
+		/// </summary>
+		/// <remarks>
+		///	This is used when an <see cref="Item" /> has been removed.
+		/// </remarks>
+		/// <param name="ptr">
+		/// 	<see cref="Item" /> handle to remove.
+		/// </param>
 		public void HandleRemoved (IntPtr ptr)
 		{
 			base.Model.Remove (ptr);
@@ -80,7 +140,12 @@ namespace Muine
 			SelectFirstIfNeeded ();	
 		}
 
+		// Methods :: Private
 		// Methods :: Private :: SelectFirstIfNeeded
+		/// <summary>
+		///	Select the first item in the list if an item is not
+		///	currently selected and there are items in the list.
+		/// </summary>
 		private void SelectFirstIfNeeded ()
 		{
 			if (!this.HasSelection && this.Model.Length > 0)

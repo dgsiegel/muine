@@ -57,26 +57,57 @@ namespace Muine
 		
 		// Properties
 		// Properties :: DB (get;)
+		/// <summary>
+		///	The <see cref="SongDatabase" />.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="SongDatabase" /> object.
+		/// </returns>
 		public static SongDatabase DB {
 			get { return db; }
 		}
 
 		// Properties :: CoverDB (get;)
+		/// <summary>
+		///	The <see cref="CoverDatabase" />.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="CoverDatabase" /> object.
+		/// </returns>
 		public static CoverDatabase CoverDB {
 			get { return cover_db; }
 		}	
 
 		// Properties :: Playlist (get;)
+		/// <summary>
+		///	The <see cref="PlaylistWindow" />.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="PlaylistWindow" /> object.
+		/// </returns>
 		public static PlaylistWindow Playlist {
 			get { return playlist; }
 		}
 
 		// Properties :: Actions (get;)
+		/// <summary>
+		///	The <see cref="Actions" />.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="Actions" /> object.
+		/// </returns>
 		public static Actions Actions {
 			get { return actions; }
 		}
 
 		// Main
+		/// <summary>
+		///	The main method.
+		/// </summary>
+		/// <param name="args">
+		///	An array of <see cref="String">strings</see>, 
+		///	representing command-line arguments.
+		/// </param>
 		public static void Main (string [] args)
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
@@ -207,6 +238,12 @@ namespace Muine
 
 		// Methods
 		// Methods :: Public :: Exit
+		/// <summary>
+		///	Exit the program.
+		/// </summary>
+		/// <remarks>
+		///	This just calls <see cref="Gtk.Application.Quit" />.
+		/// </remarks>
 		public static void Exit ()
 		{
 			Application.Quit ();
@@ -214,6 +251,22 @@ namespace Muine
 
 		// Methods :: Private
 		// Methods :: Private :: ProcessCommandLine 
+		/// <summary>
+		///	Process command-line arguments.
+		/// </summary>
+		/// <remarks>
+		///	Files listed on the command-line may be playlists or
+		///	music files. They are all added, and the first song 
+		///	begins playing.
+		/// </remarks>
+		/// <param name="args">
+		///	An array of <see cref="String">strings</see>,
+		///	representing command-line arguments.
+		/// </param>
+		/// <returns>
+		///	True, if a file was added to the playlist, 
+		///	False otherwise.
+		/// </returns>
 		private static bool ProcessCommandLine (string [] args)
 		{
 			bool opened_file = false;
@@ -249,6 +302,13 @@ namespace Muine
 		}
 
 		// Methods :: Private :: SetDefaultWindowIcon
+		/// <summary>
+		///	Set the default window icon.
+		/// </summary>
+		/// <remarks>
+		///	The default window icon is stored as a resource in the
+		///	assembly under the name "muine.png".
+		/// </remarks>
 		private static void SetDefaultWindowIcon ()
 		{
 			Pixbuf [] default_icon_list = { new Pixbuf (null, "muine.png") };
@@ -256,6 +316,15 @@ namespace Muine
 		}
 
 		// Methods :: Private :: Error
+		/// <summary>
+		///	Display a fatal error dialog with message.
+		/// </summary>
+		/// <remarks>
+		///	Exits immediately with an error status of 1.
+		/// </remarks>
+		/// <param name="message">
+		///	Message to be used as the secondary text.
+		/// </param>
 		private static void Error (string message)
 		{
 			new ErrorDialog (string_error_initializing, message);
@@ -265,22 +334,51 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnCoversDoneLoading
+		/// <summary>
+		///	Handler called when covers are done downloading.
+		/// </summary>
+		/// <remarks>
+		///	Now that the covers are done, we begin looking for changes.
+		/// </remarks>
 		private static void OnCoversDoneLoading ()
 		{
-			// covers done loading, start the changes thread
 			db.CheckChanges ();
 		}
 
 		// Handlers :: OnDieEvent
+		/// <summary>
+		///	Handler called on <see cref="Gnome.Client.Die" /> event.
+		/// </summary>
+		/// <remarks>
+		///	Calls <see cref="Exit" />.
+		/// </remarks>
+		/// <param name="o">
+		/// 	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private static void OnDieEvent (object o, EventArgs args)
 		{
 			Exit ();
 		}
 
 		// Handlers :: OnSaveYourselfEvent
+		//	TODO: Actually set the restart command to something useful.
+		/// <summary>
+		///	Handler called on <see cref="Gnome.Client.SaveYourself" /> event.
+		/// </summary>
+		/// <param name="o">
+		/// 	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="Gnome.SaveYourselfArgs" />.
+		/// </param>		
+		/// <remarks>
+		///	This doesn't do anything useful yet.
+		/// </remarks>
 		private static void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
 		{
-			// FIXME
 			string [] argv = { "muine" };
 
 			session_client.SetRestartCommand (1, argv);

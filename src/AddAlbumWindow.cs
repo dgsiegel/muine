@@ -60,6 +60,12 @@ namespace Muine
 		private int pixbuf_column_width = CoverDatabase.CoverSize + (5 * 2);
 
 		// Constructor
+		/// <summary>
+		///	Creates a new Add Album window.
+		/// </summary>
+		/// <remarks>
+		///	This is created when "Play Album" is clicked.
+		/// </remarks>
 		public AddAlbumWindow ()
 		{
 			base.Title = string_title;
@@ -101,6 +107,9 @@ namespace Muine
 		// Methods
 		// Methods :: Private
 		// Methods :: Private :: EnableDragDest
+		/// <summary>
+		/// 	Turns on Drag-and-Drop.
+		/// </summary>
 		private void EnableDragDest ()
 		{
 			if (drag_dest_enabled)
@@ -115,6 +124,12 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnCoversDoneLoading
+		/// <csummary>
+		/// 	Handler called when the album covers are done loading.
+		/// </summary>
+		/// <remarks>
+		///	Enables Drag-and-Drop and redraws the list.
+		/// </remarks>
 		private void OnCoversDoneLoading ()
 		{
 			EnableDragDest ();
@@ -123,6 +138,12 @@ namespace Muine
 		}
 
 		// Handlers :: OnDragDataReceived
+		/// <summary>
+		/// 	Handler called when Drag-and-Drop data is received.
+		/// </summary>
+		/// <remarks>
+		/// 	External covers may be Drag-and-Dropped onto an album.
+		/// </remarks>
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			TreePath path;
@@ -136,6 +157,12 @@ namespace Muine
 		}
 
 		// Handlers :: OnDragDataGet
+		/// <summary>
+		/// 	Handler to be activated when Drag-and-Drop data is requested.
+		/// </summary>
+		/// <remarks>
+		/// 	Albums may be copied by dragging them to Nautilus.
+		/// </remarks>
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
 			List albums = base.List.SelectedHandles;
@@ -177,6 +204,12 @@ namespace Muine
 
 		// Handlers :: OnAdded
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		/// <summary>
+		/// 	Handler called when an album is added.
+		/// </summary>		
+		/// <param name="album">
+		///	The <see cref="Album" /> that was added.
+		/// </param>
 		protected void OnAdded (Album album)
 		{
 			base.List.HandleAdded (album.Handle, 
@@ -185,6 +218,12 @@ namespace Muine
 
 		// Handlers :: OnChanged
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		/// <summary>
+		/// 	Handler called when an album is changed.
+		/// </summary>
+		/// <param name="album">
+		///	The <see cref="Album" /> that was changed.
+		/// </param>
 		protected void OnChanged (Album album)
 		{
 			base.List.HandleChanged (album.Handle, 
@@ -193,6 +232,12 @@ namespace Muine
 
 		// Handlers :: OnRemoved
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		/// <summary>
+		/// 	Handler called when an album is removed.
+		/// </summary>
+		/// <param name="album">
+		///	The <see cref="Album" /> that was removed.
+		/// </param>
 		protected void OnRemoved (Album album)
 		{
 			base.List.HandleRemoved (album.Handle);
@@ -200,6 +245,20 @@ namespace Muine
 
 		// Delegate Functions		
 		// Delegate Functions :: SortFunc
+		/// <summary>
+		/// 	Delegate used in sorting the album list.
+		/// </summary>
+		/// <param name="a_ptr">
+		///	Handler for first <see cref="Album" />.
+		/// </param>
+		/// <param name="b_ptr">
+		///	Handler for second <see cref="Album" />.
+		/// </param>
+		/// <returns>
+		///	The result of comparing the albums with
+		///	<see cref="Item.CompareTo" />.
+		/// </returns>
+		/// <seealso cref="Item.CompareTo" />
 		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
 		{
 			Album a = Album.FromHandle (a_ptr);
@@ -209,6 +268,21 @@ namespace Muine
 		}
 
 		// Delegate Functions :: PixbufCellDataFunc
+		/// <summary>
+		/// 	Delegate used to render the covers.
+		/// </summary>
+		/// <param name="col">
+		///	A <see cref="Gtk.TreeViewColumn" />.
+		/// </param>
+		/// <param name="cell">
+		///	A <see cref="Gtk.CellRenderer" />.
+		/// </param>
+		/// <param name="model">
+		///	A <see cref="Gtk.TreeModel" />.
+		/// </param>
+		/// <param name="iter">
+		///	A <see cref="Gtk.TreeIter" />.
+		/// </param>
 		private void PixbufCellDataFunc (TreeViewColumn col, CellRenderer cell,
 						 TreeModel model, TreeIter iter)
 		{
@@ -228,6 +302,21 @@ namespace Muine
 		}
 
 		// Delegate Functions :: TextCellDataFunc
+		/// <summary>
+		/// 	Delegate used to render the album text.
+		/// </summary>		
+		/// <param name="col">
+		///	A <see cref="Gtk.TreeViewColumn" />.
+		/// </param>
+		/// <param name="cell">
+		///	A <see cref="Gtk.CellRenderer" />.
+		/// </param>
+		/// <param name="model">
+		///	A <see cref="Gtk.TreeModel" />.
+		/// </param>
+		/// <param name="iter">
+		///	A <see cref="Gtk.TreeIter" />.
+		/// </param>
 		private void TextCellDataFunc (TreeViewColumn col, CellRenderer cell,
 					       TreeModel model, TreeIter iter)
 		{

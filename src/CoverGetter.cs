@@ -58,6 +58,16 @@ namespace Muine
 		};
 
 		// Constructor
+		/// <summary>
+		///	Creates a new <see cref="CoverGetter" />.
+		/// </summary>
+		/// <remarks>
+		///	This object is used to retrieve album covers in a 
+		///	variety of ways.
+		/// </remarks>
+		/// <param name="db">
+		///	The <see cref="CoverDatabase" /> which stores the covers.
+		/// </param>
 		public CoverGetter (CoverDatabase db)
 		{
 			this.db = db;
@@ -76,9 +86,27 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: GetLocal
+		/// <summary>
+		///	Set the cover to a local file.
+		/// </summary>
+		/// <remarks>
+		///	Image is scaled and placed on a background with
+		///	<see cref="AddBorder" />.
+		/// </remarks>
+		/// <param name="key">
+		///	Album key.
+		/// </param>
+		/// <param name="file">
+		///	Filename.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" />.
+		/// </returns>
+		/// <exception cref="GLib.GException">
+		///	Thrown if loading file fails.
+		/// </exception>
 		public Pixbuf GetLocal (string key, string file)
 		{
-			// May throw an exception
 			Pixbuf pix = new Pixbuf (file);
 			pix = AddBorder (pix);
 			db.SetCover (key, pix);
@@ -86,6 +114,23 @@ namespace Muine
 		}
 
 		// Methods :: Public :: GetEmbedded
+		/// <summary>
+		///	Set the cover.
+		/// </summary>
+		/// <remarks>
+		///	Image is scaled and placed on a background with
+		///	<see cref="AddBorder" />.
+		/// </remarks>
+		/// <param name="key">
+		///	Album key.
+		/// </param>
+		/// <param name="pixbuf">
+		///	The <see cref="Gdk.Pixbuf" /> to use as the
+		///	album cover.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" />.
+		/// </returns>
 		public Pixbuf GetEmbedded (string key, Pixbuf pixbuf)
 		{
 			Pixbuf pix = AddBorder (pixbuf);
@@ -94,6 +139,22 @@ namespace Muine
 		}
 
 		// Methods :: Public :: GetFolderImage
+		/// <summary>
+		///	Search for the album cover in a folder.
+		/// </summary>
+		/// <remarks>
+		///	Image is scaled and placed on a background with
+		///	<see cref="AddBorder" />.
+		/// </remarks>
+		/// <param name="key">
+		///	Album key.
+		/// </param>
+		/// <param name="folder">
+		///	The folder in which to search.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> if a cover is found, null otherwise.
+		/// </returns>
 		public Pixbuf GetFolderImage (string key, string folder)
 		{
 			foreach (string fn in cover_filenames) {
@@ -119,6 +180,26 @@ namespace Muine
 		}
 
 		// Methods :: Public :: GetWeb
+		/// <summary>
+		///	Get the cover from a URL.
+		/// </summary>
+		/// <remarks>
+		///	Immediately returns a temporary cover.
+		///	The actual downloading occurs in
+		///	<see cref="GetWebThread" />.
+		/// </remarks>
+		/// <param name="key">
+		///	Album key.
+		/// </param>
+		/// <param name="url">
+		///	The URL from which to get the cover.
+		/// </param>
+		/// <param name="done_func">
+		///	A <see cref="GotCoverDelegate" />.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> of the temporary cover.
+		/// </returns>
 		public Pixbuf GetWeb (string key, string url, GotCoverDelegate done_func)
 		{
 			db.RemoveCover (key);
@@ -128,12 +209,47 @@ namespace Muine
 
 
 		// Methods :: Public :: GetAmazon
+		/// <summary>
+		///	Search for the album cover on Amazon.
+		/// </summary>
+		/// <remarks>
+		///	Immediately returns a temporary cover.
+		///	The actual downloading occurs in
+		///	<see cref="GetAmazonThread" />.
+		/// </remarks>
+		/// <param name="album">
+		///	An <see cref="Album" />.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> of the temporary cover.
+		/// </returns>
 		public Pixbuf GetAmazon (Album album)
 		{
 			return GetAmazon (album, true);
 		}
 		
 		
+		/// <summary>
+		///	Search for the album cover on Amazon,
+		///	optionally marking the covering as being checked.
+		/// </summary>
+		/// <remarks>
+		///	Immediately returns a temporary cover.
+		///	The actual downloading occurs in
+		///	<see cref="GetAmazonThread" />.
+		/// </remarks>
+		/// <param name="album">
+		///	An <see cref="Album" />.
+		/// </param>
+		/// <param name="mark">
+		///	Whether or not to mark the cover in the database as
+		///	currently being downloaded. Normally, this should be
+		///	'true' but if you want to avoid modifying the database,
+		///	it should be 'false'.
+		/// </parm>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> of the temporary cover.
+		/// </returns>
 		public Pixbuf GetAmazon (Album album, bool mark)
 		{
 			if (mark)
@@ -145,6 +261,20 @@ namespace Muine
 		}
 
 		// Methods :: Public :: DownloadFromAmazon
+		//	TODO: Refactor this
+		/// <summary>
+		///	Search for the album cover on Amazon.
+		/// </summary>
+		/// <remarks>
+		///	This should only be called from <see cref="GetAmazonThread" />.
+		///	Normally, <see cref="GetAmazon" /> should be used instead.
+		/// </remarks>
+		/// <param name="album">
+		///	An <see cref="Album" />.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> if a cover is found, null otherwise.
+		/// </returns>
 		public Pixbuf DownloadFromAmazon (Album album)
 		{
 			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
@@ -301,6 +431,26 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Download
+		/// <summary>
+		///	Get the cover from a URL.
+		/// </summary>
+		/// <remarks>
+		///	This should only be called from <see cref="GetWebThread" />
+		/// 	and <see cref="DownloadFromAmazon" />. Normally, 
+		///	<see cref="GetWeb" /> should be used instead.
+		/// </remarks>
+		/// <param name="url">
+		///	The URL from which to get the cover.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> if a cover is found, null otherwise.
+		/// </returns>
+		/// <exception cref="WebException">
+		///	Thrown if an error occurred while downloading.
+		/// </exception>
+		/// <exception cref="GLib.GException">
+		///	Thrown if loading file fails.
+		/// </exception>
 		public Pixbuf Download (string url)
 		{
 			Pixbuf cover;
@@ -314,8 +464,7 @@ namespace Muine
 				req.Proxy = proxy.Proxy;
 				
 			WebResponse resp = null;
-		
-			// May throw an exception, but we catch it in the calling function
+
 			resp = req.GetResponse ();
 
 			Stream s = resp.GetResponseStream ();
@@ -331,6 +480,16 @@ namespace Muine
 			return cover;
 		}
 
+		// Methods :: Public :: AddBorder
+		/// <summary>
+		///	Scale the image and add a black 1 pixel border to it.
+		/// </summary>
+		/// <param name="cover">
+		///	The <see cref="Gdk.Pixbuf" /> to modify.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> of the modified cover.
+		/// </returns>
 		public Pixbuf AddBorder (Pixbuf cover)
 		{
 			Pixbuf border;
@@ -366,6 +525,22 @@ namespace Muine
 
 		// Methods :: Private
 		// Methods :: Private :: SanitizeString
+		//	TODO: We should probably also trim the string at the 
+		//	end.
+		/// <summary>
+		///	Sanitize the string for use in <see cref="DownloadFromAmazon" />.
+		/// </summary>
+		/// <remarks>
+		///	The string is made lower-case, all text within 
+		///	parentheses or square brackets are discarded. Dashes,
+		///	underscores and plus signs are removed.
+		/// </remarks>
+		/// <param name="s">
+		///	The <see cref="String" /> which to modify.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> of the modified cover.
+		/// </returns>
 		private string SanitizeString (string s)
 		{
 			s = s.ToLower ();
@@ -380,6 +555,15 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnAmazonLocaleChanged
+		/// <summary>
+		///	Handler called when the Amazon locale is changed in GConf.
+		/// </summary>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="GConf.NotifyEventArgs" />.
+		/// </param>
 		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
 		{
 			amazon_locale = (string) args.Value;
@@ -402,6 +586,24 @@ namespace Muine
 			private string url;
 
 			// Constructor
+			/// <summary>
+			///	Create a new <see cref="GetWebThread" />.
+			/// </summary>
+			/// <param name="getter">
+			///	A <see cref="CoverGetter" />.
+			/// </param>
+			/// <param name="key">
+			/// 	The album key.
+			/// </param>
+			/// <param name="url">
+			///	The URL from which to download the cover.
+			/// </param>
+			/// <param name="done_func">
+			///	The delegate to call when the cover is done downloading.
+			/// </param>
+			/// <returns>
+			///	A <see cref="Gdk.Pixbuf" /> of the modified cover.
+			/// </returns>
 			public GetWebThread (CoverGetter getter, string key, string url,
 					     GotCoverDelegate done_func)
 			{
@@ -419,12 +621,28 @@ namespace Muine
 			// Methods
 			// Methods :: Private
 			// Methods :: Private :: SignalIdle
+			/// <summary>
+			///	Calls the <see cref="GotCoverDelegate" />.
+			/// </summary>
+			/// <remarks>
+			///	<para>
+			///	This is the method called when idling. It calls the 
+			///	<see cref="GotCoverDelegate" /> because if we're
+			///	idling, we must be done downloading.
+			///	</para>
+			///
+			///	<para>
+			/// 	This is not entirely safe, as the user can in theory
+			/// 	have changed the cover image between the thread and
+			/// 	this idle. However, chances are very, very slim and
+			/// 	things won't explode if it happens.
+			///	</para>
+			/// </remarks>
+			/// <returns>
+			///	False, we only want to do this once.
+			/// </returns>
 			private bool SignalIdle ()
 			{
-				// This is not entirely safe, as the user can in theory
-				// have changed the cover image between the thread and
-				// this idle. However, chances are very, very slim and
-				// things won't explode if it happens.
 				done_func (pixbuf);
 
 				return false;
@@ -432,6 +650,12 @@ namespace Muine
 
 			// Delegate Functions
 			// Delegate Functions :: ThreadFunc
+			/// <summary>
+			///	Downloads the cover and sets it in the database.
+			/// </summary>
+			/// <remarks>
+			///	This is the main method of the thread.
+			/// </remarks>
 			private void ThreadFunc ()
 			{
 				try {
@@ -456,6 +680,14 @@ namespace Muine
 
 		// Internal Classes :: GetAmazonThread
 		// 	FIXME: Split off? This is big.
+		/// <summary>
+		///	This is used to download covers from Amazon in a threaded
+		///	fashion.
+		/// </summary>
+		/// <remarks>
+		///	To download a cover, simply <see cref="Queue.Enqueue" />
+		/// 	it on the <see cref="Queue" />.
+		/// </remarks>
 		private class GetAmazonThread
 		{
 			// Objects
@@ -472,6 +704,9 @@ namespace Muine
 				private Pixbuf pixbuf;
 
 				// Constructor
+				/// <summary>
+				///	Create a new <see cref="IdleData" /> object.
+				/// </summary>
 				public IdleData (Album album, Pixbuf pixbuf)
 				{
 					this.album = album;
@@ -483,12 +718,28 @@ namespace Muine
 
 				// Delegate Functions
 				// Delegate Functions :: IdleFunc
+				/// <summary>
+				///	Sets the cover to the currently held
+				///	<see cref="Gdk.Pixbuf" />.
+				/// </summary>
+				/// <remarks>
+				///	<para>
+				///	This is the method called when idling. It is used
+				///	to flush the covers in the queue to the database.
+				///	</para>
+				///
+				///	<para>
+				/// 	This is not entirely safe, as the user can in theory
+				/// 	have changed the cover image between the thread and
+				/// 	this idle. However, chances are very, very slim and
+				/// 	things won't explode if it happens.
+				///	</para>
+				/// </remarks>
+				/// <returns>
+				///	False, we only want to do this once.
+				/// </returns>
 				private bool IdleFunc ()
 				{
-					// This is not entirely safe, as the user can in theory
-					// have changed the cover image between the thread and
-					// this idle. However, chances are very, very slim and
-					// things won't explode if it happens.
 					album.CoverImage = pixbuf;
 		
 					return false;
@@ -496,6 +747,9 @@ namespace Muine
 			}
 
 			// Constructor
+			/// <summary>
+			///	Create a new <see cref="GetAmazonThread" />.
+			/// </summary>			
 			public GetAmazonThread (CoverGetter getter)
 			{
 				this.getter = getter;
@@ -510,12 +764,35 @@ namespace Muine
 
 			// Properties
 			// Properties :: Queue (get;)
+			/// <summary>
+			///	The <see cref="Queue" />, which holds albums to
+			///	download.
+			/// </summary>
+			/// <returns>
+			/// 	A <see cref="Queue" />.
+			/// </returns>
 			public Queue Queue {
 				get { return queue; }
 			}
 
 			// Delegate Functions
 			// Delegate Functions :: ThreadFunc
+			//	TODO: Refactor
+			/// <summary>
+			///	Downloads the cover and sets it in the database.
+			/// </summary>
+			/// <remarks>
+			///	<para>
+			///	This is the main method of the thread.
+			///	</para>
+			///
+			///	<para>
+			///	If the cover has trouble downloading, this thread
+			///	sleeps for a minute. In order to not overload the
+			///	server, this thread sleeps for a second between
+			///	downloads. The Amazon API requires that we do this.
+			///	</para>
+			/// </remarks>
 			private void ThreadFunc ()
 			{
 				while (true) {

@@ -23,6 +23,13 @@ namespace Muine
 {
 	public class CellRendererText : Gtk.CellRendererText
 	{
+		// Constructor
+		/// <summary>
+		///	Create a new <see cref="CellRendererText" /> object.
+		/// </summary>
+		/// <remarks>
+		///	The text is ellipsized with 3 ellipses (as per English).
+		/// </remarks>
                 public CellRendererText ()
                 {
                         SetProperty ("ellipsize", new GLib.Value (3));

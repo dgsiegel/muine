@@ -30,7 +30,10 @@ namespace Muine
 		// Constructor
 		[DllImport ("libmuine")]
 		private static extern IntPtr rb_ellipsizing_label_new (string text);
-		
+
+		/// <summary>
+		///	Create a new <see cref="EllipsizingLabel" />.
+		/// </summary>		
 		public EllipsizingLabel () : base ("")
 		{
 			Raw = rb_ellipsizing_label_new ("");
@@ -47,6 +50,15 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern void rb_ellipsizing_label_set_text (IntPtr label, string text);
 
+		/// <summary>
+		///	The text within the <see cref="EllipsizingLabel" /> widget.
+		/// </summary>
+		/// <param name="value">
+		///	The text to set.
+		/// </param>
+		/// <returns>
+		///	A <see cref="String" />.
+		/// </returns>
 		public new string Text {
 			set { rb_ellipsizing_label_set_text (Raw, value); }
 			get { return base.Text; }
@@ -56,6 +68,13 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern void rb_ellipsizing_label_set_markup (IntPtr label, string markup);
 
+		/// <summary>
+		///	A markup string to be parsed with Pango and shown in the
+		///	<see cref="EllipsizingLabel" />.
+		/// </summary>
+		/// <param name="value">
+		///	A markup string (see Pango markup format).
+		/// </param>
 		public new string Markup {
 			set { rb_ellipsizing_label_set_markup (Raw, value); }
 		}

@@ -45,6 +45,22 @@ namespace Muine
 		// Static :: Methods
 		// Static :: Methods :: HandleDrop
 		//	TODO: Refactor
+		/// <summary>
+		///	Handle a Drag-and-Drop event.
+		/// </summary>
+		/// <remarks>
+		///	This is called from <see cref="AddAlbumWindow" /> when
+		///	a cover is dropped there, and also from 
+		///	<see cref="OnDragDataReceived" />
+		///	when one is dropped somewhere else (e.g. in the
+		///	<see cref="PlaylistWindow" />).
+		/// </remarks>
+		/// <param name="song">
+		///	The <see cref="Song" /> which the cover is associated with.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="DragDataReceivedArgs" />.
+		/// </param>
 		public static void HandleDrop (Song song, DragDataReceivedArgs args)
 		{
 			string data = DndUtils.SelectionDataToString (args.SelectionData);
@@ -112,6 +128,9 @@ namespace Muine
 		private Song song;
 		
 		// Constructor
+		/// <summary>
+		///	Create a new <see cref="CoverImage" />.
+		/// </summary>
 		public CoverImage () : base ()
 		{
 			image = new Gtk.Image ();	
@@ -132,7 +151,14 @@ namespace Muine
 		}
 
 		// Properties
-		// Properties :: Song (set;);
+		// Properties :: Song (set;)
+		//	TODO: Add get?
+		/// <summary>
+		///	The <see cref="Song" /> associated with this cover.
+		/// </summary>
+		/// <param name="value">
+		///	A <see cref="Song" />, or null to use a default cover.
+		/// </param>
 		public Song Song {
 			set {
 				song = value;
@@ -143,6 +169,16 @@ namespace Muine
 		// Methods
 		// Methods :: Private
 		// Methods :: Private :: Sync
+		/// <summary>
+		///	Synchronizes the image with the desired cover.
+		/// </summary>
+		/// <remarks>
+		///	If a cover is located in the database that is associated
+		///	with the same song that we are associated with, use that.
+		///	If we are associated with a song whose cover is currently
+		///	being downloaded, show a temporary cover. If we have no
+		///	associated song, use a default cover.
+		/// </remarks>
 		private void Sync ()
 		{
 			// Image
@@ -170,12 +206,30 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnDragDataReceived
+		/// <summary>
+		///	Handler called when Drag-and-Drop data is received.
+		/// </summary>
+		/// <remarks>
+		///	This just calls <see cref="HandleDrop" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="DragDataReceivedArgs" />.
+		/// </param>
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			HandleDrop (song, args);
 		}
 
 		// Handlers :: OnCoversDoneLoading
+		/// <summary>
+		///	Handler called when covers are done loading.
+		/// </summary>
+		/// <remarks>
+		///	This just calls <see cref="Sync" />.
+		/// </remarks>
 		private void OnCoversDoneLoading ()
 		{
 			Sync ();

@@ -33,11 +33,36 @@ namespace Muine
 		[Glade.Widget] private Label  label;
 
 		// Constructor
+		//	TODO: Shouldn't the ErrorDialog be able to be
+		//	associated with *any* window, not just the
+		//	PlaylistWindow?
+		/// <summary>
+		///	Create a new <see cref="ErrorDialog" />.
+		/// </summary>
+		/// <param name="playlist">
+		///	The <see cref="PlaylistWindow" /> which should be the
+		/// 	parent of this window.
+		/// </param>
+		/// <param name="s1">
+		///	The <see cref="String" /> to be used as the primary text.
+		/// </param>
+		/// <param name="s2">
+		///	The <see cref="String" /> to be used as the secondary text.
+		/// </param>
 		public ErrorDialog (PlaylistWindow playlist, string s1, string s2) : this (s1, s2)
 		{
 			window.TransientFor = playlist;
 		}
 
+		/// <summary>
+		///	Create a new <see cref="ErrorDialog" />.
+		/// </summary>
+		/// <param name="s1">
+		///	The <see cref="String" /> to be used as the primary text.
+		/// </param>
+		/// <param name="s2">
+		///	The <see cref="String" /> to be used as the secondary text.
+		/// </param>
 		public ErrorDialog (string s1, string s2)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);

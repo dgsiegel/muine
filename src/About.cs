@@ -70,7 +70,13 @@ namespace Muine
 				translators = string_translators;
 		}
 
-		// Constructor 
+		// Constructor
+		/// <summary>
+		/// 	The About window for Muine
+		/// </summary>
+		/// <param name="parent">
+		///	The parent window
+		/// </param>
 		public About (Gtk.Window parent) 
 		: base (string_muine, Defines.VERSION, string_copyright, string_description,
 			authors, documenters, translators, pixbuf)

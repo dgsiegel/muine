@@ -22,12 +22,21 @@ using System.Runtime.InteropServices;
 
 namespace Muine
 {
+	/// <summary>
+	/// </summary>
+	/// <remarks>
+	///	This renderer is similar to <see cref="Gtk.CellRendererPixbuf" />.
+	/// </remarks>
 	public class ColoredCellRendererPixbuf : Gtk.CellRenderer 
 	{
 		// Constructor
 		[DllImport ("libmuine")]
 		private static extern IntPtr rb_cell_renderer_pixbuf_new ();
 
+		/// <summary>
+		///	Create a new <see cref="ColoredCellRendererPixbuf" />
+		///	object.
+		/// </summary>
 		public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
 		{
 			base.Raw = rb_cell_renderer_pixbuf_new ();
@@ -41,6 +50,12 @@ namespace Muine
 
 		// Properties
 		// Properties :: Pixbuf (set;)
+		/// <summary>
+		///	The <see cref="Gdk.Pixbuf" /> to be used.
+		/// </summary>
+		/// <param name="value">
+		///	A <see cref="Gdk.Pixbuf" />.
+		/// </param>
 		public Gdk.Pixbuf Pixbuf {
 			set { SetProperty ("pixbuf", new GLib.Value (value)); }
 		}

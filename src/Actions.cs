@@ -184,21 +184,47 @@ namespace Muine
 
 		// Static :: Properties
 		// Static :: Properties :: StringToggleVisibleHide (get;)
+		/// <summary>
+		/// 	The translated string used for the toggle visible
+		/// 	action when the window is currently shown.
+		/// </summary>
+		/// <returns>
+		///	A translated <see cref="String" />.
+		/// </return>
 		public static string StringToggleVisibleHide {
 			get { return string_toggle_visible_hide; }
 		}
 
 		// Static :: Properties :: StringToggleVisibleShow (get;)
+		/// <summary>
+		/// 	The translated string used for the toggle visible
+		/// 	action when the window is currently hidden.
+		/// </summary>
+		/// <returns>
+		///	A translated <see cref="String" />.
+		/// </return>
 		public static string StringToggleVisibleShow {
 			get { return string_toggle_visible_show; }
 		}
 		
 		// Static :: Properties :: Entries (get;)
+		/// <summary>
+		/// 	The defined actions.
+		/// </summary>
+		/// <returns>
+		///	An array of <see cref="ActionEntry" />.
+		/// </returns>
 		public static ActionEntry [] Entries {
 			get { return entries; }
 		}
 		
 		// Static :: Properties :: ToggleEntries (get;)
+		/// <summary>
+		/// 	The defined toggle actions.
+		/// </summary>
+		/// <returns>
+		///	An array of <see cref="ToggleActionEntry" />
+		/// </returns>
 		public static ToggleActionEntry [] ToggleEntries {
 			get { return toggle_entries; }
 		}
@@ -207,6 +233,12 @@ namespace Muine
 		private UIManager ui_manager = new UIManager ();
 
 		// Constructor
+		/// <summary>
+		///	Create a new <see cref="Actions" /> object.
+		/// </summary>
+		/// <remarks>
+		/// 	This object manages the actions for menu items.
+		/// </remarks>
 		public Actions () : base ("Actions")
 		{
 			Add (entries);
@@ -239,119 +271,349 @@ namespace Muine
 
 		// Properties
 		// Properties :: UIManager (get;)
+		/// <summary>
+		/// 	The UIManager.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="UIManager" />.
+		/// </returns>
 		public UIManager UIManager {
 			get { return ui_manager; }
 		}
 		
 		// Properties :: MenuBar (get;)
+		//	TODO: Change return type to Gtk.MenuBar?
+		/// <summary>
+		/// 	Contains the MenuBar.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="Gtk.Widget" />.
+		/// </returns>
 		public Gtk.Widget MenuBar {
 			get { return ui_manager.GetWidget ("/MenuBar"); }
 		}
 		
 		// Handlers
 		// Handlers :: OnImport
+		/// <summary>
+		/// 	Handler called when the Import action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This opens the <see cref="ImportDialog" /> window.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnImport (object o, EventArgs args)
 		{
 			new ImportDialog ();
 		}
 
 		// Handlers :: OnOpen
+		/// <summary>
+		/// 	Handler called when the Open action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This opens the <see cref="OpenDialog" /> window.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnOpen (object o, EventArgs args)
 		{
 			new OpenDialog ();
 		}
 
 		// Handlers :: OnSave
+		/// <summary>
+		/// 	Handler called when the Save action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This opens the <see cref="SaveDialog" /> window.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnSave (object o, EventArgs args)
 		{
 			new SaveDialog ();
 		}
 		
 		// Handlers :: OnToggleWindowVisible
+		/// <summary>
+		/// 	Handler called when the ToggleVisible action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.ToggleVisible" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnToggleVisible (object o, EventArgs args)
 		{
 			Global.Playlist.ToggleVisible ();
 		}
 
 		// Handlers :: OnQuit
+		/// <summary>
+		/// 	Handler called when the Quit action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.Quit" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnQuit (object o, EventArgs args)
 		{
 			Global.Playlist.Quit ();
 		}
 
 		// Handlers :: OnPrevious
+		/// <summary>
+		/// 	Handler called when the Previous action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.Previous" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnPrevious (object o, EventArgs args)
 		{
 			Global.Playlist.Previous ();
 		}
 		
 		// Handlers :: OnNext
+		/// <summary>
+		/// 	Handler called when the Next action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.Next" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnNext (object o, EventArgs args)
 		{
 			Global.Playlist.Next ();
 		}
 		
 		// Handlers :: OnSkipTo
+		/// <summary>
+		/// 	Handler called when the SkipTo action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.RunSkipToDialog" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnSkipTo (object o, EventArgs args)
 		{
 			Global.Playlist.RunSkipToDialog ();
 		}
 
 		// Handlers :: OnSkipBackwards
+		/// <summary>
+		/// 	Handler called when the SkipBackwards action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.SkipBackwards" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnSkipBackwards (object o, EventArgs args)
 		{
 			Global.Playlist.SkipBackwards ();
 		}
 
 		// Handlers :: OnSkipForward
+		/// <summary>
+		/// 	Handler called when the SkipForward action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.SkipForward" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnSkipForward (object o, EventArgs args)
 		{
 			Global.Playlist.SkipForward ();
 		}
 
 		// Handlers :: OnPlaySong
+		/// <summary>
+		/// 	Handler called when the PlaySong action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.PlaySong" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnPlaySong (object o, EventArgs args)
 		{
 			Global.Playlist.PlaySong ();
 		}
 
 		// Handlers :: OnPlayAlbum
+		/// <summary>
+		///	Handler called when the PlayAlbum action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.PlayAlbum" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnPlayAlbum (object o, EventArgs args)
 		{
 			Global.Playlist.PlayAlbum ();
 		}
 
 		// Handlers :: OnRemove
+		/// <summary>
+		/// 	Handler called when the Remove action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.RemoveSelected" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnRemove (object o, EventArgs args)
 		{
 			Global.Playlist.RemoveSelected ();
 		}
 
 		// Handlers :: OnRemovePlayed
+		/// <summary>
+		/// 	Handler called when the RemovePlayed action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.RemovePlayed" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnRemovePlayed (object o, EventArgs args)
 		{
 			Global.Playlist.RemovePlayed ();
 		}
 
 		// Handlers :: OnClear
+		/// <summary>
+		/// 	Handler called when the Clear action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.Clear" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnClear (object o, EventArgs args)
 		{
 			Global.Playlist.Clear ();
 		}
 
 		// Handlers :: OnShuffle
+		/// <summary>
+		/// 	Handler called when the Shuffle action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This calls <see cref="PlaylistWindow.Shuffle" />.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnShuffle (object o, EventArgs args)
 		{
 			Global.Playlist.Shuffle ();
 		}
 
 		// Handlers :: OnAbout
+		/// <summary>
+		/// 	Handler called when the About action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This creates a new <see cref="Muine.About" /> window.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnAbout (object o, EventArgs args)
 		{
 			new Muine.About (Global.Playlist);
 		}
 
 		// Handlers :: OnTogglePlay
+		/// <summary>
+		/// 	Handler called when the TogglePlay action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This sets <see cref="PlaylistWindow.Playing" /> to the
+		///	state of the TogglePlay action.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnTogglePlay (object o, EventArgs args)
 		{
 			ToggleAction a = (ToggleAction) o;
@@ -363,6 +625,19 @@ namespace Muine
 		}
 
 		// Handlers :: OnToggleRepeat
+		/// <summary>
+		/// 	Handler called when the ToggleRepeat action is activated.
+		/// </summary>
+		/// <remarks>
+		///	This sets <see cref="PlaylistWindow.Repeat" /> to the
+		///	state of the ToggleRepeat action.
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="EventArgs" />.
+		/// </param>
 		private void OnToggleRepeat (object o, EventArgs args)
 		{
 			ToggleAction a = (ToggleAction) o;

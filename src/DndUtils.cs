@@ -57,18 +57,51 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: SelectionDataToString
+		/// <summary>
+		///	Converts <see cref="Gtk.SelectionData" /> to a 
+		/// 	<see cref="String" />.
+		/// </summary>
+		/// <remarks>
+		///	Data in <see cref="Gtk.SelectionData" /> is held as an
+		/// 	array of <see cref="Byte">bytes</see>. This function 
+		///	just calls <see cref="System.Text.Encoding.UTF8.GetString" />
+		///	on that array.
+		/// </remarks>
+		/// <param name="data">
+		///	A <see cref="Gtk.SelectionData" /> object.
+		/// </param>
 		public static string SelectionDataToString (Gtk.SelectionData data)
 		{
 			return System.Text.Encoding.UTF8.GetString (data.Data);
 		}
 
 		// Methods :: Public :: SplitSelectionData
+		/// <summary>
+		///	Split <see cref="Gtk.SelectionData" /> data into an
+		/// 	array of <see cref="String">strings</see>.
+		/// </summary>
+		/// <remarks>
+		///	Data is separated by "\r\n" pairs.
+		/// </remarks>
+		/// <param name="data">
+		///	A <see cref="Gtk.SelectionData" /> object.
+		/// </param>
 		public static string [] SplitSelectionData (Gtk.SelectionData data)
 		{
 			string s = SelectionDataToString (data);
 			return SplitSelectionData (s);
 		}
 
+		/// <summary>
+		///	Split <see cref="Gtk.SelectionData" /> data into an 
+		///	array of <see cref="String">strings</see>.
+		/// </summary>
+		/// <remarks>
+		///	Data is separated by "\r\n" pairs.
+		/// </remarks>
+		/// <param name="data">
+		///	A <see cref="String" />.
+		/// </param>
 		public static string [] SplitSelectionData (string data)
 		{
 			return Regex.Split (data, "\r\n");

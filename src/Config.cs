@@ -19,6 +19,8 @@
 
 namespace Muine
 {
+	// TODO: Can we make this inherit from GConf.Client?
+	//	That would make this class nearly empty.
 	public sealed class Config 
 	{
 		// Variables
@@ -27,17 +29,42 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Init
+		/// <summary>
+		///	Initialize the Configuration system.
+		/// </summary>
 		public static void Init ()
 		{
 			gconf_client = new GConf.Client ();
 		}
 
-		// Methods :: Public :: Get		
+		// Methods :: Public :: Get
+		/// <summary>
+		///	Get the value of a key in GConf.
+		/// </summary>
+		/// <param name="key">
+		///	The key.
+		/// </param>
+		/// <returns>
+		///	The value located at <paramref name="key" /> (boxed).
+		/// </returns>
 		public static object Get (string key)
 		{
 		       return gconf_client.Get (key);
 		}
 		
+		/// <summary>
+		///	Get the value of a key in GConf with default.
+		/// </summary>
+		/// <param name="key">
+		///	The key.
+		/// </param>
+		/// <param name="default_val">
+		///	Value to return if lookup fails.
+		/// </param>
+		/// <returns>
+		///	The value located at <paramref name="key" /> (boxed).
+		///	If that fails, <paramref name="default_val" /> is returned.
+		/// </returns>
 		public static object Get (string key, object default_val)
 	        {
 	                object val;
@@ -52,12 +79,30 @@ namespace Muine
 	        }
 
 		// Methods :: Public :: Set
+		/// <summary>
+		///	Set a value in GConf.
+		/// </summary>
+		/// <param name="key">
+		///	The key.
+		/// </param>
+		/// <param name="val">
+		///	The value.
+		/// </param>
 	        public static void Set (string key, object val)
 	        {
 	        	gconf_client.Set (key, val);        	
 	        }
 
 		// Methods :: Public :: AddNotify
+		/// <summary>
+		/// 	Add a <see cref="GConf.NotifyEventHandler" /> to a key.
+		/// </summary>
+		/// <param name="key">
+		///	The key.
+		/// </param>
+		/// <param name="notify">
+		///	The <see cref="GConf.NotifyEventHandler" />.
+		/// </param>
 		public static void AddNotify (string key, GConf.NotifyEventHandler notify)
 		{
 			gconf_client.AddNotify (key, notify);

@@ -25,12 +25,15 @@ using Gdk;
 
 namespace Muine
 {
+	// TODO: Inherit from Database
 	public class CoverDatabase 
 	{
 		// Constants
 		// Constants :: CoverSize
-		// 	We don't bother to get this one back from GtkIconSize as we'd
-		// 	have to resize all our covers.
+		/// <remarks>
+		///	We don't bother to get this one back from GtkIconSize as we'd
+		///	have to resize all our covers.
+		/// </remarks>
 		public const int CoverSize = 66;
 
 		// Events
@@ -47,6 +50,12 @@ namespace Muine
 		private bool loading = true;
 
 		// Constructor
+		/// <summary>
+		///	Create a <see cref="CoverDatabase"/ > object.
+		/// </summary>
+		/// <param name="version">
+		///	Version of the database to use.
+		/// </param>
 		public CoverDatabase (int version)
 		{
 			db = new Database (FileUtils.CoversDBFile, version);
@@ -64,21 +73,49 @@ namespace Muine
 
 		// Properties
 		// Properties :: Covers (get;)
+		/// <summary>
+		///	The covers in the database.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="Hashtable" /> of the covers in the 
+		///	database in the format of:
+		///	album key => <see cref="Gdk.Pixbuf" />.
+		/// </returns>
 		public Hashtable Covers {
 			get { return covers; }
 		}
 
 		// Properties :: DownloadingPixbuf (get;)
+		/// <summary>
+		///	The <see cref="Gdk.Pixbuf" /> which is used as a
+		///	placeholder while the cover is being downloaded.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" />.
+		/// </returns>
 		public Pixbuf DownloadingPixbuf {
 			get { return downloading_pixbuf; }
 		}
 
 		// Properties :: Getter (get;)
+		/// <summary>
+		///	The <see cref="CoverGetter"> used to find covers.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="CoverGetter" />.
+		/// </returns>
 		public CoverGetter Getter {
 			get { return getter; }
 		}
 
 		// Properties :: Loading (get;)
+		/// <summary>
+		///	Whether the database is currently being loaded.
+		/// </summary>
+		/// <returns>
+		///	True if the database is currently being loaded,
+		///	False otherwise.
+		/// </returns>
 		public bool Loading {
 			get { return loading; }
 		}
@@ -86,12 +123,28 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Load
+		/// <summary>
+		///	Load the database.
+		/// </summary>
+		/// <remarks>
+		///	The database loading is actually carried out by a 
+		///	<see cref="LoadThread" />.
+		/// </remarks>
 		public void Load ()
 		{
 			new LoadThread (db);
 		}
 
 		// Methods :: Public :: SetCover
+		/// <summary>
+		///	Store a cover in the database.
+		/// </summary>
+		/// <param name="key">
+		///	The album key.
+		/// </param>
+		/// <param name="pix">
+		///	The <see cref="Gdk.Pixbuf" /> to be used for the cover.
+		/// </param>
 		public void SetCover (string key, Pixbuf pix)
 		{
 			lock (this) {
@@ -109,6 +162,12 @@ namespace Muine
 		}
 
 		// Methods :: Public :: RemoveCover
+		/// <summary>
+		///	Remove a cover from the database.
+		/// </summary>
+		/// <param name="key">
+		///	The album key.
+		/// </param>
 		public void RemoveCover (string key)
 		{
 			lock (this) {
@@ -121,12 +180,33 @@ namespace Muine
 		}
 
 		// Methods :: Public :: MarkAsBeingChecked
+		/// <summary>
+		/// 	Marks the cover as being checked.
+		/// </summary>
+		/// <remarks>
+		///	Sets the cover to be null. Unmark with 
+		///	<see cref="UnmarkAsBeingChecked" /> to maintain
+		///	orthogonality.
+		/// </remarks>
+		/// <param name="key">
+		///	The album key.
+		/// </param>
 		public void MarkAsBeingChecked (string key)
 		{
 			SetCover (key, null);
 		}
 
 		// Methods ::: Public :: UnmarkAsBeingChecked
+		/// <summary>
+		///	Unmarks a cover that was being checked.
+		/// </summary>
+		/// <remarks>
+		///	This simply removes the cover. Use with
+		///	<see cref="MarkAsBeingChecked" />.
+		/// </remarks>
+		/// <param name="key">
+		///	The album key.
+		/// </param>
 		public void UnmarkAsBeingChecked (string key)
 		{
 			RemoveCover (key);
@@ -134,7 +214,18 @@ namespace Muine
 				
 		// Methods :: Private
 		// Methods :: Private :: PackCover
-		// 	Database interaction
+		/// <summary>
+		///	Pack cover into a format which can be stored in the database.
+		/// </summary>
+		/// <param name="pixbuf">
+		///	The cover to be added.
+		/// </param>
+		/// <param name="length">
+		///	Return location to store data length.
+		/// </param>
+		/// <returns>
+		///	An <see cref="IntPtr" /> to the packed cover.
+		/// </returns>
 		private IntPtr PackCover (Pixbuf pixbuf, out int length)
 		{
 			IntPtr p = Database.PackStart ();
@@ -150,6 +241,10 @@ namespace Muine
 		}
 
 		// Methods :: Private :: EmitDoneLoading
+		/// <summary>
+		///	Calls the handler for the <see cref="DoneLoading" />
+		///	event.
+		/// </summary>
 		private void EmitDoneLoading ()
 		{
 			loading = false;
@@ -164,6 +259,9 @@ namespace Muine
 		private class LoadThread : ThreadBase
 		{
 			// Structs
+			/// <summary>
+			///	A structure representing a loaded cover.
+			/// </summary>
 			private struct LoadedCover {
 				public Pixbuf Pixbuf;
 				public Item Item;
@@ -178,17 +276,50 @@ namespace Muine
 			// Variables
 			private Database db;			
 
-			// Methods
-			// Methods :: Public
-			// Methods :: Public :: LoadThread
+			// Constructor
+			/// <summary>
+			///	Create a new <see cref="LoadThread"/ > object.
+			/// </summary>
+			/// <remarks>
+			///	This thread is used to load the cover database.
+			/// </remarks>
+			/// <param name="db">
+			///	The <see cref="Database" /> to load.
+			/// </param>
 			public LoadThread (Database db)
 			{
 				this.db = db;
 				thread.Start ();
 			}
 
-			// Methods :: Protected
-			// Methods :: Protected :: MainLoopIdle
+			// Delegate Functions 
+			// Delegate Functions :: ThreadFunc (ThreadStart) (ThreadBase)
+			/// <summary>
+			/// 	Load the database.
+			/// </summary>
+			/// <remarks>
+			///	This is the main thread function.
+			/// </remarks>
+			protected override void ThreadFunc ()
+			{
+				lock (Global.CoverDB)
+					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
+
+				thread_done = true;
+			}
+
+			// Delegate Functions :: MainLoopIdle (ThreadBase)
+			/// <summary>
+			///	Adds the covers from the queue to their 
+			///	associated albums.
+			/// </summary>
+			/// <remarks>
+			///	This runs from GLib's main loop.
+			/// </remarks>
+			/// <returns>
+			///	True if the loop should continue,
+			///	False if it should stop.
+			/// </returns>
 			protected override bool MainLoopIdle ()
 			{
 				if (queue.Count == 0) {
@@ -207,8 +338,16 @@ namespace Muine
 				return true;
 			}
 
-			// Delegate Functions 
-			// Delegate Functions :: DecodeFunction
+			// Delegate Functions :: DecodeFunction (Database.DecodeFunctionDelegate)
+			/// <summary>
+			///	Delegate to decode the data in the database.
+			/// </summary>
+			/// <param name="key">
+			///	The album key.
+			/// </param>
+			/// <param name="data">
+			///	An <see cref="IntPtr" /> to the data.
+			/// </param>
 			private void DecodeFunction (string key, IntPtr data)
 			{
 				IntPtr p = data;
@@ -252,15 +391,6 @@ namespace Muine
 					LoadedCover lc = new LoadedCover (item, pixbuf);
 					queue.Enqueue (lc);
 				}
-			}
-
-			// Delegate Functions :: ThreadFunc (ThreadBase)
-			protected override void ThreadFunc ()
-			{
-				lock (Global.CoverDB)
-					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
-
-				thread_done = true;
 			}
 		}
 	}

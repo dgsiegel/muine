@@ -52,6 +52,9 @@ namespace Muine
 		private bool use;
 
 		// Constructor		
+		/// <summary>
+		///	Create a new <see cref="GnomeProxy" /> object.
+		/// </summary>
 		public GnomeProxy ()
 		{
 			Setup ();
@@ -62,11 +65,23 @@ namespace Muine
 
 		// Properties
 		// Properties :: Use (get;)
+		/// <summary>
+		///	Whether or not to use the proxy.
+		/// </summary>
+		/// <returns>
+		///	True if the proxy should be used, False otherwise.
+		/// </returns>
 		public bool Use {
 			get { return use; }
 		}
 
 		// Properties :: Proxy (get;)
+		/// <summary>
+		///	The proxy.
+		/// </summary>
+		/// <returns>
+		///	A <see cref="WebProxy" /> object.
+		/// </returns>
 		public WebProxy Proxy {
 			get { return proxy; }
 		}
@@ -74,6 +89,12 @@ namespace Muine
 		// Methods
 		// Methods :: Private
 		// Methods :: Private :: Setup
+		/// <summary>
+		///	Setup the proxy based on GConf information.
+		/// </summary>
+		/// <remarks>
+		///	This is separate so we can re-run it if things change.
+		/// </remarks>
 		private void Setup ()
 		{
 			proxy = null;
@@ -115,6 +136,12 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnConfigChanged
+		/// <summary>
+		///	Handler called when a GConf key has been changed.
+		/// </summary>
+		/// <remarks>
+		///	This re-runs <see cref="Setup" />.
+		/// </remarks>
 		private void OnConfigChanged (object o, GConf.NotifyEventArgs args)
 		{
 			Setup ();

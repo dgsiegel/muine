@@ -105,6 +105,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: SearchKey
+		//	TODO: Rename this to a verb.
 		public static string SearchKey (string key)
 		{
 			string lower = key.ToLower ();

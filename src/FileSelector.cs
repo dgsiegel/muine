@@ -34,6 +34,18 @@ namespace Muine
 		private string gconf_path;
 
 		// Constructor
+		/// <summary>
+		///	Creates a new <see cref="FileSelector" />.
+		/// </summary>
+		/// <param name="title">
+		///	The window title.
+		/// </param>
+		/// <param name="action">
+		///	The <see cref="FileChooserAction" /> to do.
+		/// </param>
+		/// <param name="gconf_path">
+		///	The GConf path which holds the starting directory.
+		/// </param>
 		public FileSelector (string title, FileChooserAction action, string gconf_path) 
 		: base (title, Global.Playlist, action, "gnome-vfs")
 		{
@@ -70,6 +82,19 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnResponse
+		/// <summary>
+		///	Handler called when a response has been chosen.
+		/// </summary>
+		/// <remarks>
+		///	If the response is "Ok", then save the current
+		///	directory to GConf. Otherwise, just close
+		/// </remarks>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="ResponseArgs" />.
+		/// </param>
 		private void OnResponse (object o, ResponseArgs args)
 		{
 			if (args.ResponseId != ResponseType.Ok)

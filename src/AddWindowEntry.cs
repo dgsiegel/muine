@@ -27,6 +27,12 @@ namespace Muine
 		private string [] search_bits = new string [0];
 
 		// Constructor
+		/// <summary>
+		/// 	Creates a new <see cref="AddWindowEntry">.
+		/// </summary>
+		/// <remarks>
+		/// 	This should only be called by <see cref="AddWindow" />.
+		/// </remarks>
 		public AddWindowEntry () : base ()
 		{
 			ActivatesDefault = true;
@@ -36,6 +42,12 @@ namespace Muine
 
 		// Properties
 		// Properties :: SearchBits (get;)
+		/// <summary>
+		/// 	The "search bits", or words, entered in the entry.
+		/// </summary>
+		/// <returns>
+		///	An array of <see cref="String">strings</see>.
+		/// </returns>
 		public string [] SearchBits {
 			get { return search_bits; }
 		}
@@ -43,6 +55,9 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Clear
+		/// <summary>
+		/// 	Reset the entry.
+		/// </summary>
 		public void Clear ()
 		{
 			base.Text = "";
@@ -50,6 +65,12 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnChanged
+		/// <summary>
+		/// 	Handler called when the entry is changed.
+		/// </summary>
+		/// <remarks>
+		/// 	Updates the <see cref="SearchBits" />.
+		/// </remarks>
 		private void OnChanged (object o, EventArgs args)
 		{
 			search_bits = base.Text.ToLower ().Split (' ');

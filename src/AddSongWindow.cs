@@ -49,6 +49,12 @@ namespace Muine
 		};
 
 		// Constructor
+		/// <summary>
+		///	Creates a new Add Song window.
+		/// </summary>
+		/// <remarks>
+		///	This is created when "Play Song" is clicked.
+		/// </remarks>
 		public AddSongWindow ()
 		{
 			base.Title = string_title;
@@ -80,7 +86,13 @@ namespace Muine
 		}
 
 		// Handlers
-		// Handlers :: OnDragDataGet
+		// Handlers :: OnDragDataGet (Gtk.DragDataGetHandler)
+		/// <summary>
+		/// 	Handler to be activated when Drag-and-Drop data is requested.
+		/// </summary>
+		/// <remarks>
+		/// 	Songs may be copied by dragging them to Nautilus.
+		/// </remarks>
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
 			List songs = base.List.SelectedHandles;
@@ -119,6 +131,13 @@ namespace Muine
 
 		// Handlers :: OnAdded
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		//	TODO: Change 'Song' parameter to 'song'
+		/// <summary>
+		/// 	Handler called when an song is added.
+		/// </summary>
+		/// <param name="song">
+		///	The <see cref="Song" /> that was added.
+		/// </param>
 		protected void OnAdded (Song Song)
 		{
 			base.List.HandleAdded (Song.Handle, 
@@ -127,6 +146,13 @@ namespace Muine
 
 		// Handlers :: OnSongChanged
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		//	TODO: Change 'Song' parameter to 'song'
+		/// <summary>
+		/// 	Handler called when an song is changed.
+		/// </summary>
+		/// <param name="song">
+		///	The <see cref="Song" /> that was changed.
+		/// </param>
 		protected void OnChanged (Song Song)
 		{
 			base.List.HandleChanged (Song.Handle, 
@@ -135,6 +161,12 @@ namespace Muine
 
 		// Handlers :: OnSongRemoved
 		// 	FIXME: Remove if we depend on Mono 1.1+
+		/// <summary>
+		/// 	Handler called when an song is removed.
+		/// </summary>
+		/// <param name="song">
+		///	The <see cref="Song" /> that was removed.
+		/// </param>
 		protected void OnRemoved (Song Song)
 		{
 			base.List.HandleRemoved (Song.Handle);
@@ -142,6 +174,20 @@ namespace Muine
 
 		// Delegate Functions
 		// Delegate Functions :: SortFunc		
+		/// <summary>
+		/// 	Delegate used in sorting the song list.
+		/// </summary>		
+		/// <param name="a_ptr">
+		///	Handler for first <see cref="Song" />.
+		/// </param>
+		/// <param name="b_ptr">
+		///	Handler for second <see cref="Song" />.
+		/// </param>
+		/// <returns>
+		///	The result of comparing the songs with
+		///	<see cref="Item.CompareTo" />.
+		/// </returns>
+		/// <seealso cref="Item.CompareTo" />
 		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
 		{
 			Song a = Song.FromHandle (a_ptr);
@@ -151,6 +197,21 @@ namespace Muine
 		}
 
 		// Delegate Functions :: CellDataFunc
+		/// <summary>
+		/// 	Delegate used to render the song text.
+		/// </summary>		
+		/// <param name="col">
+		///	A <see cref="Gtk.TreeViewColumn" />.
+		/// </param>
+		/// <param name="cell">
+		///	A <see cref="Gtk.CellRenderer" />.
+		/// </param>
+		/// <param name="model">
+		///	A <see cref="Gtk.TreeModel" />.
+		/// </param>
+		/// <param name="iter">
+		///	A <see cref="Gtk.TreeIter" />.
+		/// </param>
 		private void CellDataFunc (TreeViewColumn col, CellRenderer cell,
 					   TreeModel model, TreeIter iter)
 		{

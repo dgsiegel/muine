@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+// TODO: Can DBusService inherit from DBus.Service?
+
 using System;
 
 using DBus;
@@ -31,6 +33,16 @@ namespace Muine
 
 		// Static :: Properties
 		// Static :: Properties :: Instance (get;)
+		/// <summary>
+		///	Retreives a new or existing <see cref="DBusService" />.
+		/// </summary>
+		/// <remarks>
+		///	This only allows a single <see cref="DBusService" /> 
+		///	to exist for Muine.
+		/// </remarks>
+		/// <returns>
+		///	A <see cref="DBusService" />.
+		/// </returns>
 		public static DBusService Instance {
 			get {
 				if (instance == null)
@@ -41,9 +53,23 @@ namespace Muine
 
 		// Objects
 		private Service service;
-		private Connection conn;
+		private Connection conn; // TODO: Why is this global?
 		
 		// Constructor
+		/// <summary>
+		///	Create a new <see cref="DBusService" />.
+		/// </summary>
+		/// <remarks>
+		///	<para>
+		///	The <see cref="Instance" /> property should be used
+		/// 	instead of this constructor to ensure that only one 
+		///	<see cref="DBusService" /> exists for Muine.
+		///	</para>
+		///
+		///	<para>
+		///	The name of the <see cref="Service"/ > is "org.gnome.Muine".
+		///	</para>
+		/// </remarks>
 		private DBusService ()
 		{
 			conn = Bus.GetSessionBus ();
@@ -53,6 +79,19 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: RegisterObject
+		/// <summary>
+		///	Registers an object with DBus.
+		/// </summary>
+		/// <remarks>
+		///	This just invokes <see cref="DBus.Service.RegisterObject" />
+		///	for the service.
+		/// </remarks>
+		/// <param name="obj">
+		///	The <see cref="Object" /> to register.
+		/// </param>
+		/// <param name="path">
+		///	The path to register the object at.
+		/// </param>
 		public void RegisterObject (object obj, string path)
 		{
 			service.RegisterObject (obj, path);

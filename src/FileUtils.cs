@@ -39,6 +39,7 @@ namespace Muine
 			new DateTime (1970, 1, 1, 0, 0, 0, 0);
 
 		// Strings
+		//	TODO: Rename to string_error_config and string_error_temp.
 		private static readonly string string_init_config_failed = 
 			Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting...");
 
@@ -57,6 +58,25 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Init
+		//	TODO: 
+		//	* Replace directly looking up the environment variable
+		//	  with System.Environment.GetFolderPath (
+		//		System.Environment.SpecialFolder.Personal).
+		//	* Perhaps we just use ~/.muine rather than ~/.gnome2/muine?
+		//	  Gnome.User.DirGet is the only reason we have this method
+		//	  (otherwise it could just be a static constructor).
+		//	* Do we have to initialize all paths here? Why not
+		//	  just generate them as-we-go in the properties?
+		/// <summary>
+		///	Initializes all variables for use.
+		/// </summary>
+		/// <remarks>
+		///	Gnome must be initialized before this is executed.
+		/// </remarks>
+		/// <exception cref="Exception">
+		///	Thrown if configuration directory or temp directory 
+		///	cannot be found.
+		/// </exception>
 		public static void Init ()
 		{
 			home_directory = Environment.GetEnvironmentVariable ("HOME");
@@ -86,41 +106,110 @@ namespace Muine
 
 		// Properties
 		// Properties :: HomeDirectory (get;)
+		/// <summary>
+		///	The user's home directory
+		/// </summary>
+		/// <returns>
+		///	The absolute path to the user's home directory.
+		/// </returns>
 		public static string HomeDirectory {
 			get { return home_directory; }
 		}
 
-		// Properties :: ConfigDirectory (get;)		
+		// Properties :: ConfigDirectory (get;)
+		/// <summary>
+		///	Muine's configuration directory
+		/// </summary>
+		/// <remarks>
+		///	This should be ~/.gnome2/muine or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to Muine's configuration directory.
+		/// </returns>
 		public static string ConfigDirectory {
 			get { return config_directory; }
 		}
 		
 		// Properties :: PlaylistFile (get;)
+		/// <summary>
+		///	The path to the current playlist.
+		/// </summary>
+		/// <remarks>
+		///	This should be ~/.gnome2/muine/playlist.m3u or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to the current playlist.
+		/// </returns>
 		public static string PlaylistFile {
 			get { return playlist_file; }
 		}
 
 		// Properties :: SongsDBFile (get;)
+		/// <summary>
+		///	The path to the song database.
+		/// </summary>
+		/// <remarks>
+		///	This should be ~/.gnome2/muine/songs.db or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to the song database.
+		/// </returns>
 		public static string SongsDBFile {
 			get { return songsdb_file; }
 		}
 
 		// Properties :: CoversDBFile (get;)
+		/// <summary>
+		/// 	The path to the covers database.
+		/// </summary>
+		/// <remarks>
+		///	This should be ~/.gnome2/muine/covers.db or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to the covers database.
+		/// </returns>
 		public static string CoversDBFile {
 			get { return coversdb_file; }
 		}
 
 		// Properties :: SystemPluginDirectory (get;)
+		/// <summary>
+		///	Path to the system-wide plugins directory.
+		/// </summary>
+		/// <remarks>
+		///	This should be /usr/lib/muine/plugins or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to the system-wide plugins directory.
+		/// </returns>
 		public static string SystemPluginDirectory {
 			get { return Defines.PLUGIN_DIR; }
 		}
 
 		// Properties :: UserPluginDirectory (get;)
+		/// <summary>
+		///	Path to the user's personal plugins directory.
+		/// </summary>
+		/// <remarks>
+		///	This should be ~/.gnome2/muine/plugins or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to the user's personal plugins directory.
+		/// </returns>
 		public static string UserPluginDirectory {
 			get { return user_plugin_directory; }
 		}
 
 		// Properties :: TempDirectory (get;)
+		/// <summary>
+		///	Path to Muine's temporary directory.
+		/// </summary>
+		/// <remarks>
+		///	This should be /tmp/muine-tamara or similar.
+		/// </remarks>
+		/// <returns>
+		///	The absolute path to Muine's temporary directory.
+		/// </returns>
 		public static string TempDirectory {
 			get { return temp_directory; }
 		}
@@ -128,6 +217,22 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: IsFromRemovableMedia
+		//	TODO: There's gotta be a better way...
+		//	perhaps we can do something with HAL.
+		/// <summary>
+		///	Checks to see whether a file is on removable media.
+		/// </summary>
+		/// <remarks>
+		///	This works by checking to see if the path starts with
+		///	/mnt or /media (either proceeded by file:// or not).
+		/// </remarks>
+		/// <param name="fn">
+		///	The absolute path to check.
+		/// </param>
+		/// <returns>
+		///	True if <paramref name="fn" /> is on removable media,
+		///	otherwise False.
+		/// </returns>
 		public static bool IsFromRemovableMedia (string fn)
 		{
 			return (fn.StartsWith ("/mnt/") ||
@@ -137,6 +242,19 @@ namespace Muine
 		}
 
 		// Methods :: Public :: IsPlaylist
+		/// <summary>
+		///	Checks to see if a file is a playlist.
+		/// </summary>
+		/// <remarks>
+		///	This checks to see if the filename ends in
+		///	.m3u (common for MP3 playlists).
+		/// </remarks>
+		/// <param name="fn">
+		///	The filename to check.
+		/// </param>
+		/// <returns>
+		///	True if the file is a playlist, False otherwise.
+		/// </returns>
 		public static bool IsPlaylist (string fn)
 		{
 			string ext = Path.GetExtension (fn).ToLower ();
@@ -144,6 +262,15 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Exists
+		/// <summary>
+		///	Checks to see if the URI exists.
+		/// </summary>
+		/// <param name="fn">
+		///	The URI to check.
+		/// </param>
+		/// <returns>
+		///	True if the URI exists, False otherwise.
+		/// </returns>
 		public static bool Exists (string fn)
 		{
 			Gnome.Vfs.Uri u = new Gnome.Vfs.Uri (fn);
@@ -151,6 +278,20 @@ namespace Muine
 		}
 
 		// Methods :: Public :: MakeHumanReadable
+		/// <summary>
+		///	Simplify a filename for presentation.
+		/// </summary>
+		/// <remarks>
+		///	The filename is parsed by <see cref="System.Uri.ToString" />.
+		///	If it is a local file, then only the filename is returned,
+		///	Otherwise, the whole URI is returned.
+		/// </remarks>
+		/// <param name="fn">
+		///	The URI to parse.
+		/// </param>
+		/// <returns>
+		///	The filename simplified for presentation.
+		/// </returns>
 		public static string MakeHumanReadable (string fn)
 		{
 			System.Uri u = new System.Uri (fn);
@@ -163,12 +304,37 @@ namespace Muine
 		}
 
 		// Methods :: Public :: MTimeToTicks
+		//	TODO:
+		//	* Change the literal 10,000,000 to 
+		//	  System.TimeSpan.TicksPerSecond
+		//	* Store the MTimes internally as System.DateTime 
+		//	  structures rather than as ticks (this requires moving
+		//	  some code over from libmuine). That would make this 
+		//	  method obsolete.
+		/// <summary>
+		///	Convert POSIX-style MTime to ticks.
+		/// </summary>
+		/// <remarks>
+		///	A tick is one ten millionth (1/10^7) of a second.
+		/// </remarks>
+		/// <param name="mtime">
+		///	Seconds since the epoch (1970-01-01).
+		/// </param>
+		/// <returns>
+		///	<paramref name="mtime" /> as ticks since 01-01-01.
+		/// </returns>
 		public static long MTimeToTicks (int mtime)
 		{
 			return (long) (mtime * 10000000L) + date_time_1970.Ticks;
 		}
 
 		// Methods :: Public :: CreateDirectory
+		/// <summary>
+		///	Creates a directory.
+		/// </summary>
+		/// <remarks>
+		///	If the directory already exists, nothing happens.
+		/// </remarks>
 		private static void CreateDirectory (string dir)
 		{
 			DirectoryInfo dinfo = new DirectoryInfo (dir);
@@ -179,10 +345,19 @@ namespace Muine
 		}
 
 		// Methods :: Public :: LocalPathFromUri
-		// 	TODO: Replace with GnomeVfs#
+		// 	TODO: 
+		//	* Replace with GnomeVfs#
+		//	* Can this be replaced or simplified with 
+		//	  System.Uri.LocalPath?
 		[DllImport ("libgnomevfs-2-0.dll")]
 		private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
 
+		/// <summary>
+		/// 	Convert a URI to a local pathname.
+		/// </summary>
+		/// <returns>
+		///	A pathname.
+		/// </returns>
 		public static string LocalPathFromUri (string uri)
 		{
 			IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
@@ -193,14 +368,40 @@ namespace Muine
 		}
 
 		// Methods :: Public :: UriFromLocalPath
-		//	TODO: Replace with GnomeVfs#
+		//	TODO: 
+		//	* Replace with GnomeVfs#
+		//	* Can this be replaced or simplified with 
+		//	  System.Uri.ToString?
+		/// <summary>
+		///	Convert a local pathname to a URI.
+		/// </summary>
+		/// <remarks>
+		///	The local pathname should begin with '/'.
+		///	The returned URI will begin with "file://".
+		/// </remarks>
+		/// <returns>
+		///	A URI.
+		/// </returns>
 		public static string UriFromLocalPath (string uri)
 		{
 			return "file://" + uri;
 		}
 
-		// Methods :: Public ::: IsRemove
-		// 	TODO: Make portable
+		// Methods :: Public ::: IsRemote
+		// 	TODO: 
+		//	* Make portable
+		//	* Can this be replaced or simplified with
+		//	  !System.Uri.IsFile?
+		/// <summary>
+		///	Checks to see if a URI is remote or not.
+		/// </summary>
+		/// <remarks>
+		///	A URI is considered remote if it does not begin
+		///	with '/' or "file://".
+		/// </remarks>
+		/// <returns>
+		///	True if the URI is remote, False otherwise.
+		/// </returns>
 		public static bool IsRemote (string uri)
 		{
 			return (uri [0] != '/' && !uri.StartsWith ("file://"));
