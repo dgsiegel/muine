@@ -34,7 +34,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/MessageConnection.cs		\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/InfoWindow.cs			\
-	$(srcdir)/CoverImage.cs
+	$(srcdir)/CoverImage.cs			\
+	$(srcdir)/GettextCatalog.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\
@@ -45,7 +46,6 @@ ASSEMBLIES =					\
 	/r:gnome-sharp				\
 	/r:gtk-sharp				\
 	/r:pango-sharp				\
-	/r:GNU.Gettext.dll			\
 	/r:AmazonSearchService.dll		\
 	/r:System.Web.Services
 

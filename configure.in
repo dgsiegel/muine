@@ -80,13 +80,13 @@ AC_SUBST(MCS_FLAGS)
 AC_SUBST(MONO_FLAGS)
 
 dnl Intl
-dnl Languages should be defined in po/LINGUAS
+ALL_LINGUAS="ca cs de es fr hr nl pt sr sr@Latn sv"
 GETTEXT_PACKAGE=muine
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
-AM_PO_SUBDIRS
+AM_GLIB_GNU_GETTEXT
 
-AC_CONFIG_FILES([
+AC_OUTPUT([
 Makefile
 muine.spec
 data/Makefile
@@ -98,6 +98,5 @@ libmuine/egg/Makefile
 src/Makefile
 src/muine
 m4/Makefile
+po/Makefile.in
 ])
-AC_CONFIG_FILES([po/Makefile.in], [AM_POSTPROCESS_PO_MAKEFILE])
-AC_OUTPUT

@@ -17,4 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-void init_intl (void);
+void        intl_init              (const char *package);
+
+const char *intl_get_string        (const char *string);
+const char *intl_get_plural_string (const char *singular,
+				    const char *plural,
+				    long n);

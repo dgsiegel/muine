@@ -26,11 +26,36 @@
 #include "gettext-utils.h"
 
 void
-init_intl (void)
+intl_init (const char *package)
 {
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
+	bindtextdomain (package, GNOMELOCALEDIR);
+	bind_textdomain_codeset (package, "UTF-8");
+	textdomain (package);
+#endif
+}
+
+const char *
+intl_get_string (const char *string)
+{
+#ifdef ENABLE_NLS
+	return gettext (string);
+#else
+	return string;
+#endif
+}
+
+const char *
+intl_get_plural_string (const char *singular,
+			const char *plural,
+			long n)
+{
+#ifdef ENABLE_NLS
+	return ngettext (singular, plural, n);
+#else
+	if (n == 1)
+		return singular;
+	else
+		return plural;
 #endif
 }

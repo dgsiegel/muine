@@ -16,9 +16,4 @@ which gnome-autogen.sh || {
     echo "You need to install gnome-common from the GNOME CVS"
     exit 1
 }
-REQUIRED_AUTOMAKE_VERSION=1.7 USE_GNOME2_MACROS=1 NOCONFIGURE=1 ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $srcdir/m4" . gnome-autogen.sh
-echo "Copying po/Makefile.in.in.override to po/Makefile.in.in"
-cp $srcdir/po/Makefile.in.in.override $srcdir/po/Makefile.in.in
-echo "Running $srcdir/configure $conf_flags "$@" ..."
-$srcdir/configure --enable-maintainer-mode "$@" \
-	&& echo Now type \`make\' to compile $PKG_NAME || exit 1
+REQUIRED_AUTOMAKE_VERSION=1.7 USE_GNOME2_MACROS=1 ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $srcdir/m4" . gnome-autogen.sh

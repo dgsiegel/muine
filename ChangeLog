@@ -1,6 +1,24 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
+	* autogen.sh:
+	* configure.in:
+	* libmuine/gettext-utils.c: (intl_init), (intl_get_string),
+	(intl_get_plural_string):
+	* libmuine/gettext-utils.h:
+	R po/LINGUAS:
+	R po/Makefile.in.in.override:
+	A src/GettextCatalog.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+
+	OK, so we now have our own gettext bindings. This way we only
+	need to install the catalogs once, and we don't need all
+	the tricky Makefile.in.in hacks.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
 	* libmuine/db.c:
 	* libmuine/db.h:
 	* libmuine/gettext-utils.c:

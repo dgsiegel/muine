@@ -1,11 +1,13 @@
 Easy:
 =====
+
 o A song information dialog (in tray and song menus, and in add album window)
   This one is half done, I'm on this (Jorn)
 o D-BUS service (Sergio Rubio is on this)
 
 Tough:
 ======
+
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
@@ -45,8 +47,7 @@ o Nicer default cover image
 
 Depends on other components:
 ============================
-o sr@Latn needs to be added to LINGUAS
-  Depends on a Gettext bug to be fixed. The bug has been reported.
+
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
 o Monitor imported folders using FileWatcher

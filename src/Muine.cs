@@ -19,13 +19,10 @@
 
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 
 using Gtk;
 using GLib;
 using Gdk;
-
-using GNU.Gettext;
 
 public class Muine : Gnome.Program
 {
@@ -39,16 +36,13 @@ public class Muine : Gnome.Program
 
 	public static ActionThread ActionThread;
 
-	public static GettextResourceManager Catalog;
+	public static GettextCatalog Catalog;
 
 	private static MessageConnection conn;
 
-	[DllImport ("libmuine")]
-	private static extern void init_intl ();
-
 	public static void Main (string [] args)
 	{
-		init_intl ();
+		Catalog = new GettextCatalog ("muine");
 
 		Muine muine = new Muine (args);
 
@@ -65,9 +59,6 @@ public class Muine : Gnome.Program
 			Gdk.Global.NotifyStartupComplete ();
 			Environment.Exit (0);
 		}
-
-		/* Init Gettext */
-		Catalog = new GettextResourceManager ("muine");
 
 		/* Init GConf */
 		GConfClient = new GConf.Client ();
