@@ -833,7 +833,6 @@ public class PlaylistWindow : Window
 		FileSelection fs;
 		
 		fs = new FileSelection ("Choose a Folder");
-		fs.SelectMultiple = true;
 		fs.HideFileopButtons ();
 		fs.HistoryPulldown.Visible = false;
 		fs.FileList.Parent.Visible = false;
@@ -868,30 +867,15 @@ public class PlaylistWindow : Window
 
 		fs.Visible = false;
 
-		ProgressWindow pw = null;
-	
-		bool set_state = false;
-		foreach (string fn in fs.Selections) {
-			if (set_state == false) {
-				Muine.GConfClient.Set ("/apps/muine/default_import_folder", fn);
-				set_state = true;
-			}
+		Muine.GConfClient.Set ("/apps/muine/default_import_folder", fs.Filename);
 
-			DirectoryInfo dinfo = new DirectoryInfo (fn);
+		DirectoryInfo dinfo = new DirectoryInfo (fs.Filename);
 			
-			if (dinfo.Exists) {
-				if (pw == null)
-					pw = new ProgressWindow (this);
-				bool ret = pw.ReportFolder (dinfo.Name);
-				if (ret == false)
-					break;
-				
-				HandleDirectory (dinfo, pw, add_to_playlist);
-			}
-		}
-
-		if (pw != null)
+		if (dinfo.Exists) {
+			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+			HandleDirectory (dinfo, pw, add_to_playlist);
 			pw.Done ();
+		}
 
 		fs.Destroy ();
 

@@ -1,5 +1,12 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+
+	Import cleanups.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* configure.in:
 	* libmuine/db.c: (db_unpack_pixbuf), (db_pack_pixbuf):

@@ -34,13 +34,13 @@ public class ProgressWindow
 
 	bool canceled;
 	
-	public ProgressWindow (Window parent)
+	public ProgressWindow (Window parent, string folder)
 	{
 		Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
 		gxml.Autoconnect (this);
 
 		window.TransientFor = parent;
-		window.Title = "Importing...";
+		window.Title = "Importing " + folder + "...";
 
 		MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
 					    false, true, false);
@@ -48,19 +48,9 @@ public class ProgressWindow
 		window.Visible = true;
 
 		canceled = false;
-	}
-
-	public bool ReportFolder (string folder)
-	{
-		if (canceled)
-			return false;
-			
-		window.Title = "Importing " + folder + "...";
 
 		while (Global.EventsPending () == 1)
 			Main.Iteration ();
-
-		return true;
 	}
 
 	public bool ReportFile (string file)
