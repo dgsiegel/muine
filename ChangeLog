@@ -1,5 +1,12 @@
 2004-02-05  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player.c: (player_init), (eos_idle_cb), (eos_cb),
+	(player_set_file):
+
+	Kill an EOS race.
+
+2004-02-05  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Fix previous commit ..

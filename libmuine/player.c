@@ -67,6 +67,8 @@ struct _PlayerPriv {
   guint64        pause_offset;
 
   int		 cur_volume;
+
+  guint		 eos_idle_id;
 };
 
 static GObjectClass *parent_class;
@@ -157,6 +159,8 @@ player_init (Player *player)
   
   priv = g_new0 (PlayerPriv, 1);
   player->priv = priv;
+
+  priv->eos_idle_id = 0;
 
   priv->thread = gst_thread_new ("thread");
       
@@ -348,6 +352,8 @@ player_get_state (Player *player)
 static gboolean
 eos_idle_cb (Player *player)
 {
+  player->priv->eos_idle_id = 0;
+
   g_signal_emit (player, signals[END_OF_STREAM], 0,
 		 player->priv->current_file, NULL);
   
@@ -357,7 +363,7 @@ eos_idle_cb (Player *player)
 static void
 eos_cb (GstElement *sink, Player *player)
 {
-  g_idle_add ((GSourceFunc) eos_idle_cb, player);
+  player->priv->eos_idle_id = g_idle_add ((GSourceFunc) eos_idle_cb, player);
 }
 
 typedef struct {
@@ -482,6 +488,12 @@ player_set_file (Player *player,
   g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
   priv = player->priv;
+
+  if (priv->eos_idle_id > 0)
+    {
+      g_source_remove (priv->eos_idle_id);
+      priv->eos_idle_id = 0;
+    }
 
   if (!file)
     {
