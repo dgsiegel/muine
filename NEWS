@@ -4,12 +4,16 @@
 - Plug-in support [Jorn Baayen]
 - Dashboard support moved into a plug-in [Jorn Baayen]
 - D-Bus interface [Sergio Rubio, Jorn Baayen]
+- Plug-in and D-Bus client development documentation [Jorn Baayen]
 - Change play button text to be less confusing [Piret Vacht, Jorn Baayen]
 - Major code cleanups [Tamara Roberson, Jorn Baayen]
 
 Updated translations:
+- Canadian English [Adam Weinberger]
 - Czech [Miloslav Trmac]
+- Japanese [Hiroshi Hasebe]
 - Norwegian [Kjartan Maraas]
+- Russian [Alekseev Vladimir]
 
 0.7.1
 =====
