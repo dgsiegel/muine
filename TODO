@@ -1,35 +1,19 @@
 Easy:
 =====
 
-o A song information dialog (in tray and song menus, and in add album window)
-  This one is half done, I'm on this (Jorn):
-  http://brokenbits.de/lars/cruft/edit-album-tab1.png
-  http://brokenbits.de/lars/cruft/edit-album-tab2.png
-  http://brokenbits.de/lars/cruft/edit-album-tab3.png
-  http://brokenbits.de/lars/cruft/track-info.png
-  Should also be launched by clicking the album cover.
+o A song information dialog (Jorn is on this)
+  See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
-o Song->Delete (with confirmation, as deleting from disk) menu item
 
 Tough:
 ======
 
-o Add a library browser
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
-  Need to discuss the UI first
-
-  Include a group with orphan songs, and with never played songs by default.
-
-  Groups editor, and a group selector that can be brought up from a button
-  in the PlaylistWindow.
-
-  Play random albums?
-
-  Statistical next random song analysis?
+  See http://huizen.dds.nl/~jbaayen/proposal.html
 o CD burning (Brad Griffith is workong on this)
   Support both audio and MP3 cds.
   
@@ -43,11 +27,13 @@ o Gapless transition/crossfading
   when a new song comes in ..
 o Figure out how to get the peak value from the ID3 RVA2 tag.
 o Handle non-UTF8 filenames and dirnames decently
+  See http://bugzilla.gnome.org/show_bug.cgi?id=132392
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
 o Speedier startup
-o "Calculate replaygain" button
+o Automatic replaygain calculation?
+  Need to discuss UI (if any?) for this first.
 
 Graphic artists needed:
 =======================
