@@ -51,6 +51,7 @@ o Switch metadata and playback all over to GStreamer. But, GST should
   be a bit more reliable first.
 o Use Hashtable/dictionary in D-Bus song info code
   Blocked by Freedesktop Bugzilla #2175
+o Use Gst# and Egg# when they become "properly available".
 
 We won't have:
 ==============
