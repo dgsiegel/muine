@@ -24,11 +24,11 @@ public class StringUtils
 {
 	public static string SecondsToString (long time)
 	{
-		int h, m, s;
+		long h, m, s;
 
-		h = (int) (time / 3600);
-		m = (int) ((time % 3600) / 60);
-		s = (int) ((time % 3600) % 60);
+		h = (time / 3600);
+		m = ((time % 3600) / 60);
+		s = ((time % 3600) % 60);
 
 		if (h > 0) {
 			return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
