@@ -1,5 +1,13 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* configure.in:
+	* src/About.cs:
+
+	Release -pre2.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/PlaylistWindow.cs:
 
