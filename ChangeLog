@@ -1,5 +1,12 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	0.8.0pre2.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Song.cs:
 	* src/SongDatabase.cs:
 
