@@ -143,7 +143,10 @@ namespace Muine
 		}
 
 		// Properties :: Album (get;)
+		//	the setter is only for simple memory usage optimization,
+		//	therefore we don't emit a changed signal
 		public string Album {
+			set { album = value; }
 			get { return album; }
 		}
 
@@ -168,7 +171,10 @@ namespace Muine
 		}
 
 		// Properties :: Year (get;)
+		//	the setter is only for simple memory usage optimization,
+		//	therefore we don't emit a changed signal
 		public string Year {
+			set { year = value; }
 			get { return year; }
 		}
 

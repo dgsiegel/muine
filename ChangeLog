@@ -1,3 +1,15 @@
+2005-02-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+
+	Bump version number to 0.8.1.99.
+	
+	* src/Album.cs:
+	* src/Song.cs:
+
+	Small memory optimization: share "album" and "year" fields among
+	all songs of the same album.
+
 2005-02-03  Jorn Baayen  <jbaayen@gnome.org>
 
 	* README:

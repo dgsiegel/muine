@@ -205,6 +205,10 @@ namespace Muine
 					changed = true;
 				}
 
+				// Save some memory
+				song.Year = year;
+				song.Album = name;
+
 				bool artists_changed = AddArtistsAndPerformers (song);
 				if (artists_changed)
 					changed = true;
