@@ -1845,8 +1845,9 @@ namespace Muine
 						
 						if (FileUtils.IsPlaylist (fn)) {
 							OpenPlaylist (fn);
-							pos.First = false;
+
 							success = true;
+
 							break;
 
 						} else {

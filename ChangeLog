@@ -1,5 +1,11 @@
 2005-01-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Minor cleanup.
+
+2005-01-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/NotificationAreaIcon.cs:
 
