@@ -1,5 +1,22 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* libmuine/db.c:
+	* libmuine/db.h:
+	* libmuine/gettext-utils.c:
+	* libmuine/gettext-utils.h:
+	* libmuine/markup-utils.c:
+	* libmuine/markup-utils.h:
+	* libmuine/metadata-gst.c:
+	* libmuine/metadata.c:
+	* libmuine/metadata.h:
+	* libmuine/pointer-list-view.c:
+	* libmuine/pointer-list-view.h:
+
+	More copyright symbol fixage, and updated TODO.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/About.cs:
 	* src/ActionThread.cs:
 	* src/AddAlbumWindow.cs:
