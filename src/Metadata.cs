@@ -25,10 +25,12 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class Metadata 
+	// This isn't really a GLib object but having base.Raw is consistent 
+	// with most of our other classes.
+	public class Metadata : GLib.Object
 	{
 		// Strings
-		private static readonly string string_load_failed =
+		private static readonly string string_error_load =
 			Catalog.GetString ("Failed to load metadata: {0}");
 
 		// Variables
@@ -50,172 +52,214 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_load (string filename,
 					                    out IntPtr error_message_return);
-							   
-		[DllImport ("libmuine")]
-		private static extern void metadata_free (IntPtr metadata);
 		
+		public Metadata (string filename) : base (IntPtr.Zero)
+		{
+			IntPtr error_ptr;
+			
+			base.Raw = metadata_load (filename, out error_ptr);
+			if (error_ptr != IntPtr.Zero) {
+				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+				throw new Exception (String.Format (string_error_load, error));
+			}
+		}
+
+		// Properties
+		// Properties :: Title (get;)
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_get_title (IntPtr metadata);
 
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_artist (IntPtr metadata,
-		                                                  int index);
+		public string Title {
+			get {
+				if (title == null) {
+					IntPtr p = metadata_get_title (base.Raw);
+					title = (p == IntPtr.Zero)
+				       		? ""
+				       		: Marshal.PtrToStringAnsi (p);
+				}
+				
+				return title;
+			}
+		}
+
+		// Properties :: Artists (get;)
 		[DllImport ("libmuine")]
 		private static extern int metadata_get_artist_count (IntPtr metadata);
 
 		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_performer (IntPtr metadata,
-		                                                     int index);
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_performer_count (IntPtr metadata);
+		private static extern IntPtr metadata_get_artist (IntPtr metadata, int index);
 
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_album (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_album_art (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_track_number (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_disc_number (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_year (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_duration (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_mime_type (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_mtime (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern double metadata_get_gain (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern double metadata_get_peak (IntPtr metadata);
-		
-		public Metadata (string filename)
-		{
-			IntPtr error_ptr, p;
-			
-			IntPtr md = metadata_load (filename, out error_ptr);
-			if (error_ptr != IntPtr.Zero) {
-				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-				throw new Exception (String.Format (string_load_failed, error));
-			}
-
-			p = metadata_get_title (md);
-			title = (p == IntPtr.Zero)
-				 ? ""
-				 : Marshal.PtrToStringAnsi (p);
-
-			artists = new string [metadata_get_artist_count (md)];
-			for (int i = 0; i < artists.Length; i++)
-				artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (md, i));
-
-			performers = new string [metadata_get_performer_count (md)];
-			for (int i = 0; i < performers.Length; i++)
-				performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (md, i));
-			
-			p = metadata_get_album (md);
-			album = (p == IntPtr.Zero)
-				 ? ""
-				 : Marshal.PtrToStringAnsi (p);
-
-			p = metadata_get_album_art (md);
-			album_art = (p == IntPtr.Zero)
-				     ? null
-				     : new Pixbuf (metadata_get_album_art (md));
-
-			track_number = metadata_get_track_number (md);
-			disc_number = metadata_get_disc_number (md);
-
-			p = metadata_get_year (md);
-			year = (p == IntPtr.Zero)
-				? ""
-				: Marshal.PtrToStringAnsi (p);
-
-			duration = metadata_get_duration (md);
-
-			mime_type = Marshal.PtrToStringAnsi (metadata_get_mime_type (md));
-
-			mtime = metadata_get_mtime (md);
-
-			gain = metadata_get_gain (md);
-			peak = metadata_get_peak (md);
-
-			metadata_free (md);
-		}
-								
-		// Properties
-		// Properties :: Title (get;)
-		public string Title {
-			get { return title; }
-		}
-
-		// Properties :: Artists (get;)
 		public string [] Artists {
-			get { return artists; }
+			get {
+				if (artists == null) {
+					artists = new string [metadata_get_artist_count (base.Raw)];
+					for (int i = 0; i < artists.Length; i++)
+						artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (base.Raw, i));
+				}
+
+				return artists;
+			}
 		}
 
 		// Properties :: Performers (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr metadata_get_performer (IntPtr metadata, int index);
+
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_performer_count (IntPtr metadata);
+
 		public string [] Performers {
-			get { return performers; }
+			get {
+				if (performers == null) {
+					performers = new string [metadata_get_performer_count (base.Raw)];
+					for (int i = 0; i < performers.Length; i++)
+						performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (base.Raw, i));
+				}
+				
+				return performers;
+			}			
 		}
 
 		// Properties :: Album (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr metadata_get_album (IntPtr metadata);
+
 		public string Album {
-			get { return album; }
+			get { 
+				if (album == null) {
+					IntPtr p = metadata_get_album (base.Raw);
+					album = (p == IntPtr.Zero)
+					        ? ""
+					        : Marshal.PtrToStringAnsi (p);
+				}
+				
+				return album;
+			}
 		}
 
 		// Properties :: AlbumArt (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr metadata_get_album_art (IntPtr metadata);
+
 		public Pixbuf AlbumArt {
-			get { return album_art; }
+			get { 
+				if (album_art == null) {
+					IntPtr p = metadata_get_album_art (base.Raw);
+					album_art = (p == IntPtr.Zero)
+				       		    ? null
+				       		    : new Pixbuf (p);
+				}
+				
+				return album_art;
+			}
 		}
 
 		// Properties :: TrackNumber (get;)
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_track_number (IntPtr metadata);
+		
 		public int TrackNumber {
-			get { return track_number; }
+			get { 
+				if (track_number == 0)
+					track_number = metadata_get_track_number (base.Raw);
+				return track_number;
+			}
 		}
 
 		// Properties :: DiscNumber (get;)
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_disc_number (IntPtr metadata);
+
 		public int DiscNumber {
-			get { return disc_number; }
+			get { 
+				if (disc_number == 0)
+					disc_number = metadata_get_disc_number (base.Raw);
+				return disc_number;
+			}
 		}
 
 		// Properties :: Year (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr metadata_get_year (IntPtr metadata);
+
 		public string Year {
-			get { return year; }
+			get {
+				if (year == null) {
+					IntPtr p = metadata_get_year (base.Raw);
+					year = (p == IntPtr.Zero)
+					       ? ""
+				               : Marshal.PtrToStringAnsi (p);
+				}
+				
+				return year;
+			}
 		}
 
 		// Properties :: Duration (get;)
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_duration (IntPtr metadata);
+
 		public int Duration {
-			get { return duration; }
+			get { 
+				if (duration == 0)
+					duration = metadata_get_duration (base.Raw);
+				return duration;
+			}
 		}
 
 		// Properties :: MimeType (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr metadata_get_mime_type (IntPtr metadata);
+
 		public string MimeType {
-			get { return mime_type; }
+			get {
+				if (mime_type == null) {
+					IntPtr p = metadata_get_mime_type (base.Raw);
+					mime_type = (p == IntPtr.Zero)
+					            ? ""
+				                    : Marshal.PtrToStringAnsi (p);
+				}
+				
+				return mime_type;
+			}
 		}
 
 		// Properties :: MTime (get;)
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_mtime (IntPtr metadata);
+
 		public int MTime {
-			get { return mtime; }
+			get {
+				if (mtime == 0)
+					mtime = metadata_get_mtime (base.Raw);
+					
+				return mtime; 
+			}
 		}
 
 		// Properties :: Gain (get;)
+		[DllImport ("libmuine")]
+		private static extern double metadata_get_gain (IntPtr metadata);
+
 		public double Gain {
-			get { return gain; }
+			get { 
+				if (gain == 0)
+					gain = metadata_get_gain (base.Raw);
+				return gain; 
+			}
 		}
 
 		// Properties :: Peak (get;)
+		[DllImport ("libmuine")]
+		private static extern double metadata_get_peak (IntPtr metadata);
+		
 		public double Peak {
-			get { return peak; }
+			get { 
+				if (peak == 0)
+					peak = metadata_get_peak (base.Raw);
+
+				return peak; 
+			}
 		}
 	}
 }

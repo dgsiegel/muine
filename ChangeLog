@@ -1,3 +1,9 @@
+2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/Metadata.cs:
+	
+	Code cleanup. Split up the constructor.
+
 2005-01-13  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/AddAlbumWindow.cs:
