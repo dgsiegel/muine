@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:00-0500\n"
-"PO-Revision-Date: 2005-01-11 10:13-0400\n"
+"POT-Creation-Date: 2005-01-14 19:14-0500\n"
+"PO-Revision-Date: 2005-01-14 10:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,17 +77,13 @@ msgstr "_Nothing, I will manage my music myself"
 msgid "Play"
 msgstr "Play"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:50
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
 msgid "Play Album"
 msgstr "Play Album"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:50
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
 msgid "Play Song"
 msgstr "Play Song"
-
-#: data/glade/ProgressWindow.glade.h:1
-msgid "Loading:"
-msgstr "Loading:"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -106,158 +102,114 @@ msgid "Muine Music Player"
 msgstr "Muine Music Player"
 
 #: data/muine.schemas.in.h:1
-msgid "\"Add album\" list minimum query length (speed hack)"
-msgstr "\"Add album\" list minimum query length (speed hack)"
-
-#: data/muine.schemas.in.h:2
 msgid "\"Add album\" window height"
 msgstr "\"Add album\" window height"
 
-#: data/muine.schemas.in.h:3
+#: data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
 msgstr "\"Add album\" window width"
 
-#: data/muine.schemas.in.h:4
-msgid "\"Add song\" list fake length (speed hack)"
-msgstr "\"Add song\" list fake length (speed hack)"
-
-#: data/muine.schemas.in.h:5
-msgid "\"Add song\" list minimum query length (speed hack)"
-msgstr "\"Add song\" list minimum query length (speed hack)"
-
-#: data/muine.schemas.in.h:6
+#: data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
 msgstr "\"Add song\" window height"
 
-#: data/muine.schemas.in.h:7
+#: data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
 msgstr "\"Add song\" window width"
 
-#: data/muine.schemas.in.h:8
+#: data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
 msgstr "Amazon site to use for album images"
 
-#: data/muine.schemas.in.h:9
+#: data/muine.schemas.in.h:6
 msgid "Default import folder"
 msgstr "Default import folder"
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:7
 msgid "Default playlist folder"
 msgstr "Default playlist folder"
 
-#: data/muine.schemas.in.h:11
-msgid "Enables speed hacks on the \"Add album\" list."
-msgstr "Enables speed hacks on the \"Add album\" list."
+#: data/muine.schemas.in.h:8
+msgid "Enable speed hacks on the \"Add album\" list."
+msgstr "Enable speed hacks on the \"Add album\" list."
 
-#: data/muine.schemas.in.h:12
-msgid ""
-"Enables speed hacks on the \"Add album\" list. See also min_query_length and "
-"fake_length."
-msgstr ""
-"Enables speed hacks on the \"Add album\" list. See also min_query_length and "
-"fake_length."
+#: data/muine.schemas.in.h:9
+msgid "Enable speed hacks on the \"Add song\" list."
+msgstr "Enable speed hacks on the \"Add song\" list."
 
-#: data/muine.schemas.in.h:13
-msgid "Enables speed hacks on the \"Add song\" list."
-msgstr "Enables speed hacks on the \"Add song\" list."
-
-#: data/muine.schemas.in.h:14
-msgid ""
-"Enables speed hacks on the \"Add song\" list. See also min_query_length and "
-"fake_length."
-msgstr ""
-"Enables speed hacks on the \"Add song\" list. See also min_query_length and "
-"fake_length."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:10
 msgid "First start"
 msgstr "First start"
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Folders that are monitored for changes."
 
-#: data/muine.schemas.in.h:17
+#: data/muine.schemas.in.h:12
 msgid "Height of the \"Add album\" window."
 msgstr "Height of the \"Add album\" window."
 
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:13
 msgid "Height of the \"Add song\" window."
 msgstr "Height of the \"Add song\" window."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:14
 msgid "Height of the information window."
 msgstr "Height of the information window."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:15
 msgid "Height of the playlist window."
 msgstr "Height of the playlist window."
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:16
 msgid "Information window height"
 msgstr "Information window height"
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:17
 msgid "Information window width"
 msgstr "Information window width"
 
-#: data/muine.schemas.in.h:23
+#: data/muine.schemas.in.h:18
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Last used folder from \"Import folder\" dialog."
 
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:19
 msgid "Last used folder from the playlist file selectors."
 msgstr "Last used folder from the playlist file selectors."
 
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:20
 msgid "Playlist window height"
 msgstr "Playlist window height"
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:21
 msgid "Playlist window width"
 msgstr "Playlist window width"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:22
 msgid "Repeat mode"
 msgstr "Repeat mode"
 
-#: data/muine.schemas.in.h:28
-msgid ""
-"The maximum number of results to show if searching for less than "
-"min_query_length characters. Only used if enable_speed_hacks is set to \"true"
-"\"."
-msgstr ""
-"The maximum number of results to show if searching for less than "
-"min_query_length characters. Only used if enable_speed_hacks is set to \"true"
-"\"."
+#: data/muine.schemas.in.h:23
+msgid "Speed hacks"
+msgstr "Speed hacks"
 
-#: data/muine.schemas.in.h:29
-msgid ""
-"The minimum number of characters to do a full search. Less than this, and "
-"only fake_length results are shown. Only used if enable_speed_hacks is set "
-"to \"true\"."
-msgstr ""
-"The minimum number of characters to do a full search. Less than this, and "
-"only fake_length results are shown. Only used if enable_speed_hacks is set "
-"to \"true\"."
-
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:24
 msgid "Volume level"
 msgstr "Volume level"
 
-#: data/muine.schemas.in.h:31
+#: data/muine.schemas.in.h:25
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Volume level. 0 = lowest, 100 = highest."
 
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:26
 msgid "Watched folders"
 msgstr "Watched folders"
 
-#: data/muine.schemas.in.h:33
+#: data/muine.schemas.in.h:27
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Whether or not to enable repeat playlist mode."
 
-#: data/muine.schemas.in.h:34
+#: data/muine.schemas.in.h:28
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -265,23 +217,23 @@ msgstr ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 
-#: data/muine.schemas.in.h:35
+#: data/muine.schemas.in.h:29
 msgid "Width of the \"Add album\" window."
 msgstr "Width of the \"Add album\" window."
 
-#: data/muine.schemas.in.h:36
+#: data/muine.schemas.in.h:30
 msgid "Width of the \"Add song\" window."
 msgstr "Width of the \"Add song\" window."
 
-#: data/muine.schemas.in.h:37
+#: data/muine.schemas.in.h:31
 msgid "Width of the information window."
 msgstr "Width of the information window."
 
-#: data/muine.schemas.in.h:38
+#: data/muine.schemas.in.h:32
 msgid "Width of the playlist window."
 msgstr "Width of the playlist window."
 
-#: data/muine.schemas.in.h:39
+#: data/muine.schemas.in.h:33
 msgid "false if Muine has been started before."
 msgstr "false if Muine has been started before."
 
@@ -293,7 +245,7 @@ msgstr "Failed to create a GStreamer play object"
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Could not render default GStreamer audio output sink"
 
-#: libmuine/player-xine.c:283
+#: libmuine/player-xine.c:284
 #, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
@@ -321,50 +273,56 @@ msgstr "Internal error"
 msgid "Could not play \"%s\""
 msgstr "Could not play \"%s\""
 
-#: src/About.cs:33
+#: src/About.cs:31
 msgid "translator-credits"
 msgstr ""
 "Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
 
-#: src/About.cs:35
+#: src/About.cs:33
 msgid "Muine"
 msgstr "Muine"
 
-#: src/About.cs:37
+#: src/About.cs:35
 msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
 msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
 
-#: src/About.cs:39
+#: src/About.cs:37
 msgid "A music player"
 msgstr "A music player"
 
-#: src/About.cs:42
+#: src/About.cs:41
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: src/About.cs:43
+#: src/About.cs:42
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: src/About.cs:44
+#: src/About.cs:43
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: src/About.cs:45
+#: src/About.cs:44
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: src/About.cs:47
+#: src/About.cs:46
 msgid "Album covers are provided by amazon.com."
 msgstr "Album covers are provided by amazon.com."
 
-#: src/AddAlbumWindow.cs:52 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Performed by {0}"
 
-#: src/Album.cs:36
+#. Strings
+#. Strings :: Prefixes
+#. Space-separated list of prefixes that will be taken off the front
+#. when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. if "the" is included in this list. Also include the English "the"
+#. if English is generally spoken in your country.*/
+#: src/Album.cs:38
 msgid "the dj"
 msgstr "the dj"
 
@@ -372,7 +330,7 @@ msgstr "the dj"
 msgid "An error occurred:"
 msgstr "An error occurred:"
 
-#: src/FileUtils.cs:34
+#: src/FileUtils.cs:43
 #, csharp-format
 msgid ""
 "Failed to initialize the configuration folder: {0}\n"
@@ -383,7 +341,7 @@ msgstr ""
 "\n"
 "Exiting..."
 
-#: src/FileUtils.cs:36
+#: src/FileUtils.cs:45
 #, csharp-format
 msgid ""
 "Failed to initialize the temporary files folder: {0}\n"
@@ -421,21 +379,22 @@ msgstr ""
 "\n"
 "Exiting..."
 
-#: src/Metadata.cs:32
+#: src/Metadata.cs:34
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Failed to load metadata: {0}"
 
-#: src/NotificationAreaIcon.cs:36
+#: src/NotificationAreaIcon.cs:38
 msgid "Muine music player"
 msgstr "Muine music player"
 
-#: src/NotificationAreaIcon.cs:40
+#. song artists - song title
+#: src/NotificationAreaIcon.cs:41
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#: src/Player.cs:31
+#: src/Player.cs:39
 #, csharp-format
 msgid ""
 "Audio backend error:\n"
@@ -449,16 +408,16 @@ msgid "Playlist.m3u"
 msgstr "Playlist.m3u"
 
 #: src/PlaylistWindow.cs:62
-msgid "Playlist"
-msgstr "Playlist"
+msgid "<span weight=\"bold\">Playlist</span>"
+msgstr "<span weight=\"bold\">Playlist</span>"
 
 #: src/PlaylistWindow.cs:64
-msgid "Playlist (Repeating)"
-msgstr "Playlist (Repeating)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating)"
+msgstr "<span weight=\"bold\">Playlist</span> (Repeating)"
 
 #: src/PlaylistWindow.cs:66
-msgid "Playlist (Less than one minute remaining)"
-msgstr "Playlist (Less than one minute remaining)"
+msgid "<span weight=\"bold\">Playlist</span> (Less than one minute remaining)"
+msgstr "<span weight=\"bold\">Playlist</span> (Less than one minute remaining)"
 
 #: src/PlaylistWindow.cs:68
 #, csharp-format
@@ -530,33 +489,33 @@ msgstr "Failed to close {0}"
 msgid "Failed to open {0} for writing"
 msgstr "Failed to open {0} for writing"
 
-#: src/PlaylistWindow.cs:968
+#: src/PlaylistWindow.cs:941
 #, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] "Playlist (Repeating {0} hour)"
-msgstr[1] "Playlist (Repeating {0} hours)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} hour)"
+msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)"
+msgstr[0] "<span weight=\"bold\">Playlist</span> (Repeating {0} hour)"
+msgstr[1] "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)"
 
-#: src/PlaylistWindow.cs:973
+#: src/PlaylistWindow.cs:946
 #, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] "Playlist (Repeating {0} minute)"
-msgstr[1] "Playlist (Repeating {0} minutes)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} minute)"
+msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)"
+msgstr[0] "<span weight=\"bold\">Playlist</span> (Repeating {0} minute)"
+msgstr[1] "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)"
 
-#: src/PlaylistWindow.cs:978
+#: src/PlaylistWindow.cs:951
 #, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] "Playlist ({0} hour remaining)"
-msgstr[1] "Playlist ({0} hours remaining)"
+msgid "<span weight=\"bold\">Playlist</span> ({0} hour remaining)"
+msgid_plural "<span weight=\"bold\">Playlist</span> ({0} hours remaining)"
+msgstr[0] "<span weight=\"bold\">Playlist</span> ({0} hour remaining)"
+msgstr[1] "<span weight=\"bold\">Playlist</span> ({0} hours remaining)"
 
-#: src/PlaylistWindow.cs:983
+#: src/PlaylistWindow.cs:956
 #, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "Playlist ({0} minute remaining)"
-msgstr[1] "Playlist ({0} minutes remaining)"
+msgid "<span weight=\"bold\">Playlist</span> ({0} minute remaining)"
+msgid_plural "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)"
+msgstr[0] "<span weight=\"bold\">Playlist</span> ({0} minute remaining)"
+msgstr[1] "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)"
 
 #: src/PluginManager.cs:34
 #, csharp-format
@@ -568,16 +527,20 @@ msgstr "Error loading plug-in {0}: {1}"
 msgid "Importing {0}..."
 msgstr "Importing {0}..."
 
-#: src/StringUtils.cs:31
+#: src/ProgressWindow.cs:35
+msgid "Loading:"
+msgstr "Loading:"
+
+#: src/StringUtils.cs:32
 msgid "Unknown"
 msgstr "Unknown"
 
-#: src/StringUtils.cs:33
+#: src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} and others"
 
-#: src/StringUtils.cs:35
+#: src/StringUtils.cs:36
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} and {1}"
