@@ -6,6 +6,8 @@ o A song information dialog (Jorn is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
+o Opening music files directly from nautilus
+o Queueing files that are not contained in the library
 
 Tough:
 ======
@@ -64,7 +66,6 @@ o CD ripping
 o CD playback
 o Volume normalization. We support the replaygain tag, the tagging
   application is responsible for setting these.. Muine is purely a player.
-o Opening music files directly from nautilus
 o Visualization. Other apps can monitor the ALSA device and make fancy effects,
   for example someone could code up an xscreensaver hack.
 
