@@ -1,5 +1,12 @@
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
+	* configure.in:
+	* libmuine/Makefile.am:
+
+	Better check for libid3tag.
+
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/SkipToWindow.glade:
 	* src/Player.cs:
 	* src/PlaylistWindow.cs:
