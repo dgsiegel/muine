@@ -197,7 +197,7 @@ public class Muine : Gnome.Program
 	private void HandleCoversDoneLoading ()
 	{
 		/* covers done loading, start the changes thread */
-		DB.CheckChanges ();
+		db.CheckChanges ();
 	}
 
 	private void HandleDieEvent (object o, EventArgs args)
