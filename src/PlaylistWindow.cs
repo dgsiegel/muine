@@ -125,8 +125,7 @@ public class PlaylistWindow : Window
 		icon = new NotificationAreaIcon ();
 		icon.ActivateEvent += new NotificationAreaIcon.ActivateEventHandler (HandleNotificationAreaIconActivateEvent);
 
-		skip_to_window = new SkipToWindow (this);
-		skip_to_window.SeekEvent += new SkipToWindow.SeekEventHandler (HandleSeekEvent);
+		skip_to_window = new SkipToWindow (this, player);
 
 		add_song_window = new AddSongWindow (this);
 		add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
@@ -387,21 +386,6 @@ public class PlaylistWindow : Window
 			song.UnregisterExtraHandle (p);
 	}
 
-	private static string SecondsToString (long time)
-	{
-		int h, m, s;
-
-		h = (int) (time / 3600);
-		m = (int) ((time % 3600) / 60);
-		s = (int) ((time % 3600) % 60);
-
-		if (h > 0) {
-			return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
-		} else {
-			return m + ":" + s.ToString ("d2");
-		}
-	}
-
 	private long remaining_songs_time;
 
 	private void UpdateTimeLabels (long time)
@@ -415,8 +399,8 @@ public class PlaylistWindow : Window
 		
 		Song song = Song.FromHandle (playlist.Playing);
 
-		String pos = SecondsToString (time / 1000);
-		String total = SecondsToString (song.Duration / 1000);
+		String pos = StringUtils.SecondsToString (time / 1000);
+		String total = StringUtils.SecondsToString (song.Duration / 1000);
 
 		time_label.Text = pos + " / " + total;
 
@@ -508,6 +492,8 @@ public class PlaylistWindow : Window
 			Title = "Muine Music Player";
 
 			icon.Tooltip = "Not playing";
+
+			skip_to_window.Hide ();
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -636,6 +622,11 @@ public class PlaylistWindow : Window
 		playlist.StateChanged ();
 	}
 
+	private void HandleFileActivated (string file)
+	{
+		OpenPlaylist (file);
+	}
+
 	/* FIXME this is not called anymore with Gtk# 0.15? */
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
 	{
@@ -717,14 +708,6 @@ public class PlaylistWindow : Window
 	}
 
 	private bool had_last_eos;
-
-	private void HandleSeekEvent (int sec)
-	{
-		if (playlist.HasFirst == false)
-			return;
-
-		SeekTo (sec * 1000);
-	}
 
 	private void HandleQueueSongsEvent (List songs)
 	{
@@ -906,8 +889,7 @@ public class PlaylistWindow : Window
 	}
 
 	private bool HandleDirectory (DirectoryInfo info,
-				      ProgressWindow pw,
-				      bool add_to_playlist)
+				      ProgressWindow pw)
 	{
 		foreach (FileInfo finfo in info.GetFiles ()) {
 			Song song;
@@ -926,13 +908,10 @@ public class PlaylistWindow : Window
 
 				Muine.DB.AddSong (song);
 			}
-
-			if (add_to_playlist)
-				AddSong (song);
 		}
 
 		foreach (DirectoryInfo dinfo in info.GetDirectories ()) {
-			bool ret = HandleDirectory (dinfo, pw, add_to_playlist);
+			bool ret = HandleDirectory (dinfo, pw);
 			if (ret == false)
 				return false;
 		}
@@ -949,10 +928,6 @@ public class PlaylistWindow : Window
 		fs.HistoryPulldown.Visible = false;
 		fs.FileList.Parent.Visible = false;
 		fs.SetDefaultSize (350, 250);
-
-		CheckButton check = new CheckButton ("_Add to Playlist");
-		check.Visible = true;
-		((Dialog) fs).VBox.PackEnd (check, false, false, 0);
 
 		string start_dir;
 		try {
@@ -975,8 +950,6 @@ public class PlaylistWindow : Window
 			return;
 		}
 
-		bool add_to_playlist = check.Active;
-
 		fs.Visible = false;
 
 		Muine.GConfClient.Set ("/apps/muine/default_import_folder", fs.Filename);
@@ -985,14 +958,11 @@ public class PlaylistWindow : Window
 			
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
-			HandleDirectory (dinfo, pw, add_to_playlist);
+			HandleDirectory (dinfo, pw);
 			pw.Done ();
 		}
 
 		fs.Destroy ();
-
-		if (add_to_playlist)
-			NSongsChanged ();
 	}
 
 	private void HandleOpenPlaylistCommand (object o, EventArgs args)

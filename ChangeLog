@@ -1,3 +1,19 @@
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
+	* data/glade/SkipToWindow.glade:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/StringUtils.cs:
+
+	Nicer seeking window. 
+
+	Based on a patch by Viet Yen Nguyen <nguyen@cs.utwente.nl>
+	
+	* libmuine/db.c: (db_foreach):
+
+	Fix gcc 2.96 bug.
+
 2004-01-21  Miloslav Trmac  <mitr@volny.cz>
 
 	* configure.in: Added cs (Czech) to ALL_LINGUAS.

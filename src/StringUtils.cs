@@ -29,4 +29,19 @@ public class StringUtils
 	{
 		return (uint) strlen (str);
 	}
+
+	public static string SecondsToString (long time)
+	{
+		int h, m, s;
+
+		h = (int) (time / 3600);
+		m = (int) ((time % 3600) / 60);
+		s = (int) ((time % 3600) % 60);
+
+		if (h > 0) {
+			return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
+		} else {
+			return m + ":" + s.ToString ("d2");
+		}
+	}
 }

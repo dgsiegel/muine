@@ -40,6 +40,10 @@ public class Player : GLib.Object
 
 			player_stop (Raw);
 			player_set_file (Raw, song.Filename, song.MimeType);
+
+			if (TickEvent != null)
+				TickEvent (0);
+
 			if (playing)
 				player_play (Raw);
 		}
@@ -72,6 +76,23 @@ public class Player : GLib.Object
 
 			if (StateChanged != null)
 				StateChanged (playing);
+		}
+	}
+
+	public bool Seeking {
+		set {
+			if (value == true) {
+				player_pause (Raw);
+			} else {
+				player_play (Raw);
+
+				if (playing == false) {
+					playing = true;
+
+					if (StateChanged != null)
+						StateChanged (playing);
+				}
+			}
 		}
 	}
 

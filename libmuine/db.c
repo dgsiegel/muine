@@ -109,9 +109,11 @@ db_foreach (gpointer db,
 		return;
 
 	while (TRUE) {
+		char *keystr;
+
 		data = gdbm_fetch ((GDBM_FILE) db, key);
 
-		char *keystr = g_strndup (key.dptr, key.dsize);
+		keystr = g_strndup (key.dptr, key.dsize);
 		func ((const char *) keystr, (gpointer) data.dptr, user_data);
 		g_free (keystr);
 

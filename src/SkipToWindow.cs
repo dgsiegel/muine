@@ -28,80 +28,91 @@ public class SkipToWindow
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
-	SpinButton seconds_spin_button;
+	HScale song_slider;
 	[Glade.Widget]
-	Label time_label;
+	Label song_position;
+
+	Player player;
+
+	bool from_tick;
 	
-	public SkipToWindow (Window parent)
+	public SkipToWindow (Window parent, Player p)
 	{
 		Glade.XML gxml = new Glade.XML (null, "SkipToWindow.glade", "window", null);
 		gxml.Autoconnect (this);
 
 		window.TransientFor = parent;
+
+		player = p;
+		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
 	}
 
 	public void Run ()
 	{
 		window.Visible = true;
-
-		seconds_spin_button.GrabFocus ();
+		
+		song_slider.GrabFocus ();
 	}
 
-	public delegate void SeekEventHandler (int sec);
-	public event SeekEventHandler SeekEvent;
-
-	private void HandleWindowResponse (object o, EventArgs a)
+	public void Hide ()
 	{
 		window.Visible = false;
-
-		ResponseArgs args = (ResponseArgs) a;
-
-		if (args.ResponseId != (int) ResponseType.Ok)
-			return;
-
-		int sec = (int) seconds_spin_button.Value;
-
-		if (SeekEvent != null)
-			SeekEvent (sec);
 	}
 
+	private void HandleTickEvent (long pos) 
+	{
+		/* update label */
+		String position = StringUtils.SecondsToString (pos / 1000);
+		String total_time = StringUtils.SecondsToString (player.Song.Duration / 1000);
+		song_position.Text = position + " / " + total_time;
+
+		/* update slider */
+		from_tick = true;
+		song_slider.Value = pos; 
+		song_slider.SetRange (0, player.Song.Duration);
+	}
+
+	private uint timeout_id = 0;
+
+	private bool TimeoutFunc ()
+	{
+		player.Seeking = false;
+
+		timeout_id = 0;
+
+		return false;
+	}
+
+	private void HandleSongSliderValueChanged (object o, EventArgs a) 
+	{
+		if (!from_tick) {
+			player.Seeking = true;
+
+			player.Position = (long) song_slider.Value;
+
+			if (timeout_id != 0)
+				Gtk.Timeout.Remove (timeout_id);
+			timeout_id = Gtk.Timeout.Add (100, new Function (TimeoutFunc));
+		} else
+			from_tick = false;
+	}
+
+	/* FIXME this isn't working, but it should. */
+	private void HandleSongSliderButtonReleaseEvent (object o, EventArgs a)
+	{
+		player.Seeking = false;
+	}
+	
 	private void HandleWindowDeleteEvent (object o, EventArgs a)
 	{
 		window.Visible = false;
-
+		
 		DeleteEventArgs args = (DeleteEventArgs) a;
-
 		args.RetVal = true;
 	}
 
-	private void HandleSecondsSpinButtonValueChanged (object o, EventArgs args)
-	{
-		int time = (int) seconds_spin_button.Value;
-
-		string label = "0 seconds";
-
-		int hours = time / 3600;
-		int minutes = (time % 3600) / 60;
-		int seconds = (time % 3600) % 60;
-
-		if (hours > 0) {
-			label = hours + " hours " + minutes + " minutes " + seconds + " seconds";
-		} else if (minutes > 0) {
-			label = minutes + " minutes " + seconds + " seconds";
-		} else if (seconds > 0) {
-			label = seconds + " seconds";
-		} 
-		
-		time_label.Text = label;
-	}
-
-	private void HandleSecondsSpinButtonActivated (object o, EventArgs args)
+	private void HandleCloseButtonClicked (object o, EventArgs a)
 	{
 		window.Visible = false;
-		
-		int sec = (int) seconds_spin_button.Value;
-
-		if (SeekEvent != null)
-			SeekEvent (sec);
 	}
 }

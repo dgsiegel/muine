@@ -7,7 +7,7 @@ noinst_LTLIBRARIES = libegg.la
 EGGSOURCES = \
   eggstatusicon.c \
   eggtrayicon.c \
-  eggtraymanager.c
+  eggtraymanager.c 
 
 libegg_la_SOURCES = \
   $(EGGSOURCES) \
@@ -16,7 +16,7 @@ libegg_la_SOURCES = \
 EGGHEADERS = \
   eggstatusicon.h \
   eggtrayicon.h \
-  eggtraymanager.h
+  eggtraymanager.h 
 
 noinst_HEADERS = \
   $(EGGHEADERS) \

@@ -10,10 +10,10 @@
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
+  <property name="default_width">200</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="has_separator">False</property>
-  <signal name="response" handler="HandleWindowResponse" last_modification_time="Sun, 11 Jan 2004 20:08:13 GMT"/>
   <signal name="delete_event" handler="HandleWindowDeleteEvent" last_modification_time="Sun, 11 Jan 2004 20:08:24 GMT"/>
 
   <child internal-child="vbox">
@@ -28,28 +28,16 @@
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 
 	  <child>
-	    <widget class="GtkButton" id="button1">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-6</property>
-	      <accelerator key="Escape" modifiers="0" signal="clicked"/>
-	    </widget>
-	  </child>
-
-	  <child>
 	    <widget class="GtkButton" id="button2">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-ok</property>
+	      <property name="label">gtk-close</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-5</property>
+	      <property name="response_id">-7</property>
+	      <signal name="clicked" handler="HandleCloseButtonClicked" last_modification_time="Wed, 21 Jan 2004 18:53:08 GMT"/>
 	    </widget>
 	  </child>
 	</widget>
@@ -65,106 +53,36 @@
 	<widget class="GtkVBox" id="vbox2">
 	  <property name="border_width">5</property>
 	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
+	  <property name="homogeneous">True</property>
 	  <property name="spacing">6</property>
 
 	  <child>
-	    <widget class="GtkHBox" id="hbox1">
-	      <property name="border_width">4</property>
+	    <widget class="GtkHScale" id="song_slider">
 	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">12</property>
-
-	      <child>
-		<widget class="GtkLabel" id="label1">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">_Skip to:</property>
-		  <property name="use_underline">True</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">False</property>
-		  <property name="fill">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkHBox" id="hbox2">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">6</property>
-
-		  <child>
-		    <widget class="GtkSpinButton" id="seconds_spin_button">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="climb_rate">1</property>
-		      <property name="digits">0</property>
-		      <property name="numeric">False</property>
-		      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-		      <property name="snap_to_ticks">False</property>
-		      <property name="wrap">False</property>
-		      <property name="adjustment">0 0 36000 1 10 10</property>
-		      <signal name="value_changed" handler="HandleSecondsSpinButtonValueChanged" last_modification_time="Sun, 11 Jan 2004 20:07:54 GMT"/>
-		      <signal name="activate" handler="HandleSecondsSpinButtonActivated" last_modification_time="Sat, 17 Jan 2004 20:55:28 GMT"/>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="label2">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">seconds</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">True</property>
-		  <property name="fill">True</property>
-		</packing>
-	      </child>
+	      <property name="can_focus">True</property>
+	      <property name="draw_value">False</property>
+	      <property name="value_pos">GTK_POS_TOP</property>
+	      <property name="digits">0</property>
+	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
+	      <property name="inverted">False</property>
+	      <property name="adjustment">0 0 0 0 0 0</property>
+	      <signal name="value_changed" handler="HandleSongSliderValueChanged" last_modification_time="Wed, 21 Jan 2004 18:53:44 GMT"/>
+	      <signal name="button_release_event" handler="HandleSongSliderButtonReleaseEvent" last_modification_time="Wed, 21 Jan 2004 20:58:14 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
 	      <property name="expand">False</property>
-	      <property name="fill">True</property>
+	      <property name="fill">False</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkLabel" id="time_label">
+	    <widget class="GtkLabel" id="song_position">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">0 seconds</property>
+	      <property name="label" translatable="yes"></property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="justify">GTK_JUSTIFY_RIGHT</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
 	      <property name="xalign">0.5</property>
