@@ -1,6 +1,12 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Muine.cs:
+
+	Small cleanup.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Muine.cs:
 	* src/PlaylistWindow.cs:
 
 	Return 1 on error.

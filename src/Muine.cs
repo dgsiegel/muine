@@ -274,7 +274,13 @@ public class Muine : Gnome.Program
 			playlist.RestorePlaylist ();
 
 		/* Show UI */
-		Run ();
+		playlist.Run ();
+
+		icon.Run ();
+
+		/* put on the screen immediately */
+		while (MainContext.Pending ())
+			Gtk.Main.Iteration ();
 
 		/* Now we load the album covers, and after that start the changes thread */
 		cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
@@ -290,17 +296,6 @@ public class Muine : Gnome.Program
 
 		client.Die += new EventHandler (OnDieEvent);
 		client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
-	}
-
-	private new void Run ()
-	{
-		playlist.Run ();
-
-		icon.Run ();
-
-		/* put on the screen immediately */
-		while (MainContext.Pending ())
-			Gtk.Main.Iteration ();
 	}
 
 	private void ProcessCommandLine (string [] args, MuineDBusLib.Player dbo)
