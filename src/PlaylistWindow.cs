@@ -51,6 +51,9 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private ImageMenuItem remove_song_menu_item;
 	[Glade.Widget]
+	private CheckMenuItem repeat_menu_item;
+	private bool setting_repeat_menu_item;
+	[Glade.Widget]
 	private Button previous_button;
 	[Glade.Widget]
 	private Button play_pause_button;
@@ -280,6 +283,14 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item_image = new Image ("muine-forward", IconSize.Menu);
 		skip_forward_menu_item.Image = skip_forward_menu_item_image;
 		skip_forward_menu_item_image.Visible = true;
+
+		setting_repeat_menu_item = true;
+		try {
+			repeat_menu_item.Active = (bool) Muine.GConfClient.Get ("/apps/muine/repeat");
+		} catch {
+			repeat_menu_item.Active = false;
+		}
+		setting_repeat_menu_item = false;
 	}
 
 	private Gdk.Pixbuf playing_pixbuf;
@@ -387,6 +398,17 @@ public class PlaylistWindow : Window
 		*/
 	}
 
+	private void EnsurePlaying ()
+	{
+		if (playlist.Playing == IntPtr.Zero) {
+			playlist.First ();
+			playlist.Select (playlist.Playing);
+			playlist.ScrollTo (playlist.Playing);
+
+			SongChanged (true);
+		} 
+	}
+
 	private IntPtr AddSong (Song song)
 	{
 		return AddSong (song.Handle);
@@ -402,14 +424,8 @@ public class PlaylistWindow : Window
 		} 
 		
 		playlist.Append (new_p);
-		
-		if (playlist.Playing == IntPtr.Zero) {
-			playlist.First ();
-			playlist.Select (playlist.Playing);
-			playlist.ScrollTo (playlist.Playing);
 
-			SongChanged (true);
-		} else if (had_last_eos == true) {
+		if (had_last_eos == true) {
 			playlist.Playing = new_p;
 			playlist.Select (new_p);
 			playlist.ScrollTo (new_p);
@@ -418,7 +434,7 @@ public class PlaylistWindow : Window
 		}
 
 		had_last_eos = false;
-
+		
 		return new_p;
 	}
 
@@ -453,19 +469,22 @@ public class PlaylistWindow : Window
 
 		time_label.Text = pos + " / " + total;
 
-		long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
+		if (remaining_songs_time >= 0) {
+			long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
 
-		if (r_seconds > 6000) { /* 100 minutes */
-			int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-			playlist_label.Text = "Playlist (" + hours + " hours remaining)";
-		} else if (r_seconds > 60) {
-			int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-			playlist_label.Text = "Playlist (" + minutes + " minutes remaining)";
-		} else if (r_seconds > 0) {
-			playlist_label.Text = "Playlist (Less than one minute remaining)";
-		} else {
-			playlist_label.Text = "Playlist";
-		}
+			if (r_seconds > 6000) { /* 100 minutes */
+				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
+				playlist_label.Text = "Playlist (" + hours + " hours remaining)";
+			} else if (r_seconds > 60) {
+				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
+				playlist_label.Text = "Playlist (" + minutes + " minutes remaining)";
+			} else if (r_seconds > 0) {
+				playlist_label.Text = "Playlist (Less than one minute remaining)";
+			} else {
+				playlist_label.Text = "Playlist";
+			}
+		} else
+			playlist_label.Text = "Playlist (Repeating)";
 	}
 
 	private void NSongsChanged ()
@@ -473,27 +492,32 @@ public class PlaylistWindow : Window
 		bool start_counting = false;
 		remaining_songs_time = 0;
 
-		foreach (int i in playlist.Contents) {
-			IntPtr current = new IntPtr (i);
+		if (repeat_menu_item.Active && playlist.HasFirst)
+			remaining_songs_time = -1; /* we keep playing forever */
+		else {
+			foreach (int i in playlist.Contents) {
+				IntPtr current = new IntPtr (i);
 
-			if (start_counting == true) {
-				Song song = Song.FromHandle (current);
-				remaining_songs_time += song.Duration;
+				if (start_counting == true) {
+					Song song = Song.FromHandle (current);
+					remaining_songs_time += song.Duration;
+				}
+				
+				if (current == playlist.Playing)
+					start_counting = true;
 			}
-			
-			if (current == playlist.Playing)
-				start_counting = true;
 		}
 
 		bool has_first = playlist.HasFirst;
 
 		previous_button.Sensitive = has_first;
 		play_pause_button.Sensitive = has_first;
-		next_button.Sensitive = playlist.HasNext;
+		next_button.Sensitive = playlist.HasNext ||
+		                        (repeat_menu_item.Active && has_first);
 
-		play_pause_menu_item.Sensitive = has_first;
-		previous_menu_item.Sensitive = has_first;
-		next_menu_item.Sensitive = playlist.HasNext;
+		play_pause_menu_item.Sensitive = previous_button.Sensitive;
+		previous_menu_item.Sensitive = play_pause_button.Sensitive;
+		next_menu_item.Sensitive = next_button.Sensitive;
 		
 		skip_to_menu_item.Sensitive = has_first;
 		skip_backwards_menu_item.Sensitive = has_first;
@@ -501,7 +525,7 @@ public class PlaylistWindow : Window
 
 		UpdateTimeLabels (player.Position);
 
-		SavePlaylist (playlist_filename, true);
+		SavePlaylist (playlist_filename, !repeat_menu_item.Active, true);
 	}
 
 	private void SongChanged (bool restart)
@@ -595,6 +619,8 @@ public class PlaylistWindow : Window
 		playlist.Clear ();
 
 		player.Playing = false;
+
+		had_last_eos = false;
 	}
 
 	private void SeekTo (long seconds)
@@ -602,14 +628,27 @@ public class PlaylistWindow : Window
 		Song song = Song.FromHandle (playlist.Playing);
 
 		if (seconds >= song.Duration) {
-			if (playlist.HasNext)
+			if (playlist.HasNext ||
+			    (repeat_menu_item.Active && playlist.HasFirst))
 				HandleNextCommand (null, null);
 			else {
-				player.Position = song.Duration;
+				if (repeat_menu_item.Active) {
+					playlist.First ();
+					playlist.Select (playlist.Playing);
+					playlist.ScrollTo (playlist.Playing);
 
-				had_last_eos = true;
+					SongChanged (true);
 
-				player.Playing = false;
+					NSongsChanged ();
+
+					player.Playing = true;
+				} else {
+					player.Position = song.Duration;
+
+					had_last_eos = true;
+
+					player.Playing = false;
+				}
 			}
 		} else {
 			if (seconds < 0)
@@ -619,6 +658,9 @@ public class PlaylistWindow : Window
 
 			player.Playing = true;
 		}
+
+		playlist.Select (playlist.Playing);
+		playlist.ScrollTo (playlist.Playing);
 	}
 
 	public void OpenPlaylist (string fn)
@@ -636,9 +678,18 @@ public class PlaylistWindow : Window
 
 		string line = null;
 
+		bool playing_song = false;
+
 		while ((line = reader.ReadLine ()) != null) {
-			if (line.Length == 0 || line [0] == '#')
-				continue; /* we don't handle comments */
+			if (line.Length == 0)
+				continue;
+
+			if (line[0] == '#') {
+				if (line == "# PLAYING")
+					playing_song = true;
+
+				continue;
+			}
 
 			/* DOS-to-UNIX */
 			line.Replace ('\\', '/');
@@ -665,16 +716,29 @@ public class PlaylistWindow : Window
 				}
 			}
 
-			if (song != null)
+			if (song != null) {
 				AddSong (song);
+
+				if (playing_song) {
+					playlist.Playing = song.Handle;
+					playlist.Select (song.Handle);
+					playlist.ScrollTo (song.Handle);
+
+					SongChanged (true);
+
+					playing_song = false;
+				}
+			}
 		}
 
 		reader.Close ();
 
+		EnsurePlaying ();
+
 		NSongsChanged ();
 	}
 
-	private void SavePlaylist (string fn, bool exclude_played)
+	private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
 	{
 		StreamWriter writer;
 		
@@ -699,6 +763,11 @@ public class PlaylistWindow : Window
 
 				if (!had_playing_song)
 					continue;
+			}
+			
+			if (store_playing) {
+				if (ptr == playlist.Playing)
+					writer.WriteLine ("# PLAYING");
 			}
 			
 			Song song = Song.FromHandle (ptr);
@@ -768,7 +837,8 @@ public class PlaylistWindow : Window
 		case 0x1008FF17: /* XF86XK_AudioNext */
 		case 0x06e: /* n */
 		case 0x04e: /* N */
-			if (playlist.HasNext)
+			if (playlist.HasNext ||
+			    (repeat_menu_item.Active && playlist.HasFirst))
 				HandleNextCommand (null, null);
 			break;
 		case 0x073: /* s */
@@ -823,6 +893,8 @@ public class PlaylistWindow : Window
 		foreach (int i in songs)
 			AddSong (new IntPtr (i));
 
+		EnsurePlaying ();
+
 		NSongsChanged ();
 	}
 
@@ -847,6 +919,8 @@ public class PlaylistWindow : Window
 			}
 		}
 
+		EnsurePlaying ();
+
 		NSongsChanged ();
 	}
 
@@ -859,6 +933,8 @@ public class PlaylistWindow : Window
 				AddSong (s);
 			}
 		}
+
+		EnsurePlaying ();
 
 		NSongsChanged ();
 	}
@@ -886,6 +962,8 @@ public class PlaylistWindow : Window
 			}
 		}
 
+		EnsurePlaying ();
+
 		NSongsChanged ();
 	}
 
@@ -909,9 +987,15 @@ public class PlaylistWindow : Window
 
 			SongChanged (true);
 		} else {
-			had_last_eos = true;
+			if (repeat_menu_item.Active) {
+				playlist.First ();
 
-			player.Playing = false;
+				SongChanged (true);
+			} else {
+				had_last_eos = true;
+
+				player.Playing = false;
+			}
 		}
 
 		NSongsChanged ();
@@ -922,16 +1006,27 @@ public class PlaylistWindow : Window
 		had_last_eos = false;
 
 		/* restart song if not in the first 3 seconds */
-		if ((player.Position < 3000) || !playlist.HasPrevious) {
+		if (player.Position < 3000 &&
+		    playlist.HasPrevious) {
 			playlist.Previous ();
-			playlist.Select (playlist.Playing);
-			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
 
 			NSongsChanged ();
-		} else
+		} else if (player.Position < 3000 &&
+		           !playlist.HasPrevious &&
+			   repeat_menu_item.Active) {
+			playlist.Last ();
+
+			SongChanged (true);
+
+			NSongsChanged ();
+		} else {
 			player.Position = 0;
+		}
+
+		playlist.Select (playlist.Playing);
+		playlist.ScrollTo (playlist.Playing);
 
 		player.Playing = true;
 	}
@@ -955,7 +1050,11 @@ public class PlaylistWindow : Window
 
 	private void HandleNextCommand (object o, EventArgs args)
 	{
-		playlist.Next ();
+		if (playlist.HasNext)
+			playlist.Next ();
+		else
+			playlist.First ();
+
 		playlist.Select (playlist.Playing);
 		playlist.ScrollTo (playlist.Playing);
 
@@ -968,6 +1067,9 @@ public class PlaylistWindow : Window
 
 	private void HandleSkipToCommand (object o, EventArgs args)
 	{
+		playlist.Select (playlist.Playing);
+		playlist.ScrollTo (playlist.Playing);
+
 		skip_to_window.Run ();
 	}
 
@@ -1099,9 +1201,9 @@ public class PlaylistWindow : Window
 			                                 "If you choose yes, the contents will be lost.\n\n" +
 							 "Do you want to continue?", this);
 			if (d.GetAnswer () == true)
-				SavePlaylist (fn, false);
+				SavePlaylist (fn, false, false);
 		} else
-			SavePlaylist (fn, false);
+			SavePlaylist (fn, false, false);
 	}
 
 	private void HandleImportFolderEvent (DirectoryInfo dinfo)
@@ -1118,6 +1220,8 @@ public class PlaylistWindow : Window
 			IntPtr sel = new IntPtr (i);
 
 			if (sel == playlist.Playing) {
+				had_last_eos = false;
+
 				if (playlist.HasNext)
 					playlist.Next ();
 				else if (playlist.HasPrevious)
@@ -1163,6 +1267,16 @@ public class PlaylistWindow : Window
 	{
 		ClearPlaylist ();
 		SongChanged (true);
+		NSongsChanged ();
+	}
+
+	private void HandleRepeatCommand (object o, EventArgs args)
+	{
+		if (setting_repeat_menu_item)
+			return;
+
+		Muine.GConfClient.Set ("/apps/muine/repeat", repeat_menu_item.Active);
+
 		NSongsChanged ();
 	}
 

@@ -526,6 +526,12 @@ pointer_list_view_first (PointerListView *view)
 }
 
 gpointer
+pointer_list_view_last (PointerListView *view)
+{
+	return pointer_list_model_last (view->model);
+}
+
+gpointer
 pointer_list_view_prev (PointerListView *view)
 {
 	return pointer_list_model_prev (view->model);

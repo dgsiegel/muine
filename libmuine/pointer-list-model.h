@@ -84,6 +84,7 @@ gboolean      pointer_list_model_set_current    (PointerListModel *model,
 gpointer      pointer_list_model_next           (PointerListModel *model);
 gpointer      pointer_list_model_prev           (PointerListModel *model);
 gpointer      pointer_list_model_first          (PointerListModel *model);
+gpointer      pointer_list_model_last           (PointerListModel *model);
 gboolean      pointer_list_model_has_next       (PointerListModel *model);
 gboolean      pointer_list_model_has_prev       (PointerListModel *model);
 gboolean      pointer_list_model_has_first      (PointerListModel *model);

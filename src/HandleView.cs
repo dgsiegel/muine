@@ -299,6 +299,14 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern IntPtr pointer_list_view_last (IntPtr view);
+
+	public IntPtr Last ()
+	{
+		return pointer_list_view_last (Raw);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern IntPtr pointer_list_view_prev (IntPtr view);
 
 	public IntPtr Previous ()

@@ -888,6 +888,29 @@ pointer_list_model_first (PointerListModel *model)
   return g_sequence_ptr_get_data (model->current_pointer);
 }
 
+gpointer
+pointer_list_model_last (PointerListModel *model)
+{
+  GSequencePtr ptr;
+  
+  g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
+
+  if (g_sequence_get_length (model->pointers) == 0)
+    return NULL;
+  
+  ptr = g_sequence_get_end_ptr (model->pointers);
+  if (ptr)
+    ptr = g_sequence_ptr_prev (ptr);
+  if (ptr)
+    {
+      row_changed (model, model->current_pointer);
+      model->current_pointer = ptr;
+      row_changed (model, model->current_pointer);
+    }
+
+  return g_sequence_ptr_get_data (model->current_pointer);
+}
+
 gboolean
 pointer_list_model_has_prev (PointerListModel *model)
 {

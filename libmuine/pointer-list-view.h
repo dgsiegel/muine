@@ -89,6 +89,7 @@ gboolean         pointer_list_view_has_first     (PointerListView *view);
 gboolean         pointer_list_view_has_prev      (PointerListView *view);
 gboolean         pointer_list_view_has_next      (PointerListView *view);
 gpointer         pointer_list_view_first         (PointerListView *view);
+gpointer	 pointer_list_view_last		 (PointerListView *view);
 gpointer         pointer_list_view_prev          (PointerListView *view);
 gpointer         pointer_list_view_next          (PointerListView *view);
 int              pointer_list_view_get_index_of  (PointerListView *view,
