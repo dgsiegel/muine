@@ -60,6 +60,10 @@ o Monitor imported folders using FileWatcher
   Depends on mono 0.30, which will have the FileWatcher class.
 o Tag editing
   Depends on this to work nicely in GStreamer
+o ButtonReleaseEvent in SkipToWindow isn't working
+  Depends on a bug in Gtk#
+o KeyPressEvent in PlaylistWindow isn't working
+  Depends on the same bug in Gtk#
 
 Current problems:
 =================
