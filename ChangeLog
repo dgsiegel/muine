@@ -1,3 +1,9 @@
+2004-04-19  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/ColoredCellRendererPixbuf.cs:
+
+	Simplify.
+
 2004-04-18  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/glade/PlaylistWindow.glade:

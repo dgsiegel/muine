@@ -18,7 +18,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Runtime.InteropServices;
 
 public class ColoredCellRendererPixbuf : Gtk.CellRenderer 
@@ -27,9 +26,6 @@ public class ColoredCellRendererPixbuf : Gtk.CellRenderer
 	{
 		Dispose ();
 	}
-
-	protected ColoredCellRendererPixbuf (GLib.GType gtype) : base (gtype) {}
-	public ColoredCellRendererPixbuf (IntPtr raw) : base (raw) {}
 
 	[DllImport ("libmuine")]
 	static extern IntPtr rb_cell_renderer_pixbuf_new ();
@@ -42,17 +38,6 @@ public class ColoredCellRendererPixbuf : Gtk.CellRenderer
 	public Gdk.Pixbuf Pixbuf {
 		set {
 			SetProperty ("pixbuf", new GLib.Value (value));
-		}
-	}
-
-	[DllImport ("libmuine")]
-	static extern uint rb_cell_renderer_pixbuf_get_type ();
-
-	public static new uint GType { 
-		get {
-			uint raw_ret = rb_cell_renderer_pixbuf_get_type ();
-			uint ret = raw_ret;
-			return ret;
 		}
 	}
 }
