@@ -203,7 +203,7 @@ namespace Muine
 			Album a = Album.FromHandle (a_ptr);
 			Album b = Album.FromHandle (b_ptr);
 
-			return String.CompareOrdinal (a.SortKey, b.SortKey);
+			return a.CompareTo (b);
 		}
 
 		// Delegate Functions :: PixbufCellDataFunc

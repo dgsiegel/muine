@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Globalization;
 
 namespace Muine
 {
@@ -26,7 +27,7 @@ namespace Muine
 		// Variables
 		protected IntPtr handle;
 
-		protected string sort_key   = null;
+		protected SortKey sort_key  = null;
 		protected string search_key = null;
 	
 		// Properties
@@ -48,7 +49,7 @@ namespace Muine
 		}
 
 		// Properties :: SortKey (get;)
-		public string SortKey {
+		public SortKey SortKey {
 			get {
 				if (sort_key == null)
 					sort_key = GenerateSortKey ();
@@ -69,7 +70,7 @@ namespace Muine
 
 		// Methods
 		// Methods :: Abstract
-		protected abstract string GenerateSortKey ();
+		protected abstract SortKey GenerateSortKey ();
 		protected abstract string GenerateSearchKey ();
 
 		// Methods :: Public		
@@ -79,12 +80,9 @@ namespace Muine
 			if (o == null)
 				return 1; // always greater than nothing
 			
-			if (o.GetType () != this.GetType ())
-				throw new ArgumentException (); // tried to compare apples and oranges
-
 			Item other = (Item) o;
 					
-			return String.CompareOrdinal (this.SortKey, other.SortKey);
+			return SortKey.Compare (this.SortKey, other.SortKey);
 		}
 		
 		// Methods :: Public :: FitsCriteria
@@ -104,6 +102,5 @@ namespace Muine
 
 			return (n_matches == search_bits.Length);
 		}
-
 	}
 }

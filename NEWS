@@ -7,7 +7,7 @@
    						   [Jorn Baayen]
 - AAC support using faad2 [Peter Johanson]
 - Search improvements; searching for "rem" will now also yield "R.E.M.",
-  we now depend on GUnicode# [Jorn Baayen]
+                                                   [Jorn Baayen]
 - Support DnD-inserting a playlist into the playlist [Jorn Baayen]
 - Depend on Gtk+ 2.6 for ellipsizing label and cell renderer [Jorn Baayen]
 - A new TickEvent on the IPlayer interface [Jorn Baayen]

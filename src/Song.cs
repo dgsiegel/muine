@@ -20,8 +20,7 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Net;
-using System.Threading;
+using System.Globalization;
 
 using Gdk;
 
@@ -401,14 +400,14 @@ namespace Muine
 
 		// Methods :: Protected
 		// Methods :: Protected :: GenerateSortKey
-		protected override string GenerateSortKey ()
+		protected override SortKey GenerateSortKey ()
 		{
-			string a = String.Join (" ", artists).ToLower ();
-			string p = String.Join (" ", performers).ToLower ();
+			string a = String.Join (" ", artists);
+			string p = String.Join (" ", performers);
 
-			string key = String.Format ("{0} {1} {2}", title.ToLower (), a, p);
+			string key = String.Format ("{0} {1} {2}", title, a, p);
 				
-			return GUnicode.Unistring.GetCollateKey (key);
+			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, CompareOptions.IgnoreCase);
 		}
 
 		// Methods :: Protected :: GenerateSearchKey

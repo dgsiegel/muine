@@ -108,7 +108,9 @@ namespace Muine
 			bool different = false;
 			string stripped = "";
 			foreach (char c in lower) {
-				if (Char.IsLetterOrDigit (c) || Char.IsWhiteSpace (c))
+				if (Char.IsLetterOrDigit (c) ||
+				    Char.IsWhiteSpace    (c) ||
+				    Char.IsSurrogate     (c))
 					stripped += c;
 				else
 					different = true;

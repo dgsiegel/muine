@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections;
+using System.Globalization;
 
 using Gdk;
 
@@ -269,7 +270,7 @@ namespace Muine
 
 		// Methods :: Protected
 		// Methods :: Protected :: GenerateSortKey
-		protected override string GenerateSortKey ()
+		protected override SortKey GenerateSortKey ()
 		{
 			string [] prefixes = string_prefixes.Split (' ');
 
@@ -306,12 +307,12 @@ namespace Muine
 			// three or less artists, sort by artist
 			string key;
 			if (artists.Count > 3)
-				key = String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p);
+				key = String.Format ("{0} {1} {2} {3}", name, year, a, p);
 			else
-				key = String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
+				key = String.Format ("{0} {1} {2} {3}", a, p, year, name);
 
-			return GUnicode.Unistring.GetCollateKey (key);
-		}				
+			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, CompareOptions.IgnoreCase);
+		}
 
 		// Methods :: Protected :: GenerateSearchKey
 		protected override string GenerateSearchKey ()
