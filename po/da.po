@@ -427,15 +427,15 @@ msgstr ""
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sætliste (Gentager {0} times musik)"
+msgstr[1] "Sætliste (Gentager {0} timers musik)"
 
 #: src/PlaylistWindow.cs:501
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] "Sætliste (gentager {0} minut)"
-msgstr[1] "Sætliste (gentager {0} minutter)"
+msgstr[0] "Sætliste (Gentager {0} minut)"
+msgstr[1] "Sætliste (Gentager {0} minutter)"
 
 #: src/PlaylistWindow.cs:503
 msgid "Playlist (Repeating)"
