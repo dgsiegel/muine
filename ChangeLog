@@ -1,3 +1,12 @@
+2004-01-20  Jorn Baayen  <jorn@nl.linux.org>
+
+	* NEWS:
+	* TODO:
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.1.1.
+
 2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/AddAlbumWindow.cs:

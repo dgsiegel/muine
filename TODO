@@ -2,24 +2,14 @@
 - fix drop at end
 - impl rest of ui
 - pango stuff directly in C# with Gtk# CVS
+- adding smart queries to the playlist?
 
 - listen to multimedia keys
 
-- playlist manager/import:
-   - Playlists >
-      New...
-      Rename...
-      Delete
-      ---
-      Import from file...
-      Export to file...
-      ---
-      Forget All
-      Playlist 1
-      Playlist 2
-      Playlist 3
 
-import/list/direct edit
+Open Playlist...
+Save Playlist...
+Recent Playlsits >
 
 --------------
 - panel crash

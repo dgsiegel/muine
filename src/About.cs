@@ -21,7 +21,7 @@ using Gdk;
 
 public class About
 {
-	private static string version = "0.1";
+	private static string version = "0.1.1";
 	public static string Version {
 		get {
 			return version;
