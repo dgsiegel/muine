@@ -76,11 +76,11 @@ namespace MuinePluginLib
 			set;
 		}
 	
-		bool WindowFocused {
+		Gtk.UIManager UIManager {
 			get;
 		}
 
-		Gtk.UIManager UIManager {
+		Gtk.Window Window {
 			get;
 		}
 

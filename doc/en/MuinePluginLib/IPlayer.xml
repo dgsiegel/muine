@@ -238,19 +238,6 @@
         <remarks>To be added</remarks>
       </Docs>
     </Member>
-    <Member MemberName="WindowFocused">
-      <MemberSignature Language="C#" Value="public virtual bool WindowFocused { get; };" />
-      <MemberType>Property</MemberType>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>To be added</summary>
-        <returns>a <see cref="T:System.Boolean" /></returns>
-        <remarks>To be added</remarks>
-      </Docs>
-    </Member>
     <Member MemberName="UIManager">
       <MemberSignature Language="C#" Value="public virtual Gtk.UIManager UIManager { get; };" />
       <MemberType>Property</MemberType>
@@ -280,6 +267,19 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
 	    </code>
 	  </example>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Window">
+      <MemberSignature Language="C#" Value="public virtual Gtk.Window Window { get; };" />
+      <MemberType>Property</MemberType>
+      <ReturnValue>
+        <ReturnType>Gtk.Window</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Returns Muine's playlist window</summary>
+        <returns>a <see cref="T:Gtk.Window" /></returns>
+        <remarks>Use this to properly parent your plug-in's windows.</remarks>
       </Docs>
     </Member>
     <Member MemberName="SongChangedEvent">

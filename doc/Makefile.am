@@ -5,10 +5,15 @@ install-data-local:
 	mkdir -p $(DESTDIR)/`monodoc --get-sourcesdir`
 	install -m 644 $(srcdir)/muine-docs.source \
 		$(DESTDIR)/`monodoc --get-sourcesdir`
-	install -m 644 $(srcdir)/muine-docs.tree \
+	install -m 644 muine-docs.tree \
 		$(DESTDIR)/`monodoc --get-sourcesdir`
-	install -m 644 $(srcdir)/muine-docs.zip \
+	install -m 644 muine-docs.zip \
 		$(DESTDIR)/`monodoc --get-sourcesdir`
+
+uninstall-local:
+	rm -f $(DESTDIR)/`monodoc --get-sourcesdir`/muine-docs.source
+	rm -f $(DESTDIR)/`monodoc --get-sourcesdir`/muine-docs.tree
+	rm -f $(DESTDIR)/`monodoc --get-sourcesdir`/muine-docs.zip
 else
 TARGETS = 
 endif
@@ -28,9 +33,6 @@ update:
 CLEANFILES = muine-docs.zip muine-docs.tree
 
 EXTRA_DIST = muine-docs.source
-if ENABLE_MONODOC
-EXTRA_DIST += muine-docs.tree muine-docs.zip
-endif
 
 dist-hook:
 	mkdir -p $(distdir)/en

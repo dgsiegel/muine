@@ -1,3 +1,21 @@
+2005-01-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/Makefile.am:
+	* doc/Makefile.am:
+
+	Build cleanups.
+	
+	* DBusLib/Player.cs:
+	* PluginLib/IPlayer.cs:
+	* doc/en/MuineDBusLib/Player.xml:
+	* doc/en/MuinePluginLib/IPlayer.xml:
+	* plugins/DashboardPlugin.cs:
+	* src/PlaylistWindow.cs:
+
+	Remove IPlayer.WindowFocused, add IPlayer.Window, so that plugins
+	can parent their dialogs properly, and one can still find out the focus
+	state using IPlayer.Window.HasToplevelFocus.
+
 2005-01-05  Peter Johanson  <latexer@gentoo.org>
 
 	* doc/Makefile.am:

@@ -23,11 +23,8 @@ pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 EXTRA_DIST =			\
 	$(desktop_in_files)	\
-	$(desktop_DATA)		\
 	$(schema_in_files)	\
-	$(schema_DATA)		\
-	$(pkgconfig_in_files)	\
-	$(pkgconfig_DATA)
+	$(pkgconfig_in_files)
 
 DISTCLEANFILES = 		\
 	$(desktop_DATA) 	\
@@ -36,5 +33,5 @@ DISTCLEANFILES = 		\
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(schema_DATA)
 endif

@@ -43,7 +43,7 @@ public class DashboardPlugin : Plugin
 		if (song == null)
 			return;
 
-		bool has_focus = player.WindowFocused;
+		bool has_focus = player.Window.HasToplevelFocus;
 
 		SendClue (song.Artists, song.Album, song.Title, has_focus);
 	}

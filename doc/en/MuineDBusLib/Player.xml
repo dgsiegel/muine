@@ -252,19 +252,6 @@ public class Example
         <remarks>To be added</remarks>
       </Docs>
     </Member>
-    <Member MemberName="GetHasToplevelFocus">
-      <MemberSignature Language="C#" Value="public virtual bool GetHasToplevelFocus ();" />
-      <MemberType>Method</MemberType>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>To be added</summary>
-        <returns>a <see cref="T:System.Boolean" /></returns>
-        <remarks>To be added</remarks>
-      </Docs>
-    </Member>
     <Member MemberName="PlayAlbum">
       <MemberSignature Language="C#" Value="public virtual void PlayAlbum ();" />
       <MemberType>Method</MemberType>

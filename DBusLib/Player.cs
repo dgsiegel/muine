@@ -136,12 +136,6 @@ namespace MuineDBusLib
 		}
 
 		[Method]
-		public virtual bool GetHasToplevelFocus ()
-		{
-			return player.WindowFocused; 
-		}
-
-		[Method]
 		public virtual void PlayAlbum ()
 		{
 			player.PlayAlbum ();

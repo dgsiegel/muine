@@ -195,6 +195,10 @@ public class PlaylistWindow : Window, IPlayer
 		get { return ui_manager; }
 	}
 
+	public Window Window {
+		get { return this; }
+	}
+
 	public event Plugin.SongChangedEventHandler SongChangedEvent;
 
 	public event Plugin.StateChangedEventHandler StateChangedEvent;
@@ -364,10 +368,6 @@ public class PlaylistWindow : Window, IPlayer
 		}
 
 		get { return window_visible; }
-	}
-
-	public bool WindowFocused  {
-		get { return HasToplevelFocus; }
 	}
 
 	public void UpdateWindowVisibilityUI ()
@@ -1532,7 +1532,7 @@ public class PlaylistWindow : Window, IPlayer
 			IntPtr sel = new IntPtr (i);
 
 			if (sel == playlist.Playing) {
-				HandlePlayingSongRemoved ();
+				OnPlayingSongRemoved ();
 				
 				song_changed = true;
 			}
@@ -1691,7 +1691,7 @@ public class PlaylistWindow : Window, IPlayer
 			PlaylistChanged ();
 	}
 
-	private void HandlePlayingSongRemoved ()
+	private void OnPlayingSongRemoved ()
 	{
 		if (playlist.HasNext)
 			playlist.Next ();
@@ -1716,7 +1716,7 @@ public class PlaylistWindow : Window, IPlayer
 			n_songs_changed = true;
 			
 			if (h == playlist.Playing)
-				HandlePlayingSongRemoved ();
+				OnPlayingSongRemoved ();
 
 			if ((playlist.SelectedPointers.Count == 1) &&
                             ((int) playlist.SelectedPointers [0] == (int) h)) {
