@@ -108,19 +108,31 @@ namespace Muine
 			private Database db;
 
 			private struct LoadedCover {
+				private string key;
+				public string Key {
+					get { return key; }
+				}
+				
 				private Pixbuf pixbuf;
 				public Pixbuf Pixbuf {
 					get { return pixbuf; }
 				} 
 
-				private Item item;
-				public Item Item {
-					get { return item; }
+				private bool being_checked;
+				public bool BeingChecked {
+					get { return being_checked; }
 				}
 
-				public LoadedCover (Item item, Pixbuf pixbuf) {
-					this.item = item;
-					this.pixbuf = pixbuf;
+				public LoadedCover (string key, IntPtr pixbuf_ptr) {
+					this.key = key;
+					pixbuf = new Pixbuf (pixbuf_ptr);
+					being_checked = false;
+				}
+
+				public LoadedCover (string key) {
+					this.key = key;
+					pixbuf = null;
+					being_checked = true;
 				}
 			}
 
@@ -128,7 +140,7 @@ namespace Muine
 			{
 				if (queue.Count == 0) {
 					if (thread_done) {
-						Muine.CoverDB.EmitDoneLoading ();
+						Global.CoverDB.EmitDoneLoading ();
 						
 						return false;
 					} else
@@ -137,20 +149,35 @@ namespace Muine
 
 				LoadedCover lc = (LoadedCover) queue.Dequeue ();
 			
-				if (lc.Pixbuf == null) {
-					// being checked
-					Album a = (Album) lc.Item;
+				if (lc.BeingChecked) {
+					Album ab = Global.DB.GetAlbum (lc.Key);
 
-					a.SetCoverAmazon ();
-				} else
-					lc.Item.CoverImage = lc.Pixbuf;
+					if (ab != null)
+						ab.SetCoverAmazon ();
+							
+					return true;
+				}
+
+				lock (Global.CoverDB)
+					if (!Global.CoverDB.Covers.ContainsKey (lc.Key))
+						Global.CoverDB.Covers.Add (lc.Key, lc.Pixbuf);
+
+				Album a = Global.DB.GetAlbum (lc.Key);
+				if (a != null)
+					a.CoverImage = lc.Pixbuf;
+				else {
+					Song s = Global.DB.GetSong (lc.Key);
+
+					if (s != null)
+						s.CoverImage = lc.Pixbuf;
+				}
 
 				return true;
 			}
 
 			protected override void ThreadFunc ()
 			{
-				lock (Muine.CoverDB) {
+				lock (Global.CoverDB) {
 					db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 					db.Load ();
 				}
@@ -165,29 +192,17 @@ namespace Muine
 				bool being_checked;
 				p = Database.UnpackBool (p, out being_checked);
 		
-				Pixbuf pixbuf = null;
-				if (!being_checked) {
+				LoadedCover lc;
+				if (being_checked) {
+					lc = new LoadedCover (key);
+				} else {
 					IntPtr pix_handle;
 					p = Database.UnpackPixbuf (p, out pix_handle);
-					pixbuf = new Pixbuf (pix_handle);
-				}
 
-				if (Muine.CoverDB.Covers.Contains (key)) {
-					if (pixbuf == null)
-						return;
-					else
-						Muine.CoverDB.Covers.Remove (key);
+					lc = new LoadedCover (key, pix_handle);
 				}
-				
-				Muine.CoverDB.Covers.Add (key, pixbuf);
-
-				Item item = Muine.DB.GetAlbum (key);
-				if (item == null)
-					item = Muine.DB.GetSong (key);
-				if (item != null) {
-					LoadedCover lc = new LoadedCover (item, pixbuf);
-					queue.Enqueue (lc);
-				}
+	
+				queue.Enqueue (lc);
 			}
 
 			public LoadThread (Database db)

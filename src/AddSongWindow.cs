@@ -58,14 +58,14 @@ namespace Muine
 			view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
 			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 		
-			Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
-			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
-			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
+			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
+			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
-			lock (Muine.DB) {
+			lock (Global.DB) {
 				int i = 0;
 
-				foreach (Song s in Muine.DB.Songs.Values) {
+				foreach (Song s in Global.DB.Songs.Values) {
 					view.Append (s.Handle);
 
 					i++;
@@ -107,10 +107,10 @@ namespace Muine
 			if (search_entry.Text.Length < MinQueryLength)
 				max_len = FakeLength;
 
-			lock (Muine.DB) {
+			lock (Global.DB) {
 				int i = 0;
 				if (search_entry.Text.Length > 0) {
-					foreach (Song s in Muine.DB.Songs.Values) {
+					foreach (Song s in Global.DB.Songs.Values) {
 						if (!s.FitsCriteria (SearchBits))
 							continue;
 
@@ -121,7 +121,7 @@ namespace Muine
 							break;
 					}
 				} else {
-					foreach (Song s in Muine.DB.Songs.Values) {
+					foreach (Song s in Global.DB.Songs.Values) {
 						l.Append (s.Handle);
 					
 						i++;

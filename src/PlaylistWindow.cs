@@ -243,8 +243,8 @@ namespace Muine
 			SetupPlaylist (glade_xml);
 
 			/* connect to song database signals */
-			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
-			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
+			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
 			/* make sure the interface is up to date */
 			SelectionChanged ();
@@ -320,7 +320,7 @@ namespace Muine
 				
 			ProgressWindow pw = new ProgressWindow (this);
 			
-			Muine.DB.AddFolder (dinfo, pw);
+			Global.DB.AddFolder (dinfo, pw);
 
 			Drag.Finish (args.Context, true, false, args.Time);
 		}
@@ -798,7 +798,7 @@ namespace Muine
 				if (song.Performers.Length > 0)
 					tip += "\n\n" + String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (song.Performers));
 					
-				if (song.CoverImage == null && !Muine.CoverDB.Loading)
+				if (song.CoverImage == null && !Global.CoverDB.Loading)
 					tip += "\n\n" + Catalog.GetString ("Drop an image here to use it as album cover");
 				
 				tooltips.SetTip (cover_image, tip, null);
@@ -858,7 +858,7 @@ namespace Muine
 
 			public bool Handle ()
 			{
-				Muine.DB.RemoveSong (song);
+				Global.DB.RemoveSong (song);
 
 				return false;
 			}
@@ -974,15 +974,15 @@ namespace Muine
 					continue;
 				}
 
-				Song song = Muine.DB.GetSong (line);
+				Song song = Global.DB.GetSong (line);
 				if (song == null) {
 					/* not found, lets see if we can find it anyway.. */
-					lock (Muine.DB) {
-						foreach (string key in Muine.DB.Songs.Keys) {
+					lock (Global.DB) {
+						foreach (string key in Global.DB.Songs.Keys) {
 							string key_basename = System.IO.Path.GetFileName (key);
 
 							if (basename == key_basename) {
-								song = Muine.DB.GetSong (key);
+								song = Global.DB.GetSong (key);
 								break;
 							}
 						}
@@ -1140,14 +1140,14 @@ namespace Muine
 				return null;
 			}
 
-			Muine.DB.AddSong (song);
+			Global.DB.AddSong (song);
 
 			return song;
 		}
 
 		private Song GetSingleSong (string file)
 		{
-			Song song = Muine.DB.GetSong (file);
+			Song song = Global.DB.GetSong (file);
 
 			if (song == null)
 				song = AddSongToDB (file);
@@ -1262,7 +1262,7 @@ namespace Muine
 			if (song.Duration != player.Position) {
 				song.Duration = player.Position;
 
-				Muine.DB.SaveSong (song);
+				Global.DB.SaveSong (song);
 			}
 			
 			if (playlist.HasNext)
@@ -1428,7 +1428,7 @@ namespace Muine
 				DirectoryInfo dinfo = new DirectoryInfo (dir);
 				
 				if (dinfo.Exists)
-					Muine.DB.AddFolder (dinfo, pw);
+					Global.DB.AddFolder (dinfo, pw);
 			}
 
 			fc.Destroy ();
@@ -1619,7 +1619,7 @@ namespace Muine
 
 		public void Quit ()
 		{
-			Muine.Exit ();
+			Global.Exit ();
 		}
 
 		private void OnQuit (object o, EventArgs args)
@@ -1897,7 +1897,7 @@ namespace Muine
 					if (dinfo.Exists) {
 						ProgressWindow pw = new ProgressWindow (this);
 			
-						Muine.DB.AddFolder (dinfo, pw);
+						Global.DB.AddFolder (dinfo, pw);
 					} else {
 						System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 						

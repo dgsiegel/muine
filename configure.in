@@ -1,4 +1,4 @@
-AC_INIT(src/Muine.cs)
+AC_INIT(src/Global.cs)
 
 AM_CONFIG_HEADER(config.h)
 

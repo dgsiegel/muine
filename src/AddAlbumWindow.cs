@@ -61,14 +61,14 @@ namespace Muine
 						    source_entries, Gdk.DragAction.Copy);
 			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
-			Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
-			Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
+			Global.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
+			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
+			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
 
-			Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
-			lock (Muine.DB) {
-				foreach (Album a in Muine.DB.Albums.Values) 
+			lock (Global.DB) {
+				foreach (Album a in Global.DB.Albums.Values) 
 					view.Append (a.Handle);
 			}
 
@@ -95,8 +95,8 @@ namespace Muine
 
 			r.Pixbuf = (album.CoverImage != null)
 				? album.CoverImage
-				: (Muine.CoverDB.Loading)
-					? Muine.CoverDB.DownloadingPixbuf
+				: (Global.CoverDB.Loading)
+					? Global.CoverDB.DownloadingPixbuf
 					: nothing_pixbuf;
 
 			r.Width = r.Height = CoverDatabase.CoverSize + 5 * 2;
@@ -123,14 +123,14 @@ namespace Muine
 		{
 			List l = new List (IntPtr.Zero, typeof (int));
 
-			lock (Muine.DB) {
+			lock (Global.DB) {
 				if (search_entry.Text.Length > 0) {
-					foreach (Album a in Muine.DB.Albums.Values) {
+					foreach (Album a in Global.DB.Albums.Values) {
 						if (a.FitsCriteria (SearchBits))
 							l.Append (a.Handle);
 					}
 				} else {
-					foreach (Album a in Muine.DB.Albums.Values)
+					foreach (Album a in Global.DB.Albums.Values)
 						l.Append (a.Handle);
 				}
 			}

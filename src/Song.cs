@@ -97,7 +97,7 @@ namespace Muine
 			set {
 				cover_image = value;
 
-				Muine.DB.EmitSongChanged (this);
+				Global.DB.EmitSongChanged (this);
 			}
 		
 			get { return cover_image; }
@@ -125,7 +125,7 @@ namespace Muine
 
 		public string AlbumKey {
 			get {
-				return Muine.DB.MakeAlbumKey (Folder, album);
+				return Global.DB.MakeAlbumKey (Folder, album);
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace Muine
 				pointers.Remove (extra_handle);
 				
 			if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
-				Muine.CoverDB.RemoveCover (filename);
+				Global.CoverDB.RemoveCover (filename);
 		}
 
 		public new IntPtr Handle {
@@ -217,13 +217,13 @@ namespace Muine
 				/* This used to be a single song, but not anymore, and it does
 				   have a cover- migrate the cover to the album, if there is
 				   none there yet */
-				Muine.CoverDB.RemoveCover (filename);
+				Global.CoverDB.RemoveCover (filename);
 
 				string akey = AlbumKey;
-				if (Muine.CoverDB.Covers [akey] == null)
-					Muine.CoverDB.SetCover (akey, cover_image);
+				if (Global.CoverDB.Covers [akey] == null)
+					Global.CoverDB.SetCover (akey, cover_image);
 			} else if (!HasAlbum) /* See if there is a cover for this single song */
-				cover_image = (Pixbuf) Muine.CoverDB.Covers [filename];
+				cover_image = (Pixbuf) Global.CoverDB.Covers [filename];
 
 			if (cover_image == null && metadata.AlbumArt != null) {
 				/* Look for an ID3 embedded cover image, if it is there, and no
@@ -231,8 +231,8 @@ namespace Muine
 				   song, or as album cover image if it belongs to an album */
 				string key = HasAlbum ? AlbumKey : filename;
 
-				if (Muine.CoverDB.Covers [key] == null)
-					cover_image = Muine.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
+				if (Global.CoverDB.Covers [key] == null)
+					cover_image = Global.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
 				/* Album itself will pick up change when this song is added to it */
 			}
 
@@ -344,12 +344,12 @@ namespace Muine
 		/* Only call these if it is a single song */
 		public void SetCoverLocal (string file)
 		{
-			CoverImage = Muine.CoverDB.Getter.GetLocal (filename, file);
+			CoverImage = Global.CoverDB.Getter.GetLocal (filename, file);
 		}
 
 		public void SetCoverWeb (string url)
 		{
-			CoverImage = Muine.CoverDB.Getter.GetWeb (filename, url,
+			CoverImage = Global.CoverDB.Getter.GetWeb (filename, url,
 				new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 

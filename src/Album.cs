@@ -73,7 +73,7 @@ namespace Muine
 				foreach (Song s in songs)
 					s.CoverImage = value;
 
-				Muine.DB.EmitAlbumChanged (this);
+				Global.DB.EmitAlbumChanged (this);
 			}
 
 			get { return cover_image; }
@@ -83,7 +83,7 @@ namespace Muine
 
 		public string Key {
 			get {
-				return Muine.DB.MakeAlbumKey (folder, name);
+				return Global.DB.MakeAlbumKey (folder, name);
 			}
 		}
 
@@ -229,7 +229,7 @@ namespace Muine
 				pointers.Remove (base.handle);
 
 				if (!FileUtils.IsFromRemovableMedia (folder))
-					Muine.CoverDB.RemoveCover (Key);
+					Global.CoverDB.RemoveCover (Key);
 
 				return true;
 			}
@@ -253,10 +253,10 @@ namespace Muine
 		{
 			string key = Key;
 			
-			if (Muine.CoverDB.Covers.ContainsKey (key))
-				return (Pixbuf) Muine.CoverDB.Covers [key];
+			if (Global.CoverDB.Covers.ContainsKey (key))
+				return (Pixbuf) Global.CoverDB.Covers [key];
 			else {
-				Pixbuf image = Muine.CoverDB.Getter.GetFolderImage (key, folder);
+				Pixbuf image = Global.CoverDB.Getter.GetFolderImage (key, folder);
 				if (image != null)
 					return image;
 
@@ -266,12 +266,12 @@ namespace Muine
 
 		public void SetCoverLocal (string file)
 		{
-			CoverImage = Muine.CoverDB.Getter.GetLocal (Key, file);
+			CoverImage = Global.CoverDB.Getter.GetLocal (Key, file);
 		}
 
 		public void SetCoverWeb (string url)
 		{
-			CoverImage = Muine.CoverDB.Getter.GetWeb (Key, url,
+			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
 					new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 
@@ -282,7 +282,7 @@ namespace Muine
 
 		private Pixbuf SetCoverAmazonInternal (string key)
 		{
-			return Muine.CoverDB.Getter.GetAmazon (key,
+			return Global.CoverDB.Getter.GetAmazon (key,
 				this, new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 

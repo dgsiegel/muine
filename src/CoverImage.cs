@@ -39,7 +39,7 @@ namespace Muine
 
 			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 
-			Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 		}
 
 		~CoverImage ()
@@ -60,14 +60,14 @@ namespace Muine
 		{
 			if (song != null && song.CoverImage != null)
 				image.FromPixbuf = song.CoverImage;
-			else if (song != null && Muine.CoverDB.Loading)
-				image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
+			else if (song != null && Global.CoverDB.Loading)
+				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
 			else {
 				image.SetFromStock ("muine-default-cover",
 						    StockIcons.CoverSize);
 			}
 		
-			if (song != null && !Muine.CoverDB.Loading) {
+			if (song != null && !Global.CoverDB.Loading) {
 				Gtk.Drag.DestSet (this, DestDefaults.All,
 						  drag_entries, Gdk.DragAction.Copy);
 			} else {
@@ -105,7 +105,7 @@ namespace Muine
 					break;
 
 				if (song.HasAlbum) {
-					Album a = Muine.DB.GetAlbum (song);
+					Album a = Global.DB.GetAlbum (song);
 
 					a.SetCoverWeb (uri.AbsoluteUri);
 				} else
@@ -124,7 +124,7 @@ namespace Muine
 
 				try {
 					if (song.HasAlbum) {
-						Album a = Muine.DB.GetAlbum (song);
+						Album a = Global.DB.GetAlbum (song);
 
 						a.SetCoverLocal (fn);
 					} else

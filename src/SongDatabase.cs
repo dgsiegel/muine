@@ -339,7 +339,7 @@ namespace Muine
 
 			protected override void ThreadFunc ()
 			{
-				Muine.DB.HandleDirectory (dinfo, queue, canceled_box);
+				Global.DB.HandleDirectory (dinfo, queue, canceled_box);
 
 				thread_done = true;
 			}
@@ -363,7 +363,7 @@ namespace Muine
 					// finish what is in the queue
 				}
 
-				Muine.DB.HandleSignalRequest (rq);
+				Global.DB.HandleSignalRequest (rq);
 	
 				return true;
 			}
@@ -423,7 +423,7 @@ namespace Muine
 
 				SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-				Muine.DB.HandleSignalRequest (rq);
+				Global.DB.HandleSignalRequest (rq);
 
 				return true;
 			}
@@ -431,8 +431,8 @@ namespace Muine
 			protected override void ThreadFunc ()
 			{
 				Hashtable snapshot;
-				lock (Muine.DB)
-					snapshot = (Hashtable) Muine.DB.Songs.Clone ();
+				lock (Global.DB)
+					snapshot = (Hashtable) Global.DB.Songs.Clone ();
 
 				/* check for removed songs and changes */
 				foreach (string file in snapshot.Keys) {
@@ -442,14 +442,14 @@ namespace Muine
 					SignalRequest rq = null;
 
 					if (!finfo.Exists)
-						rq = Muine.DB.StartRemoveSong (song);
+						rq = Global.DB.StartRemoveSong (song);
 					else {
 						if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
 							try {
 								Metadata metadata = new Metadata (song.Filename);
-								rq = Muine.DB.StartSyncSong (song, metadata);
+								rq = Global.DB.StartSyncSong (song, metadata);
 							} catch {
-								rq = Muine.DB.StartRemoveSong (song);
+								rq = Global.DB.StartRemoveSong (song);
 							}
 						}
 					}
@@ -459,13 +459,13 @@ namespace Muine
 				}
 
 				/* check for new songs */
-				foreach (string folder in Muine.DB.WatchedFolders) {
+				foreach (string folder in Global.DB.WatchedFolders) {
 					DirectoryInfo dinfo = new DirectoryInfo (folder);
 					if (!dinfo.Exists)
 						continue;
 
 					BooleanBox canceled = new BooleanBox (false);
-					Muine.DB.HandleDirectory (dinfo, queue, canceled);
+					Global.DB.HandleDirectory (dinfo, queue, canceled);
 				}
 
 				thread_done = true;

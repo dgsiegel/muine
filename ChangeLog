@@ -1,17 +1,21 @@
-2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+2005-01-08  Tamara Roberson  <foxxygirltamara@gmail.com>
 
-	* src/CoverDatabase.cs (DecodeFunction):
-
-	Check if key is already there before adding.
-
-2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
-
+	* configure.in:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
-	* src/Item.cs:
+	* src/CoverImage.cs:
+	* src/Global.cs:
+	* src/HandleView.cs:
+	* src/Makefile.am:
+	R src/Muine.cs:
+	* src/PlaylistWindow.cs:
 	* src/Song.cs:
-
-	Optimize CoverDatabase loading.
+	* src/SongDatabase.cs:
+	
+	Renamed the Muine class to Global to eliminate confusion with the Muine
+	namespace.
 
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 

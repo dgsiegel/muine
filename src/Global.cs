@@ -30,7 +30,7 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class Muine : Gnome.Program
+	public class Global : Gnome.Program
 	{
 		private static SongDatabase db;
 		public static SongDatabase DB {
@@ -53,12 +53,12 @@ namespace Muine
 
 		public static void Main (string [] args)
 		{
-			Muine muine = new Muine (args);
+			Global global = new Global (args);
 
 			Application.Run ();
 		}
 
-		public Muine (string [] args) : base ("muine", Defines.VERSION, Gnome.Modules.UI, args)
+		public Global (string [] args) : base ("muine", Defines.VERSION, Gnome.Modules.UI, args)
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 

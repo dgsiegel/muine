@@ -6,7 +6,7 @@ WRAPPER = muine
 MUINE_CSFILES =					\
 	$(srcdir)/AddSongWindow.cs		\
 	$(srcdir)/AddAlbumWindow.cs		\
-	$(srcdir)/Muine.cs			\
+	$(srcdir)/Global.cs			\
 	$(srcdir)/NotificationAreaIcon.cs	\
 	$(srcdir)/PlaylistWindow.cs		\
 	$(srcdir)/Song.cs			\

@@ -397,7 +397,7 @@ namespace Muine
 
 				GrabFocus ();
 
-				ret = Global.BindingsActivate (this, (uint) e.Key, mod);
+				ret = Gtk.Global.BindingsActivate (this, (uint) e.Key, mod);
 
 				Style.SetBaseGC (StateType.Selected, saved_gc);
 
