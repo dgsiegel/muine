@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-14 22:37+0100\n"
+"POT-Creation-Date: 2005-01-15 16:25+0100\n"
 "PO-Revision-Date: 2005-01-14 22:37+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -82,10 +82,6 @@ msgstr "Album wiedergeben"
 #: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
 msgid "Play Song"
 msgstr "Titel wiedergeben"
-
-#: data/glade/ProgressWindow.glade.h:1
-msgid "Loading:"
-msgstr "Laden:"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -328,7 +324,7 @@ msgstr "Interpret: {0}"
 msgid "the dj"
 msgstr "the dj die"
 
-#: src/ErrorDialog.cs:35
+#: src/ErrorDialog.cs:33
 msgid "An error occurred:"
 msgstr "Ein Fehler ist aufgetreten:"
 
@@ -411,16 +407,18 @@ msgid "Playlist.m3u"
 msgstr "Playlist.m3u"
 
 #: src/PlaylistWindow.cs:62
-msgid "Playlist"
-msgstr "Wiedergabeliste"
+msgid "<span weight=\"bold\">Playlist</span>"
+msgstr "<span weight=\"bold\">Wiedergabeliste</span>"
 
 #: src/PlaylistWindow.cs:64
-msgid "Playlist (Repeating)"
-msgstr "Wiedergabeliste (Wiederholung)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating)"
+msgstr "<span weight=\"bold\">Wiedergabeliste</span> (wiederholend)"
 
 #: src/PlaylistWindow.cs:66
-msgid "Playlist (Less than one minute remaining)"
-msgstr "Wiedergabeliste (weniger als eine Minute)"
+msgid "<span weight=\"bold\">Playlist</span> (Less than one minute remaining)"
+msgstr ""
+"<span weight=\"bold\">Wiedergabeliste</span> (weniger als eine Minute "
+"verbleibend)"
 
 #: src/PlaylistWindow.cs:68
 #, csharp-format
@@ -493,33 +491,41 @@ msgstr "Konnte {0} nicht schließen"
 msgid "Failed to open {0} for writing"
 msgstr "Konnte {0} nicht zum Schreiben öffnen"
 
-#: src/PlaylistWindow.cs:944
+#: src/PlaylistWindow.cs:948
 #, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] "Wiedergabeliste (wiederhole {0} Stunde)"
-msgstr[1] "Wiedergabeliste (wiederhole {0} Stunden)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} hour)"
+msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)"
+msgstr[0] ""
+"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Stunde)"
+msgstr[1] ""
+"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Stunden)"
 
-#: src/PlaylistWindow.cs:949
+#: src/PlaylistWindow.cs:953
 #, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] "Wiedergabeliste (wiederhole {0} Minute)"
-msgstr[1] "Wiedergabeliste (wiederhole {0} Minuten)"
+msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} minute)"
+msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)"
+msgstr[0] ""
+"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Minute)"
+msgstr[1] ""
+"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Minuten)"
 
-#: src/PlaylistWindow.cs:954
+#: src/PlaylistWindow.cs:958
 #, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] "Wiedergabeliste ({0} Stunde verbleibend)"
-msgstr[1] "Wiedergabeliste ({0} Stunden verbleibend)"
+msgid "<span weight=\"bold\">Playlist</span> ({0} hour remaining)"
+msgid_plural "<span weight=\"bold\">Playlist</span> ({0} hours remaining)"
+msgstr[0] ""
+"<span weight=\"bold\">Wiedergabeliste</span> ({0} Stunde verbleibend)"
+msgstr[1] ""
+"<span weight=\"bold\">Wiedergabeliste</span> ({0} Stunden verbleibend)"
 
-#: src/PlaylistWindow.cs:959
+#: src/PlaylistWindow.cs:963
 #, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "Wiedergabeliste ({0} Minute verbleibend)"
-msgstr[1] "Wiedergabeliste ({0} Minuten verbleibend)"
+msgid "<span weight=\"bold\">Playlist</span> ({0} minute remaining)"
+msgid_plural "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)"
+msgstr[0] ""
+"<span weight=\"bold\">Wiedergabeliste</span> ({0} Minute verbleibend)"
+msgstr[1] ""
+"<span weight=\"bold\">Wiedergabeliste</span> ({0} Minuten verbleibend)"
 
 #: src/PluginManager.cs:34
 #, csharp-format
@@ -530,6 +536,10 @@ msgstr "Fehler beim Laden des Plugins {0}: {1}"
 #, csharp-format
 msgid "Importing {0}..."
 msgstr "Importiere {0}..."
+
+#: src/ProgressWindow.cs:35
+msgid "Loading:"
+msgstr "Laden:"
 
 #: src/StringUtils.cs:32
 msgid "Unknown"
@@ -544,6 +554,12 @@ msgstr "{0} und andere"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} und {1}"
+
+#~ msgid "Playlist"
+#~ msgstr "Wiedergabeliste"
+
+#~ msgid "Playlist (Repeating)"
+#~ msgstr "Wiedergabeliste (Wiederholung)"
 
 #~ msgid "\"Add album\" list minimum query length (speed hack)"
 #~ msgstr ""
