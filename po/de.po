@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 19:20+0200\n"
-"PO-Revision-Date: 2004-04-18 19:22+0200\n"
+"POT-Creation-Date: 2004-04-22 00:12+0200\n"
+"PO-Revision-Date: 2004-04-22 00:23+0200\n"
 "Last-Translator: Matthias Debus <psic4t@netbands.de>\n"
 "Language-Team: german <psic4t@netbands.de>\n"
 "MIME-Version: 1.0\n"
@@ -191,7 +191,7 @@ msgstr "Album hinzufügen Fensterbreite."
 
 #: data/muine.schemas.in.h:3
 msgid "Add song window height."
-msgstr "'Song hinzufügen Fensterhöhe."
+msgstr "Song hinzufügen Fensterhöhe."
 
 #: data/muine.schemas.in.h:4
 msgid "Add song window width."
@@ -259,7 +259,46 @@ msgstr "\"Wiedergabeliste wiederholen\" an oder aus."
 
 #: data/muine.schemas.in.h:20
 msgid "false if Muine has been started before."
-msgstr "false, wenn Muine noch nie gestartet wurde."
+msgstr "false, wenn Muine bereits einmal gestartet wurde."
+
+#: libmuine/player-gst.c:157
+msgid "Failed to create GstPlay object"
+msgstr "Konnte GstPlay-Objekt nicht erzeugen."
+
+#: libmuine/player-gst.c:164
+msgid "Failed to create the required gnomevfssrc GStreamer element"
+msgstr "Konnte das benötigte gnomevfssrc GStreamer-Element nicht erzeugen"
+
+#: libmuine/player-gst.c:173
+msgid "Could not render default GStreamer audio output sink"
+msgstr "Konnte den standard audio output sink von GStreamer nicht wiedergeben"
+
+#: libmuine/player-gst.c:182
+msgid "Could not find the volume element in the GstPlay pipeline"
+msgstr "Konnte das Lautstärken-Element nicht in der GstPlay-Pipeline finden"
+
+#: libmuine/player-xine.c:289
+msgid "Failed to set up an audio driver"
+msgstr "Konnte keinen Audiotreiber einrichten"
+
+#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#, c-format
+msgid "No plugin available for \"%s\""
+msgstr "Kein Plugin für \"%s\" verfügbar"
+
+#: libmuine/player-xine.c:368
+#, c-format
+msgid "Failed playing \"%s\""
+msgstr "Konnte \"%s\" nicht wiedergeben"
+
+#: libmuine/player-xine.c:372
+msgid "Internal error"
+msgstr "Interner Fehler"
+
+#: libmuine/player-xine.c:381
+#, c-format
+msgid "Could not play \"%s\""
+msgstr "Konnte \"%s\" nicht wiedergeben"
 
 #: src/About.cs:38
 msgid "Jorn Baayen (jbaayen@gnome.org)"
@@ -309,11 +348,6 @@ msgstr "Performed von {0}"
 msgid "the dj"
 msgstr "the dj die"
 
-#: src/CoverDatabase.cs:67 src/SongDatabase.cs:76
-#, csharp-format
-msgid "Failed to open database: {0}"
-msgstr "Konnte Datenbank: {0} nicht öffnen"
-
 #: src/Metadata.cs:165
 #, csharp-format
 msgid "Failed to load metadata: {0}"
@@ -323,18 +357,22 @@ msgstr "Konnte metadata: {0} nicht laden"
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 "Konnte die Cover-Datenbank: {0} nicht laden\n"
+"\n"
 "Beende..."
 
 #: src/Muine.cs:88
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 "Konnte die Song-Datenbank: {0} nicht laden\n"
+"\n"
 "Beende..."
 
 #: src/NotificationAreaIcon.cs:53
@@ -353,9 +391,23 @@ msgstr "_Nächster Song"
 msgid "Show _Window"
 msgstr "_Fenster anzeigen"
 
-#: src/Player.cs:154
-msgid "Failed to create Player object"
-msgstr "Konnte Player-Objekt nicht erzeugen."
+#: src/Player.cs:51
+#, csharp-format
+msgid ""
+"Error opening {0}:\n"
+"{1}"
+msgstr ""
+"Fehler beim Öffnen von {0}:\n"
+"{1}"
+
+#: src/Player.cs:232
+#, csharp-format
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr ""
+"Fehler im Audio-Backend:\n"
+"{0}"
 
 #: src/PlaylistWindow.cs:247
 msgid "Hide _Window"
@@ -387,11 +439,16 @@ msgid "Playlist"
 msgstr "Wiedergabeliste"
 
 #: src/PlaylistWindow.cs:401
+#, csharp-format
 msgid ""
-"Failed to initialize the audio backend.\n"
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 "Konnte das Audio-Backend nicht nicht initialisieren.\n"
+"{0}\n"
+"\n"
 "Beende..."
 
 #: src/PlaylistWindow.cs:500
