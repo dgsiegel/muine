@@ -2,7 +2,7 @@ AC_INIT(src/Muine.cs)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(muine, 0.3.0)
+AM_INIT_AUTOMAKE(muine, 0.3.0.99)
 
 AM_MAINTAINER_MODE
 
@@ -58,9 +58,13 @@ AC_SUBST(VORBISFILE_LIBS)
 dnl Check for libid3tag
 PKG_CHECK_MODULES(ID3TAG, id3tag >= 0.15, HAVE_ID3TAG="yes", HAVE_ID3TAG="no")
 if test "x$HAVE_ID3TAG" = "xno"; then
-	AC_CHECK_LIB(id3tag, id3_tag_options, ID3TAG_LIBS="-lid3tag -lz", AC_MSG_ERROR(You need libid3tag))
+	AC_CHECK_HEADER(id3tag.h, ID3TAG_LIBS="-lid3tag -lz", AC_MSG_ERROR(You need libid3tag))
 fi
 AC_SUBST(ID3TAG_LIBS)
+
+dnl Check for FLAC
+AC_CHECK_HEADER(FLAC/all.h, FLAC_LIBS="-lFLAC", AC_MSG_ERROR(You need FLAC))
+AC_SUBST(FLAC_LIBS)
 
 dnl Check for Mono
 AC_PATH_PROG(MCS, mcs)

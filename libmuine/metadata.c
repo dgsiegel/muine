@@ -20,6 +20,8 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <vorbis/vorbisfile.h>
 #include <id3tag.h>
+#include <FLAC/metadata.h>
+#include <FLAC/stream_decoder.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <string.h>
@@ -257,39 +259,12 @@ get_vorbis_comment_value (vorbis_comment *comment,
 	return g_strdup (val);
 }
 
-static Metadata *
-assign_metadata_ogg (const char *filename,
-		     char **error_message_return)
+static void
+assign_metadata_vorbiscomment (Metadata *metadata,
+			       vorbis_comment *comment)
 {
-	Metadata *metadata = NULL;
-	GnomeVFSResult res;
-	GnomeVFSHandle *handle;
-	int rc, count, i;
-	OggVorbis_File vf;
-	vorbis_comment *comment;
 	char *raw, *version, *title;
-
-	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
-	if (res != GNOME_VFS_OK) {
-		*error_message_return = g_strdup ("Failed to open file for reading");
-		return NULL;
-	}
-
-	rc = ov_open_callbacks (handle, &vf, NULL, 0,
-				file_info_callbacks);
-	if (rc < 0) {
-		ogg_helper_close (handle);
-		*error_message_return = g_strdup ("Failed to open file as Ogg Vorbis");
-		return NULL;
-	}
-
-	comment = ov_comment (&vf, -1);
-	if (!comment) {
-		*error_message_return = g_strdup ("Failed to read comments");
-		goto out;
-	}
-
-	metadata = g_new0 (Metadata, 1);
+	int count, i;
 
 	version = get_vorbis_comment_value (comment, "version", 0);
 
@@ -332,8 +307,6 @@ assign_metadata_ogg (const char *filename,
 
 	metadata->year = get_vorbis_comment_value (comment, "date", 0);
 
-	metadata->duration = (long) ov_time_total (&vf, -1) * 1000;
-
 	raw = vorbis_comment_query (comment, "replaygain_album_gain", 0);
 	if (raw == NULL) {
 		raw = vorbis_comment_query (comment, "replaygain_track_gain", 0);
@@ -362,12 +335,189 @@ assign_metadata_ogg (const char *filename,
 		metadata->peak = atof (raw);
 	else
 		metadata->peak = 0.0;
+}
+
+static Metadata *
+assign_metadata_ogg (const char *filename,
+		     char **error_message_return)
+{
+	Metadata *metadata = NULL;
+	GnomeVFSResult res;
+	GnomeVFSHandle *handle;
+	int rc;
+	OggVorbis_File vf;
+	vorbis_comment *comment;
+
+	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	if (res != GNOME_VFS_OK) {
+		*error_message_return = g_strdup ("Failed to open file for reading");
+		return NULL;
+	}
+
+	rc = ov_open_callbacks (handle, &vf, NULL, 0,
+				file_info_callbacks);
+	if (rc < 0) {
+		ogg_helper_close (handle);
+		*error_message_return = g_strdup ("Failed to open file as Ogg Vorbis");
+		return NULL;
+	}
+
+	comment = ov_comment (&vf, -1);
+	if (!comment) {
+		*error_message_return = g_strdup ("Failed to read comments");
+		goto out;
+	}
+
+	metadata = g_new0 (Metadata, 1);
+
+	assign_metadata_vorbiscomment (metadata, comment);
+
+	metadata->duration = (long) ov_time_total (&vf, -1) * 1000;
 
 	*error_message_return = NULL;
 
 out:
 	ov_clear (&vf);
 	ogg_helper_close (handle);
+
+	return metadata;
+}
+
+typedef struct {
+	GnomeVFSHandle *handle;
+
+	vorbis_comment *comment;
+	long duration;
+} CallbackData;
+
+static FLAC__StreamDecoderReadStatus
+FLAC_read_callback (const FLAC__StreamDecoder *decoder, FLAC__byte buffer[], unsigned *bytes, void *client_data)
+{
+	CallbackData *data = (CallbackData *) client_data;
+	GnomeVFSFileSize read;
+	GnomeVFSResult result;
+
+	result = gnome_vfs_read (data->handle, buffer, *bytes, &read);
+
+	if (result == GNOME_VFS_OK) {
+		*bytes = read;
+		return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;
+	} else if (result == GNOME_VFS_ERROR_EOF) {
+		return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
+	} else {
+		return FLAC__STREAM_DECODER_READ_STATUS_ABORT;
+	}
+}
+
+static FLAC__StreamDecoderWriteStatus
+FLAC_write_callback (const FLAC__StreamDecoder *decoder, const FLAC__Frame *frame,
+		     const FLAC__int32 *const buffer[], void *client_data)
+{
+	/* This callback should never be called, because we request that
+	 * FLAC only decodes metadata, never actual sound data. */
+	return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
+}
+
+static void
+FLAC_metadata_callback (const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data)
+{
+	CallbackData *data = (CallbackData *) client_data;
+
+	if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO) {
+		data->duration = (long) (metadata->data.stream_info.total_samples * 1000) / metadata->data.stream_info.sample_rate;
+	} else if (metadata->type == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
+		const FLAC__StreamMetadata_VorbisComment *vc_block = &metadata->data.vorbis_comment;
+		vorbis_comment *comment = data->comment;
+		int c;
+
+		for (c = 0; c < vc_block->num_comments; c++) {
+			FLAC__StreamMetadata_VorbisComment_Entry entry = vc_block->comments[c];
+			char *null_terminated_comment = malloc (entry.length + 1);
+			char **parts;
+
+			memcpy (null_terminated_comment, entry.entry, entry.length);
+			null_terminated_comment[entry.length] = '\0';
+			parts = g_strsplit (null_terminated_comment, "=", 2);
+
+			if (parts[0] == NULL || parts[1] == NULL)
+				goto free_continue;
+
+			vorbis_comment_add_tag (comment, parts[0], parts[1]);
+
+		free_continue:
+			g_strfreev (parts);
+			free (null_terminated_comment);
+		}
+	}
+}
+
+static void
+FLAC_error_callback (const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
+{
+}
+
+static Metadata *
+assign_metadata_flac (const char *filename,
+		      char **error_message_return)
+{
+	Metadata *metadata = NULL;
+	GnomeVFSResult res;
+	GnomeVFSHandle *handle;
+	vorbis_comment *comment;
+	FLAC__StreamDecoder *flac_decoder;
+	CallbackData *callback_data;
+
+	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	if (res != GNOME_VFS_OK) {
+		*error_message_return = g_strdup ("Failed to open file for reading");
+		return NULL;
+	}
+
+	comment = g_new (vorbis_comment, 1);
+	vorbis_comment_init (comment);
+
+	flac_decoder = FLAC__stream_decoder_new ();
+
+	FLAC__stream_decoder_set_read_callback (flac_decoder, FLAC_read_callback);
+	FLAC__stream_decoder_set_write_callback (flac_decoder, FLAC_write_callback);
+	FLAC__stream_decoder_set_metadata_callback (flac_decoder, FLAC_metadata_callback);
+	FLAC__stream_decoder_set_error_callback (flac_decoder, FLAC_error_callback);
+
+	callback_data = g_new0 (CallbackData, 1);
+	callback_data->handle = handle;
+	callback_data->comment = comment;
+	FLAC__stream_decoder_set_client_data (flac_decoder, callback_data);
+
+	/* by default, only the STREAMINFO block is parsed and passed to
+	 * the metadata callback.  Here we instruct the decoder to also
+	 * pass us the VORBISCOMMENT block if there is one. */
+	FLAC__stream_decoder_set_metadata_respond (flac_decoder, FLAC__METADATA_TYPE_VORBIS_COMMENT);
+
+	FLAC__stream_decoder_init (flac_decoder);
+
+	/* this runs the decoding process, calling the callbacks as appropriate */
+	if (FLAC__stream_decoder_process_until_end_of_metadata (flac_decoder) == 0) {
+		*error_message_return = g_strdup ("Error decoding FLAC file");
+		goto out;
+	}
+
+	metadata = g_new0 (Metadata, 1);
+
+	assign_metadata_vorbiscomment (metadata, comment);
+
+	metadata->duration = callback_data->duration;
+
+	*error_message_return = NULL;
+
+out:
+	g_free (callback_data);
+
+	FLAC__stream_decoder_finish (flac_decoder);
+	FLAC__stream_decoder_delete (flac_decoder);
+	gnome_vfs_close (handle);
+
+	vorbis_comment_clear (comment);
+	g_free (comment);
 
 	return metadata;
 }
@@ -391,6 +541,9 @@ metadata_load (const char *filename,
 	else if (!strcmp (info->mime_type, "application/x-ogg") ||
 		 !strcmp (info->mime_type, "application/ogg"))
 		m = assign_metadata_ogg (filename, error_message_return);
+	else if (!strcmp (info->mime_type, "application/x-flac") ||
+		 !strcmp (info->mime_type, "audio/x-flac"))
+		m = assign_metadata_flac (filename, error_message_return);
 	else
 		*error_message_return = g_strdup ("Unknown format");
 

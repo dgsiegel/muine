@@ -1,5 +1,19 @@
 2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* configure.in:
+	* libmuine/Makefile.am:
+	* libmuine/metadata.c: (assign_metadata_vorbiscomment),
+	(assign_metadata_ogg), (FLAC_read_callback), (FLAC_write_callback),
+	(FLAC_metadata_callback), (FLAC_error_callback),
+	(assign_metadata_flac), (metadata_load):
+	* libmuine/player.c: (create_decoder):
+	* src/About.cs:
+
+	Flac support, and bump version number to 0.3.0.99. Enjoy, edd ;)
+
+2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/db.c: (db_get_version), (db_set_version), (db_foreach):
 
 	Plug leaks.

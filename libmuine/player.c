@@ -297,6 +297,13 @@ create_decoder (Player * player, const char *filename, const char *mime_type)
       if (!decoder)
 	gst_element_error (priv->thread, "Cannot load ogg decoder");
     }
+  else if (!strcmp (mime_type, "application/x-flac") ||
+	   !strcmp (mime_type, "audio/x-flac"))
+    {
+      decoder = gst_element_factory_make ("flacdec", "decoder");
+      if (!decoder)
+	gst_element_error (priv->thread, "Cannot load flac decoder");
+    }
   else
     gst_element_error (priv->thread,
 		       "Don't recognize the file type '%s' of '%s'.", mime_type, filename);

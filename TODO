@@ -6,8 +6,6 @@ o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?
 o Add WMA support
 o Add MP4 support
   This code can be stolen from Rhythmbox
-o Add FLAC support
-  This code can be stolen from Rhythmbox
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
 o Create ~/Music if it doesn't exist, but ask first? (Viet Yen is on this)
