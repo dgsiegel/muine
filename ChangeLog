@@ -1,5 +1,11 @@
 2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/AddAlbumWindow.cs:
+
+	Slight look tweak.
+
+2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/player.c: (player_tell):
 	* src/PlaylistWindow.cs:
 

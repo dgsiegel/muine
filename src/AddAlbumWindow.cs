@@ -162,7 +162,7 @@ public class AddAlbumWindow
 		r.Yalign = 0.25f;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
-					   true, true, false);
+					   false, true, false);
 	}
 
 	private void HandleWindowResponse (object o, EventArgs a)
