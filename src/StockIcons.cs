@@ -31,7 +31,11 @@ public class StockIcons
 		"muine-default-cover",
 		"muine-cover-downloading",
 		"muine-playing",
-		"muine-paused"
+		"muine-paused",
+		"muine-volume-zero",
+		"muine-volume-min",
+		"muine-volume-medium",
+		"muine-volume-max"
 	};
 
 	private static string [] icon_theme_icons = {
@@ -42,10 +46,6 @@ public class StockIcons
 		"stock_media-rew",
 		"stock_shuffle",
 		"stock_timer",
-		"volume-zero",
-		"volume-min",
-		"volume-medium",
-		"volume-max",
 		"gnome-dev-cdrom-audio"
 	};
 

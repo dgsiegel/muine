@@ -1,3 +1,16 @@
+2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/images/Makefile.am:
+	* data/images/muine-volume-max.png:
+	* data/images/muine-volume-medium.png:
+	* data/images/muine-volume-min.png:
+	* data/images/muine-volume-zero.png:
+	* src/Makefile.am:
+	* src/StockIcons.cs:
+	* src/VolumeButton.cs:
+
+	Put volume icons back for now.
+
 2004-12-13  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
