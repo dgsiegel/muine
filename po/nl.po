@@ -1,0 +1,274 @@
+# Dutch translation of muine (een muziekspeler)
+# Copyright (C) 2004 The Free Software Foundation
+# This file is distributed under the same license as the muine package.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNOME 2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-19 04:54+0100\n"
+"PO-Revision-Date: 2004-01-19 16:57+0100\n"
+"Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
+"Language-Team: nl <vertaling@nl.linux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
+msgid "TITLE"
+msgstr "TITLE"
+
+# Afspelen?
+#: data/glade/AddWindow.glade.h:3
+msgid "_Play"
+msgstr "_Afspelen"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Queue"
+msgstr "_Wachtrij"
+
+#: data/glade/AddWindow.glade.h:5
+msgid "_Search:"
+msgstr "_Zoeken:"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "ERROR MESSAGE"
+msgstr "ERROR MESSAGE"
+
+#: data/glade/ErrorDialog.glade.h:2
+msgid "Error"
+msgstr "Fout"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Add _Album"
+msgstr "_Album toevoegen"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Add _Album..."
+msgstr "_Album toevoegen..."
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Add _Song"
+msgstr "_Nummer toevoegen"
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Add _Song..."
+msgstr "_Nummer toevoegen..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "Remove _Played Songs"
+msgstr "_Afgespeelde nummers verwijderen"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Skip _Backwards"
+msgstr "_Terug"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Forward"
+msgstr "_Vooruit"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "TMP"
+msgstr "TMP"
+
+# Of: geluidsvolume zachter
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "Volume _Down"
+msgstr "_Zachter"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "Volume _Up"
+msgstr "_Harder"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Actions"
+msgstr "_Acties"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Clear Playlist"
+msgstr "Speellijst _wissen"
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Fill queue with random songs from selected groups"
+msgstr "Wachtrij _vullen met willekeurige nummers uit geselecteerde groepen"
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Groups"
+msgstr "_Groepen"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Hide Window"
+msgstr "Venster _verbergen"
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Import Folder..."
+msgstr "Map _importeren..."
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Next"
+msgstr "_Volgende"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Previous"
+msgstr "V_orige"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Remove Song"
+msgstr "Nummer ver_wijderen"
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Vooruit naar..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Volume"
+msgstr "_Geluidsvolume"
+
+# Bezig met laden:
+# Nu aan het laden:
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Laden:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "0 seconds"
+msgstr "0 seconden"
+
+#: data/glade/SkipToWindow.glade.h:2
+msgid "Skip to"
+msgstr "Vooruit naar"
+
+#: data/glade/SkipToWindow.glade.h:3
+msgid "_Skip to:"
+msgstr "_Vooruit naar:"
+
+#: data/glade/SkipToWindow.glade.h:4
+msgid "seconds"
+msgstr "seconden"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Naar uw muziek luisteren"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine muziekspeler"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Album toevoegen vensterhoogte."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Album toevoegen vensterbreedte."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Nummer toevoegen vensterhoogte."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Nummer toevoegen vensterbreedte."
+
+#: data/muine.schemas.in.h:5
+msgid "Default import folder."
+msgstr "Standaard importmap."
+
+#: data/muine.schemas.in.h:6
+msgid "Last used folder from \"Import folder...\" dialog."
+msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren...\"."
+
+#: data/muine.schemas.in.h:7
+msgid "Playlist window height."
+msgstr "Speellijst vensterhoogte."
+
+#: data/muine.schemas.in.h:8
+msgid "Playlist window visibility."
+msgstr "Speellijst vensterzichtbaarheid."
+
+#: data/muine.schemas.in.h:9
+msgid "Playlist window visible (true) or not (false)."
+msgstr "Speellijst zichtbaar (true) of niet (false)."
+
+#: data/muine.schemas.in.h:10
+msgid "Playlist window width."
+msgstr "Speellijst vensterbreedte."
+
+#: data/muine.schemas.in.h:11
+msgid "Volume level."
+msgstr "Geluidsvolume."
+
+# highest volume level = maximaal geluidsvolume
+#: data/muine.schemas.in.h:12
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
+
+#: libmuine/egg/eggstatusicon.c:154
+msgid "Pixbuf"
+msgstr "Pixbuf"
+
+#: libmuine/egg/eggstatusicon.c:155
+msgid "A GdkPixbuf to display"
+msgstr "Een GdkPixbuf voor weergave"
+
+#: libmuine/egg/eggstatusicon.c:162
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: libmuine/egg/eggstatusicon.c:163
+msgid "Filename to load and display"
+msgstr "Bestandsnaam te laden voor weergave"
+
+#: libmuine/egg/eggstatusicon.c:170
+msgid "Stock ID"
+msgstr "Standaard ID"
+
+#: libmuine/egg/eggstatusicon.c:171
+msgid "Stock ID for a stock image to display"
+msgstr "Standaard ID voor een weer te geven standaard afbeelding"
+
+#: libmuine/egg/eggstatusicon.c:178
+msgid "Animation"
+msgstr "Animatie"
+
+#: libmuine/egg/eggstatusicon.c:179
+msgid "GdkPixbufAnimation to display"
+msgstr "GdkPixbufAnimation voor weergave"
+
+#: libmuine/egg/eggstatusicon.c:186
+msgid "Image type"
+msgstr "Afbeeldingstype"
+
+#: libmuine/egg/eggstatusicon.c:187
+msgid "The representation being used for image data"
+msgstr "De gebruikte representatie voor afbeeldingen"
+
+#: libmuine/egg/eggstatusicon.c:195
+msgid "Size"
+msgstr "Afmeting"
+
+#: libmuine/egg/eggstatusicon.c:196
+msgid "The size of the icon"
+msgstr "De afmeting  an het pictogram"
+
+#: libmuine/egg/eggstatusicon.c:205
+msgid "Blinking"
+msgstr "Knipperend"
+
+#: libmuine/egg/eggstatusicon.c:206
+msgid "Whether or not the status icon is blinking"
+msgstr "Of het statuspictogram knippert"
+
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
+msgid "Orientation"
+msgstr "Oriëntatie"
+
+# betere vertaling voor tray?
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
+msgid "The orientation of the tray."
+msgstr "De oriëntatie van het blad."
