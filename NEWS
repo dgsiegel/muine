@@ -1,3 +1,15 @@
+0.8.0
+=====
+
+- Plug-in support [Jorn Baayen]
+- Dashboard support moved into a plug-in [Jorn Baayen]
+- D-Bus interface [Sergio Rubio, Jorn Baayen]
+- Major code cleanups [Tamara Roberson, Jorn Baayen]
+
+Updated translations:
+- Czech [Miloslav Trmac]
+- Norwegian [Kjartan Maraas]
+
 0.7.1
 =====
 
