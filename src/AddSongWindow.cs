@@ -62,13 +62,16 @@ namespace Muine
 			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
 			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
-			int i = 0;
-			foreach (Song s in Muine.DB.Songs.Values) {
-				view.Append (s.Handle);
+			lock (Muine.DB) {
+				int i = 0;
 
-				i++;
-				if (i >= FakeLength)
-					break;
+				foreach (Song s in Muine.DB.Songs.Values) {
+					view.Append (s.Handle);
+
+					i++;
+					if (i >= FakeLength)
+						break;
+				}
 			}
 		}
 
@@ -104,25 +107,27 @@ namespace Muine
 			if (search_entry.Text.Length < MinQueryLength)
 				max_len = FakeLength;
 
-			int i = 0;
-			if (search_entry.Text.Length > 0) {
-				foreach (Song s in Muine.DB.Songs.Values) {
-					if (!s.FitsCriteria (SearchBits))
-						continue;
+			lock (Muine.DB) {
+				int i = 0;
+				if (search_entry.Text.Length > 0) {
+					foreach (Song s in Muine.DB.Songs.Values) {
+						if (!s.FitsCriteria (SearchBits))
+							continue;
 
-					l.Append (s.Handle);
+						l.Append (s.Handle);
 					
-					i++;
-					if (max_len > 0 && i >= max_len)
-						break;
-				}
-			} else {
-				foreach (Song s in Muine.DB.Songs.Values) {
-					l.Append (s.Handle);
+						i++;
+						if (max_len > 0 && i >= max_len)
+							break;
+					}
+				} else {
+					foreach (Song s in Muine.DB.Songs.Values) {
+						l.Append (s.Handle);
 					
-					i++;
-					if (max_len > 0 && i >= max_len)
-						break;
+						i++;
+						if (max_len > 0 && i >= max_len)
+							break;
+					}
 				}
 			}
 

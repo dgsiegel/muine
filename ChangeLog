@@ -1,5 +1,20 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/Muine.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Redo SongDatabase threading stuff. UI is now fully responsive
+	while it brings the library in sync with the disc.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* DBusLib/Player.cs:
 	* PluginLib/IPlayer.cs:
 	* PluginLib/ISong.cs:

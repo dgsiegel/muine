@@ -35,20 +35,28 @@ namespace Muine
 
 		private ArrayList songs;
 		public ArrayList Songs {
-			get { return songs; }
+			get {
+				lock (this) {
+					return (ArrayList) songs.Clone ();
+				}
+			}
 		}
 
 		private ArrayList artists;
 		public string [] Artists {
 			get {
-				return (string []) artists.ToArray (typeof (string));
+				lock (this) {
+					return (string []) artists.ToArray (typeof (string));
+				}
 			}
 		}
 
 		private ArrayList performers;
 		public string [] Performers {
 			get {
-				return (string []) performers.ToArray (typeof (string));
+				lock (this) {
+					return (string []) performers.ToArray (typeof (string));
+				}
 			}
 		}
 
@@ -101,12 +109,11 @@ namespace Muine
 			pointers [cur_ptr] = this;
 			base.handle = cur_ptr;
 
-			if (Muine.CoverDB.Loading)
-				return;
-
-			cover_image = GetCover ();
-			if (initial_song.CoverImage != cover_image)
-				initial_song.CoverImage = cover_image;
+			if (!Muine.CoverDB.Loading) {
+				cover_image = GetCover ();
+				if (initial_song.CoverImage != cover_image)
+					initial_song.SetCoverImageQuiet (cover_image);
+			}
 		}
 
 		public static Album FromHandle (IntPtr handle)
@@ -171,43 +178,57 @@ namespace Muine
 
 		private static IComparer song_comparer = new SongComparer ();
 
-		// returns true if the album's properties changed
-		public bool AddSong (Song song)
+		public void Add (Song song,
+		                 out bool changed,
+				 out bool songs_changed)
 		{
-			songs.Add (song);
-			songs.Sort (song_comparer);
+			changed = false;
+			songs_changed = false;
 
-			if (cover_image == null && song.CoverImage != null)
-				CoverImage = song.CoverImage;
-			else if (song.CoverImage != cover_image)
-				song.CoverImage = cover_image;
+			lock (this) {
+				if (!Muine.CoverDB.Loading) {
+					if (cover_image == null && song.CoverImage != null) {
+						changed = true;
+						songs_changed = true;
+				
+						cover_image = song.CoverImage;
+						foreach (Song s in Songs)
+							s.SetCoverImageQuiet (cover_image);
+					} else if (song.CoverImage != cover_image)
+						song.SetCoverImageQuiet (cover_image);
+				}
 
-			bool year_changed = false;
-			if (year.Length == 0 && song.Year.Length > 0) {
-				year = song.Year;
+				if (year.Length == 0 && song.Year.Length > 0) {
+					year = song.Year;
 
-				year_changed = true;
+					changed = true;
+				}
+
+				bool artists_changed = AddArtistsAndPerformers (song);
+				if (artists_changed)
+					changed = true;
+
+				songs.Add (song);
+				songs.Sort (song_comparer);
 			}
-
-			bool artists_changed = AddArtistsAndPerformers (song);
-
-			return (artists_changed || year_changed);
 		}
 
 		// returns true if the album is now empty
-		public bool RemoveSong (Song song)
+		public bool Remove (Song song)
 		{
-			songs.Remove (song);
+			lock (this) {
+				songs.Remove (song);
 
-			if (songs.Count > 0)
-				return false;
+				if (songs.Count > 0)
+					return false;
 
-			pointers.Remove (base.handle);
+				pointers.Remove (base.handle);
 
-			if (!FileUtils.IsFromRemovableMedia (folder))
-				Muine.CoverDB.RemoveCover (Key);
+				if (!FileUtils.IsFromRemovableMedia (folder))
+					Muine.CoverDB.RemoveCover (Key);
 
-			return true;
+				return true;
+			}
 		}
 
 		public bool FitsCriteria (string [] search_bits)

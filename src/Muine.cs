@@ -138,7 +138,7 @@ namespace Muine
 			/* Create playlist window */
 			try {
 				playlist = new PlaylistWindow ();
-			} catch (Exception e) {
+			} catch (PlayerException e) {
 				Error (e.Message);
 			}
 

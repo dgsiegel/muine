@@ -67,9 +67,10 @@ namespace Muine
 
 			Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
-			foreach (Album a in Muine.DB.Albums.Values) 
-				view.Append (a.Handle);
-			SelectFirst ();
+			lock (Muine.DB) {
+				foreach (Album a in Muine.DB.Albums.Values) 
+					view.Append (a.Handle);
+			}
 
 			view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 			Gtk.Drag.DestSet (view, DestDefaults.All,
@@ -122,14 +123,16 @@ namespace Muine
 		{
 			List l = new List (IntPtr.Zero, typeof (int));
 
-			if (search_entry.Text.Length > 0) {
-				foreach (Album a in Muine.DB.Albums.Values) {
-					if (a.FitsCriteria (SearchBits))
+			lock (Muine.DB) {
+				if (search_entry.Text.Length > 0) {
+					foreach (Album a in Muine.DB.Albums.Values) {
+						if (a.FitsCriteria (SearchBits))
+							l.Append (a.Handle);
+					}
+				} else {
+					foreach (Album a in Muine.DB.Albums.Values)
 						l.Append (a.Handle);
 				}
-			} else {
-				foreach (Album a in Muine.DB.Albums.Values)
-					l.Append (a.Handle);
 			}
 
 			view.RemoveDelta (l);

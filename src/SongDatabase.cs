@@ -22,8 +22,6 @@ using System.Collections;
 using System.IO;
 using System.Threading;
 
-using Gnome;
-
 namespace Muine
 {
 	public class SongDatabase 
@@ -32,6 +30,9 @@ namespace Muine
 		private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
 		private readonly string [] GConfDefaultWatchedFolders = new string [0];
 
+		/* when iterating either of these don't forget to lock the DB;
+		   the hash might be changed by another thread while iterating
+		   otherwise */
 		private Hashtable songs;
 		public Hashtable Songs {
 			get { return songs; }
@@ -62,7 +63,7 @@ namespace Muine
 
 		private Database db;
 
-		/*** constructor ***/
+		// Constructor
 		public SongDatabase (int version)
 		{
 			db = new Database (FileUtils.SongsDBFile, version);
@@ -73,34 +74,18 @@ namespace Muine
 			albums = new Hashtable ();
 		}
 
-		/*** loading ***/
+		// Database interaction
 		private void DecodeFunction (string key, IntPtr data)
 		{
 			Song song = new Song (key, data);
 
 			Songs.Add (key, song);
 			
-			AddToAlbum (song);
+			/* we don't "Finish", as we do this before the UI is there,
+			   we don't need to emit signals */
+			StartAddToAlbum (song);
 		}
 
-		private bool loading;
-
-		public void Load ()
-		{
-			loading = true;
-			
-			db.Load ();
-
-			loading = false;
-			
-			/* add file monitors */
-			string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
-
-			foreach (string folder in folders)
-				AddMonitor (folder);
-		}
-
-		/*** storing ***/
 		private IntPtr EncodeFunction (IntPtr handle, out int length)
 		{
 			Song song = Song.FromHandle (handle);
@@ -108,113 +93,220 @@ namespace Muine
 			return song.Pack (out length);
 		}
 
+		// Loading
+		public void Load ()
+		{
+			lock (this)
+				db.Load ();
+		}
+
+		// Song management
 		public void AddSong (Song song)
 		{
-			db.Store (song.Filename, song.Handle);
-
-			Songs.Add (song.Filename, song);
-
-			AddToAlbum (song);
-
-			if (SongAdded != null)
-				SongAdded (song);
+			SignalRequest rq = StartAddSong (song);
+			if (rq != null)
+				HandleSignalRequest (rq);
 		}
-
-		public void RemoveSong (Song song)
+	
+		private SignalRequest StartAddSong (Song song)
 		{
-			db.Delete (song.Filename);
-
-			if (SongRemoved != null)
-				SongRemoved (song);
-
-			Songs.Remove (song.Filename);
-
-			RemoveFromAlbum (song);
-
-			song.Dead = true;
-		}
-
-		private void SyncSong (Song song, Metadata metadata)
-		{
-			song.Sync (metadata);
-
-			/* update album */
-			RemoveFromAlbum (song);
-			AddToAlbum (song);
+			lock (this) {
+				SignalRequest rq = new SignalRequest (song);
 			
-			SaveSong (song);
+				try {
+					Songs.Add (song.Filename, song);
+				} catch (ArgumentException e) {
+					// Already exists, ignore
+					return null;
+				}
+
+				db.Store (song.Filename, song.Handle);
+
+				rq.SongAdded = true;
+
+				StartAddToAlbum (rq);
+
+				return rq;
+			}
+		}
+
+		private SignalRequest StartSyncSong (Song song, Metadata metadata)
+		{
+			lock (this) {
+				if (song.Dead)
+					return null;
+
+				SignalRequest rq = new SignalRequest (song);
+			
+				song.Sync (metadata);
+
+				/* update album */
+				StartRemoveFromAlbum (rq);
+				StartAddToAlbum (rq);
+			
+				SaveSongInternal (song);
+
+				rq.SongChanged = true;
+				
+				return rq;
+			}
 		}
 
 		public void SaveSong (Song song)
 		{
+			lock (this)
+				SaveSongInternal (song);
+		}
+
+		private void SaveSongInternal (Song song)
+		{
 			db.Store (song.Filename, song.Handle, true);
+		}
+
+		public void RemoveSong (Song song)
+		{
+			SignalRequest rq = StartRemoveSong (song);
+			if (rq != null)
+				HandleSignalRequest (rq);
+		}
+
+		private SignalRequest StartRemoveSong (Song song)
+		{
+			lock (this) {
+				if (song.Dead)
+					return null;
+
+				SignalRequest rq = new SignalRequest (song);
+
+				db.Delete (song.Filename);
+
+				Songs.Remove (rq.Song.Filename);
+
+				StartRemoveFromAlbum (rq);
+
+				rq.SongRemoved = true;
+
+				return rq;
+			}
+		}
+
+		private void EmitSongAdded (Song song)
+		{
+			if (SongAdded != null)
+				SongAdded (song);
 		}
 
 		public void EmitSongChanged (Song song)
 		{
-			if (SongChanged != null && !loading)
+			if (SongChanged != null)
 				SongChanged (song);
 		}
 
-		public Song GetSong (string filename)
+		private void EmitSongRemoved (Song song)
 		{
-			return (Song) Songs [filename];
+			if (SongRemoved != null)
+				SongRemoved (song);
 		}
 
-		/*** album management ***/
-		private void EmitAlbumAdded (Album album)
+		// Album management
+		private void AddToAlbum (Song song)
 		{
-			if (AlbumAdded != null && !loading)
-				AlbumAdded (album);
+			SignalRequest rq = new SignalRequest (song);
+			StartAddToAlbum (rq);
+			HandleSignalRequest (rq);
 		}
 
-		public void EmitAlbumChanged (Album album)
+		private void StartAddToAlbum (SignalRequest rq)
 		{
-			if (AlbumChanged != null && !loading)
-				AlbumChanged (album);
+			StartAddToAlbum (rq, null);
 		}
 
-		private void RemoveFromAlbum (Song song)
+		private void StartAddToAlbum (Song song)
 		{
+			StartAddToAlbum (null, song);
+		}
+
+		private void StartAddToAlbum (SignalRequest rq, Song s)
+		{
+			Song song;
+
+			bool has_rq = (rq != null);
+			if (has_rq)
+				song = rq.Song;
+			else
+				song = s;
+			
 			if (!song.HasAlbum)
 				return;
 
 			string key = song.AlbumKey;
+
+			Album album = (Album) Albums [key];
+			
+			bool changed = false;
+			bool added = false;
+			bool songs_changed = false;
+
+			if (album == null) {
+				album = new Album (song);
+				Albums.Add (key, album);
+
+				added = true;
+			} else {
+				album.Add (song,
+				           out changed,
+					   out songs_changed);
+			}
+
+			if (has_rq) {
+				rq.Album = album;
+				rq.AlbumAdded = added;
+				rq.AlbumChanged = changed;
+				rq.AlbumSongsChanged = songs_changed;
+			}
+		}
+
+		private void StartRemoveFromAlbum (SignalRequest rq)
+		{
+			if (!rq.Song.HasAlbum)
+				return;
+
+			string key = rq.Song.AlbumKey;
 
 			Album album = (Album) Albums [key];
 			if (album == null)
 				return;
 				
-			if (!album.RemoveSong (song))
-				return;
+			if (album.Remove (rq.Song)) {
+				// album is empty
+				Albums.Remove (key);
 
-			// album is empty
-			Albums.Remove (key);
+				rq.AlbumRemoved = true;
+			}
+		}
 
+		private void EmitAlbumAdded (Album album)
+		{
+			if (AlbumAdded != null)
+				AlbumAdded (album);
+		}
+
+		public void EmitAlbumChanged (Album album)
+		{
+			if (AlbumChanged != null)
+				AlbumChanged (album);
+		}
+
+		private void EmitAlbumRemoved (Album album)
+		{
 			if (AlbumRemoved != null)
 				AlbumRemoved (album);
 		}
 
-		private void AddToAlbum (Song song)
+		// Getters
+		public Song GetSong (string filename)
 		{
-			if (!song.HasAlbum)
-				return;
-
-			string key = song.AlbumKey;
-
-			Album album = (Album) Albums [key];
-			
-			if (album == null) {
-				album = new Album (song);
-				Albums.Add (key, album);
-
-				EmitAlbumAdded (album);
-			} else {
-				bool changed = album.AddSong (song);
-
-				if (changed)
-					EmitAlbumChanged (album);
-			}
+			return (Song) Songs [filename];
 		}
 
 		public Album GetAlbum (Song song)
@@ -227,7 +319,7 @@ namespace Muine
 			return (Album) Albums [key];
 		}
 
-		/*** monitoring ***/
+		// Folder watching
 		public void AddWatchedFolder (string folder)
 		{
 			string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
@@ -247,184 +339,43 @@ namespace Muine
 			new_folders [folders.Length] = folder;
 
 			Config.Set (GConfKeyWatchedFolders, new_folders);
-
-			AddMonitor (folder);
 		}
 
-		private void AddMonitor (string folder)
-		{
-		/*
-			FileSystemWatcher watcher = new FileSystemWatcher (folder);
-
-			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite |
-					       NotifyFilters.Size | NotifyFilters.DirectoryName;
-			
-			watcher.IncludeSubdirectories = true;
-			
-			watcher.Changed += new FileSystemEventHandler (OnFileChanged);
-			watcher.Created += new FileSystemEventHandler (OnFileCreated);
-			watcher.Deleted += new FileSystemEventHandler (OnFileDeleted);
-			watcher.Renamed += new RenamedEventHandler (OnFileRenamed);
-
-			watcher.EnableRaisingEvents = true;
-			*/
-		}
-
-	/*
-		private static void OnFileChanged (object o, FileSystemEventArgs e)
-		{
-			Console.WriteLine (e.FullPath + " changed");
-		}
-
-		private static void OnFileCreated (object o, FileSystemEventArgs e)
-		{
-			Console.WriteLine (e.FullPath + " created");
-		}
-
-		private static void OnFileDeleted (object o, FileSystemEventArgs e)
-		{
-			Console.WriteLine (e.FullPath + " deleted");
-		}
-
-		private static void OnFileRenamed (object o, RenamedEventArgs e)
-		{
-			Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
-		}*/
-
-		/*** the thread that checks for changes on startup ***/
-
-		public event DoneCheckingChangesHandler DoneCheckingChanges;
-		public delegate void DoneCheckingChangesHandler ();
-
-		private bool checking_changes = true;
-		public bool CheckingChanges {
-			set {
-				checking_changes = value;
-
-				if (!value) {
-					thread.Abort ();
-
-					thread_done = true;
-					
-					if (DoneCheckingChanges != null)
-						DoneCheckingChanges ();
-				}
-			}
-
-			get { return checking_changes; }
-		}
-		
+		// Changes thread
 		private Thread thread;
 
 		private bool thread_done;
 
-		private Queue removed_songs;
-		private Queue changed_songs;
-		private Queue new_songs;
+		private Queue signal_requests;
 		
-		private GLib.IdleHandler process_actions_from_thread;
-
 		public void CheckChanges ()
 		{
 			thread_done = false;
 
-			removed_songs = Queue.Synchronized (new Queue ());
-			changed_songs = Queue.Synchronized (new Queue ());
-			new_songs = Queue.Synchronized (new Queue ());
+			signal_requests = Queue.Synchronized (new Queue ());
 
-			process_actions_from_thread = new GLib.IdleHandler (ProcessActionsFromThread);
-			GLib.Idle.Add (process_actions_from_thread);
+			GLib.IdleHandler idle = new GLib.IdleHandler (ProcessActionsFromThread);
+			GLib.Idle.Add (idle);
 
 			thread = new Thread (new ThreadStart (CheckChangesThread));
 			thread.Priority = ThreadPriority.BelowNormal;
 			thread.Start ();
 		}
 
-		private struct ChangedSong {
-			private Metadata metadata;
-			public Metadata Metadata {
-				get {
-					return metadata;
-				}
-			}
-			
-			private Song song;
-			public Song Song {
-				get {
-					return song;
-				}
-			}		
-
-			public ChangedSong (Song song, Metadata metadata) {
-				this.song = song;
-				this.metadata = metadata;
-			}
-		}
-
-		/* this is run from the main thread */
-		private const int BatchSize = 10;
 		private bool ProcessActionsFromThread ()
 		{
-			int counter = 0;
-			
-			if (removed_songs.Count > 0) {
-				while (removed_songs.Count > 0 && counter < BatchSize) {
-					counter++;
-					
-					Song song = (Song) removed_songs.Dequeue ();
+			if (signal_requests.Count > 0) {
+				SignalRequest rq = (SignalRequest) signal_requests.Dequeue ();
 
-					if (song.Dead)
-						continue;
-
-					RemoveSong (song);
-				}
+				HandleSignalRequest (rq);
 
 				return true;
 			}
 
-			if (changed_songs.Count > 0) {
-				while (changed_songs.Count > 0 && counter < BatchSize) {
-					counter++;
-					
-					ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
-
-					if (cs.Song.Dead)
-						continue;
-
-					SyncSong (cs.Song, cs.Metadata);
-				}
-
-				return true;
-			}
-
-			if (new_songs.Count > 0) {
-				while (new_songs.Count > 0 && counter < BatchSize) {
-					counter++;
-					
-					Song song = (Song) new_songs.Dequeue ();
-
-					if (Songs.ContainsKey (song.Filename))
-						continue;
-
-					AddSong (song);
-				}
-
-				return true;
-			}
-
-			if (thread_done) {
-				checking_changes = false;
-
-				if (DoneCheckingChanges != null)
-					DoneCheckingChanges ();
-				
-				return false;
-			} else
-				return true;
+			return !thread_done;
 		}
 
-		private void HandleDirectory (DirectoryInfo info,
-					      Queue new_songs)
+		private void HandleDirectory (DirectoryInfo info)
 		{
 			FileInfo [] finfos;
 			
@@ -443,8 +394,10 @@ namespace Muine
 					} catch {
 						continue;
 					}
-
-					new_songs.Enqueue (song);
+					
+					SignalRequest rq = StartAddSong (song);
+					if (rq != null)
+						signal_requests.Enqueue (rq);
 				}
 			}
 
@@ -457,7 +410,7 @@ namespace Muine
 			}
 
 			foreach (DirectoryInfo dinfo in dinfos)
-				HandleDirectory (dinfo, new_songs);
+				HandleDirectory (dinfo);
 		}
 
 		readonly static DateTime datetTime1970 = new DateTime (1970, 1, 1, 0, 0, 0, 0);
@@ -469,30 +422,32 @@ namespace Muine
 
 		private void CheckChangesThread ()
 		{
-			/* check for removed songs and changes */
-			Hashtable snapshot = (Hashtable) Songs.Clone ();
+			Hashtable snapshot;
+			lock (this)
+				snapshot = (Hashtable) Songs.Clone ();
 
+			/* check for removed songs and changes */
 			foreach (string file in snapshot.Keys) {
 				FileInfo finfo = new FileInfo (file);
 				Song song = (Song) snapshot [file];
 
+				SignalRequest rq = null;
+
 				if (!finfo.Exists)
-					removed_songs.Enqueue (song);
+					rq = StartRemoveSong (song);
 				else {
 					if (MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
-						Metadata metadata;
-
 						try {
-							metadata = new Metadata (song.Filename);
+							Metadata metadata = new Metadata (song.Filename);
+							rq = StartSyncSong (song, metadata);
 						} catch {
-							removed_songs.Enqueue (song);
-							continue;
+							rq = StartRemoveSong (song);
 						}
-						
-						ChangedSong cs = new ChangedSong (song, metadata);
-						changed_songs.Enqueue (cs);
 					}
 				}
+
+				if (rq != null)
+					signal_requests.Enqueue (rq);
 			}
 
 			/* check for new songs */
@@ -503,10 +458,110 @@ namespace Muine
 				if (!dinfo.Exists)
 					continue;
 
-				HandleDirectory (dinfo, new_songs);
+				HandleDirectory (dinfo);
 			}
 
 			thread_done = true;
+		}
+		
+		// SignalRequest
+		private class SignalRequest
+		{
+			private Song song;
+			public Song Song {
+				get { return song; }
+			}
+			
+			private Album album;
+			public Album Album {
+				set { album = value; }
+				get { return album; }
+			}
+
+			private bool song_added;
+			public bool SongAdded {
+				set { song_added = value; }
+				get { return song_added; }
+			}
+
+			private bool song_changed;
+			public bool SongChanged {
+				set { song_changed = value; }
+				get { return song_changed; }
+			}
+
+			private bool song_removed;
+			public bool SongRemoved {
+				set { song_removed = value; }
+				get { return song_removed; }
+			}
+			
+			private bool album_added;
+			public bool AlbumAdded {
+				set { album_added = value; }
+				get { return album_added; }
+			}
+
+			private bool album_changed;
+			public bool AlbumChanged {
+				set { album_changed = value; }
+				get { return album_changed; }
+			}
+
+			private bool album_removed;
+			public bool AlbumRemoved {
+				set { album_removed = value; }
+				get { return album_removed; }
+			}
+
+			private bool album_songs_changed;
+			public bool AlbumSongsChanged {
+				set { album_songs_changed = value; }
+				get { return album_songs_changed; }
+			}
+
+			public SignalRequest (Song song) {
+				this.song = song;
+				album = null;
+
+				song_added = false;
+				song_changed = false;
+				song_removed = false;
+
+				album_added = false;
+				album_changed = false;
+				album_removed = false;
+				album_songs_changed = false;
+			}
+		}
+
+		private void HandleSignalRequest (SignalRequest rq)
+		{
+			lock (this) {
+				if (rq.Song.Dead)
+					return;
+
+				if (rq.SongAdded)
+					EmitSongAdded (rq.Song);
+				else if (rq.SongChanged)
+					EmitSongChanged (rq.Song);
+				else if (rq.SongRemoved) {
+					EmitSongRemoved (rq.Song);
+
+					rq.Song.Deregister ();
+				}
+				
+				if (rq.AlbumAdded)
+					EmitAlbumAdded (rq.Album);
+				else if (rq.AlbumChanged) {
+					EmitAlbumChanged (rq.Album);
+
+					if (rq.AlbumSongsChanged)
+						foreach (Song s in rq.Album.Songs)
+							EmitSongChanged (s);
+				} else if (rq.AlbumRemoved)
+					EmitAlbumRemoved (rq.Album);
+			}
 		}
 
 		/*

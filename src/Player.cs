@@ -51,11 +51,8 @@ namespace Muine
 				IntPtr error_ptr;
 
 				player_set_file (Raw, song.Filename, out error_ptr);
-				if (error_ptr != IntPtr.Zero) {
-					string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-
-					throw new Exception (error);
-				}
+				if (error_ptr != IntPtr.Zero)
+					throw new PlayerException (error_ptr);
 				
 				player_set_replaygain (Raw, song.Gain, song.Peak);
 
@@ -182,11 +179,8 @@ namespace Muine
 			IntPtr error_ptr;
 			
 			Raw = player_new (out error_ptr);
-			if (error_ptr != IntPtr.Zero) {
-				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-
-				throw new Exception (error);
-			}
+			if (error_ptr != IntPtr.Zero)
+				throw new PlayerException (error_ptr);
 			
 			tick_cb = new SignalUtils.SignalDelegateInt (OnTick);
 			eos_cb = new SignalUtils.SignalDelegate (OnEndOfStream);
@@ -224,5 +218,10 @@ namespace Muine
 		{
 			new ErrorDialog (String.Format (Catalog.GetString ("Audio backend error:\n{0}"), error));
 		}
+	}
+
+	public class PlayerException : Exception
+	{
+		public PlayerException (IntPtr p) : base (GLib.Marshaller.PtrToStringGFree (p)) {}
 	}
 }

@@ -94,7 +94,6 @@ namespace Muine
 		SkipToWindow skip_to_window = null;
 		AddSongWindow add_song_window = null;
 		AddAlbumWindow add_album_window = null;
-		ProgressWindow checking_changes_progress_window = null;
 
 		/* the player object */
 		private Player player;
@@ -243,13 +242,7 @@ namespace Muine
 			SetupButtons (glade_xml);
 			SetupPlaylist (glade_xml);
 
-			checking_changes_progress_window = new ProgressWindow (this);
-
 			/* connect to song database signals */
-			Muine.DB.DoneCheckingChanges +=
-				new SongDatabase.DoneCheckingChangesHandler (OnDoneCheckingChanges);
-			
-			Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler (OnSongAdded);
 			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
 			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
@@ -670,7 +663,7 @@ namespace Muine
 		private void PlayAndSelect (IntPtr ptr)
 		{
 			playlist.Playing = ptr;
-			playlist.Select (ptr);
+			playlist.Select (playlist.Playing);
 		}
 
 		private void PlayFirstAndSelect ()
@@ -855,9 +848,11 @@ namespace Muine
 				if (player.Song != song || restart) {
 					try {
 						player.Song = song;
-					} catch (Exception e) {
-						/* quietly remove the song */
-						Muine.DB.RemoveSong (song);
+					} catch (PlayerException e) {
+						// quietly remove the song
+						// from an idle, not to interfere with song change routines
+						InvalidSong ivs = new InvalidSong (song);
+						Idle.Add (new IdleHandler (ivs.Handle));
 
 						return;
 					}
@@ -888,6 +883,23 @@ namespace Muine
 
 			MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
 						    true, true, false);
+		}
+
+		private class InvalidSong
+		{
+			private Song song;
+			
+			public InvalidSong (Song song)
+			{
+				this.song = song;
+			}
+
+			public bool Handle ()
+			{
+				Muine.DB.RemoveSong (song);
+
+				return false;
+			}
 		}
 
 		private void SelectionChanged ()
@@ -956,7 +968,7 @@ namespace Muine
 		{
 			VfsStream stream;
 			StreamReader reader;
-			
+
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Open);
 				reader = new StreamReader (stream);
@@ -996,12 +1008,14 @@ namespace Muine
 				Song song = Muine.DB.GetSong (line);
 				if (song == null) {
 					/* not found, lets see if we can find it anyway.. */
-					foreach (string key in Muine.DB.Songs.Keys) {
-						string key_basename = System.IO.Path.GetFileName (key);
+					lock (Muine.DB) {
+						foreach (string key in Muine.DB.Songs.Keys) {
+							string key_basename = System.IO.Path.GetFileName (key);
 
-						if (basename == key_basename) {
-							song = Muine.DB.GetSong (key);
-							break;
+							if (basename == key_basename) {
+								song = Muine.DB.GetSong (key);
+								break;
+							}
 						}
 					}
 				}
@@ -1373,24 +1387,6 @@ namespace Muine
 			SeekTo (player.Position + 5);
 		}
 
-	/*
-		private void OnInformation (object o, EventArgs args)
-		{
-			//FIXME deal with selection
-			Song song = Song.FromHandle (playlist.Playing);
-
-			if (song.Album.Length == 0)
-				return;
-			Album album = (Album) Muine.DB.Albums [song.AlbumKey];
-			
-			InfoWindow id = new InfoWindow ("Information for " + song.Title);
-			id.Load (album);
-			
-			id.Run ();
-			
-			AddChildWindowIfVisible (id);
-		}*/
-
 		public void PlaySong ()
 		{
 			if (add_song_window == null) {
@@ -1712,27 +1708,6 @@ namespace Muine
 		private void OnAbout (object o, EventArgs args)
 		{
 			About.ShowWindow (this);
-		}
-
-		private void OnDoneCheckingChanges ()
-		{
-			checking_changes_progress_window.Done ();
-			checking_changes_progress_window = null;
-		}
-
-		private void OnSongAdded (Song song)
-		{
-			if (!Muine.DB.CheckingChanges)
-				return;
-
-			string basename = System.IO.Path.GetFileName (song.Filename);
-
-			DirectoryInfo dinfo = new DirectoryInfo (song.Folder);
-			string folder_basename = dinfo.Name;
-
-			checking_changes_progress_window.ReportFolder (folder_basename);
-			if (!checking_changes_progress_window.ReportFile (basename))
-				Muine.DB.CheckingChanges = false;
 		}
 
 		private void OnSongChanged (Song song)

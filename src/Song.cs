@@ -102,6 +102,11 @@ namespace Muine
 		
 			get { return cover_image; }
 		}
+
+		public void SetCoverImageQuiet (Pixbuf cover_image)
+		{
+			this.cover_image = cover_image;
+		}
 	
 		private int mtime;
 		public int MTime {
@@ -126,18 +131,13 @@ namespace Muine
 
 		private bool dead = false;
 		public bool Dead {
-			set {
-				dead = value;
-
-				if (dead)
-					Die ();
-			}
-
 			get { return dead; }
 		}
-		
-		private void Die ()
+
+		public void Deregister ()
 		{
+			dead = true;
+
 			pointers.Remove (this.Handle);
 
 			foreach (IntPtr extra_handle in handles)

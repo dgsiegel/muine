@@ -166,18 +166,13 @@ namespace Muine
 						Covers.Add (lc.Key, lc.Pixbuf);
 
 					Album a = Muine.DB.GetAlbum (lc.Key);
-					if (a != null) {
+					if (a != null)
 						a.CoverImage = lc.Pixbuf;
-
-						Muine.DB.EmitAlbumChanged (a);
-					} else {
+					else {
 						Song s = Muine.DB.GetSong (lc.Key);
 
-						if (s != null) {
+						if (s != null)
 							s.CoverImage = lc.Pixbuf;
-
-							Muine.DB.EmitSongChanged (s);
-						}
 					}
 				}
 
