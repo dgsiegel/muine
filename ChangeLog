@@ -1,3 +1,9 @@
+2004-02-02  Goetz Waschk  <waschk@informatik.uni-rostock.de>
+
+	* data/muine.schemas.in:
+
+	An empty string list should be stored as []
+
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/PlaylistWindow.cs:

@@ -95,7 +95,7 @@
       <owner>muine</owner>
       <type>list</type>
       <list_type>string</list_type>
-      <default></default>
+      <default>[]</default>
       <locale name="C">
         <short>Watched folders.</short>
         <long>Folders that are monitored for changes.</long>
