@@ -1,3 +1,26 @@
+2004-02-19  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+
+	Add year information.
+	
+	* src/StringUtils.cs:
+
+	Cleanup SelectionDataToString.
+
+2004-02-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/InfoWindow.glade:
+	* data/glade/Makefile.am:
+	* data/glade/PlaylistWindow.glade:
+	* data/muine.schemas.in:
+	* src/InfoWindow.cs:
+	* src/Makefile.am:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Add a proof-of-concept information window.
+
 2004-02-18  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:

@@ -45,6 +45,13 @@ public class Album
 		}
 	}
 
+	private string year;
+	public string Year {
+		get {
+			return year;
+		}
+	}
+
 	public Gdk.Pixbuf CoverImage;
 
 	private string sort_key = null;
@@ -116,6 +123,7 @@ public class Album
 
 		name = initial_song.Album;
 		CoverImage = initial_song.CoverImage;
+		year = initial_song.Year;
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
@@ -194,12 +202,24 @@ public class Album
 		Songs.Add (song);
 		Songs.Sort (song_comparer);
 
-		if (CoverImage == null && song.CoverImage != null)
+		bool cover_changed = false;
+		if (CoverImage == null && song.CoverImage != null) {
 			SyncCoverImageWith (song);
-		else
+
+			cover_changed = true;
+		} else
 			song.CoverImage = CoverImage;
-		
-		album_changed = AddArtistsAndPerformers (song);
+
+		bool year_changed = false;
+		if (year.Length == 0 && song.Year.Length > 0) {
+			year = song.Year;
+
+			year_changed = true;
+		}
+
+		bool artists_changed = AddArtistsAndPerformers (song);
+
+		album_changed = (cover_changed || artists_changed || year_changed);
 	}
 
 	public void RemoveSong (Song song, out bool album_empty)

@@ -98,13 +98,6 @@ public class StringUtils
 
 	public static string SelectionDataToString (Gtk.SelectionData data)
 	{
-		string str = "";
-
-		byte [] raw_data = data.Data;
-
-		for (int i = 0; i < data.Length; i++)
-			str = str + (char) raw_data [i];
-
-		return str;
+		return System.Text.Encoding.UTF8.GetString (data.Data);
 	}
 }
