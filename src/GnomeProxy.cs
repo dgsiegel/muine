@@ -49,7 +49,13 @@ public class GnomeProxy
 				port = 8080;
 			}
 		
-			proxy = new WebProxy (host, port);
+			try {
+				proxy = new WebProxy (host, port);
+			} catch {
+				use = false;
+
+				return;
+			}
 
 			bool use_auth;
 			try {
@@ -73,7 +79,11 @@ public class GnomeProxy
 					passwd = "";
 				}
 				
-				proxy.Credentials = new NetworkCredential (user, passwd);
+				try {
+					proxy.Credentials = new NetworkCredential (user, passwd);
+				} catch {
+					use_auth = false;
+				}
 			}
 		}
 	}
