@@ -1,5 +1,11 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Bump version number to 0.4.0.99, bump Gtk# requirement to 0.17.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/pointer-list-view.c: (pointers_reordered_cb),
 	(pointer_list_view_select):
 	* src/PlaylistWindow.cs:
