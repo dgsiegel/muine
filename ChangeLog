@@ -1,5 +1,13 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* po/ru.po:
+
+	Added Russian translation by
+	Alekseev Vladimir <compress@linux-online.ru>.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Player.cs:
 	* src/PlaylistWindow.cs:
 
