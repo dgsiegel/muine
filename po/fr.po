@@ -35,32 +35,31 @@ msgid "Error"
 msgstr "Erreur"
 
 #: data/glade/GroupsWindow.glade.h:1
-#, fuzzy
 msgid "<b>Groups</b>"
-msgstr "_Groupes"
+msgstr "<b>Groupes</b>"
 
 #: data/glade/GroupsWindow.glade.h:2
 msgid "<b>Songs</b> (30 minutes in total)"
-msgstr ""
+msgstr "<b>Chansons</b> (30 minutes au total)"
 
 #: data/glade/GroupsWindow.glade.h:3
-#, fuzzy
 msgid "Groups"
-msgstr "_Groupes"
+msgstr "Groupes"
 
 #: data/glade/GroupsWindow.glade.h:4
-#, fuzzy
+#
 msgid "_Add song"
-msgstr "Ajouter une _Chanson"
+msgstr "_Ajouter une chanson"
 
 #: data/glade/NoMusicFoundWindow.glade.h:1
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr ""
+msgstr "<span weight=\"bold\" size=\"larger\">Aucune musique trouvée</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
 msgid ""
 "Muine was unable to find your music collection. What would you like me to do?"
 msgstr ""
+"Muine est incapable de trouver votre collection de musique. Que voulez vous faire ?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
 msgid ""
@@ -68,60 +67,62 @@ msgid ""
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
 msgstr ""
+"Muine va créer les dossiers Music et Music/Playlists dans votre répertoire personnel "
+"afin de ranger vos fichiers musicaux. Cette option est fortement recommandée. Vous avez toujours "
+"le choix d'importer vos autres dossiers manuellement."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
-msgstr ""
+msgstr "Pas de musique trouvée"
 
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefor not generally recommended."
 msgstr ""
+"Vous devez importer votre musique manuellement. Ceci est pour "
+"les utilisateurs avancés seulement et n'est généralement pas recommandé."
+
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
 msgid "_Create an empty music collection "
-msgstr ""
+msgstr "_Créer une collection de musique vide"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
-msgstr ""
+msgstr "_Rien, je gérerai ma musique moi même"
 
 #: data/glade/PlaylistWindow.glade.h:1
-#, fuzzy
 msgid "Play _Album"
-msgstr "Ajouter un _Album"
+msgstr "Lire un _Album"
 
 #: data/glade/PlaylistWindow.glade.h:2
-#, fuzzy
 msgid "Play _Album..."
-msgstr "Ajouter un _Album..."
+msgstr "Lire un _Album..."
 
 #: data/glade/PlaylistWindow.glade.h:3
-#, fuzzy
 msgid "Play _Song"
-msgstr "Ajouter une _Chanson"
+msgstr "Lire une _Chanson"
 
 #: data/glade/PlaylistWindow.glade.h:4
-#, fuzzy
 msgid "Play _Song..."
-msgstr "Ajouter une _Chanson"
+msgstr "Lire une _Chanson..."
 
 #: data/glade/PlaylistWindow.glade.h:5
 msgid "R_epeat"
-msgstr ""
+msgstr "R_épeter"
 
 #: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
-msgstr "_Enlever les Chansons jouÃ©es"
+msgstr "_Enlever les chansons jouées"
 
 #: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
-msgstr "_Avance"
+msgstr "_Retour"
 
 #: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
-msgstr "_Retour"
+msgstr "_Avance"
 
 #: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
@@ -133,7 +134,7 @@ msgstr "_Nettoyer la liste de lecture"
 
 #: data/glade/PlaylistWindow.glade.h:11
 msgid "_Hide Window"
-msgstr "_Cacher la fenÃªtre"
+msgstr "_Cacher la fenêtre"
 
 #: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
@@ -144,36 +145,32 @@ msgid "_Next"
 msgstr "_Suivant"
 
 #: data/glade/PlaylistWindow.glade.h:14
-#, fuzzy
 msgid "_Open Playlist..."
-msgstr "_Nettoyer la liste de lecture"
+msgstr "_Ouvrir la liste de lecture..."
 
 #: data/glade/PlaylistWindow.glade.h:15
-#, fuzzy
 msgid "_Playlist"
-msgstr "_Nettoyer la liste de lecture"
+msgstr "_Liste de lecture"
 
 #: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
-msgstr "_PrÃ©cÃ©dent"
+msgstr "_Précédent"
 
 #: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "_Retirer la chanson"
 
 #: data/glade/PlaylistWindow.glade.h:18
-#, fuzzy
 msgid "_Save Playlist As..."
-msgstr "_Nettoyer la liste de lecture"
+msgstr "_Sauver la liste de lecture sous..."
 
 #: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
-msgstr "_Aller Ã ..."
+msgstr "_Aller à..."
 
 #: data/glade/PlaylistWindow.glade.h:20
-#, fuzzy
 msgid "_Song"
-msgstr "Ajouter une _Chanson"
+msgstr "_Chanson"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
@@ -181,11 +178,11 @@ msgstr "Charge:"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
-msgstr "Aller Ã "
+msgstr "Aller à"
 
 #: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -197,62 +194,57 @@ msgstr "Muine Lecteur de Musique"
 
 #: data/muine.schemas.in.h:1
 msgid "Add album window height."
-msgstr "Ajouter la hauteur de la fenÃªtre de l'album"
+msgstr "Ajouter la hauteur de la fenêtre de l'album"
 
 #: data/muine.schemas.in.h:2
 msgid "Add album window width."
-msgstr "Ajouter la largeur de la fenÃªtre de l'album."
+msgstr "Ajouter la largeur de la fenêtre de l'album."
 
 #: data/muine.schemas.in.h:3
 msgid "Add song window height."
-msgstr "Ajouter la hauteur de la fenÃªtre de la chanson."
+msgstr "Ajouter la hauteur de la fenêtre de la chanson."
 
 #: data/muine.schemas.in.h:4
 msgid "Add song window width."
-msgstr "Ajouter la largeur de la fenÃªtre de la chanson."
+msgstr "Ajouter la largeur de la fenêtre de la chanson."
 
 #: data/muine.schemas.in.h:5
 msgid "Default import folder."
-msgstr "Dossier d'ajout par dÃ©faut."
+msgstr "Dossier d'ajout par défaut."
 
 #: data/muine.schemas.in.h:6
-#, fuzzy
 msgid "Default playlist folder."
-msgstr "Dossier d'ajout par dÃ©faut."
+msgstr "Dossier des listes de lecture par défaut."
 
 #: data/muine.schemas.in.h:7
 msgid "First start."
-msgstr ""
+msgstr "Premier démarrage"
 
 #: data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
-msgstr ""
+msgstr "Dossiers observés pour les changements"
 
 #: data/muine.schemas.in.h:9
-#, fuzzy
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr ""
-"Dossier derniÃ¨rement utilisÃ© pour la boite de dialogue \"Importer le "
-"dossier...\"."
+"Dossier dernièrement utilisé pour la boite de dialogue \"Importer le "
+"dossier\"."
 
 #: data/muine.schemas.in.h:10
-#, fuzzy
 msgid "Last used folder from the playlist file selectors."
-msgstr ""
-"Dossier derniÃ¨rement utilisÃ© pour la boite de dialogue \"Importer le "
-"dossier...\"."
+msgstr "Dossier dernièrement utilisé pour la boite de dialogue des listes de lecture"
 
 #: data/muine.schemas.in.h:11
 msgid "Playlist window height."
-msgstr "Hauteur de la fenÃªtre de la liste de lecture."
+msgstr "Hauteur de la fenêtre de la liste de lecture."
 
 #: data/muine.schemas.in.h:12
 msgid "Playlist window width."
-msgstr "Largeur de la fenÃªtre de la liste de lecture."
+msgstr "Largeur de la fenêtre de la liste de lecture."
 
 #: data/muine.schemas.in.h:13
 msgid "Repeat mode."
-msgstr ""
+msgstr "Mode Répeter"
 
 #: data/muine.schemas.in.h:14
 msgid "Volume level."
@@ -264,7 +256,7 @@ msgstr "Niveau du volume. 0 = minimum, 100 = maximum."
 
 #: data/muine.schemas.in.h:16
 msgid "Watched folders."
-msgstr ""
+msgstr "Dossiers observés"
 
 #: data/muine.schemas.in.h:17
 msgid "Whether or not to enable repeat playlist mode."
@@ -272,7 +264,7 @@ msgstr ""
 
 #: data/muine.schemas.in.h:18
 msgid "false if Muine has been started before."
-msgstr ""
+msgstr "faux si Muine a été démarré avant"
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -284,16 +276,15 @@ msgstr "L'orientation dans la zone de notification."
 
 #: src/About.cs:52
 msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr ""
+msgstr "Copyright (C) 2003, 2004 Jorn Baayen"
 
 #: src/About.cs:53
-#, fuzzy
 msgid "A music player"
-msgstr "Muine Lecteur de Musique"
+msgstr "Un Lecteur de Musique"
 
 #: src/About.cs:62
 msgid "Thanks to Amazon.com for providing album cover images!"
-msgstr ""
+msgstr "Merci à Amazon.com de fournir les images des albums !"
 
 #: src/Muine.cs:83
 #, csharp-format
@@ -301,6 +292,8 @@ msgid ""
 "Failed to load the cover database: {0}\n"
 "Exiting..."
 msgstr ""
+"Échec du chargement de la base de donnée des couvertures: {0}\n"
+"Quitte..."
 
 #: src/Muine.cs:94
 #, csharp-format
@@ -308,6 +301,9 @@ msgid ""
 "Failed to load the song database: {0}\n"
 "Exiting..."
 msgstr ""
+"Échec du chargement de la base de donnée des chansons: {0}\n"
+"Quitte..."
+
 
 #~ msgid "TITLE"
 #~ msgstr "TITRE"
@@ -326,7 +322,7 @@ msgstr ""
 
 #~ msgid "_Fill queue with random songs from selected groups"
 #~ msgstr ""
-#~ "_Remplir la liste avec des chansons alÃ©atoires des groupes sÃ©lectionnÃ©s"
+#~ "_Remplir la liste avec des chansons aléatoires des groupes sélectionnés"
 
 #~ msgid "_Volume"
 #~ msgstr "_Volume"
@@ -335,55 +331,55 @@ msgstr ""
 #~ msgstr "0 secondes"
 
 #~ msgid "_Skip to:"
-#~ msgstr "_Aller Ã :"
+#~ msgstr "_Aller à:"
 
 #~ msgid "seconds"
 #~ msgstr "secondes"
 
 #~ msgid "Playlist window visibility."
-#~ msgstr "VisibilitÃ© de la fenÃªtre de la liste de lecture."
+#~ msgstr "Visibilité de la fenêtre de la liste de lecture."
 
 #~ msgid "Playlist window visible (true) or not (false)."
-#~ msgstr "FenÃªtre de la liste de lecture visible (true) ou non (false)."
+#~ msgstr "Fenêtre de la liste de lecture visible (true) ou non (false)."
 
 #~ msgid "Pixbuf"
 #~ msgstr "Image"
 
 #~ msgid "A GdkPixbuf to display"
-#~ msgstr "Le GdkPixbuf Ã  afficher"
+#~ msgstr "Le GdkPixbuf à afficher"
 
 #~ msgid "Filename"
 #~ msgstr "Nom du fichier"
 
 #~ msgid "Filename to load and display"
-#~ msgstr "Nom du fichier Ã  charger et afficher"
+#~ msgstr "Nom du fichier à charger et afficher"
 
 #~ msgid "Stock ID"
 #~ msgstr "Stock ID"
 
 #~ msgid "Stock ID for a stock image to display"
-#~ msgstr "Stock ID de l'image Ã  afficher"
+#~ msgstr "Stock ID de l'image à afficher"
 
 #~ msgid "Animation"
 #~ msgstr "Animation"
 
 #~ msgid "GdkPixbufAnimation to display"
-#~ msgstr "GdkPixbufAnimation Ã  afficher"
+#~ msgstr "GdkPixbufAnimation à afficher"
 
 #~ msgid "Image type"
 #~ msgstr "Type d'image"
 
 #~ msgid "The representation being used for image data"
-#~ msgstr "La reprÃ©sentation Ã  utiliser pour les donnÃ©es de l'image"
+#~ msgstr "La représentation à utiliser pour les données de l'image"
 
 #~ msgid "Size"
 #~ msgstr "Taille"
 
 #~ msgid "The size of the icon"
-#~ msgstr "Taille de l'icÃ´ne"
+#~ msgstr "Taille de l'icône"
 
 #~ msgid "Blinking"
 #~ msgstr "Clignotement"
 
 #~ msgid "Whether or not the status icon is blinking"
-#~ msgstr "Si l'icÃ´ne d'Ãªtat clignote ou pas"
+#~ msgstr "Si l'icône d'êtat clignote ou pas"
