@@ -214,7 +214,6 @@ namespace Muine
 
 						try {
 							pixbuf = getter.DownloadFromAmazon (album);
-							pixbuf = getter.AddBorder (pixbuf);
 						} catch (WebException e) {
 							// Temporary web problem (Timeout etc.) - re-queue
 							Thread.Sleep (60000); // wait for a minute first
@@ -229,9 +228,10 @@ namespace Muine
 							continue;
 						}
 
-						if (pixbuf != null)
+						if (pixbuf != null) {
+							pixbuf = getter.AddBorder (pixbuf);
 							Global.CoverDB.SetCover (key, pixbuf);
-						else
+						} else
 							Global.CoverDB.UnmarkAsBeingChecked (key);
 
 						new IdleData (album, pixbuf);

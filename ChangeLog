@@ -1,3 +1,9 @@
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverGetter.cs:
+
+	Only add border to amazon pixbuf if we got one.
+
 2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
 	
 	* src/Actions.cs:
