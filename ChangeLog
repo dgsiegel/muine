@@ -1,5 +1,12 @@
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Actions.cs:
+
+	Arghl- somebody bound the ImportFolder action to the Remove
+	action.
+
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* configure.in:
 
