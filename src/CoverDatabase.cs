@@ -242,7 +242,13 @@ public class CoverDatabase
 
 	public Pixbuf AddCoverLocal (string key, string filename)
 	{
-		Pixbuf pix = new Pixbuf (filename);
+		Pixbuf pix;
+		
+		try {
+			pix = new Pixbuf (filename);
+		} catch {
+			return null;
+		}
 
 		pix = BeautifyPixbuf (pix);
 
