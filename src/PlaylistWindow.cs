@@ -749,9 +749,10 @@ public class PlaylistWindow : Window
 			if (first == true) {
 				playlist.Playing = p;
 				playlist.ScrollTo (p);
-				player.Playing = true;
 
 				SongChanged ();
+
+				player.Playing = true;
 		
 				first = false;
 			}
@@ -785,9 +786,10 @@ public class PlaylistWindow : Window
 				if (first == true) {
 					playlist.Playing = s.Handle;
 					playlist.ScrollTo (s.Handle);
-					player.Playing = true;
 
 					SongChanged ();
+
+					player.Playing = true;
 		
 					first = false;
 				}
@@ -1068,9 +1070,10 @@ public class PlaylistWindow : Window
 	private void HandlePlaylistRowActivated (IntPtr handle)
 	{
 		playlist.Playing = handle;
-		player.Playing = true;
 
 		SongChanged ();
+
+		player.Playing = true;
 	}
 
 	private void HandlePlaylistRowsReordered ()
