@@ -1363,7 +1363,7 @@ public class PlaylistWindow : Window
 		FileChooserDialog fc;
 
 		fc = new FileChooserDialog (Muine.Catalog.GetString ("Import Folder"), this,
-					    FileChooserAction.SelectFolder, "gnome-vfs");
+					    FileChooserAction.SelectFolder);
 		fc.LocalOnly = true;
 		fc.AddButton (Stock.Cancel, ResponseType.Cancel);
 		fc.AddButton (Muine.Catalog.GetString ("_Import"), ResponseType.Ok);
