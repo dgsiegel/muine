@@ -1480,6 +1480,7 @@ namespace Muine
 			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
 			fc.AddButton (Catalog.GetString ("_Import"), ResponseType.Ok);
 			fc.DefaultResponse = ResponseType.Ok;
+			fc.SelectMultiple = true;
 			
 			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
 
@@ -1495,21 +1496,22 @@ namespace Muine
 
 			fc.Visible = false;
 
-			string res = FileUtils.LocalPathFromUri (fc.Uri);
+			Config.Set (GConfKeyImportFolder, fc.CurrentFolder);
 
-			Config.Set (GConfKeyImportFolder, res);
+			ProgressWindow pw = new ProgressWindow (this);
 
-			DirectoryInfo dinfo = new DirectoryInfo (res);
+			foreach (string dir in fc.Filenames) {
+				DirectoryInfo dinfo = new DirectoryInfo (dir);
 				
-			if (dinfo.Exists) {
-				ProgressWindow pw = new ProgressWindow (this);
-				pw.ReportFolder (dinfo.Name);
+				if (dinfo.Exists) {
+					pw.ReportFolder (dinfo.Name);
 
-				Muine.DB.AddWatchedFolder (dinfo.FullName);
-				HandleDirectory (dinfo, pw);
-
-				pw.Done ();
+					Muine.DB.AddWatchedFolder (dinfo.FullName);
+					HandleDirectory (dinfo, pw);
+				}
 			}
+
+			pw.Done ();
 
 			fc.Destroy ();
 		}

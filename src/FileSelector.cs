@@ -62,7 +62,7 @@ namespace Muine
 
 			string ret = Uri;
 
-			Config.Set (gconf_path, System.IO.Path.GetDirectoryName (ret));
+			Config.Set (gconf_path, CurrentFolderUri);
 
 			Destroy ();
 

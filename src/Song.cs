@@ -207,8 +207,7 @@ namespace Muine
 				cover_image = (Pixbuf) Muine.CoverDB.Covers [filename];
 
 			if (cover_image == null && metadata.AlbumArt != null) {
-				string key = HasAlbum ? AlbumKey :
-						filename;
+				string key = HasAlbum ? AlbumKey : filename;
 
 				if (Muine.CoverDB.Covers [key] == null)
 					cover_image = Muine.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
