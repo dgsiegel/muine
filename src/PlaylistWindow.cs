@@ -1564,6 +1564,7 @@ public class PlaylistWindow : Window
 		List selected_pointers = playlist.SelectedPointers;
 
 		int counter = 0, selected_pointers_count = selected_pointers.Count;
+		bool song_changed = false;
 
 		foreach (int i in selected_pointers) {
 			IntPtr sel = new IntPtr (i);
@@ -1580,8 +1581,8 @@ public class PlaylistWindow : Window
 
 					player.Stop ();
 				}
-
-				SongChanged (true);
+				
+				song_changed = true;
 			}
 			
 			if (counter == selected_pointers_count - 1) {
@@ -1593,6 +1594,10 @@ public class PlaylistWindow : Window
 
 			counter ++;
 		}
+
+
+		if (song_changed)
+			SongChanged (true);
 
 		NSongsChanged ();
 	}
