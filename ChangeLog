@@ -1,5 +1,11 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlayerDBusObject.cs:
+
+	Don't crash if D-Bus support could not be initialized.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* PluginLib/PlayerInterface.cs:
 	* PluginLib/Plugin.cs:
 	* PluginLib/SongInterface.cs:

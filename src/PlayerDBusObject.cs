@@ -183,7 +183,8 @@ public class PlayerDBusObject
 		if (song != null)
 			value = SongToString (song);
 
-		SongChanged (value);
+		if (SongChanged != null)
+			SongChanged (value);
 	}
 
 	private string SongToString (SongInterface song)
