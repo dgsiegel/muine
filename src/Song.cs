@@ -210,7 +210,9 @@ namespace Muine
 
 			/* we need to do cover stuff here too, as we support setting covers
 			   to songs that are not associated with any album. and, we also need
-			   this to support ID3 embedded cover images. */
+			   this to support ID3 embedded cover images.
+			   Note that CoverDB has the required thread safety for us to be able
+			   to do this from a thread. */
 			if (!had_album && HasAlbum && cover_image != null) {
 				/* This used to be a single song, but not anymore, and it does
 				   have a cover- migrate the cover to the album, if there is
