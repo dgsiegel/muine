@@ -1,3 +1,9 @@
+2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/Song.cs:
+
+	Add {F,f}older.jpg to cover image detection code.
+
 2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
 
 	* configure.in:

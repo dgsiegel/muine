@@ -178,6 +178,8 @@ public class Song
 		"Cover.jpeg",
 		"cover.png",
 		"Cover.png",
+		"folder.jpg",
+		"Folder.jpg",
 		"cover.gif",
 		"Cover.gif"
 	};
