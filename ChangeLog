@@ -1,5 +1,12 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/PlaylistWindow.cs:
+
+	Ditch "Command" suffix from action signal names.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* ClientLib/AssemblyInfo.cs:
 	* ClientLib/Player.cs:
 	* PluginLib/AssemblyInfo.cs:

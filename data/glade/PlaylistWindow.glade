@@ -74,7 +74,7 @@
 			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
-			  <signal name="toggled" handler="OnPlayPauseCommand" last_modification_time="Tue, 04 Jan 2005 18:19:38 GMT"/>
+			  <signal name="toggled" handler="OnPlayPause" last_modification_time="Tue, 04 Jan 2005 18:23:18 GMT"/>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment5">
@@ -147,7 +147,7 @@
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="OnPreviousCommand" last_modification_time="Tue, 04 Jan 2005 18:19:46 GMT"/>
+			  <signal name="clicked" handler="OnPrevious" last_modification_time="Tue, 04 Jan 2005 18:23:09 GMT"/>
 
 			  <child>
 			    <widget class="GtkImage" id="previous_image">
@@ -172,7 +172,7 @@
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="OnNextCommand" last_modification_time="Tue, 04 Jan 2005 18:19:51 GMT"/>
+			  <signal name="clicked" handler="OnNext" last_modification_time="Tue, 04 Jan 2005 18:23:13 GMT"/>
 
 			  <child>
 			    <widget class="GtkImage" id="next_image">
@@ -234,7 +234,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="OnPlaySongCommand" last_modification_time="Tue, 04 Jan 2005 18:20:06 GMT"/>
+		      <signal name="clicked" handler="OnPlaySong" last_modification_time="Tue, 04 Jan 2005 18:23:22 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment3">
@@ -309,7 +309,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="OnPlayAlbumCommand" last_modification_time="Tue, 04 Jan 2005 18:20:02 GMT"/>
+		      <signal name="clicked" handler="OnPlayAlbum" last_modification_time="Tue, 04 Jan 2005 18:23:26 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment4">
