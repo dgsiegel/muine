@@ -25,6 +25,12 @@ using GLib;
 
 public class AddAlbumWindow : Window
 {
+        private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
+        private const int GConfDefaultWidth = 500;
+
+        private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
+        private const int GConfDefaultHeight = 475; 
+
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
@@ -63,8 +69,8 @@ public class AddAlbumWindow : Window
 
 		window.Title = Muine.Catalog.GetString ("Play Album");
 
-		int width = (int) Muine.GetGConfValue ("/apps/muine/add_album_window/width", 500);                
-		int height = (int) Muine.GetGConfValue ("/apps/muine/add_album_window/height", 475);
+		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);                
+		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
 
 		window.SetDefaultSize (width, height);
 
@@ -272,8 +278,8 @@ public class AddAlbumWindow : Window
 
 		window.GetSize (out width, out height);
 
-		Muine.SetGConfValue ("/apps/muine/add_album_window/width", width);
-		Muine.SetGConfValue ("/apps/muine/add_album_window/height", height);
+		Muine.SetGConfValue (GConfKeyWidth, width);
+		Muine.SetGConfValue (GConfKeyHeight, height);
 	}
 
 	private void HandleRowActivated (IntPtr handle)

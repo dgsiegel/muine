@@ -25,6 +25,8 @@ using GLib;
 
 public class FileSelector : FileChooserDialog
 {
+        private const string GConfDefaultStartDir = "~";
+        
 	private string gconf_path;
 
 	public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
@@ -40,7 +42,7 @@ public class FileSelector : FileChooserDialog
 
 		gconf_path = gcp;
 
-		string start_dir = (string) Muine.GetGConfValue (gconf_path, "~");
+		string start_dir = (string) Muine.GetGConfValue (gconf_path, GConfDefaultStartDir);
 
 		start_dir.Replace ("~", Muine.HomeDirectory);
 

@@ -29,6 +29,21 @@ using MuinePluginLib;
 
 public class PlaylistWindow : Window, PlayerInterface
 {
+        private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
+        private const int GConfDefaultWidth = 450; 
+
+        private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
+        private const int GConfDefaultHeight = 475;
+
+        private const string GConfKeyVolume = "/apps/muine/volume";
+        private const int GConfDefaultVolume = 50;
+
+        private const string GConfKeyRepeat = "/apps/muine/repeat";
+        private const bool GConfDefaultRepeat = false;
+
+        private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
+        private const string GConfDefaultImportFolder = "~";
+
 	/* menu widgets */
 	private Action previous_action;
 	private Action next_action;
@@ -448,7 +463,7 @@ public class PlaylistWindow : Window, PlayerInterface
 	/*
 	public void CheckFirstStartUp () 
  	{
- 		bool first_start = (bool) Muine.GetGConfValue ("/apps/muine/first_start", true);
+ 		bool first_start = (bool) Muine.GetGConfValue (GConfKeyFirstStart, GConfDefaultFirstStart);
 
 		if (!first_start)
 			return;
@@ -458,7 +473,7 @@ public class PlaylistWindow : Window, PlayerInterface
  		if (!musicdir.Exists) {
  			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
 
-	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
+	 		Muine.SetGConfValue (GConfKeyFirstStart, false);
  		} else { 
  			// create a playlists directory if it still doesn't exists
  			DirectoryInfo playlistsdir = new DirectoryInfo (Muine.PlaylistsDirectory);
@@ -471,7 +486,7 @@ public class PlaylistWindow : Window, PlayerInterface
  			Muine.DB.AddWatchedFolder (musicdir.FullName);
 
 			// do this here, because the folder is watched now
-	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
+	 		Muine.SetGConfValue (GConfKeyFirstStart, false);
 	
  			HandleDirectory (musicdir, pw);
 
@@ -481,8 +496,8 @@ public class PlaylistWindow : Window, PlayerInterface
 	
 	private void SetupWindowSize ()
 	{
-		int width = (int) Muine.GetGConfValue ("/apps/muine/playlist_window/width", 450);
-		int height = (int) Muine.GetGConfValue ("/apps/muine/playlist_window/height", 475);
+		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);
+		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
 
 		SetDefaultSize (width, height);
 
@@ -569,13 +584,13 @@ public class PlaylistWindow : Window, PlayerInterface
 		tooltips.SetTip (volume_button,
 				 Muine.Catalog.GetString ("Change the volume level"), null);
 
-		int vol = (int) Muine.GetGConfValue ("/apps/muine/volume", 50);
+		int vol = (int) Muine.GetGConfValue (GConfKeyVolume, GConfDefaultVolume);
 
 		volume_button.Volume = vol;
 		player.Volume = vol;
 
 		block_repeat_action = true;
-		repeat_action.Active = (bool) Muine.GetGConfValue ("/apps/muine/repeat", false);
+		repeat_action.Active = (bool) Muine.GetGConfValue (GConfKeyRepeat, GConfDefaultRepeat);
 		block_repeat_action = false;
 	}
 
@@ -1138,15 +1153,15 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		GetSize (out width, out height);
 
-		Muine.SetGConfValue ("/apps/muine/playlist_window/width", width);
-		Muine.SetGConfValue ("/apps/muine/playlist_window/height", height);
+		Muine.SetGConfValue (GConfKeyWidth, width);
+		Muine.SetGConfValue (GConfKeyHeight, height);
 	}
 
 	private void HandleVolumeChanged (int vol)
 	{
 		player.Volume = vol;
 
-		Muine.SetGConfValue ("/apps/muine/volume", vol);
+		Muine.SetGConfValue (GConfKeyVolume, vol);
 	}
 
 	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
@@ -1505,7 +1520,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		fc.AddButton (Muine.Catalog.GetString ("_Import"), ResponseType.Ok);
 		fc.DefaultResponse = ResponseType.Ok;
 		
-		string start_dir = (string) Muine.GetGConfValue ("/apps/muine/default_import_folder", "~");
+		string start_dir = (string) Muine.GetGConfValue (GConfKeyImportFolder, GConfDefaultImportFolder);
 
 		start_dir.Replace ("~", Muine.HomeDirectory);
 
@@ -1521,7 +1536,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		string res = FileUtils.LocalPathFromUri (fc.Uri);
 
-		Muine.SetGConfValue ("/apps/muine/default_import_folder", res);
+		Muine.SetGConfValue (GConfKeyImportFolder, res);
 
 		DirectoryInfo dinfo = new DirectoryInfo (res);
 			
@@ -1655,7 +1670,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		if (block_repeat_action)
 			return;
 
-		Muine.SetGConfValue ("/apps/muine/repeat", repeat_action.Active);
+		Muine.SetGConfValue (GConfKeyRepeat, repeat_action.Active);
 
 		PlaylistChanged ();
 	}

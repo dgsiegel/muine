@@ -32,6 +32,9 @@ public class CoverDatabase
 {
 	public const int AlbumCoverSize = 66;
 
+        private const string GConfKeyAmazonLocale = "/apps/muine/amazon_locale";
+        private const string GConfDefaultAmazonLocale = "us";
+
 	private Hashtable covers;
 	public Hashtable Covers {
 		get {
@@ -55,7 +58,7 @@ public class CoverDatabase
 
 	public CoverDatabase (int version)
 	{
-		amazon_locale = (string) Muine.GetGConfValue ("/apps/muine/amazon_locale", "us");
+		amazon_locale = (string) Muine.GetGConfValue (GConfKeyAmazonLocale, GConfDefaultAmazonLocale);
 
 		db = new Database (Muine.CoversDBFile, version);
 		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);

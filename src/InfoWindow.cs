@@ -26,6 +26,12 @@ using GLib;
 
 public class InfoWindow : Window
 {
+        private const string GConfKeyWidth = "/apps/muine/information_window/width";
+        private const int GConfDefaultWidth = 350; 
+
+        private const string GConfKeyHeight = "/apps/muine/information_window/height";
+        private const int GConfDefaultHeight = 300; 
+
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
@@ -55,8 +61,8 @@ public class InfoWindow : Window
 
 		window.Title = title;
 
-		int width = (int) Muine.GetGConfValue ("/apps/muine/information_window/width", 350);
-		int height = (int) Muine.GetGConfValue ("/apps/muine/information_window/height", 300);
+		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);
+		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
 
 		window.SetDefaultSize (width, height);
 
@@ -80,8 +86,8 @@ public class InfoWindow : Window
 
 		window.GetSize (out width, out height);
 
-		Muine.SetGConfValue ("/apps/muine/information_window/width", width);
-		Muine.SetGConfValue ("/apps/muine/information_window/height", height);
+		Muine.SetGConfValue (GConfKeyWidth, width);
+		Muine.SetGConfValue (GConfKeyHeight, height);
 	}
 
 	public void Run ()

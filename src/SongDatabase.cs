@@ -26,6 +26,10 @@ using Gnome;
 
 public class SongDatabase 
 {
+        // MCS doesn't support array constants yet (as of 1.0)
+        private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
+        private readonly string [] GConfDefaultWatchedFolders = new string [0];
+
 	private Hashtable songs;
 	public Hashtable Songs {
 		get {
@@ -86,7 +90,7 @@ public class SongDatabase
 		db.Load ();
 		
 		/* add file monitors */
-		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
+		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		foreach (string folder in folders)
 			AddMonitor (folder);
@@ -220,7 +224,7 @@ public class SongDatabase
 	/*** monitoring ***/
 	public void AddWatchedFolder (string folder)
 	{
-		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
+		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		string [] new_folders = new string [folders.Length + 1];
 
@@ -234,7 +238,7 @@ public class SongDatabase
 
 		new_folders [folders.Length] = folder;
 
-		Muine.SetGConfValue ("/apps/muine/watched_folders", new_folders);
+		Muine.SetGConfValue (GConfKeyWatchedFolders, new_folders);
 
 		AddMonitor (folder);
 	}
@@ -452,7 +456,7 @@ public class SongDatabase
 		}
 
 		/* check for new songs */
-		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
+		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		foreach (string folder in folders) {
 			DirectoryInfo dinfo = new DirectoryInfo (folder);

@@ -22,21 +22,39 @@ using System.Net;
 
 public class GnomeProxy
 {
+	private const string GConfKeyUse = "/system/http_proxy/use_http_proxy";
+	private const bool GConfDefaultUse = false;
+
+	private const string GConfKeyHost = "/system/http_proxy/host";
+	private const string GConfDefaultHost = "";
+
+	private const string GConfKeyPort = "/system/http_proxy/port";
+	private const int GConfDefaultPort = 8080;
+
+	private const string GConfKeyUseAuth = "/system/http_proxy/use_authentication";
+	private const bool GConfDefaultUseAuth = false;
+
+	private const string GConfKeyUser = "/system/http_proxy/authentication_user";
+	private const string GConfDefaultUser = "";
+
+	private const string GConfKeyPass = "/system/http_proxy/authentication_password";
+	private const string GConfDefaultPass = "";
+
 	private bool use;
 
 	private WebProxy proxy;
 	
 	public GnomeProxy ()
 	{
-		use = (bool) Muine.GetGConfValue ("/system/http_proxy/use_http_proxy", false);
+		use = (bool) Muine.GetGConfValue (GConfKeyUse, GConfDefaultUse);
 
 		if (!use)
 			return;
 
 		// Host / Proxy
-		string host = (string) Muine.GetGConfValue ("/system/http_proxy/host", "");
+		string host = (string) Muine.GetGConfValue (GConfKeyHost, GConfDefaultHost);
 
-		int port = (int) Muine.GetGConfValue ("/system/http_proxy/port", 8080);
+		int port = (int) Muine.GetGConfValue (GConfKeyPort, GConfDefaultPort);
 		
 		try {
 			proxy = new WebProxy (host, port);
@@ -46,14 +64,14 @@ public class GnomeProxy
 		}
 
 		// Authentication
-		bool use_auth = (bool) Muine.GetGConfValue ("/system/http_proxy/use_authentication", false);
+		bool use_auth = (bool) Muine.GetGConfValue (GConfKeyUseAuth, GConfDefaultUseAuth);
 
 		if (!use_auth)
 			return;
 
-		string user = (string) Muine.GetGConfValue ("/system/http_proxy/authentication_user", "");
+		string user = (string) Muine.GetGConfValue (GConfKeyUser, GConfDefaultUser);
 
-		string passwd = (string) Muine.GetGConfValue ("/system/http_proxy/authentication_password", "");
+		string passwd = (string) Muine.GetGConfValue (GConfKeyPass, GConfDefaultPass);
 				
 		try {
 			proxy.Credentials = new NetworkCredential (user, passwd);

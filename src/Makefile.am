@@ -28,7 +28,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/GnomeProxy.cs			\
-	$(srcdir)/InfoWindow.cs			\
 	$(srcdir)/CoverImage.cs			\
 	$(srcdir)/MmKeys.cs			\
 	$(srcdir)/GettextCatalog.cs		\
@@ -52,7 +51,6 @@ RESOURCES =												\
 	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade				\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
 	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
-	/resource:$(top_srcdir)/data/glade/InfoWindow.glade,InfoWindow.glade				\
 	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
 	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
 	/resource:$(top_srcdir)/data/images/muine-volume-zero.png,muine-volume-zero.png			\

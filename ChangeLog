@@ -1,5 +1,24 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Makefile.am:
+
+	Don't compile unused InfoWindow.cs and NoMusicFoundWindow.cs for now.
+
+2004-12-30  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/CoverDatabase.cs:
+	* src/FileSelector.cs:
+	* src/GnomeProxy.cs:
+	* src/InfoWindow.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+			
+	Made GConf keys and default values constants.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 	* src/FileSelector.cs:
 	* src/Makefile.am:
