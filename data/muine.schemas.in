@@ -89,5 +89,16 @@
         <long>Volume level. 0 = lowest, 100 = highest.</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/muine/default_import_folder</key>
+      <applyto>/apps/muine/default_import_folder</applyto>
+      <owner>muine</owner>
+      <type>string</type>
+      <default>~</default>
+      <locale name="C">
+        <short>Default import folder.</short>
+        <long>Last used folder from "Import folder..." dialog.</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

@@ -30,9 +30,32 @@ public class Album
 		}
 	}
 
+	private string lower_name = null;
+	public string LowerName {
+		get {
+			if (lower_name == null)
+				lower_name = name.ToLower ();
+
+			return lower_name;
+		}
+	}
+
 	public ArrayList Songs;
 
 	public ArrayList Artists;
+
+	private ArrayList lower_artists = null;
+	public ArrayList LowerArtists {
+		get {
+			if (lower_artists == null) {
+				lower_artists = new ArrayList ();
+				foreach (string str in Artists)
+					lower_artists.Add (str.ToLower ());
+			}
+
+			return lower_artists;
+		}
+	}
 
 	private string year;
 	public string Year {
@@ -90,6 +113,11 @@ public class Album
 		pointers.Remove (handle);
 	}
 
+	public static Album FromHandle (IntPtr handle)
+	{
+		return (Album) pointers [handle];
+	}
+
 	private void AddArtists (Song song)
 	{
 		foreach (string artist in song.Artists) {
@@ -112,10 +140,5 @@ public class Album
 		Songs.Remove (song);
 
 		return (Songs.Count == 0);
-	}
-
-	public static Album FromHandle (IntPtr handle)
-	{
-		return (Album) pointers [handle];
 	}
 }

@@ -54,8 +54,8 @@ public class Muine : Gnome.Program
 		try {
 			DB = new SongDatabase ();
 		} catch (Exception e) {
-			/* FIXME error dialog */
-			Console.WriteLine ("Error loading database :" + e.ToString ());
+			new ErrorDialog ("Failed to load the database: " + e.ToString () + "\nExiting...");
+
 			Environment.Exit (0);
 		}
 

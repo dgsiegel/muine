@@ -1,4 +1,31 @@
 2004-01-17  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/AddWindow.glade:
+	* data/glade/ErrorDialog.glade:
+	* data/glade/Makefile.am:
+	* data/glade/PlaylistWindow.glade:
+	* data/glade/ProgressWindow.glade:
+	* data/glade/SkipToWindow.glade:
+	* data/muine.schemas.in:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/ErrorDialog.cs:
+	* src/KeyUtils.cs:
+	* src/Makefile.am:
+	* src/MarkupUtils.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:
+
+	Add an "Import folder" command with a progress dialog, more library 
+	work (almost fully functional), error dialogs, various fixes and
+	polish.
+
+2004-01-17  Jorn Baayen  <jorn@nl.linux.org>
+
 	* Imported into CVS, this is very much WIP so don't expect anything
 	to work. If you want to use it, use the latest release instead.

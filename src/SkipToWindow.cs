@@ -43,6 +43,8 @@ public class SkipToWindow
 	public void Run ()
 	{
 		window.Visible = true;
+
+		seconds_spin_button.GrabFocus ();
 	}
 
 	public delegate void SeekEventHandler (int sec);
@@ -91,5 +93,15 @@ public class SkipToWindow
 		} 
 		
 		time_label.Text = label;
+	}
+
+	private void HandleSecondsSpinButtonActivated (object o, EventArgs args)
+	{
+		window.Visible = false;
+		
+		int sec = (int) seconds_spin_button.Value;
+
+		if (SeekEvent != null)
+			SeekEvent (sec);
 	}
 }

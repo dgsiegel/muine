@@ -25,15 +25,15 @@ public class MarkupUtils
 {
 	[DllImport ("libmuine")]
 	private static extern void label_set_markup (IntPtr label,
-						     int start_index,
-						     int end_index,
+						     uint start_index,
+						     uint end_index,
 						     bool large,
 						     bool bold,
 						     bool italic);
 
 	public static void LabelSetMarkup (Label label,
-					   int start_index,
-					   int end_index,
+					   uint start_index,
+					   uint end_index,
 					   bool large,
 					   bool bold,
 					   bool italic)
@@ -44,15 +44,15 @@ public class MarkupUtils
 
 	[DllImport ("libmuine")]
 	private static extern void cell_set_markup (IntPtr label,
-						    int start_index,
-						    int end_index,
+						    uint start_index,
+						    uint end_index,
 						    bool large,
 						    bool bold,
 						    bool italic);
 
 	public static void CellSetMarkup (CellRendererText cell,
-					  int start_index,
-					  int end_index,
+					  uint start_index,
+					  uint end_index,
 					  bool large,
 					  bool bold,
 					  bool italic)

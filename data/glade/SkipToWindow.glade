@@ -44,6 +44,7 @@
 	    <widget class="GtkButton" id="button2">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
+	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="label">gtk-ok</property>
 	      <property name="use_stock">True</property>
@@ -113,6 +114,7 @@
 		      <property name="wrap">False</property>
 		      <property name="adjustment">0 0 36000 1 10 10</property>
 		      <signal name="value_changed" handler="HandleSecondsSpinButtonValueChanged" last_modification_time="Sun, 11 Jan 2004 20:07:54 GMT"/>
+		      <signal name="activate" handler="HandleSecondsSpinButtonActivated" last_modification_time="Sat, 17 Jan 2004 20:55:28 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>

@@ -88,14 +88,34 @@ public class AddSongWindow
 		foreach (Song s in Muine.DB.Songs.Values)
 			view.Append (s.Handle);
 
+		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
+		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+
+		UpdateSelection ();
+
 		HandleSelectionChanged ();
 
 		/* FIXME multiple selection */
-		/* FIXME arrow-down/up in entry (focus bij entry houden) */
-		/* FIXME handle songs added/removed (signals on DB) */
-		/* FIXME escape closes window */
-		/* FIXME test esc on skipto */
 	}
+
+	public void Run ()
+	{
+		search_entry.Text = "";
+		search_entry.GrabFocus ();
+
+		window.Visible = true;
+	}
+
+	private void UpdateSelection ()
+	{
+		/* FIXME: if no selection, select first (signal?) */
+	}
+
+	public delegate void QueueSongsEventHandler (ArrayList songs);
+	public event QueueSongsEventHandler QueueSongsEvent;
+	
+	public delegate void PlaySongsEventHandler (ArrayList songs);
+	public event PlaySongsEventHandler PlaySongsEvent;
 
 	private int SortFunc (IntPtr a_ptr,
 			      IntPtr b_ptr)
@@ -119,13 +139,6 @@ public class AddSongWindow
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
 					   false, true, false);
-	}
-
-	public void Run ()
-	{
-		window.Visible = true;
-
-		search_entry.GrabFocus ();
 	}
 
 	public delegate void SeekEventHandler (int sec);
@@ -163,31 +176,46 @@ public class AddSongWindow
 	}
 
 	/* FIXME timeout ? */
-	/* FIXME case, losse woordjes greppen instead of substr */
-	/* FIXME select first when coming back from nothingness, en at first */
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
 		foreach (Song s in Muine.DB.Songs.Values) {
-			foreach (string str in s.Titles) {
-				if (str.IndexOf (search_entry.Text) >= 0) {
-					l.Append (s.Handle);
-					continue;
+			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+
+			int n_matches = 0;
+			
+			foreach (string search_bit in search_bits) {
+				bool do_continue = false;
+
+				foreach (string str in s.LowerTitles) {
+					if (str.IndexOf (search_bit) >= 0) {
+						n_matches++;
+						do_continue = true;
+						break;
+					}
 				}
+
+				if (do_continue)
+					continue;
+	
+				foreach (string str in s.LowerArtists) {
+					if (str.IndexOf (search_bit) >= 0) {
+						n_matches++;
+						do_continue = true;
+						break;
+					}
+				}
+
+				if (do_continue)
+					continue;
+
+				if (s.LowerAlbum.IndexOf (search_bit) >= 0)
+					n_matches++;
 			}
 
-			foreach (string str in s.Artists) {
-				if (str.IndexOf (search_entry.Text) >= 0) {
-					l.Append (s.Handle);
-					continue;
-				}
-			}
-
-			if (s.Album.IndexOf (search_entry.Text) >= 0) {
+			if (n_matches == search_bits.Length)
 				l.Append (s.Handle);
-				continue;
-			}
 		}
 
 		view.RemoveDelta (l);
@@ -197,12 +225,38 @@ public class AddSongWindow
 
 			view.Append (ptr);
 		}
+
+		UpdateSelection ();
+	}
+
+	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
+	{
+		KeyPressEventArgs args = (KeyPressEventArgs) a;
+
+		args.RetVal = false;
+		
+		if (KeyUtils.HaveModifier (args.Event.state))
+			return;
+
+		switch (args.Event.keyval) {
+		case 0xFF52: /* up */
+			/* FIXME */
+			args.RetVal = true;
+			Console.WriteLine ("up");
+			break;
+		case 0xFF54: /* down */
+			/* FIXME */
+			args.RetVal = true;
+			Console.WriteLine ("down");
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void HandleClearButtonClicked (object o, EventArgs args)
 	{
 		search_entry.Text = "";
-
 		search_entry.GrabFocus ();
 	}
 
@@ -234,9 +288,13 @@ public class AddSongWindow
 		queue_button.Sensitive = has_sel;
 	}
 
-	public delegate void QueueSongsEventHandler (ArrayList songs);
-	public event QueueSongsEventHandler QueueSongsEvent;
-	
-	public delegate void PlaySongsEventHandler (ArrayList songs);
-	public event PlaySongsEventHandler PlaySongsEvent;
+	private void HandleSongAdded (Song song)
+	{
+		view.Append (song.Handle);
+	}
+
+	private void HandleSongRemoved (Song song)
+	{
+		view.Remove (song.Handle);
+	}
 }

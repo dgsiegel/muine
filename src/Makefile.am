@@ -15,7 +15,10 @@ MUINE_CSFILES =					\
 	$(srcdir)/Metadata.cs			\
 	$(srcdir)/Player.cs			\
 	$(srcdir)/StringUtils.cs		\
+	$(srcdir)/KeyUtils.cs			\
 	$(srcdir)/SkipToWindow.cs		\
+	$(srcdir)/ProgressWindow.cs		\
+	$(srcdir)/ErrorDialog.cs		\
 	$(srcdir)/VolumeButton.cs		\
 	$(srcdir)/HandleView.cs			\
 	$(srcdir)/StockIcons.cs			\
@@ -36,7 +39,9 @@ ASSEMBLIES =					\
 RESOURCES =											\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade		\
 	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade		\
+	/resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade			\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade			\
+	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade		\
 	/resource:$(top_srcdir)/data/images/muine-previous.png,muine-previous.png		\
 	/resource:$(top_srcdir)/data/images/muine-play.png,muine-play.png			\
 	/resource:$(top_srcdir)/data/images/muine-pause.png,muine-pause.png			\

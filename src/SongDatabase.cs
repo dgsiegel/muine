@@ -15,6 +15,8 @@
  * License along with this program; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
+ *
+ * FIXME check file existance when loading db
  */
 
 using System;
@@ -65,17 +67,21 @@ public class SongDatabase
 		Albums = new Hashtable ();
 	}
 
+	public delegate void SongAddedHandler (Song song);
+	public event SongAddedHandler SongAdded;
+
+	public delegate void SongRemovedHandler (Song song);
+	public event SongRemovedHandler SongRemoved;
+
+	public delegate void AlbumAddedHandler (Album album);
+	public event AlbumAddedHandler AlbumAdded;
+	
+	public delegate void AlbumRemovedHandler (Album album);
+	public event AlbumRemovedHandler AlbumRemoved;
+
 	public void Load ()
 	{
 		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
-
-		/* FIXME remove this dump code */
-		foreach (Album a in Albums.Values) {
-			Console.WriteLine ("Album: " + a.Name);
-			foreach (Song s in a.Songs) {
-				Console.WriteLine ("  Song: " + String.Join (", ", s.Artists) + " - " + String.Join (", ", s.Titles));
-			}
-		}
 	}
 	
 	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
@@ -84,7 +90,7 @@ public class SongDatabase
 
 		Muine.DB.Songs.Add (String.Copy (key), song);
 
-		Muine.DB.DoAlbum (song);
+		Muine.DB.DoAlbum (song, false);
 	}
 
 	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
@@ -101,10 +107,48 @@ public class SongDatabase
 
 		Songs.Add (song.Filename, song);
 
-		DoAlbum (song);
+		DoAlbum (song, true);
+
+		if (SongAdded != null)
+			SongAdded (song);
 	}
 
-	public void DoAlbum (Song song)
+	[DllImport ("libmuine")]
+	private static extern void db_delete (IntPtr dbf, string key);
+
+	public void RemoveSong (Song song)
+	{
+		db_delete (dbf, song.Filename);
+
+		if (SongRemoved != null)
+			SongRemoved (song);
+
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.Album];
+		if (album.RemoveSong (song)) {
+			Albums.Remove (album.Name);
+
+			if (AlbumRemoved != null)
+				AlbumRemoved (album);
+		}
+	}
+
+	private IntPtr EncodeFunc (IntPtr handle, out int length)
+	{
+		Song song = Song.FromHandle (handle);
+
+		return song.Pack (out length);
+	}
+
+	public void UpdateSong (Song song)
+	{
+		db_store (dbf, song.Filename, true,
+			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
+	}
+
+	public void DoAlbum (Song song, bool emit_signal)
 	{
 		if (song.Album.Length == 0)
 			return;
@@ -113,15 +157,12 @@ public class SongDatabase
 		if (album == null) {
 			album = new Album (song);
 			Albums.Add (album.Name, album);
+
+			if (emit_signal && AlbumAdded != null)
+				AlbumAdded (album);
 		} else {
 			album.AddSong (song);
 		}
-	}
-
-	public void UpdateSong (Song song)
-	{
-		db_store (dbf, song.Filename, true,
-			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
 	}
 
 	public bool HaveFile (string filename)
@@ -132,27 +173,5 @@ public class SongDatabase
 	public Song SongFromFile (string filename)
 	{
 		return (Song) Songs [filename];
-	}
-
-	private IntPtr EncodeFunc (IntPtr handle, out int length)
-	{
-		Song song = Song.FromHandle (handle);
-
-		return song.Pack (out length);
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void db_delete (IntPtr dbf, string key);
-
-	public void RemoveSong (Song song)
-	{
-		db_delete (dbf, song.Filename);
-
-		if (song.Album.Length == 0)
-			return;
-
-		Album album = (Album) Albums [song.Album];
-		if (album.RemoveSong (song))
-			Albums.Remove (album.Name);
 	}
 }

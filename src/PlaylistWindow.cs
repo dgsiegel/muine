@@ -233,7 +233,7 @@ public class PlaylistWindow : Window
 
 		scrolledwindow.Add (playlist);
 		
-		MarkupUtils.LabelSetMarkup (playlist_label, 0, "Playlist".Length,
+		MarkupUtils.LabelSetMarkup (playlist_label, 0, (uint) "Playlist".Length,
 		                            false, true, false);
 
 		playing_pixbuf = new Gdk.Pixbuf (null, "muine-playing.png");
@@ -273,7 +273,8 @@ public class PlaylistWindow : Window
 		try {
 			player = new Player ();
 		} catch {
-			/* FIXME error dialog */
+			new ErrorDialog ("Failed to create the required GStreamer elements.\nExiting...");
+
 			Environment.Exit (0);
 		}
 
@@ -293,8 +294,6 @@ public class PlaylistWindow : Window
 
 			SongChanged ();
 		}
-
-		Muine.DB.AddSong (song);
 	}
 
 	private static string SecondsToString (long time)
@@ -486,15 +485,7 @@ public class PlaylistWindow : Window
 
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
 	{
-		/* If we have modifiers, and either Ctrl, Mod1 (Alt), or any
-		 * of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
-		 * let Gtk+ handle the key */
-		if (args.Event.state != 0
-		 	&& (((args.Event.state & (uint) Gdk.ModifierType.ControlMask) != 0)
-			 || ((args.Event.state & (uint) Gdk.ModifierType.Mod1Mask) != 0)
-			 || ((args.Event.state & (uint) Gdk.ModifierType.Mod3Mask) != 0)
-			 || ((args.Event.state & (uint) Gdk.ModifierType.Mod4Mask) != 0)
-			 || ((args.Event.state & (uint) Gdk.ModifierType.Mod5Mask) != 0))) {
+		if (KeyUtils.HaveModifier (args.Event.state)) {
 			args.RetVal = false;
 			return;
 		}
@@ -505,6 +496,10 @@ public class PlaylistWindow : Window
 		case 0x020: /* space */
 			if (playlist.HasFirst)
 				HandlePlayPauseCommand (null, null);
+			break;
+		case 0x061: /* a */
+		case 0x041: /* A */
+			HandleAddSongCommand (null, null);
 			break;
 		case 0x070: /* p */
 		case 0x050: /* P */
@@ -593,12 +588,29 @@ public class PlaylistWindow : Window
 
 	private void HandleQueueSongsEvent (ArrayList songs)
 	{
-		/* FIXME */
+		foreach (Song s in songs)
+			playlist.Append (s.Handle);
+
+		NSongsChanged ();
 	}
 
 	private void HandlePlaySongsEvent (ArrayList songs)
 	{
-		/* FIXME */
+		bool first = true;
+		foreach (Song s in songs) {
+			playlist.Append (s.Handle);
+			
+			if (first == true) {
+				playlist.Playing = s.Handle;
+				player.Playing = true;
+
+				SongChanged ();
+		
+				first = false;
+			}
+		}
+
+		NSongsChanged ();
 	}
 
 	private void HandleTickEvent (long pos)
@@ -705,7 +717,42 @@ public class PlaylistWindow : Window
 		add_song_window.Run ();
 	}
 
-	private void HandleAddSongCommand2 (object o, EventArgs args)
+	private bool HandleDirectory (DirectoryInfo info,
+				      ProgressWindow pw,
+				      bool add_to_playlist)
+	{
+		foreach (FileInfo finfo in info.GetFiles ()) {
+			Song song;
+
+			song = Muine.DB.SongFromFile (finfo.ToString ());
+			if (song == null) {
+				bool ret = pw.ReportFile (finfo.Name);
+				if (ret == false)
+					return false;
+
+				try {
+					song = new Song (finfo.ToString ());
+				} catch (Exception e) {
+					continue;
+				}
+
+				Muine.DB.AddSong (song);
+			}
+
+			if (add_to_playlist)
+				AddSong (song);
+		}
+
+		foreach (DirectoryInfo dinfo in info.GetDirectories ()) {
+			bool ret = HandleDirectory (dinfo, pw, add_to_playlist);
+			if (ret == false)
+				return false;
+		}
+
+		return true;
+	}
+
+	private void HandleImportFolderCommand (object o, EventArgs args)
 	{
 		FileSelection fs;
 		
@@ -713,49 +760,67 @@ public class PlaylistWindow : Window
 		fs.SelectMultiple = true;
 		fs.HideFileopButtons ();
 
+		fs.HistoryPulldown.Visible = false;
+		fs.FileList.Parent.Visible = false;
+
+		CheckButton check = new CheckButton ("_Add to playlist");
+		check.Visible = true;
+		((Dialog) fs).VBox.PackEnd (check, false, false, 0);
+
+		string start_dir;
+		try {
+			start_dir = (string) Muine.GConfClient.Get ("/apps/muine/default_import_folder");
+		} catch {
+			start_dir = "~";
+		}
+
+		if (start_dir == "~")
+			start_dir = Environment.GetEnvironmentVariable ("HOME");
+
+		if (start_dir.EndsWith ("/") == false)
+			start_dir += "/";
+
+		fs.Filename = start_dir;
+
 		if (fs.Run () != (int) ResponseType.Ok) {
 			fs.Destroy ();
 
 			return;
 		}
 
+		bool add_to_playlist = check.Active;
+
+		fs.Visible = false;
+
+		ProgressWindow pw = null;
+	
+		bool set_state = false;
 		foreach (string fn in fs.Selections) {
+			if (set_state == false) {
+				Muine.GConfClient.Set ("/apps/muine/default_import_folder", fn);
+				set_state = true;
+			}
+
 			DirectoryInfo dinfo = new DirectoryInfo (fn);
 			
 			if (dinfo.Exists) {
-				/* directory */
-				foreach (FileInfo finfo in dinfo.GetFiles ()) {
-					Song song;
-					
-					try {
-						song = new Song (finfo.ToString ());
-					} catch (Exception e) {
-						/* FIXME */
-						Console.WriteLine ("Failed to load " + finfo.ToString () + " because: " + e.ToString ());
-						continue;
-					}
-
-					AddSong (song);
-				}
-			} else {
-				/* file */
-				Song song;
+				if (pw == null)
+					pw = new ProgressWindow (this);
+				bool ret = pw.ReportFolder (dinfo.Name);
+				if (ret == false)
+					break;
 				
-				try {
-					song = new Song (fn);
-				} catch (Exception e) {
-					/* FIXME */
-					Console.WriteLine ("Failed to load " + fn + " because: " + e.ToString ());
-					continue;
-				}
-
-				AddSong (song);
+				HandleDirectory (dinfo, pw, add_to_playlist);
 			}
 		}
 
+		if (pw != null)
+			pw.Done ();
+
 		fs.Destroy ();
 
-		NSongsChanged ();
+		if (add_to_playlist)
+			NSongsChanged ();
 	}
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)

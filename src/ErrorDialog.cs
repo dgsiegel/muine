@@ -18,15 +18,31 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
 
-public class StringUtils
+using Gtk;
+using GtkSharp;
+using GLib;
+using Pango;
+
+public class ErrorDialog
 {
-	[DllImport ("libc")]
-	private static extern int strlen (string str);
-
-	public static uint GetByteLength (string str)
+	[Glade.Widget]
+	Window window;
+	[Glade.Widget]
+	Label label;
+	
+	public ErrorDialog (string text)
 	{
-		return (uint) strlen (str);
+		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
+		gxml.Autoconnect (this);
+
+		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (text),
+					    true, true, false);
+
+		label.Text = text;
+
+		((Dialog) window).Run ();
+
+		window.Destroy ();
 	}
 }
