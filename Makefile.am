@@ -9,6 +9,7 @@ SUBDIRS = 		\
 EXTRA_DIST =			\
 	TODO			\
 	HACKING			\
+	PLUGINS			\
 	MAINTAINERS		\
 	intltool-extract.in	\
 	intltool-merge.in	\
