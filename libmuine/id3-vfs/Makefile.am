@@ -6,5 +6,6 @@ INCLUDES = 						\
 	-DG_LOG_DOMAIN=\"id3-vfs\"			\
 	-I$(top_srcdir) 				\
 	$(MUINE_CFLAGS)					\
+	$(ID3TAG_CFLAGS)				\
 	$(WARN_CFLAGS)					\
 	-DG_DISABLE_DEPRECATED
