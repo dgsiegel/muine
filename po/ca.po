@@ -1,0 +1,304 @@
+# muine translation to Catalan.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Softcatalà <info@softcatala.org>, 2004.
+# Aleix Badia i Bosch <abadia@ica.es>, 2004.
+# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
+msgid ""
+msgstr ""
+"Project-Id-Version: muine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-24 04:58+0100\n"
+"PO-Revision-Date: 2004-01-24 9:32+0100\n"
+"Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
+msgid "TITLE"
+msgstr "TÍTOL"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Play"
+msgstr "Re_produeix"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Queue"
+msgstr "En_cua"
+
+#: data/glade/AddWindow.glade.h:5
+msgid "_Search:"
+msgstr "_Cerca:"
+
+#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
+msgid "ERROR MESSAGE"
+msgstr "MISSATGE D'ERROR"
+
+#: data/glade/ErrorDialog.glade.h:2
+msgid "Error"
+msgstr "Error"
+
+#: data/glade/GroupsWindow.glade.h:1
+msgid "<b>Groups</b>"
+msgstr "<b>Grups</b>"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr "<b>Cançons</b> (en total 30 minuts)"
+
+#: data/glade/GroupsWindow.glade.h:3
+msgid "Groups"
+msgstr "Grups"
+
+#: data/glade/GroupsWindow.glade.h:4
+msgid "_Add song"
+msgstr "_Afegeix una cançó"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Add _Album"
+msgstr "_Afegeix un àlbum"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Add _Album..."
+msgstr "Afegeix un _album..."
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Add _Song"
+msgstr "Afegeix una _cançó"
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Add _Song..."
+msgstr "Afegeix una _cançó..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "Remove _Played Songs"
+msgstr "Suprimeix les cançons re_produïdes"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Skip _Backwards"
+msgstr "S_alta cap a endarrere"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Forward"
+msgstr "Salta cap a _endavant"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "TMP"
+msgstr "TEMP"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "_Clear Playlist"
+msgstr "Neteja la llista de reprodu_cció"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "_Fill queue with random songs from selected groups"
+msgstr "Omple la cua amb cançons aleatòries dels _grups seleccionats"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Groups"
+msgstr "_Grups"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Hide Window"
+msgstr "Amaga la _finestra"
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Import Folder..."
+msgstr "_Importa una carpeta..."
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "Següe_nt"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "_Obre una llista..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "Llista de re_producció"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "A_nterior"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "Sup_rimeix la cançó"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "Anomena i de_sa la llista..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Salta fins a...."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "_Cançó"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "S'està carregant:"
+
+#: data/glade/SearchMusicWindow.glade.h:1
+msgid "Search for Music"
+msgstr "Cerca música"
+
+#: data/glade/SearchMusicWindow.glade.h:2
+msgid "Welcome to Muine"
+msgstr "Benvingut al Muine"
+
+#: data/glade/SearchMusicWindow.glade.h:3
+msgid "_Search"
+msgstr "_Cerca"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Omet fins a"
+
+#: data/glade/YesNoDialog.glade.h:2
+msgid "Question"
+msgstr "Pregunta"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Escolteu la vostra música"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Reproductor de música Muine"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Introdueix l'alçada de la finestra d'àlbums."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Introdueix l'amplada de la finestra d'àlbums."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Introdueix l'alçada de la finestra de cançons."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Introdueix l'amplada de la finestra de cançons."
+
+#: data/muine.schemas.in.h:5
+msgid "Default \"Open Playlist\" folder."
+msgstr "Carpeta predeterminada per a l'acció \"Obre una llista\"."
+
+#: data/muine.schemas.in.h:6
+msgid "Default \"Save Playlist As\" folder."
+msgstr "Carpeta predeterminada per a l'acció \"Anomena i desa la llista\"."
+
+#: data/muine.schemas.in.h:7
+msgid "Default import folder."
+msgstr "Carpeta predeterminada per importar."
+
+#: data/muine.schemas.in.h:8
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Última carpeta utilitzada del diàleg \"Importa carpeta\"."
+
+#: data/muine.schemas.in.h:9
+msgid "Last used folder from \"Open Playlist\" dialog."
+msgstr "Última carpeta utilitzada pel diàleg \"Obre una llista\"."
+
+#: data/muine.schemas.in.h:10
+msgid "Last used folder from \"Save Playlist As\" dialog."
+msgstr "Última carpeta utilitza pel diàleg \"Anomena i desa la llista\"."
+
+#: data/muine.schemas.in.h:11
+msgid "Playlist window height."
+msgstr "Alçada de la finestra de la llista."
+
+#: data/muine.schemas.in.h:12
+msgid "Playlist window visibility."
+msgstr "Visibilitat de la finestra de la llista."
+
+#: data/muine.schemas.in.h:13
+msgid "Playlist window visible (true) or not (false)."
+msgstr "Si la finestra de la llista de reproducció és visible"
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr "Amplada de la finestra de la llista."
+
+#: data/muine.schemas.in.h:15
+msgid "Volume level."
+msgstr "Nivell del volum."
+
+#: data/muine.schemas.in.h:16
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Nivell del volum. 0=mínim, 100=màxim."
+
+#: libmuine/egg/eggstatusicon.c:154
+msgid "Pixbuf"
+msgstr "Memòria intermitja de píxels"
+
+#: libmuine/egg/eggstatusicon.c:155
+msgid "A GdkPixbuf to display"
+msgstr "Un GdkPixbuf a mostrar"
+
+#: libmuine/egg/eggstatusicon.c:162
+msgid "Filename"
+msgstr "Fitxer"
+
+#: libmuine/egg/eggstatusicon.c:163
+msgid "Filename to load and display"
+msgstr "Fitxer per carregar i visualitzar"
+
+#: libmuine/egg/eggstatusicon.c:170
+msgid "Stock ID"
+msgstr "Stock ID"
+
+#: libmuine/egg/eggstatusicon.c:171
+msgid "Stock ID for a stock image to display"
+msgstr "Stock ID és l'identificador d'aquesta imatge"
+
+#: libmuine/egg/eggstatusicon.c:178
+msgid "Animation"
+msgstr "Animació"
+
+#: libmuine/egg/eggstatusicon.c:179
+msgid "GdkPixbufAnimation to display"
+msgstr "GdkPixbufAnimation que es mostrarà"
+
+#: libmuine/egg/eggstatusicon.c:186
+msgid "Image type"
+msgstr "Tipus d'imatge"
+
+#: libmuine/egg/eggstatusicon.c:187
+msgid "The representation being used for image data"
+msgstr "La representació usada per les dades de la imatge"
+
+#: libmuine/egg/eggstatusicon.c:195
+msgid "Size"
+msgstr "Mida"
+
+#: libmuine/egg/eggstatusicon.c:196
+msgid "The size of the icon"
+msgstr "Mida de la icona"
+
+#: libmuine/egg/eggstatusicon.c:205
+msgid "Blinking"
+msgstr "Parpellejant"
+
+#: libmuine/egg/eggstatusicon.c:206
+msgid "Whether or not the status icon is blinking"
+msgstr "Si la icona d'estat està parpellejant"
+
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
+msgid "Orientation"
+msgstr "Orientació"
+
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
+msgid "The orientation of the tray."
+msgstr "L'orientació de la safata."
