@@ -1,5 +1,12 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Handle album cover properly on song change.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/FileSelector.cs:
 	* src/PlaylistWindow.cs:
 	* src/Song.cs:

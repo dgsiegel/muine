@@ -64,7 +64,7 @@ namespace Muine
 
 		public bool HasAlbum {
 			get {
-				return (album.Length > 0);
+				return (album != null && album.Length > 0);
 			}
 		}
 
@@ -129,19 +129,22 @@ namespace Muine
 			set {
 				dead = value;
 
-				if (!dead)
-					return;
-
-				pointers.Remove (this.Handle);
-
-				foreach (IntPtr extra_handle in handles)
-					pointers.Remove (extra_handle);
-				
-				if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
-					Muine.CoverDB.RemoveCover (filename);
+				if (dead)
+					Die ();
 			}
 
 			get { return dead; }
+		}
+		
+		private void Die ()
+		{
+			pointers.Remove (this.Handle);
+
+			foreach (IntPtr extra_handle in handles)
+				pointers.Remove (extra_handle);
+				
+			if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
+				Muine.CoverDB.RemoveCover (filename);
 		}
 
 		public new IntPtr Handle {
@@ -187,6 +190,8 @@ namespace Muine
 
 		public void Sync (Metadata metadata)
 		{
+			bool had_album = HasAlbum;
+
 			if (metadata.Title.Length > 0)
 				title = metadata.Title;
 			else
@@ -203,10 +208,25 @@ namespace Muine
 			gain = metadata.Gain;
 			peak = metadata.Peak;
 
-			if (!HasAlbum)
+			/* we need to do cover stuff here too, as we support setting covers
+			   to songs that are not associated with any album. and, we also need
+			   this to support ID3 embedded cover images. */
+			if (!had_album && HasAlbum && cover_image != null) {
+				/* This used to be a single song, but not anymore, and it does
+				   have a cover- migrate the cover to the album, if there is
+				   none there yet */
+				Muine.CoverDB.RemoveCover (filename);
+
+				string akey = AlbumKey;
+				if (Muine.CoverDB.Covers [akey] == null)
+					Muine.CoverDB.SetCover (akey, cover_image);
+			} else if (!HasAlbum) /* See if there is a cover for this single song */
 				cover_image = (Pixbuf) Muine.CoverDB.Covers [filename];
 
 			if (cover_image == null && metadata.AlbumArt != null) {
+				/* Look for an ID3 embedded cover image, if it is there, and no
+				   cover image is set yet, set it as cover image if it is a single
+				   song, or as album cover image if it belongs to an album */
 				string key = HasAlbum ? AlbumKey : filename;
 
 				if (Muine.CoverDB.Covers [key] == null)
@@ -318,6 +338,7 @@ namespace Muine
 			return (n_matches == search_bits.Length);
 		}
 
+		/* Only call these if it is a single song */
 		public void SetCoverLocal (string file)
 		{
 			CoverImage = Muine.CoverDB.Getter.GetLocal (filename, file);

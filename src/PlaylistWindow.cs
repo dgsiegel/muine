@@ -1726,9 +1726,8 @@ namespace Muine
 				return;
 
 			string basename = System.IO.Path.GetFileName (song.Filename);
-			string folder = System.IO.Path.GetDirectoryName (song.Filename);
 
-			DirectoryInfo dinfo = new DirectoryInfo (folder);
+			DirectoryInfo dinfo = new DirectoryInfo (song.Folder);
 			string folder_basename = dinfo.Name;
 
 			checking_changes_progress_window.ReportFolder (folder_basename);
