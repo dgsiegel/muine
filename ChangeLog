@@ -15,7 +15,7 @@
 	* src/Song.cs:
 	* src/SongDatabase.cs:
 
-	Use dirname:albumname as album key.
+	Use dirname:albumname as album key. As discussed with ziegler.
 
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
