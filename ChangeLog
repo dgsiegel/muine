@@ -1,3 +1,9 @@
+2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/muine.schemas.in:
+
+	Consistent period usage.
+
 2004-05-08  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:

@@ -8,7 +8,7 @@
       <type>int</type>
       <default>500</default>
       <locale name="C">
-        <short>Playlist window width.</short>
+        <short>Playlist window width</short>
         <long>Playlist window width.</long>
       </locale>
     </schema>
@@ -19,7 +19,7 @@
       <type>int</type>
       <default>400</default>
       <locale name="C">
-        <short>Playlist window height.</short>
+        <short>Playlist window height</short>
         <long>Playlist window height.</long>
       </locale>
     </schema>
@@ -30,7 +30,7 @@
       <type>int</type>
       <default>350</default>
       <locale name="C">
-        <short>Add song window width.</short>
+        <short>Add song window width</short>
         <long>Add song window width.</long>
       </locale>
     </schema>
@@ -41,7 +41,7 @@
       <type>int</type>
       <default>300</default>
       <locale name="C">
-        <short>Add song window height.</short>
+        <short>Add song window height</short>
         <long>Add song window height.</long>
       </locale>
     </schema>
@@ -52,7 +52,7 @@
       <type>int</type>
       <default>350</default>
       <locale name="C">
-        <short>Add album window width.</short>
+        <short>Add album window width</short>
         <long>Add album window width.</long>
       </locale>
     </schema>
@@ -63,7 +63,7 @@
       <type>int</type>
       <default>300</default>
       <locale name="C">
-        <short>Add album window height.</short>
+        <short>Add album window height</short>
         <long>Add album window height.</long>
       </locale>
     </schema>
@@ -74,7 +74,7 @@
       <type>int</type>
       <default>350</default>
       <locale name="C">
-        <short>Information window width.</short>
+        <short>Information window width</short>
         <long>Information window width.</long>
       </locale>
     </schema>
@@ -85,7 +85,7 @@
       <type>int</type>
       <default>300</default>
       <locale name="C">
-        <short>Information window height.</short>
+        <short>Information window height</short>
         <long>Information window height.</long>
       </locale>
     </schema>
@@ -96,7 +96,7 @@
       <type>bool</type>
       <default>1</default>
       <locale name="C">
-        <short>First start.</short>
+        <short>First start</short>
         <long>false if Muine has been started before.</long>
       </locale>
     </schema>
@@ -107,7 +107,7 @@
       <type>int</type>
       <default>50</default>
       <locale name="C">
-        <short>Volume level.</short>
+        <short>Volume level</short>
         <long>Volume level. 0 = lowest, 100 = highest.</long>
       </locale>
     </schema>
@@ -118,7 +118,7 @@
       <type>bool</type>
       <default>0</default>
       <locale name="C">
-        <short>Repeat mode.</short>
+        <short>Repeat mode</short>
         <long>Whether or not to enable repeat playlist mode.</long>
       </locale>
     </schema>
@@ -130,7 +130,7 @@
       <list_type>string</list_type>
       <default>[]</default>
       <locale name="C">
-        <short>Watched folders.</short>
+        <short>Watched folders</short>
         <long>Folders that are monitored for changes.</long>
       </locale>
     </schema>
@@ -141,7 +141,7 @@
       <type>string</type>
       <default>~/Music/</default>
       <locale name="C">
-        <short>Default import folder.</short>
+        <short>Default import folder</short>
         <long>Last used folder from "Import folder" dialog.</long>
       </locale>
     </schema>
@@ -152,7 +152,7 @@
       <type>string</type>
       <default>~/Music/Playlists/</default>
       <locale name="C">
-        <short>Default playlist folder.</short>
+        <short>Default playlist folder</short>
         <long>Last used folder from the playlist file selectors.</long>
       </locale>
     </schema>
@@ -163,7 +163,7 @@
       <type>string</type>
       <default>us</default>
       <locale name="C">
-        <short>Amazon site to use for album images.</short>
+        <short>Amazon site to use for album images</short>
 	<long>Which Amazon site to use for fetching album images, "us", "uk", "de", or "jp".</long>
       </locale>
     </schema>
