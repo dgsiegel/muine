@@ -1,5 +1,16 @@
 2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Re-enable info window now that we have the release.
+	
+	Update TODO with information about the window parenting bug.
+
+2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/CoverDatabase.cs:
 	* src/CoverImage.cs:

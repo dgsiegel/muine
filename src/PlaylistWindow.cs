@@ -329,7 +329,7 @@ public class PlaylistWindow : Window
 		icon.play_pause_menu_item.Activated += new EventHandler (HandlePlayPauseCommand);
 		icon.previous_song_menu_item.Activated += new EventHandler (HandlePreviousCommand);
 		icon.next_song_menu_item.Activated += new EventHandler (HandleNextCommand);
-//FIXME		icon.information_menu_item.Activated += new EventHandler (HandleInformationCommand);
+		icon.information_menu_item.Activated += new EventHandler (HandleInformationCommand);
 		icon.play_song_menu_item.Activated += new EventHandler (HandleAddSongCommand);
 		icon.play_album_menu_item.Activated += new EventHandler (HandleAddAlbumCommand);
 		icon.show_window_menu_item.Activated += new EventHandler (HandleToggleWindowVisibilityCommand);
@@ -561,10 +561,8 @@ public class PlaylistWindow : Window
 		skip_backwards_menu_item.Sensitive = has_first;
 		skip_forward_menu_item.Sensitive = has_first;
 
-/* FIXME
 		information_menu_item.Sensitive = has_first;
 		icon.information_menu_item.Sensitive = has_first;
-		*/
 
 		UpdateTimeLabels (player.Position);
 
