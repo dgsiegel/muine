@@ -43,4 +43,8 @@ int         metadata_get_album_count  (Metadata *metadata);
 
 long        metadata_get_duration     (Metadata *metadata);
 
+const char *metadata_get_year         (Metadata *metadata);
+
+const char *metadata_get_mime_type    (Metadata *metadata);
+
 #endif /* __METADATA_H__ */

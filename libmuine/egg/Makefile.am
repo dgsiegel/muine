@@ -1,10 +1,6 @@
 INCLUDES = \
   $(MUINE_CFLAGS) \
-  $(WARN_CFLAGS) \
-  -DCURSOR_DIR=\"$(pkgdatadir)\" \
-  -DGTK_DISABLE_DEPRECATED \
-  -DGDK_DISABLE_DEPRECATED \
-  -DG_DISABLE_DEPRECATED
+  -DCURSOR_DIR=\"$(pkgdatadir)\" 
 
 noinst_LTLIBRARIES = libegg.la
 

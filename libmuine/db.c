@@ -133,14 +133,14 @@ db_unpack_string (gpointer p, char **str)
 	if (str)
 		*str = g_malloc (len + 1);
 
-	p += 4;
+	(unsigned long) p += 4;
 
 	if (str) {
 		memcpy (*str, p, len);
 		(*str)[len] = 0;
 	}
 
-	return p + len + 1;
+	return (gpointer) ((unsigned long) p + len + 1);
 }
 
 gpointer
@@ -151,7 +151,7 @@ db_unpack_int (gpointer p, int *val)
 	if (val)
 		*val = *(int *) p;
 
-	p += 4;
+	(unsigned long) p += 4;
 
 	return p;
 }
@@ -164,7 +164,7 @@ db_unpack_long (gpointer p, long *val)
 	if (val)
 		*val = *(long *) p;
 
-	p += 4;
+	(unsigned long) p += 4;
 
 	return p;
 }
@@ -178,7 +178,7 @@ string_align (GString *string, int boundary)
 
 	p = string->str + string->len;
 
-	padding = _ALIGN_ADDRESS (p, boundary) - p;
+	padding = (unsigned long) _ALIGN_ADDRESS (p, boundary) - (unsigned long) p;
 
 	for (i = 0; i < padding; i++)
 		g_string_append_c (string, 0);
