@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Global.cs:
+
+	Clean up ProcessCommandLine.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 	* src/SongDatabase.cs:
 

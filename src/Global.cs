@@ -47,6 +47,7 @@ namespace Muine
 			get { return playlist; }
 		}
 
+		private static DBusLib.Player dbus_object = null;
 		private static NotificationAreaIcon icon;
 		private static MmKeys mmkeys;
 		private static Gnome.Client session_client;
@@ -60,17 +61,18 @@ namespace Muine
 								   Gnome.Modules.UI,
 								   args);
 
-			DBusLib.Player dbo = null;
-
 			/* Try to find a running Muine */
 			try {
-				dbo = DBusLib.Player.FindInstance ();
+				dbus_object = DBusLib.Player.FindInstance ();
 			} catch {}
 
-			if (dbo != null) {
+			if (dbus_object != null) {
 				/* An instance already exists. Handle command line args
 				   and exit. */
-				ProcessCommandLine (args, dbo);
+				if (args.Length > 0)
+					ProcessCommandLine (args);
+				else
+					dbus_object.SetWindowVisible (true);
 				
 				Gdk.Global.NotifyStartupComplete ();
 				
@@ -82,10 +84,10 @@ namespace Muine
 				   through the main thread anyway. For now it is
 				   just important to have the thing registered. */
 				try {
-					dbo = new DBusLib.Player ();
+					dbus_object = new DBusLib.Player ();
 				
 					MuineDBusService.Instance.RegisterObject
-						(dbo, "/org/gnome/Muine/Player");
+						(dbus_object, "/org/gnome/Muine/Player");
 				} catch (Exception e) {
 					Console.WriteLine (Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
 				}
@@ -133,7 +135,7 @@ namespace Muine
 			/* Hook up D-Bus object before loading any songs into the
 			   playlist, to make sure that the song change gets emitted
 			   to the bus */
-			dbo.HookUp (playlist);
+			dbus_object.HookUp (playlist);
 
 			/* Initialize plug-ins (also before loading any songs, to make
 			   sure that the song change gets through to all the
@@ -147,7 +149,7 @@ namespace Muine
 			icon = new NotificationAreaIcon (playlist);
 
 			/* Process command line options */
-			bool opened_file = ProcessCommandLine (args, null);
+			bool opened_file = ProcessCommandLine (args);
 
 			/* Load playlist */
 			if (!opened_file)
@@ -177,7 +179,7 @@ namespace Muine
 			Application.Run ();
 		}
 
-		private static bool ProcessCommandLine (string [] args, DBusLib.Player dbo)
+		private static bool ProcessCommandLine (string [] args)
 		{
 			bool opened_file = false;
 
@@ -187,32 +189,19 @@ namespace Muine
 				if (!finfo.Exists)
 					continue;
 
-				if (FileUtils.IsPlaylist (args [i])) {
+				if (FileUtils.IsPlaylist (args [i]))
 					/* load as playlist */
-					if (dbo != null)
-						dbo.OpenPlaylist (finfo.FullName);
-					else
-						playlist.OpenPlaylist (finfo.FullName);
-				} else {
+					dbus_object.OpenPlaylist (finfo.FullName);
+				else {
 					/* load as music file */
-					if (i == 0) {
-						if (dbo != null)
-							dbo.PlayFile (finfo.FullName);
-						else
-							playlist.PlayFile (finfo.FullName);
-					} else {
-						if (dbo != null)
-							dbo.QueueFile (finfo.FullName);
-						else
-							playlist.QueueFile (finfo.FullName);
-					}
+					if (i == 0)
+						dbus_object.PlayFile (finfo.FullName);
+					else
+						dbus_object.QueueFile (finfo.FullName);
 				}
 
 				opened_file = true;
 			}
-
-			if (dbo != null && args.Length == 0)
-				dbo.SetWindowVisible (true);
 
 			return opened_file;
 		}
