@@ -154,6 +154,7 @@ assign_metadata_mp3 (const char *filename,
 	int bitrate, samplerate, channels, version, vbr, count, i;
 	long time, tag_time;
 	char *track_number_raw;
+	const struct id3_frame *frame;
 
 	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
 	if (file == NULL) {
@@ -222,9 +223,71 @@ assign_metadata_mp3 (const char *filename,
 
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
 
-	/* TODO implement */
-	metadata->gain = 0.0;
-	metadata->peak = 0.0;
+	/* get relative volume adjustment information */
+	/* code taken from mad, player.c */
+	frame = id3_tag_findframe (tag, "RVA2", 0);
+	if (frame) {
+		id3_latin1_t const *id;
+		id3_byte_t const *data;
+		id3_length_t length;
+
+		enum {
+			CHANNEL_OTHER         = 0x00,
+			CHANNEL_MASTER_VOLUME = 0x01,
+			CHANNEL_FRONT_RIGHT   = 0x02,
+			CHANNEL_FRONT_LEFT    = 0x03,
+			CHANNEL_BACK_RIGHT    = 0x04,
+			CHANNEL_BACK_LEFT     = 0x05,
+			CHANNEL_FRONT_CENTRE  = 0x06,
+			CHANNEL_BACK_CENTRE   = 0x07,
+			CHANNEL_SUBWOOFER     = 0x08
+		};
+
+		id = id3_field_getlatin1 (id3_frame_field (frame, 0));
+		data = id3_field_getbinarydata (id3_frame_field (frame, 1), &length);
+
+		g_assert (id && data);
+
+		/*
+		* "The 'identification' string is used to identify the situation
+		* and/or device where this adjustment should apply. The following is
+		* then repeated for every channel
+		*
+		*   Type of channel         $xx
+		*   Volume adjustment       $xx xx
+		*   Bits representing peak  $xx
+		*   Peak volume             $xx (xx ...)"
+		*/
+
+		while (length >= 4) {
+			unsigned int peak_bytes;
+
+			peak_bytes = (data[3] + 7) / 8;
+			if (4 + peak_bytes > length)
+				break;
+
+			if (data[0] == CHANNEL_MASTER_VOLUME) {
+				signed int voladj_fixed;
+
+				/*
+				 * "The volume adjustment is encoded as a fixed point decibel
+				 * value, 16 bit signed integer representing (adjustment*512),
+				 * giving +/- 64 dB with a precision of 0.001953125 dB."
+				 */
+
+				voladj_fixed  = (data[1] << 8) | (data[2] << 0);
+				voladj_fixed |= -(voladj_fixed & 0x8000);
+
+				metadata->gain = (double) voladj_fixed / 512;
+				/* FIXME we need to decode the peak, too */
+
+				break;
+			}
+
+			data   += 4 + peak_bytes;
+			length -= 4 + peak_bytes;
+		}
+	}
 
 	id3_vfs_close (file);
 
@@ -424,7 +487,8 @@ FLAC_metadata_callback (const FLAC__StreamDecoder *decoder, const FLAC__StreamMe
 	CallbackData *data = (CallbackData *) client_data;
 
 	if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO) {
-		data->duration = (long) (metadata->data.stream_info.total_samples * 1000) / metadata->data.stream_info.sample_rate;
+		long seconds = metadata->data.stream_info.total_samples / metadata->data.stream_info.sample_rate;
+		data->duration = seconds * 1000;
 	} else if (metadata->type == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
 		const FLAC__StreamMetadata_VorbisComment *vc_block = &metadata->data.vorbis_comment;
 		vorbis_comment *comment = data->comment;

@@ -117,7 +117,7 @@
       <applyto>/apps/muine/default_playlist_folder</applyto>
       <owner>muine</owner>
       <type>string</type>
-      <default>~/Playlists/</default>
+      <default>~/Music/Playlists/</default>
       <locale name="C">
         <short>Default playlist folder.</short>
         <long>Last used folder from the playlist file selectors.</long>

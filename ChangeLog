@@ -1,5 +1,16 @@
 2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/muine.schemas.in:
+
+	Set playlist dir to ~/Music/Playlists instead of ~/Playlists
+	
+	* libmuine/metadata.c: (assign_metadata_mp3),
+	(FLAC_metadata_callback):
+
+	Replaygain for mp3s, (hopefully) fix FLAC song duration.
+
+2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/db.c: (db_pack_double):
 
 	Fix precision for db_pack_double.
