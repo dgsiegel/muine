@@ -1092,12 +1092,11 @@ namespace Muine
 					skip_to_window.Hide ();
 			}
 			
-			if (restart) {
+			if (restart)
 				had_last_eos = false;
 
-				if (SongChangedEvent != null)
-					SongChangedEvent (song);
-			}
+			if (SongChangedEvent != null)
+				SongChangedEvent (song);
 		}
 
 		// Methods :: Private :: SelectionChanged

@@ -1,5 +1,12 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Emit SongChangedEvent also when the currently playing song itself
+	changes.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/muine.schemas.in:
 	* src/PlaylistWindow.cs:
 
