@@ -1,3 +1,8 @@
+2004-04-13  Kenneth Christiansen  <kenneth@gnu.org>
+
+	* pt_BR.po: Fixed silly bug where there was a mnemonic used in 
+	the window title
+
 2004-04-12  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation
