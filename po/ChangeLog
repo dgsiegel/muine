@@ -1,3 +1,7 @@
+2004-04-19  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.skip: Added missing files.
+
 2004-04-18  Artur Flinta  <aflinta@cvs.gnome.org>
 
 	* pl.po: Updated Polish translation by GNOME PL Team.
