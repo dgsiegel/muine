@@ -1,25 +1,32 @@
 0.8.1
 =====
 
-- Only list complete albums in album list. An album is complete
-  if the number of tracks equals the "total number of tracks" tag.
-  (We are "mild"- 3 more or less will be fine too)
-
-  The "total number of tracks" tag is the second half of the
-  track number" tag (N/TOTAL) in ID3, or the "tracktotal" tag
-  in vorbiscomment.
-
-  Use easytag 1.99.x to tag your albums like this if they aren't
-  already. You can do them all at once at the click of one button.
-
-                                                   [Jorn Baayen]
-- A couple of minor UI improvements [Jorn Baayen]
-- Support DnD-inserting a playlist into the playlist [Jorn Baayen]
+- Only list complete albums in album list [Jorn Baayen, Peter Oliver]
+- Major performance improvements thanks to GtkTreeView's fixed-height-mode,
+  thanks to this we can now show all songs in the "Add Song" window.
+   						   [Jorn Baayen]
+- AAC support using faad2 [Peter Johanson]
 - Search improvements; searching for "rem" will now also yield "R.E.M."
                                                    [Jorn Baayen]
+- Support DnD-inserting a playlist into the playlist [Jorn Baayen]
+- Depend on Gtk+ 2.6 for ellipsizing label and cell renderer [Jorn Baayen]
 - A new TickEvent on the IPlayer interface [Jorn Baayen]
+- Building MP3 support is now optional [Jorn Baayen]
+- A couple of minor UI improvements [Jorn Baayen]
 - Various bugfixes [Mark McLauchlan, Jorn Baayen]
 - More code cleanups [Tamara Roberson, Jorn Baayen]
+
+New translations:
+- Estonian [Piret Vacht]
+- Romanian [Spoiala Cristian]
+
+Updated translations:
+- Canadian English [Adam Weinberger]
+- Czech [Miloslav Trmac]
+- Dutch [Vincent van Adrighem]
+- German [Frank Arnold]
+- Lithuanian [Žygimantas Beručka]
+- Spanish [Francisco Javier F. Serrador]
 
 0.8.0
 =====
