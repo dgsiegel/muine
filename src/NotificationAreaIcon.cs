@@ -241,18 +241,23 @@ public class NotificationAreaIcon : Plug
 
 	private void HandleButtonPressEvent (object o, ButtonPressEventArgs args)
 	{
-		State = StateType.Active;
-
 		switch (args.Event.Button)
 		{
 		case 1:
 		case 3:
+			State = StateType.Active;
+
 			menu_x = (int) args.Event.XRoot - (int) args.Event.X;
 			menu_y = (int) args.Event.YRoot - (int) args.Event.Y;
 
 			menu.Popup (null, null, new MenuPositionFunc (PositionMenu), IntPtr.Zero,
 			            args.Event.Button, args.Event.Time);
 			
+			break;
+
+		case 2:
+			show_window_menu_item.Activate ();
+
 			break;
 
 		default:

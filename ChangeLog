@@ -1,5 +1,11 @@
 2004-03-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/NotificationAreaIcon.cs:
+
+	Middle-click on tray icon toggles window visibility.
+
+2004-03-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 
 	Remove accels from Play buttons, fixing #137106.
