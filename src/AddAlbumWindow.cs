@@ -179,15 +179,15 @@ public class AddAlbumWindow
 			if (PlayAlbumsEvent != null)
 				PlayAlbumsEvent (view.SelectedPointers);
 
+			search_entry.Text = "";
+
 			break;
 		case 2: /* Queue */
 			if (QueueAlbumsEvent != null)
 				QueueAlbumsEvent (view.SelectedPointers);
 
 			search_entry.GrabFocus ();
-
-			view.SelectFirst ();
-			view.ScrollToPoint (0, 0);
+			search_entry.SelectRegion (0, -1);
 
 			play_button.HasDefault = false;
 			queue_button.HasDefault = true;
@@ -196,10 +196,10 @@ public class AddAlbumWindow
 		default:
 			window.Visible = false;
 
+			search_entry.Text = "";
+
 			break;
 		}
-
-		search_entry.Text = "";
 	}
 
 	private void HandleWindowDeleteEvent (object o, EventArgs a)
