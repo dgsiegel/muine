@@ -1,8 +1,6 @@
 Easy:
 =====
 
-o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
-  we use GTK 2.3, also make app icon themable, and use different window icons
 o Make the main window use a toolbar (and put "song info" button in it),
   and switch to Actions API
 o Use GnomeVFS
