@@ -14,4 +14,14 @@ data/muine.schemas.in
 libmuine/egg/eggtrayicon.c
 libmuine/egg/eggtraymanager.c
 src/About.cs
+src/AddAlbumWindow.cs
+src/Album.cs
+src/CoverDatabase.cs
+src/Metadata.cs
 src/Muine.cs
+src/NotificationAreaIcon.cs
+src/Player.cs
+src/PlaylistWindow.cs
+src/ProgressWindow.cs
+src/SongDatabase.cs
+src/StringUtils.cs
