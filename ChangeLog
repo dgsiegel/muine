@@ -1,5 +1,17 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* libmuine/metadata.c: (assign_metadata_mp3),
+	(assign_metadata_ogg), (metadata_get_track_number):
+	* libmuine/metadata.h:
+	* src/Album.cs:
+	* src/Metadata.cs:
+	* src/Song.cs:
+
+	Have songs sorted by tracknumber in their albums.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Album.cs:
 
 	Sort by artists, and then album name.

@@ -38,6 +38,8 @@ struct _Metadata {
 	char **albums;
 	int albums_count;
 
+	int track_number;
+
 	char *year;
 
 	long duration;
@@ -142,6 +144,7 @@ assign_metadata_mp3 (const char *filename,
 	struct id3_tag *tag;
 	int bitrate, samplerate, channels, version, vbr, count, i;
 	long time, tag_time;
+	char *track_number_raw;
 
 	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
 	if (file == NULL) {
@@ -205,6 +208,12 @@ assign_metadata_mp3 (const char *filename,
 		metadata->albums[i] = get_mp3_comment_value (tag, ID3_FRAME_ALBUM, i);
 	}
 
+	track_number_raw = get_mp3_comment_value (tag, ID3_FRAME_TRACK, 0);
+	if (track_number_raw != NULL)
+		metadata->track_number = atoi (track_number_raw);
+	else
+		metadata->track_number = -1;
+
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
 
 	id3_vfs_close (file);
@@ -250,6 +259,7 @@ assign_metadata_ogg (const char *filename,
 	int rc, count, i;
 	OggVorbis_File vf;
 	vorbis_comment *comment;
+	char *track_number_raw;
 
 	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
 	if (res != GNOME_VFS_OK) {
@@ -296,6 +306,12 @@ assign_metadata_ogg (const char *filename,
 	for (i = 0; i < count; i++) {
 		metadata->albums[i] = get_vorbis_comment_value (comment, "album", i);
 	}
+
+	track_number_raw = vorbis_comment_query (comment, "tracknumber", 0);
+	if (track_number_raw != NULL)
+		metadata->track_number = atoi (track_number_raw);
+	else
+		metadata->track_number = -1;
 
 	metadata->year = get_vorbis_comment_value (comment, "date", 0);
 
@@ -401,6 +417,14 @@ metadata_get_album_count (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, -1);
 
 	return metadata->albums_count;
+}
+
+int
+metadata_get_track_number (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->track_number;
 }
 
 const char *

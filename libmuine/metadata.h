@@ -41,6 +41,8 @@ const char *metadata_get_album        (Metadata *metadata,
 				       int index);
 int         metadata_get_album_count  (Metadata *metadata);
 
+int         metadata_get_track_number (Metadata *metadata);
+
 long        metadata_get_duration     (Metadata *metadata);
 
 const char *metadata_get_year         (Metadata *metadata);

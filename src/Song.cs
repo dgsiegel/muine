@@ -93,6 +93,13 @@ public class Song
 		}
 	}
 
+	private int track_number;
+	public int TrackNumber {
+		get {
+			return track_number;
+		}
+	}
+
 	private string year;
 	public string Year {
 		get {
@@ -233,6 +240,7 @@ public class Song
 		}
 			
 		album = metadata.Album;
+		track_number = metadata.TrackNumber;
 		year = metadata.Year;
 		duration = metadata.Duration;
 		mime_type = metadata.MimeType;
@@ -272,6 +280,7 @@ public class Song
 		}
 
 		p = db_unpack_string (p, out album);
+		p = db_unpack_int (p, out track_number);
 		p = db_unpack_string (p, out year);
 		p = db_unpack_long (p, out duration);
 		p = db_unpack_string (p, out cover_image_filename);
@@ -315,6 +324,7 @@ public class Song
 		}
 		
 		db_pack_string (p, album);
+		db_pack_int (p, track_number);
 		db_pack_string (p, year);
 		db_pack_long (p, duration);
 		db_pack_string (p, cover_image_filename);

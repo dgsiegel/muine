@@ -128,22 +128,36 @@ public class Album
 	private void AddArtists (Song song)
 	{
 		foreach (string artist in song.Artists) {
-			bool found = false;
-			foreach (string str in artists) {
-				if (str == artist) {
-					found = true;
-					break;
-				}
-			}
-
-			if (found == false)
+			if (artists.Contains (artist) == false) {
 				artists.Add (artist);
+				all_lower_artists = null;
+			}
+		}
+
+		artists.Sort ();
+	}
+
+	private class SongComparer : IComparer {
+		int IComparer.Compare (object a, object b)
+		{
+			Song song_a = (Song) a;
+			Song song_b = (Song) b;
+
+			if (song_a.TrackNumber < song_b.TrackNumber)
+				return -1;
+			else if (song_a.TrackNumber > song_b.TrackNumber)
+				return 1;
+			else
+				return 0;
 		}
 	}
+
+	private static IComparer song_comparer = new SongComparer ();
 
 	public void AddSong (Song song)
 	{
 		Songs.Add (song);
+		Songs.Sort (song_comparer);
 		
 		AddArtists (song);
 	}

@@ -43,6 +43,13 @@ public class Metadata
 		}
 	}
 
+	private int track_number;
+	public int TrackNumber {
+		get {
+			return track_number;
+		}
+	}
+
 	private string year;
 	public string Year {
 		get {
@@ -90,6 +97,9 @@ public class Metadata
 	private static extern int metadata_get_album_count (IntPtr metadata);
 
 	[DllImport ("libmuine")]
+	private static extern int metadata_get_track_number (IntPtr metadata);
+
+	[DllImport ("libmuine")]
 	private static extern string metadata_get_year (IntPtr metadata);
 
 	[DllImport ("libmuine")]
@@ -120,6 +130,8 @@ public class Metadata
 			album = String.Copy (metadata_get_album (md, 0));
 		else
 			album = "";
+
+		track_number = metadata_get_track_number (md);
 
 		string y = metadata_get_year (md);
 		if (y != null)
