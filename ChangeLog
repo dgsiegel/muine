@@ -1,5 +1,19 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+
+	Improved album complete definition:
+
+	if (delta == 0)
+		complete = true;
+	else if (delta <= max_track_number_difference &&
+		 total_n_tracks >= ((delta * 2) + 1))
+		complete = true;
+	else
+		complete = false;
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* libmuine/Makefile.am:
 	* libmuine/metadata.c: (mp4_read_callback), (mp4_seek_callback),

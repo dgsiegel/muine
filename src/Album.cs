@@ -450,15 +450,29 @@ namespace Muine
 		//	Returns true if completeness changed
 		private bool CheckCompleteness ()
 		{
-			int diff = Math.Abs (total_n_tracks - n_tracks);
-			bool new_complete = (total_n_tracks > 0 &&
-			                     diff <= max_track_number_difference);
+			bool new_complete;
 
-			bool ret = (new_complete != complete);
+			if (total_n_tracks > 0) {
+				int delta = Math.Abs (total_n_tracks - n_tracks);
+
+				if (delta == 0)
+					new_complete = true;
+				else if (delta <= max_track_number_difference &&
+				         total_n_tracks >= ((delta * 2) + 1)) {
+					// (delta * 2) + 1 gives us a decent
+					// minimum album size to allow, seems to
+					// work in most cases.
+					new_complete = true;
+				} else
+					new_complete = false;
+			} else
+				new_complete = false;
+
+			bool changed = (new_complete != complete);
 			
 			complete = new_complete;
 			
-			return ret;
+			return changed;
 		}
 
 		// Handlers
