@@ -1,5 +1,11 @@
 2004-04-18  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+
+	Change "Skip to" shortcut from Ctrl-T to T.
+
+2004-04-18  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/muine.in:
 
 	Add a "cd $HOME" to avoid the "loading libmuine/ as the libmuine dll"
