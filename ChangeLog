@@ -1,5 +1,14 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* DBusLib/Player.cs:
+	* PluginLib/IPlayer.cs:
+	* PluginLib/ISong.cs:
+	* PluginLib/Plugin.cs:
+
+	Reduce indentation level.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 	* src/Song.cs:
 
