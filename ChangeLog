@@ -1,3 +1,9 @@
+2004-04-12  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+
+	Add "da" to ALL_LINGUAS.
+
 2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Song.cs:
