@@ -139,8 +139,8 @@ public class AddAlbumWindow : Window
 		else
 			r.Pixbuf = nothing_pixbuf;
 
-		r.Height = StockIcons.RawAlbumCoverSize + 5 * 2;
-		r.Width = StockIcons.RawAlbumCoverSize + 5 * 2;
+		r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
+		r.Width = CoverDatabase.AlbumCoverSize + 5 * 2;
 	}
 
 	private void TextCellDataFunc (HandleView view,

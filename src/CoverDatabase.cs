@@ -31,6 +31,8 @@ using Gdk;
 
 public class CoverDatabase 
 {
+	public static int AlbumCoverSize = 66;
+
 	public Hashtable Covers;
 
 	public Pixbuf DownloadingPixbuf;
@@ -105,7 +107,7 @@ public class CoverDatabase
 		Pixbuf border;
 
 		/* 1px border, so -2 .. */
-		int target_size = StockIcons.RawAlbumCoverSize - 2;
+		int target_size = AlbumCoverSize - 2;
 
 		/* scale the cover image if necessary */
 		if (cover.Height > target_size || cover.Width > target_size) {

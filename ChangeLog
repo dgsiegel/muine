@@ -1,5 +1,14 @@
 2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/StockIcons.cs:
+
+	Cleanup cover image dimension stuff some more.
+
+2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* README:
 	* configure.in:

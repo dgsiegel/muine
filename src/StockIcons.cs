@@ -46,8 +46,6 @@ public class StockIcons
 		"muine-paused"
 	};
 
-	public static int RawAlbumCoverSize = 66;
-
 	public static IconSize AlbumCoverSize;
 
 	public static void Initialize ()
@@ -75,7 +73,7 @@ public class StockIcons
 
 		/* register cover image icon size */
 		AlbumCoverSize = Icon.SizeRegister ("muine-album-cover-size",
-						    RawAlbumCoverSize,
-						    RawAlbumCoverSize);
+						    CoverDatabase.AlbumCoverSize,
+						    CoverDatabase.AlbumCoverSize);
 	}
 }

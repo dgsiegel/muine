@@ -29,8 +29,8 @@ public class CoverImage : EventBox
 	public CoverImage () : base ()
 	{
 		image = new Image ();	
-		image.SetSizeRequest (StockIcons.RawAlbumCoverSize, 
-				      StockIcons.RawAlbumCoverSize);
+		image.SetSizeRequest (CoverDatabase.AlbumCoverSize, 
+				      CoverDatabase.AlbumCoverSize);
 		
 		Add (image);
 
