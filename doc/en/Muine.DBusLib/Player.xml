@@ -337,6 +337,19 @@ public class Example
         <remarks>To be added</remarks>
       </Docs>
     </Member>
+    <Member MemberName="GetAlbumCover">
+      <MemberSignature Language="C#" Value="public virtual byte [] GetAlbumCover ();" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added</summary>
+        <returns>a <see cref="T:System.Byte[]" /></returns>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="Quit">
       <MemberSignature Language="C#" Value="public virtual void Quit ();" />
       <MemberType>Method</MemberType>

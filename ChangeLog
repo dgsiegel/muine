@@ -1,3 +1,12 @@
+2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
+
+	* DBusLib/Player.cs:
+	* NEWS:
+	* doc/en/Muine.DBusLib/Player.xml:
+
+	Added Muine.DBusLib.Player.GetAlbumCover method, returning
+	serialized pixdata.
+
 2005-01-31  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:

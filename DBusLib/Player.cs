@@ -182,6 +182,19 @@ namespace Muine.DBusLib
 		}
 
 		[Method]
+		public virtual byte [] GetAlbumCover ()
+		{
+			if (player.PlayingSong == null ||
+			    player.PlayingSong.CoverImage == null)
+				return null;
+
+			Gdk.Pixdata pixdata = new Gdk.Pixdata ();
+			pixdata.FromPixbuf (player.PlayingSong.CoverImage, true);
+			
+			return pixdata.Serialize ();
+		}
+
+		[Method]
 		public virtual void Quit ()
 		{
 			player.Quit ();
