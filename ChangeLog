@@ -1,5 +1,17 @@
 2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_select_first),
+	(pointer_list_view_select_next), (pointer_list_view_select_prev):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Work around a couple of treeview scrolling bugs.
+
+2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/pointer-list-view.c: (scroll_to_path),
 	(pointer_list_view_select_first), (pointer_list_view_select):
 	* src/AddAlbumWindow.cs:

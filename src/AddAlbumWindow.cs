@@ -185,7 +185,7 @@ public class AddAlbumWindow
 			search_entry.GrabFocus ();
 			search_entry.SelectRegion (0, -1);
 
-			view.SelectNext (true);
+			view.SelectNext (true, true);
 
 			break;
 		default:
@@ -255,11 +255,11 @@ public class AddAlbumWindow
 
 		switch (args.Event.keyval) {
 		case 0xFF52: /* up */
-			view.SelectPrevious (false);
+			view.SelectPrevious (false, true);
 			args.RetVal = true;
 			break;
 		case 0xFF54: /* down */
-			view.SelectNext (false);
+			view.SelectNext (false, true);
 			args.RetVal = true;
 			break;
 		default:

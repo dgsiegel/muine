@@ -449,8 +449,8 @@ public class PlaylistWindow : Window
 
 	private void RemoveSong (IntPtr p)
 	{
-		if (!playlist.SelectNext (false))
-			playlist.SelectPrevious (false);
+		if (!playlist.SelectNext (false, false))
+			playlist.SelectPrevious (false, false);
 
 		playlist.Remove (p);
 

@@ -73,9 +73,11 @@ gboolean         pointer_list_view_contains      (PointerListView *view,
 GList *          pointer_list_view_get_selection (PointerListView *view);
 void             pointer_list_view_select_first  (PointerListView *view);
 gboolean         pointer_list_view_select_next   (PointerListView *view,
-						  gboolean center);
+						  gboolean center,
+						  gboolean scroll);
 gboolean         pointer_list_view_select_prev   (PointerListView *view,
-						  gboolean center);
+						  gboolean center,
+						  gboolean scroll);
 void             pointer_list_view_select        (PointerListView *view,
 						  gpointer pointer);
 void             pointer_list_view_scroll_to     (PointerListView *view,

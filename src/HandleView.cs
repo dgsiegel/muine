@@ -181,20 +181,22 @@ public class HandleView : TreeView
 
 	[DllImport ("libmuine")]
 	private static extern bool pointer_list_view_select_prev (IntPtr view,
-								  bool center);
+								  bool center,
+								  bool scroll);
 
-	public bool SelectPrevious (bool center)
+	public bool SelectPrevious (bool center, bool scroll)
 	{
-		return pointer_list_view_select_prev (Raw, center);
+		return pointer_list_view_select_prev (Raw, center, scroll);
 	}
 
 	[DllImport ("libmuine")]
 	private static extern bool pointer_list_view_select_next (IntPtr view,
-								  bool center);
+								  bool center,
+								  bool scroll);
 
-	public bool SelectNext (bool center)
+	public bool SelectNext (bool center, bool scroll)
 	{
-		return pointer_list_view_select_next (Raw, center);
+		return pointer_list_view_select_next (Raw, center, scroll);
 	}
 
 	[DllImport ("libmuine")]

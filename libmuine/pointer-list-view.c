@@ -354,24 +354,21 @@ scroll_to_path (PointerListView *view, GtkTreePath *path,
 void
 pointer_list_view_select_first (PointerListView *view)
 {
+	GtkTreeView *tree_view = GTK_TREE_VIEW (view);
 	GtkTreePath *path;
 	GtkTreeSelection *sel;
-	GtkTreeIter iter;
 
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	sel = gtk_tree_view_get_selection (tree_view);
 
 	path = gtk_tree_path_new_first ();
-	if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, path))
-		return;
-
 	gtk_tree_selection_unselect_all (sel);
 	gtk_tree_selection_select_path (sel, path);
-	scroll_to_path (view, path, FALSE);
+	gtk_tree_view_scroll_to_point (tree_view, 0, 0);
 	gtk_tree_path_free (path);
 }
 
 gboolean
-pointer_list_view_select_next (PointerListView *view, gboolean center)
+pointer_list_view_select_next (PointerListView *view, gboolean center, gboolean scroll)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
@@ -395,11 +392,14 @@ pointer_list_view_select_next (PointerListView *view, gboolean center)
 			if (gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, next)) {
 				gtk_tree_selection_unselect_all (sel);
 				gtk_tree_selection_select_path (sel, next);
-				scroll_to_path (view, next, center);
+
+				if (scroll)
+					scroll_to_path (view, next, center);
 
 				ret = TRUE;
 			} else {
-				scroll_to_path (view, p, center);
+				if (scroll)
+					scroll_to_path (view, p, center);
 			}
 			gtk_tree_path_free (next);
 
@@ -415,7 +415,7 @@ pointer_list_view_select_next (PointerListView *view, gboolean center)
 }
 
 gboolean
-pointer_list_view_select_prev (PointerListView *view, gboolean center)
+pointer_list_view_select_prev (PointerListView *view, gboolean center, gboolean scroll)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
@@ -435,11 +435,14 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center)
 			if (gtk_tree_path_prev (prev)) {
 				gtk_tree_selection_unselect_all (sel);
 				gtk_tree_selection_select_path (sel, prev);
-				scroll_to_path (view, prev, center);
+
+				if (scroll)
+					scroll_to_path (view, prev, center);
 
 				ret = TRUE;
 			} else {
-				scroll_to_path (view, p, center);
+				if (scroll)
+					scroll_to_path (view, p, center);
 			}
 			gtk_tree_path_free (prev);
 
