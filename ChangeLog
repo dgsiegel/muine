@@ -1,5 +1,11 @@
 2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Keep selection when deleting multiple items.
+
+2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/pointer-list-view.c: (pointer_list_view_select_first),
 	(pointer_list_view_select_next), (pointer_list_view_select_prev),
 	(pointer_list_view_select):

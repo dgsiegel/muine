@@ -1563,8 +1563,8 @@ public class PlaylistWindow : Window
 	{
 		List selected_pointers = playlist.SelectedPointers;
 
-		bool have_only_one = (selected_pointers.Count == 1);
-		
+		int counter = 0;
+
 		foreach (int i in selected_pointers) {
 			IntPtr sel = new IntPtr (i);
 
@@ -1584,12 +1584,14 @@ public class PlaylistWindow : Window
 				SongChanged (true);
 			}
 			
-			if (have_only_one) {
+			if (counter == selected_pointers.Count - 1) {
 				if (!playlist.SelectNext ())
 					playlist.SelectPrevious ();
 			}
 
 			RemoveSong (sel);
+
+			counter ++;
 		}
 
 		NSongsChanged ();
