@@ -98,7 +98,10 @@ public class CoverDatabase
 
 		decode_func_counter++;
 		if (decode_func_counter == 10) {
-			Thread.Sleep (1);
+			Thread.Sleep (1); /* pause for a tiny little while,
+			                     in order to eat the CPU a little
+					     less vigorously */
+
 			decode_func_counter = 0;
 		}
 	}
