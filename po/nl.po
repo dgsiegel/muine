@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-23 13:51+0200\n"
-"PO-Revision-Date: 2004-04-13 20:35+0200\n"
+"POT-Creation-Date: 2004-04-23 04:13+0200\n"
+"PO-Revision-Date: 2004-04-23 13:38+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -267,47 +267,44 @@ msgid "false if Muine has been started before."
 msgstr "onwaar indien Muine al eerder is gestart."
 
 #: libmuine/player-gst.c:157
-#, fuzzy
 msgid "Failed to create GstPlay object"
-msgstr "Kon spelerobject niet aanmaken"
+msgstr "Aanmaken GstPlay-object aanmaken is mislukt"
 
 #: libmuine/player-gst.c:164
-#, fuzzy
 msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr ""
-"Kon de vereiste GStreamer elementen niet aanmaken.\n"
-"Bezig met afsluiten..."
+msgstr "Aanmaken van vereiste gnomevfssrc GStreamer element is mislukt."
 
+# render - gebruiken?
 #: libmuine/player-gst.c:173
 msgid "Could not render default GStreamer audio output sink"
-msgstr ""
+msgstr "Kon de standaard GStreamer audiouitvoer niet gebruiken"
 
 #: libmuine/player-gst.c:182
 msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr ""
+msgstr "Kon het volume-element in de GstPlay pijplijn niet vinden"
 
 #: libmuine/player-xine.c:289
 msgid "Failed to set up an audio driver"
-msgstr ""
+msgstr "Instellen van geluidsstuurprogramma mislukt"
 
 #: libmuine/player-xine.c:358 libmuine/player-xine.c:363
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr ""
+msgstr "Geen plugin beschikbaar voor \"%s\""
 
 #: libmuine/player-xine.c:368
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Afspelen \"%s\" is mislukt"
 
 #: libmuine/player-xine.c:372
 msgid "Internal error"
-msgstr ""
+msgstr "Interne fout"
 
 #: libmuine/player-xine.c:381
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
+msgstr "Kon \"%s\" niet afspelen"
 
 #: src/About.cs:38
 msgid "Jorn Baayen (jbaayen@gnome.org)"
@@ -325,7 +322,7 @@ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
 
 #: src/About.cs:44
 msgid "Album covers are provided by amazon.com."
-msgstr ""
+msgstr "Albumhoezen geleverd door amazon.com."
 
 #: src/About.cs:54
 msgid "translator-credits"
@@ -365,23 +362,25 @@ msgid "Failed to load metadata: {0}"
 msgstr "Kon metadata: {0} niet laden"
 
 #: src/Muine.cs:79
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
 "\n"
 "Exiting..."
 msgstr ""
-"Kon hoes-database: {0} niet laden\n"
+"Laden van de hoes-database: {0} is mislukt\n"
+"\n"
 "Bezig met afsluiten..."
 
 #: src/Muine.cs:88
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
 "\n"
 "Exiting..."
 msgstr ""
-"Kon de nummer-database: {0} niet laden\n"
+"Laden van de nummer-database: {0} is mislukt\n"
+"\n"
 "Bezig met afsluiten..."
 
 #: src/NotificationAreaIcon.cs:53
@@ -406,6 +405,8 @@ msgid ""
 "Error opening {0}:\n"
 "{1}"
 msgstr ""
+"Fout bij openen van {0}:\n"
+"{1}"
 
 #: src/Player.cs:232
 #, csharp-format
@@ -413,6 +414,8 @@ msgid ""
 "Audio backend error:\n"
 "{0}"
 msgstr ""
+"Audiobackend fout:\n"
+"{0}"
 
 #: src/PlaylistWindow.cs:247
 msgid "Hide _Window"
@@ -444,14 +447,16 @@ msgid "Playlist"
 msgstr "Speellijst"
 
 #: src/PlaylistWindow.cs:401
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
 "{0}\n"
 "\n"
 "Exiting..."
 msgstr ""
-"Kon de audio-backend niet initialiseren.\n"
+"Initialiseren van de audio-backend is mislukt:\n"
+"{0}\n"
+"\n"
 "Bezig met afsluiten..."
 
 # meervoud van uur is hier uur en niet uren
@@ -535,12 +540,12 @@ msgstr "Afspelen starten"
 #: src/PlaylistWindow.cs:722
 #, csharp-format
 msgid "Failed to open {0} for reading"
-msgstr "Kon {0} niet openen voor lezen"
+msgstr "Openen van {0} voor lezen is mislukt"
 
 #: src/PlaylistWindow.cs:791
 #, csharp-format
 msgid "Failed to open {0} for writing"
-msgstr "Kon {0} niet openen voor schrijven"
+msgstr "Openen van {0} voor schrijven is mislukt"
 
 #: src/PlaylistWindow.cs:1169
 msgid "Import Folder"
