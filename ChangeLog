@@ -1,5 +1,19 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/AddWindow.glade:
+	* data/glade/PlaylistWindow.glade:
+	* src/Actions.cs:
+	* src/PlaylistWindow.cs:
+
+	Make Actions work properly, ie not lock up the app all the time.
+	
+	* src/About.cs:
+
+	The About subclass didn't work, revert to previous
+	ShowWindow stuff- see Ximian Bugzilla #71271
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 

@@ -77,8 +77,6 @@
 		      <child>
 			<widget class="GtkImage" id="queue_button_image">
 			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">4</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
 			  <property name="xpad">0</property>
@@ -150,8 +148,6 @@
 		      <child>
 			<widget class="GtkImage" id="play_button_image">
 			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">4</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
 			  <property name="xpad">0</property>

@@ -187,7 +187,7 @@ namespace Muine
 
 			ui_manager.InsertActionGroup (action_group, 0);
 			ui_manager.AddUiFromResource ("PlaylistWindow.xml");
-			
+
 			// Setup Callbacks
                         this.Import       .Activated += new EventHandler (OnImport       );
                         this.Open         .Activated += new EventHandler (OnOpen         );
@@ -209,7 +209,7 @@ namespace Muine
                         this.TogglePlay   .Activated += new EventHandler (OnTogglePlay   );
                         this.ToggleRepeat .Activated += new EventHandler (OnToggleRepeat );
 		}
-		
+
 		// Properties
 		// Properties :: Import (get;)
 		public Action Import {
@@ -416,19 +416,23 @@ namespace Muine
 		// Handlers :: OnAbout
 		private void OnAbout (object o, EventArgs args)
 		{
-			new About (Global.Playlist);
+			Muine.About.ShowWindow (Global.Playlist);
 		}
 
 		// Handlers :: OnTogglePlay
 		private void OnTogglePlay (object o, EventArgs args)
 		{
-			Global.Playlist.TogglePlay ();
+			ToggleAction a = (ToggleAction) o;
+			if (a.Active != Global.Playlist.Playing)
+				Global.Playlist.Playing = a.Active;
 		}
 
 		// Handlers :: OnToggleRepeat
 		private void OnToggleRepeat (object o, EventArgs args)
 		{
-			Global.Playlist.ToggleRepeat ();
+			ToggleAction a = (ToggleAction) o;
+			if (a.Active != Global.Playlist.Repeat)
+				Global.Playlist.Repeat = a.Active;
 		}
 	}
 }

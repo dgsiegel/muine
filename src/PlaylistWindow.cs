@@ -214,8 +214,6 @@ namespace Muine
 		};
 
 		// Variables
-		private bool block_toggle_play_action = false;
-		private bool setting_volume = false;
 		private uint busy_level = 0;
 
 		private int last_x = -1;
@@ -223,8 +221,6 @@ namespace Muine
 		private bool window_visible;
 
 		private long remaining_songs_time;
-
-		private bool setting_repeat = false;
 
 		private Hashtable random_sort_keys;
 
@@ -265,7 +261,6 @@ namespace Muine
 			StateChanged (false, true);
 		}
 
-
 		// Properties
 		// 	Useful for Plug-Ins and DBus
 		// Properties :: PlayingSong (get;) (IPlayer)
@@ -304,14 +299,10 @@ namespace Muine
 				if (value > 100 || value < 0)
 					value = GConfDefaultVolume;
 
-				setting_volume = true;
-
-				volume_button.Volume = value;
 				player.Volume = value;
+				volume_button.Volume = value;
 
 				Config.Set (GConfKeyVolume, value);
-				
-				setting_volume = false;
 			}
 			
 			get { return player.Volume; }
@@ -394,18 +385,19 @@ namespace Muine
 		}
 
 		// Properties :: Repeat (set; get;)
-		private bool Repeat {
+		private bool repeat;
+		public bool Repeat {
 			set {
-				setting_repeat = true;
-				
-				Global.Actions.ToggleRepeat.Active = value;
-				Config.Set (GConfKeyRepeat, value);			
-				PlaylistChanged ();
+				repeat = value;
 
-				setting_repeat = false;
+				Global.Actions.ToggleRepeat.Active = value;
+
+				Config.Set (GConfKeyRepeat, value);			
+
+				PlaylistChanged ();
 			}
 
-			get { return Global.Actions.ToggleRepeat.Active; }
+			get { return repeat; }
 		}
 
 		// Methods
@@ -497,7 +489,7 @@ namespace Muine
 					playlist.Previous ();
 					PlaylistChanged ();
 
-				} else if (Repeat) {
+				} else if (repeat) {
 					playlist.Last ();
 					PlaylistChanged ();
 
@@ -518,7 +510,7 @@ namespace Muine
 		{
 			if (playlist.HasNext)
 				playlist.Next ();
-			else if (Repeat && playlist.HasFirst)
+			else if (repeat && playlist.HasFirst)
 				playlist.First ();
 			else
 				return;
@@ -684,24 +676,6 @@ namespace Muine
 				playlist.Select (playlist.Playing);
 		}
 		
-		// Methods :: Public :: TogglePlay
-		public void TogglePlay ()
-		{
-			if (block_toggle_play_action)
-				return;
-
-			this.Playing = !this.Playing;
-		}
-		
-		// Methods :: Public :: ToggleRepeat
-		public void ToggleRepeat ()
-		{
-			if (setting_repeat)
-				return;
-
-			this.Repeat = Global.Actions.ToggleRepeat.Active;
-		}
-
 		// Methods :: Public :: SavePlaylist
 		public void SavePlaylist (string fn, bool exclude_played, bool store_playing)
 		{
@@ -739,7 +713,7 @@ namespace Muine
 				
 					if (store_playing &&
 					    ptr == playlist.Playing) {
-							writer.WriteLine ("# PLAYING");
+						writer.WriteLine ("# PLAYING");
 					}
 				
 					Song song = Song.FromHandle (ptr);
@@ -955,7 +929,7 @@ namespace Muine
 			time_label.Text = String.Format ("{0} / {1}", pos, total);
 
 			// Calculate remaining time
-			long r_seconds = (this.Repeat)
+			long r_seconds = (this.repeat)
 					 ? remaining_songs_time
 					 : remaining_songs_time + song.Duration - time;
 
@@ -985,15 +959,15 @@ namespace Muine
 							 minutes);
 
 			// Choose string for each scenario based on whether we are repeating or not
-			string string_hour = (Repeat)
+			string string_hour = (repeat)
 			                     ? string_repeat_hour 
 			                     : string_normal_hour;
 			
-			string string_minute = (Repeat)
+			string string_minute = (repeat)
 			                       ? string_repeat_minute
 			                       : string_normal_minute;
 			
-			string string_second = (Repeat)
+			string string_second = (repeat)
 					       ? string_playlist_repeating
 					       : string_playlist_under_minute;
 			
@@ -1013,7 +987,7 @@ namespace Muine
 		// Methods :: Private :: PlaylistChanged
 		private void PlaylistChanged ()
 		{
-			bool start_counting = this.Repeat;
+			bool start_counting = this.repeat;
 			
 			remaining_songs_time = 0;
 
@@ -1033,7 +1007,7 @@ namespace Muine
 
 			previous_button   .Sensitive = has_first;
 			toggle_play_button.Sensitive = has_first;
-			next_button       .Sensitive = playlist.HasNext || (this.Repeat && has_first);
+			next_button       .Sensitive = playlist.HasNext || (this.repeat && has_first);
 
 			Global.Actions.TogglePlay.Sensitive = previous_button   .Sensitive;
 			Global.Actions.Previous  .Sensitive = toggle_play_button.Sensitive;
@@ -1046,7 +1020,7 @@ namespace Muine
 
 			UpdateTimeLabels (player.Position);
 
-			SavePlaylist (FileUtils.PlaylistFile, !Repeat, true);
+			SavePlaylist (FileUtils.PlaylistFile, !repeat, true);
 
 			// Run PlaylistChangedEvent Handlers
 			if (PlaylistChangedEvent != null)
@@ -1135,12 +1109,8 @@ namespace Muine
 		private new void StateChanged (bool playing, bool dont_signal)
 		{
 			// Update action entry and button states
-			block_toggle_play_action = true;
-
-			Global.Actions.TogglePlay .Active = playing;
-			toggle_play_button        .Active = playing;
-
-			block_toggle_play_action = false;
+			Global.Actions.TogglePlay.Active = playing;
+			toggle_play_button.Active        = playing;
 
 			// Update
 			playlist.Changed (playlist.Playing);
@@ -1163,7 +1133,7 @@ namespace Muine
 			Song song = Song.FromHandle (playlist.Playing);
 
 			if (seconds >= song.Duration) {
-				HandleEndOfStream (song, true);
+				EndOfStream (song, true);
 
 			} else {
 				player.Position = (seconds < 0) ? 0 : seconds;
@@ -1298,8 +1268,8 @@ namespace Muine
 			return song;
 		}
 
-		// Methods :: Private :: HandleEndOfStream
-		private void HandleEndOfStream (Song song, bool update_time)
+		// Methods :: Private :: EndOfStream
+		private void EndOfStream (Song song, bool update_time)
 		{
 			// If we can, go to the next song
 			if (playlist.HasNext) {
@@ -1307,7 +1277,7 @@ namespace Muine
 
 			// If we don't have another song and we are repeating,
 			// go to the beginning.
-			} else if (Repeat) {
+			} else if (repeat) {
 				playlist.First ();
 
 			// We have nothing else to play.
@@ -1442,12 +1412,9 @@ namespace Muine
 		// Handlers :: OnVolumeChanged
 		private void OnVolumeChanged (int vol)
 		{
-			// Don't update if we're in the middle of changing volume automatically
-			if (setting_volume)
-				return;
-
 			// Update volume
-			this.Volume = vol;
+			if (vol != this.Volume)
+				this.Volume = vol;
 		}
 
 		// Handlers :: OnConfigVolumeChanged
@@ -1565,7 +1532,7 @@ namespace Muine
 			}
 			
 			// Do what else we need to do at the EOS
-			HandleEndOfStream (song, false);
+			EndOfStream (song, false);
 		}
 
 		// Handlers :: OnConfigRepeatChanged
@@ -1575,7 +1542,7 @@ namespace Muine
 			bool val = (bool) args.Value;
 
 			// If it changed, update.
-			if (val != this.Repeat)
+			if (val != this.repeat)
 				this.Repeat = val;
 		}
 
@@ -1622,7 +1589,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnPlayingSongRemoved
-		//   TODO: See if we can merge this with HandleEndOfStream.
+		//   TODO: See if we can merge this with EndOfStream.
 		private void OnPlayingSongRemoved ()
 		{
 			if (playlist.HasNext) {
@@ -1719,8 +1686,7 @@ namespace Muine
 
 			uint type = (uint) DndUtils.TargetType.UriList;
 
-			// Work around gtk bug...
-			// TODO: Which bug?
+			// Work around gtk bug #164085
 			string tree_model_row = String.Format ("\t{0}\t", DndUtils.TargetMuineTreeModelRow.Target);
 			string song_list      = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList    .Target);
 			string album_list     = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList   .Target);
@@ -1740,7 +1706,6 @@ namespace Muine
 			       :
 			       type;
 
-						
 			string head = (is_tree_model)
 				      ? tree_model_row
 			              :
@@ -1883,34 +1848,34 @@ namespace Muine
 		// Handlers :: OnTogglePlayButtonClicked
 		private void OnTogglePlayButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.TogglePlay.Activate ();
+			if (toggle_play_button.Active != Playing)
+				Playing = toggle_play_button.Active;
 		}
 		
 		// Handlers :: OnPreviousButtonClicked
 		private void OnPreviousButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.Previous.Activate ();
+			Previous ();
 		}
 		
 		// Handlers :: OnNextButtonClicked
 		private void OnNextButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.Next.Activate ();
+			Next ();
 		}
 		
 		// Handlers :: OnAddSongButtonClicked
 		private void OnAddSongButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.PlaySong.Activate ();
+			PlaySong ();
 		}
 		
 		// Handlers :: OnAddAlbumButtonClicked
 		private void OnAddAlbumButtonClicked (object o, EventArgs args)
 		{
-			Global.Actions.PlayAlbum.Activate ();
+			PlayAlbum ();
 		}
 		
-
 		// Handlers :: OnPlaylistLabelDragDataGet
 		private void OnPlaylistLabelDragDataGet (object o, DragDataGetArgs args)
 		{

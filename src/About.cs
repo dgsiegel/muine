@@ -24,7 +24,7 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class About : Gnome.About
+	public class About
 	{
 		// Strings
 		private static readonly string string_translators = 
@@ -64,13 +64,19 @@ namespace Muine
 		                      : string_translators;
 		}
 
-		// Constructor
-		public About (Gtk.Window parent)
-		: base (string_muine, Defines.VERSION, string_copyright, string_description,
-			authors, documenters, translators, pixbuf)
+		// Static :: Methods
+		// Static :: Methods :: ShowWindow
+		//    We can't subclass ATM, depends on Ximian Bugzilla #71271
+		public static void ShowWindow (Gtk.Window parent)
 		{
-			base.TransientFor = parent;
-			base.Show ();
+			Gnome.About about = new Gnome.About (string_muine, Defines.VERSION,
+							     string_copyright,
+							     string_description,
+							     authors, documenters, translators,
+							     pixbuf);
+
+			about.TransientFor = parent;
+			about.Show ();
 		}
 	}
 }
