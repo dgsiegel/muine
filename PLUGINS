@@ -16,3 +16,7 @@ file, so compiling your plugin will be something along the lines of:
 mcs -target:library -out:Plugin.dll Plugin.cs -pkg:muine 
 
 An example plugin adding Dashboard support to Muine can be found in plugins/.
+
+If you need more functionality being exported through PluginLib to be able
+to write the plugin you want, please let me know and I'll, if feasible, add
+the functionality.
