@@ -1,4 +1,4 @@
-<Namespace Name="MuineDBusLib" FullName="MuineDBusLib" FullNameSP="MuineDBusLib" Maintainer="Mono">
+<Namespace Name="Muine.DBusLib" FullName="Muine.DBusLib" FullNameSP="Muine.DBusLib" Maintainer="Mono">
   <Docs>
     <summary>Muine D-Bus support library.</summary>
     <remarks>

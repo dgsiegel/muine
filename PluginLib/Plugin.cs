@@ -17,11 +17,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-namespace MuinePluginLib
+namespace Muine
 {
-	public abstract class Plugin
+	namespace PluginLib
 	{
-		public abstract void Initialize (IPlayer player);
+		public abstract class Plugin
+		{
+			public abstract void Initialize (IPlayer player);
+		}
 
 		public delegate void SongChangedEventHandler (ISong song);
 		public delegate void StateChangedEventHandler (bool playing);

@@ -1,4 +1,4 @@
-<Type Name="GenericEventHandler" FullName="MuinePluginLib.Plugin+GenericEventHandler">
+<Type Name="GenericEventHandler" FullName="Muine.PluginLib.GenericEventHandler">
   <TypeSignature Language="C#" Value="public sealed delegate void GenericEventHandler ();" Maintainer="auto" />
   <AssemblyInfo>
     <AssemblyName>muine-plugin</AssemblyName>

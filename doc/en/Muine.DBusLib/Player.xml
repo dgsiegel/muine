@@ -1,4 +1,4 @@
-<Type Name="Player" FullName="MuineDBusLib.Player">
+<Type Name="Player" FullName="Muine.DBusLib.Player">
   <TypeSignature Language="C#" Value="public class Player" Maintainer="auto" />
   <AssemblyInfo>
     <AssemblyName>muine-dbus</AssemblyName>
@@ -17,7 +17,7 @@
 using System;
 using System.IO;
 
-using MuineDBusLib;
+using Muine.DBusLib;
 
 public class Example
 {
@@ -50,15 +50,15 @@ public class Example
   </Attributes>
   <Members>
     <Member MemberName="FindInstance">
-      <MemberSignature Language="C#" Value="public static MuineDBusLib.Player FindInstance ();" />
+      <MemberSignature Language="C#" Value="public static Muine.DBusLib.Player FindInstance ();" />
       <MemberType>Method</MemberType>
       <ReturnValue>
-        <ReturnType>MuineDBusLib.Player</ReturnType>
+        <ReturnType>Muine.DBusLib.Player</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
         <summary>Tries to find a Player instance</summary>
-        <returns>a <see cref="T:MuineDBusLib.Player" /></returns>
+        <returns>a <see cref="T:Muine.DBusLib.Player" /></returns>
         <remarks>Returns a Player instance if found; throws an exception otherwise.</remarks>
       </Docs>
     </Member>
@@ -356,15 +356,15 @@ public class Example
       <Parameters />
       <Docs>
         <summary>Constructs a Player object</summary>
-        <returns>a <see cref="T:MuineDBusLib.Player" /></returns>
-        <remarks>Creates an inactive, dummy Player object. You probably do not want to use this. To get an instance of the object, use <see cref="M:MuineDBusLib.Player.FindInstance" />.</remarks>
+        <returns>a <see cref="T:Muine.DBusLib.Player" /></returns>
+        <remarks>Creates an inactive, dummy Player object. You probably do not want to use this. To get an instance of the object, use <see cref="M:Muine.DBusLib.Player.FindInstance" />.</remarks>
       </Docs>
     </Member>
     <Member MemberName="SongChanged">
-      <MemberSignature Language="C#" Value="public event MuineDBusLib.Player+SongChangedHandler SongChanged;" />
+      <MemberSignature Language="C#" Value="public event Muine.DBusLib.Player+SongChangedHandler SongChanged;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuineDBusLib.Player+SongChangedHandler</ReturnType>
+        <ReturnType>Muine.DBusLib.Player+SongChangedHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -373,10 +373,10 @@ public class Example
       </Docs>
     </Member>
     <Member MemberName="StateChanged">
-      <MemberSignature Language="C#" Value="public event MuineDBusLib.Player+StateChangedHandler StateChanged;" />
+      <MemberSignature Language="C#" Value="public event Muine.DBusLib.Player+StateChangedHandler StateChanged;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuineDBusLib.Player+StateChangedHandler</ReturnType>
+        <ReturnType>Muine.DBusLib.Player+StateChangedHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>

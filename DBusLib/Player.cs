@@ -23,220 +23,224 @@ using System.Collections;
 
 using DBus;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
-namespace MuineDBusLib
+namespace Muine
 {
-	[Interface ("org.gnome.Muine.Player")]
-	public class Player
+	namespace DBusLib
 	{
-		public static Player FindInstance ()
+		[Interface ("org.gnome.Muine.Player")]
+		public class Player
 		{
-			Connection conn = Bus.GetSessionBus ();
-			
-			Service service = Service.Get (conn, "org.gnome.Muine");
-			
-			return (Player) service.GetObject
-				(typeof (Player), "/org/gnome/Muine/Player");
-		}
-
-		private IPlayer player = null;
-
-		public void HookUp (IPlayer player)
-		{
-			this.player = player;
-		
-			player.SongChangedEvent +=
-				new Plugin.SongChangedEventHandler (OnSongChangedEvent);
-			player.StateChangedEvent +=
-				new Plugin.StateChangedEventHandler (OnStateChangedEvent);
-		}
-
-		[Method]
-		public virtual bool GetPlaying ()
-		{
-			return player.Playing;
-		}
-	
-		[Method]
-		public virtual void SetPlaying (bool playing)
-		{
-			player.Playing = playing;
-		}
-
-		[Method]
-		public virtual bool HasNext ()
-		{
-			return player.HasNext;
-		}
-
-		[Method]
-		public virtual void Next ()
-		{
-			player.Next ();
-		}
-
-		[Method]
-		public virtual bool HasPrevious ()
-		{
-			return player.HasPrevious;
-		}
-
-		[Method]
-		public virtual void Previous ()
-		{
-			player.Previous ();
-		}
-
-		[Method]
-		public virtual string GetCurrentSong ()
-		{
-			string value = "";
-		
-			if (player.PlayingSong != null)
-				value = SongToString (player.PlayingSong);
-		
-			return value;
-		}
-
-		[Method]
-		public virtual bool GetWindowVisible ()
-		{
-			return player.WindowVisible;
-		}
-	
-		[Method]
-		public virtual void SetWindowVisible (bool visible)
-		{
-			player.WindowVisible = visible;
-		}
-
-		[Method]
-		public virtual int GetVolume ()
-		{
-			return player.Volume;
-		}
-
-		[Method]
-		public virtual void SetVolume (int volume)
-		{
-			player.Volume = volume;
-		}
-
-		[Method]
-		public virtual int GetPosition ()
-		{
-			return player.Position;
-		}
-
-		[Method]
-		public virtual void SetPosition (int pos)
-		{
-			player.Position = pos;
-		}
-
-		[Method]
-		public virtual void PlayAlbum ()
-		{
-			player.PlayAlbum ();
-		}
-
-		[Method]
-		public virtual void PlaySong ()
-		{
-			player.PlaySong ();
-		}
-
-		[Method]
-		public virtual void OpenPlaylist (string uri)
-		{
-			player.OpenPlaylist (uri);
-		}
-
-		[Method]
-		public virtual void PlayFile (string uri)
-		{
-			player.PlayFile (uri);
-		}
-
-		[Method]
-		public virtual void QueueFile (string uri)
-		{
-			player.QueueFile (uri);
-		}
-
-		[Method]
-		public virtual bool WriteAlbumCoverToFile (string file)
-		{
-			if (player.PlayingSong.CoverImage == null)
-				return false;
-			
-			try {
-				player.PlayingSong.CoverImage.Savev (file, "png", null, null);
-			} catch {
-				return false;
+			public static Player FindInstance ()
+			{
+				Connection conn = Bus.GetSessionBus ();
+				
+				Service service = Service.Get (conn, "org.gnome.Muine");
+				
+				return (Player) service.GetObject
+					(typeof (Player), "/org/gnome/Muine/Player");
 			}
 
-			return true;
-		}
+			private IPlayer player = null;
 
-		[Method]
-		public virtual void Quit ()
-		{
-			player.Quit ();
-		}
+			public void HookUp (IPlayer player)
+			{
+				this.player = player;
+			
+				player.SongChangedEvent +=
+					new SongChangedEventHandler (OnSongChangedEvent);
+				player.StateChangedEvent +=
+					new StateChangedEventHandler (OnStateChangedEvent);
+			}
 
-		[Signal] public event SongChangedHandler SongChanged;
-		public delegate void SongChangedHandler (string song_data);
-
-		private void OnSongChangedEvent (ISong song)
-		{
-			string value = "";
+			[Method]
+			public virtual bool GetPlaying ()
+			{
+				return player.Playing;
+			}
 		
-			if (song != null)
-				value = SongToString (song);
+			[Method]
+			public virtual void SetPlaying (bool playing)
+			{
+				player.Playing = playing;
+			}
 
-			if (SongChanged != null)
-				SongChanged (value);
+			[Method]
+			public virtual bool HasNext ()
+			{
+				return player.HasNext;
+			}
+
+			[Method]
+			public virtual void Next ()
+			{
+				player.Next ();
+			}
+
+			[Method]
+			public virtual bool HasPrevious ()
+			{
+				return player.HasPrevious;
+			}
+
+			[Method]
+			public virtual void Previous ()
+			{
+				player.Previous ();
+			}
+
+			[Method]
+			public virtual string GetCurrentSong ()
+			{
+				string value = "";
+			
+				if (player.PlayingSong != null)
+					value = SongToString (player.PlayingSong);
+			
+				return value;
+			}
+
+			[Method]
+			public virtual bool GetWindowVisible ()
+			{
+				return player.WindowVisible;
+			}
+		
+			[Method]
+			public virtual void SetWindowVisible (bool visible)
+			{
+				player.WindowVisible = visible;
+			}
+
+			[Method]
+			public virtual int GetVolume ()
+			{
+				return player.Volume;
+			}
+
+			[Method]
+			public virtual void SetVolume (int volume)
+			{
+				player.Volume = volume;
+			}
+
+			[Method]
+			public virtual int GetPosition ()
+			{
+				return player.Position;
+			}
+
+			[Method]
+			public virtual void SetPosition (int pos)
+			{
+				player.Position = pos;
+			}
+
+			[Method]
+			public virtual void PlayAlbum ()
+			{
+				player.PlayAlbum ();
+			}
+
+			[Method]
+			public virtual void PlaySong ()
+			{
+				player.PlaySong ();
+			}
+
+			[Method]
+			public virtual void OpenPlaylist (string uri)
+			{
+				player.OpenPlaylist (uri);
+			}
+
+			[Method]
+			public virtual void PlayFile (string uri)
+			{
+				player.PlayFile (uri);
+			}
+
+			[Method]
+			public virtual void QueueFile (string uri)
+			{
+				player.QueueFile (uri);
+			}
+
+			[Method]
+			public virtual bool WriteAlbumCoverToFile (string file)
+			{
+				if (player.PlayingSong.CoverImage == null)
+					return false;
+				
+				try {
+					player.PlayingSong.CoverImage.Savev (file, "png", null, null);
+				} catch {
+					return false;
+				}
+
+				return true;
+			}
+
+			[Method]
+			public virtual void Quit ()
+			{
+				player.Quit ();
+			}
+
+			[Signal] public event SongChangedHandler SongChanged;
+
+			private void OnSongChangedEvent (ISong song)
+			{
+				string value = "";
+			
+				if (song != null)
+					value = SongToString (song);
+
+				if (SongChanged != null)
+					SongChanged (value);
+			}
+
+			[Signal] public event StateChangedHandler StateChanged;
+
+			private void OnStateChangedEvent (bool playing)
+			{
+				if (StateChanged != null)
+					StateChanged (playing);
+			}
+
+			private string SongToString (ISong song)
+			{
+				string value = "";
+
+				value += "uri: " + song.Filename + "\n";
+				value += "title: " + song.Title + "\n";
+
+				foreach (string s in song.Artists)
+					value += "artist: " + s + "\n";
+				
+				foreach (string s in song.Performers)
+					value += "performer: " + s + "\n";
+
+				if (song.Album.Length > 0)
+					value += "album: " + song.Album + "\n";
+
+				if (song.Year.Length > 0)
+					value += "year: " + song.Year + "\n";
+
+				if (song.TrackNumber >= 0)
+					value += "track_number: " + song.TrackNumber + "\n";
+				
+				if (song.DiscNumber >= 0)
+					value += "disc_number: " + song.DiscNumber + "\n";
+
+				value += "duration: " + song.Duration;
+
+				return value;
+			}
 		}
 
-		[Signal] public event StateChangedHandler StateChanged;
+		public delegate void SongChangedHandler (string song_data);
 		public delegate void StateChangedHandler (bool playing);
-
-		private void OnStateChangedEvent (bool playing)
-		{
-			if (StateChanged != null)
-				StateChanged (playing);
-		}
-
-		private string SongToString (ISong song)
-		{
-			string value = "";
-
-			value += "uri: " + song.Filename + "\n";
-			value += "title: " + song.Title + "\n";
-
-			foreach (string s in song.Artists)
-				value += "artist: " + s + "\n";
-			
-			foreach (string s in song.Performers)
-				value += "performer: " + s + "\n";
-
-			if (song.Album.Length > 0)
-				value += "album: " + song.Album + "\n";
-
-			if (song.Year.Length > 0)
-				value += "year: " + song.Year + "\n";
-
-			if (song.TrackNumber >= 0)
-				value += "track_number: " + song.TrackNumber + "\n";
-			
-			if (song.DiscNumber >= 0)
-				value += "disc_number: " + song.DiscNumber + "\n";
-
-			value += "duration: " + song.Duration;
-
-			return value;
-		}
 	}
 }

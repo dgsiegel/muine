@@ -1,9 +1,6 @@
-#include "eggmarshalers.h"
+
 #include	<glib-object.h>
 
-#if !GLIB_CHECK_VERSION(2,3,0)
-    #define g_value_take_object g_value_set_object_take_ownership
-#endif
 
 #ifdef G_ENABLE_DEBUG
 #define g_marshal_value_peek_boolean(v)  g_value_get_boolean (v)

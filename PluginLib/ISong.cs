@@ -19,48 +19,51 @@
 
 using System;
 
-namespace MuinePluginLib
+namespace Muine
 {
-	public interface ISong
+	namespace PluginLib
 	{
-		string Filename {
-			get;
-		}
-	
-		string Title {
-			get;
-		}
-	
-		string [] Artists {
-			get;
-		}
-	
-		string [] Performers {
-			get;
-		}
-	
-		string Album {
-			get;
-		}
-	
-		string Year {
-			get;
-		}
-	
-		int TrackNumber {
-			get;
-		}
-	
-		int DiscNumber {
-			get;
-		}
-	
-		int Duration {
-			get;
-		}
+		public interface ISong
+		{
+			string Filename {
+				get;
+			}
+		
+			string Title {
+				get;
+			}
+		
+			string [] Artists {
+				get;
+			}
+		
+			string [] Performers {
+				get;
+			}
+		
+			string Album {
+				get;
+			}
+		
+			string Year {
+				get;
+			}
+		
+			int TrackNumber {
+				get;
+			}
+		
+			int DiscNumber {
+				get;
+			}
+		
+			int Duration {
+				get;
+			}
 
-		Gdk.Pixbuf CoverImage {
-			get;
+			Gdk.Pixbuf CoverImage {
+				get;
+			}
 		}
 	}
 }

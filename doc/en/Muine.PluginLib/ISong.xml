@@ -1,4 +1,4 @@
-<Type Name="ISong" FullName="MuinePluginLib.ISong">
+<Type Name="ISong" FullName="Muine.PluginLib.ISong">
   <TypeSignature Language="C#" Value="public abstract interface ISong" Maintainer="auto" />
   <AssemblyInfo>
     <AssemblyName>muine-plugin</AssemblyName>

@@ -1,5 +1,45 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* DBusLib/Player.cs:
+	* PluginLib/IPlayer.cs:
+	* PluginLib/ISong.cs:
+	* PluginLib/Plugin.cs:
+	* doc/Makefile.am:
+	* doc/en/Muine.DBusLib.xml:
+	* doc/en/Muine.DBusLib/Player.xml:
+	* doc/en/Muine.DBusLib/SongChangedHandler.xml:
+	* doc/en/Muine.DBusLib/StateChangedHandler.xml:
+	* doc/en/Muine.PluginLib.xml:
+	* doc/en/Muine.PluginLib/GenericEventHandler.xml:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+	* doc/en/Muine.PluginLib/ISong.xml:
+	* doc/en/Muine.PluginLib/Plugin.xml:
+	* doc/en/Muine.PluginLib/SongChangedEventHandler.xml:
+	* doc/en/Muine.PluginLib/StateChangedEventHandler.xml:
+	* doc/en/MuineDBusLib.xml:
+	* doc/en/MuineDBusLib/Player.xml:
+	* doc/en/MuineDBusLib/SongChangedHandler.xml:
+	* doc/en/MuineDBusLib/StateChangedHandler.xml:
+	* doc/en/MuinePluginLib.xml:
+	* doc/en/MuinePluginLib/GenericEventHandler.xml:
+	* doc/en/MuinePluginLib/IPlayer.xml:
+	* doc/en/MuinePluginLib/ISong.xml:
+	* doc/en/MuinePluginLib/Plugin.xml:
+	* doc/en/MuinePluginLib/SongChangedEventHandler.xml:
+	* doc/en/MuinePluginLib/StateChangedEventHandler.xml:
+	* libmuine/egg/eggmarshalers.c:
+	* plugins/DashboardPlugin.cs:
+	* src/MmKeys.cs:
+	* src/Muine.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/Song.cs:
+
+	The libraries use the Muine namespace too now.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* src/AddAlbumWindow.cs:
 	* src/Album.cs:

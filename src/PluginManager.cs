@@ -23,7 +23,7 @@ using System.IO;
 
 using Mono.Posix;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 namespace Muine
 {

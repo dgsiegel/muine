@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 using Gtk;
 using GLib;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 namespace Muine
 {

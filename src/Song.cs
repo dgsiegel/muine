@@ -25,7 +25,7 @@ using System.Threading;
 
 using Gdk;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 namespace Muine
 {

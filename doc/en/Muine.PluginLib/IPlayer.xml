@@ -1,4 +1,4 @@
-<Type Name="IPlayer" FullName="MuinePluginLib.IPlayer">
+<Type Name="IPlayer" FullName="Muine.PluginLib.IPlayer">
   <TypeSignature Language="C#" Value="public abstract interface IPlayer" Maintainer="auto" />
   <AssemblyInfo>
     <AssemblyName>muine-plugin</AssemblyName>
@@ -122,15 +122,15 @@
       </Docs>
     </Member>
     <Member MemberName="PlayingSong">
-      <MemberSignature Language="C#" Value="public virtual MuinePluginLib.ISong PlayingSong { get; };" />
+      <MemberSignature Language="C#" Value="public virtual Muine.PluginLib.ISong PlayingSong { get; };" />
       <MemberType>Property</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.ISong</ReturnType>
+        <ReturnType>Muine.PluginLib.ISong</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
         <summary>To be added</summary>
-        <returns>a <see cref="T:MuinePluginLib.ISong" /></returns>
+        <returns>a <see cref="T:Muine.PluginLib.ISong" /></returns>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
@@ -200,28 +200,28 @@
       </Docs>
     </Member>
     <Member MemberName="Playlist">
-      <MemberSignature Language="C#" Value="public virtual MuinePluginLib.ISong [] Playlist { get; };" />
+      <MemberSignature Language="C#" Value="public virtual Muine.PluginLib.ISong [] Playlist { get; };" />
       <MemberType>Property</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.ISong[]</ReturnType>
+        <ReturnType>Muine.PluginLib.ISong[]</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
         <summary>To be added</summary>
-        <returns>a <see cref="T:MuinePluginLib.ISong[]" /></returns>
+        <returns>a <see cref="T:Muine.PluginLib.ISong[]" /></returns>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
     <Member MemberName="Selection">
-      <MemberSignature Language="C#" Value="public virtual MuinePluginLib.ISong [] Selection { get; };" />
+      <MemberSignature Language="C#" Value="public virtual Muine.PluginLib.ISong [] Selection { get; };" />
       <MemberType>Property</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.ISong[]</ReturnType>
+        <ReturnType>Muine.PluginLib.ISong[]</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
         <summary>To be added</summary>
-        <returns>a <see cref="T:MuinePluginLib.ISong[]" /></returns>
+        <returns>a <see cref="T:Muine.PluginLib.ISong[]" /></returns>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
@@ -283,10 +283,10 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
       </Docs>
     </Member>
     <Member MemberName="SongChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event MuinePluginLib.Plugin+SongChangedEventHandler SongChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+SongChangedEventHandler SongChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.Plugin+SongChangedEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.Plugin+SongChangedEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -295,10 +295,10 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
       </Docs>
     </Member>
     <Member MemberName="StateChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event MuinePluginLib.Plugin+StateChangedEventHandler StateChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+StateChangedEventHandler StateChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.Plugin+StateChangedEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.Plugin+StateChangedEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -307,10 +307,10 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
       </Docs>
     </Member>
     <Member MemberName="PlaylistChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event MuinePluginLib.Plugin+GenericEventHandler PlaylistChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+GenericEventHandler PlaylistChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.Plugin+GenericEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.Plugin+GenericEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
@@ -319,10 +319,10 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
       </Docs>
     </Member>
     <Member MemberName="SelectionChangedEvent">
-      <MemberSignature Language="C#" Value="public virtual event MuinePluginLib.Plugin+GenericEventHandler SelectionChangedEvent;" />
+      <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+GenericEventHandler SelectionChangedEvent;" />
       <MemberType>Event</MemberType>
       <ReturnValue>
-        <ReturnType>MuinePluginLib.Plugin+GenericEventHandler</ReturnType>
+        <ReturnType>Muine.PluginLib.Plugin+GenericEventHandler</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>

@@ -1,4 +1,4 @@
-<Type Name="Plugin" FullName="MuinePluginLib.Plugin">
+<Type Name="Plugin" FullName="Muine.PluginLib.Plugin">
   <TypeSignature Language="C#" Value="public abstract class Plugin" Maintainer="auto" />
   <AssemblyInfo>
     <AssemblyName>muine-plugin</AssemblyName>
@@ -11,13 +11,13 @@
   <Docs>
     <summary>Muine plug-in base class</summary>
     <remarks>
-      <para>Use this class as the base class for your plug-in. <see cref="M:MuinePluginLib.Plugin.Initialize" /> is called by the plug-in manager to supply the <see cref="T:MuinePluginLib.IPlayer" /> interface. Using a constructor is discouraged, but if you really want to, use a zero-argument one.</para>
+      <para>Use this class as the base class for your plug-in. <see cref="M:Muine.PluginLib.Plugin.Initialize" /> is called by the plug-in manager to supply the <see cref="T:Muine.PluginLib.IPlayer" /> interface. Using a constructor is discouraged, but if you really want to, use a zero-argument one.</para>
       <example>
         <code lang="C#">
 using System;
 using System.IO;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 public class TestPlugin : Plugin
 {
@@ -28,7 +28,7 @@ public class TestPlugin : Plugin
 		this.player = player;
 		
 		player.SongChangedEvent +=
-			new Plugin.SongChangedEventHandler (OnSongChangedEvent);
+			new SongChangedEventHandler (OnSongChangedEvent);
 	}
 	
 	private void OnSongChangedEvent (ISong song)
@@ -50,18 +50,18 @@ public class TestPlugin : Plugin
   <Attributes />
   <Members>
     <Member MemberName="Initialize">
-      <MemberSignature Language="C#" Value="public virtual void Initialize (MuinePluginLib.IPlayer player);" />
+      <MemberSignature Language="C#" Value="public virtual void Initialize (Muine.PluginLib.IPlayer player);" />
       <MemberType>Method</MemberType>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="player" Type="MuinePluginLib.IPlayer" />
+        <Parameter Name="player" Type="Muine.PluginLib.IPlayer" />
       </Parameters>
       <Docs>
-        <summary>Supplies an implementation of the <see cref="T:MuinePluginLib.IPlayer" /> interface</summary>
-        <param name="player">a <see cref="T:MuinePluginLib.IPlayer" /></param>
-        <remarks>This method is called by the plugin manager when the plug-in is loaded. It supplies the plug-in with an implementation of the <see cref="T:MuinePluginLib.IPlayer" /> interface. The plug-in would typically initialize itself at this point.</remarks>
+        <summary>Supplies an implementation of the <see cref="T:Muine.PluginLib.IPlayer" /> interface</summary>
+        <param name="player">a <see cref="T:Muine.PluginLib.IPlayer" /></param>
+        <remarks>This method is called by the plugin manager when the plug-in is loaded. It supplies the plug-in with an implementation of the <see cref="T:Muine.PluginLib.IPlayer" /> interface. The plug-in would typically initialize itself at this point.</remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -71,8 +71,8 @@ public class TestPlugin : Plugin
       <Parameters />
       <Docs>
         <summary>Constructs a Plugin object</summary>
-        <returns>a <see cref="T:MuinePluginLib.Plugin" /></returns>
-        <remarks>Creates a dummy Plugin object. You probably do not want to do this. See <see cref="M:MuinePluginLib.Plugin.Initialize" />.</remarks>
+        <returns>a <see cref="T:Muine.PluginLib.Plugin" /></returns>
+        <remarks>Creates a dummy Plugin object. You probably do not want to do this. See <see cref="M:Muine.PluginLib.Plugin.Initialize" />.</remarks>
       </Docs>
     </Member>
   </Members>

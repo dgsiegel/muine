@@ -69,11 +69,11 @@ namespace Muine
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-			MuineDBusLib.Player dbo = null;
+			DBusLib.Player dbo = null;
 
 			/* Try to find a running Muine */
 			try {
-				dbo = MuineDBusLib.Player.FindInstance ();
+				dbo = DBusLib.Player.FindInstance ();
 			} catch {}
 
 			if (dbo != null) {
@@ -91,7 +91,7 @@ namespace Muine
 				   through the main thread anyway. For now it is
 				   just important to have the thing registered. */
 				try {
-					dbo = new MuineDBusLib.Player ();
+					dbo = new DBusLib.Player ();
 				
 					MuineDBusService.Instance.RegisterObject
 						(dbo, "/org/gnome/Muine/Player");
@@ -190,7 +190,7 @@ namespace Muine
 			session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
 		}
 
-		private bool ProcessCommandLine (string [] args, MuineDBusLib.Player dbo)
+		private bool ProcessCommandLine (string [] args, DBusLib.Player dbo)
 		{
 			bool opened_file = false;
 

@@ -25,7 +25,7 @@ using System.Net.Sockets;
 using System.Xml;
 using System.Text;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 public class DashboardPlugin : Plugin
 {
@@ -35,7 +35,7 @@ public class DashboardPlugin : Plugin
 	{
 		this.player = player;
 		
-		player.SongChangedEvent += new Plugin.SongChangedEventHandler (OnSongChangedEvent);
+		player.SongChangedEvent += new SongChangedEventHandler (OnSongChangedEvent);
 	}
 	
 	private void OnSongChangedEvent (ISong song)

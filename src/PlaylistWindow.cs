@@ -27,7 +27,7 @@ using Gnome.Vfs;
 
 using Mono.Posix;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 namespace Muine
 {
@@ -206,13 +206,13 @@ namespace Muine
 			get { return this; }
 		}
 
-		public event Plugin.SongChangedEventHandler SongChangedEvent;
+		public event SongChangedEventHandler SongChangedEvent;
 
-		public event Plugin.StateChangedEventHandler StateChangedEvent;
+		public event StateChangedEventHandler StateChangedEvent;
 
-		public event Plugin.GenericEventHandler PlaylistChangedEvent;
+		public event GenericEventHandler PlaylistChangedEvent;
 
-		public event Plugin.GenericEventHandler SelectionChangedEvent;
+		public event GenericEventHandler SelectionChangedEvent;
 
 		/* Constructor */
 		public PlaylistWindow () : base (WindowType.Toplevel)

@@ -19,77 +19,80 @@
 
 using System;
 
-namespace MuinePluginLib
+namespace Muine
 {
-	public interface IPlayer
+	namespace PluginLib
 	{
-		ISong PlayingSong {
-			get;
-		}
+		public interface IPlayer
+		{
+			ISong PlayingSong {
+				get;
+			}
 
-		bool Playing {
-			get;
-			set;
-		}
+			bool Playing {
+				get;
+				set;
+			}
 
-		int Volume {
-			get;
-			set;
-		}
-	
-		int Position {
-			get;
-			set;
-		}
-	
-		bool HasNext {
-			get;
-		}
-	
-		bool HasPrevious {
-			get;
-		}
-	
-		void Next ();
-		void Previous ();
-
-		void PlaySong ();
-		void PlayAlbum ();
-
-		ISong [] Playlist {
-			get;
-		}
-
-		ISong [] Selection {
-			get;
-		}
-
-		void OpenPlaylist (string uri);
-
-		void PlayFile (string uri);
-		void QueueFile (string uri);
-
-		void Quit ();
-
-		bool WindowVisible {
-			get;
-			set;
-		}
-	
-		Gtk.UIManager UIManager {
-			get;
-		}
-
-		Gtk.Window Window {
-			get;
-		}
-
-		event Plugin.SongChangedEventHandler SongChangedEvent;
+			int Volume {
+				get;
+				set;
+			}
 		
-		event Plugin.StateChangedEventHandler StateChangedEvent;
+			int Position {
+				get;
+				set;
+			}
+		
+			bool HasNext {
+				get;
+			}
+		
+			bool HasPrevious {
+				get;
+			}
+		
+			void Next ();
+			void Previous ();
 
-		event Plugin.GenericEventHandler PlaylistChangedEvent;
+			void PlaySong ();
+			void PlayAlbum ();
 
-		event Plugin.GenericEventHandler SelectionChangedEvent;
+			ISong [] Playlist {
+				get;
+			}
+
+			ISong [] Selection {
+				get;
+			}
+
+			void OpenPlaylist (string uri);
+
+			void PlayFile (string uri);
+			void QueueFile (string uri);
+
+			void Quit ();
+
+			bool WindowVisible {
+				get;
+				set;
+			}
+		
+			Gtk.UIManager UIManager {
+				get;
+			}
+
+			Gtk.Window Window {
+				get;
+			}
+
+			event SongChangedEventHandler SongChangedEvent;
+		
+			event StateChangedEventHandler StateChangedEvent;
+
+			event GenericEventHandler PlaylistChangedEvent;
+
+			event GenericEventHandler SelectionChangedEvent;
+		}
 	}
 }

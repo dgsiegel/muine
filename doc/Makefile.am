@@ -37,7 +37,7 @@ EXTRA_DIST = muine-docs.source
 dist-hook:
 	mkdir -p $(distdir)/en
 	cp $(srcdir)/en/*.xml $(distdir)/en/
-	mkdir -p $(distdir)/en/MuineDBusLib
-	cp $(srcdir)/en/MuineDBusLib/*.xml $(distdir)/en/MuineDBusLib/
-	mkdir -p $(distdir)/en/MuinePluginLib
-	cp $(srcdir)/en/MuinePluginLib/*.xml $(distdir)/en/MuinePluginLib/
+	mkdir -p $(distdir)/en/Muine.DBusLib
+	cp $(srcdir)/en/Muine.DBusLib/*.xml $(distdir)/en/Muine.DBusLib/
+	mkdir -p $(distdir)/en/Muine.PluginLib
+	cp $(srcdir)/en/Muine.PluginLib/*.xml $(distdir)/en/Muine.PluginLib/

@@ -25,7 +25,7 @@ using Gdk;
 
 using Mono.Posix;
 
-using MuinePluginLib;
+using Muine.PluginLib;
 
 namespace Muine
 {
@@ -76,9 +76,9 @@ namespace Muine
 			this.player = player;
 			
 			player.SongChangedEvent +=
-				new Plugin.SongChangedEventHandler (OnSongChangedEvent);
+				new SongChangedEventHandler (OnSongChangedEvent);
 			player.StateChangedEvent +=
-				new Plugin.StateChangedEventHandler (OnStateChangedEvent);
+				new StateChangedEventHandler (OnStateChangedEvent);
 			
 			/* build menu */
 			player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
