@@ -1,5 +1,11 @@
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* src/PlaylistWindow.cs:
+	
+	Code cleanup. Getting ready for the great divide...
+
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/Actions.cs:
 	* src/PlaylistWindow.cs:
