@@ -586,7 +586,7 @@ public class PlaylistWindow : Window
 			if (song.Performers.Length > 0)
 				tip += "\n\n" + String.Format (Muine.Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (song.Performers));
 				
-			if (song.CoverImage == null)
+			if (song.CoverImage == null && !Muine.CoverDB.Loading)
 				tip += "\n\n" + Muine.Catalog.GetString ("Drop an image here to use it as album cover");
 			
 			tooltips.SetTip (cover_image, tip, null);
