@@ -37,4 +37,31 @@ public class KeyUtils
 
 		return false;
 	}
+
+	public static bool IsModifier (Gdk.EventKey e) {
+		bool ret = false;
+		
+		switch (e.keyval) {
+		case 0xFFE1: /* left shift */
+		case 0xFFE2: /* right shift */
+		case 0xFFE5: /* caps lock */
+		case 0xFFE3: /* left control */
+		case 0xFFE4: /* right control */
+		case 0xFFE7: /* left meta */
+		case 0xFFE8: /* right meta */
+		case 0XFFE9: /* left alt */
+		case 0xFFEA: /* right alt */
+		case 0xFFEB: /* left super */
+		case 0xFFEC: /* right super */
+		case 0xFFED: /* left hyper */
+		case 0xFFEE: /* right hyper */
+			ret = true;
+			break;
+		default:
+			ret = false;
+			break;
+		}
+
+		return ret;
+	}
 }

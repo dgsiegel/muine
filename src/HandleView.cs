@@ -338,7 +338,8 @@ public class HandleView : TreeView
 			go = true;
 
 			mod = Gdk.ModifierType.ShiftMask;
-		} else if (!KeyUtils.HaveModifier (e)) {
+		} else if (!KeyUtils.HaveModifier (e) &&
+		           !KeyUtils.IsModifier (e)) {
 			go = true;
 			
 			mod = 0;

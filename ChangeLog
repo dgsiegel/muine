@@ -1,3 +1,10 @@
+2004-02-22  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/HandleView.cs:
+	* src/KeyUtils.cs:
+
+	Do not handle single modifier keypresses.
+
 2004-02-21  Duarte Loreto <happyguy_pt@hotmail.com>
 
 	* configure.in: Added Portuguese (pt) to ALL_LINGUAS.
