@@ -76,6 +76,8 @@ o Drag images from Nautilus or Epiphany to the album cover area in
   the PlaylistWindow to change the cover image.
   Will be possible when gtk-sharp 0.16 is released
   (This one is half implemented)
+o Use time_t marshaller from gtk-sharp
+  Will be possible when gtk-sharp 0.16 is released
 o Make title and artist label one for easier selection.
   We need a proper Gtk ellipsizing widget for this.
 o Use storage
