@@ -1,5 +1,13 @@
 2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
 
+	* Makefile.am:
+	* configure.in:
+	* muine.spec.in:
+
+	Added a spec file by Link Dupont <link@subpop.net>
+
+2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Make artist and title labels selectable.

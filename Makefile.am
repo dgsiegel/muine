@@ -9,4 +9,6 @@ EXTRA_DIST =			\
 	MAINTAINERS		\
 	intltool-extract.in	\
 	intltool-merge.in	\
-	intltool-update.in
+	intltool-update.in	\
+	muine.spec.in		\
+	muine.spec

@@ -1,0 +1,54 @@
+Name: muine
+Version: @VERSION@
+Release: 1
+
+Group: Applications/Multimedia
+License: GPL
+URL: http://people.nl.linux.org/~jorn/Muine/
+
+Source: %{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-root
+Requires: /sbin/ldconfig, mono, gtk-sharp
+BuildRequires: gstreamer-devel, gstreamer-plugins-devel, libvorbis-devel, mono-devel, gtk-sharp-devel, libid3tag-devel
+
+Summary: GNOME music player
+%description
+Muine is a new music player using some new UI ideas. The idea is that it will be much easier and comfortable to use than the iTunes model, which is used by both Rhythmbox and Jamboree. It is written in C and C#, using GStreamer for music playback.
+
+%prep
+%setup -q
+
+%build
+%configure
+make %{_smp_mflags}
+
+%install
+rm -rf %{buildroot}
+%makeinstall
+
+%clean
+rm -rf %{buildroot}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(-, root, root)
+%doc AUTHORS COPYING ChangeLog NEWS README TODO
+%{_bindir}/*
+%{_sysconfdir}/*
+%{_libdir}/%{name}/*
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+
+%changelog
+* Thu Jan 22 2004 Link Dupont <link@subpop.net> 0.2-2.spc
+- Add explicit dependency on Mono.
+
+* Thu Jan 22 2004 Link Dupont <link@subpop.net> 0.2-1.spc
+- Update to 0.2.
+
+* Tue Jan 20 2004 Link Dupont <link@subpop.net> 0.1.1-1.spc
+- Initial RPM release.
+- Rereleased for spc RPMs.

@@ -84,6 +84,7 @@ AM_GLIB_GNU_GETTEXT
 
 AC_OUTPUT([
 Makefile
+muine.spec
 data/Makefile
 data/glade/Makefile
 data/images/Makefile
