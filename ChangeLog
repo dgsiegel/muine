@@ -1,5 +1,12 @@
 2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.4.0.
+
+2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* configure.in:
 	* src/About.cs:
