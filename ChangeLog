@@ -1,5 +1,13 @@
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/Database.cs:
+	* src/SongDatabase.cs:
+
+	Remove DecodeFunction property.
+
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/db.c: (db_store):
 	* libmuine/db.h:
 	* src/CoverDatabase.cs:

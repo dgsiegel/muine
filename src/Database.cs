@@ -25,8 +25,7 @@ namespace Muine
 	public class Database
 	{
 		// Delegates
-		public delegate void   DecodeFunctionDelegate (string key, IntPtr data);
-		private                DecodeFunctionDelegate decode_function;
+		public delegate void DecodeFunctionDelegate (string key, IntPtr data);
 
 		// Variables
 		private IntPtr db_ptr;
@@ -51,12 +50,6 @@ namespace Muine
 			get { return db_ptr; }
 		}
 
-		// Properties :: DecodeFunction (set; get;)
-		public DecodeFunctionDelegate DecodeFunction {
-			set { decode_function = value; }
-			get { return decode_function;  }
-		}
-			
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Load
@@ -65,7 +58,7 @@ namespace Muine
 						       DecodeFunctionDelegate decode_function, 
 						       IntPtr data);
 
-		public void Load ()
+		public void Load (DecodeFunctionDelegate decode_function)
 		{
 			db_foreach (db_ptr, decode_function, IntPtr.Zero);
 		}

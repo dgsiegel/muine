@@ -134,10 +134,8 @@ namespace Muine
 			// Delegate Functions :: ThreadFunc
 			protected override void ThreadFunc ()
 			{
-				lock (Global.CoverDB) {
-					db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
-					db.Load ();
-				}
+				lock (Global.CoverDB)
+					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
 
 				thread_done = true;
 			}

@@ -251,7 +251,6 @@ namespace Muine
 		public SongDatabase (int version)
 		{
 			db = new Database (FileUtils.SongsDBFile, version);
-			db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 			
 			songs = new Hashtable ();
 			albums = new Hashtable ();
@@ -267,7 +266,7 @@ namespace Muine
 		public void Load ()
 		{
 			lock (this)
-				db.Load ();
+				db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
 		}
 
 		// Methods :: Public :: AddSong
