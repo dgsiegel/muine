@@ -1,5 +1,13 @@
 2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/db.c: (db_foreach):
+	* src/CoverDatabase.cs:
+	* src/SongDatabase.cs:
+
+	More optimization and thread fixage.
+
+2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 
 	Add some Thread.Sleep stuff to make the thread eat the CPU a little

@@ -167,31 +167,25 @@ db_foreach (gpointer db,
 
 	key = gdbm_firstkey ((GDBM_FILE) db);
 	while (key.dptr) {
-		next_key = gdbm_nextkey ((GDBM_FILE) db, key);
-
-		if (((char *) key.dptr)[0] == VERSION_KEY[0] && key.dsize == strlen (VERSION_KEY)) {
-			free (key.dptr);
-
-			key = next_key;
-			continue;
-		}
+		if (((char *) key.dptr)[0] == VERSION_KEY[0] && key.dsize == strlen (VERSION_KEY))
+			goto done;
 
 		data = gdbm_fetch ((GDBM_FILE) db, key);
 
-		if (data.dptr == NULL) {
-			free (key.dptr);
-
-			key = next_key;
-			continue;
-		}
+		if (data.dptr == NULL)
+			goto done;
 
 		keystr = g_strndup (key.dptr, key.dsize);
 		if (strcmp (keystr, VERSION_KEY) != 0)
 			func ((const char *) keystr, (gpointer) data.dptr, user_data);
 		g_free (keystr);
 
-		free (key.dptr);
 		free (data.dptr);
+
+done:
+		next_key = gdbm_nextkey ((GDBM_FILE) db, key);
+
+		free (key.dptr);
 
 		key = next_key;
 	}

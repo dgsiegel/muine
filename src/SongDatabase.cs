@@ -427,9 +427,11 @@ public class SongDatabase
 	private void CheckChangesThread ()
 	{
 		/* check for removed songs and changes */
-		foreach (string file in Songs.Keys) {
+		Hashtable snapshot = (Hashtable) Songs.Clone ();
+
+		foreach (string file in snapshot.Keys) {
 			FileInfo finfo = new FileInfo (file);
-			Song song = (Song) Songs [file];
+			Song song = (Song) snapshot [file];
 			
 			if (!finfo.Exists)
 				removed_songs.Enqueue (song);
