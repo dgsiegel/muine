@@ -44,12 +44,10 @@ public class AddAlbumWindow
 	private CellRenderer pixbuf_renderer;
 	private Gdk.Pixbuf nothing_pixbuf;
 	
-	public AddAlbumWindow (Window parent)
+	public AddAlbumWindow ()
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);
-
-		window.TransientFor = parent;
 
 		window.Title = "Add Album";
 
@@ -103,16 +101,18 @@ public class AddAlbumWindow
 		view.SelectFirst ();
 	}
 
-	public void Run ()
+	public void Run (PlaylistWindow parent)
 	{
 		search_entry.GrabFocus ();
 
 		view.SelectFirst ();
 
-		if (window.Visible == false)
-			window.Visible = true;
+		if (parent.WindowVisible)
+			window.TransientFor = parent;
 		else
-			window.Present ();
+			window.TransientFor = null;
+
+		window.Present ();
 	}
 
 	public delegate void QueueAlbumsEventHandler (List songs);

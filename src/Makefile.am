@@ -33,7 +33,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/DashboardFrontend.cs		\
 	$(srcdir)/MessageConnection.cs		\
 	$(srcdir)/GnomeProxy.cs			\
-	$(srcdir)/InfoWindow.cs
+	$(srcdir)/InfoWindow.cs			\
+	$(srcdir)/CoverImage.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\

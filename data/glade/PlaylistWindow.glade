@@ -771,21 +771,13 @@
 	      <property name="spacing">11</property>
 
 	      <child>
-		<widget class="GtkEventBox" id="cover_ebox">
+		<widget class="GtkHBox" id="cover_image_container">
 		  <property name="visible">True</property>
-		  <property name="visible_window">True</property>
-		  <property name="above_child">False</property>
+		  <property name="homogeneous">False</property>
+		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkImage" id="cover_image">
-		      <property name="width_request">66</property>
-		      <property name="height_request">66</property>
-		      <property name="visible">True</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		    </widget>
+		    <placeholder/>
 		  </child>
 		</widget>
 		<packing>

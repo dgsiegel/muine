@@ -61,10 +61,7 @@ public class PlaylistWindow : Window
 	private VolumeButton volume_button;
 
 	/* player area */
-	[Glade.Widget]
-	private Image cover_image;
-	[Glade.Widget]
-	private EventBox cover_ebox;
+	private CoverImage cover_image;
 	private EllipsizingLabel title_label;
 	private EllipsizingLabel artist_label;
 	[Glade.Widget]
@@ -113,11 +110,11 @@ public class PlaylistWindow : Window
 		/* set up the different windows we use */
 		skip_to_window = new SkipToWindow (this, player);
 
-		add_song_window = new AddSongWindow (this);
+		add_song_window = new AddSongWindow ();
 		add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
 		add_song_window.PlaySongsEvent += new AddSongWindow.PlaySongsEventHandler (HandlePlaySongsEvent);
 		
-		add_album_window = new AddAlbumWindow (this);
+		add_album_window = new AddAlbumWindow ();
 		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
 		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
 
@@ -143,7 +140,7 @@ public class PlaylistWindow : Window
 
 	public void Run ()
 	{
-		SetWindowVisible (true);
+		WindowVisible = true;
 
 		icon.Run ();
 	}
@@ -219,28 +216,32 @@ public class PlaylistWindow : Window
 	private int last_y = -1;
 
 	private bool window_visible;
+	public bool WindowVisible {
+		set {
+			window_visible = value;
 
-	public void SetWindowVisible (bool visible)
-	{
-		window_visible = visible;
+			if (window_visible) {
+				if (Visible == false && last_x >= 0 && last_y >= 0)
+					Move (last_x, last_y);
 
-		if (visible) {
-			if (Visible == false && last_x >= 0 && last_y >= 0)
-				Move (last_x, last_y);
+				Present ();
+			} else {
+				GetPosition (out last_x, out last_y);
 
-			Present ();
-		} else {
-			GetPosition (out last_x, out last_y);
+				Visible = false;
+			}
 
-			Visible = false;
+			UpdateWindowVisibilityUI ();
 		}
 
-		UpdateWindowVisibilityUI ();
+		get {
+			return window_visible;
+		}
 	}
 
 	public void UpdateWindowVisibilityUI ()
 	{
-		if (window_visible) {
+		if (WindowVisible) {
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Playing);
 
@@ -338,6 +339,10 @@ public class PlaylistWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private CellRenderer text_renderer;
 
+	private enum TargetType {
+		UriList
+	}
+
 	private static TargetEntry [] playlist_drag_entries = new TargetEntry [] {
 		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
 		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
@@ -399,17 +404,6 @@ public class PlaylistWindow : Window
 		                           false, true, false);
 	}
 
-	private enum TargetType {
-		UriList,
-		Uri
-	}
-
-	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
-	};
-
 	private void SetupPlayer (Glade.XML glade_xml)
 	{
 		try {
@@ -436,7 +430,9 @@ public class PlaylistWindow : Window
 		artist_label.Selectable = true;
 		((Container) glade_xml ["artist_label_container"]).Add (artist_label);
 
-		cover_ebox.DragDataReceived += new DragDataReceivedHandler (HandleCoverImageDragDataReceived);
+		cover_image = new CoverImage ();
+		((Container) glade_xml ["cover_image_container"]).Add (cover_image);
+		cover_image.ShowAll ();
 	}
 
 	private void EnsurePlaying ()
@@ -593,11 +589,7 @@ public class PlaylistWindow : Window
 		if (playlist.Playing != IntPtr.Zero) {
 			Song song = Song.FromHandle (playlist.Playing);
 
-			if (song.CoverImage != null)
-				cover_image.FromPixbuf = song.CoverImage;
-			else
-				cover_image.SetFromStock ("muine-default-cover",
-							  StockIcons.AlbumCoverSize);
+			cover_image.Song = song;
 
 			string tip;
 			if (song.Album.Length > 0)
@@ -606,7 +598,7 @@ public class PlaylistWindow : Window
 				tip = Muine.Catalog.GetString ("Album unknown");
 			if (song.Performers.Length > 0)
 				tip += "\n\n" + String.Format (Muine.Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (song.Performers));
-			tooltips.SetTip (cover_ebox, tip, null);
+			tooltips.SetTip (cover_image, tip, null);
 
 			title_label.Text = song.Title;
 
@@ -620,21 +612,12 @@ public class PlaylistWindow : Window
 			if (player.Playing)
 				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 
-			if (song.Album.Length > 0) {
-				Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
-						  cover_drag_entries, Gdk.DragAction.Copy);
-			} else {
-				Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
-						  null, Gdk.DragAction.Copy);
-			}
-
 			if (restart)
 				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
 		} else {
-			cover_image.SetFromStock ("muine-default-cover",
-						  StockIcons.AlbumCoverSize);
+			cover_image.Song = null;
 
-			tooltips.SetTip (cover_ebox, null, null);
+			tooltips.SetTip (cover_image, null, null);
 
 			title_label.Text = "";
 			artist_label.Text = "";
@@ -645,9 +628,6 @@ public class PlaylistWindow : Window
 			icon.Tooltip = null;
 
 			skip_to_window.Hide ();
-
-			Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
-					  null, Gdk.DragAction.Copy);
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -928,7 +908,7 @@ public class PlaylistWindow : Window
 
 	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
 	{
-		SetWindowVisible (!window_visible);
+		WindowVisible = !WindowVisible;
 	}
 
 	private bool had_last_eos;
@@ -1130,20 +1110,20 @@ public class PlaylistWindow : Window
 			return;
 		Album album = (Album) Muine.DB.Albums [song.AlbumKey];
 		
-		InfoWindow id = new InfoWindow ("Information for " + song.Title, this);
+		InfoWindow id = new InfoWindow ("Information for " + song.Title);
 		id.Load (album);
 		
-		id.Run ();
+		id.Run (this);
 	}
 
 	private void HandleAddSongCommand (object o, EventArgs args)
 	{
-		add_song_window.Run ();
+		add_song_window.Run (this);
 	}
 
 	private void HandleAddAlbumCommand (object o, EventArgs args)
 	{
-		add_album_window.Run ();
+		add_album_window.Run (this);
 	}
 
 	private bool HandleDirectory (DirectoryInfo info,
@@ -1333,7 +1313,7 @@ public class PlaylistWindow : Window
 
 	private void HandleHideWindowCommand (object o, EventArgs args)
 	{
-		SetWindowVisible (false);
+		WindowVisible = false;
 	}
 
 	private void HandlePlaylistRowActivated (IntPtr handle)
@@ -1418,76 +1398,6 @@ public class PlaylistWindow : Window
 			NSongsChanged ();
 	}
 
-	private void HandleCoverImageDragDataReceived (object o, DragDataReceivedArgs args)
-	{
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
-
-		bool success = false;
-
-		Song song = Song.FromHandle (playlist.Playing);
-
-		Uri uri;
-		string [] uri_list;
-		string fn;
-		
-		switch (args.Info) {
-		case (uint) TargetType.Uri:
-			uri_list = Regex.Split (data, "\n");
-			fn = uri_list [0];
-			
-			uri = new Uri (fn);
-
-			if (!(uri.Scheme == "http"))
-				break;
-
-			success = true;
-
-			try {
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
-				
-				song.DownloadNewCoverImage (uri.AbsoluteUri);
-
-				success = true;
-			} catch (Exception e) {
-				success = false;
-				
-				break;
-			}
-
-			break;
-		case (uint) TargetType.UriList:
-			uri_list = Regex.Split (data, "\r\n");
-			fn = uri_list [0];
-			
-			uri = new Uri (fn);
-
-			if (!(uri.Scheme == "file"))
-				break;
-
-			try {
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCoverLocal (song.AlbumKey, uri.LocalPath);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
-
-				success = true;
-			} catch {
-				success = false;
-				
-				break;
-			}
-			
-			break;
-		default:
-			break;
-		}
-
-		Gtk.Drag.Finish (args.Context, success, false, args.Time);
-	}
-
 	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
@@ -1517,6 +1427,6 @@ public class PlaylistWindow : Window
 			break;
 		}
 
-		Gtk.Drag.Finish (args.Context, success, false, args.Time);
+		Drag.Finish (args.Context, success, false, args.Time);
 	}
 }

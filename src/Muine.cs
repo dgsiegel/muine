@@ -154,7 +154,7 @@ public class Muine : Gnome.Program
 					    IntPtr user_data)
 	{
 		if (message == "ShowWindow")
-			playlist.SetWindowVisible (true);
+			playlist.WindowVisible = true;
 		else
 			playlist.OpenPlaylist (message);
 	}

@@ -1,3 +1,23 @@
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/InfoWindow.glade:
+	* data/glade/PlaylistWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	A src/CoverImage.cs:
+	* src/InfoWindow.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Created a CoverImage widget which is now both used by 
+	the playlist and the song information window.
+
+	The add and info dialogs will now only be made transient
+	for the playlist window when the playlist window is actually
+	visible. This depends on a yet uncommited fix for Gtk# to
+	work reliably.
+
 2004-02-25  Jordi Mallach  <jordi@sindominio.net>
 
 	* configure.in (ALL_LINGUAS): Added "ca" (Catalan).

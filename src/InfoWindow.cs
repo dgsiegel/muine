@@ -35,27 +35,22 @@ public class InfoWindow
 	[Glade.Widget]
 	Box box;
 	[Glade.Widget]
-	Image cover_image;
-	[Glade.Widget]
 	Label name_label;
 	[Glade.Widget]
 	Label year_label;
 	[Glade.Widget]
 	Table tracks_table;
+	private CoverImage cover_image;
 
-	/* FIXME destructor, static?.. */
 	/* FIXME albumchanged signal? */
-	/* FIXME start creating dialogs on demand to save startup time */
 	/* FIXME accessible from add album window? */
-	/* FIXME dinges hidden when opened from tray */
 
-	public InfoWindow (string title, Window parent)
+	public InfoWindow (string title)
 	{
 		Glade.XML gxml = new Glade.XML (null, "InfoWindow.glade", "window", null);
 		gxml.Autoconnect (this);
 
 		window.Title = title;
-		window.TransientFor = parent;
 
 		int width;
 		try {
@@ -74,6 +69,9 @@ public class InfoWindow
 		window.SetDefaultSize (width, height);
 
 		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+
+		cover_image = new CoverImage ();
+		((Container) gxml ["cover_image_container"]).Add (cover_image);
 
 		/* Keynav */
 		box.FocusHadjustment = scrolledwindow.Hadjustment;
@@ -94,14 +92,16 @@ public class InfoWindow
 		Muine.GConfClient.Set ("/apps/muine/information_window/height", height);
 	}
 
-	~InfoWindow ()
+	public void Run (PlaylistWindow parent)
 	{
-		Console.WriteLine ("killing..");
-	}
+		if (parent.WindowVisible)
+			window.TransientFor = parent;
+		else
+			window.TransientFor = null;
 
-	public void Run ()
-	{
 		window.ShowAll ();
+
+		window.Present ();
 	}
 
 	private void HandleCloseButtonClicked (object o, EventArgs args)
@@ -109,11 +109,11 @@ public class InfoWindow
 		window.Destroy ();
 	}
 
-	private void InsertTrack (Song song, int n)
+	private void InsertTrack (Song song)
 	{
-		tracks_table.NRows++;
+		tracks_table.NRows ++;
 
-		Label number = new Label ("" + n);
+		Label number = new Label ("" + song.TrackNumber);
 		number.Selectable = true;
 		number.Xalign = 0.5F;
 		number.Show ();
@@ -136,7 +136,7 @@ public class InfoWindow
 
 	public void Load (Album album) 
 	{
-		cover_image.Pixbuf = album.CoverImage;
+		cover_image.Song = (Song) album.Songs [0];
 
 		name_label.Text = album.Name;
 		MarkupUtils.LabelSetMarkup (name_label, 0, StringUtils.GetByteLength (album.Name),
@@ -145,10 +145,7 @@ public class InfoWindow
 		year_label.Text = album.Year;
 		
 		/* insert tracks */
-		int n = 1;
-		foreach (Song song in album.Songs) {
-			InsertTrack (song, n);
-			n++;
-		}
+		foreach (Song song in album.Songs)
+			InsertTrack (song);
 	}
 }

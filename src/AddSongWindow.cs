@@ -44,12 +44,10 @@ public class AddSongWindow
 
 	private static int FakeLength = 150;
 	
-	public AddSongWindow (Window parent)
+	public AddSongWindow ()
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);
-
-		window.TransientFor = parent;
 
 		window.Title = "Add Song";
 
@@ -104,16 +102,18 @@ public class AddSongWindow
 		}
 	}
 
-	public void Run ()
+	public void Run (PlaylistWindow parent)
 	{
 		search_entry.GrabFocus ();
 
 		view.SelectFirst ();
 
-		if (window.Visible == false)
-			window.Visible = true;
+		if (parent.WindowVisible)
+			window.TransientFor = parent;
 		else
-			window.Present ();
+			window.TransientFor = null;
+
+		window.Present ();
 	}
 
 	public delegate void QueueSongsEventHandler (List songs);
