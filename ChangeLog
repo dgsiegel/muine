@@ -1,5 +1,11 @@
 2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Depend on gnome-icon-theme.
+
+2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Correct bugs from last commit.
