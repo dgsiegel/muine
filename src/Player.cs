@@ -33,6 +33,8 @@ public class Player : GLib.Object
 							  double gain,
 							  double peak);
 
+	private bool stopped = true;
+
 	private Song song = null;
 	public Song Song {
 		get {
@@ -40,6 +42,8 @@ public class Player : GLib.Object
 		}
 
 		set {
+			stopped = false;
+			
 			song = value;
 
 			IntPtr error_ptr;
@@ -97,11 +101,11 @@ public class Player : GLib.Object
 
 	public void Stop ()
 	{
-		if (song == null)
+		if (stopped)
 			return;
 			
 		player_stop (Raw);
-		song = null;
+		stopped = true;
 
 		if (playing == false)
 			return;
@@ -127,6 +131,9 @@ public class Player : GLib.Object
 		}
 
 		set {
+			if (stopped)
+				Song = song;
+				
 			player_seek (Raw, value);
 
 			if (TickEvent != null)
