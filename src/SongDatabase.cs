@@ -328,8 +328,6 @@ namespace Muine
 		// Folder watching
 		public void AddFolder (DirectoryInfo dinfo, ProgressWindow pw)
 		{
-			pw.Report (dinfo.Name, dinfo.Name);
-
 			AddToConfig (dinfo.FullName);
 
 			AddFolderThread t = new AddFolderThread (dinfo, pw);
@@ -361,11 +359,7 @@ namespace Muine
 
 				SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-				bool canceled = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
-				if (canceled) {
-					canceled_box.Value = true;
-					// finish what is in the queue
-				}
+				canceled_box.Value = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
 
 				Global.DB.HandleSignalRequest (rq);
 	
@@ -377,15 +371,15 @@ namespace Muine
 				this.dinfo = dinfo;
 				this.pw = pw;
 
+				canceled_box.Value = pw.Report (dinfo.Name, dinfo.Name);
+
 				thread.Start ();
 			}
 		}
 
 		private string [] watched_folders;
 		public string [] WatchedFolders {
-			get {
-				return watched_folders;
-			}
+			get { return watched_folders; }
 		}
 
 		private void AddToConfig (string folder)
@@ -421,7 +415,6 @@ namespace Muine
 						continue;
 
 					ProgressWindow pw = new ProgressWindow (Global.Playlist);
-					pw.Report (dinfo.Name, dinfo.Name);
 					AddFolderThread t = new AddFolderThread (dinfo, pw);
 				}
 			}
