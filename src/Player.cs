@@ -157,33 +157,9 @@ public class Player : GLib.Object
 	[DllImport ("libmuine")]
 	private static extern IntPtr player_new (out IntPtr error_ptr);
 
-	private class Connect
-	{
-		[DllImport ("libgobject-2.0-0.dll")]
-		public static extern uint g_signal_connect_data (IntPtr obj, string name,
-	                                                         SignalDelegate cb, IntPtr data,
-							         IntPtr p, int flags);
-	}
-
-	private class ConnectInt
-	{
-		[DllImport ("libgobject-2.0-0.dll")]
-		public static extern uint g_signal_connect_data (IntPtr obj, string name,
-	                                                         IntSignalDelegate cb, IntPtr data,
-							         IntPtr p, int flags);
-	}
-
-	private class ConnectString
-	{
-		[DllImport ("libgobject-2.0-0.dll")]
-		public static extern uint g_signal_connect_data (IntPtr obj, string name,
-	                                                         StringSignalDelegate cb, IntPtr data,
-							         IntPtr p, int flags);
-	}
-
-	private IntSignalDelegate tick_cb;
-	private SignalDelegate eos_cb;
-	private StringSignalDelegate error_cb;
+	private SignalUtils.SignalDelegateInt tick_cb;
+	private SignalUtils.SignalDelegate eos_cb;
+	private SignalUtils.SignalDelegateStr error_cb;
 
 	public Player () : base (IntPtr.Zero)
 	{
@@ -196,16 +172,13 @@ public class Player : GLib.Object
 			throw new Exception (error);
 		}
 		
-		tick_cb = new IntSignalDelegate (TickCallback);
-		eos_cb = new SignalDelegate (EosCallback);
-		error_cb = new StringSignalDelegate (ErrorCallback);
+		tick_cb = new SignalUtils.SignalDelegateInt (TickCallback);
+		eos_cb = new SignalUtils.SignalDelegate (EosCallback);
+		error_cb = new SignalUtils.SignalDelegateStr (ErrorCallback);
 
-		ConnectInt.g_signal_connect_data (Raw, "tick", tick_cb,
-		                                  IntPtr.Zero, IntPtr.Zero, 0);
-		Connect.g_signal_connect_data (Raw, "end_of_stream", eos_cb,
-				               IntPtr.Zero, IntPtr.Zero, 0);
-		ConnectString.g_signal_connect_data (Raw, "error", error_cb,
-				                     IntPtr.Zero, IntPtr.Zero, 0);
+		SignalUtils.SignalConnect (Raw, "tick", tick_cb);
+		SignalUtils.SignalConnect (Raw, "end_of_stream", eos_cb);
+		SignalUtils.SignalConnect (Raw, "error", error_cb);
 
 		playing = false;
 		song = null;
@@ -215,10 +188,6 @@ public class Player : GLib.Object
 	{
 		Dispose ();
 	}
-
-	private delegate void SignalDelegate (IntPtr obj);
-	private delegate void IntSignalDelegate (IntPtr obj, int i);
-	private delegate void StringSignalDelegate (IntPtr obj, string s);
 
 	private void TickCallback (IntPtr obj, int pos)
 	{	

@@ -29,25 +29,18 @@ public class HandleView : TreeView
 	[DllImport ("libmuine")]
 	private static extern IntPtr pointer_list_view_new ();
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegate cb, IntPtr data,
-							  IntPtr p, int flags);
-
-	private SignalDelegate pointer_activated_cb;
-	private SignalDelegate selection_changed_cb;
+	private SignalUtils.SignalDelegatePtr pointer_activated_cb;
+	private SignalUtils.SignalDelegatePtr selection_changed_cb;
 
 	public HandleView () : base (IntPtr.Zero)
 	{
 		Raw = pointer_list_view_new ();
 
-		pointer_activated_cb = new SignalDelegate (PointerActivatedCallback);
-		selection_changed_cb = new SignalDelegate (SelectionChangedCallback);
+		pointer_activated_cb = new SignalUtils.SignalDelegatePtr (PointerActivatedCallback);
+		selection_changed_cb = new SignalUtils.SignalDelegatePtr (SelectionChangedCallback);
 
-		g_signal_connect_data (Raw, "pointer_activated", pointer_activated_cb,
-				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "selection_changed", selection_changed_cb,
-				       IntPtr.Zero, IntPtr.Zero, 0);
+		SignalUtils.SignalConnect (Raw, "pointer_activated", pointer_activated_cb);
+		SignalUtils.SignalConnect (Raw, "selection_changed", selection_changed_cb);
 	}
 
 	~HandleView ()
@@ -396,8 +389,6 @@ public class HandleView : TreeView
 
 		return ret;
 	}
-
-	private delegate void SignalDelegate (IntPtr obj, IntPtr ptr);
 
 	private void PointerActivatedCallback (IntPtr obj, IntPtr ptr)
 	{

@@ -1,5 +1,21 @@
 2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* src/SignalUtils.cs:
+
+	Added a SignalUtils class with SignalDelegates and SignalConnect which
+	wraps g_signal_connect_data.
+
+	* src/HandleView.cs:
+	* src/MmKeys.cs:
+	* src/Player.cs:
+	
+	Changed all SignalDelegates to use the ones in SignalUtils. Also
+	changed the calls to g_signal_connect_data to use 
+	SignalUtils.SignalConnect. Removed SignalDelegates and 
+	g_signal_connect_data.
+
+2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/CoverDatabase.cs:

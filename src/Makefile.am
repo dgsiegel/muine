@@ -35,7 +35,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/CoverImage.cs			\
 	$(srcdir)/MmKeys.cs			\
 	$(srcdir)/GettextCatalog.cs		\
-	$(srcdir)/FileUtils.cs
+	$(srcdir)/FileUtils.cs			\
+	$(srcdir)/SignalUtils.cs
 
 ASSEMBLIES =					\
 	-r:AmazonSearchService.dll		\

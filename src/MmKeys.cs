@@ -29,31 +29,24 @@ public class MmKeys : GLib.Object
 	[DllImport ("libmuine")]
 	private static extern IntPtr mmkeys_new ();
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegate cb, IntPtr data,
-							  IntPtr p, int flags);
-
 	public MmKeys () : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
 
-		g_signal_connect_data (Raw, "mm_playpause", new SignalDelegate (MmPlayPauseCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "mm_prev", new SignalDelegate (MmPrevCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "mm_next", new SignalDelegate (MmNextCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "mm_stop", new SignalDelegate (MmStopCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
+		SignalUtils.SignalConnect (Raw, "mm_playpause", 
+					   new SignalUtils.SignalDelegateInt (MmPlayPauseCallback));
+		SignalUtils.SignalConnect (Raw, "mm_prev", 
+					   new SignalUtils.SignalDelegateInt (MmPrevCallback));
+		SignalUtils.SignalConnect (Raw, "mm_next", 
+					   new SignalUtils.SignalDelegateInt (MmNextCallback));
+		SignalUtils.SignalConnect (Raw, "mm_stop", 
+					   new SignalUtils.SignalDelegateInt (MmStopCallback));
 	}
 
 	~MmKeys ()
 	{
 		Dispose ();
 	}
-
-	private delegate void SignalDelegate (IntPtr obj, int vol);
 
 	public event EventHandler PlayPause;
 	public event EventHandler Previous;
