@@ -146,6 +146,8 @@ public class SongDatabase
 
 	public void RemoveSong (Song song)
 	{
+		song.Dead = true;
+
 		db_delete (dbf, song.Filename);
 
 		if (SongRemoved != null)
@@ -154,8 +156,6 @@ public class SongDatabase
 		Songs.Remove (song.Filename);
 
 		RemoveFromAlbum (song);
-
-		song.Dead = true;
 	}
 
 	private void SyncSongWithMetadata (Song song, Metadata metadata)
