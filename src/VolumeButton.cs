@@ -34,7 +34,7 @@ public class VolumeButton : Button
 							  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
-	public VolumeButton () : base ()
+	public VolumeButton () : base (IntPtr.Zero)
 	{
 		Raw = volume_button_new ();
 

@@ -109,7 +109,7 @@ public class NotificationAreaIcon : Plug
 		menu.ShowAll ();
 	}
 
-	public NotificationAreaIcon () : base ()
+	public NotificationAreaIcon () : base (IntPtr.Zero)
 	{
 		tooltips = new Tooltips ();
 

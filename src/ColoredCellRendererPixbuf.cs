@@ -34,20 +34,12 @@ public class ColoredCellRendererPixbuf : Gtk.CellRenderer
 	[DllImport ("libmuine")]
 	static extern IntPtr rb_cell_renderer_pixbuf_new ();
 
-	public ColoredCellRendererPixbuf ()
+	public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
 	{
 		Raw = rb_cell_renderer_pixbuf_new ();
 	}
 
 	public Gdk.Pixbuf Pixbuf {
-		get {
-			GLib.Value val = new GLib.Value (Handle, "pixbuf");
-			GetProperty ("pixbuf", val);
-			System.IntPtr raw_ret = (System.IntPtr) (GLib.UnwrappedObject) val;
-			bool ref_owned = false;
-			Gdk.Pixbuf ret = (Gdk.Pixbuf) GLib.Object.GetObject (raw_ret, ref_owned);
-			return ret;
-		}
 		set {
 			SetProperty ("pixbuf", new GLib.Value (value));
 		}

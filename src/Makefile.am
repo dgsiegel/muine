@@ -38,14 +38,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/GettextCatalog.cs
 
 ASSEMBLIES =					\
-	/r:atk-sharp				\
-	/r:gconf-sharp				\
-	/r:gdk-sharp				\
-	/r:glade-sharp				\
-	/r:glib-sharp				\
-	/r:gnome-sharp				\
-	/r:gtk-sharp				\
-	/r:pango-sharp				\
 	/r:AmazonSearchService.dll		\
 	/r:System.Web.Services
 
@@ -91,7 +83,7 @@ AmazonSearchService.dll: AmazonSearchService.cs
 	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll AmazonSearchService.cs -r:System.Web.Services
 
 muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll
-	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES)
+	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES) $(GTKSHARP_LIBS)
 
 all: AmazonSearchService.dll muine.exe
 

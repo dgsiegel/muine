@@ -44,7 +44,7 @@ public class AddSongWindow : Window
 
 	private static int FakeLength = 150;
 	
-	public AddSongWindow ()
+	public AddSongWindow () : base (IntPtr.Zero)
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);

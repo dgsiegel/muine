@@ -34,7 +34,7 @@ public class MmKeys : GLib.Object
 							  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
-	public MmKeys () : base ()
+	public MmKeys () : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
 

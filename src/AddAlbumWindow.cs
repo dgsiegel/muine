@@ -55,7 +55,7 @@ public class AddAlbumWindow : Window
 		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
 	};
 
-	public AddAlbumWindow ()
+	public AddAlbumWindow () : base (IntPtr.Zero)
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);

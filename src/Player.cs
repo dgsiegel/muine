@@ -139,7 +139,7 @@ public class Player : GLib.Object
 	                                                  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
-	public Player () : base ()
+	public Player () : base (IntPtr.Zero)
 	{
 		try {
 			Raw = player_new ();

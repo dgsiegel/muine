@@ -46,7 +46,7 @@ public class InfoWindow : Window
 	/* FIXME accessible from add album window? */
 	/* FIXME songinfo on selection in playlist */
 
-	public InfoWindow (string title)
+	public InfoWindow (string title) : base (IntPtr.Zero)
 	{
 		Glade.XML gxml = new Glade.XML (null, "InfoWindow.glade", "window", null);
 		gxml.Autoconnect (this);

@@ -45,7 +45,6 @@ o Nicer default cover image
 Depends on other components:
 ============================
 
-o Use Gtk# pkg-config files once Gtk# 0.19 is released
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
 o Monitor imported folders using FileWatcher

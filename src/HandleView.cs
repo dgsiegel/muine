@@ -34,7 +34,7 @@ public class HandleView : TreeView
 							  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
-	public HandleView () : base ()
+	public HandleView () : base (IntPtr.Zero)
 	{
 		Raw = pointer_list_view_new ();
 

@@ -1,3 +1,23 @@
+2004-04-13  Kenneth Christiansen  <kenneth@gnu.org>
+	    Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/ColoredCellRendererPixbuf.cs:
+	* src/HandleView.cs:
+	* src/InfoWindow.cs:
+	* src/Makefile.am:
+	* src/MmKeys.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/VolumeButton.cs:
+
+	Pass IntPtr.Zero to the base constructors when we want dummy objects
+	filled in with unmanaged gobjects.
+
+	Use pkg-config files from Gtk# CVS.
+	
 2004-04-12  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
