@@ -325,12 +325,14 @@ public class AddAlbumWindow
 
 	private void HandleAlbumChanged (Album album)
 	{
-		/* remove and insert because this is sorted */
-		view.Remove (album.Handle);
-
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (album, search_bits))
-			view.Append (album.Handle);
+		if (FitsCriteria (album, search_bits)) {
+			if (view.Contains (album.Handle))
+				view.Changed (album.Handle);
+			else
+				view.Append (album.Handle);
+		} else
+			view.Remove (album.Handle);
 
 		SelectFirstIfNeeded ();
 	}

@@ -328,12 +328,14 @@ public class AddSongWindow
 
 	private void HandleSongChanged (Song song)
 	{
-		/* remove and insert because this is sorted */
-		view.Remove (song.Handle);
-
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (song, search_bits))
-			view.Append (song.Handle);
+		if (FitsCriteria (song, search_bits)) {
+			if (view.Contains (song.Handle))
+				view.Changed (song.Handle);
+			else
+				view.Append (song.Handle);
+		} else
+			view.Remove (song.Handle);
 
 		SelectFirstIfNeeded ();
 	}

@@ -1,5 +1,13 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_changed):
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Better change handling.
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 
