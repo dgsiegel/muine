@@ -70,6 +70,7 @@ struct _PlayerPriv {
   xine_event_queue_t *event_queue;
 
   int cur_volume;
+  double volume_scale;
 
   GTimer *timer;
   long timer_add;
@@ -545,6 +546,19 @@ player_pause (Player *player)
   g_timer_reset (priv->timer);
 }
 
+static void
+update_volume (Player *player)
+{
+  int real_vol;
+
+  real_vol = player->priv->cur_volume * player->priv->volume_scale;
+
+  if (player->priv->stream != NULL)
+    {
+      xine_set_param (player->priv->stream, XINE_PARAM_AUDIO_AMP_LEVEL, CLAMP (real_vol, 0, 100));
+    }
+}
+
 void
 player_set_volume (Player *player,
 		   int     volume)
@@ -554,12 +568,8 @@ player_set_volume (Player *player,
   g_return_if_fail (IS_PLAYER (player));
   g_return_if_fail (volume >= 0 && volume <= 100);
 
-  if (priv->stream != NULL)
-    {
-      xine_set_param (priv->stream, XINE_PARAM_AUDIO_AMP_LEVEL, volume);
-    }
-  
   priv->cur_volume = volume;
+  update_volume (player);
 }
 
 int
@@ -574,12 +584,16 @@ void
 player_set_replaygain (Player *player, double gain, double peak)
 {
   double scale;
-  int real_vol;
 
   g_return_if_fail (IS_PLAYER (player));
 
   if (gain == 0)
-    return;
+    {
+      player->priv->volume_scale = 1.0;
+      update_volume (player);
+
+      return;
+    }
 
   scale = pow (10., gain / 20);
 
@@ -591,9 +605,8 @@ player_set_replaygain (Player *player, double gain, double peak)
   if (scale > 15)
     scale = 15;
 
-  real_vol = player->priv->cur_volume * scale;
-
-  xine_set_param (player->priv->stream, XINE_PARAM_AUDIO_AMP_LEVEL, CLAMP (real_vol, 0, 100));
+  player->priv->volume_scale = scale;
+  update_volume (player);
 }
 
 void

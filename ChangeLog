@@ -1,5 +1,12 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-xine.c: (update_volume), (player_set_volume),
+	(player_set_replaygain):
+
+	Fix replaygain in the xine backend.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Fix window visibility bug.
