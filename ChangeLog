@@ -1,5 +1,19 @@
 2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Released 0.3.2.
+	
+	* TODO:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	First stab at implementing proper file watching, but it is commented
+	out for now because I ran into a mono bug. Details in TODO.
+
+2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* AUTHORS:
 	* MAINTAINERS:
 	* src/About.cs:

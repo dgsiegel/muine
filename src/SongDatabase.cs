@@ -213,6 +213,17 @@ public class SongDatabase
 	{
 		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
 
+		/* add file monitors */
+		string [] folders;
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		foreach (string folder in folders)
+			AddMonitor (folder);
+
 		/* check for changes */
 		Action action = new Action ();
 		action.Perform += new Action.PerformHandler (CheckChanges);
@@ -352,4 +363,71 @@ public class SongDatabase
 	{
 		return (Song) Songs [filename];
 	}
+
+	public void AddWatchedFolder (string folder)
+	{
+		string [] folders;
+		
+		try {
+			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
+		} catch {
+			folders = new string [0];
+		}
+
+		string [] new_folders = new string [folders.Length + 1];
+
+		int i = 0;
+		foreach (string s in folders) {
+			if (folder.IndexOf (s) == 0)
+				return;
+			new_folders [i] = folders [i];
+			i++;
+		}
+
+		new_folders [folders.Length] = folder;
+
+		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
+
+		AddMonitor (folder);
+	}
+
+	private void AddMonitor (string folder)
+	{
+	/*
+		FileSystemWatcher watcher = new FileSystemWatcher (folder);
+
+		watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite |
+		                       NotifyFilters.Size | NotifyFilters.DirectoryName;
+		
+		watcher.IncludeSubdirectories = true;
+		
+		watcher.Changed += new FileSystemEventHandler (HandleFileChanged);
+		watcher.Created += new FileSystemEventHandler (HandleFileCreated);
+		watcher.Deleted += new FileSystemEventHandler (HandleFileDeleted);
+		watcher.Renamed += new RenamedEventHandler (HandleFileRenamed);
+
+		watcher.EnableRaisingEvents = true;
+		*/
+	}
+
+/*
+	private static void HandleFileChanged (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " changed");
+	}
+
+	private static void HandleFileCreated (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " created");
+	}
+
+	private static void HandleFileDeleted (object o, FileSystemEventArgs e)
+	{
+		Console.WriteLine (e.FullPath + " deleted");
+	}
+
+	private static void HandleFileRenamed (object o, RenamedEventArgs e)
+	{
+		Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
+	}*/
 }

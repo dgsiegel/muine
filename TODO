@@ -64,7 +64,7 @@ o Support setting different equalizer settings, reverb etc for different
 o Translation
   Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
-  Depends on mono 0.30, which will have the FileWatcher class.
+  Depends on Mono, Ximian Bugzilla #53807
 o Tag editing
   Depends on this to work nicely in GStreamer
 o Add DnD from Nautilus to the playlist window, adding to a) the library

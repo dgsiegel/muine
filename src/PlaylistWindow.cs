@@ -164,14 +164,7 @@ public class PlaylistWindow : Window
 		}
 
 		/* empty lib dialog */
-		string [] folders;
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
-		
-		if (folders.Length == 0) {
+		if (Muine.DB.Empty) {
 			SearchMusicWindow w = new SearchMusicWindow (this);
 			w.ImportFolderEvent += new SearchMusicWindow.ImportFolderEventHandler (HandleImportFolderEvent); 
 			w.Run ();
@@ -777,31 +770,6 @@ public class PlaylistWindow : Window
 		writer.Close ();
 	}
 
-	private void AddWatchedFolder (string folder)
-	{
-		string [] folders;
-		
-		try {
-			folders = (string []) Muine.GConfClient.Get ("/apps/muine/watched_folders");
-		} catch {
-			folders = new string [0];
-		}
-
-		string [] new_folders = new string [folders.Length + 1];
-
-		int i = 0;
-		foreach (string s in folders) {
-			if (folder.IndexOf (s) == 0)
-				return;
-			new_folders [i] = folders [i];
-			i++;
-		}
-
-		new_folders [folders.Length] = folder;
-
-		Muine.GConfClient.Set ("/apps/muine/watched_folders", new_folders);
-	}
-
 	private void HandleStateChanged (bool playing)
 	{
 		StateChanged (playing);
@@ -1162,7 +1130,7 @@ public class PlaylistWindow : Window
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 			HandleDirectory (dinfo, pw);
-			AddWatchedFolder (dinfo.FullName);
+			Muine.DB.AddWatchedFolder (dinfo.FullName);
 			pw.Done ();
 		}
 
@@ -1209,7 +1177,7 @@ public class PlaylistWindow : Window
 	{
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		HandleDirectory (dinfo, pw);
-		AddWatchedFolder (dinfo.FullName);
+		Muine.DB.AddWatchedFolder (dinfo.FullName);
 		pw.Done ();
 	}
 
