@@ -41,41 +41,41 @@ ASSEMBLIES =					\
 	/r:AmazonSearchService.dll		\
 	/r:System.Web.Services
 
-RESOURCES =											\
-	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade		\
-	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade		\
-	/resource:$(top_srcdir)/data/glade/NoMusicFoundWindow.glade,NoMusicFoundWindow.glade	\
-	/resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade			\
-	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade			\
-	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade			\
-	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade		\
-	/resource:$(top_srcdir)/data/glade/InfoWindow.glade,InfoWindow.glade			\
-	/resource:$(top_srcdir)/data/images/muine-previous.png,muine-previous.png		\
-	/resource:$(top_srcdir)/data/images/muine-previous-16.png,muine-previous-16.png		\
-	/resource:$(top_srcdir)/data/images/muine-play.png,muine-play.png			\
-	/resource:$(top_srcdir)/data/images/muine-play-16.png,muine-play-16.png			\
-	/resource:$(top_srcdir)/data/images/muine-pause.png,muine-pause.png			\
-	/resource:$(top_srcdir)/data/images/muine-pause-16.png,muine-pause-16.png		\
-	/resource:$(top_srcdir)/data/images/muine-next.png,muine-next.png			\
-	/resource:$(top_srcdir)/data/images/muine-next-16.png,muine-next-16.png			\
-	/resource:$(top_srcdir)/data/images/muine-rewind.png,muine-rewind.png			\
-	/resource:$(top_srcdir)/data/images/muine-forward.png,muine-forward.png			\
-	/resource:$(top_srcdir)/data/images/muine-queue.png,muine-queue.png			\
-	/resource:$(top_srcdir)/data/images/muine-add-album.png,muine-add-album.png		\
-	/resource:$(top_srcdir)/data/images/muine-add-album-16.png,muine-add-album-16.png	\
-	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png			\
-	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png			\
-	/resource:$(top_srcdir)/data/images/muine-nothing.png,muine-nothing.png			\
-	/resource:$(top_srcdir)/data/images/muine-tray-playing.png,muine-tray-playing.png	\
-	/resource:$(top_srcdir)/data/images/muine-tray-paused.png,muine-tray-paused.png	\
-	/resource:$(top_srcdir)/data/images/muine-default-cover.png,muine-default-cover.png	\
+RESOURCES =												\
+	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade			\
+	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade			\
+	/resource:$(top_srcdir)/data/glade/NoMusicFoundWindow.glade,NoMusicFoundWindow.glade		\
+	/resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade				\
+	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade				\
+	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
+	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
+	/resource:$(top_srcdir)/data/glade/InfoWindow.glade,InfoWindow.glade				\
+	/resource:$(top_srcdir)/data/images/muine-previous.png,muine-previous.png			\
+	/resource:$(top_srcdir)/data/images/muine-previous-16.png,muine-previous-16.png			\
+	/resource:$(top_srcdir)/data/images/muine-play.png,muine-play.png				\
+	/resource:$(top_srcdir)/data/images/muine-play-16.png,muine-play-16.png				\
+	/resource:$(top_srcdir)/data/images/muine-pause.png,muine-pause.png				\
+	/resource:$(top_srcdir)/data/images/muine-pause-16.png,muine-pause-16.png			\
+	/resource:$(top_srcdir)/data/images/muine-next.png,muine-next.png				\
+	/resource:$(top_srcdir)/data/images/muine-next-16.png,muine-next-16.png				\
+	/resource:$(top_srcdir)/data/images/muine-rewind.png,muine-rewind.png				\
+	/resource:$(top_srcdir)/data/images/muine-forward.png,muine-forward.png				\
+	/resource:$(top_srcdir)/data/images/muine-queue.png,muine-queue.png				\
+	/resource:$(top_srcdir)/data/images/muine-add-album.png,muine-add-album.png			\
+	/resource:$(top_srcdir)/data/images/muine-add-album-16.png,muine-add-album-16.png		\
+	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
+	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
+	/resource:$(top_srcdir)/data/images/muine-nothing.png,muine-nothing.png				\
+	/resource:$(top_srcdir)/data/images/muine-tray-playing.png,muine-tray-playing.png		\
+	/resource:$(top_srcdir)/data/images/muine-tray-paused.png,muine-tray-paused.png			\
+	/resource:$(top_srcdir)/data/images/muine-default-cover.png,muine-default-cover.png		\
 	/resource:$(top_srcdir)/data/images/muine-cover-downloading.png,muine-cover-downloading.png	\
-	/resource:$(top_srcdir)/data/images/muine-volume-zero.png,muine-volume-zero.png		\
-	/resource:$(top_srcdir)/data/images/muine-volume-min.png,muine-volume-min.png		\
-	/resource:$(top_srcdir)/data/images/muine-volume-medium.png,muine-volume-medium.png	\
-	/resource:$(top_srcdir)/data/images/muine-volume-max.png,muine-volume-max.png		\
-	/resource:$(top_srcdir)/data/images/muine-playlist.png,muine-playlist.png			\
-	/resource:$(top_srcdir)/data/images/muine-about.png,muine-about.png
+	/resource:$(top_srcdir)/data/images/muine-volume-zero.png,muine-volume-zero.png			\
+	/resource:$(top_srcdir)/data/images/muine-volume-min.png,muine-volume-min.png			\
+	/resource:$(top_srcdir)/data/images/muine-volume-medium.png,muine-volume-medium.png		\
+	/resource:$(top_srcdir)/data/images/muine-volume-max.png,muine-volume-max.png			\
+	/resource:$(top_srcdir)/data/images/muine-about.png,muine-about.png				\
+	/resource:$(top_srcdir)/data/images/muine.png,muine.png						
 
 AmazonSearchService.cs: AmazonSearchService.wsdl
 	wsdl $(srcdir)/AmazonSearchService.wsdl

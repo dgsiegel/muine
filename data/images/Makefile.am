@@ -6,7 +6,6 @@ noinst_DATA =					\
 	muine-next-16.png			\
 	muine-pause.png				\
 	muine-pause-16.png			\
-	muine-playlist.png			\
 	muine-play.png				\
 	muine-play-16.png			\
 	muine-previous.png			\

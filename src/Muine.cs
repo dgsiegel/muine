@@ -131,7 +131,7 @@ public class Muine : Gnome.Program
 	private void SetDefaultWindowIcon ()
 	{
 		Pixbuf [] default_icon_list = new Pixbuf [1];
-		default_icon_list [0] = new Pixbuf (null, "muine-playlist.png");
+		default_icon_list [0] = new Pixbuf (null, "muine.png");
 		Gtk.Window.DefaultIconList = default_icon_list;
 	}
 
