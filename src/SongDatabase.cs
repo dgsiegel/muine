@@ -441,9 +441,11 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 	}
 
+	readonly static DateTime datetTime1970 = new DateTime (1970, 1, 1, 0, 0, 0, 0);
+
 	private long MTimeToTicks (int mtime)
 	{
-		return (long) mtime * (long) Math.Pow (10, 7) + 621356040000000000;
+		return (long) (mtime * 10000000L) + datetTime1970.Ticks;
 	}
 
 	private void CheckChangesThread ()
@@ -458,7 +460,7 @@ public class SongDatabase
 			if (!finfo.Exists)
 				removed_songs.Enqueue (song);
 			else {
-				if (MTimeToTicks (song.MTime) < finfo.LastWriteTime.Ticks) {
+				if (MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
 					Metadata metadata;
 
 					try {
