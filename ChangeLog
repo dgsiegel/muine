@@ -1,5 +1,11 @@
 2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Make artist and title labels selectable.
+
+2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
+
 	* AUTHORS:
 	* NEWS:
 	* README:

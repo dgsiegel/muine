@@ -335,11 +335,13 @@ public class PlaylistWindow : Window
 		title_label = new EllipsizingLabel ("");
 		title_label.Visible = true;
 		title_label.Xalign = 0.0f;
+		title_label.Selectable = true;
 		title_label_container.Add (title_label);
 
 		artist_label = new EllipsizingLabel ("");
 		artist_label.Visible = true;
 		artist_label.Xalign = 0.0f;
+		artist_label.Selectable = true;
 		artist_label_container.Add (artist_label);
 	}
 
