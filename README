@@ -26,8 +26,8 @@ gdbm
 
 And for playback either:
 
+  Xine (libxine) >= 1.0.0   (Used by default)
+
+or:
+
   GStreamer 0.8
-
-or (recommended for the time being):
-
-  Xine (libxine) >= 1.0.0

@@ -1,5 +1,12 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* README:
+	* configure.in:
+
+	Make the xine backend the default.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/PlaylistWindow.cs:
 	* src/SongDatabase.cs:
