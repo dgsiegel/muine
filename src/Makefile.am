@@ -28,7 +28,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
-	$(srcdir)/AmazonSearchService.cs	\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/DashboardFrontend.cs		\
 	$(srcdir)/MessageConnection.cs		\
@@ -87,6 +86,9 @@ RESOURCES =											\
 
 muinelibdir = $(prefix)/lib/muine
 
+AmazonSearchService.cs: AmazonSearchService.wsdl
+	wsdl AmazonSearchService.wsdl
+
 AmazonSearchService.dll: AmazonSearchService.cs
 	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll $(srcdir)/AmazonSearchService.cs -r:System.Web.Services
 
@@ -104,6 +106,7 @@ bin_SCRIPTS = muine
 
 EXTRA_DIST =					\
 	$(MUINE_CSFILES)			\
+	AmazonSearchService.wsdl		\
 	muine.in
 
 CLEANFILES =					\

@@ -1,3 +1,11 @@
+2004-02-27  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	R src/AmazonSearchService.cs:
+	* src/Makefile.am:
+
+	Autogenerate AmazonSearchService.cs.
+
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
