@@ -10,19 +10,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-29 04:22+0100\n"
-"PO-Revision-Date: 2004-02-29 12:03+0100\n"
-"Last-Translator: Daniel van Eeden <daniel_e@dds.nl>\n"
+"POT-Creation-Date: 2004-03-03 04:20+0100\n"
+"PO-Revision-Date: 2004-03-03 11:37+0100\n"
+"Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: data/glade/AddWindow.glade.h:1
 msgid "*"
 msgstr "*"
 
-# Afspelen?
 #: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Afspelen"
@@ -197,7 +197,7 @@ msgstr "Vraag"
 msgid "Listen to your music"
 msgstr "Naar uw muziek luisteren"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:611
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:615
 msgid "Muine Music Player"
 msgstr "Muine muziekspeler"
 
@@ -440,15 +440,20 @@ msgstr ""
 "Kon de vereiste GStreamer elementen niet aanmaken.\n"
 "Bezig met afsluiten..."
 
+# meervoud van uur is hier uur en niet uren
 #: src/PlaylistWindow.cs:498
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
-msgstr "Speellijst (gedurende {0} uur herhalen)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Speellijst (gedurende {0} uur herhalen)"
+msgstr[1] "Speellijst (gedurende {0} uur herhalen)"
 
 #: src/PlaylistWindow.cs:501
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
-msgstr "Speellijst (gedurende {0} minuut herhalen)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Speellijst (gedurende {0} minuut herhalen)"
+msgstr[1] "Speellijst (gedurende {0} minuten herhalen)"
 
 #: src/PlaylistWindow.cs:503
 msgid "Playlist (Repeating)"
@@ -457,12 +462,16 @@ msgstr "Speellijst (herhalen)"
 #: src/PlaylistWindow.cs:512
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
-msgstr "Speellijst ({0} uur resterend)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Speellijst ({0} uur resterend)"
+msgstr[1] "Speellijst ({0} uur resterend)"
 
 #: src/PlaylistWindow.cs:515
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
-msgstr "Speellijst ({0} minuut resterend)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Speellijst ({0} minuut resterend)"
+msgstr[1] "Speellijst ({0} minuten resterend)"
 
 #: src/PlaylistWindow.cs:517
 msgid "Playlist (Less than one minute remaining)"
@@ -478,56 +487,60 @@ msgstr "Van \"{0}\""
 msgid "Album unknown"
 msgstr "Onbekend album"
 
-#: src/PlaylistWindow.cs:595
+#: src/PlaylistWindow.cs:588
+msgid "Drop an image here to use it as album cover"
+msgstr "Sleep een afbeelding hiernaartoe om het als hoes te gebruiken"
+
+#: src/PlaylistWindow.cs:599
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine muziekspeler"
 
-#: src/PlaylistWindow.cs:630
+#: src/PlaylistWindow.cs:634
 msgid "Pause music playback"
 msgstr "Afspelen pauzeren"
 
-#: src/PlaylistWindow.cs:634 src/PlaylistWindow.cs:637
+#: src/PlaylistWindow.cs:638 src/PlaylistWindow.cs:641
 msgid "P_ause"
 msgstr "P_auzeren"
 
-#: src/PlaylistWindow.cs:643
+#: src/PlaylistWindow.cs:647
 msgid "Resume music playback"
 msgstr "Afspelen hervatten"
 
 # Afspelen?
-#: src/PlaylistWindow.cs:647 src/PlaylistWindow.cs:650
-#: src/PlaylistWindow.cs:658 src/PlaylistWindow.cs:661
+#: src/PlaylistWindow.cs:651 src/PlaylistWindow.cs:654
+#: src/PlaylistWindow.cs:662 src/PlaylistWindow.cs:665
 msgid "Pl_ay"
 msgstr "_Afspelen"
 
-#: src/PlaylistWindow.cs:654
+#: src/PlaylistWindow.cs:658
 msgid "Start music playback"
 msgstr "Afspelen starten"
 
-#: src/PlaylistWindow.cs:725
+#: src/PlaylistWindow.cs:729
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Kon {0} niet openen voor lezen"
 
-#: src/PlaylistWindow.cs:799
+#: src/PlaylistWindow.cs:803
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Kon {0} niet openen voor schrijven"
 
-#: src/PlaylistWindow.cs:1155
+#: src/PlaylistWindow.cs:1159
 msgid "Import Folder"
 msgstr "Map importeren"
 
-#: src/PlaylistWindow.cs:1205
+#: src/PlaylistWindow.cs:1209
 msgid "Open Playlist"
 msgstr "Speellijst openen"
 
-#: src/PlaylistWindow.cs:1220
+#: src/PlaylistWindow.cs:1224
 msgid "Save Playlist"
 msgstr "Speellijst opslaan"
 
-#: src/PlaylistWindow.cs:1230
+#: src/PlaylistWindow.cs:1234
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
