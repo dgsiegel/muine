@@ -53,7 +53,7 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private Button previous_button;
 	[Glade.Widget]
-	private ToggleButton play_pause_button;
+	private Button play_pause_button;
 	[Glade.Widget]
 	private Button next_button;
 	[Glade.Widget]
@@ -255,8 +255,6 @@ public class PlaylistWindow : Window
 	{
 		Image image;
 
-		image = (Image) glade_xml ["play_pause_image"];
-		image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 		image = (Image) glade_xml ["previous_image"];
 		image.SetFromStock ("muine-previous", IconSize.LargeToolbar);
 		image = (Image) glade_xml ["next_image"];
@@ -633,15 +631,11 @@ public class PlaylistWindow : Window
 		remove_song_menu_item.Sensitive = (playlist.SelectedPointers.Count > 0);
 	}
 
-	private bool in_state_changed = false;
-	
 	private new void StateChanged (bool playing)
 	{
-		in_state_changed = true;
-		
 		if (playing) {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Pause music playback"), null);
-			play_pause_button.Active = true;
+			play_pause_image.SetFromStock ("muine-pause", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("P_ause");
@@ -654,7 +648,7 @@ public class PlaylistWindow : Window
 		           player.Position > 0 &&
 			   !had_last_eos) {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Resume music playback"), null);
-			play_pause_button.Active = false;
+			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
@@ -665,7 +659,7 @@ public class PlaylistWindow : Window
 			icon.Tooltip = null;
 		} else {
 			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Start music playback"), null);
-			play_pause_button.Active = false;
+			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
 
 			play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) play_pause_menu_item.Child).LabelProp = Muine.Catalog.GetString ("Pl_ay");
@@ -679,8 +673,6 @@ public class PlaylistWindow : Window
 		icon.Playing = playing;
 
 		playlist.Changed (playlist.Playing);
-
-		in_state_changed = false;
 	}
 
 	private void ClearPlaylist ()
@@ -1038,7 +1030,7 @@ public class PlaylistWindow : Window
 
 	private void HandlePlayPauseCommand (object o, EventArgs args)
 	{
-		if (!playlist.HasFirst || in_state_changed)
+		if (!playlist.HasFirst)
 			return;
 
 		if (had_last_eos) {
