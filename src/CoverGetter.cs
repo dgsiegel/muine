@@ -168,7 +168,7 @@ namespace Muine
 
 		public Pixbuf DownloadFromAmazon (Song song)
 		{
-			AmazonSearchService search_service = new AmazonSearchService ();
+			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
 
 			string sane_album_title = SanitizeString (song.Album);
 			/* remove "disc 1" and family */
@@ -186,7 +186,7 @@ namespace Muine
 			int max_pages = 2; /* check no more than 2 pages */
 			
 			/* Create Encapsulated Request */
-			ArtistRequest asearch = new ArtistRequest ();
+			Amazon.ArtistRequest asearch = new Amazon.ArtistRequest ();
 			asearch.devtag = "INSERT DEV TAG HERE";
 			asearch.artist = sane_artist;
 			asearch.keywords = sane_album_title;
@@ -223,7 +223,7 @@ namespace Muine
 			while (current_page <= total_pages && current_page <= max_pages) {
 				asearch.page = Convert.ToString (current_page);
 
-				ProductInfo pi;
+				Amazon.ProductInfo pi;
 				
 				/* Amazon API requires this .. */
 				Thread.Sleep (1000);

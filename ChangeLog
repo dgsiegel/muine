@@ -1,3 +1,9 @@
+2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/CoverGetter.cs:
+	
+	Use Amazon namespace.
+
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Muine.cs:
