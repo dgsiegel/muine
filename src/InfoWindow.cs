@@ -29,7 +29,11 @@ public class InfoWindow
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
+	ScrolledWindow scrolledwindow;
+	[Glade.Widget]
 	Viewport viewport;
+	[Glade.Widget]
+	Box box;
 	[Glade.Widget]
 	Image cover_image;
 	[Glade.Widget]
@@ -70,6 +74,10 @@ public class InfoWindow
 		window.SetDefaultSize (width, height);
 
 		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+
+		/* Keynav */
+		box.FocusHadjustment = scrolledwindow.Hadjustment;
+		box.FocusVadjustment = scrolledwindow.Vadjustment;
 
 		/* white background.. */
 //		viewport.EnsureStyle ();
