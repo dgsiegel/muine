@@ -1,5 +1,20 @@
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/ErrorDialog.glade:
+	* data/glade/Makefile.am:
+	* data/glade/PlaylistWindow.glade:
+	* data/glade/YesNoDialog.glade:
+	* data/muine.schemas.in:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/YesNoDialog.cs:
+
+	Playlist open/save.
+
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 
 	Menu rearrangement.

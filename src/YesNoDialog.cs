@@ -23,37 +23,29 @@ using Gtk;
 using GtkSharp;
 using GLib;
 
-public class ErrorDialog
+public class YesNoDialog
 {
 	[Glade.Widget]
 	Window window;
 	[Glade.Widget]
 	Label label;
 
-	public void Setup (string text)
+	public YesNoDialog (string text, Window parent)
 	{
-		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
+		Glade.XML gxml = new Glade.XML (null, "YesNoDialog.glade", "window", null);
 		gxml.Autoconnect (this);
-
-		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (text),
-					    true, true, false);
 
 		label.Text = text;
 
-		((Dialog) window).Run ();
+		window.TransientFor = parent;
+	}
+
+	public bool GetAnswer ()
+	{
+		bool ret = (((Dialog) window).Run () == (int) ResponseType.Yes);
 
 		window.Destroy ();
-	}
-	
-	public ErrorDialog (string text)
-	{
-		Setup (text);
-	}
 
-	public ErrorDialog (string text, Window parent)
-	{
-		Setup (text);
-
-		window.TransientFor = parent;
+		return ret;
 	}
 }

@@ -13,11 +13,13 @@ MUINE_CSFILES =					\
 	$(srcdir)/About.cs			\
 	$(srcdir)/Metadata.cs			\
 	$(srcdir)/Player.cs			\
+	$(srcdir)/FileSelector.cs		\
 	$(srcdir)/StringUtils.cs		\
 	$(srcdir)/KeyUtils.cs			\
 	$(srcdir)/SkipToWindow.cs		\
 	$(srcdir)/ProgressWindow.cs		\
 	$(srcdir)/ErrorDialog.cs		\
+	$(srcdir)/YesNoDialog.cs		\
 	$(srcdir)/VolumeButton.cs		\
 	$(srcdir)/HandleView.cs			\
 	$(srcdir)/StockIcons.cs			\
@@ -40,6 +42,7 @@ RESOURCES =											\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade		\
 	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade		\
 	/resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade			\
+	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade			\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade			\
 	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade		\
 	/resource:$(top_srcdir)/data/images/muine-previous.png,muine-previous.png		\

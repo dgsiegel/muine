@@ -18,42 +18,56 @@
  */
 
 using System;
+using System.IO;
 
 using Gtk;
 using GtkSharp;
 using GLib;
 
-public class ErrorDialog
+public class FileSelector : FileSelection
 {
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	Label label;
+	private string gconf_path;
 
-	public void Setup (string text)
+	public FileSelector (string title, string gcp) : base (title)
 	{
-		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
-		gxml.Autoconnect (this);
+		gconf_path = gcp;
 
-		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (text),
-					    true, true, false);
+		string start_dir;
+		try {
+			start_dir = (string) Muine.GConfClient.Get (gconf_path);
+		} catch {
+			start_dir = "~";
+		}
 
-		label.Text = text;
+		if (start_dir == "~")
+			start_dir = Environment.GetEnvironmentVariable ("HOME");
 
-		((Dialog) window).Run ();
+		if (start_dir.EndsWith ("/") == false)
+			start_dir += "/";
 
-		window.Destroy ();
-	}
-	
-	public ErrorDialog (string text)
-	{
-		Setup (text);
+		Filename = start_dir;
 	}
 
-	public ErrorDialog (string text, Window parent)
+	public string GetFile (out bool exists)
 	{
-		Setup (text);
+		if (Run () != (int) ResponseType.Ok) {
+			Destroy ();
 
-		window.TransientFor = parent;
+			exists = false;
+
+			return "";
+		}
+		
+		FileInfo finfo = new FileInfo (Filename);
+
+		Muine.GConfClient.Set (gconf_path, finfo.DirectoryName + "/");
+
+		string ret = Filename;
+
+		exists = finfo.Exists;
+
+		Destroy ();
+
+		return ret;
 	}
 }

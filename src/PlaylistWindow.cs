@@ -545,6 +545,70 @@ public class PlaylistWindow : Window
 		}
 	}
 
+	private void OpenPlaylist (string fn)
+	{
+		StreamReader reader;
+		
+		try {
+			reader = new StreamReader (fn);
+		} catch {
+			new ErrorDialog ("Failed to open " + fn + " for reading", this);
+			return;
+		}
+
+		string line = null;
+
+		while ((line = reader.ReadLine ()) != null) {
+			if (line [0] == '#')
+				break; /* we don't handle comments */
+
+			/* DOS-to-UNIX */
+			line.Replace ('\\', '/');
+
+			Song song = Muine.DB.SongFromFile (line);
+			if (song == null) {
+				/* not found, lets see if we can find it anyway.. */
+				FileInfo finfo = new FileInfo (line);
+				string basename = finfo.Name;
+
+				foreach (string key in Muine.DB.Songs.Keys) {
+					finfo = new FileInfo (key);
+					if (basename == finfo.Name) {
+						song = Muine.DB.SongFromFile (key);
+						break;
+					}
+				}
+			}
+
+			if (song != null)
+				AddSong (song);
+		}
+
+		reader.Close ();
+
+		NSongsChanged ();
+	}
+
+	private void SavePlaylist (string fn)
+	{
+		StreamWriter writer;
+		
+		try {
+			writer = new StreamWriter (fn, false);
+		} catch {
+			new ErrorDialog ("Failed to open " + fn + " for writing", this);
+			return;
+		}
+
+		foreach (int i in playlist.Contents) {
+			Song song = Song.FromHandle (new IntPtr (i));
+
+			writer.WriteLine (song.Filename);
+		}
+
+		writer.Close ();
+	}
+
 	private void HandleStateChanged (bool playing)
 	{
 		if (playing) {
@@ -880,7 +944,7 @@ public class PlaylistWindow : Window
 	{
 		FileSelection fs;
 		
-		fs = new FileSelection ("Choose a Folder");
+		fs = new FileSelection ("Import Folder");
 		fs.HideFileopButtons ();
 		fs.HistoryPulldown.Visible = false;
 		fs.FileList.Parent.Visible = false;
@@ -929,6 +993,42 @@ public class PlaylistWindow : Window
 
 		if (add_to_playlist)
 			NSongsChanged ();
+	}
+
+	private void HandleOpenPlaylistCommand (object o, EventArgs args)
+	{
+		FileSelector sel = new FileSelector ("Open Playlist",
+						     "/apps/muine/default_open_playlist_folder");
+
+		bool exists;
+		string fn = sel.GetFile (out exists);
+
+		if (fn.Length == 0)
+			return;
+
+		if (exists)
+			OpenPlaylist (fn);
+	}
+
+	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
+	{
+		FileSelector sel = new FileSelector ("Save Playlist",
+						     "/apps/muine/default_save_playlist_as_folder");
+
+		bool exists;
+		string fn = sel.GetFile (out exists);
+
+		if (fn.Length == 0)
+			return;
+
+		if (exists) {
+			YesNoDialog d = new YesNoDialog ("File " + fn + " will be overwritten.\n" +
+			                                 "If you choose yes, the contents will be lost.\n\n" +
+							 "Do you want to continue?", this);
+			if (d.GetAnswer () == true)
+				SavePlaylist (fn);
+		} else
+			SavePlaylist (fn);
 	}
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)

@@ -3,6 +3,7 @@ noinst_DATA =					\
 	AddWindow.glade				\
 	SkipToWindow.glade			\
 	ErrorDialog.glade			\
+	YesNoDialog.glade			\
 	ProgressWindow.glade
 
 EXTRA_DIST = $(noinst_DATA)

@@ -7,8 +7,6 @@
 - listen to multimedia keys
 
 
-Open Playlist...
-Save Playlist...
 Recent Playlsits >
 
 --------------
@@ -16,4 +14,5 @@ Recent Playlsits >
 
 - Do something special with performer tags, other than treat them as artists?
 
-- seek to venster met alleen slider en close button
+- dnd from nautilus
+- songinfo
