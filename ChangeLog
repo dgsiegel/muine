@@ -1,5 +1,14 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (pointers_reordered_cb),
+	(pointer_list_view_select):
+	* src/PlaylistWindow.cs:
+
+	Remove m3u file dnd, probably nobody used it anyway and it
+	broke playlist reordering.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/pointer-list-view.c: (pointer_list_view_init):
 	* src/InfoWindow.cs:
 	* src/PlaylistWindow.cs:

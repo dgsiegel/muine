@@ -135,6 +135,7 @@ pointers_reordered_cb (GtkTreeModel *tree_model,
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 
 	pointer_list_model_get_moved_iter (model, &iter);
+	gtk_tree_selection_unselect_all (sel);
 	gtk_tree_selection_select_iter (sel, &iter);
 
 	g_signal_emit (view, signals[POINTERS_REORDERED], 0, NULL);
@@ -488,6 +489,7 @@ pointer_list_view_select (PointerListView *view,
 	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
 
 	sel = gtk_tree_view_get_selection (tree_view);
+	gtk_tree_selection_unselect_all (sel);
 	gtk_tree_selection_select_iter (sel, &iter);
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
 	scroll_to_path (view, path, TRUE);

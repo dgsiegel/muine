@@ -339,15 +339,6 @@ public class PlaylistWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private CellRenderer text_renderer;
 
-	private enum TargetType {
-		UriList
-	}
-
-	private static TargetEntry [] playlist_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
-	};
-
 	private void SetupPlaylist (Glade.XML glade_xml)
 	{
 		playlist = new HandleView ();
@@ -364,10 +355,6 @@ public class PlaylistWindow : Window
 		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
 		playlist.RowsReordered += new HandleView.RowsReorderedHandler (HandlePlaylistRowsReordered);
 		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (HandlePlaylistSelectionChanged);
-		playlist.DragDataReceived += new DragDataReceivedHandler (HandlePlaylistDragDataReceived);
-
-		Gtk.Drag.DestSet (playlist, DestDefaults.All,
-				  playlist_drag_entries, Gdk.DragAction.Copy);
 
 		playlist.Show ();
 
@@ -1402,37 +1389,5 @@ public class PlaylistWindow : Window
 		
 		if (n_songs_changed)
 			NSongsChanged ();
-	}
-
-	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
-	{
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
-
-		bool success = false;
-
-		Uri uri;
-		string [] uri_list;
-		string fn;
-		
-		switch (args.Info) {
-		case (uint) TargetType.UriList:
-			uri_list = Regex.Split (data, "\r\n");
-			fn = uri_list [0];
-			
-			uri = new Uri (fn);
-
-			if (!(uri.Scheme == "file"))
-				break;
-
-			OpenPlaylist (uri.LocalPath);
-
-			success = true;
-			
-			break;
-		default:
-			break;
-		}
-
-		Drag.Finish (args.Context, success, false, args.Time);
 	}
 }
