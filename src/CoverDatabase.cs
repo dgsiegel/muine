@@ -36,6 +36,8 @@ public class CoverDatabase
 	public Hashtable Covers;
 
 	public Pixbuf DownloadingPixbuf;
+	
+	private GnomeProxy proxy;
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
@@ -69,6 +71,8 @@ public class CoverDatabase
 		Covers = new Hashtable ();
 
 		DownloadingPixbuf = new Pixbuf (null, "muine-cover-downloading.png");
+
+		proxy = new GnomeProxy ();
 	}
 
 	public void Load ()
@@ -139,6 +143,8 @@ public class CoverDatabase
 		req.UserAgent = "Muine";
 		req.KeepAlive = false;
 		req.Timeout = 30000; /* Timeout after 30 seconds */
+		if (proxy.Use)
+			req.Proxy = proxy.Proxy;
 			
 		WebResponse resp = null;
 	
@@ -266,6 +272,8 @@ public class CoverDatabase
 		
 			/* Web service calls timeout after 30 seconds */
 			search_service.Timeout = 30000;
+			if (proxy.Use)
+				search_service.Proxy = proxy.Proxy;
 			
 			/* This may throw an exception, we catch it in Song.cs in the calling function */
 			pi = search_service.ArtistSearchRequest (asearch);

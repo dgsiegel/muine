@@ -32,7 +32,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/AmazonSearchService.cs	\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/DashboardFrontend.cs		\
-	$(srcdir)/MessageConnection.cs
+	$(srcdir)/MessageConnection.cs		\
+	$(srcdir)/GnomeProxy.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\

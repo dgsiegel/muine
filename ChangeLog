@@ -1,5 +1,13 @@
 2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/CoverDatabase.cs:
+	* src/GnomeProxy.cs:
+	* src/Makefile.am:
+
+	Use Gnome proxy settings.
+
+2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 
 	Fix dup accel.
