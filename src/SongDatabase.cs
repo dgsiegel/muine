@@ -287,6 +287,7 @@ namespace Muine
 				// album is empty
 				Albums.Remove (key);
 
+				rq.Album = album;
 				rq.AlbumRemoved = true;
 			}
 		}

@@ -1,5 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Forgot to set rq.Album.. oops.. would crash when an album would
+	be removed.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Song.cs:
 
 	Call EmitSongChanged when setting Duration.
