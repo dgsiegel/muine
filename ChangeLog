@@ -1,5 +1,12 @@
 2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Remove awkward DefaultButton hack.
+
+2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/muine.schemas.in:
 
 	Set playlist dir to ~/Music/Playlists instead of ~/Playlists

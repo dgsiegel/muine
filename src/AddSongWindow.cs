@@ -112,9 +112,6 @@ public class AddSongWindow
 		view.SelectFirst ();
 		view.ScrollToPoint (0, 0);
 
-		play_button.HasDefault = true;
-		queue_button.HasDefault = false;
-
 		if (window.Visible == false)
 			window.Visible = true;
 		else
@@ -172,9 +169,6 @@ public class AddSongWindow
 
 			view.SelectNext (true);
 
-			play_button.HasDefault = false;
-			queue_button.HasDefault = true;
-				
 			break;
 		default:
 			window.Visible = false;
@@ -280,10 +274,7 @@ public class AddSongWindow
 
 	private void HandleRowActivated (IntPtr handle)
 	{
-		if (queue_button.HasDefault)
-			queue_button.Click ();
-		else
-			play_button.Click ();
+		play_button.Click ();
 	}
 
 	private void HandleSelectionChanged ()
