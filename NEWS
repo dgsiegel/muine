@@ -4,6 +4,7 @@
 - Plug-in support [Jorn Baayen]
 - Dashboard support moved into a plug-in [Jorn Baayen]
 - D-Bus interface [Sergio Rubio, Jorn Baayen]
+- Change play button text to be less confusing [Jorn Baayen]
 - Major code cleanups [Tamara Roberson, Jorn Baayen]
 
 Updated translations:

@@ -1,5 +1,11 @@
 2005-01-02  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Change tooltip text too. Thanks to Piret ..
+
+2005-01-02  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/PlaylistWindow.cs:
 

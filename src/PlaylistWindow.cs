@@ -516,7 +516,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		tooltips = new Tooltips ();
 		tooltips.SetTip (play_pause_button,
-		                 Muine.Catalog.GetString ("Toggle music playback"), null);
+		                 Muine.Catalog.GetString ("Switch music playback on or off"), null);
 		tooltips.SetTip (previous_button,
 		                 Muine.Catalog.GetString ("Play the previous song"), null);
 		tooltips.SetTip (next_button,
