@@ -73,9 +73,11 @@ public class SkipToWindow
 
 	private void HandleSongSliderValueChanged (object o, EventArgs a) 
 	{
-		if (!from_tick)
+		if (!from_tick) {
 			player.Position = (int) song_slider.Value;
-		else
+
+			player.Playing = true;
+		} else
 			from_tick = false;
 	}
 

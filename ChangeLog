@@ -1,3 +1,9 @@
+2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SkipToWindow.cs:
+
+	Play after seek.
+
 2004-04-10  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
