@@ -24,6 +24,7 @@ GSTREAMER_REQUIRED=0.8.0
 MONO_REQUIRED=1.0
 GTKSHARP_REQUIRED=1.9.1
 DBUSSHARP_REQUIRED=0.21
+MONODOC_REQUIRED=0.16
 
 dnl Audio backend stuff
 
@@ -101,7 +102,6 @@ AC_SUBST(FLAC_LIBS)
 dnl Check for Mono
 AC_PATH_PROG(MCS, mcs)
 AC_PATH_PROG(MONO, mono)
-AC_PATH_PROG(GACUTIL, gacutil)
 
 MCS_FLAGS=
 MONO_FLAGS=
@@ -112,8 +112,17 @@ fi
 AC_SUBST(MCS_FLAGS)
 AC_SUBST(MONO_FLAGS)
 
+dnl GAC
+AC_PATH_PROG(GACUTIL, gacutil)
+
 GACUTIL_FLAGS='/package muine /gacdir $(DESTDIR)$(libdir)'
 AC_SUBST(GACUTIL_FLAGS)
+
+dnl Monodoc
+PKG_CHECK_MODULES(MONODOC, monodoc >= $MONODOC_REQUIRED, have_monodoc=yes, have_monodoc=no)
+AM_CONDITIONAL(ENABLE_MONODOC, test "x$have_monodoc" = "xyes")
+
+AC_PATH_PROG(MONODOC, monodoc)
 
 dnl Intl
 ALL_LINGUAS="az bg ca cs da de en_CA en_GB es eu fi fr hr hu is ja ko lt ms nb nl no pl pt pt_BR ru sr sr@Latn sv zh_CN"
@@ -140,6 +149,7 @@ src/Makefile
 src/muine
 src/muine.exe.config
 plugins/Makefile
+doc/Makefile
 m4/Makefile
 po/Makefile.in
 ])

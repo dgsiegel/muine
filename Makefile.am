@@ -5,6 +5,7 @@ SUBDIRS = 		\
 	ClientLib	\
 	src		\
 	plugins		\
+	doc		\
 	m4		\
 	po
 

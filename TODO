@@ -2,6 +2,8 @@ Easy:
 =====
 
 o Use GnomeVFS, but we need a new mono release for this
+o Use D-Bus properties
+  Needs a new D-Bus release first
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 

@@ -1,5 +1,28 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* Makefile.am:
+	* PluginLib/Plugin.cs:
+	* TODO:
+	* configure.in:
+	* doc/.cvsignore:
+	* doc/Makefile.am:
+	* doc/en/MuineDBusLib.xml:
+	* doc/en/MuineDBusLib/Player.xml:
+	* doc/en/MuineDBusLib/SongChangedHandler.xml:
+	* doc/en/MuineDBusLib/StateChangedHandler.xml:
+	* doc/en/MuinePluginLib.xml:
+	* doc/en/MuinePluginLib/GenericEventHandler.xml:
+	* doc/en/MuinePluginLib/IPlayer.xml:
+	* doc/en/MuinePluginLib/ISong.xml:
+	* doc/en/MuinePluginLib/Plugin.xml:
+	* doc/en/MuinePluginLib/SongChangedEventHandler.xml:
+	* doc/en/MuinePluginLib/StateChangedEventHandler.xml:
+	* doc/muine-docs.source:
+
+	Add documentation about muine-dbus and muine-plugin.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* ClientLib/.cvsignore:
 	* ClientLib/Makefile.am:
 	* ClientLib/Player.cs:

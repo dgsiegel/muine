@@ -21,7 +21,7 @@ namespace MuinePluginLib
 {
 	public abstract class Plugin
 	{
-		public abstract void Initialize (IPlayer playlist);
+		public abstract void Initialize (IPlayer player);
 
 		public delegate void SongChangedEventHandler (ISong song);
 		public delegate void StateChangedEventHandler (bool playing);
