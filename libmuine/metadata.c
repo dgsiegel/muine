@@ -92,6 +92,24 @@ parse_raw_track_number (Metadata *metadata,
 	metadata->track_number = atoi (raw);
 }
 
+static void
+ensure_track_number (Metadata *metadata,
+		     const char *filename)
+{
+	char *basename;
+	int num;
+
+	if (metadata->track_number > 0)
+		return;
+
+	basename = g_path_get_basename (filename);
+	num = atoi (basename);
+	g_free (basename);
+
+	if (num < 100) /* protection against strange filenames */
+		metadata->track_number = num;
+}
+
 #if HAVE_ID3TAG
 
 static int
@@ -861,6 +879,8 @@ metadata_load (const char *filename,
 		*error_message_return = g_strdup ("Unknown format");
 
 	if (m != NULL) {
+		ensure_track_number (m, filename);
+
 		m->mime_type = g_strdup (info->mime_type);
 		m->mtime = info->mtime;
 	}

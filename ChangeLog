@@ -1,5 +1,11 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/metadata.c: (ensure_track_number), (metadata_load):
+
+	Take track number from file name if not in tag.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/OverwriteDialog.glade:
 	* src/FileUtils.cs:
 	* src/OverwriteDialog.cs:
