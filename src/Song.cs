@@ -160,7 +160,7 @@ public class Song
 				
 			string dirname = Path.GetDirectoryName (filename);
 
-			return dirname + ":" + album;
+			return dirname + ":" + album.ToLower ();
 		}
 	}
 

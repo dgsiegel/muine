@@ -1,3 +1,9 @@
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Song.cs:
+
+	Add slightly fuzzy album matching.  Inspired by a patch from iain.
+
 2004-06-05  iain  <iain@prettypeople.org>
             Jorn Baayen  <jbaayen@gnome.org>
 
