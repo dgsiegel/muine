@@ -1,5 +1,17 @@
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* data/images/Makefile.am:
+	* data/images/muine-cover-downloading.png:
+	* src/CoverDatabase.cs:
+	* src/Makefile.am:
+	* src/Song.cs:
+
+	Add a "downloading" indicator when still searching for an albums
+	cover image. Also handle a maximum of 2 pages of results.
+
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/CoverDatabase.cs:
 
 	Hopefully improve cover image fetching reliability some more.

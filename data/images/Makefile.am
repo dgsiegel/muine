@@ -20,6 +20,7 @@ noinst_DATA =					\
 	muine-tray-playing.png			\
 	muine-tray-paused.png			\
 	muine-default-cover.png			\
+	muine-cover-downloading.png		\
 	muine-volume-zero.png			\
 	muine-volume-min.png			\
 	muine-volume-medium.png			\

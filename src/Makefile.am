@@ -74,6 +74,7 @@ RESOURCES =											\
 	/resource:$(top_srcdir)/data/images/muine-tray-playing.png,muine-tray-playing.png	\
 	/resource:$(top_srcdir)/data/images/muine-tray-paused.png,muine-tray-paused.png	\
 	/resource:$(top_srcdir)/data/images/muine-default-cover.png,muine-default-cover.png	\
+	/resource:$(top_srcdir)/data/images/muine-cover-downloading.png,muine-cover-downloading.png	\
 	/resource:$(top_srcdir)/data/images/muine-volume-zero.png,muine-volume-zero.png		\
 	/resource:$(top_srcdir)/data/images/muine-volume-min.png,muine-volume-min.png		\
 	/resource:$(top_srcdir)/data/images/muine-volume-medium.png,muine-volume-medium.png	\

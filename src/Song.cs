@@ -198,12 +198,9 @@ public class Song
 		checked_cover_image = true;
 
 		Muine.DB.UpdateSong (this);
-		
-		if (tmp_cover_image == null)
-			return false;
 
 		cover_image = tmp_cover_image;
-
+		
 		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
 		
 		Muine.DB.AlbumChangedForSong (this);
@@ -285,7 +282,7 @@ public class Song
 
 		checked_cover_image = false;
 			
-		Muine.CoverDB.AddCoverDummy (AlbumKey);
+		cover_image = Muine.CoverDB.AddCoverDownloading (AlbumKey);
 	}
 
 	private IntPtr handle;

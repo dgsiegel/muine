@@ -35,6 +35,8 @@ public class CoverDatabase
 
 	public Hashtable Covers;
 
+	private Pixbuf downloading_pixbuf;
+
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
 	[DllImport ("libmuine")]
@@ -65,6 +67,8 @@ public class CoverDatabase
 		}
 
 		Covers = new Hashtable ();
+
+		downloading_pixbuf = new Pixbuf (null, "muine-cover-downloading.png");
 	}
 
 	public void Load ()
@@ -189,9 +193,11 @@ public class CoverDatabase
 		AddCover (key, pix);
 	}
 
-	public void AddCoverDummy (string key)
+	public Pixbuf AddCoverDownloading (string key)
 	{
-		Covers.Add (key, null);
+		Covers.Add (key, downloading_pixbuf);
+
+		return downloading_pixbuf;
 	}
 
 	[DllImport ("libmuine")]
@@ -234,21 +240,23 @@ public class CoverDatabase
 		AmazonSearchService search_service = new AmazonSearchService ();
 
 		string sane_album_title = SanitizeString (album_title);
+		string sane_artist = SanitizeString (artist);
 		
 		/* Prepare for handling multi-page results */
 		int total_pages = 1;
 		int current_page = 1;
+		int max_pages = 2; /* check no more than 2 pages */
 		
 		/* Create Encapsulated Request */
 		ArtistRequest asearch = new ArtistRequest ();
 		asearch.devtag = "INSERT DEV TAG HERE";
-		asearch.artist = artist;
+		asearch.artist = sane_artist;
 		asearch.keywords = sane_album_title;
 		asearch.type = "heavy";
 		asearch.mode = "music";
 		asearch.tag = "webservices-20";
-		
-		while (current_page <= total_pages) {
+
+		while (current_page <= total_pages && current_page <= max_pages) {
 			asearch.page = Convert.ToString (current_page);
 
 			ProductInfo pi;
