@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-18 19:25+0100\n"
-"PO-Revision-Date: 2004-11-18 10:13-0400\n"
+"POT-Creation-Date: 2004-12-05 12:21+0100\n"
+"PO-Revision-Date: 2004-12-05 10:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,11 +81,11 @@ msgstr "_Nothing, I will manage my music myself"
 msgid "P_roperties"
 msgstr "P_roperties"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:64
 msgid "Play Album"
 msgstr "Play Album"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:59
 msgid "Play Song"
 msgstr "Play Song"
 
@@ -181,7 +181,7 @@ msgstr "Question"
 msgid "Listen to your music"
 msgstr "Listen to your music"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:704
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:736
 msgid "Muine Music Player"
 msgstr "Muine Music Player"
 
@@ -387,7 +387,7 @@ msgstr "Copyright © 2003, 2004 Jorn Baayen"
 msgid "A music player"
 msgstr "A music player"
 
-#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:664
+#: src/AddAlbumWindow.cs:177 src/PlaylistWindow.cs:696
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Performed by {0}"
@@ -399,6 +399,10 @@ msgstr "Performed by {0}"
 #: src/Album.cs:83
 msgid "the dj"
 msgstr "the dj"
+
+#: src/ErrorDialog.cs:37
+msgid "An error occurred:"
+msgstr "An error occurred:"
 
 #: src/Metadata.cs:167
 #, csharp-format
@@ -439,7 +443,7 @@ msgstr "_Previous Song"
 msgid "_Next Song"
 msgstr "_Next Song"
 
-#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:322
+#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:338
 msgid "Show _Window"
 msgstr "Show _Window"
 
@@ -452,36 +456,36 @@ msgstr ""
 "Audio backend error:\n"
 "{0}"
 
-#: src/PlaylistWindow.cs:320
+#: src/PlaylistWindow.cs:336
 msgid "Hide _Window"
 msgstr "Hide _Window"
 
-#: src/PlaylistWindow.cs:341
+#: src/PlaylistWindow.cs:357
 msgid "Play the previous song"
 msgstr "Play the previous song"
 
-#: src/PlaylistWindow.cs:343
+#: src/PlaylistWindow.cs:359
 msgid "Play the next song"
 msgstr "Play the next song"
 
-#: src/PlaylistWindow.cs:345
+#: src/PlaylistWindow.cs:361
 msgid "Add an album to the playlist"
 msgstr "Add an album to the playlist"
 
-#: src/PlaylistWindow.cs:347
+#: src/PlaylistWindow.cs:363
 msgid "Add a song to the playlist"
 msgstr "Add a song to the playlist"
 
-#: src/PlaylistWindow.cs:355
+#: src/PlaylistWindow.cs:371
 msgid "Change the volume level"
 msgstr "Change the volume level"
 
-#: src/PlaylistWindow.cs:442 src/PlaylistWindow.cs:560
-#: src/PlaylistWindow.cs:584 src/PlaylistWindow.cs:598
+#: src/PlaylistWindow.cs:465 src/PlaylistWindow.cs:592
+#: src/PlaylistWindow.cs:616 src/PlaylistWindow.cs:630
 msgid "Playlist"
 msgstr "Playlist"
 
-#: src/PlaylistWindow.cs:478
+#: src/PlaylistWindow.cs:501
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -494,121 +498,121 @@ msgstr ""
 "\n"
 "Exiting..."
 
-#: src/PlaylistWindow.cs:577
+#: src/PlaylistWindow.cs:609
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
 msgstr[0] "Playlist (Repeating {0} hour)"
 msgstr[1] "Playlist (Repeating {0} hours)"
 
-#: src/PlaylistWindow.cs:580
+#: src/PlaylistWindow.cs:612
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
 msgstr[0] "Playlist (Repeating {0} minute)"
 msgstr[1] "Playlist (Repeating {0} minutes)"
 
-#: src/PlaylistWindow.cs:582
+#: src/PlaylistWindow.cs:614
 msgid "Playlist (Repeating)"
 msgstr "Playlist (Repeating)"
 
-#: src/PlaylistWindow.cs:591
+#: src/PlaylistWindow.cs:623
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
 msgstr[0] "Playlist ({0} hour remaining)"
 msgstr[1] "Playlist ({0} hours remaining)"
 
-#: src/PlaylistWindow.cs:594
+#: src/PlaylistWindow.cs:626
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
 msgstr[0] "Playlist ({0} minute remaining)"
 msgstr[1] "Playlist ({0} minutes remaining)"
 
-#: src/PlaylistWindow.cs:596
+#: src/PlaylistWindow.cs:628
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Playlist (Less than one minute remaining)"
 
-#: src/PlaylistWindow.cs:660
+#: src/PlaylistWindow.cs:692
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "From \"{0}\""
 
-#: src/PlaylistWindow.cs:662
+#: src/PlaylistWindow.cs:694
 msgid "Album unknown"
 msgstr "Album unknown"
 
-#: src/PlaylistWindow.cs:667
+#: src/PlaylistWindow.cs:699
 msgid "Drop an image here to use it as album cover"
 msgstr "Drop an image here to use it as album cover"
 
-#: src/PlaylistWindow.cs:686
+#: src/PlaylistWindow.cs:718
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine Music Player"
 
-#: src/PlaylistWindow.cs:724
+#: src/PlaylistWindow.cs:756
 msgid "Pause music playback"
 msgstr "Pause music playback"
 
-#: src/PlaylistWindow.cs:728 src/PlaylistWindow.cs:731
+#: src/PlaylistWindow.cs:760 src/PlaylistWindow.cs:763
 msgid "P_ause"
 msgstr "P_ause"
 
-#: src/PlaylistWindow.cs:737
+#: src/PlaylistWindow.cs:769
 msgid "Resume music playback"
 msgstr "Resume music playback"
 
-#: src/PlaylistWindow.cs:741 src/PlaylistWindow.cs:744
-#: src/PlaylistWindow.cs:752 src/PlaylistWindow.cs:755
+#: src/PlaylistWindow.cs:773 src/PlaylistWindow.cs:776
+#: src/PlaylistWindow.cs:784 src/PlaylistWindow.cs:787
 msgid "Pl_ay"
 msgstr "Pl_ay"
 
-#: src/PlaylistWindow.cs:748
+#: src/PlaylistWindow.cs:780
 msgid "Start music playback"
 msgstr "Start music playback"
 
-#: src/PlaylistWindow.cs:812
+#: src/PlaylistWindow.cs:844
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Failed to open {0} for reading"
 
-#: src/PlaylistWindow.cs:885 src/PlaylistWindow.cs:936
+#: src/PlaylistWindow.cs:917 src/PlaylistWindow.cs:968
 #, csharp-format
 msgid "Failed to close {0}"
 msgstr "Failed to close {0}"
 
-#: src/PlaylistWindow.cs:903
+#: src/PlaylistWindow.cs:935
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Failed to open {0} for writing"
 
-#: src/PlaylistWindow.cs:1365
+#: src/PlaylistWindow.cs:1393
 msgid "Import Folder"
 msgstr "Import Folder"
 
-#: src/PlaylistWindow.cs:1369
+#: src/PlaylistWindow.cs:1397
 msgid "_Import"
 msgstr "_Import"
 
-#: src/PlaylistWindow.cs:1414
+#: src/PlaylistWindow.cs:1442
 msgid "Open Playlist"
 msgstr "Open Playlist"
 
-#: src/PlaylistWindow.cs:1419
+#: src/PlaylistWindow.cs:1447
 msgid "Playlist files"
 msgstr "Playlist files"
 
-#: src/PlaylistWindow.cs:1435
+#: src/PlaylistWindow.cs:1463
 msgid "Save Playlist"
 msgstr "Save Playlist"
 
-#: src/PlaylistWindow.cs:1438
+#: src/PlaylistWindow.cs:1466
 msgid "Untitled"
 msgstr "Untitled"
 
-#: src/PlaylistWindow.cs:1450
+#: src/PlaylistWindow.cs:1478
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
