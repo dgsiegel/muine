@@ -69,22 +69,12 @@ public class Album
 		}
 	}
 
+	private static string [] prefixes = null;
+
 	private string sort_key = null;
 	public string SortKey {
 		get {
-			if (sort_key == null)
-				sort_key = StringUtils.CollateKey (SearchKey);
-			
-			return sort_key;
-		}
-	}
-
-	private static string [] prefixes = null;
-
-	private string search_key = null;
-	public string SearchKey {
-		get {
-			if (search_key == null) {
+			if (sort_key == null) {
 				if (prefixes == null) {
 					/* Space-separated list of prefixes that will be taken off the front
 					 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
@@ -93,22 +83,50 @@ public class Album
 					prefixes = Muine.Catalog.GetString ("the dj").Split (' ');
 				}
 					
-				/* need to keep this in the order for sorting too */
-				string [] lower_artists = new string [artists.Count];
+				string [] p_artists = new string [artists.Count];
 				for (int i = 0; i < artists.Count; i++) {
-					lower_artists [i] = ((string) artists [i]).ToLower ();
+					p_artists [i] = ((string) artists [i]).ToLower ();
 					
 					foreach (string prefix in prefixes) {
-						if (lower_artists [i].StartsWith (prefix + " "))
-							lower_artists [i] = StringUtils.PrefixToSuffix (lower_artists [i], prefix);
+						if (p_artists [i].StartsWith (prefix + " ")) {
+							p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+
+							break;
+						}
 					}
 				}
 
-				string [] lower_performers = new string [performers.Count];
-				for (int i = 0; i < performers.Count; i++)
-					lower_performers [i] = ((string) performers [i]).ToLower ();
+				string [] p_performers = new string [performers.Count];
+				for (int i = 0; i < performers.Count; i++) {
+					p_performers [i] = ((string) performers [i]).ToLower ();
+					
+					foreach (string prefix in prefixes) {
+						if (p_performers [i].StartsWith (prefix + " ")) {
+							p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
 
-				search_key = String.Join (" ", lower_artists) + " " + year.ToLower () + " " + name.ToLower () + " " + String.Join (" ", lower_performers);
+							break;
+						}
+					}
+				}
+
+				string a = String.Join (" ", p_artists);
+				string p = String.Join (" ", p_performers);
+
+				sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
+			}
+			
+			return sort_key;
+		}
+	}
+
+	private string search_key = null;
+	public string SearchKey {
+		get {
+			if (search_key == null) {
+				string a = String.Join (" ", Artists).ToLower ();
+				string p = String.Join (" ", Performers).ToLower ();
+
+				search_key = name.ToLower () + " " + a + " " + p;
 			}
 
 			return search_key;

@@ -129,8 +129,12 @@ public class Song
 	private string sort_key = null;
 	public string SortKey {
 		get {
-			if (sort_key == null)
-				sort_key = StringUtils.CollateKey (SearchKey);
+			if (sort_key == null) {
+				string a = String.Join (" ", artists).ToLower ();
+				string p = String.Join (" ", performers).ToLower ();
+				
+				sort_key = StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
+			}
 			
 			return sort_key;
 		}
@@ -140,12 +144,10 @@ public class Song
 	public string SearchKey {
 		get {
 			if (search_key == null) {
-				string [] lower_artists = new string [artists.Length + performers.Length];
-				for (int i = 0; i < artists.Length; i++)
-					lower_artists [i] = artists [i].ToLower ();
-				for (int i = 0; i < performers.Length; i++)
-					lower_artists [artists.Length + i] = performers [i].ToLower ();
-				search_key = title.ToLower () + " " + String.Join (" ", lower_artists) + " " + album.ToLower ();
+				string a = String.Join (" ", artists).ToLower ();
+				string p = String.Join (" ", performers).ToLower ();
+				
+				search_key = title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
 			}
 
 			return search_key;

@@ -1,5 +1,12 @@
 2004-04-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+	* src/Song.cs:
+
+	Refactor sort & search key generation.
+
+2004-04-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 
