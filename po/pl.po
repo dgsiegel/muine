@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-23 13:51+0200\n"
+"POT-Creation-Date: 2004-04-24 22:15+0200\n"
 "PO-Revision-Date: 2003-07-12 21:32+0100\n"
 "Last-Translator: Gnome PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -267,44 +267,43 @@ msgid "false if Muine has been started before."
 msgstr "Jeżeli nie ustawione, program Muine był już wcześniej uruchomiony."
 
 #: libmuine/player-gst.c:157
-#, fuzzy
 msgid "Failed to create GstPlay object"
-msgstr "Nie można utworzyć obiektu odtwarzacza"
+msgstr "Nie można utworzyć obiektu GstPlay"
 
 #: libmuine/player-gst.c:164
 msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr ""
+msgstr "Nie można utworzyć wymaganego elementu GStreamera gnomevfssrc"
 
 #: libmuine/player-gst.c:173
 msgid "Could not render default GStreamer audio output sink"
-msgstr ""
+msgstr "Nie można użyć domyślnego wyjścia dźwiękowego GStreamera"
 
 #: libmuine/player-gst.c:182
 msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr ""
+msgstr "Nie można odnaleźć elementu głośności w potoku GstPlay"
 
 #: libmuine/player-xine.c:289
 msgid "Failed to set up an audio driver"
-msgstr ""
+msgstr "Ustawienie sterownika dźwiękowego nie powiodło się"
 
 #: libmuine/player-xine.c:358 libmuine/player-xine.c:363
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr ""
+msgstr "Brak dostępnej wtyczki dla \"%s\""
 
 #: libmuine/player-xine.c:368
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Błąd odtwarzania \"%s\""
 
 #: libmuine/player-xine.c:372
 msgid "Internal error"
-msgstr ""
+msgstr "Błąd wewnętrzny"
 
 #: libmuine/player-xine.c:381
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
+msgstr "Nie można odtworzyć \"%s\""
 
 #: src/About.cs:38
 msgid "Jorn Baayen (jbaayen@gnome.org)"
@@ -360,23 +359,25 @@ msgid "Failed to load metadata: {0}"
 msgstr "Nie można wczytać metadanych: {0}"
 
 #: src/Muine.cs:79
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
 "\n"
 "Exiting..."
 msgstr ""
 "Nie można wczytać bazy danych okładek: {0}\n"
+"\n"
 "Zakończenie działania..."
 
 #: src/Muine.cs:88
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
 "\n"
 "Exiting..."
 msgstr ""
 "Nie można wczytać bazy danych utworów: {0}\n"
+"\n"
 "Zakończenie działania..."
 
 #: src/NotificationAreaIcon.cs:53
@@ -401,6 +402,8 @@ msgid ""
 "Error opening {0}:\n"
 "{1}"
 msgstr ""
+"Błąd otwarcia {0}:\n"
+"{1}"
 
 #: src/Player.cs:232
 #, csharp-format
@@ -408,6 +411,8 @@ msgid ""
 "Audio backend error:\n"
 "{0}"
 msgstr ""
+"Błąd obsługi dźwięku:\n"
+"{0}"
 
 #: src/PlaylistWindow.cs:247
 msgid "Hide _Window"
@@ -439,14 +444,16 @@ msgid "Playlist"
 msgstr "Lista odtwarzania"
 
 #: src/PlaylistWindow.cs:401
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
 "{0}\n"
 "\n"
 "Exiting..."
 msgstr ""
-"Nie można zainicjować wsparcie dźwięku.\n"
+"Nie można zainicjować obsługi dźwięku:\n"
+"{0}\n"
+"\n"
 "Zakończenie działania..."
 
 #: src/PlaylistWindow.cs:500
