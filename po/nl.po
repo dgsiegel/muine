@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-23 20:41+0100\n"
-"PO-Revision-Date: 2004-01-24 03:55+0100\n"
+"POT-Creation-Date: 2004-02-12 16:53+0100\n"
+"PO-Revision-Date: 2004-02-12 18:57+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,87 +60,117 @@ msgstr "Groepen"
 msgid "_Add song"
 msgstr "_Nummer toevoegen"
 
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Geen muziek gevonden</span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr "Muine kon uw muziekverzameling niet vinden. Wat wilt u dat ik doe?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr "Muine zal de mappen Music en Music/Playlists in uw persoonlijke map aanmaken om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U kunt altijd handmatig andere mappen importeren."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "Geen muziek gevonden"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr "U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren gebruikers en wordt daarom gewoonlijk afgeraden."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "Een _lege muziekverzameling aanmaken"
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "_Niets, ik zal zelf mijn muziek beheren"
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
-msgstr "_Album toevoegen"
+msgid "Play _Album"
+msgstr "_Album afspelen"
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
-msgstr "_Album toevoegen..."
+msgid "Play _Album..."
+msgstr "_Album afspelen..."
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
-msgstr "_Nummer toevoegen"
+msgid "Play _Song"
+msgstr "_Nummer afspelen"
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
-msgstr "_Nummer toevoegen..."
+msgid "Play _Song..."
+msgstr "_Nummer afspelen..."
 
 #: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr "_Herhalen"
+
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
 msgstr "_Afgespeelde nummers verwijderen"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
 msgstr "_Terug"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
 msgstr "_Vooruit"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:9
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "_Clear Playlist"
 msgstr "Speellijst _wissen"
 
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "_Fill queue with random songs from selected groups"
-msgstr "Wachtrij _vullen met willekeurige nummers uit geselecteerde groepen"
-
 #: data/glade/PlaylistWindow.glade.h:11
-msgid "_Groups"
-msgstr "_Groepen"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "Venster _verbergen"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr "Map _importeren..."
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "_Volgende"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Open Playlist..."
 msgstr "Speellijst _openen..."
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Playlist"
 msgstr "_Speellijst"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "V_orige"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "Nummer ver_wijderen"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Save Playlist As..."
 msgstr "Speellijst opslaan _als..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr "_Vooruit naar..."
 
-#: data/glade/PlaylistWindow.glade.h:21
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Song"
 msgstr "_Nummer"
 
@@ -149,18 +179,6 @@ msgstr "_Nummer"
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
 msgstr "Laden:"
-
-#: data/glade/SearchMusicWindow.glade.h:1
-msgid "Search for Music"
-msgstr "Zoeken naar muziek"
-
-#: data/glade/SearchMusicWindow.glade.h:2
-msgid "Welcome to Muine"
-msgstr "Welkom bij Muine"
-
-#: data/glade/SearchMusicWindow.glade.h:3
-msgid "_Search"
-msgstr "_Zoeken"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -195,109 +213,61 @@ msgid "Add song window width."
 msgstr "Nummer toevoegen vensterbreedte."
 
 #: data/muine.schemas.in.h:5
-msgid "Default \"Open Playlist\" folder."
-msgstr "Standaard map \"Speellijst openen\"."
-
-#: data/muine.schemas.in.h:6
-msgid "Default \"Save Playlist As\" folder."
-msgstr "Standaard map \"Speellijst opslaan als\"."
-
-#: data/muine.schemas.in.h:7
 msgid "Default import folder."
 msgstr "Standaard importmap."
 
+#: data/muine.schemas.in.h:6
+msgid "Default playlist folder."
+msgstr "Standaard speellijstmap."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr "Eerste begin."
+
 #: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr "Mappen die bijgehouden worden voor veranderingen."
+
+#: data/muine.schemas.in.h:9
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: data/muine.schemas.in.h:9
-msgid "Last used folder from \"Open Playlist\" dialog."
-msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst openen\"."
-
 #: data/muine.schemas.in.h:10
-msgid "Last used folder from \"Save Playlist As\" dialog."
-msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst opslaan als\"."
+msgid "Last used folder from the playlist file selectors."
+msgstr "Laatst gebruikte map bij selectie van speellijstbestanden."
 
 #: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Speellijst vensterhoogte."
 
 #: data/muine.schemas.in.h:12
-msgid "Playlist window visibility."
-msgstr "Speellijst vensterzichtbaarheid."
-
-#: data/muine.schemas.in.h:13
-msgid "Playlist window visible (true) or not (false)."
-msgstr "Speellijst zichtbaar (true) of niet (false)."
-
-#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Speellijst vensterbreedte."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:13
+msgid "Repeat mode."
+msgstr "Herhaalstand."
+
+#: data/muine.schemas.in.h:14
 msgid "Volume level."
 msgstr "Geluidsvolume."
 
 # highest volume level = maximaal geluidsvolume
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:15
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
-#: libmuine/egg/eggstatusicon.c:154
-msgid "Pixbuf"
-msgstr "Pixbuf"
+#: data/muine.schemas.in.h:16
+msgid "Watched folders."
+msgstr "Bijgehouden mappen."
 
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
-msgstr "Een GdkPixbuf voor weergave"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Of 'speellijst herhalen' wordt gebruikt of niet. "
 
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Bestandsnaam"
-
-#: libmuine/egg/eggstatusicon.c:163
-msgid "Filename to load and display"
-msgstr "Bestandsnaam te laden voor weergave"
-
-#: libmuine/egg/eggstatusicon.c:170
-msgid "Stock ID"
-msgstr "Standaard ID"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
-msgstr "Standaard ID voor een weer te geven standaard afbeelding"
-
-#: libmuine/egg/eggstatusicon.c:178
-msgid "Animation"
-msgstr "Animatie"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
-msgstr "GdkPixbufAnimation voor weergave"
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
-msgstr "Afbeeldingstype"
-
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr "De gebruikte representatie voor afbeeldingen"
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Afmeting"
-
-#: libmuine/egg/eggstatusicon.c:196
-msgid "The size of the icon"
-msgstr "De afmeting  an het pictogram"
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Knipperend"
-
-#: libmuine/egg/eggstatusicon.c:206
-msgid "Whether or not the status icon is blinking"
-msgstr "Of het statuspictogram knippert"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
+msgstr "onwaar indien Muine al eerder is gestart."
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -307,6 +277,78 @@ msgstr "Oriëntatie"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "De oriëntatie van het blad."
+
+#~ msgid "Add _Song"
+#~ msgstr "_Nummer toevoegen"
+
+#~ msgid "_Fill queue with random songs from selected groups"
+#~ msgstr "Wachtrij _vullen met willekeurige nummers uit geselecteerde groepen"
+
+#~ msgid "_Groups"
+#~ msgstr "_Groepen"
+
+#~ msgid "Search for Music"
+#~ msgstr "Zoeken naar muziek"
+
+#~ msgid "Welcome to Muine"
+#~ msgstr "Welkom bij Muine"
+
+#~ msgid "_Search"
+#~ msgstr "_Zoeken"
+
+#~ msgid "Default \"Save Playlist As\" folder."
+#~ msgstr "Standaard map \"Speellijst opslaan als\"."
+
+#~ msgid "Last used folder from \"Save Playlist As\" dialog."
+#~ msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst opslaan als\"."
+
+#~ msgid "Playlist window visibility."
+#~ msgstr "Speellijst vensterzichtbaarheid."
+
+#~ msgid "Playlist window visible (true) or not (false)."
+#~ msgstr "Speellijst zichtbaar (true) of niet (false)."
+
+#~ msgid "Pixbuf"
+#~ msgstr "Pixbuf"
+
+#~ msgid "A GdkPixbuf to display"
+#~ msgstr "Een GdkPixbuf voor weergave"
+
+#~ msgid "Filename"
+#~ msgstr "Bestandsnaam"
+
+#~ msgid "Filename to load and display"
+#~ msgstr "Bestandsnaam te laden voor weergave"
+
+#~ msgid "Stock ID"
+#~ msgstr "Standaard ID"
+
+#~ msgid "Stock ID for a stock image to display"
+#~ msgstr "Standaard ID voor een weer te geven standaard afbeelding"
+
+#~ msgid "Animation"
+#~ msgstr "Animatie"
+
+#~ msgid "GdkPixbufAnimation to display"
+#~ msgstr "GdkPixbufAnimation voor weergave"
+
+#~ msgid "Image type"
+#~ msgstr "Afbeeldingstype"
+
+#~ msgid "The representation being used for image data"
+#~ msgstr "De gebruikte representatie voor afbeeldingen"
+
+#~ msgid "Size"
+#~ msgstr "Afmeting"
+
+#~ msgid "The size of the icon"
+#~ msgstr "De afmeting  an het pictogram"
+
+#~ msgid "Blinking"
+#~ msgstr "Knipperend"
+
+#~ msgid "Whether or not the status icon is blinking"
+#~ msgstr "Of het statuspictogram knippert"
 
 # Of: geluidsvolume zachter
 #~ msgid "Volume _Down"
