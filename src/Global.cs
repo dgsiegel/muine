@@ -56,6 +56,11 @@ namespace Muine
 			get { return playlist; }
 		}
 
+		private static Actions actions;
+		public static Actions Actions {
+			get { return actions; }
+		}
+
 		private static DBusLib.Player dbus_object = null;
 		private static NotificationAreaIcon icon;
 		private static MmKeys mmkeys;
@@ -133,6 +138,9 @@ namespace Muine
 			}
 
 			db.Load ();
+
+			// Setup Actions
+			actions = new Actions ();
 
 			/* Create playlist window */
 			try {

@@ -85,53 +85,6 @@ namespace Muine
 
 		private static readonly string string_button_import =
 			Catalog.GetString ("_Import");
-												
-		private static readonly string string_menu_hide_window =
-			Catalog.GetString ("Hide _Window");
-		private static readonly string string_menu_show_window =
-			Catalog.GetString ("Show _Window");
-		private static readonly string string_menu_file =
-			Catalog.GetString ("_File");
-		private static readonly string string_menu_song =
-			Catalog.GetString ("_Song");
-		private static readonly string string_menu_playlist =
-			Catalog.GetString ("_Playlist");
-		private static readonly string string_menu_help =
-			Catalog.GetString ("_Help");
-		private static readonly string string_menu_import =
-			Catalog.GetString ("_Import Folder...");
-		private static readonly string string_menu_open =
-			Catalog.GetString ("_Open Playlist...");
-		private static readonly string string_menu_save =
-			Catalog.GetString ("_Save Playlist As...");
-		private static readonly string string_menu_previous =
-			Catalog.GetString ("_Previous");
-		private static readonly string string_menu_next =
-			Catalog.GetString ("_Next");
-		private static readonly string string_menu_skip_to =
-			Catalog.GetString ("_Skip to...");
-		private static readonly string string_menu_skip_back =
-			Catalog.GetString ("Skip _Backwards");
-		private static readonly string string_menu_skip_forward =
-			Catalog.GetString ("Skip _Forward");
-		private static readonly string string_menu_play_song =
-			Catalog.GetString ("Play _Song...");
-		private static readonly string string_menu_play_album =
-			Catalog.GetString ("Play _Album...");
-		private static readonly string string_menu_remove =
-			Catalog.GetString ("_Remove Song");
-		private static readonly string string_menu_remove_played =
-			Catalog.GetString ("Remove _Played Songs");
-		private static readonly string string_menu_clear =
-			Catalog.GetString ("_Clear");
-		private static readonly string string_menu_shuffle =
-			Catalog.GetString ("Shu_ffle");
-		private static readonly string string_menu_about =
-			Catalog.GetString ("_About");
-		private static readonly string string_menu_play =
-			Catalog.GetString ("_Play");
-		private static readonly string string_menu_repeat =
-			Catalog.GetString ("R_epeat");
 
 		private static readonly string string_tooltip_play_pause =
 			Catalog.GetString ("Switch music playback on or off");
@@ -158,16 +111,6 @@ namespace Muine
 			Catalog.GetString ("Failed to open {0} for writing");
 
 		/* menu widgets */
-		private Action previous_action;
-		private Action next_action;
-		private Action skip_to_action;
-		private Action skip_forward_action;
-		private Action skip_backwards_action;
-		private Action remove_song_action;
-		private Action shuffle_action;
-		private Action window_visibility_action;
-		private ToggleAction play_pause_action;
-		private ToggleAction repeat_action;
 		private bool block_play_pause_action = false;
 
 		/* toolbar widgets */
@@ -314,9 +257,8 @@ namespace Muine
 			}
 		}
 
-		private UIManager ui_manager;
 		public UIManager UIManager {
-			get { return ui_manager; }
+			get { return Global.Actions.UIManager; }
 		}
 
 		public Window Window {
@@ -521,107 +463,37 @@ namespace Muine
 				if (playlist.Playing != IntPtr.Zero)
 					playlist.Select (playlist.Playing);
 
-				window_visibility_action.Label = string_menu_hide_window;
+				Global.Actions.Visibility.Label = Actions.StringHideWindow;
 			} else {
-				window_visibility_action.Label = string_menu_show_window;
+				Global.Actions.Visibility.Label = Actions.StringShowWindow;
 			}
 		}
 
 		private void SetupMenus (Glade.XML glade_xml)
 		{
-			ActionEntry [] action_entries = new ActionEntry [] {
-				new ActionEntry ("FileMenu", null, string_menu_file,
-						 null, null, null),
-				new ActionEntry ("SongMenu", null, string_menu_song,
-						 null, null, null),
-				new ActionEntry ("PlaylistMenu", null, string_menu_playlist,
-						 null, null, null),
-				new ActionEntry ("HelpMenu", null, string_menu_help,
-						 null, null, null),
-				new ActionEntry ("ImportFolder", Stock.Execute, string_menu_import,
-						 null, null,
-						 new EventHandler (OnImportFolder)),
-				new ActionEntry ("OpenPlaylist", Stock.Open, string_menu_open,
-						 "<control>O", null,
-						 new EventHandler (OnOpenPlaylist)),
-				new ActionEntry ("SavePlaylistAs", Stock.SaveAs, string_menu_save,
-						 "<shift><control>S", null,
-						 new EventHandler (OnSavePlaylistAs)),
-				new ActionEntry ("ShowHideWindow", null, "",
-						 "Escape", null,
-						 new EventHandler (OnToggleWindowVisibility)),
-				new ActionEntry ("Quit", Stock.Quit, null,
-						 "<control>Q", null,
-						 new EventHandler (OnQuit)),
-				new ActionEntry ("PreviousSong", "stock_media-prev", string_menu_previous,
-						 "P", null,
-						 new EventHandler (OnPrevious)),
-				new ActionEntry ("NextSong", "stock_media-next", string_menu_next,
-						 "N", null,
-						 new EventHandler (OnNext)),
-				new ActionEntry ("SkipTo", Stock.JumpTo, string_menu_skip_to,
-						 "T", null,
-						 new EventHandler (OnSkipTo)),
-				new ActionEntry ("SkipBackwards", "stock_media-rew", string_menu_skip_back,
-						 "<control>Left", null,
-						 new EventHandler (OnSkipBackwards)),
-				new ActionEntry ("SkipForward", "stock_media-fwd", string_menu_skip_forward,
-						 "<control>Right", null,
-						 new EventHandler (OnSkipForward)),
-				new ActionEntry ("PlaySong", Stock.Add, string_menu_play_song,
-						 "S", null,
-						 new EventHandler (OnPlaySong)),
-				new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", string_menu_play_album,
-						 "A", null,
-						 new EventHandler (OnPlayAlbum)),
-				new ActionEntry ("RemoveSong", Stock.Remove, string_menu_remove,
-						 "Delete", null,
-						 new EventHandler (OnRemoveSong)),
-				new ActionEntry ("RemovePlayedSongs", null, string_menu_remove_played,
-						 "<control>Delete", null,
-						 new EventHandler (OnRemovePlayedSongs)),
-				new ActionEntry ("ClearPlaylist", Stock.Clear, string_menu_clear,
-						 null, null,
-						 new EventHandler (OnClearPlaylist)),
-				new ActionEntry ("Shuffle", "stock_shuffle", string_menu_shuffle,
-						 "<control>S", null,
-						 new EventHandler (OnShuffle)),
-				new ActionEntry ("About", Gnome.Stock.About, string_menu_about,
-						 null, null,
-						 new EventHandler (OnAbout))
-			};
-
-			ToggleActionEntry [] toggle_action_entries = new ToggleActionEntry [] {
-				new ToggleActionEntry ("PlayPause", "stock_media-play", string_menu_play,
-						       "space", null,
-						       new EventHandler (OnPlayPause), false),
-				new ToggleActionEntry ("Repeat", null, string_menu_repeat,
-						       "<control>R", null,
-						       new EventHandler (OnRepeat), false)
-			};
-		
-			ActionGroup action_group = new ActionGroup ("Actions");
-			action_group.Add (action_entries);
-			action_group.Add (toggle_action_entries);
-
-			previous_action          = action_group.GetAction ("PreviousSong");
-			next_action              = action_group.GetAction ("NextSong");
-			skip_to_action           = action_group.GetAction ("SkipTo");
-			skip_forward_action      = action_group.GetAction ("SkipForward");
-			skip_backwards_action    = action_group.GetAction ("SkipBackwards");
-			remove_song_action       = action_group.GetAction ("RemoveSong");
-			shuffle_action           = action_group.GetAction ("Shuffle");
-			window_visibility_action = action_group.GetAction ("ShowHideWindow");
-			play_pause_action        = (ToggleAction) action_group.GetAction ("PlayPause");
-			repeat_action            = (ToggleAction) action_group.GetAction ("Repeat");
+			Global.Actions.Import.Activated += new EventHandler (OnImportFolder);
+			Global.Actions.Open.Activated += new EventHandler (OnOpenPlaylist);
+			Global.Actions.Save.Activated += new EventHandler (OnSavePlaylistAs);
+			Global.Actions.Visibility.Activated += new EventHandler (OnToggleWindowVisibility);
+			Global.Actions.Quit.Activated += new EventHandler (OnQuit);
+			Global.Actions.Previous.Activated += new EventHandler (OnPrevious);
+			Global.Actions.Next.Activated += new EventHandler (OnNext);
+			Global.Actions.SkipTo.Activated += new EventHandler (OnSkipTo);
+			Global.Actions.SkipBackwards.Activated += new EventHandler (OnSkipBackwards);
+			Global.Actions.SkipForward.Activated += new EventHandler (OnSkipForward);
+			Global.Actions.PlaySong.Activated += new EventHandler (OnPlaySong);
+			Global.Actions.PlayAlbum.Activated += new EventHandler (OnPlayAlbum);
+			Global.Actions.Remove.Activated += new EventHandler (OnRemoveSong);
+			Global.Actions.RemovePlayed.Activated += new EventHandler (OnRemovePlayedSongs);
+			Global.Actions.Clear.Activated += new EventHandler (OnClearPlaylist);
+			Global.Actions.Shuffle.Activated += new EventHandler (OnShuffle);
+			Global.Actions.About.Activated += new EventHandler (OnAbout);
 			
-			ui_manager = new UIManager ();
-			ui_manager.InsertActionGroup (action_group, 0);
-			ui_manager.AddUiFromResource ("PlaylistWindow.xml");
+			Global.Actions.PlayPause.Activated += new EventHandler (OnPlayPause);
+			Global.Actions.Repeat.Activated += new EventHandler (OnRepeat);
 
-			AddAccelGroup (ui_manager.AccelGroup);
-			
-			((Box) glade_xml ["menu_bar_box"]).Add (ui_manager.GetWidget ("/MenuBar"));
+			base.AddAccelGroup (Global.Actions.UIManager.AccelGroup);
+			((Box) glade_xml ["menu_bar_box"]).Add (Global.Actions.MenuBar);
 		}
 
 		private void SetupButtons (Glade.XML glade_xml)
@@ -903,15 +775,15 @@ namespace Muine
 			next_button.Sensitive = playlist.HasNext ||
 						(Repeat && has_first);
 
-			play_pause_action.Sensitive = previous_button.Sensitive;
-			previous_action.Sensitive = play_pause_button.Sensitive;
-			next_action.Sensitive = next_button.Sensitive;
+			Global.Actions.PlayPause.Sensitive = previous_button.Sensitive;
+			Global.Actions.Previous.Sensitive = play_pause_button.Sensitive;
+			Global.Actions.Next.Sensitive = next_button.Sensitive;
 			
-			skip_to_action.Sensitive = has_first;
-			skip_backwards_action.Sensitive = has_first;
-			skip_forward_action.Sensitive = has_first;
+			Global.Actions.SkipTo.Sensitive = has_first;
+			Global.Actions.SkipBackwards.Sensitive = has_first;
+			Global.Actions.SkipForward.Sensitive = has_first;
 
-			shuffle_action.Sensitive = has_first;
+			Global.Actions.Shuffle.Sensitive = has_first;
 
 			UpdateTimeLabels (player.Position);
 
@@ -1007,7 +879,7 @@ namespace Muine
 
 		private void SelectionChanged ()
 		{
-			remove_song_action.Sensitive = (playlist.SelectedPointers.Count > 0);
+			Global.Actions.Remove.Sensitive = (playlist.SelectedPointers.Count > 0);
 
 			if (SelectionChangedEvent != null)
 				SelectionChangedEvent ();
@@ -1017,12 +889,12 @@ namespace Muine
 		{
 			if (playing) {
 				block_play_pause_action = true;
-				play_pause_action.Active = true;
+				Global.Actions.PlayPause.Active = true;
 				play_pause_button.Active = true;
 				block_play_pause_action = false;
 			} else {
 				block_play_pause_action = true;
-				play_pause_action.Active = false;
+				Global.Actions.PlayPause.Active = false;
 				play_pause_button.Active = false;
 				block_play_pause_action = false;
 			}
@@ -1717,7 +1589,7 @@ namespace Muine
 			set {
 				setting_repeat = true;
 				
-				repeat_action.Active = value;
+				Global.Actions.Repeat.Active = value;
 
 				Config.Set (GConfKeyRepeat, value);
 				
@@ -1726,7 +1598,7 @@ namespace Muine
 				setting_repeat = false;
 			}
 
-			get { return repeat_action.Active; }
+			get { return Global.Actions.Repeat.Active; }
 		}
 
 		private void OnRepeat (object o, EventArgs args)
@@ -1734,7 +1606,7 @@ namespace Muine
 			if (setting_repeat)
 				return;
 
-			Repeat = repeat_action.Active;
+			this.Repeat = Global.Actions.Repeat.Active;
 		}
 
 		private void OnConfigRepeatChanged (object o, GConf.NotifyEventArgs args)

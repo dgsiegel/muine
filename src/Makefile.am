@@ -44,7 +44,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/Item.cs			\
 	$(srcdir)/ThreadBase.cs			\
 	$(srcdir)/AddWindowList.cs		\
-	$(srcdir)/AddWindowEntry.cs
+	$(srcdir)/AddWindowEntry.cs		\
+	$(srcdir)/Actions.cs
 
 MUINE_GENERATED_CSFILES =			\
 	AmazonSearchService.cs			\
