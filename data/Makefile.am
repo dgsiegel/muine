@@ -21,15 +21,21 @@ pkgconfig_in_files = muine-plugin.pc.in muine-dbus.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
+dbusservice_in_files = org.gnome.Muine.service.in
+dbusservicedir = $(libdir)/dbus-1.0/services
+dbusservice_DATA = $(dbusservice_in_files:.service.in=.service)
+
 EXTRA_DIST =			\
 	$(desktop_in_files)	\
 	$(schema_in_files)	\
-	$(pkgconfig_in_files)
+	$(pkgconfig_in_files)	\
+	$(dbusservice_in_files)
 
 DISTCLEANFILES = 		\
 	$(desktop_DATA) 	\
 	$(schema_DATA)		\
-	$(pkgconfig_DATA)
+	$(pkgconfig_DATA)	\
+	$(dbusservice_DATA)
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:

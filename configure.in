@@ -137,6 +137,7 @@ muine.spec
 data/Makefile
 data/muine-dbus.pc
 data/muine-plugin.pc
+data/org.gnome.Muine.service
 data/glade/Makefile
 data/images/Makefile
 data/ui/Makefile
