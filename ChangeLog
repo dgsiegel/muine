@@ -1,3 +1,9 @@
+2004-04-10  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	Correct error message.
+
 2004-04-09  Gareth Owen  <gowen72@yahoo.com>
 
 	* configure.in: Added en_GB to ALL_LINGUAS

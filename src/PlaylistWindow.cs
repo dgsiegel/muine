@@ -409,7 +409,7 @@ public class PlaylistWindow : Window
 		try {
 			player = new Player ();
 		} catch {
-			new ErrorDialog (Muine.Catalog.GetString ("Failed to create the required GStreamer elements.\nExiting..."));
+			new ErrorDialog (Muine.Catalog.GetString ("Failed to initialize the audio backend.\nExiting..."));
 
 			Muine.Exit ();
 		}
