@@ -1,3 +1,10 @@
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	More startup optimization.
+
 2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/db.c: (db_foreach):

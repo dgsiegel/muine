@@ -131,11 +131,8 @@ public class PlaylistWindow : Window
 			OpenPlaylist (playlist_filename);
 
 		/* make sure the interface is up to date */
-		if (!playlist.HasFirst) {
-			SongChanged (true);
-			NSongsChanged ();
-		}
-
+		EnsurePlaying ();
+		NSongsChanged ();
 		SelectionChanged ();
 		StateChanged (false);
 	}
@@ -425,10 +422,11 @@ public class PlaylistWindow : Window
 
 	private void EnsurePlaying ()
 	{
-		if (playlist.Playing == IntPtr.Zero &&
-		    playlist.HasFirst) {
-			playlist.First ();
-			playlist.Select (playlist.Playing);
+		if (playlist.Playing == IntPtr.Zero) {
+			if (playlist.HasFirst) {
+				playlist.First ();
+				playlist.Select (playlist.Playing);
+			}
 
 			SongChanged (true);
 		} 
@@ -778,10 +776,6 @@ public class PlaylistWindow : Window
 		}
 
 		reader.Close ();
-
-		EnsurePlaying ();
-
-		NSongsChanged ();
 	}
 
 	private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
@@ -1224,8 +1218,13 @@ public class PlaylistWindow : Window
 		if (fn.Length == 0)
 			return;
 
-		if (exists)
+		if (exists) {
 			OpenPlaylist (fn);
+			
+			EnsurePlaying ();
+
+			NSongsChanged ();
+		}
 	}
 
 	private void HandleSavePlaylistAsCommand (object o, EventArgs args)

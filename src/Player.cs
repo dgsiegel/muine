@@ -30,7 +30,7 @@ public class Player : GLib.Object
 							  double gain,
 							  double peak);
 
-	private Song song;
+	private Song song = null;
 	public Song Song {
 		get {
 			return song;
@@ -85,7 +85,14 @@ public class Player : GLib.Object
 
 	public void Stop ()
 	{
+		if (song == null)
+			return;
+			
 		player_stop (Raw);
+		song = null;
+
+		if (playing == false)
+			return;
 
 		playing = false;
 
