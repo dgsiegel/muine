@@ -6,9 +6,7 @@ o A song information dialog (Jorn is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
-o Opening music files directly from nautilus
 o Queueing files that are not contained in the library
-o Use GnomeClient for SM
 
 Tough:
 ======
@@ -35,8 +33,6 @@ o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
 o Support mastroska and mp3cue
-o Figure out how to add new command line options (showing up in --help etc),
-  and add gstreamer command line options and --start-hidden
 
 Depends on other components:
 ============================
@@ -60,6 +56,13 @@ o Make the main window use a toolbar (and put "song info" button in it)
 o Fix the bug where keysyms that are assigned while muine is running aren't
   working.
   Depends on GConf#, Ximian Bugzilla #55877
+o Figure out how to add new command line options (showing up in --help etc),
+  and add gstreamer command line options and --start-hidden
+  Depends on popt support in Gtk#
+o Opening music files directly from nautilus
+  Depends on popt support in Gtk#
+o Make SM work fully
+  Depends on popt support in Gtk#
 
 We won't have:
 ==============

@@ -1,5 +1,13 @@
 2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Some cleanups and beginnings of SM support.
+
+2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 
 	Sort by album name if the album has > 3 artists.

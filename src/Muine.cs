@@ -40,6 +40,10 @@ public class Muine : Gnome.Program
 
 	private static MessageConnection conn;
 
+	private static Gnome.Client client;
+
+	private static bool opened_playlist = false;
+
 	public static void Main (string [] args)
 	{
 		Catalog = new GettextCatalog ("muine");
@@ -94,11 +98,17 @@ public class Muine : Gnome.Program
 
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
-		playlist.Run ();
 
 		/* Hook up connection callback */
 		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
 		ProcessCommandLine (args, false);
+
+		/* Load playlist */
+		if (!opened_playlist)
+			playlist.RestorePlaylist ();
+
+		/* Show playlist window */
+		playlist.Run ();
 
 		/* Now we load the album covers, and after that start the changes thread */
 		CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
@@ -108,6 +118,12 @@ public class Muine : Gnome.Program
 		/* And finally, check if this is the first start */
 		/* FIXME we dont do this for now as the issue isn't sorted out yet */
 		//playlist.CheckFirstStartUp ();
+
+		/* Hook up to the session manager */
+		client = Gnome.Global.MasterClient ();
+
+		client.Die += new EventHandler (HandleDieEvent);
+		client.SaveYourself += new Gnome.SaveYourselfHandler (HandleSaveYourselfEvent);
 	}
 
 	private void ProcessCommandLine (string [] args, bool use_conn)
@@ -121,6 +137,8 @@ public class Muine : Gnome.Program
 					conn.Send (finfo.FullName);
 				else
 					playlist.OpenPlaylist (finfo.FullName);
+
+				opened_playlist = true;
 			}
 		}
 
@@ -148,6 +166,19 @@ public class Muine : Gnome.Program
 	{
 		/* covers done loading, start the changes thread */
 		DB.CheckChanges ();
+	}
+
+	private void HandleDieEvent (object o, EventArgs args)
+	{
+		Exit ();
+	}
+
+	private void HandleSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
+	{
+		/* FIXME */
+		string [] argv = { "muine" };
+
+		client.SetRestartCommand (1, argv);
 	}
 
 	public static void Exit ()

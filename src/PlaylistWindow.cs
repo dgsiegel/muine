@@ -145,18 +145,26 @@ public class PlaylistWindow : Window
 
 		/* Add Dashboard support */
 		PlayerChangedSong += DashboardFrontend.PlayerChangedSong;
-		
-		/* load last playlist */
+
+		/* set up playlist filename */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
+		
+		/* make sure the interface is up to date */
+		SelectionChanged ();
+		StateChanged (false);
+	}
+
+	public void RestorePlaylist ()
+	{
+		/* load last playlist */
 		System.IO.FileInfo finfo = new System.IO.FileInfo (playlist_filename);
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
+		else {
+			EnsurePlaying ();
 
-		/* make sure the interface is up to date */
-		EnsurePlaying ();
-		NSongsChanged ();
-		SelectionChanged ();
-		StateChanged (false);
+			NSongsChanged ();
+		}
 	}
 
 	public void Run ()
@@ -165,7 +173,7 @@ public class PlaylistWindow : Window
 
 		icon.Run ();
 
-		/* put on the screen immediately please */
+		/* put on the screen immediately */
 		while (MainContext.Pending ())
 			Main.Iteration ();
 	}
@@ -842,6 +850,10 @@ public class PlaylistWindow : Window
 		}
 
 		reader.Close ();
+
+		EnsurePlaying ();
+
+		NSongsChanged ();
 	}
 
 	private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
@@ -1307,13 +1319,8 @@ public class PlaylistWindow : Window
 
 		System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 
-		if (finfo.Exists) {
+		if (finfo.Exists)
 			OpenPlaylist (fn);
-			
-			EnsurePlaying ();
-
-			NSongsChanged ();
-		}
 	}
 
 	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
