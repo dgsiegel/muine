@@ -7,6 +7,7 @@
 - Sort songs by title, then by artist [Jorn Baayen]
 - Sort albums by artist, then year, then title [Teemu Tervo]
 - Improved error handling [Jorn Baayen]
+- Keep covers when files from removable media are removed [Jorn Baayen]
 - Various other fixes [Kenneth Christiansen, Lee Willis, Jorn Baayen]
 
 Updated translations:
