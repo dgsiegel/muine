@@ -1,5 +1,11 @@
 2004-12-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/MmKeys.cs:
+
+	Keep handles to the delegates being passed into the unmanaged world.
+
+2004-12-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Muine.cs:
 
 	Tiny cleanup: refer to db instead of DB within the Muine class.

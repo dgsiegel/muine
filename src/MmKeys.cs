@@ -29,18 +29,24 @@ public class MmKeys : GLib.Object
 	[DllImport ("libmuine")]
 	private static extern IntPtr mmkeys_new ();
 
+	private SignalUtils.SignalDelegateInt mm_playpause_cb;
+	private SignalUtils.SignalDelegateInt mm_prev_cb;
+	private SignalUtils.SignalDelegateInt mm_next_cb;
+	private SignalUtils.SignalDelegateInt mm_stop_cb;
+
 	public MmKeys () : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
 
-		SignalUtils.SignalConnect (Raw, "mm_playpause", 
-					   new SignalUtils.SignalDelegateInt (MmPlayPauseCallback));
-		SignalUtils.SignalConnect (Raw, "mm_prev", 
-					   new SignalUtils.SignalDelegateInt (MmPrevCallback));
-		SignalUtils.SignalConnect (Raw, "mm_next", 
-					   new SignalUtils.SignalDelegateInt (MmNextCallback));
-		SignalUtils.SignalConnect (Raw, "mm_stop", 
-					   new SignalUtils.SignalDelegateInt (MmStopCallback));
+		mm_playpause_cb = new SignalUtils.SignalDelegateInt (MmPlayPauseCallback);
+		mm_prev_cb      = new SignalUtils.SignalDelegateInt (MmPrevCallback);
+		mm_next_cb      = new SignalUtils.SignalDelegateInt (MmNextCallback);
+		mm_stop_cb      = new SignalUtils.SignalDelegateInt (MmStopCallback);
+
+		SignalUtils.SignalConnect (Raw, "mm_playpause", mm_playpause_cb);
+		SignalUtils.SignalConnect (Raw, "mm_prev", mm_prev_cb);
+		SignalUtils.SignalConnect (Raw, "mm_next", mm_next_cb);
+		SignalUtils.SignalConnect (Raw, "mm_stop", mm_stop_cb);
 	}
 
 	~MmKeys ()
