@@ -5,4 +5,4 @@ libdir=${exec_prefix}/lib
 Name: Muine
 Description: Muine - GNOME music player
 Version: @VERSION@
-Libs: -r:${libdir}/muine/MuinePluginLib.dll
+Libs: -r:${libdir}/muine/PluginLib.dll

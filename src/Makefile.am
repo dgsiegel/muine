@@ -1,10 +1,5 @@
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS)
 
-MUINE_PLUGIN_LIB_CSFILES =			\
-	$(srcdir)/Plugin.cs			\
-	$(srcdir)/PlayerInterface.cs		\
-	$(srcdir)/SongInterface.cs
-
 MUINE_CSFILES =					\
 	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
@@ -45,10 +40,10 @@ MUINE_CSFILES =					\
 	$(srcdir)/PlayerDBusObject.cs		\
 	$(srcdir)/PluginManager.cs
 
-ASSEMBLIES =					\
-	-r:AmazonSearchService.dll		\
-	-r:MuinePluginLib.dll			\
-	-r:System.Web.Services			\
+ASSEMBLIES =						\
+	-r:AmazonSearchService.dll			\
+	-r:$(top_builddir)/PluginLib/PluginLib.dll	\
+	-r:System.Web.Services				\
 	-r:Mono.Posix
 	
 RESOURCES =												\
@@ -81,16 +76,13 @@ AmazonSearchService.cs: AmazonSearchService.wsdl
 AmazonSearchService.dll: AmazonSearchService.cs
 	$(CSC) -target:library $(LIBFLAGS) -out:$@ AmazonSearchService.cs -r:System.Web.Services
 
-MuinePluginLib.dll: $(MUINE_PLUGIN_LIB_CSFILES)
-	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(MUINE_PLUGIN_LIB_CSFILES) $(GTKSHARP_LIBS)
-
-muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll MuinePluginLib.dll
+muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll $(top_builddir)/PluginLib/PluginLib.dll
 	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
 
-all: AmazonSearchService.dll MuinePluginLib.dll muine.exe
+all: AmazonSearchService.dll muine.exe
 
 muinelibdir = $(prefix)/lib/muine
-muinelib_DATA = muine.exe muine.exe.config AmazonSearchService.dll MuinePluginLib.dll
+muinelib_DATA = muine.exe muine.exe.config AmazonSearchService.dll
 
 bin_SCRIPTS = muine
 
@@ -104,5 +96,4 @@ CLEANFILES =					\
 	muine					\
 	AmazonSearchService.cs			\
 	AmazonSearchService.dll			\
-	MuinePluginLib.dll			\
 	muine.exe

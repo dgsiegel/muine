@@ -1,5 +1,23 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* Makefile.am:
+	* PluginLib/Makefile.am:
+	* PluginLib/PlayerInterface.cs:
+	* PluginLib/Plugin.cs:
+	* PluginLib/SongInterface.cs:
+	* TODO:
+	* configure.in:
+	* data/muine.pc.in:
+	* plugins/Makefile.am:
+	* src/Makefile.am:
+	R src/PlayerInterface.cs:
+	R src/Plugin.cs:
+	R src/SongInterface.cs:
+
+	Split PluginLib code out to separate folder.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Makefile.am:
 	* src/MessageConnection.cs:
 	* src/Muine.cs:

@@ -1,6 +1,7 @@
 SUBDIRS = 		\
 	data		\
 	libmuine	\
+	PluginLib	\
 	src		\
 	plugins		\
 	m4		\

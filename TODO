@@ -45,12 +45,14 @@ o Fix the bug where keysyms that are assigned while muine is running aren't
   working.
   Depends on GConf#, Ximian Bugzilla #55877
 o Figure out how to add new command line options (showing up in --help etc),
-  and add gstreamer command line options and --start-hidden
-  Depends on popt support in Gtk#
+  and add gstreamer command line options and --start-hidden, --queue, etc
+  Depends on popt support in Gtk#, Ximian Bugzilla #68889
 o Make SM work fully
-  Depends on popt support in Gtk#
+  Depends on popt support in Gtk#, Ximian Bugzilla #68889
 o Switch metadata and playback all over to GStreamer. But, GST should
   be a bit more reliable first.
+o Use Hashtable/dictionary in D-Bus song info code
+  Blocked by Freedesktop Bugzilla #2175
 
 We won't have:
 ==============
