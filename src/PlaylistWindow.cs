@@ -1002,6 +1002,7 @@ public class PlaylistWindow : Window
 	{
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		HandleDirectory (dinfo, pw);
+		pw.Done ();
 	}
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)
