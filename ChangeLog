@@ -1,6 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:
+
+	Re-mark as "being checked" when loading.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
 	* src/CoverGetter.cs:
 
 	Do not write to the db while loading it.
