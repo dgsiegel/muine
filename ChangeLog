@@ -1,3 +1,9 @@
+2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SkipToWindow.cs:
+
+	Kill a gtk warning.
+
 2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:

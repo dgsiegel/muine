@@ -96,7 +96,9 @@ namespace Muine
 			// Update slider
 			from_tick = true;
 			song_slider.SetRange (0, player.PlayingSong.Duration);
-			song_slider.Value = pos; 
+
+			if (pos <= player.PlayingSong.Duration)
+				song_slider.Value = pos; 
 		}
 
 		// Handlers :: OnSongSliderValueChanged
