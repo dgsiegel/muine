@@ -1638,30 +1638,39 @@ public class PlaylistWindow : Window
 		NSongsChanged ();
 	}
 
-	private int ShuffleFunc (IntPtr a, IntPtr b)
+	private Hashtable random_sort_keys;
+
+	private int ShuffleFunc (IntPtr ap, IntPtr bp)
 	{
-		Song songa = Song.FromHandle (a);
-		Song songb = Song.FromHandle (b);
+		double a = (double) random_sort_keys [(int) ap];
+		double b = (double) random_sort_keys [(int) bp];
 
-		int res = (int) Math.Round (songa.RandomSortKey - songb.RandomSortKey);
-
-		return res;
+		if (a > b)
+			return 1;
+		else if (a < b)
+			return -1;
+		else
+			return 0;
 	}
 
 	private void HandleShuffleCommand (object o, EventArgs args)
 	{
 		Random rand = new Random ();
 
+		random_sort_keys = new Hashtable ();
+
 		foreach (int i in playlist.Contents) {
 			Song song = Song.FromHandle ((IntPtr) i);
 
 			if (i == (int) playlist.Playing)
-				song.RandomSortKey = -1;
+				random_sort_keys.Add (i, -1.0);
 			else
-				song.RandomSortKey = rand.NextDouble ();
+				random_sort_keys.Add (i, rand.NextDouble ());
 		}
 
 		playlist.Sort (new HandleView.CompareFunc (ShuffleFunc));
+
+		random_sort_keys = null;
 
 		NSongsChanged ();
 

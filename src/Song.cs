@@ -200,8 +200,6 @@ public class Song
 		}
 	}
 
-	public double RandomSortKey;
-
 	public bool Orphan = false;
 
 	private static string [] cover_filenames = {

@@ -1,5 +1,12 @@
 2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Fix braindead shuffle algo.
+
+2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/Makefile.am:
 	* data/images/muine-volume-max.png:
 	* data/images/muine-volume-medium.png:
