@@ -786,9 +786,14 @@ namespace Muine
 			pixbuf_renderer = new ColoredCellRendererPixbuf ();
 			text_renderer   = new CellRendererText ();
 			
-			playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
-			playlist.AddColumn (text_renderer  , new HandleView.CellDataFunc (TextCellDataFunc  ), true );
-
+			TreeViewColumn col = new TreeViewColumn ();
+			col.Sizing = TreeViewColumnSizing.Fixed;
+			col.PackStart (pixbuf_renderer, false);
+			col.PackStart (text_renderer, true);
+			col.SetCellDataFunc (pixbuf_renderer, new TreeCellDataFunc (PixbufCellDataFunc));
+			col.SetCellDataFunc (text_renderer, new TreeCellDataFunc (TextCellDataFunc));
+			playlist.AppendColumn (col);
+			
 			playlist.RowActivated     += new HandleView.RowActivatedHandler     (OnPlaylistRowActivated    );
 			playlist.SelectionChanged += new HandleView.SelectionChangedHandler (OnPlaylistSelectionChanged);
 			playlist.PlayingChanged   += new HandleView.PlayingChangedHandler   (OnPlaylistPlayingChanged  );
@@ -1953,21 +1958,24 @@ namespace Muine
 		
 		// Delegate Functions
 		// Delegate Functions :: PixbufCellDataFunc
-		private void PixbufCellDataFunc (HandleView view, CellRenderer cell, IntPtr handle)
+		private void PixbufCellDataFunc (TreeViewColumn col, CellRenderer cell,
+					         TreeModel model, TreeIter iter)
 		{
 			ColoredCellRendererPixbuf r = (ColoredCellRendererPixbuf) cell;
+			IntPtr handle = playlist.HandleFromIter (iter);
 
-			r.Pixbuf = (handle == view.Playing)
+			r.Pixbuf = (handle == playlist.Playing)
 				   ? (player.Playing)
-				     ? view.RenderIcon ("muine-playing", IconSize.Menu, null)
-				     : view.RenderIcon ("muine-paused" , IconSize.Menu, null)
+				     ? playlist.RenderIcon ("muine-playing", IconSize.Menu, null)
+				     : playlist.RenderIcon ("muine-paused" , IconSize.Menu, null)
 				   : empty_pixbuf;
 		}
 
 		// Delegate Functions :: TextCellDataFunc
-		private void TextCellDataFunc (HandleView view, CellRenderer cell, IntPtr handle)
+		private void TextCellDataFunc (TreeViewColumn col, CellRenderer cell,
+					       TreeModel model, TreeIter iter)
 		{
-			Song song = Song.FromHandle (handle);
+			Song song = Song.FromHandle (playlist.HandleFromIter (iter));
 			CellRendererText r = (CellRendererText) cell;
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",

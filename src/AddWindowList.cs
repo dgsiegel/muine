@@ -23,9 +23,6 @@ namespace Muine
 {
 	public class AddWindowList : HandleView
 	{
-		// Variables
-		private static readonly int fake_length = 150;
-
 		// Constructor
 		public AddWindowList () : base ()
 		{
@@ -33,11 +30,6 @@ namespace Muine
 		}
 		
 		// Properties
-		// Properties :: FakeLength (get;)
-		public int FakeLength {
-			get { return fake_length;  }
-		}
-
 		// Properties :: HasSelection (get;)
 		public bool HasSelection {
 			get { return (base.SelectedPointers.Count > 0); }
@@ -69,16 +61,10 @@ namespace Muine
 		// Methods :: Public :: HandleChanged
 		public void HandleChanged (IntPtr ptr, bool fits)
 		{
-			HandleChanged (ptr, fits, true);
-		}
-
-		// Methods :: Public :: HandleChanged
-		public void HandleChanged (IntPtr ptr, bool fits, bool may_append)
-		{
 			if (fits) {
 				if (base.Contains (ptr))
 					base.Changed (ptr);
-				else if (may_append)
+				else
 					base.Append (ptr);
 			} else {
 				base.Remove (ptr);

@@ -5,6 +5,8 @@ o Use GnomeVFS
   Needs a new Mono release first
 o Use stock volume icons
   Needs a new gnome-icon-theme release first
+o group ["action"] instead of group.GetAction ("action")
+  Needs a new Gtk# release first
 
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html

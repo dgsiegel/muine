@@ -3,8 +3,6 @@
 # Please keep this file sorted alphabetically.
 data/glade/AddWindow.glade
 data/glade/ErrorDialog.glade
-data/glade/InfoWindow.glade
-data/glade/NoMusicFoundWindow.glade
 data/glade/OverwriteDialog.glade
 data/glade/PlaylistWindow.glade
 data/glade/ProgressWindow.glade

@@ -36,9 +36,6 @@ namespace Muine
 	        private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
 	        private const int GConfDefaultHeight = 475;  
 
-		private const string GConfKeyEnableSpeedHacks = "/apps/muine/add_song_window/enable_speed_hacks";
-		private const bool GConfDefaultEnableSpeedHacks = true;
-
 		// Strings
 		private static readonly string string_title = 
 			Catalog.GetString ("Play Song");
@@ -57,14 +54,16 @@ namespace Muine
 			base.SetGConfSize (GConfKeyWidth , GConfDefaultWidth, 
 					   GConfKeyHeight, GConfDefaultHeight);
 
-			base.SetGConfSpeedHacks (GConfKeyEnableSpeedHacks, GConfDefaultEnableSpeedHacks);
-		
 			base.Items = Global.DB.Songs.Values;
 						
 			base.List.SortFunc = new HandleView.CompareFunc (SortFunc);
-			
-			base.List.AddColumn (base.TextRenderer, new AddWindowList.CellDataFunc (CellDataFunc), true);
 
+			TreeViewColumn col = new TreeViewColumn ();
+			col.Sizing = TreeViewColumnSizing.Fixed;
+			col.PackStart (base.TextRenderer, true);
+			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (CellDataFunc));
+			base.List.AppendColumn (col);
+			
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
@@ -76,8 +75,6 @@ namespace Muine
 			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnAdded  );
 			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnChanged);
 			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnRemoved);
-
-			base.Search ();
 		}
 
 		// Handlers
@@ -122,11 +119,6 @@ namespace Muine
 		// 	Remove if we depend on Mono 1.1+
 		protected void OnAdded (Song Song)
 		{
-			if (base.EnableSpeedHacks &&
-			    base.Entry.Text.Length < base.Entry.MinQueryLength &&
-			    base.List.Length >= base.List.FakeLength)
-				return;
-
 			base.List.HandleAdded (Song.Handle, 
 					       Song.FitsCriteria (base.Entry.SearchBits));
 		}
@@ -135,15 +127,8 @@ namespace Muine
 		// 	Remove if we depend on Mono 1.1+
 		protected void OnChanged (Song Song)
 		{
-			bool may_append = true;
-			if (base.EnableSpeedHacks) {
-				may_append = (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
-			                      base.List.Length < base.List.FakeLength);
-			}
-			
 			base.List.HandleChanged (Song.Handle, 
-						 Song.FitsCriteria (base.Entry.SearchBits),
-						 may_append);
+						 Song.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnSongRemoved
@@ -164,10 +149,11 @@ namespace Muine
 		}
 
 		// Delegate Functions :: CellDataFunc
-		private void CellDataFunc (HandleView view, CellRenderer cell, IntPtr handle)
+		private void CellDataFunc (TreeViewColumn col, CellRenderer cell,
+					   TreeModel model, TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Song song = Song.FromHandle (handle);
+			Song song = Song.FromHandle (base.List.HandleFromIter (iter));
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",
 			                          StringUtils.EscapeForPango (song.Title),

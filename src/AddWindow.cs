@@ -63,9 +63,9 @@ namespace Muine
 		private int gconf_default_width, gconf_default_height;
 		
 		private bool process_changes_immediately = false;
-		private uint search_idle_id = 0;
-
-		private bool enable_speed_hacks = false;
+		private uint search_timeout_id = 0;
+		private const uint search_timeout = 100;
+		private bool first_time = true;
 
 		// Constructor
 		public AddWindow () : base (IntPtr.Zero)
@@ -117,19 +117,26 @@ namespace Muine
 			get { return items;  }
 		}
 
-		// Properties :: EnableSpeedHacks (set; get;)
-		public bool EnableSpeedHacks {
-			set { enable_speed_hacks = value; }
-			get { return enable_speed_hacks;  }
-		}
-
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Run
 		public void Run ()
 		{
+			if (first_time) {
+				// So that we do the initial query *after* th
+				// window has been shown. It seems more 
+				// responsive this way.
+				window.Realize ();
+				window.GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
+				window.GdkWindow.Display.Flush ();
+
+				search_timeout_id = GLib.Idle.Add (new GLib.IdleHandler (FirstSearch));
+
+				first_time = false;
+			}
+
 			entry.GrabFocus ();
-			list.SelectFirst ();
+
 			window.Present ();
 		}
 			
@@ -158,26 +165,6 @@ namespace Muine
 			AddOnSizeAllocated ();
 		}
 
-		// Methods :: Protected :: SetGConfSpeedHacks
-		protected void SetGConfSpeedHacks (string key_enable_speed_hacks,
-						   bool default_speed_hacks)
-		{
-			enable_speed_hacks = (bool) Config.Get (key_enable_speed_hacks, default_speed_hacks     );
-
-			Config.AddNotify (key_enable_speed_hacks,
-					  new GConf.NotifyEventHandler (OnEnableSpeedHacksChanged));
-		}
-
-		// Methods :: Protected :: Reset
-		protected void Reset ()
-		{
-			process_changes_immediately = true;
-			
-			entry.Clear ();
-
-			process_changes_immediately = false;
-		}
-				
 		// Methods :: Private
 		// Methods :: Private :: Assertions
 		// Methods :: Private :: Assertions :: HasGConfSize
@@ -208,7 +195,6 @@ namespace Muine
 				throw new InvalidOperationException ();
 		}
 
-
 		// Methods :: Private :: AddOnSizeAllocated
 		private void AddOnSizeAllocated ()
 		{
@@ -224,25 +210,13 @@ namespace Muine
 		
 			GLib.List l = new GLib.List (IntPtr.Zero, typeof (int));
 
-			int max_len = -1;
-
-			// Show max. FakeLength songs if < MinQueryLength chars are entered. 
-			// This is to fake speed.
-			if (enable_speed_hacks && entry.Text.Length < entry.MinQueryLength)
-				max_len = list.FakeLength;
-
 			lock (Global.DB) {
-				int i = 0;
 				if (entry.Text.Length > 0) {
 					foreach (Item item in items) {
 						if (!item.FitsCriteria (entry.SearchBits))
 							continue;
 
 						l.Append (item.Handle);
-					
-						i++;
-						if (max_len > 0 && i >= max_len)
-							break;
 					}
 				} else {
 					foreach (Item item in items) {
@@ -250,10 +224,6 @@ namespace Muine
 							continue;
 
 						l.Append (item.Handle);
-					
-						i++;
-						if (max_len > 0 && i >= max_len)
-							break;
 					}
 				}
 			}
@@ -266,6 +236,26 @@ namespace Muine
 			}
 
 			list.SelectFirst ();
+
+			return false;
+		}
+
+		// Methods :: Private :: FirstSearch
+		private bool FirstSearch ()
+		{
+			Search ();
+
+			// We want to get the normal cursor back *after* treeview
+			// has done its thing.
+			GLib.Idle.Add (new GLib.IdleHandler (RestoreCursor));
+
+			return false;
+		}
+		
+		// Methods :: Private :: RestoreCursor
+		private bool RestoreCursor ()
+		{
+			window.GdkWindow.Cursor = null;
 
 			return false;
 		}
@@ -317,8 +307,6 @@ namespace Muine
 			case (int) ResponseType.Close:
 				window.Visible = false;
 				
-				Reset ();
-				
 				break;
 				
 			case (int) ResponseType.Play:
@@ -327,7 +315,7 @@ namespace Muine
 				if (PlayEvent != null)
 					PlayEvent (list.Selected);
 
-				Reset ();
+				list.SelectNext ();
 
 				break;
 				
@@ -352,10 +340,10 @@ namespace Muine
 			if (process_changes_immediately)
 				Search ();
 			else {
-				if (search_idle_id > 0)
-					GLib.Source.Remove (search_idle_id);
+				if (search_timeout_id > 0)
+					GLib.Source.Remove (search_timeout_id);
 
-				search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
+				search_timeout_id = GLib.Timeout.Add (search_timeout, new GLib.TimeoutHandler (Search));
 			}
 		}
 		
@@ -363,11 +351,6 @@ namespace Muine
 		// 	UNUSED: Requires Mono 1.1+
 		protected void OnAdded (Item item)
 		{
-			if (enable_speed_hacks &&
-			    entry.Text.Length < entry.MinQueryLength &&
-			    list.Length >= list.FakeLength)
-				return;
-
 			list.HandleAdded (item.Handle, item.FitsCriteria (entry.SearchBits));
 		}
 
@@ -375,14 +358,7 @@ namespace Muine
 		// 	UNUSED: Requires Mono 1.1+
 		protected void OnChanged (Item item)
 		{
-			bool may_append = true;
-			if (enable_speed_hacks) {
-				may_append = (entry.Text.Length >= entry.MinQueryLength ||
-			                      list.Length < list.FakeLength);
-			}
-			
-			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits),
-				may_append);
+			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits));
 		}
 
 		// Handlers :: OnRemoved
@@ -390,12 +366,6 @@ namespace Muine
 		protected void OnRemoved (Item item)
 		{
 			list.HandleRemoved (item.Handle);
-		}
-
-		// Handlers :: OnEnableSpeedHacksChanged
-		private void OnEnableSpeedHacksChanged (object o, GConf.NotifyEventArgs args)
-		{
-			enable_speed_hacks = (bool) args.Value;
 		}
 	}
 }

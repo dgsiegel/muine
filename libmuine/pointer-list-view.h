@@ -46,19 +46,9 @@ struct _PointerListViewClass
 	GtkTreeViewClass parent_class;
 };
 
-typedef void (*CellDataFunc) (PointerListView *view,
-			      GtkCellRenderer *renderer,
-			      gpointer pointer);
-
 GType            pointer_list_view_get_type      (void);
 PointerListView *pointer_list_view_new           (void);
 
-void             pointer_list_view_add_column      (PointerListView *view,
-						    GtkCellRenderer *renderer,
-						    CellDataFunc func,
-						    gboolean expand);
-void             pointer_list_view_append          (PointerListView *view,
-				                    gpointer pointer);
 void             pointer_list_view_changed         (PointerListView *view,
 			                            gpointer pointer);
 gpointer	 pointer_list_get_handle_from_path (PointerListView *view,

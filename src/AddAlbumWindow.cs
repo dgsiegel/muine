@@ -36,9 +36,6 @@ namespace Muine
 		private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
 		private const int GConfDefaultHeight = 475; 
 
-		private const string GConfKeyEnableSpeedHacks = "/apps/muine/add_album_window/enable_speed_hacks";
-		private const bool GConfDefaultEnableSpeedHacks = false;
-
 		// Strings
 		private static readonly string string_title = 
 			Catalog.GetString ("Play Album");
@@ -57,6 +54,7 @@ namespace Muine
 
 		// Variables
 		private bool drag_dest_enabled = false;
+		private int pixbuf_column_width = CoverDatabase.CoverSize + (5 * 2);
 
 		// Constructor
 		public AddAlbumWindow ()
@@ -66,14 +64,17 @@ namespace Muine
 			base.SetGConfSize (GConfKeyWidth , GConfDefaultWidth, 
 					   GConfKeyHeight, GConfDefaultHeight);
 
-			base.SetGConfSpeedHacks (GConfKeyEnableSpeedHacks, GConfDefaultEnableSpeedHacks);
-
 			base.Items = Global.DB.Albums.Values;
 						
 			base.List.SortFunc = new AddWindowList.CompareFunc (SortFunc);
 
-			base.List.AddColumn (pixbuf_renderer  , new AddWindowList.CellDataFunc (PixbufCellDataFunc), false);
-			base.List.AddColumn (base.TextRenderer, new AddWindowList.CellDataFunc (TextCellDataFunc  ), true );
+			TreeViewColumn col = new TreeViewColumn ();
+			col.Sizing = TreeViewColumnSizing.Fixed;
+			col.PackStart (pixbuf_renderer, false);
+			col.PackStart (base.TextRenderer, true);
+			col.SetCellDataFunc (pixbuf_renderer, new TreeCellDataFunc (PixbufCellDataFunc));
+			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (TextCellDataFunc));
+			base.List.AppendColumn (col);
 
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
@@ -91,8 +92,6 @@ namespace Muine
 
 			if (!Global.CoverDB.Loading)
 				EnableDragDest ();
-
-			base.Search ();
 		}
 
 		// Methods
@@ -177,11 +176,6 @@ namespace Muine
 		// 	Remove if we depend on Mono 1.1+
 		protected void OnAdded (Album album)
 		{
-			if (base.EnableSpeedHacks &&
-			    base.Entry.Text.Length < base.Entry.MinQueryLength &&
-			    base.List.Length >= base.List.FakeLength)
-				return;
-
 			base.List.HandleAdded (album.Handle, 
 					       album.FitsCriteria (base.Entry.SearchBits));
 		}
@@ -190,15 +184,8 @@ namespace Muine
 		// 	Remove if we depend on Mono 1.1+
 		protected void OnChanged (Album album)
 		{
-			bool may_append = true;
-			if (base.EnableSpeedHacks) {
-				may_append = (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
-			                      base.List.Length < base.List.FakeLength);
-			}
-			
 			base.List.HandleChanged (album.Handle, 
-						 album.FitsCriteria (base.Entry.SearchBits),
-						 may_append);
+						 album.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnRemoved
@@ -219,10 +206,11 @@ namespace Muine
 		}
 
 		// Delegate Functions :: PixbufCellDataFunc
-		private void PixbufCellDataFunc (HandleView view, CellRenderer cell, IntPtr album_ptr)
+		private void PixbufCellDataFunc (TreeViewColumn col, CellRenderer cell,
+					         TreeModel model, TreeIter iter)
 		{
 			CellRendererPixbuf r = (CellRendererPixbuf) cell;
-			Album album = Album.FromHandle (album_ptr);
+			Album album = Album.FromHandle (base.List.HandleFromIter (iter));
 
 			r.Pixbuf = (album.CoverImage != null)
 				? album.CoverImage
@@ -230,14 +218,15 @@ namespace Muine
 					? Global.CoverDB.DownloadingPixbuf
 					: nothing_pixbuf;
 
-			r.Width = r.Height = CoverDatabase.CoverSize + 5 * 2;
+			r.Width = r.Height = pixbuf_column_width;
 		}
 
 		// Delegate Functions :: TextCellDataFunc
-		private void TextCellDataFunc (HandleView view, CellRenderer cell, IntPtr album_ptr)
+		private void TextCellDataFunc (TreeViewColumn col, CellRenderer cell,
+					       TreeModel model, TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Album album = Album.FromHandle (album_ptr);
+			Album album = Album.FromHandle (base.List.HandleFromIter (iter));
 
 			string performers = "";
 			if (album.Performers.Length > 0)

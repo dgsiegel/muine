@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 Tamara Roberson <foxxygirltamara@gmail.com>
+ * Copyright (C) 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -19,40 +19,22 @@
 
 using System;
 
+using Gtk;
+
 namespace Muine
 {
-	public class AddWindowEntry : Gtk.Entry
+	public class HandleModel : ListStore
 	{
-		// Variables
-		private string [] search_bits = new string [0];
-
 		// Constructor
-		public AddWindowEntry () : base ()
+		public HandleModel (IntPtr raw)
 		{
-			ActivatesDefault = true;
-
-			Changed += new EventHandler (OnChanged);
+			Raw = raw;
 		}
 
-		// Properties
-		// Properties :: SearchBits (get;)
-		public string [] SearchBits {
-			get { return search_bits; }
-		}
-
-		// Methods
-		// Methods :: Public
-		// Methods :: Public :: Clear
-		public void Clear ()
+		// Destructor
+		~HandleModel ()
 		{
-			base.Text = "";
-		}
-
-		// Handlers
-		// Handlers :: OnChanged
-		private void OnChanged (object o, EventArgs args)
-		{
-			search_bits = base.Text.ToLower ().Split (' ');
+			Dispose ();
 		}
 	}
 }

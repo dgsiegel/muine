@@ -40,24 +40,28 @@ namespace Muine
 
 		// Delegates
 		// Delegates :: Public
-		public delegate void CellDataFunc (HandleView view, CellRenderer renderer, IntPtr handle);
-		public delegate int  CompareFunc  (IntPtr a, IntPtr b);
+		public delegate int CompareFunc (IntPtr a, IntPtr b);
 		
 		// Delegates :: Private
 		private SignalUtils.SignalDelegatePtr pointer_activated_cb;
 		private SignalUtils.SignalDelegatePtr selection_changed_cb;
 
 		// Delegates :: Internal
-		internal delegate void CellDataFuncNative (IntPtr view, IntPtr renderer, IntPtr handle);
-		internal delegate int  CompareFuncNative  (IntPtr a, IntPtr b);
+		internal delegate int CompareFuncNative (IntPtr a, IntPtr b);
+
+		// Variables
+		private HandleModel model;
 
 		// Constructor
 		[DllImport("libmuine")]
 		private static extern IntPtr pointer_list_view_new ();
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_view_get_model (IntPtr view);
 
 		public HandleView () : base (IntPtr.Zero)
 		{
 			Raw = pointer_list_view_new ();
+			model = new HandleModel (pointer_list_view_get_model (Raw));
 
 			pointer_activated_cb = new SignalUtils.SignalDelegatePtr (OnPointerActivated);
 			selection_changed_cb = new SignalUtils.SignalDelegatePtr (OnSelectionChanged);
@@ -73,14 +77,6 @@ namespace Muine
 		}
 		
 		// Properties
-		// Properties :: Model (get;)
-		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_view_get_model (IntPtr view);
-		
-		public new IntPtr Model {
-			get { return pointer_list_view_get_model (Raw); }
-		}
-		
 		// Properties :: SortFunc (set;)
 		[DllImport("libmuine")]
 		private static extern void pointer_list_model_set_sorting (IntPtr model, CompareFuncNative sort_func);
@@ -88,7 +84,7 @@ namespace Muine
 		public CompareFunc SortFunc {
 			set {
 				CompareFuncWrapper wrapper = new CompareFuncWrapper (value, this);
-				pointer_list_model_set_sorting (Model, wrapper.NativeDelegate);
+				pointer_list_model_set_sorting (model.Handle, wrapper.NativeDelegate);
 			}
 		}
 
@@ -101,13 +97,13 @@ namespace Muine
 
 		public IntPtr Playing {
 			set {
-				pointer_list_model_set_current (Model, value);
+				pointer_list_model_set_current (model.Handle, value);
 
 				if (PlayingChanged != null)
 					PlayingChanged (value);
 			}
 
-			get { return pointer_list_model_get_current (Model); }
+			get { return pointer_list_model_get_current (model.Handle); }
 		}
 
 		// Properties :: Contents (get;)
@@ -116,7 +112,7 @@ namespace Muine
 
 		public List Contents {
 			get {
-				List ret = new List (pointer_list_model_get_pointers (Model), typeof (int));
+				List ret = new List (pointer_list_model_get_pointers (model.Handle), typeof (int));
 				ret.Managed = true;
 				return ret;
 			}
@@ -144,27 +140,15 @@ namespace Muine
 			}
 		}
 
-
 		// Methods
 		// Methods :: Public
-		// Methods :: Public :: AddColumn
-		[DllImport("libmuine")]
-		private static extern void pointer_list_view_add_column (IntPtr view, IntPtr renderer, CellDataFuncNative data_func, 
-									 bool expand);
-								
-		public void AddColumn (CellRenderer renderer, CellDataFunc data_func, bool expand)
-		{
-			CellDataFuncWrapper wrapper = new CellDataFuncWrapper (data_func, this);
-			pointer_list_view_add_column (Raw, renderer.Handle, wrapper.NativeDelegate, expand);
-		}		
-
 		// Methods :: Public :: Append
 		[DllImport("libmuine")]
 		private static extern void pointer_list_model_add (IntPtr model, IntPtr pointer);
 								     
 		public void Append (IntPtr handle)
 		{
-			pointer_list_model_add (Model, handle);
+			pointer_list_model_add (model.Handle, handle);
 		}
 
 		// Methods :: Public :: Insert
@@ -173,7 +157,7 @@ namespace Muine
 
 		public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
 		{
-			pointer_list_model_insert (Model, handle, ins, (uint) pos);
+			pointer_list_model_insert (model.Handle, handle, ins, (uint) pos);
 		}
 
 		// Methods :: Public :: Contains
@@ -182,7 +166,7 @@ namespace Muine
 
 		public bool Contains (IntPtr handle)
 		{
-			return pointer_list_model_contains (Model, handle);
+			return pointer_list_model_contains (model.Handle, handle);
 		}
 
 		// Methods :: Public :: Changed
@@ -200,7 +184,7 @@ namespace Muine
 
 		public void Remove (IntPtr handle)
 		{
-			pointer_list_model_remove (Model, handle);
+			pointer_list_model_remove (model.Handle, handle);
 		}
 
 		// Methods :: Public :: RemoveDelta
@@ -209,7 +193,7 @@ namespace Muine
 
 		public void RemoveDelta (List delta)
 		{
-			pointer_list_model_remove_delta (Model, delta.Handle);
+			pointer_list_model_remove_delta (model.Handle, delta.Handle);
 		}
 
 		// Methods :: Public :: Clear
@@ -220,7 +204,7 @@ namespace Muine
 		{
 			bool playing_changed = (Playing != IntPtr.Zero);
 			
-			pointer_list_model_clear (Model);
+			pointer_list_model_clear (model.Handle);
 
 			if (playing_changed && PlayingChanged != null)
 				PlayingChanged (IntPtr.Zero);
@@ -282,7 +266,7 @@ namespace Muine
 		public void Sort (CompareFunc func)
 		{
 			CompareFuncWrapper wrapper = new CompareFuncWrapper (func, this);
-	                pointer_list_model_sort (Model, wrapper.NativeDelegate);
+	                pointer_list_model_sort (model.Handle, wrapper.NativeDelegate);
 		}
 
 		// Methods :: Public :: HasFirst
@@ -290,7 +274,7 @@ namespace Muine
 		private static extern bool pointer_list_model_has_first (IntPtr model);
 
 		public bool HasFirst {
-			get { return pointer_list_model_has_first (Model); }
+			get { return pointer_list_model_has_first (model.Handle); }
 		}
 
 		// Methods :: Public :: HasPrevious
@@ -298,7 +282,7 @@ namespace Muine
 		private static extern bool pointer_list_model_has_prev (IntPtr model);
 
 		public bool HasPrevious {
-			get { return pointer_list_model_has_prev (Model); }
+			get { return pointer_list_model_has_prev (model.Handle); }
 		}
 
 		// Methods :: Public :: HasNext
@@ -306,7 +290,7 @@ namespace Muine
 		private static extern bool pointer_list_model_has_next (IntPtr model);
 
 		public bool HasNext {
-			get { return pointer_list_model_has_next (Model); }
+			get { return pointer_list_model_has_next (model.Handle); }
 		}
 
 		// Methods :: Public :: First
@@ -315,7 +299,7 @@ namespace Muine
 
 		public IntPtr First ()
 		{
-			IntPtr ret = pointer_list_model_first (Model);
+			IntPtr ret = pointer_list_model_first (model.Handle);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -329,7 +313,7 @@ namespace Muine
 
 		public IntPtr Last ()
 		{
-			IntPtr ret = pointer_list_model_last (Model);
+			IntPtr ret = pointer_list_model_last (model.Handle);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -343,7 +327,7 @@ namespace Muine
 
 		public IntPtr Previous ()
 		{
-			IntPtr ret = pointer_list_model_prev (Model);
+			IntPtr ret = pointer_list_model_prev (model.Handle);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -357,7 +341,7 @@ namespace Muine
 
 		public IntPtr Next ()
 		{
-			IntPtr ret = pointer_list_model_next (Model);
+			IntPtr ret = pointer_list_model_next (model.Handle);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -407,6 +391,15 @@ namespace Muine
 			return ret;
 		}
 
+		// Methods :: Public :: HandleFromIter
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_get_pointer (IntPtr model, ref TreeIter iter);
+
+		public IntPtr HandleFromIter (TreeIter iter)
+		{
+			return pointer_list_model_get_pointer (model.Handle, ref iter);
+		}
+
 		// Handlers
 		// Handlers :: OnPointerActivated
 		private void OnPointerActivated (IntPtr obj, IntPtr ptr)
@@ -423,27 +416,6 @@ namespace Muine
 		}
 
 		// Internal Classes
-		// Internal Classes :: CellDataFuncWrapper
-		internal class CellDataFuncWrapper : GLib.DelegateWrapper
-		{
-			protected CellDataFunc _managed;
-			internal CellDataFuncNative NativeDelegate;
-
-			public void NativeCallback (IntPtr view, IntPtr renderer, IntPtr handle)
-			{
-				HandleView v = (HandleView) GLib.Object.GetObject (view, false);
-				CellRenderer r = (CellRenderer) GLib.Object.GetObject (renderer, false);
-				
-				_managed (v, r, handle);
-			}
-
-			public CellDataFuncWrapper (CellDataFunc managed, object o) : base (o)
-			{
-				NativeDelegate = new CellDataFuncNative (NativeCallback);
-				_managed = managed;
-			}
-		}
-		
 		// InternalClasses :: CompareFuncWrapper
 		internal class CompareFuncWrapper : GLib.DelegateWrapper
 		{

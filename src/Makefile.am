@@ -24,6 +24,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/OverwriteDialog.cs		\
 	$(srcdir)/VolumeButton.cs		\
 	$(srcdir)/HandleView.cs			\
+	$(srcdir)/HandleModel.cs		\
 	$(srcdir)/StockIcons.cs			\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/EllipsizingLabel.cs		\

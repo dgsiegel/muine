@@ -1,3 +1,15 @@
+2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.in:
+	* POTFILES.skip:
+
+	Moved InfoWindow.glade and NoMusicFoundWindow.glade to
+	POTFILES.skip for now.
+	
+	* et.po:
+
+	Added Estonian translation by Piret Vacht <piraaja@airpost.net>
+
 2005-01-23  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* es.po: Updated Spanish translation.

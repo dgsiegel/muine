@@ -46,17 +46,6 @@
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/muine/add_song_window/enable_speed_hacks</key>
-      <applyto>/apps/muine/add_song_window/enable_speed_hacks</applyto>
-      <owner>muine</owner>
-      <type>bool</type>
-      <default>true</default>
-      <locale name="C">
-        <short>Speed hacks</short>
-	<long>Enable speed hacks on the "Add song" list.</long>
-      </locale>
-    </schema>
-    <schema>
       <key>/schemas/apps/muine/add_album_window/width</key>
       <applyto>/apps/muine/add_album_window/width</applyto>
       <owner>muine</owner>
@@ -76,50 +65,6 @@
       <locale name="C">
         <short>"Add album" window height</short>
         <long>Height of the "Add album" window.</long>
-      </locale>
-    </schema>
-    <schema>
-      <key>/schemas/apps/muine/add_album_window/enable_speed_hacks</key>
-      <applyto>/apps/muine/add_album_window/enable_speed_hacks</applyto>
-      <owner>muine</owner>
-      <type>bool</type>
-      <default>false</default>
-      <locale name="C">
-        <short>Speed hacks</short>
-	<long>Enable speed hacks on the "Add album" list.</long>
-      </locale>
-    </schema>
-    <schema>
-      <key>/schemas/apps/muine/information_window/width</key>
-      <applyto>/apps/muine/information_window/width</applyto>
-      <owner>muine</owner>
-      <type>int</type>
-      <default>350</default>
-      <locale name="C">
-        <short>Information window width</short>
-        <long>Width of the information window.</long>
-      </locale>
-    </schema>
-    <schema>
-      <key>/schemas/apps/muine/information_window/height</key>
-      <applyto>/apps/muine/information_window/height</applyto>
-      <owner>muine</owner>
-      <type>int</type>
-      <default>300</default>
-      <locale name="C">
-        <short>Information window height</short>
-        <long>Height of the information window.</long>
-      </locale>
-    </schema>
-    <schema>
-      <key>/schemas/apps/muine/first_start</key>
-      <applyto>/apps/muine/first_start</applyto>
-      <owner>muine</owner>
-      <type>bool</type>
-      <default>1</default>
-      <locale name="C">
-        <short>First start</short>
-        <long>false if Muine has been started before.</long>
       </locale>
     </schema>
     <schema>

@@ -128,6 +128,11 @@ pointer_list_view_init (PointerListView *view)
 	gtk_tree_view_set_enable_search (tree_view, FALSE);
 	gtk_tree_view_set_headers_visible (tree_view, FALSE);
 
+	g_object_set (G_OBJECT (tree_view),
+		      "fixed_height_mode",
+		      GINT_TO_POINTER (TRUE),
+		      NULL);
+
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (tree_view)),
 			  "changed",
 			  G_CALLBACK (selection_changed_cb),
@@ -156,51 +161,6 @@ pointer_list_view_new (void)
 	return g_object_new (TYPE_POINTER_LIST_VIEW, NULL);
 }
 
-typedef struct {
-	PointerListView *view;
-	CellDataFunc func;
-} CellDataFuncData;
-
-static void
-cell_data_func (GtkTreeViewColumn *col,
-		GtkCellRenderer *cell,
-		GtkTreeModel *model,
-		GtkTreeIter *iter,
-		CellDataFuncData *data)
-{
-	data->func (data->view, cell,
-		    pointer_list_model_get_pointer ((PointerListModel *) model, iter));
-}
-
-void
-pointer_list_view_add_column (PointerListView *view,
-			      GtkCellRenderer *renderer,
-			      CellDataFunc func,
-			      gboolean expand)
-{
-	GtkTreeViewColumn *column;
-	CellDataFuncData *data;
-
-	data = g_new0 (CellDataFuncData, 1);
-	data->func = func;
-	data->view = view;
-	view->data = g_list_append (view->data, data);
-
-	column = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_sizing (column,
-					 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_pack_start (column,
-					 renderer,
-					 expand);
-	gtk_tree_view_column_set_cell_data_func (column,
-						 renderer,
-						 (GtkTreeCellDataFunc) cell_data_func,
-						 data,
-						 NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (view),
-				     column);
-}
-
 void
 pointer_list_view_changed (PointerListView *view,
 			   gpointer pointer)
@@ -216,8 +176,8 @@ pointer_list_view_changed (PointerListView *view,
 	gtk_tree_path_free (path);
 }
 
-gpointer 
-pointer_list_get_handle_from_path (PointerListView *view, 
+gpointer
+pointer_list_get_handle_from_path (PointerListView *view,
 		                   GtkTreePath *path)
 {
 	GtkTreeIter iter;

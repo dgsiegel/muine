@@ -1,3 +1,35 @@
+2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/muine.schemas.in:
+	* libmuine/pointer-list-view.c: (pointer_list_view_init),
+	(pointer_list_get_handle_from_path):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	* src/HandleModel.cs:
+	* src/HandleView.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+
+	Rework HandleView so that it uses the fixed-height-mode from
+	GtkTreeView. Makes things a fair bit faster, ditched the
+	speed hacks as a result.
+	
+	Also do not reset Add{Album,Song}Window on close, instead select the
+	text in the entry, so that the usage pattern doesn't change. This
+	way using the "Play" button is a bit more comfortable for some.
+
+	* configure.in:
+
+	Added "et" to ALL_LINGUAS.
+	
+	* src/ProgressWindow.cs:
+
+	Added quotes around folder name in window title.
+
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/muine.schemas.in:
