@@ -1,5 +1,11 @@
 2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Makefile.am:
+
+	Split CLEANFILES up into CLEANFILES and DISTCLEANFILES.
+
+2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/Makefile.am:
 
 	Remove duplicate deprecation markers.

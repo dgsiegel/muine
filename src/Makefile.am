@@ -89,7 +89,10 @@ EXTRA_DIST =					\
 	muine.exe.config.in
 
 CLEANFILES =					\
-	muine					\
 	AmazonSearchService.cs			\
 	AmazonSearchService.dll			\
 	muine.exe
+
+DISTCLEANFILES =				\
+	muine					\
+	muine.exe.config
