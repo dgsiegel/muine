@@ -43,8 +43,10 @@ public class PlaylistWindow : Window
 	private ImageMenuItem skip_to_menu_item;
 	[Glade.Widget]
 	private ImageMenuItem skip_backwards_menu_item;
+	private Image skip_backwards_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem skip_forward_menu_item;
+	private Image skip_forward_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem remove_song_menu_item;
 	[Glade.Widget]
@@ -63,6 +65,9 @@ public class PlaylistWindow : Window
 	private Image play_pause_image;
 	[Glade.Widget]
 	private Button add_album_button;
+	[Glade.Widget]
+	private ImageMenuItem add_song_menu_item;
+	private Image add_song_menu_item_image;
 	[Glade.Widget]
 	private ImageMenuItem add_album_menu_item;
 	private Image add_album_menu_item_image;
@@ -194,8 +199,10 @@ public class PlaylistWindow : Window
 		image.SetFromStock ("muine-previous", IconSize.LargeToolbar);
 		image = (Image) gxml ["next_image"];
 		image.SetFromStock ("muine-next", IconSize.LargeToolbar);
-		image = (Image) gxml ["albums_image"];
-		image.SetFromStock ("muine-albums", IconSize.LargeToolbar);
+		image = (Image) gxml ["add_song_image"];
+		image.SetFromStock (Stock.Add, IconSize.LargeToolbar);
+		image = (Image) gxml ["add_album_image"];
+		image.SetFromStock ("muine-add-album", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
 		tooltips.SetTip (previous_button, "Play the last song", null);
@@ -219,7 +226,10 @@ public class PlaylistWindow : Window
 
 		volume_button.Volume = vol;
 		
-		add_album_menu_item_image = new Image ("muine-albums", IconSize.Menu);
+		add_song_menu_item_image = new Image (Stock.Add, IconSize.Menu);
+		add_song_menu_item.Image = add_song_menu_item_image;
+		add_song_menu_item_image.Visible = true;
+		add_album_menu_item_image = new Image ("muine-add-album", IconSize.Menu);
 		add_album_menu_item.Image = add_album_menu_item_image;
 		add_album_menu_item_image.Visible = true;
 
@@ -232,6 +242,13 @@ public class PlaylistWindow : Window
 		next_menu_item_image = new Image ("muine-next", IconSize.Menu);
 		next_menu_item.Image = next_menu_item_image;
 		next_menu_item_image.Visible = true;
+
+		skip_backwards_menu_item_image = new Image ("muine-rewind", IconSize.Menu);
+		skip_backwards_menu_item.Image = skip_backwards_menu_item_image;
+		skip_backwards_menu_item_image.Visible = true;
+		skip_forward_menu_item_image = new Image ("muine-forward", IconSize.Menu);
+		skip_forward_menu_item.Image = skip_forward_menu_item_image;
+		skip_forward_menu_item_image.Visible = true;
 
 		volume_up_menu_item_image = new Image ("muine-volume-medium", IconSize.Menu);
 		volume_up_menu_item.Image = volume_up_menu_item_image;

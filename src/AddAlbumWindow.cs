@@ -143,8 +143,8 @@ public class AddAlbumWindow
 		else
 			r.Pixbuf = nothing_pixbuf;
 
-		r.Height = 68;
-		r.Width = 68;
+		r.Height = 64 + 5 * 2;
+		r.Width = 64 + 5 * 2;
 	}
 
 	private void TextCellDataFunc (HandleView view,
@@ -156,13 +156,13 @@ public class AddAlbumWindow
 
 		r.Text = album.Name + "\n";
 		if (album.Artists.Length > 3)
-			r.Text = r.Text + String.Join (", ", album.Artists, 0, 3) + ", and others";
+			r.Text = r.Text + String.Join (", ", album.Artists, 0, 3) + " and others";
 		else
 			r.Text = r.Text + String.Join (", ", album.Artists);
 		r.Yalign = 0.25f;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
-					   false, true, false);
+					   true, true, false);
 	}
 
 	private void HandleWindowResponse (object o, EventArgs a)

@@ -1,5 +1,30 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+	* README:
+	* configure.in:
+	* data/glade/PlaylistWindow.glade:
+	* data/images/Makefile.am:
+	* data/images/muine-add-album-16.png:
+	* data/images/muine-add-album.png:
+	* data/images/muine-albums.png:
+	* data/images/muine-forward.png:
+	* data/images/muine-next-16.png:
+	* data/images/muine-pause-16.png:
+	* data/images/muine-play-16.png:
+	* data/images/muine-previous-16.png:
+	* data/images/muine-queue.png:
+	* data/images/muine-rewind.png:
+	* src/About.cs:
+	* src/AddAlbumWindow.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/StockIcons.cs:
+
+	Aestethic fixes, release 0.1.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Song.cs:
 
 	Remove obsolete code.

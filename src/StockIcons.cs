@@ -20,6 +20,8 @@
 using Gtk;
 using Gdk;
 
+using System;
+
 public class StockIcons 
 {
 	private static string [] stock_icons = {
@@ -28,7 +30,9 @@ public class StockIcons
 		"muine-previous",
 		"muine-queue",
 		"muine-next",
-		"muine-albums",
+		"muine-rewind",
+		"muine-forward",
+		"muine-add-album",
 		"muine-groups",
 		"muine-volume-zero",
 		"muine-volume-min",
@@ -44,6 +48,17 @@ public class StockIcons
 		foreach (string name in stock_icons) {
 			Pixbuf pixbuf = new Pixbuf (null, name + ".png");
 			IconSet iconset = new IconSet (pixbuf);
+
+			/* add menu variant if we have it */
+			IO.Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
+			if (menu_stream != null) {
+				IconSource source = new IconSource ();
+				source.Pixbuf = new Pixbuf (menu_stream);
+				source.Size = IconSize.Menu;
+				source.SizeWildcarded = false;
+				iconset.AddSource (source);
+			}
+			
 			factory.Add (name, iconset);
 		}
 	}
