@@ -1,5 +1,13 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/PlaylistWindow.cs:
+
+	Support DnD'ing playlists into a position in the playlist, as in,
+	inserting them.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/AddWindow.glade:
 	* src/AddWindow.cs:
 

@@ -412,7 +412,10 @@ namespace Muine
 			if (!File.Exists (FileUtils.PlaylistFile))
 				return;
 
-			OpenPlaylistInternal (FileUtils.PlaylistFile);
+			OpenPlaylistInternal (FileUtils.PlaylistFile,
+					      new PlaylistForeachFunc (RestorePlaylistForeachFunc),
+					      null);
+			EnsurePlaying ();
 		}
 
 		// Methods :: Public :: Run
@@ -474,7 +477,11 @@ namespace Muine
 		{
 			BusyLevel ++;
 
-			OpenPlaylistInternal (fn);
+			ClearPlaylist ();
+			OpenPlaylistInternal (fn,
+					      new PlaylistForeachFunc (RegularPlaylistForeachFunc),
+					      null);
+			EnsurePlaying ();
 			PlaylistChanged ();
 			Playing = true;
 
@@ -1142,7 +1149,11 @@ namespace Muine
 		}
 
 		// Methods :: Private :: OpenPlaylistInternal
-		private void OpenPlaylistInternal (string fn)
+		private delegate void PlaylistForeachFunc (Song song, bool playing, object user_data);
+
+		private void OpenPlaylistInternal (string              fn,
+						   PlaylistForeachFunc func,
+						   object              user_data)
 		{
 			VfsStream stream;
 			StreamReader reader;
@@ -1155,8 +1166,6 @@ namespace Muine
 				new ErrorDialog (msg, this);
 				return;
 			}
-
-			ClearPlaylist ();
 
 			string line = null;
 
@@ -1210,13 +1219,9 @@ namespace Muine
 				if (song == null)
 					return; 
 
-				// Add song and play		
-				IntPtr p = AddSong (song);
-
-				if (playing_song) {
-					PlayAndSelect (p);
-					playing_song = false;
-				}
+				// Add song (and play) 
+				func (song, playing_song, user_data);
+				playing_song = false;
 			}
 
 			// Close File
@@ -1227,9 +1232,6 @@ namespace Muine
 				new ErrorDialog (msg, this);
 				return;
 			}
-
-			// Play if we're not already
-			EnsurePlaying ();
 		}
 
 		// Methods :: Private :: AddSongToDB
@@ -1813,11 +1815,13 @@ namespace Muine
 							continue;
 						
 						if (FileUtils.IsPlaylist (fn)) {
-							OpenPlaylist (fn);
+							BusyLevel ++;
+							OpenPlaylistInternal (fn,
+									      new PlaylistForeachFunc (DragPlaylistForeachFunc),
+									      pos);
+							BusyLevel --;
 
-							success = true;
-
-							break;
+							added_files = true;
 
 						} else {
 							Song song = GetSingleSong (finfo.FullName);
@@ -1982,5 +1986,28 @@ namespace Muine
 
 			return a.CompareTo (b);
 		}		
+
+		// Delegate functions: DragPlaylistForeachFunc
+		private void DragPlaylistForeachFunc (Song song, bool playing, object user_data)
+		{
+			DragAddSongPosition pos = (DragAddSongPosition) user_data;
+
+			DragAddSong (song, pos);
+		}
+
+		// Delegate functions: RestorePlaylistForeachFunc
+		private void RestorePlaylistForeachFunc (Song song, bool playing, object user_data)
+		{
+			IntPtr p = AddSong (song);
+
+			if (playing)
+				PlayAndSelect (p);
+		}
+		
+		// Delegate functions: RegularPlaylistForeachFunc
+		private void RegularPlaylistForeachFunc (Song song, bool playing, object user_data)
+		{
+			AddSong (song);
+		}
 	}
 }

@@ -12,8 +12,6 @@ o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
 o "Only single songs" folder stuff: checkbox in filesel??
-o "Append" button in Open Playlist dialog,
-  and DnD insert playlists into position
 o Split out PlaylistWindow
 o Experiment a bit with cover images: See how it works if we'd load them
   from the gdbm file on demand, instead of keeping them all in memory.
