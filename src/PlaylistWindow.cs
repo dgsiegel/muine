@@ -111,6 +111,7 @@ public class PlaylistWindow : Window
 		AddAccelGroup (file_menu.AccelGroup);
 
 		KeyPressEvent += new KeyPressEventHandler (HandleWindowKeyPressEvent);
+		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 
 		SetupWindowSize ();
 		SetupPlayer ();
@@ -771,6 +772,14 @@ public class PlaylistWindow : Window
 		default:
 			args.RetVal = false;
 			break;
+		}
+	}
+
+	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
+	{
+		if (args.Event.changed_mask == Gdk.WindowState.Iconified) { 
+			playlist.Select (playlist.Playing);
+			playlist.ScrollTo (playlist.Playing);
 		}
 	}
 

@@ -11,7 +11,8 @@ o A song information dialog, which will later be used for tag editing.
 o Create ~/Music and ~/Music/Playlists/ if it doesn't exist, but ask first (Viet Yen Nguyen is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Dashboard integration (Lee Willis is on this)
-o Add a repeat menu item
+o Add a repeat menu item ?
+o Gray out played songs
 
 Tough:
 ======

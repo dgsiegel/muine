@@ -1,6 +1,13 @@
 2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* src/PlaylistWindow.cs:
+
+	Select playing song when deiconifying window.
+
+2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* libmuine/pointer-list-view.c: (pointer_list_view_add_column),
 	(pointer_list_view_select):
 	* libmuine/pointer-list-view.h:
