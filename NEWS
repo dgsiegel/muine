@@ -1,12 +1,13 @@
-0.6.0
-=====
+0.6
+===
 
 - Major speed improvements [Jorn Baayen]
 - Support album cover drag & drop in the "Play album" window [Lee Willis]
 - New about logo [Andreas Kwiatkowski]
 - Sort songs by title, then by artist [Jorn Baayen]
 - Sort albums by artist, then year, then title [Teemu Tervo]
-- Various other fixes [Kenneth Christiansen, Jorn Baayen]
+- Improved error handling [Jorn Baayen]
+- Various other fixes [Kenneth Christiansen, Lee Willis, Jorn Baayen]
 
 Updated translations:
 - Brazilian Portuguese [Afonso Celso Medina]
