@@ -207,7 +207,16 @@ public class Song
 		}
 	}
 
-	public bool Orphan = false;
+	private bool orphan = false;
+	public bool Orphan {
+		set {
+			orphan = value;
+		}
+		
+		get {
+			return orphan;
+		}
+	}
 
 	private static string [] cover_filenames = {
 		"cover.jpg",

@@ -42,7 +42,7 @@ public class AddSongWindow : Window
 	private HandleView view;
 	private CellRenderer text_renderer;
 
-	private static int FakeLength = 150;
+	private const int FakeLength = 150;
 
 	private static TargetEntry [] source_entries = new TargetEntry [] {
 		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.SongList),

@@ -22,12 +22,7 @@ using Gdk;
 
 public class About
 {
-	private static string version = "0.7.0.99";
-	public static string Version {
-		get {
-			return version;
-		}
-	}
+	public const string Version = "0.7.0.99";
 
 	private static string [] authors = null;
 	public static string [] Authors {
@@ -54,7 +49,7 @@ public class About
 		Pixbuf pixbuf = new Pixbuf (null, "muine-about.png");
 
 		Gnome.About about;
-		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), version,
+		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), Version,
 					 Muine.Catalog.GetString ("Copyright © 2003, 2004 Jorn Baayen"),
 					 Muine.Catalog.GetString ("A music player"),
 					 Authors, documenters,

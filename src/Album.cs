@@ -29,7 +29,12 @@ public class Album
 		}
 	}
 
-	public ArrayList Songs;
+	private ArrayList songs;
+	public ArrayList Songs {
+		get {
+			return songs;
+		}
+	}
 
 	private ArrayList artists;
 	public string [] Artists {
@@ -52,12 +57,12 @@ public class Album
 		}
 	}
 
-	public Gdk.Pixbuf cover_image;
+	private Gdk.Pixbuf cover_image;
 	public Gdk.Pixbuf CoverImage {
 		set {
 			cover_image = value;
 
-			foreach (Song s in Songs) {
+			foreach (Song s in songs) {
 				s.CoverImage = CoverImage;
 
 				Muine.DB.UpdateSong (s);
@@ -151,9 +156,9 @@ public class Album
 
 	public Album (Song initial_song)
 	{
-		Songs = new ArrayList ();
+		songs = new ArrayList ();
 
-		Songs.Add (initial_song);
+		songs.Add (initial_song);
 
 		artists = new ArrayList ();
 		performers = new ArrayList ();
@@ -233,8 +238,8 @@ public class Album
 
 	public void AddSong (Song song, out bool album_changed)
 	{
-		Songs.Add (song);
-		Songs.Sort (song_comparer);
+		songs.Add (song);
+		songs.Sort (song_comparer);
 
 		bool cover_changed = false;
 		if (CoverImage == null && song.CoverImage != null) {
@@ -258,9 +263,9 @@ public class Album
 
 	public void RemoveSong (Song song, out bool album_empty)
 	{
-		Songs.Remove (song);
+		songs.Remove (song);
 
-		album_empty = (Songs.Count == 0);
+		album_empty = (songs.Count == 0);
 
 		if (album_empty)
 			pointers.Remove (handle);

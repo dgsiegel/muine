@@ -27,9 +27,19 @@ using Gnome;
 
 public class SongDatabase 
 {
-	public Hashtable Songs; 
+	private Hashtable songs;
+	public Hashtable Songs {
+		get {
+			return songs;
+		}
+	}
 
-	public Hashtable Albums;
+	private Hashtable albums;
+	public Hashtable Albums {
+		get {
+			return albums;
+		}
+	}
 
 	public delegate void SongAddedHandler (Song song);
 	public event SongAddedHandler SongAdded;
@@ -76,8 +86,8 @@ public class SongDatabase
 		if (dbf == IntPtr.Zero)
 			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
 
-		Songs = new Hashtable ();
-		Albums = new Hashtable ();
+		songs = new Hashtable ();
+		albums = new Hashtable ();
 	}
 
 	/*** loading ***/
@@ -333,13 +343,24 @@ public class SongDatabase
 		thread.Start ();
 	}
 
-	private class ChangedSong {
-		public Metadata Metadata;
-		public Song Song;
+	private struct ChangedSong {
+		private Metadata metadata;
+		public Metadata Metadata {
+			get {
+				return metadata;
+			}
+		}
+		
+		private Song song;
+		public Song Song {
+			get {
+				return song;
+			}
+		}		
 
-		public ChangedSong (Song song, Metadata md) {
-			Song = song;
-			Metadata = md;
+		public ChangedSong (Song song, Metadata metadata) {
+			this.song = song;
+			this.metadata = metadata;
 		}
 	}
 

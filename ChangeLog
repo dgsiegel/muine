@@ -1,5 +1,39 @@
 2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* src/About.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/Muine.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+	
+	Made all variables private and added accessor properties where 
+	appropriate.
+
+	* src/CoverDatabase.cs:
+	
+	Changed LoadedCover from a class to a struct.
+
+	* src/SongDatabase.cs:
+
+	Changed ChangedSong from a class to a struct.
+
+	* src/About.cs:
+	
+	Replaced "version" with the public constant "Version" and removed
+	the related property.
+
+	* src/CoverDatabase.cs:
+
+	Made AlbumCoverSize constant.
+
+	* src/AddSongWindow.cs:
+	
+	Made FakeLength constant.
+
+2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/SignalUtils.cs:
 
 	Added a SignalUtils class with SignalDelegates and SignalConnect which

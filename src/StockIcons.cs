@@ -49,7 +49,12 @@ public class StockIcons
 		"gnome-dev-cdrom-audio"
 	};
 
-	public static IconSize AlbumCoverSize;
+	private static IconSize album_cover_size;
+	public static IconSize AlbumCoverSize {
+		get {
+			return album_cover_size;
+		}
+	}
 
 	public static void Initialize ()
 	{
@@ -86,8 +91,8 @@ public class StockIcons
 		}
 
 		/* register cover image icon size */
-		AlbumCoverSize = Icon.SizeRegister ("muine-album-cover-size",
-						    CoverDatabase.AlbumCoverSize,
-						    CoverDatabase.AlbumCoverSize);
+		album_cover_size = Icon.SizeRegister ("muine-album-cover-size",
+						      CoverDatabase.AlbumCoverSize,
+						      CoverDatabase.AlbumCoverSize);
 	}
 }

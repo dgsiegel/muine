@@ -28,15 +28,40 @@ public class Muine : Gnome.Program
 {
 	private static PlaylistWindow playlist;
 
-	public static GConf.Client GConfClient;
+	private static GConf.Client gconf_client;
+	public static GConf.Client GConfClient {
+		get {
+			return gconf_client;
+		}
+	}
 
-	public static SongDatabase DB;
+	private static SongDatabase db;
+	public static SongDatabase DB {
+		get {
+			return db;
+		}
+	}
 
-	public static CoverDatabase CoverDB;
+	private static CoverDatabase cover_db;
+	public static CoverDatabase CoverDB {
+		get {
+			return cover_db;
+		}
+	}	
 
-	public static ActionThread ActionThread;
+	private static ActionThread action_thread; 
+	public static ActionThread ActionThread {
+		get {
+			return action_thread;
+		}
+	}
 
-	public static GettextCatalog Catalog;
+	private static GettextCatalog catalog;
+	public static GettextCatalog Catalog {
+		get {
+			return catalog;
+		}
+	}
 
 	private static MessageConnection conn;
 
@@ -46,7 +71,7 @@ public class Muine : Gnome.Program
 
 	public static void Main (string [] args)
 	{
-		Catalog = new GettextCatalog ("muine");
+		catalog = new GettextCatalog ("muine");
 
 		Muine muine = new Muine (args);
 
@@ -76,7 +101,7 @@ public class Muine : Gnome.Program
 		}
 
 		/* Init GConf */
-		GConfClient = new GConf.Client ();
+		gconf_client = new GConf.Client ();
 
 		/* Register stock icons */
 		StockIcons.Initialize ();
@@ -85,11 +110,11 @@ public class Muine : Gnome.Program
 		SetDefaultWindowIcon ();
 
 		/* Start the action thread */
-		ActionThread = new ActionThread ();
+		action_thread = new ActionThread ();
 
 		/* Load cover database */
 		try {
-			CoverDB = new CoverDatabase (2);
+			cover_db = new CoverDatabase (2);
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
 
@@ -98,7 +123,7 @@ public class Muine : Gnome.Program
 
 		/* Load song database */
 		try {
-			DB = new SongDatabase (4);
+			db = new SongDatabase (4);
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 

@@ -31,13 +31,23 @@ using Gdk;
 
 public class CoverDatabase 
 {
-	public static int AlbumCoverSize = 66;
+	public const int AlbumCoverSize = 66;
 
-	public Hashtable Covers;
+	private Hashtable covers;
+	public Hashtable Covers {
+		get {
+			return covers;
+		}
+	}
 
-	public Pixbuf DownloadingPixbuf;
+	private Pixbuf downloading_pixbuf;
+	public Pixbuf DownloadingPixbuf {
+		get {
+			return downloading_pixbuf;
+		}
+	}
 	
-	public string amazon_locale;
+	private string amazon_locale;
 
 	/*** constructor ***/
 	private IntPtr dbf;
@@ -73,15 +83,15 @@ public class CoverDatabase
 
 		dbf_box = dbf;
 
-		Covers = new Hashtable ();
+		covers = new Hashtable ();
 
 		proxy = new GnomeProxy ();
 
 		/* Hack to get the GtkStyle .. */
 		Gtk.Label label = new Gtk.Label ("");
 		label.EnsureStyle ();
-		DownloadingPixbuf = label.RenderIcon ("muine-cover-downloading",
-						      StockIcons.AlbumCoverSize, null);
+		downloading_pixbuf = label.RenderIcon ("muine-cover-downloading",
+						       StockIcons.AlbumCoverSize, null);
 		label.Destroy ();
 	}
 
@@ -110,7 +120,12 @@ public class CoverDatabase
 
 	private Queue loaded_covers;
 
-	public bool Loading = true;
+	private bool loading = true;
+	public bool Loading {
+		get {
+			return loading;
+		}
+	}
 
 	public delegate void DoneLoadingHandler ();
 	public event DoneLoadingHandler DoneLoading;
@@ -128,14 +143,24 @@ public class CoverDatabase
 		thread.Start ();
 	}
 
-	private class LoadedCover {
-		public string Key;
-		public Pixbuf Pixbuf;
+	private struct LoadedCover {
+		private string key;
+		public string Key {
+			get {
+				return key;
+			}
+		}
+		
+		private Pixbuf pixbuf;
+		public Pixbuf Pixbuf {
+			get {
+				return pixbuf;
+			}
+		} 
 
 		public LoadedCover (string key, IntPtr pixbuf_ptr) {
-			Key = key;
-
-			Pixbuf = new Pixbuf (pixbuf_ptr);
+			this.key = key;
+			pixbuf = new Pixbuf (pixbuf_ptr);
 		}
 	}
 
@@ -162,7 +187,7 @@ public class CoverDatabase
 
 			return true;
 		} else if (thread_done) {
-			Loading = false;
+			loading = false;
 
 			if (DoneLoading != null)
 				DoneLoading ();
