@@ -1,5 +1,15 @@
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+
+	Move comment about prefixes back to above the prefixes string,
+	where it belongs. 
+
+	Tamara, comments giving translators info about how to translate
+	the thing should stay above the string.
+
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddWindowEntry.cs:
 
 	Restore "<enter> activates default" behaviour.

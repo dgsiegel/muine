@@ -28,9 +28,12 @@ namespace Muine
 {
 	public class Album : Item
 	{
-		// Strings
-		private static readonly string string_prefixes = 
-			Catalog.GetString ("the dj");
+		// Space-separated list of prefixes that will be taken off the front
+		// when sorting. For example, "The Beatles" will be sorted as "Beatles",
+		// if "the" is included in this list. Also include the English "the"
+		// if English is generally spoken in your country. */
+		private static readonly string [] prefixes = 
+			Catalog.GetString ("the dj").Split (' ');
 
 		// Properties
 		private string name;
@@ -91,8 +94,6 @@ namespace Muine
 				return Global.DB.MakeAlbumKey (folder, name);
 			}
 		}
-
-		private static string [] prefixes = null;
 
 		public Album (Song initial_song, bool check_cover)
 		{
@@ -278,14 +279,6 @@ namespace Muine
 		
 		protected override string GenerateSortKey ()
 		{
-			if (prefixes == null) {
-				/* Space-separated list of prefixes that will be taken off the front
-				 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-				 * if "the" is included in this list. Also include the English "the"
-				 * if English is generally spoken in your country. */
-				prefixes = string_prefixes.Split (' ');
-			}
-					
 			string [] p_artists = new string [artists.Count];
 			for (int i = 0; i < artists.Count; i++) {
 				p_artists [i] = ((string) artists [i]).ToLower ();
