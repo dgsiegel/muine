@@ -1,5 +1,20 @@
 2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
 
+	* AUTHORS:
+	* NEWS:
+	* README:
+	* TODO:
+	* configure.in:
+	* data/glade/GroupsWindow.glade:
+	* data/glade/Makefile.am:
+	* src/About.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Add preliminary GroupsWindow interface, and release 0.2.
+
+2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Add missing ProgressWindow.Done ()

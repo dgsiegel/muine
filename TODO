@@ -14,6 +14,13 @@
 
 - dnd from nautilus
 - songinfo + tagging
-- wma
+- add wma, mp4 and flac support
 - musicbrainz support
 - clicking an m3u should load it in muine, mp3/ogg add to collection, etc
+- monitor ~/Muine using FileWatcher
+- cd burning:
+ - audio cd
+ - mp3 cd:
+   - create folders for different albums (Artist - Album)
+   - create a "Playlist" folder with symlinks to the mp3s, using filenames
+   with numbers prepended so that the original playlist order is maintained.

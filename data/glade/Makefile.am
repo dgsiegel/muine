@@ -1,5 +1,6 @@
 noinst_DATA =					\
 	PlaylistWindow.glade			\
+	GroupsWindow.glade			\
 	AddWindow.glade				\
 	SkipToWindow.glade			\
 	SearchMusicWindow.glade			\

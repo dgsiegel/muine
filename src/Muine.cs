@@ -74,13 +74,9 @@ public class Muine : Gnome.Program
 		DB.Load ();
 
 		/* Create playlist window */
-		CreatePlaylistWindow ();
-	}
-
-	private void CreatePlaylistWindow ()
-	{
 		playlist = new PlaylistWindow ();
 		playlist.DeleteEvent += new DeleteEventHandler (HandlePlaylistDeleteEvent);
+		playlist.Run ();
 	}
 
 	private void SetDefaultWindowIcon ()

@@ -132,7 +132,10 @@ public class PlaylistWindow : Window
 		SongChanged ();
 		SelectionChanged ();
 		StateChanged (false);
+	}
 
+	public void Run ()
+	{
 		/* show */
 		try {
 			Visible = (bool) Muine.GConfClient.Get ("/apps/muine/playlist_window/visible");
