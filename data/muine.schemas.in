@@ -156,5 +156,16 @@
         <long>Last used folder from the playlist file selectors.</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/muine/amazon_locale</key>
+      <applyto>/apps/muine/amazon_locale</applyto>
+      <owner>muine</owner>
+      <type>string</type>
+      <default>us</default>
+      <locale name="C">
+        <short>Amazon site to use for album images.</short>
+	<long>Which Amazon site to use for fetching album images, "us", "uk", "de", or "jp".</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

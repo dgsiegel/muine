@@ -37,6 +37,8 @@ public class CoverDatabase
 
 	public Pixbuf DownloadingPixbuf;
 	
+	public string amazon_locale;
+
 	/*** constructor ***/
 	private IntPtr dbf;
 	private object dbf_box;
@@ -48,6 +50,12 @@ public class CoverDatabase
 						   
 	public CoverDatabase (int version)
 	{
+		try {
+			amazon_locale = (string) Muine.GConfClient.Get ("/apps/muine/amazon_locale");
+		} catch {
+			amazon_locale = "us";
+		}
+
 		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
 		if (!dinfo.Exists) {
 			try {
@@ -362,6 +370,29 @@ public class CoverDatabase
 		asearch.type = "heavy";
 		asearch.mode = "music";
 		asearch.tag = "webservices-20";
+
+		/* Use selected Amazon service */
+		switch (amazon_locale) {
+		case "uk":
+			search_service.Url = "http://soap-eu.amazon.com/onca/soap3";
+			asearch.locale = "uk";
+
+			break;
+		case "de":
+			search_service.Url = "http://soap-eu.amazon.com/onca/soap3";
+			asearch.locale = "de";
+
+			break;
+		case "jp":
+			search_service.Url = "http://soap.amazon.com/onca/soap3";
+			asearch.locale = "jp";
+
+			break;
+		default:
+			search_service.Url = "http://soap.amazon.com/onca/soap3";
+
+			break;
+		}
 
 		double best_match_percent = 0.0;
 		Pixbuf best_match = null;
