@@ -16,6 +16,10 @@
 
 	FIXME this still needs to be made asynchronous..
 
+	The format of the databases has changed, so before
+	complaining it doesn't work:
+	!!!! rm ~/.gnome2/muine/*.db !!!!
+
 2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
 
 	* NEWS:
