@@ -1,3 +1,11 @@
+2004-12-08  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/player-gst.c: (player_set_file), (player_stop),
+	(player_pause):
+
+	Feeble attempt at making the gst backend a bit more responsive. 
+	Marginal difference.
+
 2004-12-04  Sigurd Gartmann  <sigurd-translate@brogar.org>
 
 	* configure.in: Added "nb" to ALL_LINGUAS.
