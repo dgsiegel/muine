@@ -1,3 +1,12 @@
+2004-12-26  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/StringUtils.cs:
+
+	Replace StringUtils.StrCmp with String.CompareOrdinal. Thanks
+	to Tamara for pointing this one out.
+
 2004-12-26  Mariano Suárez-Alvarez  <msuarezalvarez@arnet.com.ar>
             Jorn Baayen  <jbaayen@gnome.org>
 

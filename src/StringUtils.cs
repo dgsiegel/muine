@@ -76,14 +76,6 @@ public class StringUtils
 		return (uint) strlen (str);
 	}
 	
-	[DllImport ("libc")]
-	private static extern int strcmp (string a, string b);
-
-	public static int StrCmp (string a, string b)
-	{
-		return strcmp (a, b);
-	}
-
 	[DllImport ("libglib-2.0-0.dll")]
 	private static extern IntPtr g_utf8_collate_key (string str, int len);
 

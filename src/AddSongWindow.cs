@@ -133,7 +133,7 @@ public class AddSongWindow : Window
 		Song a = Song.FromHandle (a_ptr);
 		Song b = Song.FromHandle (b_ptr);
 
-		return StringUtils.StrCmp (a.SortKey, b.SortKey);
+		return String.CompareOrdinal (a.SortKey, b.SortKey);
 	}
 
 	private void CellDataFunc (HandleView view,
