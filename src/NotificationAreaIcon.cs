@@ -35,6 +35,7 @@ namespace Muine
 		private static readonly string string_program =
 			Catalog.GetString ("Muine music player");
 
+		// song artists - song title
 		private static readonly string string_tooltip_format =
 			Catalog.GetString ("{0} - {1}");
 		
@@ -209,7 +210,6 @@ namespace Muine
 
 		private string CreateTooltip (ISong song)
 		{
-			/* song artists - song title */
 			return String.Format (string_tooltip_format,
 					      StringUtils.JoinHumanReadable (song.Artists),
 					      song.Title);

@@ -1,5 +1,11 @@
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/NotificationAreaIcon.cs:
+
+	More comments back to where they belong.
+
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 
 	Move comment about prefixes back to above the prefixes string,
