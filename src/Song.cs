@@ -85,8 +85,8 @@ namespace Muine
 
 		private int duration;
 		public int Duration {
-			/* we have a setter too, because sometimes we want
-			 * to correct the duration. */
+			// we have a setter too, because sometimes we want
+			// to correct the duration.
 			set { duration = value; }
 		
 			get { return duration; }
@@ -156,10 +156,9 @@ namespace Muine
 			get { return handles; }
 		}
 
-		/* support for having multiple handles to the same song,
-		 * used for, for example, having the same song in the playlist
-		 * more than once.
-		 */
+		// support for having multiple handles to the same song,
+		// used for, for example, having the same song in the playlist
+		// more than once.
 		public IntPtr RegisterHandle ()
 		{
 			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
@@ -208,32 +207,34 @@ namespace Muine
 			gain = metadata.Gain;
 			peak = metadata.Peak;
 
-			/* we need to do cover stuff here too, as we support setting covers
-			   to songs that are not associated with any album. and, we also need
-			   this to support ID3 embedded cover images.
-			   Note that CoverDB has the required thread safety for us to be able
-			   to do this from a thread. */
+			// we need to do cover stuff here too, as we support setting covers
+			// to songs that are not associated with any album. and, we also need
+			// this to support ID3 embedded cover images.
+			// Note that CoverDB has the required thread safety for us to be able
+			// to do this from a thread.
+			// Also, this is safe here as Sync () is only called for new or 
+			// actually changed songs. Never from db.Load.
 			if (!had_album && HasAlbum && cover_image != null) {
-				/* This used to be a single song, but not anymore, and it does
-				   have a cover- migrate the cover to the album, if there is
-				   none there yet */
+				// This used to be a single song, but not anymore, and it does
+				// have a cover- migrate the cover to the album, if there is
+				// none there yet
 				Global.CoverDB.RemoveCover (filename);
 
 				string akey = AlbumKey;
 				if (Global.CoverDB.Covers [akey] == null)
 					Global.CoverDB.SetCover (akey, cover_image);
-			} else if (!HasAlbum) /* See if there is a cover for this single song */
+			} else if (!HasAlbum) // See if there is a cover for this single song
 				cover_image = (Pixbuf) Global.CoverDB.Covers [filename];
 
 			if (cover_image == null && metadata.AlbumArt != null) {
-				/* Look for an ID3 embedded cover image, if it is there, and no
-				   cover image is set yet, set it as cover image if it is a single
-				   song, or as album cover image if it belongs to an album */
+				// Look for an ID3 embedded cover image, if it is there, and no
+				// cover image is set yet, set it as cover image if it is a single
+				// song, or as album cover image if it belongs to an album 
 				string key = HasAlbum ? AlbumKey : filename;
 
 				if (Global.CoverDB.Covers [key] == null)
 					cover_image = Global.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
-				/* Album itself will pick up change when this song is added to it */
+				// Album itself will pick up change when this song is added to it
 			}
 
 			sort_key = null;
@@ -287,7 +288,7 @@ namespace Muine
 			p = Database.UnpackDouble (p, out gain);
 			p = Database.UnpackDouble (p, out peak);
 
-			/* cover image is loaded later */
+			// cover image is loaded later
 
 			handles = new ArrayList ();
 
@@ -341,7 +342,7 @@ namespace Muine
 			return (n_matches == search_bits.Length);
 		}
 
-		/* Only call these if it is a single song */
+		// Only call these if it is a single song
 		public void SetCoverLocal (string file)
 		{
 			CoverImage = Global.CoverDB.Getter.GetLocal (filename, file);

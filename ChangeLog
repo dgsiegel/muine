@@ -1,5 +1,15 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+	* src/Song.cs:
+
+	Rearrange some things to move the call to GetAmazon into
+	the thread as well.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 	* src/CoverGetter.cs:
 

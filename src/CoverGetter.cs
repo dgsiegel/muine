@@ -74,6 +74,7 @@ namespace Muine
 		// Getters
 		public Pixbuf GetLocal (string key, string file)
 		{
+			// May throw an exception
 			Pixbuf pix = new Pixbuf (file);
 
 			pix = AddBorder (pix);

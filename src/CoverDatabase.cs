@@ -137,13 +137,7 @@ namespace Muine
 
 				LoadedCover lc = (LoadedCover) queue.Dequeue ();
 			
-				if (lc.Pixbuf == null) {
-					// being checked
-					Album a = (Album) lc.Item;
-
-					a.CoverImage = Global.CoverDB.Getter.GetAmazon (a);
-				} else
-					lc.Item.CoverImage = lc.Pixbuf;
+				lc.Item.CoverImage = lc.Pixbuf;
 
 				return true;
 			}
@@ -173,18 +167,24 @@ namespace Muine
 				}
 
 				if (Global.CoverDB.Covers.Contains (key)) {
-					if (pixbuf == null)
+					if (being_checked)
 						return;
 					else // stored covers take priority
 						Global.CoverDB.Covers.Remove (key);
 				}
 				
-				Global.CoverDB.Covers.Add (key, pixbuf);
+				// Add independent of whether item is null or not,
+				// this way manually set covers will stay for
+				// removable devices.
+				if (!being_checked) 
+					Global.CoverDB.Covers.Add (key, pixbuf);
 
 				Item item = Global.DB.GetAlbum (key);
 				if (item == null)
 					item = Global.DB.GetSong (key);
 				if (item != null) {
+					if (being_checked)
+						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item);
 					LoadedCover lc = new LoadedCover (item, pixbuf);
 					queue.Enqueue (lc);
 				}

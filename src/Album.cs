@@ -110,12 +110,9 @@ namespace Muine
 			base.handle = cur_ptr;
 
 			if (check_cover) {
-				if (initial_song.CoverImage != null)
-					cover_image = initial_song.CoverImage;
-				else {
-					cover_image = GetCover ();
-					initial_song.SetCoverImageQuiet (cover_image);
-				}
+				cover_image = GetCover (initial_song);
+
+				initial_song.SetCoverImageQuiet (cover_image);
 			}
 		}
 
@@ -192,13 +189,14 @@ namespace Muine
 			lock (this) {
 				if (check_cover) {
 					if (cover_image == null && song.CoverImage != null) {
+						// This is to pick up any embedded album covers
 						changed = true;
 						songs_changed = true;
 				
 						cover_image = song.CoverImage;
 						foreach (Song s in Songs)
 							s.SetCoverImageQuiet (cover_image);
-					} else if (song.CoverImage != cover_image)
+					} else
 						song.SetCoverImageQuiet (cover_image);
 				}
 
@@ -249,19 +247,23 @@ namespace Muine
 			return (n_matches == search_bits.Length);
 		}
 
-		private Pixbuf GetCover ()
+		private Pixbuf GetCover (Song initial_song)
 		{
 			string key = Key;
-			
-			if (Global.CoverDB.Covers.ContainsKey (key))
-				return (Pixbuf) Global.CoverDB.Covers [key];
-			else {
-				Pixbuf image = Global.CoverDB.Getter.GetFolderImage (key, folder);
-				if (image != null)
-					return image;
 
-				return Global.CoverDB.Getter.GetAmazon (this);
-			}
+			Pixbuf pixbuf = (Pixbuf) Global.CoverDB.Covers [key];
+			if (pixbuf != null)
+				return pixbuf;
+
+			pixbuf = initial_song.CoverImage;
+			if (pixbuf != null)
+				return pixbuf; // embedded cover image
+
+			pixbuf = Global.CoverDB.Getter.GetFolderImage (key, folder);
+			if (pixbuf != null)
+				return pixbuf;
+
+			return Global.CoverDB.Getter.GetAmazon (this);
 		}
 
 		public void SetCoverLocal (string file)
