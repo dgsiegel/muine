@@ -1,3 +1,7 @@
+2004-01-23  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
 2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/PlaylistWindow.cs:
