@@ -45,6 +45,7 @@ namespace Muine
 
 		// Variables
 		private bool canceled = false;
+		private Gdk.Geometry geo_no_resize_height;
 
 		// Constructor
 		public ProgressWindow (Window parent)
@@ -65,6 +66,9 @@ namespace Muine
 							      StringUtils.EscapeForPango (string_loading));
 
 			title_format = string_title;
+
+			geo_no_resize_height = new Gdk.Geometry ();
+			geo_no_resize_height.MaxWidth = Int32.MaxValue;
 		}
 
 		// Methods
@@ -105,6 +109,16 @@ namespace Muine
 			window.Visible = false;
 			args.RetVal = true;
 			canceled = true;
+		}
+
+		// Handlers :: OnSizeRequested
+		private void OnSizeRequested (object o, SizeRequestedArgs args)
+		{
+			if (geo_no_resize_height.MaxHeight == args.Requisition.Height)
+				return;
+
+			geo_no_resize_height.MaxHeight = args.Requisition.Height;
+			window.SetGeometryHints (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
 		}
 	}
 }

@@ -1,3 +1,14 @@
+2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/ProgressWindow.glade:
+	* src/ProgressWindow.cs:
+
+	Only allow horizonal resizing.
+	
+	* src/VolumeButton.cs:
+
+	Replace obsolete Widget.Flags with Widget.WidgetFlags.
+
 2005-02-18  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/AddWindow.cs:

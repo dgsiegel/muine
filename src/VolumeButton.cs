@@ -56,7 +56,7 @@ namespace Muine
 			base.ScrollEvent += new ScrollEventHandler (OnScrollEvent);
 			base.Toggled     += new EventHandler       (OnToggled    );
 			
-			base.Flags |= (int) WidgetFlags.NoWindow;
+			base.WidgetFlags |= WidgetFlags.NoWindow;
 		}
 
 		// Destructor

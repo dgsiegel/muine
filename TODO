@@ -78,6 +78,7 @@ o Re-enable fixed-height-mode in HandleView
   Depends on Gnome Bugzilla #165017, #165034
 o Remove amazon cover fetching
   Once there is a tagger which can do this for us
+o Use TrayIcon.cs once it is done (handles panel crashes etc)
 
 We won't have:
 ==============
