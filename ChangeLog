@@ -1,3 +1,12 @@
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
+	* DBusLib/Makefile.am:
+	* PluginLib/Makefile.am:
+	* configure.in:
+
+	Remove --disable-gac-install option, instead use the /root
+	gacutil option to install libraries.
+
 2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
 
 	* README:
