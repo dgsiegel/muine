@@ -1,3 +1,11 @@
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/pointer-list-view.c: (pointer_list_view_select_first),
+	(pointer_list_view_select_next), (pointer_list_view_select_prev),
+	(pointer_list_view_select):
+
+	Move treeview cursor.
+
 2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
