@@ -82,7 +82,6 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in
 	    -e "s|\@mono\@|$(MONO)|g"			\
 	    -e "s|\@mono_flags\@|$(MONO_FLAGS)|g"	\
 	    < $^ > $@
-	chmod +x $(WRAPPER)
 
 $(TARGET).config: $(srcdir)/$(TARGET).config.in
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
