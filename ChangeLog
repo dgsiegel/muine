@@ -1,3 +1,13 @@
+2004-05-05  Peter Johanson  <latexer@gentoo.org>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+	* src/Makefile.am:
+	A src/muine.exe.config.in:
+	* src/muine.in:
+
+	Support latest Mono and Gtk#.
+
 2004-05-01  Adam Weinberger  <adamw@gnome.org>
 
 	* configure.in: Added en_CA to ALL_LINGUAS.

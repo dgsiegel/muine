@@ -89,14 +89,15 @@ muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll
 all: AmazonSearchService.dll muine.exe
 
 muinelibdir = $(prefix)/lib/muine
-muinelib_DATA = muine.exe AmazonSearchService.dll
+muinelib_DATA = muine.exe muine.exe.config AmazonSearchService.dll
 
 bin_SCRIPTS = muine
 
 EXTRA_DIST =					\
 	$(MUINE_CSFILES)			\
 	AmazonSearchService.wsdl		\
-	muine.in
+	muine.in				\
+	muine.exe.config.in
 
 CLEANFILES =					\
 	muine					\

@@ -21,8 +21,8 @@ dnl Version dependencies
 
 LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.8.0
-MONO_REQUIRED=0.31
-GTKSHARP_REQUIRED=0.18.99
+MONO_REQUIRED=0.91
+GTKSHARP_REQUIRED=0.91.1
 
 dnl Audio backend stuff
 
@@ -124,6 +124,7 @@ libmuine/id3-vfs/Makefile
 libmuine/egg/Makefile
 src/Makefile
 src/muine
+src/muine.exe.config
 m4/Makefile
 po/Makefile.in
 ])

@@ -2,6 +2,7 @@
 ===
 
 - Major speed improvements [Jorn Baayen]
+- Support latest Mono and Gtk# [Jorn Baayen, Peter Johanson]
 - Support album cover drag & drop in the "Play album" window [Lee Willis]
 - New about logo [Andreas Kwiatkowski]
 - Sort songs by title, then by artist [Jorn Baayen]
