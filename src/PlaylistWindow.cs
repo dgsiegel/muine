@@ -785,7 +785,7 @@ public class PlaylistWindow : Window
 		fs.FileList.Parent.Visible = false;
 		fs.SetDefaultSize (350, 250);
 
-		CheckButton check = new CheckButton ("_Add to playlist");
+		CheckButton check = new CheckButton ("_Add to Playlist");
 		check.Visible = true;
 		((Dialog) fs).VBox.PackEnd (check, false, false, 0);
 

@@ -367,6 +367,14 @@ pointer_list_view_select_first (PointerListView *view)
 	gtk_tree_path_free (path);
 }
 
+static void
+scroll_to_path (PointerListView *view, GtkTreePath *path)
+{
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path,
+				      gtk_tree_view_get_column (GTK_TREE_VIEW (view), 0),
+				      FALSE, 0.5, 0.0);
+}
+
 void
 pointer_list_view_select_next (PointerListView *view)
 {
@@ -384,12 +392,18 @@ pointer_list_view_select_next (PointerListView *view)
 
 		if (last) {
 			GtkTreeIter iter;
+			GtkTreePath *next;
 
-			gtk_tree_path_next (p);
-			if (gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, p)) {
+			next = gtk_tree_path_copy (p);
+			gtk_tree_path_next (next);
+			if (gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, next)) {
 				gtk_tree_selection_unselect_all (sel);
-				gtk_tree_selection_select_path (sel, p);
+				gtk_tree_selection_select_path (sel, next);
+				scroll_to_path (view, next);
+			} else {
+				scroll_to_path (view, p);
 			}
+			gtk_tree_path_free (next);
 
 			last = FALSE;
 		}
@@ -416,10 +430,15 @@ pointer_list_view_select_prev (PointerListView *view)
 		GtkTreePath *p = (GtkTreePath *) l->data;
 
 		if (last) {
-			if (gtk_tree_path_prev (p)) {
+			GtkTreePath *prev = gtk_tree_path_copy (p);
+			if (gtk_tree_path_prev (prev)) {
 				gtk_tree_selection_unselect_all (sel);
-				gtk_tree_selection_select_path (sel, p);
+				gtk_tree_selection_select_path (sel, prev);
+				scroll_to_path (view, prev);
+			} else {
+				scroll_to_path (view, p);
 			}
+			gtk_tree_path_free (prev);
 
 			last = FALSE;
 		}

@@ -1,6 +1,16 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
 	* data/glade/AddWindow.glade:
+	* libmuine/pointer-list-view.c: (scroll_to_path),
+	(pointer_list_view_select_next), (pointer_list_view_select_prev):
+	* src/AddSongWindow.cs:
+	* src/PlaylistWindow.cs:
+
+	Remove obsolete queue button, scroll when needed.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
+	* data/glade/AddWindow.glade:
 	* libmuine/pointer-list-view.c: (pointer_list_view_init),
 	(pointer_foreach_func), (path_foreach_func),
 	(pointer_list_view_get_selection),

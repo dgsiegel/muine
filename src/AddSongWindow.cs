@@ -265,12 +265,6 @@ public class AddSongWindow
 		}
 	}
 
-	private void HandleClearButtonClicked (object o, EventArgs args)
-	{
-		search_entry.Text = "";
-		search_entry.GrabFocus ();
-	}
-
 	private void HandleConfigureEvent (object o, EventArgs args)
 	{
 		int width, height;
