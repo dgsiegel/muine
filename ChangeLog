@@ -1,5 +1,11 @@
 2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Correct bugs from last commit.
+
+2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/Makefile.am:
 	* data/images/muine-forward.png:
 	* data/images/muine-next-16.png:

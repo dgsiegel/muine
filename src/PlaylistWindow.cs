@@ -451,9 +451,9 @@ public class PlaylistWindow : Window
 
 		if (handle == view.Playing) {
 			if (player.Playing)
-				r.Pixbuf = view.RenderIcon ("stock_media-playing", IconSize.Menu, null);
+				r.Pixbuf = view.RenderIcon ("muine-playing", IconSize.Menu, null);
 			else
-				r.Pixbuf = view.RenderIcon ("stock_media-paused", IconSize.Menu, null);
+				r.Pixbuf = view.RenderIcon ("muine-paused", IconSize.Menu, null);
 		} else {
 			r.Pixbuf = empty_pixbuf;
 		}
