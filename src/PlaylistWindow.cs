@@ -917,7 +917,7 @@ namespace Muine
 		{
 			if (playlist.Playing == IntPtr.Zero) {
 				time_label.Text = "";
-				playlist_label.Text = string_playlist;
+				playlist_label.Markup = string_playlist;
 				return;
 			}
 			
