@@ -201,11 +201,11 @@ public class CoverDatabase
 	[DllImport ("libmuine")]
 	private static extern void db_delete (IntPtr dbf, string key);
 
-	public void RemoveCover (string filename)
+	public void RemoveCover (string key)
 	{
-		db_delete (dbf, filename);
+		db_delete (dbf, key);
 
-		Covers.Remove (filename);
+		Covers.Remove (key);
 	}
 
 	[DllImport ("libmuine")]

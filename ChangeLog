@@ -1,6 +1,17 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* src/CoverDatabase.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Use dirname:albumname as album key.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* data/glade/SkipToWindow.glade:
 	* src/SkipToWindow.cs:
 

@@ -71,7 +71,7 @@ public class Muine : Gnome.Program
 
 		/* Load cover database */
 		try {
-			CoverDB = new CoverDatabase (1);
+			CoverDB = new CoverDatabase (2);
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the cover database: " + e.ToString () + "\nExiting...");
 

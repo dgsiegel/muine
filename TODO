@@ -10,6 +10,7 @@ o Add FLAC support
   This code can be stolen from Rhythmbox
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
+o Create ~/Music if it doesn't exist, but ask first? (Viet Yen is on this)
 
 Tough:
 ======
@@ -66,4 +67,3 @@ Current problems:
 =================
 
 o Hard to find music to play, only works when you know what you want.
-o Albums with the same name get mixed up.

@@ -293,7 +293,7 @@ public class SongDatabase
 		if (song.Album.Length == 0)
 			return;
 
-		Album album = (Album) Albums [song.Album];
+		Album album = (Album) Albums [song.AlbumKey];
 		album.SyncCoverImageWith (song);
 		if (AlbumChanged != null)
 			AlbumChanged (album);
@@ -304,12 +304,12 @@ public class SongDatabase
 		if (song.Album.Length == 0)
 			return;
 
-		Album album = (Album) Albums [song.Album];
+		Album album = (Album) Albums [song.AlbumKey];
 		if (album == null)
 			return;
 			
 		if (album.RemoveSong (song)) {
-			Albums.Remove (album.Name);
+			Albums.Remove (song.AlbumKey);
 
 			if (AlbumRemoved != null)
 				AlbumRemoved (album);
@@ -321,10 +321,10 @@ public class SongDatabase
 		if (song.Album.Length == 0)
 			return;
 
-		Album album = (Album) Albums [song.Album];
+		Album album = (Album) Albums [song.AlbumKey];
 		if (album == null) {
 			album = new Album (song);
-			Albums.Add (album.Name, album);
+			Albums.Add (song.AlbumKey, album);
 
 			if (emit_signal && AlbumAdded != null)
 				AlbumAdded (album);

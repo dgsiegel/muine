@@ -1239,7 +1239,7 @@ public class PlaylistWindow : Window
 			try {
 				/* FIXME should be threaded */
 				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromURL (data);
-				Muine.CoverDB.ReplaceCover (song.Album, pix);
+				Muine.CoverDB.ReplaceCover (song.AlbumKey, pix);
 				Muine.DB.AlbumChangedForSong (song);
 			} catch {
 				break;
@@ -1256,7 +1256,7 @@ public class PlaylistWindow : Window
 
 			try {
 				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromFile (uris [0]);
-				Muine.CoverDB.ReplaceCover (song.Album, pix);
+				Muine.CoverDB.ReplaceCover (song.AlbumKey, pix);
 				Muine.DB.AlbumChangedForSong (song);
 			} catch {
 				break;

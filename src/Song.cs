@@ -92,6 +92,8 @@ public class Song
 	public Gdk.Pixbuf CoverImage {
 		set {
 			cover_image = value;
+
+			checked_cover_image = true;
 		}
 		
 		get {
@@ -156,6 +158,16 @@ public class Song
 		}
 	}
 
+	public string AlbumKey {
+		get {
+			if (album.Length == 0)
+				return null;
+				
+			FileInfo finfo = new FileInfo (filename);
+			return finfo.DirectoryName + ":" + album;
+		}
+	}
+
 	private static string [] cover_filenames = {
 		"cover.jpg",
 		"Cover.jpg",
@@ -173,6 +185,11 @@ public class Song
 
 	private bool Proxy ()
 	{
+		if (checked_cover_image == true) {
+			tmp_cover_image = null;
+			return false;
+		}
+
 		checked_cover_image = true;
 
 		Muine.DB.UpdateSong (this);
@@ -182,7 +199,7 @@ public class Song
 
 		cover_image = tmp_cover_image;
 
-		Muine.CoverDB.ReplaceCover (album, cover_image);
+		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
 		
 		Muine.DB.AlbumChangedForSong (this);
 		
@@ -213,8 +230,8 @@ public class Song
 		}
 
 		/* Check the cache first */
-		if (Muine.CoverDB.Covers.ContainsKey (album)) {
-			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [album];
+		if (Muine.CoverDB.Covers.ContainsKey (AlbumKey)) {
+			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
 			return;
 		}
 
@@ -225,7 +242,7 @@ public class Song
 			FileInfo cover = new FileInfo (info.DirectoryName + "/" + fn);
 			
 			if (cover.Exists) {
-				cover_image = Muine.CoverDB.AddCoverLocal (album, cover.ToString ());
+				cover_image = Muine.CoverDB.AddCoverLocal (AlbumKey, cover.ToString ());
 				if (cover_image != null)
 					return;
 			}
@@ -241,7 +258,7 @@ public class Song
 
 		checked_cover_image = false;
 			
-		Muine.CoverDB.AddCoverDummy (album);
+		Muine.CoverDB.AddCoverDummy (AlbumKey);
 	}
 
 	private IntPtr handle;
@@ -384,7 +401,7 @@ public class Song
 		if (album.Length == 0 || artists.Length == 0)
 			cover_image = null;
 		else
-			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [album];
+			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
