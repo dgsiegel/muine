@@ -1,3 +1,21 @@
+2004-01-24  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* src/AddSongWindow.cs:
+	* src/AmazonSearchService.cs:
+	* src/AmazonSearchService.wsdl:
+	* src/CoverDatabase.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Try to fetch album covers that cannot be found on disc from
+	amazon.com. 
+
+	FIXME this still needs to be made asynchronous..
+
 2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
 
 	* NEWS:

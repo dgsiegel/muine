@@ -27,6 +27,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
+	$(srcdir)/AmazonSearchService.cs	\
 	$(srcdir)/CoverDatabase.cs
 
 ASSEMBLIES =					\
@@ -37,6 +38,8 @@ ASSEMBLIES =					\
 	/r:glib-sharp				\
 	/r:gnome-sharp				\
 	/r:gtk-sharp				\
+	/r:AmazonSearchService.dll		\
+	/r:System.Web.Services			\
 	/r:pango-sharp
 
 RESOURCES =											\
@@ -74,14 +77,18 @@ RESOURCES =											\
 
 muinelibdir = $(prefix)/lib/muine
 
-muine.exe: $(MUINE_CSFILES)
+AmazonSearchService.dll: AmazonSearchService.cs
+	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll $(srcdir)/AmazonSearchService.cs -r:System.Web.Services
+
+muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll
 	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES)
 
-all: muine.exe
+all: AmazonSearchService.dll muine.exe
 
-install-data-local: muine.exe
+install-data-local: muine.exe AmazonSearchService.dll
 	$(mkinstalldirs) $(DESTDIR)$(muinelibdir)
 	$(INSTALL_DATA) muine.exe $(DESTDIR)$(muinelibdir)/muine.exe
+	$(INSTALL_DATA) AmazonSearchService.dll $(DESTDIR)$(muinelibdir)/AmazonSearchService.dll
 
 bin_SCRIPTS = muine
 
@@ -91,4 +98,5 @@ EXTRA_DIST =					\
 
 CLEANFILES =					\
 	muine					\
+	AmazonSearchService.dll			\
 	muine.exe

@@ -17,7 +17,6 @@
  * Boston, MA 02111-1307, USA.
  *
  * TODO FileSystemWatcher, file import wizard (musicbrainz for tags, cover image, filename fixing)
- * TODO use gnomevfs pixbuf loader for cover images
  */
 
 using System;
@@ -110,16 +109,10 @@ public class Song
 		}
 	}
 
-	private string cover_image_filename;
-	public string CoverImageFilename {
-		get {
-			return cover_image_filename;
-		}
-	}
-
+	private Gdk.Pixbuf cover_image;
 	public Gdk.Pixbuf CoverImage {
 		get {
-			return Muine.CoverDB.CoverFromFile (cover_image_filename);
+			return cover_image;
 		}
 	}
 
@@ -130,6 +123,20 @@ public class Song
 		}
 	}
 
+	public string WebUrl {
+		get {
+		/* FIXME slow
+			if (artists.Length > 0 && album.Length > 0)
+				string [] urls = Muine.CoverDB.GetAlbumURLs (artists [0], album);
+				if (urls != null)
+					return urls [1];
+			else
+				return null;
+		*/
+			return "http://www.amazon.com/";
+		}
+	}
+
 	[DllImport ("libglib-2.0-0.dll")]
 	private static extern string g_utf8_collate_key (string str, int len);
 
@@ -137,7 +144,7 @@ public class Song
 	public string SortKey {
 		get {
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (titles [0], -1);
+				sort_key = g_utf8_collate_key (AllLowerTitles, -1);
 			
 			return sort_key;
 		}
@@ -154,22 +161,44 @@ public class Song
 		"Cover.gif"
 	};
 
-	/* TODO vfs-ify */
-	/* TODO nautilus dir image */
-	private void GetCoverImageFilename ()
+	private void GetCoverImage ()
 	{
-		FileInfo info = new FileInfo (filename);
+		if (album.Length == 0 || artists.Length == 0) {
+			cover_image = null;
+			return;
+		}
 
-		cover_image_filename = "";
+		/* Check the cache first */
+		if (Muine.CoverDB.Covers.ContainsKey (album)) {
+			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [album];
+			return;
+		}
+
+		/* Search for popular image names */
+		FileInfo info = new FileInfo (filename);
 
 		foreach (string fn in cover_filenames) {
 			FileInfo cover = new FileInfo (info.DirectoryName + "/" + fn);
 			
 			if (cover.Exists) {
-				cover_image_filename = cover.ToString ();
-				break;
+				cover_image = Muine.CoverDB.AddCoverLocal (album, cover.ToString ());
+				if (cover_image != null)
+					return;
 			}
 		}
+
+		/* Failed to find a cover on disk - try the web */
+			
+		/* This assumes the right artist is always in artists [0] */
+		string [] urls = Muine.CoverDB.GetAlbumURLs (artists [0], album);
+
+		if (urls != null) {
+			cover_image = Muine.CoverDB.AddCoverWeb (album, urls [0]);
+			if (cover_image != null)
+				return;
+		}
+
+		Muine.CoverDB.AddCoverDummy (album);
 	}
 
 	private IntPtr handle;
@@ -217,25 +246,23 @@ public class Song
 			throw e;
 		}
 
-		titles = metadata.Titles;
-		if (titles.Length == 0) {
+		if (metadata.Titles.Length > 0)
+			titles = metadata.Titles;
+		else {
 			titles = new string [1];
-			titles[0] = "Untitled";
+
+			FileInfo finfo = new FileInfo (fn);
+			titles [0] = finfo.Name;
 		}
-				
+		
 		artists = metadata.Artists;
-		if (artists.Length == 0) {
-			artists = new string [1];
-			artists[0] = "Unknown";
-		}
-			
 		album = metadata.Album;
 		track_number = metadata.TrackNumber;
 		year = metadata.Year;
 		duration = metadata.Duration;
 		mime_type = metadata.MimeType;
 
-		GetCoverImageFilename ();
+		GetCoverImage ();
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
@@ -273,8 +300,13 @@ public class Song
 		p = db_unpack_int (p, out track_number);
 		p = db_unpack_string (p, out year);
 		p = db_unpack_long (p, out duration);
-		p = db_unpack_string (p, out cover_image_filename);
 		p = db_unpack_string (p, out mime_type);
+
+		/* cover image */
+		if (album.Length == 0 || artists.Length == 0)
+			cover_image = null;
+		else
+			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [album];
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;
@@ -317,7 +349,6 @@ public class Song
 		db_pack_int (p, track_number);
 		db_pack_string (p, year);
 		db_pack_long (p, duration);
-		db_pack_string (p, cover_image_filename);
 		db_pack_string (p, mime_type);
 		
 		return db_pack_end (p, out length);

@@ -321,7 +321,13 @@ public class PlaylistWindow : Window
 
 		string title = String.Join (", ", song.Titles);
 
-		r.Text = title + "\n" + String.Join (", ", song.Artists);
+		string artist;
+		if (song.Artists.Length > 0)
+			artist = String.Join (", ", song.Artists);
+		else
+			artist = "Unknown";
+
+		r.Text = title + "\n" + artist;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
 		                           false, true, false);
@@ -483,7 +489,11 @@ public class PlaylistWindow : Window
 				tooltips.SetTip (cover_ebox, null, null);
 
 			title_label.Text = String.Join (", ", song.Titles);
-			artist_label.Text = String.Join (", ", song.Artists);
+
+			if (song.Artists.Length > 0)
+				artist_label.Text = String.Join (", ", song.Artists);
+			else
+				artist_label.Text = "Unknown";
 
 			player.Song = song;
 
@@ -848,6 +858,17 @@ public class PlaylistWindow : Window
 			/* propagate the song.Duration changes */
 			UpdateTimeLabels (player.Position);
 		}
+	}
+
+	private void HandleCoverImageCommand (object o, EventArgs args)
+	{
+		if (playlist.Playing == IntPtr.Zero)
+			return;
+			
+		Song song = Song.FromHandle (playlist.Playing);
+
+		if (song.WebUrl.Length > 0)
+			Gnome.Url.Show (song.WebUrl);
 	}
 
 	private void HandlePreviousCommand (object o, EventArgs args)

@@ -20,7 +20,10 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Web;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 using Gnome;
 using Gdk;
@@ -80,13 +83,11 @@ public class CoverDatabase
 		Muine.CoverDB.Covers.Add (String.Copy (key), new Pixbuf (pix_handle));
 	}
 
-	private Pixbuf CoverPixbufFromFile (string filename)
+	private Pixbuf BeautifyPixbuf (Pixbuf cover)
 	{
-		Pixbuf cover, border;
-		int target_size = 64; /* if this is changed, the glade file needs to be updated, too */
+		Pixbuf border;
 
-		/* read the cover image */
-		cover = new Pixbuf (filename);
+		int target_size = 64; /* if this is changed, the glade file needs to be updated, too */
 
 		/* scale the cover image if necessary */
 		if (cover.Height > target_size || cover.Width > target_size) {
@@ -114,6 +115,40 @@ public class CoverDatabase
 		return border;
 	}
 
+	private Pixbuf CoverPixbufFromFile (string filename)
+	{
+		Pixbuf cover;
+
+		/* read the cover image */
+		cover = new Pixbuf (filename);
+
+		return BeautifyPixbuf (cover);
+	}
+
+	private Pixbuf CoverPixbufFromURL (string album_url)
+	{
+		Pixbuf cover;
+
+		try {
+			/* read the cover image */
+			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (album_url);
+			req.UserAgent = "Muine";
+	
+			WebResponse resp = req.GetResponse ();
+			Stream s = resp.GetResponseStream ();
+	
+			cover = new Pixbuf (s);
+		} catch {
+			return null;
+		}
+
+		/* Trap Amazon 1x1 images */
+		if (cover.Height == 1 && cover.Width == 1)
+			return null;
+
+		return BeautifyPixbuf (cover);
+	}
+
 	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
 
 	[DllImport ("libmuine")]
@@ -121,19 +156,36 @@ public class CoverDatabase
 					     EncodeFuncDelegate encode_func,
 					     IntPtr user_data);
 
-	public Pixbuf AddCover (string filename)
+	public Pixbuf AddCoverLocal (string key, string filename)
 	{
 		Pixbuf pix = CoverPixbufFromFile (filename);
+
+		Covers.Add (key, pix);
+
+		db_store (dbf, key, false,
+		          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+
+		return pix;
+	}
+
+	public Pixbuf AddCoverWeb (string key, string album_url)
+	{
+		Pixbuf pix = CoverPixbufFromURL (album_url);
 
 		if (pix == null)
 			return null;
 
-		Covers.Add (filename, pix);
+		Covers.Add (key, pix);
 
-		db_store (dbf, filename, false,
+		db_store (dbf, key, false,
 		          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
 
 		return pix;
+	}
+
+	public void AddCoverDummy (string key)
+	{
+		Covers.Add (key, null);
 	}
 
 	[DllImport ("libmuine")]
@@ -160,16 +212,87 @@ public class CoverDatabase
 		return db_pack_end (p, out length);
 	}
 
-	public Pixbuf CoverFromFile (string filename)
+	private string SanitizeString (string s)
 	{
-		if (filename.Length == 0)
-			return null;
+		s = s.ToLower ();
+		s = s.Replace ("(.*)", " ");
+		s = s.Replace ("[.*]", " ");
+		s = s.Replace ("-", " ");
+		s = s.Replace ("_", " ");
 
-		Pixbuf ret = (Pixbuf) Covers [filename];
+		return s;
+	}
 
-		if (ret == null)
-			ret = AddCover (filename);
+	public string [] GetAlbumURLs (string artist, string album_title)
+	{
+		AmazonSearchService search_service = new AmazonSearchService();
+
+		string sane_album_title = SanitizeString (album_title);
 		
-		return ret;
+		/* Prepare for handling multi-page results */
+		int total_pages = 1;
+		int current_page = 1;
+		
+		/* Create Encapsulated Request */
+		ArtistRequest asearch = new ArtistRequest ();
+		asearch.devtag = "INSERT DEV TAG HERE";
+		asearch.artist = artist;
+		asearch.keywords = sane_album_title;
+		asearch.type = "heavy";
+		asearch.mode = "music";
+		asearch.tag = "webservices-20";
+		
+		while (current_page <= total_pages) {
+			asearch.page = Convert.ToString (current_page);
+
+			ProductInfo pi;
+			try {
+				pi = search_service.ArtistSearchRequest (asearch);
+			} catch (Exception e){
+				return null;
+			}
+
+			/* Amazon API requires this .. */
+			Thread.Sleep (1000);
+		
+			int num_results = pi.Details.Length;
+			total_pages = Convert.ToInt32 (pi.TotalPages);
+
+			/* Work out how many matches are on this page */
+			if (num_results < 1)
+				return null;
+
+			for (int i = 0; i < num_results; i++) {
+				/* Ignore bracketed text on the result from Amazon */
+				string sane_product_name = SanitizeString (pi.Details[i].ProductName);
+
+				/* Compare the two strings statistically */
+				string [] product_name_array = sane_product_name.Split (' ');
+				string [] album_title_array = sane_album_title.Split (' ');
+				Array.Sort (product_name_array);
+				Array.Sort (album_title_array);
+
+				int match_count = 0;
+				foreach (string s in album_title_array) {
+					if (Array.BinarySearch (product_name_array, s) >= 0)
+						match_count++;
+				}
+
+				double match_percent;
+				match_percent = match_count / (double) album_title_array.Length;
+
+				if (match_percent > 0.6) {
+					string [] urls = new string [2];
+					urls [0] = pi.Details [i].ImageUrlMedium;
+					urls [1] = pi.Details [i].Url;
+					return urls;
+				}
+			
+			}
+
+			current_page++;
+		}
+
+		return null;
 	}
 }

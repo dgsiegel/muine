@@ -144,7 +144,13 @@ public class AddSongWindow
 
 		string title = String.Join (", ", song.Titles);
 
-		r.Text = title + "\n" + String.Join (", ", song.Artists);
+		string artist;
+		if (song.Artists.Length > 0)
+			artist = String.Join (", ", song.Artists);
+		else
+			artist = "Unknown";
+
+		r.Text = title + "\n" + artist;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
 					   false, true, false);
