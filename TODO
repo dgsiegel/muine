@@ -11,6 +11,10 @@ o A song information dialog, which will later be used for tag editing.
 o Create ~/Music and ~/Music/Playlists/ if it doesn't exist, but ask first (Viet Yen Nguyen is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Add a repeat menu item ?
+o Quick fade in/out when playing/pausing
+o Progress feedback when loading songs ("Downloading" image?)
+o Handle non-UTF8 filenames and dirnames decently
+o Shift+Arrow keys selects
 
 Tough:
 ======

@@ -288,8 +288,12 @@ public class CoverDatabase
 				double match_percent;
 				match_percent = match_count / (double) album_title_array.Length;
 
-				if (match_percent > 0.6)
-					return pi.Details [i].ImageUrlMedium;
+				if (match_percent > 0.6) {
+					string url = pi.Details [i].ImageUrlMedium;
+
+					if (url != null && url.Length > 0)
+						return url;
+				}
 			}
 
 			current_page++;

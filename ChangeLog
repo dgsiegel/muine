@@ -1,3 +1,14 @@
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/CoverDatabase.cs:
+
+	Hopefully improve cover image fetching reliability some more.
+	
+	* configure.in:
+
+	Remove explicit dependency on mono 0.29, as the relevant mono bug
+	seems to be fixed.
+
 2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
 
 	* NEWS:
