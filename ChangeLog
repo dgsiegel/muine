@@ -1,5 +1,12 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Released 0.5.2.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/player-xine.c:
 
 	Fix compilation with Gnome 2.4.
