@@ -162,12 +162,18 @@ public class Album
 	public void SyncCoverImageWith (Song song)
 	{
 		CoverImage = song.CoverImage;
+
+		foreach (Song s in Songs) {
+			s.CoverImage = CoverImage;
+		}
 	}
 
 	public bool AddSong (Song song)
 	{
 		Songs.Add (song);
 		Songs.Sort (song_comparer);
+		
+		song.CoverImage = CoverImage;
 		
 		return AddArtists (song);
 	}

@@ -111,6 +111,10 @@ public class Song
 
 	private Gdk.Pixbuf cover_image;
 	public Gdk.Pixbuf CoverImage {
+		set {
+			cover_image = value;
+		}
+		
 		get {
 			return cover_image;
 		}

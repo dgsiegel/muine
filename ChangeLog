@@ -1,5 +1,16 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/Album.cs:
+	* src/Song.cs:
+
+	Fix album covers only showing up for the first song.
+	
+	* AUTHORS:
+	
+	Added Lee.
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/db.c: (db_unpack_bool), (db_pack_bool):
 	* libmuine/db.h:
 	* src/AddAlbumWindow.cs:
