@@ -28,9 +28,9 @@
         <Parameter Name="player" Type="MuinePluginLib.IPlayer" />
       </Parameters>
       <Docs>
-        <summary>Supplies <see cref="T:MuinePluginLib.IPlayer" /></summary>
+        <summary>Supplies an implementation of the <see cref="T:MuinePluginLib.IPlayer" /> interface</summary>
         <param name="player">a <see cref="T:MuinePluginLib.IPlayer" /></param>
-        <remarks>This method is called by the plugin manager when the plug-in is loaded. It supplies the plug-in with the <see cref="T:MuinePluginLib.IPlayer" /> interface. The plug-in would typically initialize itself at this point.</remarks>
+        <remarks>This method is called by the plugin manager when the plug-in is loaded. It supplies the plug-in with an implementation of the <see cref="T:MuinePluginLib.IPlayer" /> interface. The plug-in would typically initialize itself at this point.</remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
