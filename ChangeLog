@@ -1,5 +1,32 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/Makefile.am:
+	R libmuine/gettext-utils.c:
+	R libmuine/gettext-utils.h:
+	* src/About.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/Defines.cs.in:
+	* src/ErrorDialog.cs:
+	R src/GettextCatalog.cs:
+	* src/Makefile.am:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/MuineDBusService.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/ProgressWindow.cs:
+	* src/StringUtils.cs:
+	* src/muine.in:
+
+	Ditch our local copy of GettextCatalog now that we have
+	Mono.Posix.Catalog.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/muine-volume-max.png:
 	* data/images/muine-volume-medium.png:
 	* data/images/muine-volume-min.png:

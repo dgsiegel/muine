@@ -21,6 +21,8 @@ using System;
 using System.Runtime.InteropServices;
 using Gdk;
 
+using Mono.Posix;
+
 public class Metadata 
 {
 	private string title;
@@ -148,7 +150,7 @@ public class Metadata
 		if (error_ptr != IntPtr.Zero) {
 			string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
-			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to load metadata: {0}"), error));
+			throw new Exception (String.Format (Catalog.GetString ("Failed to load metadata: {0}"), error));
 		}
 
 		p = metadata_get_title (md);

@@ -22,6 +22,8 @@ using System;
 using Gtk;
 using GLib;
 
+using Mono.Posix;
+
 public class ErrorDialog
 {
 	[Glade.Widget]
@@ -34,7 +36,7 @@ public class ErrorDialog
 		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 		gxml.Autoconnect (this);
 
-		string heading = Muine.Catalog.GetString ("An error occurred:");
+		string heading = Catalog.GetString ("An error occurred:");
 		string full_text = heading + "\n\n" + text;
 
 		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (heading),

@@ -16,7 +16,7 @@ INCLUDES =							\
 	-DGDK_PIXBUF_DISABLE_DEPRECATED				\
 	-DGNOME_DISABLE_DEPRECATED
 
-muinelibdir = $(prefix)/lib/muine
+muinelibdir = $(pkglibdir)
 muinelib_LTLIBRARIES = libmuine.la
 
 if HAVE_XINE
@@ -49,8 +49,6 @@ libmuine_la_SOURCES =			\
 	rb-ellipsizing-label.h		\
 	db.c				\
 	db.h				\
-	gettext-utils.c			\
-	gettext-utils.h			\
 	mm-keys.c			\
 	mm-keys.h
 	

@@ -18,6 +18,7 @@
  */
 
 using System;
+
 using DBus;
 
 public sealed class MuineDBusService

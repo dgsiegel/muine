@@ -22,6 +22,8 @@ using System;
 using Gtk;
 using GLib;
 
+using Mono.Posix;
+
 public class ProgressWindow
 {
 	[Glade.Widget]
@@ -40,7 +42,7 @@ public class ProgressWindow
 		gxml.Autoconnect (this);
 
 		window.TransientFor = parent;
-		window.Title = String.Format (Muine.Catalog.GetString ("Importing {0}..."), folder);
+		window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
 
 		window.SetDefaultSize (300, -1);
 

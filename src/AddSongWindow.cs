@@ -23,6 +23,8 @@ using System.Collections;
 using Gtk;
 using GLib;
 
+using Mono.Posix;
+
 public class AddSongWindow : AddWindow
 {
 	private const int FakeLength = 150;
@@ -43,7 +45,7 @@ public class AddSongWindow : AddWindow
 	// Constructor	
 	public AddSongWindow ()
 	{
-		window.Title = Muine.Catalog.GetString ("Play Song");
+		window.Title = Catalog.GetString ("Play Song");
 
 		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 		

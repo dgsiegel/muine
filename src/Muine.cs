@@ -23,7 +23,10 @@ using System.IO;
 using Gtk;
 using GLib;
 using Gdk;
+
 using DBus;
+
+using Mono.Posix;
 
 public class Muine : Gnome.Program
 {
@@ -58,7 +61,7 @@ public class Muine : Gnome.Program
 			playlist_file = Path.Combine (config_directory, playlist_filename);
 			songsdb_file = Path.Combine (config_directory, songsdb_filename);
 			coversdb_file = Path.Combine (config_directory, coversdb_filename);
-			plugins_directory = Path.Combine (config_directory, plugins_dirname);
+			user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
 		}
 	}
 	
@@ -86,11 +89,17 @@ public class Muine : Gnome.Program
 		}
 	}
 
-	private static string plugins_directory;
-	private const string plugins_dirname = "plugins";
-	public static string PluginsDirectory {
+	public static string SystemPluginDirectory {
 		get {
-			return plugins_directory;
+			return Defines.PLUGIN_DIR;
+		}
+	}
+
+	private const string plugin_dirname = "plugins";
+	private static string user_plugin_directory;
+	public static string UserPluginDirectory {
+		get {
+			return user_plugin_directory;
 		}
 	}
 	
@@ -151,28 +160,21 @@ public class Muine : Gnome.Program
 		}
 	}
 
-	private static GettextCatalog catalog;
-	public static GettextCatalog Catalog {
-		get {
-			return catalog;
-		}
-	}
-
 	private static Gnome.Client client;
 
 	private static bool opened_playlist = false;
 
 	public static void Main (string [] args)
 	{
-		catalog = new GettextCatalog ("muine");
-
 		Muine muine = new Muine (args);
 
 		Application.Run ();
 	}
 
-	public Muine (string [] args) : base ("muine", About.Version, Gnome.Modules.UI, args)
+	public Muine (string [] args) : base ("muine", Defines.VERSION, Gnome.Modules.UI, args)
 	{
+		Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+
 		MuineDBusLib.Player dbo = null;
 
 		/* Try to find a running Muine */
@@ -200,7 +202,7 @@ public class Muine : Gnome.Program
 				MuineDBusService.Instance.RegisterObject
 					(dbo, "/org/gnome/Muine/Player");
 			} catch (Exception e) {
-				Console.WriteLine (Muine.Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
+				Console.WriteLine (Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
 			}
 		}
 

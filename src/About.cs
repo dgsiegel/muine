@@ -20,22 +20,22 @@
 using Gtk;
 using Gdk;
 
+using Mono.Posix;
+
 public class About
 {
-	public const string Version = "0.8.0pre3";
-
 	private static string [] authors = null;
 	public static string [] Authors {
 		get {
 			if (authors == null) {
 				authors = new string [6];
 
-				authors [0] = Muine.Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>");
-				authors [1] = Muine.Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>");
-				authors [2] = Muine.Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>");
-				authors [3] = Muine.Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>");
+				authors [0] = Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>");
+				authors [1] = Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>");
+				authors [2] = Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>");
+				authors [3] = Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>");
 				authors [4] = "";
-				authors [5] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
+				authors [5] = Catalog.GetString ("Album covers are provided by amazon.com.");
 			}
 			
 			return authors;
@@ -45,14 +45,14 @@ public class About
 	public static void ShowWindow (Gtk.Window parent)
 	{
 		string [] documenters = new string [] {};
-		string translator_credits = Muine.Catalog.GetString ("translator-credits");
+		string translator_credits = Catalog.GetString ("translator-credits");
 
 		Pixbuf pixbuf = new Pixbuf (null, "muine-about.png");
 
 		Gnome.About about;
-		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), Version,
-					 Muine.Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen"),
-					 Muine.Catalog.GetString ("A music player"),
+		about = new Gnome.About (Catalog.GetString ("Muine"), Defines.VERSION,
+					 Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen"),
+					 Catalog.GetString ("A music player"),
 					 Authors, documenters,
 					 (translator_credits == "translator-credits") ? null : translator_credits,
 					 pixbuf);

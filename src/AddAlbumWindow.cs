@@ -23,6 +23,8 @@ using System.Collections;
 using Gtk;
 using GLib;
 
+using Mono.Posix;
+
 public class AddAlbumWindow : AddWindow
 {
         private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
@@ -50,7 +52,7 @@ public class AddAlbumWindow : AddWindow
 	// Constructor
 	public AddAlbumWindow ()
 	{
-		window.Title = Muine.Catalog.GetString ("Play Album");
+		window.Title = Catalog.GetString ("Play Album");
 
 		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 		
@@ -113,7 +115,7 @@ public class AddAlbumWindow : AddWindow
 
 		string performers = "";
 		if (album.Performers.Length > 0)
-			performers = String.Format (Muine.Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
+			performers = String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
 
 		r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
 

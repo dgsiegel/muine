@@ -20,6 +20,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using Mono.Posix;
+
 public class Player : GLib.Object
 {
 	[DllImport ("libmuine")]
@@ -218,6 +220,6 @@ public class Player : GLib.Object
 
 	private void OnError (IntPtr obj, string error)
 	{
-		new ErrorDialog (String.Format (Muine.Catalog.GetString ("Audio backend error:\n{0}"), error));
+		new ErrorDialog (String.Format (Catalog.GetString ("Audio backend error:\n{0}"), error));
 	}
 }

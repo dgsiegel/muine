@@ -21,6 +21,8 @@ using System;
 using System.Reflection;
 using System.IO;
 
+using Mono.Posix;
+
 using MuinePluginLib;
 
 public class PluginManager
@@ -54,7 +56,7 @@ public class PluginManager
 
 					ScanAssemblyForPlugins (a);
 				} catch (Exception e) {
-					Console.WriteLine (Muine.Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
+					Console.WriteLine (Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
 				}
 			}
 		}
@@ -70,6 +72,7 @@ public class PluginManager
 			foreach (string dir in path.Split (':'))
 				FindAssemblies (dir);
 
-		FindAssemblies (Muine.PluginsDirectory);
+		FindAssemblies (Muine.SystemPluginDirectory);
+		FindAssemblies (Muine.UserPluginDirectory);
 	}
 }

@@ -23,6 +23,8 @@ using System.Runtime.InteropServices;
 using Gtk;
 using Gdk;
 
+using Mono.Posix;
+
 using MuinePluginLib;
 
 public class NotificationAreaIcon : Plug
@@ -47,7 +49,7 @@ public class NotificationAreaIcon : Plug
 
 	public void Init ()
 	{
-		Raw = egg_tray_icon_new (Muine.Catalog.GetString ("Muine music player"));
+		Raw = egg_tray_icon_new (Catalog.GetString ("Muine music player"));
 
 		DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
 
@@ -199,7 +201,7 @@ public class NotificationAreaIcon : Plug
 	private string CreateTooltip (ISong song)
 	{
 		/* song artists - song title */
-		return String.Format (Muine.Catalog.GetString ("{0} - {1}"),
+		return String.Format (Catalog.GetString ("{0} - {1}"),
 				      StringUtils.JoinHumanReadable (song.Artists),
 				      song.Title);
 	}

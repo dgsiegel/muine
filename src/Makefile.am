@@ -30,14 +30,14 @@ MUINE_CSFILES =					\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/CoverImage.cs			\
 	$(srcdir)/MmKeys.cs			\
-	$(srcdir)/GettextCatalog.cs		\
 	$(srcdir)/FileUtils.cs			\
 	$(srcdir)/SignalUtils.cs		\
 	$(srcdir)/Database.cs			\
 	$(srcdir)/MuineDBusService.cs		\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/AddWindow.cs			\
-	$(srcdir)/AmazonSearchService.cs
+	$(srcdir)/AmazonSearchService.cs	\
+	$(srcdir)/Defines.cs
 
 MUINE_ASSEMBLIES =					\
 	-r:$(top_builddir)/PluginLib/muine-plugin.dll	\
@@ -72,12 +72,18 @@ MUINE_RESOURCES =												\
 AmazonSearchService.cs: AmazonSearchService.wsdl
 	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
 
-muine.exe: $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll
+Defines.cs: $(srcdir)/Defines.cs.in
+	sed -e "s|\@version\@|$(VERSION)|"     \
+	    -e "s|\@datadir\@|$(datadir)|"     \
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
+	    < $^ > $@
+
+muine.exe: $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll Defines.cs
 	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
 
 all: muine.exe
 
-muinelibdir = $(prefix)/lib/muine
+muinelibdir = $(pkglibdir)
 muinelib_DATA = muine.exe muine.exe.config
 
 bin_SCRIPTS = muine
@@ -86,7 +92,8 @@ EXTRA_DIST =					\
 	$(MUINE_CSFILES)			\
 	AmazonSearchService.wsdl		\
 	muine.in				\
-	muine.exe.config.in
+	muine.exe.config.in			\
+	Defines.cs.in
 
 CLEANFILES =					\
 	AmazonSearchService.cs			\
@@ -94,4 +101,5 @@ CLEANFILES =					\
 
 DISTCLEANFILES =				\
 	muine					\
-	muine.exe.config
+	muine.exe.config			\
+	Defines.cs

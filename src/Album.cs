@@ -20,6 +20,8 @@
 using System;
 using System.Collections;
 
+using Mono.Posix;
+
 public class Album
 {
 	private string name;
@@ -77,7 +79,7 @@ public class Album
 					 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 					 * if "the" is included in this list. Also include the English "the"
 					 * if English is generally spoken in your country. */
-					prefixes = Muine.Catalog.GetString ("the dj").Split (' ');
+					prefixes = Catalog.GetString ("the dj").Split (' ');
 				}
 					
 				string [] p_artists = new string [artists.Count];
