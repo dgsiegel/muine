@@ -1237,7 +1237,7 @@ public class PlaylistWindow : Window
 				break;
 			
 			try {
-				/* FIXME should be threaded */
+				/* FIXME should be threaded, also.. do exception handling */
 				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromURL (data);
 				Muine.CoverDB.ReplaceCover (song.AlbumKey, pix);
 				Muine.DB.AlbumChangedForSong (song);

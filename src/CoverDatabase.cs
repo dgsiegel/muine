@@ -130,27 +130,23 @@ public class CoverDatabase
 	{
 		Pixbuf cover;
 
-		try {
-			/* read the cover image */
-			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (album_url);
-			req.UserAgent = "Muine";
-			req.KeepAlive = false;
+		/* read the cover image */
+		HttpWebRequest req = (HttpWebRequest) WebRequest.Create (album_url);
+		req.UserAgent = "Muine";
+		req.KeepAlive = false;
+		req.Timeout = 30000; /* Timeout after 30 seconds */
+			
+		WebResponse resp = null;
 	
-			WebResponse resp = req.GetResponse ();
-			Stream s = resp.GetResponseStream ();
+		/* May throw an exception, but we catch it in the calling
+		 * function in Song.cs */
+		resp = req.GetResponse ();
+
+		Stream s = resp.GetResponseStream ();
 	
-			try {
-				cover = new Pixbuf (s);
-			} catch {
-				resp.Close ();
+		cover = new Pixbuf (s);
 
-				return null;
-			}
-
-			resp.Close ();
-		} catch {
-			return null;
-		}
+		resp.Close ();
 
 		/* Trap Amazon 1x1 images */
 		if (cover.Height == 1 && cover.Width == 1)
@@ -256,15 +252,16 @@ public class CoverDatabase
 			asearch.page = Convert.ToString (current_page);
 
 			ProductInfo pi;
-			try {
-				pi = search_service.ArtistSearchRequest (asearch);
-			} catch (Exception e){
-				return null;
-			}
-
+			
 			/* Amazon API requires this .. */
 			Thread.Sleep (1000);
 		
+			/* Web service calls timeout after 30 seconds */
+			search_service.Timeout = 30000;
+			
+			/* This may throw an exception, we catch it in Song.cs in the calling function */
+			pi = search_service.ArtistSearchRequest (asearch);
+
 			int num_results = pi.Details.Length;
 			total_pages = Convert.ToInt32 (pi.TotalPages);
 

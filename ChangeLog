@@ -1,3 +1,13 @@
+2004-01-28  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* src/CoverDatabase.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Improve cover image fetching reliability.
+
 2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:

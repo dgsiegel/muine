@@ -22,6 +22,8 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Net;
+using System.Threading;
 using System.Runtime.InteropServices;
 
 public class Song
@@ -212,11 +214,33 @@ public class Song
 	{
 		string artist = (string) action.UserData0;
 		string album = (string) action.UserData1;
+		string url = null;
 
-		string url = Muine.CoverDB.GetAlbumCoverURL (artist, album);
+		try {
+			url = Muine.CoverDB.GetAlbumCoverURL (artist, album);
+		} catch (WebException e) {
+			/* Temporary web problem (Timeout etc.) - re-queue */
+			Thread.Sleep (60000); /* wait for a minute first */
+			Muine.ActionThread.QueueAction (action);
+			
+			return;
+		} catch (Exception e) {
+			url = null;
+		}
 
-		if (url != null)
-			tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
+		if (url != null) {
+			try {
+				tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
+			} catch (WebException e) {
+				/* Temporary web problem (Timeout etc.) - re-queue */
+				Thread.Sleep (60000); /* wait for a minute first */
+				Muine.ActionThread.QueueAction (action);
+				
+				return;
+			} catch (Exception e) {
+				tmp_cover_image = null;
+			}
+		}
 		
 		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
 	}

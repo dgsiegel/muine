@@ -37,7 +37,6 @@ o Gapless transition/crossfading
   and have a fancy adder somewhere in the pipeline that does the mixing
   when a new song comes in ..
 o Make drop-at-end work in the PlaylistWindow.
-o Album cover fetching is not working reliably? (Lee Willis is on this)
 
 Depends on other components:
 ============================
