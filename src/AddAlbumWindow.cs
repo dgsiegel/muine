@@ -366,6 +366,9 @@ public class AddAlbumWindow : Window
 
 		if (!view.GetPathAtPos (args.X, args.Y, out path, null))
 			return;
+
+		if (Muine.CoverDB.Loading)
+			return;
 		
 		view.SetDragDestRow (path, Gtk.TreeViewDropPosition.IntoOrAfter);
 	}

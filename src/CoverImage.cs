@@ -65,6 +65,14 @@ public class CoverImage : EventBox
 			image.SetFromStock ("muine-default-cover",
 				            StockIcons.AlbumCoverSize);
 		}
+	
+		if (song != null && song.Album.Length > 0 && !Muine.CoverDB.Loading) {
+			Gtk.Drag.DestSet (this, DestDefaults.All,
+					  cover_drag_entries, Gdk.DragAction.Copy);
+		} else {
+			Gtk.Drag.DestSet (this, DestDefaults.All,
+					  null, Gdk.DragAction.Copy);
+		}
 	}
 
 	private Song song;
@@ -73,14 +81,6 @@ public class CoverImage : EventBox
 			song = value;
 
 			Sync ();
-			
-			if (song != null && song.Album.Length > 0) {
-				Gtk.Drag.DestSet (this, DestDefaults.All,
-						  cover_drag_entries, Gdk.DragAction.Copy);
-			} else {
-				Gtk.Drag.DestSet (this, DestDefaults.All,
-						  null, Gdk.DragAction.Copy);
-			}
 		}
 	}
 

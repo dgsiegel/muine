@@ -1,5 +1,12 @@
 2004-05-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/CoverImage.cs:
+
+	Only enable cover dnd when the covers are done loading.
+
+2004-05-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Only show the "Drop here" tooltip when the coverdb is finished loading.
