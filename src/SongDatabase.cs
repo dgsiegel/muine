@@ -139,8 +139,11 @@ public class SongDatabase
 
 	public void UpdateSong (Song song)
 	{
-		if (!song.Orphan)
+		if (!song.Orphan && song.Dirty) {
 			db.Store (song.Filename, song.Handle, true);
+
+			song.Dirty = false;
+		}
 	
 		if (SongChanged != null)
 			SongChanged (song);

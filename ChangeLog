@@ -1,5 +1,12 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Remove a bunch of unnecessary db.Store on startup ..
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* ClientLib/Makefile.am:
 	* PluginLib/Makefile.am:
 

@@ -83,8 +83,9 @@ public class Song : ISong
 		set {
 			cover_image = value;
 
-			if (cover_image != null && cover_image != Muine.CoverDB.DownloadingPixbuf)
-				checked_cover_image = true;
+			if (cover_image != null &&
+			    cover_image != Muine.CoverDB.DownloadingPixbuf)
+				CheckedCoverImage = true;
 		}
 		
 		get { return cover_image; }
@@ -199,7 +200,26 @@ public class Song : ISong
 
 	private Gdk.Pixbuf tmp_cover_image;
 
+	private bool dirty = false;
+	public bool Dirty {
+		set { dirty = value; }
+
+		get { return dirty; }
+	}
+
 	private bool checked_cover_image;
+	private bool CheckedCoverImage {
+		set {
+			if (checked_cover_image == value)
+				return;
+
+			checked_cover_image = value;
+
+			dirty = true;
+		}
+
+		get { return checked_cover_image; }
+	}
 
 	/* this is run from the main thread */
 	private bool ProcessDownloadedAlbumCover ()
@@ -213,7 +233,7 @@ public class Song : ISong
 			return false;
 		}
 
-		checked_cover_image = true;
+		CheckedCoverImage = true;
 
 		cover_image = tmp_cover_image;
 		tmp_cover_image = null;
@@ -255,7 +275,7 @@ public class Song : ISong
 			tmp_cover_image = null;
 		}
 
-		checked_cover_image = false;
+		CheckedCoverImage = false;
 
 		GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
 	}
@@ -384,6 +404,8 @@ public class Song : ISong
 		search_key = null;
 
 		GetCoverImage (metadata);
+		
+		dirty = true;
 	}
 
 	public Song (string fn)
