@@ -1,3 +1,15 @@
+2004-02-17  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Stop leaking removed songs and albums.
+	
+	* src/PlaylistWindow.cs:
+
+	Clean up window visibility code some more.
+
 2004-02-16  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:

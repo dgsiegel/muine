@@ -169,7 +169,23 @@ public class Song
 		}
 	}
 
-	public bool Dead;
+	private bool dead = false;
+	public bool Dead {
+		set {
+			dead = value;
+
+			if (dead) {
+				pointers.Remove (handle);
+
+				foreach (IntPtr extra_handle in handles)
+					pointers.Remove (extra_handle);
+			}
+		}
+
+		get {
+			return dead;
+		}
+	}
 
 	private static string [] cover_filenames = {
 		"cover.jpg",
@@ -191,7 +207,7 @@ public class Song
 	/* this is run from the main thread */
 	private bool ProcessDownloadedAlbumCover ()
 	{
-		if (Dead)
+		if (dead)
 			return false;
 
 		if (checked_cover_image == true) {
@@ -372,8 +388,6 @@ public class Song
 
 	public Song (string fn)
 	{
-		Dead = false;
-
 		filename = fn;
 
 		Metadata metadata;
@@ -419,8 +433,6 @@ public class Song
 		IntPtr p = data;
 		int len;
 
-		Dead = false;
-
 		filename = fn;
 
 		p = UnpackString (p, out title);
@@ -462,11 +474,6 @@ public class Song
 
 		if (checked_cover_image == false)
 			GetCoverImage (null);
-	}
-
-	~Song ()
-	{
-		pointers.Remove (handle);
 	}
 
 	[DllImport ("libmuine")]

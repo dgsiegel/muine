@@ -893,11 +893,6 @@ public class PlaylistWindow : Window
 
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
 	{
-		if (args.Event.changed_mask == Gdk.WindowState.Iconified) { 
-			if (playlist.Playing != IntPtr.Zero)
-				playlist.Select (playlist.Playing);
-		}
-
 		bool old_window_visible = window_visible;
 		window_visible = ((args.Event.new_window_state != Gdk.WindowState.Iconified) &&
 				  (args.Event.new_window_state != Gdk.WindowState.Withdrawn));
@@ -925,10 +920,7 @@ public class PlaylistWindow : Window
 
 	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
 	{
-		if (GdkWindow.State == Gdk.WindowState.Iconified)
-			SetWindowVisible (true);
-		else
-			SetWindowVisible (!window_visible);
+		SetWindowVisible (!window_visible);
 	}
 
 	private bool had_last_eos;

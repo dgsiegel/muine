@@ -122,11 +122,6 @@ public class Album
 		handle = cur_ptr;
 	}
 
-	~Album ()
-	{
-		pointers.Remove (handle);
-	}
-
 	public static Album FromHandle (IntPtr handle)
 	{
 		return (Album) pointers [handle];
@@ -212,5 +207,8 @@ public class Album
 		Songs.Remove (song);
 
 		album_empty = (Songs.Count == 0);
+
+		if (album_empty)
+			pointers.Remove (handle);
 	}
 }
