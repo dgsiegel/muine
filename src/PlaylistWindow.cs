@@ -1793,9 +1793,10 @@ public class PlaylistWindow : Window
 				
 				if (first) {
 					if (type == (uint) TargetType.ModelRow) {
-						/* scroll if the first & moved, because it will haev scrolled out of view
-						   during the move - hack, hack, hack :( */
-						playlist.Select (new_ptr, playlist.IsFirst (new_ptr));
+						/* scroll if the first/last & moved, because it will have scrolled out of
+						   view during the move - hack, hack, hack :( */
+						playlist.Select (new_ptr, playlist.IsFirst (new_ptr) ||
+									  playlist.IsLast (new_ptr));
 					} else
 						playlist.Select (new_ptr);
 

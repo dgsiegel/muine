@@ -130,6 +130,15 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern bool pointer_list_view_is_last (IntPtr view,
+							      IntPtr pointer);
+
+	public bool IsLast (IntPtr handle)
+	{
+		return pointer_list_view_is_last (Raw, handle);
+	}
+	
+	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_changed (IntPtr view,
 							      IntPtr pointer);
 

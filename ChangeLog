@@ -1,5 +1,14 @@
 2004-11-23  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_is_last):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Scroll to last row when DND-reordering a row to be the last one.
+
+2004-11-23  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Clean up external file DND.

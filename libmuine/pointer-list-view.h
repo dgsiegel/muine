@@ -78,6 +78,8 @@ gboolean         pointer_list_view_contains        (PointerListView *view,
 				                    gpointer pointer);
 gboolean         pointer_list_view_is_first        (PointerListView *view,
 				                    gpointer pointer);
+gboolean         pointer_list_view_is_last         (PointerListView *view,
+				                    gpointer pointer);
 GList *          pointer_list_view_get_selection   (PointerListView *view);
 void             pointer_list_view_select_first    (PointerListView *view);
 gboolean         pointer_list_view_select_next     (PointerListView *view,

@@ -298,6 +298,18 @@ pointer_list_view_is_first (PointerListView *view,
 	return (first.user_data == iter.user_data);
 }
 
+gboolean
+pointer_list_view_is_last (PointerListView *view,
+		           gpointer pointer)
+{
+	GtkTreeIter iter;
+
+	if (!pointer_list_model_pointer_get_iter (view->model, pointer, &iter))
+		return FALSE;
+
+	return (!gtk_tree_model_iter_next (GTK_TREE_MODEL (view->model), &iter));
+}
+
 static gboolean
 pointer_foreach_func (PointerListModel *model,
 	              GtkTreePath *path,
