@@ -24,6 +24,7 @@ src/Muine.cs
 src/NotificationAreaIcon.cs
 src/Player.cs
 src/PlaylistWindow.cs
+src/PluginManager.cs
 src/ProgressWindow.cs
 src/SongDatabase.cs
 src/StringUtils.cs
