@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-26 15:32+0100\n"
-"PO-Revision-Date: 2004-02-26 21:14+0100\n"
+"POT-Creation-Date: 2004-02-27 23:46+0100\n"
+"PO-Revision-Date: 2004-02-27 23:46+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -195,7 +195,7 @@ msgstr "Питање"
 msgid "Listen to your music"
 msgstr "Слушајте вашу музику "
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:610
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:611
 msgid "Muine Music Player"
 msgstr "Музички програм Мујна"
 
@@ -287,30 +287,56 @@ msgstr "Усмерење"
 msgid "The orientation of the tray."
 msgstr "Усмерење фиоке."
 
-#: src/About.cs:46
+#: src/About.cs:38
+msgid "Jorn Baayen (jbaayen@gnome.org)"
+msgstr "Јорн Бајен (Jorn Baayen — jbaayen@gnome.org)"
+
+#: src/About.cs:39
+msgid "Lee Willis (lee@leewillis.co.uk)"
+msgstr "Ли Вилис (Lee Willis — lee@leewillis.co.uk)"
+
+#. please use Vietnamese spelling, if the relevant characters occur in
+#. * your language.
+#: src/About.cs:42
+msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+msgstr "Вијет Јен Нгујен (Viet Yen Nguyen — nguyen@cs.utwente.nl)"
+
+#: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
 "Данило Шеган <danilo@prevod.org>\n"
 "\n"
 "Prevod.org — превод на српски језик."
 
+#: src/About.cs:57
+msgid "Muine"
+msgstr "Мујна"
+
 #. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:53
+#: src/About.cs:59
 msgid "Copyright (C) 2003, 2004 Jorn Baayen"
 msgstr "Сва права задржана © 2003, 2004 Јорн Бајен (Jorn Baayen)"
 
-#: src/About.cs:54
+#: src/About.cs:60
 msgid "A music player"
 msgstr "Музички програм"
 
-#: src/About.cs:64
+#: src/About.cs:70
 msgid "Thanks to Amazon.com for providing album cover images!"
 msgstr "Захваљујемо се Amazon.com-у за обезбеђивање насловница албума"
 
-#: src/AddAlbumWindow.cs:158 src/PlaylistWindow.cs:584
+#: src/AddAlbumWindow.cs:54
+msgid "Play Album"
+msgstr "Пусти албум"
+
+#: src/AddAlbumWindow.cs:155 src/PlaylistWindow.cs:585
 #, csharp-format
 msgid "Performed by {0}"
-msgstr "Извршио {0}"
+msgstr "Извео {0}"
+
+#: src/AddSongWindow.cs:54
+msgid "Play Song"
+msgstr "Пусти песму"
 
 #. Space-separated list of prefixes that will be taken off the front
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
@@ -320,7 +346,7 @@ msgstr "Извршио {0}"
 msgid "the dj"
 msgstr "the dj"
 
-#: src/CoverDatabase.cs:64 src/SongDatabase.cs:76
+#: src/CoverDatabase.cs:66 src/SongDatabase.cs:76
 #, csharp-format
 msgid "Failed to open database: {0}"
 msgstr "Неуспело отварање базе: {0}"
@@ -330,7 +356,7 @@ msgstr "Неуспело отварање базе: {0}"
 msgid "Failed to load metadata: {0}"
 msgstr "Неуспело учитавање метаподатака: {0}"
 
-#: src/Muine.cs:88
+#: src/Muine.cs:79
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
@@ -339,7 +365,7 @@ msgstr ""
 "Неуспешно учитавање базе насловница: {0}\n"
 "Излазим..."
 
-#: src/Muine.cs:99
+#: src/Muine.cs:90
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
@@ -364,7 +390,7 @@ msgstr "С_ледећа песма"
 msgid "Song _Information"
 msgstr "Подаци о пес_ми"
 
-#: src/NotificationAreaIcon.cs:114 src/PlaylistWindow.cs:250
+#: src/NotificationAreaIcon.cs:114 src/PlaylistWindow.cs:251
 msgid "Show _Window"
 msgstr "При_кажи прозор"
 
@@ -372,31 +398,36 @@ msgstr "При_кажи прозор"
 msgid "Failed to create Player object"
 msgstr "Неуспешно прављење Player објекта"
 
-#: src/PlaylistWindow.cs:248
+#: src/PlaylistWindow.cs:249
 msgid "Hide _Window"
 msgstr "_Сакриј прозор"
 
-#: src/PlaylistWindow.cs:269
+#: src/PlaylistWindow.cs:270
 msgid "Play the previous song"
 msgstr "Пусти претходну песму"
 
-#: src/PlaylistWindow.cs:271
+#: src/PlaylistWindow.cs:272
 msgid "Play the next song"
 msgstr "Пусти следећу песму"
 
-#: src/PlaylistWindow.cs:273
+#: src/PlaylistWindow.cs:274
 msgid "Add an album to the playlist"
 msgstr "Додај албум у списак песама"
 
-#: src/PlaylistWindow.cs:275
+#: src/PlaylistWindow.cs:276
 msgid "Add a song to the playlist"
 msgstr "Додај песму у списак песама"
 
-#: src/PlaylistWindow.cs:283
+#: src/PlaylistWindow.cs:284
 msgid "Change the volume level"
 msgstr "Измени јачину звука"
 
-#: src/PlaylistWindow.cs:399
+#: src/PlaylistWindow.cs:364 src/PlaylistWindow.cs:481
+#: src/PlaylistWindow.cs:505 src/PlaylistWindow.cs:519
+msgid "Playlist"
+msgstr "Списак песама"
+
+#: src/PlaylistWindow.cs:400
 msgid ""
 "Failed to create the required GStreamer elements.\n"
 "Exiting..."
@@ -404,12 +435,7 @@ msgstr ""
 "Неуспех при образовању неопходних елемената ГСтримера.\n"
 "Излазим..."
 
-#: src/PlaylistWindow.cs:480 src/PlaylistWindow.cs:504
-#: src/PlaylistWindow.cs:518
-msgid "Playlist"
-msgstr "Списак песама"
-
-#: src/PlaylistWindow.cs:497
+#: src/PlaylistWindow.cs:498
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
@@ -417,7 +443,7 @@ msgstr[0] "Списак песама (понавља {0} час)"
 msgstr[1] "Списак песама (понавља {0} часа)"
 msgstr[2] "Списак песама (понавља {0} часова)"
 
-#: src/PlaylistWindow.cs:500
+#: src/PlaylistWindow.cs:501
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
@@ -425,11 +451,11 @@ msgstr[0] "Списак песама (понавља {0} минут)"
 msgstr[1] "Списак песама (понавља {0} минута)"
 msgstr[2] "Списак песама (понавља {0} минута)"
 
-#: src/PlaylistWindow.cs:502
+#: src/PlaylistWindow.cs:503
 msgid "Playlist (Repeating)"
 msgstr "Списак песама (понављање)"
 
-#: src/PlaylistWindow.cs:511
+#: src/PlaylistWindow.cs:512
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
@@ -437,7 +463,7 @@ msgstr[0] "Списак песама (преостао {0} час)"
 msgstr[1] "Списак песама (преостала {0} часа)"
 msgstr[2] "Списак песама (преостало {0} часова)"
 
-#: src/PlaylistWindow.cs:514
+#: src/PlaylistWindow.cs:515
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
@@ -445,68 +471,68 @@ msgstr[0] "Списак песама (преостао {0} минут)"
 msgstr[1] "Списак песама (преостала {0} минута)"
 msgstr[2] "Списак песама (преостало {0} минута)"
 
-#: src/PlaylistWindow.cs:516
+#: src/PlaylistWindow.cs:517
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Списак песама (преостало мање од минута)"
 
-#: src/PlaylistWindow.cs:580
+#: src/PlaylistWindow.cs:581
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Од „{0}“"
 
-#: src/PlaylistWindow.cs:582
+#: src/PlaylistWindow.cs:583
 msgid "Album unknown"
 msgstr "Непознат албум"
 
-#: src/PlaylistWindow.cs:594
+#: src/PlaylistWindow.cs:595
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} — музички програм Мујна"
 
-#: src/PlaylistWindow.cs:629
+#: src/PlaylistWindow.cs:630
 msgid "Pause music playback"
 msgstr "Паузирај пуштање музике"
 
-#: src/PlaylistWindow.cs:633 src/PlaylistWindow.cs:636
+#: src/PlaylistWindow.cs:634 src/PlaylistWindow.cs:637
 msgid "P_ause"
 msgstr "П_аузирај"
 
-#: src/PlaylistWindow.cs:642
+#: src/PlaylistWindow.cs:643
 msgid "Resume music playback"
 msgstr "Настави пуштање музике"
 
-#: src/PlaylistWindow.cs:646 src/PlaylistWindow.cs:649
-#: src/PlaylistWindow.cs:657 src/PlaylistWindow.cs:660
+#: src/PlaylistWindow.cs:647 src/PlaylistWindow.cs:650
+#: src/PlaylistWindow.cs:658 src/PlaylistWindow.cs:661
 msgid "Pl_ay"
 msgstr "_Пусти"
 
-#: src/PlaylistWindow.cs:653
+#: src/PlaylistWindow.cs:654
 msgid "Start music playback"
 msgstr "Пусти музику"
 
-#: src/PlaylistWindow.cs:724
+#: src/PlaylistWindow.cs:725
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Нисам успео да отворим {0} ради читања"
 
-#: src/PlaylistWindow.cs:798
+#: src/PlaylistWindow.cs:799
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Нисам успео да отворим {0} ради уписа"
 
-#: src/PlaylistWindow.cs:1148
+#: src/PlaylistWindow.cs:1155
 msgid "Import Folder"
 msgstr "Увези директоријум"
 
-#: src/PlaylistWindow.cs:1198
+#: src/PlaylistWindow.cs:1205
 msgid "Open Playlist"
 msgstr "Отвори списак песама"
 
-#: src/PlaylistWindow.cs:1213
+#: src/PlaylistWindow.cs:1220
 msgid "Save Playlist"
 msgstr "Сачувај списак песама"
 
-#: src/PlaylistWindow.cs:1223
+#: src/PlaylistWindow.cs:1230
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
