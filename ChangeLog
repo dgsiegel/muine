@@ -1,5 +1,15 @@
 2004-04-20  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/ErrorDialog.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Prettier error dialogs.
+
+2004-04-20  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* libmuine/player-gst.c: (player_init), (player_construct),
 	(player_new), (player_set_file), (player_get_volume):

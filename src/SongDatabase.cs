@@ -73,7 +73,7 @@ public class SongDatabase
 		dbf = db_open (filename, version, out error);
 
 		if (dbf == IntPtr.Zero)
-			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to open database: {0}"), error));
+			throw new Exception (error);
 
 		Songs = new Hashtable ();
 		Albums = new Hashtable ();

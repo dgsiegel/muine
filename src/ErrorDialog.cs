@@ -25,7 +25,7 @@ using GLib;
 public class ErrorDialog
 {
 	[Glade.Widget]
-	Window window;
+	Dialog window;
 	[Glade.Widget]
 	Label label;
 
@@ -34,12 +34,15 @@ public class ErrorDialog
 		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 		gxml.Autoconnect (this);
 
-		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (text),
+		string heading = Muine.Catalog.GetString ("An error occurred:");
+		string full_text = heading + "\n\n" + text;
+
+		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (heading),
 					    true, true, false);
 
-		label.Text = text;
+		label.Text = full_text;
 
-		((Dialog) window).Run ();
+		window.Run ();
 
 		window.Destroy ();
 	}

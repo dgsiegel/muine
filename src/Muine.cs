@@ -76,7 +76,7 @@ public class Muine : Gnome.Program
 		try {
 			CoverDB = new CoverDatabase (2);
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\nExiting..."), e.ToString ()));
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
 
 			Exit ();
 		}
@@ -85,7 +85,7 @@ public class Muine : Gnome.Program
 		try {
 			DB = new SongDatabase (3);
 		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\nExiting..."), e.ToString ()));
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 
 			Exit ();
 		}
