@@ -1,3 +1,9 @@
+2004-02-11  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/About.cs:
+
+	Don't keep the logo pixbuf in memory.
+
 2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/pointer-list-view.c: (pointer_list_view_select_first),

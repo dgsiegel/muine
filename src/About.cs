@@ -40,15 +40,12 @@ public class About
 		}
 	}
 
-	private static Pixbuf pixbuf = null;
-
 	public static void ShowWindow (Gtk.Window parent)
 	{
 		string [] documenters = new string [] {};
 		string translators = null;
 
-		if (pixbuf == null)
-			pixbuf = new Pixbuf (null, "muine-playlist.png");
+		Pixbuf pixbuf = new Pixbuf (null, "muine-playlist.png");
 
 		Gnome.About about;
 		about = new Gnome.About ("Muine", version,
