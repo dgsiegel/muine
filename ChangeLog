@@ -1,5 +1,16 @@
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+
+	0.8.1pre2.
+	
+	* src/AddWindow.cs:
+
+	Small cleanup.
+
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* libmuine/Makefile.am:
 	* libmuine/pointer-list-model.c:

@@ -2,8 +2,8 @@
 =====
 
 - Only list complete albums in album list [Jorn Baayen, Peter Oliver]
-- Major performance improvements thanks to GtkTreeView's fixed-height-mode,
-  thanks to this we can now show all songs in the "Add Song" window.
+- Use fixed width tree columns, causes huge performance improvements and
+  thanks to this we can now show all songs in the "Add Song" window
    						   [Jorn Baayen]
 - AAC support using faad2 [Peter Johanson]
 - Search improvements; searching for "rem" will now also yield "R.E.M."
@@ -21,6 +21,7 @@ New translations:
 - Romanian [Spoiala Cristian]
 
 Updated translations:
+- Bulgarian [Rostislav Raykov]
 - Canadian English [Adam Weinberger]
 - Czech [Miloslav Trmac]
 - Dutch [Vincent van Adrighem]

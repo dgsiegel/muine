@@ -62,7 +62,6 @@ namespace Muine
 		private string gconf_key_width, gconf_key_height;
 		private int gconf_default_width, gconf_default_height;
 		
-		private bool process_changes_immediately = false;
 		private uint search_timeout_id = 0;
 		private const uint search_timeout = 100;
 		private bool first_time = true;
@@ -337,14 +336,10 @@ namespace Muine
 		// Handlers :: OnEntryChanged
 		private void OnEntryChanged (object o, EventArgs args)
 		{
-			if (process_changes_immediately)
-				Search ();
-			else {
-				if (search_timeout_id > 0)
-					GLib.Source.Remove (search_timeout_id);
+			if (search_timeout_id > 0)
+				GLib.Source.Remove (search_timeout_id);
 
-				search_timeout_id = GLib.Timeout.Add (search_timeout, new GLib.TimeoutHandler (Search));
-			}
+			search_timeout_id = GLib.Timeout.Add (search_timeout, new GLib.TimeoutHandler (Search));
 		}
 		
 		// Handlers :: OnAdded
