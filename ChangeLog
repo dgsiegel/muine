@@ -1,5 +1,11 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Added 'ro' to ALL_LINGUAS.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* data/glade/ErrorDialog.glade:
 	* data/glade/OverwriteDialog.glade:
