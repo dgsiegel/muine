@@ -200,6 +200,7 @@ public class Song
 		Muine.DB.UpdateSong (this);
 
 		cover_image = tmp_cover_image;
+		tmp_cover_image = null;
 		
 		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
 		

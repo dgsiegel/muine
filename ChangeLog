@@ -1,3 +1,9 @@
+2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/Song.cs:
+
+	Nullify tmp_cover_image when not needed anymore.
+
 2004-02-02  Goetz Waschk  <waschk@informatik.uni-rostock.de>
 
 	* data/muine.schemas.in:
