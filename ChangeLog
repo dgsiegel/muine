@@ -1,5 +1,11 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/SongDatabase.cs:
+
+	Async fixes.
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/CoverDatabase.cs:
 
 	Close stream after creating a pixbuf from it.

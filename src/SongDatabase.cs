@@ -123,20 +123,34 @@ public class SongDatabase
 	{
 		if (removed_songs.Count > 0) {
 			Song song = (Song) removed_songs.Dequeue ();
+
+			if (!Songs.ContainsKey (song.Filename))
+				return true;
+
 			RemoveSong (song);
 			return true;
 		}
 
 		if (changed_songs.Count > 0) {
 			ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
+
+			if (!Songs.ContainsKey (cs.Song.Filename))
+				return true;
+
 			cs.Song.Sync (cs.Metadata);
 			UpdateSong (cs.Song);
+
 			return true;
 		}
 
 		if (new_songs.Count > 0) {
 			Song song = (Song) new_songs.Dequeue ();
+
+			if (Songs.ContainsKey (song.Filename))
+				return true;
+
 			AddSong (song);
+
 			return true;
 		}
 
