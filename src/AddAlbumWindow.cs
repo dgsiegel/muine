@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -61,20 +61,20 @@ public class AddAlbumWindow : AddWindow
 
 		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
 					    source_entries, Gdk.DragAction.Copy);
-		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
+		view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
-		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (HandleAlbumChanged);
-		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
+		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
+		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
+		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
 
-		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleDoneLoading);
+		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
 		foreach (Album a in Muine.DB.Albums.Values) 
 			view.Append (a.Handle);
 		SelectFirst ();
 
-		view.DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
-		view.DragMotion += new DragMotionHandler (HandleDragMotion);
+		view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+		view.DragMotion += new DragMotionHandler (OnDragMotion);
 		Gtk.Drag.DestSet (view, DestDefaults.All,
 				  cover_drag_entries, Gdk.DragAction.Copy);
 	}
@@ -148,22 +148,22 @@ public class AddAlbumWindow : AddWindow
 		return false;
 	}
 	
-	private void HandleAlbumAdded (Album album)
+	private void OnAlbumAdded (Album album)
 	{
 		base.HandleAdded (album.Handle, album.FitsCriteria (SearchBits));
 	}
 
-	private void HandleAlbumChanged (Album album)
+	private void OnAlbumChanged (Album album)
 	{
 		base.HandleChanged (album.Handle, album.FitsCriteria (SearchBits));
 	}
 
-	private void HandleAlbumRemoved (Album album)
+	private void OnAlbumRemoved (Album album)
 	{
 		base.HandleRemoved (album.Handle);
 	}
 
-	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		TreePath path;
 
@@ -176,7 +176,7 @@ public class AddAlbumWindow : AddWindow
 		CoverImage.HandleDrop ((Song) album.Songs [0], args);
 	}
 
-	private void HandleDragMotion (object o, DragMotionArgs args)
+	private void OnDragMotion (object o, DragMotionArgs args)
 	{
 		TreePath path;
 
@@ -189,12 +189,12 @@ public class AddAlbumWindow : AddWindow
 		view.SetDragDestRow (path, Gtk.TreeViewDropPosition.IntoOrAfter);
 	}
 
-	private void HandleDoneLoading ()
+	private void OnCoversDoneLoading ()
 	{
 		view.QueueDraw ();
 	}
 
-	private void DragDataGetCallback (object o, DragDataGetArgs args)
+	private void OnDragDataGet (object o, DragDataGetArgs args)
 	{
 		List albums = view.SelectedPointers;
 

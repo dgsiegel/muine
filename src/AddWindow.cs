@@ -69,8 +69,8 @@ public abstract class AddWindow : Window
 		queue_button_image.SetFromStock ("stock_timer", IconSize.Button);
 
 		view.Selection.Mode = SelectionMode.Multiple;
-		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
-		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
+		view.RowActivated += new HandleView.RowActivatedHandler (OnRowActivated);
+		view.SelectionChanged += new HandleView.SelectionChangedHandler (OnSelectionChanged);
 
 		scrolledwindow.Add (view);
 
@@ -120,7 +120,7 @@ public abstract class AddWindow : Window
 
 		window.SetDefaultSize (width, height);
 		
-		AddHandleSizeAllocated ();
+		AddOnSizeAllocated ();
 	}
 
 	protected void SelectFirst ()
@@ -132,7 +132,7 @@ public abstract class AddWindow : Window
 
 	protected void SelectFirstIfNeeded ()
 	{
-		/* it is insensitive if we have no selection, see HandleSelectionChanged */
+		/* it is insensitive if we have no selection, see OnSelectionChanged */
 		if (!play_button.Sensitive)
 			SelectFirst ();
 	}
@@ -161,25 +161,25 @@ public abstract class AddWindow : Window
 	}
 
 	// Private Methods :: Other		
-	private void AddHandleSizeAllocated ()
+	private void AddOnSizeAllocated ()
 	{
 		AssertHasGConfSize ();
 		
-		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);		
+		window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
 	}
 
 	// Handlers
-	private void HandleWindowDeleteEvent (object o, DeleteEventArgs args)
+	private void OnWindowDeleteEvent (object o, DeleteEventArgs args)
 	{
 		args.RetVal = true;
 	}
 
-	private void HandleRowActivated (IntPtr handle)
+	private void OnRowActivated (IntPtr handle)
 	{
 		play_button.Click ();
 	}
 
-	private void HandleSelectionChanged ()
+	private void OnSelectionChanged ()
 	{
 		bool has_sel = (view.SelectedPointers.Count > 0);
 		
@@ -187,12 +187,12 @@ public abstract class AddWindow : Window
 		queue_button.Sensitive = has_sel;
 	}
 	
-	private void HandleSearchEntryKeyPressEvent (object o, KeyPressEventArgs args)
+	private void OnSearchEntryKeyPressEvent (object o, KeyPressEventArgs args)
 	{
 		args.RetVal = view.ForwardKeyPress (search_entry, args.Event);
 	}
 
-	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
+	private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 	{
 		if (!HasGConfSize ())
 			return;
@@ -204,7 +204,7 @@ public abstract class AddWindow : Window
 		Muine.SetGConfValue (gconf_key_height, height);
 	}
 
-	private void HandleWindowResponse (object o, ResponseArgs args)
+	private void OnWindowResponse (object o, ResponseArgs args)
 	{
 		switch ((int) args.ResponseId) {
 		case (int) ResponseType.DeleteEvent:
@@ -240,7 +240,7 @@ public abstract class AddWindow : Window
 		}
 	}
 	
-	private void HandleSearchEntryChanged (object o, EventArgs args)
+	private void OnSearchEntryChanged (object o, EventArgs args)
 	{
 		if (process_changes_immediately)
 			Search ();

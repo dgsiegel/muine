@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004 Lee Willis <lee@leewillis.co.uk>
- *           (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ *           (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -32,10 +32,10 @@ public class MmKeys : GLib.Object
 	[DllImport ("libmuine")]
 	private static extern IntPtr mmkeys_new ();
 
-	private SignalUtils.SignalDelegate mm_playpause_cb;
-	private SignalUtils.SignalDelegate mm_prev_cb;
-	private SignalUtils.SignalDelegate mm_next_cb;
-	private SignalUtils.SignalDelegate mm_stop_cb;
+	private SignalUtils.SignalDelegate playpause_cb;
+	private SignalUtils.SignalDelegate prev_cb;
+	private SignalUtils.SignalDelegate next_cb;
+	private SignalUtils.SignalDelegate stop_cb;
 
 	IPlayer player;
 
@@ -45,15 +45,15 @@ public class MmKeys : GLib.Object
 
 		this.player = player;
 
-		mm_playpause_cb = new SignalUtils.SignalDelegate (MmPlayPauseCallback);
-		mm_prev_cb      = new SignalUtils.SignalDelegate (MmPrevCallback);
-		mm_next_cb      = new SignalUtils.SignalDelegate (MmNextCallback);
-		mm_stop_cb      = new SignalUtils.SignalDelegate (MmStopCallback);
+		playpause_cb = new SignalUtils.SignalDelegate (OnPlayPause);
+		prev_cb      = new SignalUtils.SignalDelegate (OnPrev);
+		next_cb      = new SignalUtils.SignalDelegate (OnNext);
+		stop_cb      = new SignalUtils.SignalDelegate (OnStop);
 
-		SignalUtils.SignalConnect (Raw, "mm_playpause", mm_playpause_cb);
-		SignalUtils.SignalConnect (Raw, "mm_prev", mm_prev_cb);
-		SignalUtils.SignalConnect (Raw, "mm_next", mm_next_cb);
-		SignalUtils.SignalConnect (Raw, "mm_stop", mm_stop_cb);
+		SignalUtils.SignalConnect (Raw, "mm_playpause", playpause_cb);
+		SignalUtils.SignalConnect (Raw, "mm_prev", prev_cb);
+		SignalUtils.SignalConnect (Raw, "mm_next", next_cb);
+		SignalUtils.SignalConnect (Raw, "mm_stop", stop_cb);
 	}
 
 	~MmKeys ()
@@ -61,22 +61,22 @@ public class MmKeys : GLib.Object
 		Dispose ();
 	}
 
-	private void MmPlayPauseCallback (IntPtr obj)
+	private void OnPlayPause (IntPtr obj)
 	{
 		player.Playing = !player.Playing;
 	}
 
-	private void MmNextCallback (IntPtr obj)
+	private void OnNext (IntPtr obj)
 	{
 		player.Next ();
 	}
 
-	private void MmPrevCallback (IntPtr obj)
+	private void OnPrev (IntPtr obj)
 	{
 		player.Previous ();
 	}
 
-	private void MmStopCallback (IntPtr obj)
+	private void OnStop (IntPtr obj)
 	{
 		player.Playing = false;
 	}

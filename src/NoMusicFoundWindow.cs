@@ -39,7 +39,7 @@ public class NoMusicFoundWindow
 		window.Visible = true;
 	}
 
-	private void HandleOkClicked (object o, EventArgs a) 
+	private void OnOkClicked (object o, EventArgs a) 
 	{
 		window.Destroy ();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -275,7 +275,7 @@ public class Muine : Gnome.Program
 		Run ();
 
 		/* Now we load the album covers, and after that start the changes thread */
-		cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
+		cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 		
 		cover_db.Load ();
 
@@ -286,8 +286,8 @@ public class Muine : Gnome.Program
 		/* Hook up to the session manager */
 		client = Gnome.Global.MasterClient ();
 
-		client.Die += new EventHandler (HandleDieEvent);
-		client.SaveYourself += new Gnome.SaveYourselfHandler (HandleSaveYourselfEvent);
+		client.Die += new EventHandler (OnDieEvent);
+		client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
 	}
 
 	private new void Run ()
@@ -343,18 +343,18 @@ public class Muine : Gnome.Program
 		Gtk.Window.DefaultIconList = default_icon_list;
 	}
 
-	private void HandleCoversDoneLoading ()
+	private void OnCoversDoneLoading ()
 	{
 		/* covers done loading, start the changes thread */
 		db.CheckChanges ();
 	}
 
-	private void HandleDieEvent (object o, EventArgs args)
+	private void OnDieEvent (object o, EventArgs args)
 	{
 		Exit ();
 	}
 
-	private void HandleSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
+	private void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
 	{
 		/* FIXME */
 		string [] argv = { "muine" };

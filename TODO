@@ -8,7 +8,6 @@ o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o Fill in the gaps in the API docs
 o Write a simple manual
-o Rename event handlers from Handle.. to On..
 
 Tough:
 ======

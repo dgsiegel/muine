@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -184,9 +184,9 @@ public class Player : GLib.Object
 			throw new Exception (error);
 		}
 		
-		tick_cb = new SignalUtils.SignalDelegateInt (TickCallback);
-		eos_cb = new SignalUtils.SignalDelegate (EosCallback);
-		error_cb = new SignalUtils.SignalDelegateStr (ErrorCallback);
+		tick_cb = new SignalUtils.SignalDelegateInt (OnTick);
+		eos_cb = new SignalUtils.SignalDelegate (OnEndOfStream);
+		error_cb = new SignalUtils.SignalDelegateStr (OnError);
 
 		SignalUtils.SignalConnect (Raw, "tick", tick_cb);
 		SignalUtils.SignalConnect (Raw, "end_of_stream", eos_cb);
@@ -201,7 +201,7 @@ public class Player : GLib.Object
 		Dispose ();
 	}
 
-	private void TickCallback (IntPtr obj, int pos)
+	private void OnTick (IntPtr obj, int pos)
 	{	
 		if (TickEvent != null)
 			TickEvent (pos);
@@ -210,13 +210,13 @@ public class Player : GLib.Object
 	public delegate void EndOfStreamEventHandler ();
 	public event EndOfStreamEventHandler EndOfStreamEvent;
 
-	private void EosCallback (IntPtr obj)
+	private void OnEndOfStream (IntPtr obj)
 	{
 		if (EndOfStreamEvent != null)
 			EndOfStreamEvent ();
 	}
 
-	private void ErrorCallback (IntPtr obj, string error)
+	private void OnError (IntPtr obj, string error)
 	{
 		new ErrorDialog (String.Format (Muine.Catalog.GetString ("Audio backend error:\n{0}"), error));
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -35,9 +35,9 @@ public class CoverImage : EventBox
 		
 		Add (image);
 
-		DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
+		DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 
-		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleDoneLoading);
+		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 	}
 
 	~CoverImage ()
@@ -144,12 +144,12 @@ public class CoverImage : EventBox
 		Gtk.Drag.Finish (args.Context, success, false, args.Time);
 	}
 
-	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		HandleDrop (song, args);
 	}
 
-	private void HandleDoneLoading ()
+	private void OnCoversDoneLoading ()
 	{
 		Sync ();
 	}

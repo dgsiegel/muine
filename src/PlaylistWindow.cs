@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -213,14 +213,14 @@ public class PlaylistWindow : Window, IPlayer
 		Add (glade_xml ["main_vbox"]);
 
 		/* hook up window signals */
-		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
-		DeleteEvent += new DeleteEventHandler (HandleDeleteEvent);
-		DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
+		WindowStateEvent += new WindowStateEventHandler (OnWindowStateEvent);
+		DeleteEvent += new DeleteEventHandler (OnDeleteEvent);
+		DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 		Gtk.Drag.DestSet (this, DestDefaults.All,
 				  drag_entries, Gdk.DragAction.Copy);
 
 		/* keep track of window visibility */
-		VisibilityNotifyEvent += new VisibilityNotifyEventHandler (HandleWindowVisibilityNotifyEvent);
+		VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
 		AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
 		/* set up various other UI bits */
@@ -232,8 +232,8 @@ public class PlaylistWindow : Window, IPlayer
 		SetupPlaylist (glade_xml);
 
 		/* connect to song database signals */
-		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
-		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
+		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
 		/* make sure the interface is up to date */
 		SelectionChanged ();
@@ -259,7 +259,7 @@ public class PlaylistWindow : Window, IPlayer
 		WindowVisible = true;
 	}
 
-	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		string [] uri_list;
 		string fn;
@@ -338,7 +338,7 @@ public class PlaylistWindow : Window, IPlayer
 
 		SetDefaultSize (width, height);
 
-		SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
+		SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);
 	}
 
 	private int last_x = -1;
@@ -395,64 +395,64 @@ public class PlaylistWindow : Window, IPlayer
 			                 null, null, null),
 			new ActionEntry ("ImportFolder", Stock.Execute, Muine.Catalog.GetString ("_Import Folder..."),
 			                 null, null,
-					 new EventHandler (HandleImportFolderCommand)),
+					 new EventHandler (OnImportFolderCommand)),
 			new ActionEntry ("OpenPlaylist", Stock.Open, Muine.Catalog.GetString ("_Open Playlist..."),
 			                 "<control>O", null,
-					 new EventHandler (HandleOpenPlaylistCommand)),
+					 new EventHandler (OnOpenPlaylistCommand)),
 			new ActionEntry ("SavePlaylistAs", Stock.SaveAs, Muine.Catalog.GetString ("_Save Playlist As..."),
 			                 "<shift><control>S", null,
-					 new EventHandler (HandleSavePlaylistAsCommand)),
+					 new EventHandler (OnSavePlaylistAsCommand)),
 			new ActionEntry ("ShowHideWindow", null, "",
 			                 "Escape", null,
-					 new EventHandler (HandleToggleWindowVisibilityCommand)),
+					 new EventHandler (OnToggleWindowVisibilityCommand)),
 			new ActionEntry ("Quit", Stock.Quit, null,
 			                 "<control>Q", null,
-					 new EventHandler (HandleQuitCommand)),
+					 new EventHandler (OnQuitCommand)),
 			new ActionEntry ("PreviousSong", "stock_media-prev", Muine.Catalog.GetString ("_Previous"),
 			                 "P", null,
-					 new EventHandler (HandlePreviousCommand)),
+					 new EventHandler (OnPreviousCommand)),
 			new ActionEntry ("NextSong", "stock_media-next", Muine.Catalog.GetString ("_Next"),
 			                 "N", null,
-					 new EventHandler (HandleNextCommand)),
+					 new EventHandler (OnNextCommand)),
 			new ActionEntry ("SkipTo", Stock.JumpTo, Muine.Catalog.GetString ("_Skip to..."),
 			                 "T", null,
-					 new EventHandler (HandleSkipToCommand)),
+					 new EventHandler (OnSkipToCommand)),
 			new ActionEntry ("SkipBackwards", "stock_media-rew", Muine.Catalog.GetString ("Skip _Backwards"),
 			                 "<control>Left", null,
-					 new EventHandler (HandleSkipBackwardsCommand)),
+					 new EventHandler (OnSkipBackwardsCommand)),
 			new ActionEntry ("SkipForward", "stock_media-fwd",
 			                 Muine.Catalog.GetString ("Skip _Forward"), "<control>Right", null,
-					 new EventHandler (HandleSkipForwardCommand)),
+					 new EventHandler (OnSkipForwardCommand)),
 			new ActionEntry ("PlaySong", Stock.Add, Muine.Catalog.GetString ("Play _Song..."),
 			                 "S", null,
-					 new EventHandler (HandlePlaySongCommand)),
+					 new EventHandler (OnPlaySongCommand)),
 			new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", Muine.Catalog.GetString ("Play _Album..."),
 			                 "A", null,
-					 new EventHandler (HandlePlayAlbumCommand)),
+					 new EventHandler (OnPlayAlbumCommand)),
 			new ActionEntry ("RemoveSong", Stock.Remove, Muine.Catalog.GetString ("_Remove Song"),
 			                 "Delete", null,
-					 new EventHandler (HandleRemoveSongCommand)),
+					 new EventHandler (OnRemoveSongCommand)),
 			new ActionEntry ("RemovePlayedSongs", null, Muine.Catalog.GetString ("Remove _Played Songs"),
 			                 "<control>Delete", null,
-					 new EventHandler (HandleRemovePlayedSongsCommand)),
+					 new EventHandler (OnRemovePlayedSongsCommand)),
 			new ActionEntry ("ClearPlaylist", Stock.Clear, Muine.Catalog.GetString ("_Clear"),
 			                 null, null,
-					 new EventHandler (HandleClearPlaylistCommand)),
+					 new EventHandler (OnClearPlaylistCommand)),
 			new ActionEntry ("Shuffle", "stock_shuffle", Muine.Catalog.GetString ("Shu_ffle"),
 			                 "<control>S", null,
-					 new EventHandler (HandleShuffleCommand)),
+					 new EventHandler (OnShuffleCommand)),
 			new ActionEntry ("About", Gnome.Stock.About, Muine.Catalog.GetString ("_About"),
 			                 null, null,
-					 new EventHandler (HandleAboutCommand))
+					 new EventHandler (OnAboutCommand))
 		};
 
 		ToggleActionEntry [] toggle_action_entries = new ToggleActionEntry [] {
 			new ToggleActionEntry ("PlayPause", "stock_media-play", Muine.Catalog.GetString ("_Play"),
 					       "space", null,
-					       new EventHandler (HandlePlayPauseCommand), false),
+					       new EventHandler (OnPlayPauseCommand), false),
 			new ToggleActionEntry ("Repeat", null, Muine.Catalog.GetString ("R_epeat"),
 			                       "<control>R", null,
-					       new EventHandler (HandleRepeatCommand), false)
+					       new EventHandler (OnRepeatCommand), false)
 		};
 	
 		ActionGroup action_group = new ActionGroup ("Actions");
@@ -513,7 +513,7 @@ public class PlaylistWindow : Window, IPlayer
 		volume_button = new VolumeButton ();
 		((Container) glade_xml ["volume_button_container"]).Add (volume_button);
 		volume_button.Visible = true;
-		volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (HandleVolumeChanged);
+		volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (OnVolumeChanged);
 
 		tooltips.SetTip (volume_button,
 				 Muine.Catalog.GetString ("Change the volume level"), null);
@@ -541,9 +541,9 @@ public class PlaylistWindow : Window, IPlayer
 		text_renderer = new CellRendererText ();
 		playlist.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
-		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
-		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (HandlePlaylistSelectionChanged);
-		playlist.PlayingChanged += new HandleView.PlayingChangedHandler (HandlePlayingChanged);
+		playlist.RowActivated += new HandleView.RowActivatedHandler (OnPlaylistRowActivated);
+		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (OnPlaylistSelectionChanged);
+		playlist.PlayingChanged += new HandleView.PlayingChangedHandler (OnPlaylistPlayingChanged);
 
 		playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
 						playlist_source_entries,
@@ -551,8 +551,8 @@ public class PlaylistWindow : Window, IPlayer
 		playlist.EnableModelDragDest (playlist_dest_entries,
 					      Gdk.DragAction.Copy | Gdk.DragAction.Move);
 
-		playlist.DragDataGet += new DragDataGetHandler (HandlePlaylistDragDataGet);
-		playlist.DragDataReceived += new DragDataReceivedHandler (HandlePlaylistDragDataReceived);
+		playlist.DragDataGet += new DragDataGetHandler (OnPlaylistDragDataGet);
+		playlist.DragDataReceived += new DragDataReceivedHandler (OnPlaylistDragDataReceived);
 
 		playlist.Show ();
 
@@ -599,9 +599,9 @@ public class PlaylistWindow : Window, IPlayer
 			Muine.Exit ();
 		}
 
-		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (HandleEndOfStreamEvent);
-		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
-		player.StateChanged += new Player.StateChangedHandler (HandleStateChanged);
+		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
+		player.TickEvent += new Player.TickEventHandler (OnTickEvent);
+		player.StateChanged += new Player.StateChangedHandler (OnStateChanged);
 
 		title_label = new EllipsizingLabel ("");
 		title_label.Visible = true;
@@ -1037,12 +1037,12 @@ public class PlaylistWindow : Window, IPlayer
 		}
 	}
 
-	private void HandleStateChanged (bool playing)
+	private void OnStateChanged (bool playing)
 	{
 		StateChanged (playing, false);
 	}
 
-	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
+	private void OnWindowStateEvent (object o, WindowStateEventArgs args)
 	{
 		if (!Visible)
 			return;
@@ -1055,7 +1055,7 @@ public class PlaylistWindow : Window, IPlayer
 			UpdateWindowVisibilityUI ();
 	}
 
-	private void HandleWindowVisibilityNotifyEvent (object o, VisibilityNotifyEventArgs args)
+	private void OnVisibilityNotifyEvent (object o, VisibilityNotifyEventArgs args)
 	{
 		if (!Visible ||
 		    GdkWindow.State == Gdk.WindowState.Iconified ||
@@ -1071,12 +1071,12 @@ public class PlaylistWindow : Window, IPlayer
 		args.RetVal = false;
 	}
 
-	private void HandleDeleteEvent (object o, DeleteEventArgs args)
+	private void OnDeleteEvent (object o, DeleteEventArgs args)
 	{
 		Quit ();
 	}
 
-	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
+	private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 	{
 		int width, height;
 
@@ -1086,19 +1086,19 @@ public class PlaylistWindow : Window, IPlayer
 		Muine.SetGConfValue (GConfKeyHeight, height);
 	}
 
-	private void HandleVolumeChanged (int vol)
+	private void OnVolumeChanged (int vol)
 	{
 		player.Volume = vol;
 
 		Muine.SetGConfValue (GConfKeyVolume, vol);
 	}
 
-	private void HandleToggleWindowVisibilityCommand (object o, EventArgs args)
+	private void OnToggleWindowVisibilityCommand (object o, EventArgs args)
 	{
 		WindowVisible = !WindowVisible;
 	}
 
-	private void HandleQueueSongsEvent (List songs)
+	private void OnQueueSongsEvent (List songs)
 	{
 		foreach (int i in songs)
 			AddSong (new IntPtr (i));
@@ -1156,7 +1156,7 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 	
-	private void HandlePlaySongsEvent (List songs)
+	private void OnPlaySongsEvent (List songs)
 	{
 		bool first = true;
 		foreach (int i in songs) {
@@ -1177,7 +1177,7 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 
-	private void HandleQueueAlbumsEvent (List albums)
+	private void OnQueueAlbumsEvent (List albums)
 	{
 		foreach (int i in albums) {
 			Album a = Album.FromHandle (new IntPtr (i));
@@ -1191,7 +1191,7 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 
-	private void HandlePlayAlbumsEvent (List albums)
+	private void OnPlayAlbumsEvent (List albums)
 	{
 		bool first = true;
 		foreach (int i in albums) {
@@ -1214,7 +1214,7 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 
-	private void HandleTickEvent (int pos)
+	private void OnTickEvent (int pos)
 	{
 		UpdateTimeLabels (pos);
 	}
@@ -1226,7 +1226,7 @@ public class PlaylistWindow : Window, IPlayer
 		player.Stop ();
 	}
 
-	private void HandleEndOfStreamEvent ()
+	private void OnEndOfStreamEvent ()
 	{
 		Song song = Song.FromHandle (playlist.Playing);
 
@@ -1273,12 +1273,12 @@ public class PlaylistWindow : Window, IPlayer
 		player.Play ();
 	}
 
-	private void HandlePreviousCommand (object o, EventArgs args)
+	private void OnPreviousCommand (object o, EventArgs args)
 	{
 		Previous ();
 	}
 
-	private void HandlePlayPauseCommand (object o, EventArgs args)
+	private void OnPlayPauseCommand (object o, EventArgs args)
 	{
 		if (block_play_pause_action)
 			return;
@@ -1302,12 +1302,12 @@ public class PlaylistWindow : Window, IPlayer
 		player.Play ();
 	}
 
-	private void HandleNextCommand (object o, EventArgs args)
+	private void OnNextCommand (object o, EventArgs args)
 	{
 		Next ();
 	}
 
-	private void HandleSkipToCommand (object o, EventArgs args)
+	private void OnSkipToCommand (object o, EventArgs args)
 	{
 		playlist.Select (playlist.Playing);
 
@@ -1317,18 +1317,18 @@ public class PlaylistWindow : Window, IPlayer
 		skip_to_window.Run ();
 	}
 
-	private void HandleSkipBackwardsCommand (object o, EventArgs args)
+	private void OnSkipBackwardsCommand (object o, EventArgs args)
 	{
 		SeekTo (player.Position - 5);
 	}
 
-	private void HandleSkipForwardCommand (object o, EventArgs args)
+	private void OnSkipForwardCommand (object o, EventArgs args)
 	{
 		SeekTo (player.Position + 5);
 	}
 
 /*
-	private void HandleInformationCommand (object o, EventArgs args)
+	private void OnInformationCommand (object o, EventArgs args)
 	{
 		//FIXME deal with selection
 		Song song = Song.FromHandle (playlist.Playing);
@@ -1350,8 +1350,8 @@ public class PlaylistWindow : Window, IPlayer
 		if (add_song_window == null) {
 			add_song_window = new AddSongWindow ();
 
-			add_song_window.QueueEvent += new AddSongWindow.QueueEventHandler (HandleQueueSongsEvent);
-			add_song_window.PlayEvent  += new AddSongWindow.PlayEventHandler  (HandlePlaySongsEvent );
+			add_song_window.QueueEvent += new AddSongWindow.QueueEventHandler (OnQueueSongsEvent);
+			add_song_window.PlayEvent  += new AddSongWindow.PlayEventHandler  (OnPlaySongsEvent );
 		}
 
 		add_song_window.Run ();
@@ -1359,7 +1359,7 @@ public class PlaylistWindow : Window, IPlayer
 		AddChildWindowIfVisible (add_song_window);
 	}
 
-	private void HandlePlaySongCommand (object o, EventArgs args)
+	private void OnPlaySongCommand (object o, EventArgs args)
 	{
 		PlaySong ();
 	}
@@ -1369,8 +1369,8 @@ public class PlaylistWindow : Window, IPlayer
 		if (add_album_window == null) {
 			add_album_window = new AddAlbumWindow ();
 			
-			add_album_window.QueueEvent += new AddAlbumWindow.QueueEventHandler (HandleQueueAlbumsEvent);
-			add_album_window.PlayEvent  += new AddAlbumWindow.PlayEventHandler  (HandlePlayAlbumsEvent );
+			add_album_window.QueueEvent += new AddAlbumWindow.QueueEventHandler (OnQueueAlbumsEvent);
+			add_album_window.PlayEvent  += new AddAlbumWindow.PlayEventHandler  (OnPlayAlbumsEvent );
 		}
 
 		add_album_window.Run ();
@@ -1378,7 +1378,7 @@ public class PlaylistWindow : Window, IPlayer
 		AddChildWindowIfVisible (add_album_window);
 	}
 
-	private void HandlePlayAlbumCommand (object o, EventArgs args)
+	private void OnPlayAlbumCommand (object o, EventArgs args)
 	{
 		PlayAlbum ();
 	}
@@ -1430,7 +1430,7 @@ public class PlaylistWindow : Window, IPlayer
 		return true;
 	}
 
-	private void HandleImportFolderCommand (object o, EventArgs args) 
+	private void OnImportFolderCommand (object o, EventArgs args) 
 	{
 		FileChooserDialog fc;
 
@@ -1473,7 +1473,7 @@ public class PlaylistWindow : Window, IPlayer
 		fc.Destroy ();
 	}
 
-	private void HandleOpenPlaylistCommand (object o, EventArgs args)
+	private void OnOpenPlaylistCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Open Playlist"),
 						     this, FileChooserAction.Open,
@@ -1494,7 +1494,7 @@ public class PlaylistWindow : Window, IPlayer
 			OpenPlaylist (fn);
 	}
 
-	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
+	private void OnSavePlaylistAsCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Save Playlist"),
 						     this, FileChooserAction.Save,
@@ -1518,7 +1518,7 @@ public class PlaylistWindow : Window, IPlayer
 			SavePlaylist (fn, false, false);
 	}
 
-	private void HandleRemoveSongCommand (object o, EventArgs args)
+	private void OnRemoveSongCommand (object o, EventArgs args)
 	{
 		List selected_pointers = playlist.SelectedPointers;
 
@@ -1555,7 +1555,7 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 
-	private void HandleRemovePlayedSongsCommand (object o, EventArgs args)
+	private void OnRemovePlayedSongsCommand (object o, EventArgs args)
 	{
 		if (playlist.Playing == IntPtr.Zero)
 			return;
@@ -1580,13 +1580,13 @@ public class PlaylistWindow : Window, IPlayer
 		PlaylistChanged ();
 	}
 
-	private void HandleClearPlaylistCommand (object o, EventArgs args)
+	private void OnClearPlaylistCommand (object o, EventArgs args)
 	{
 		ClearPlaylist ();
 		PlaylistChanged ();
 	}
 
-	private void HandleRepeatCommand (object o, EventArgs args)
+	private void OnRepeatCommand (object o, EventArgs args)
 	{
 		if (block_repeat_action)
 			return;
@@ -1611,7 +1611,7 @@ public class PlaylistWindow : Window, IPlayer
 			return 0;
 	}
 
-	private void HandleShuffleCommand (object o, EventArgs args)
+	private void OnShuffleCommand (object o, EventArgs args)
 	{
 		Random rand = new Random ();
 
@@ -1636,7 +1636,7 @@ public class PlaylistWindow : Window, IPlayer
 			playlist.Select (playlist.Playing);
 	}
 
-	private void HandlePlaylistRowActivated (IntPtr handle)
+	private void OnPlaylistRowActivated (IntPtr handle)
 	{
 		playlist.Playing = handle;
 
@@ -1645,12 +1645,12 @@ public class PlaylistWindow : Window, IPlayer
 		player.Play ();
 	}
 
-	private void HandlePlaylistSelectionChanged ()
+	private void OnPlaylistSelectionChanged ()
 	{
 		SelectionChanged ();
 	}
 
-	private void HandlePlayingChanged (IntPtr playing)
+	private void OnPlaylistPlayingChanged (IntPtr playing)
 	{
 		if (!ignore_song_change)
 			SongChanged (true);
@@ -1661,17 +1661,17 @@ public class PlaylistWindow : Window, IPlayer
 		Muine.Exit ();
 	}
 
-	private void HandleQuitCommand (object o, EventArgs args)
+	private void OnQuitCommand (object o, EventArgs args)
 	{
 		Quit ();
 	}
 
-	private void HandleAboutCommand (object o, EventArgs args)
+	private void OnAboutCommand (object o, EventArgs args)
 	{
 		About.ShowWindow (this);
 	}
 
-	private void HandleSongChanged (Song song)
+	private void OnSongChanged (Song song)
 	{
 		bool song_changed = false;
 		
@@ -1705,7 +1705,7 @@ public class PlaylistWindow : Window, IPlayer
 		}
 	}
 
-	private void HandleSongRemoved (Song song)
+	private void OnSongRemoved (Song song)
 	{
 		bool n_songs_changed = false;
 		
@@ -1739,7 +1739,7 @@ public class PlaylistWindow : Window, IPlayer
 			window.TransientFor = null;
 	}
 
-	private void HandlePlaylistDragDataGet (object o, DragDataGetArgs args)
+	private void OnPlaylistDragDataGet (object o, DragDataGetArgs args)
 	{
 		List songs = playlist.SelectedPointers;
 
@@ -1820,7 +1820,7 @@ public class PlaylistWindow : Window, IPlayer
 		return pos.Pointer;
 	}
 
-	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
+	private void OnPlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
 		TreePath path;

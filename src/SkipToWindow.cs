@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -43,9 +43,9 @@ public class SkipToWindow
 		window.TransientFor = parent;
 
 		player = p;
-		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
+		player.TickEvent += new Player.TickEventHandler (OnTickEvent);
 
-		HandleTickEvent (player.Position);
+		OnTickEvent (player.Position);
 	}
 
 	public void Run ()
@@ -60,7 +60,7 @@ public class SkipToWindow
 		window.Visible = false;
 	}
 
-	private void HandleTickEvent (int pos) 
+	private void OnTickEvent (int pos) 
 	{
 		/* update label */
 		String position = StringUtils.SecondsToString (pos);
@@ -73,7 +73,7 @@ public class SkipToWindow
 		song_slider.SetRange (0, player.Song.Duration);
 	}
 
-	private void HandleSongSliderValueChanged (object o, EventArgs a) 
+	private void OnSongSliderValueChanged (object o, EventArgs a) 
 	{
 		if (!from_tick) {
 			player.Position = (int) song_slider.Value;
@@ -83,7 +83,7 @@ public class SkipToWindow
 			from_tick = false;
 	}
 
-	private void HandleWindowDeleteEvent (object o, EventArgs a)
+	private void OnWindowDeleteEvent (object o, EventArgs a)
 	{
 		window.Visible = false;
 		
@@ -91,7 +91,7 @@ public class SkipToWindow
 		args.RetVal = true;
 	}
 
-	private void HandleCloseButtonClicked (object o, EventArgs a)
+	private void OnCloseButtonClicked (object o, EventArgs a)
 	{
 		window.Visible = false;
 	}

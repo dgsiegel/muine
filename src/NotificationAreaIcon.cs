@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -49,10 +49,10 @@ public class NotificationAreaIcon : Plug
 	{
 		Raw = egg_tray_icon_new (Muine.Catalog.GetString ("Muine music player"));
 
-		DestroyEvent += new DestroyEventHandler (HandleDestroyEvent);
+		DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
 
 		ebox = new EventBox ();
-		ebox.ButtonPressEvent += new ButtonPressEventHandler (HandleButtonPressEvent);
+		ebox.ButtonPressEvent += new ButtonPressEventHandler (OnButtonPressEvent);
 		
 		image = new Gtk.Image ();
 
@@ -72,15 +72,15 @@ public class NotificationAreaIcon : Plug
 		this.player = player;
 		
 		player.SongChangedEvent +=
-			new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+			new Plugin.SongChangedEventHandler (OnSongChangedEvent);
 		player.StateChangedEvent +=
-			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
+			new Plugin.StateChangedEventHandler (OnStateChangedEvent);
 		
 		/* build menu */
 		player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
 		
 		menu = (Menu) player.UIManager.GetWidget ("/Menu");
-		menu.Deactivated += new EventHandler (HandleMenuDeactivated);
+		menu.Deactivated += new EventHandler (OnMenuDeactivated);
 
 		/* init tooltips -- we init into "not playing" state */
 		tooltips = new Tooltips ();
@@ -117,7 +117,7 @@ public class NotificationAreaIcon : Plug
 		image.SetFromStock (icon, IconSize.Menu);
 	}
 
-	private void HandleSelectionDone (object o, EventArgs args)
+	private void OnSelectionDone (object o, EventArgs args)
 	{
 		State = StateType.Normal;
 	}
@@ -158,7 +158,7 @@ public class NotificationAreaIcon : Plug
 		push_in = true;
 	}
 
-	private void HandleButtonPressEvent (object o, ButtonPressEventArgs args)
+	private void OnButtonPressEvent (object o, ButtonPressEventArgs args)
 	{
 		switch (args.Event.Button)
 		{
@@ -186,12 +186,12 @@ public class NotificationAreaIcon : Plug
 		args.RetVal = false;
 	}
 
-	private void HandleMenuDeactivated (object o, EventArgs args)
+	private void OnMenuDeactivated (object o, EventArgs args)
 	{
 		State = StateType.Normal;
 	}
 
-	private void HandleDestroyEvent (object o, DestroyEventArgs args)
+	private void OnDestroyEvent (object o, DestroyEventArgs args)
 	{
 		Init ();
 	}
@@ -204,7 +204,7 @@ public class NotificationAreaIcon : Plug
 				      song.Title);
 	}
 
-	private void HandleSongChangedEvent (ISong song)
+	private void OnSongChangedEvent (ISong song)
 	{
 		if (song != null)
 			tooltip = CreateTooltip (song);
@@ -214,7 +214,7 @@ public class NotificationAreaIcon : Plug
 		UpdateTooltip ();
 	}
 
-	private void HandleStateChangedEvent (bool playing)
+	private void OnStateChangedEvent (bool playing)
 	{
 		if (playing)
 			tooltips.Enable ();

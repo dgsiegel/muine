@@ -18,8 +18,8 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">False</property>
-  <signal name="response" handler="HandleWindowResponse" last_modification_time="Sun, 11 Jan 2004 20:08:13 GMT"/>
-  <signal name="delete_event" handler="HandleWindowDeleteEvent" last_modification_time="Sun, 11 Jan 2004 20:08:24 GMT"/>
+  <signal name="response" handler="OnWindowResponse" last_modification_time="Tue, 04 Jan 2005 17:58:01 GMT"/>
+  <signal name="delete_event" handler="OnWindowDeleteEvent" last_modification_time="Tue, 04 Jan 2005 17:58:06 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="vbox1">

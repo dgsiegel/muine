@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -80,14 +80,14 @@ public class ProgressWindow
 		window.Destroy ();
 	}
 
-	private void HandleWindowResponse (object o, EventArgs a)
+	private void OnWindowResponse (object o, EventArgs a)
 	{
 		window.Visible = false;
 
 		canceled = true;
 	}
 
-	private void HandleWindowDeleteEvent (object o, EventArgs a)
+	private void OnWindowDeleteEvent (object o, EventArgs a)
 	{
 		window.Visible = false;
 

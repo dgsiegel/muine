@@ -1,5 +1,56 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* ClientLib/AssemblyInfo.cs:
+	* ClientLib/Player.cs:
+	* PluginLib/AssemblyInfo.cs:
+	* PluginLib/IPlayer.cs:
+	* PluginLib/ISong.cs:
+	* PluginLib/Plugin.cs:
+	* TODO:
+	* data/glade/AddWindow.glade:
+	* data/glade/PlaylistWindow.glade:
+	* data/glade/ProgressWindow.glade:
+	* data/glade/SkipToWindow.glade:
+	* plugins/DashboardPlugin.cs:
+	* src/About.cs:
+	* src/ActionThread.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/Album.cs:
+	* src/ColoredCellRendererPixbuf.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/EllipsizingLabel.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/GettextCatalog.cs:
+	* src/GnomeProxy.cs:
+	* src/HandleView.cs:
+	* src/InfoWindow.cs:
+	* src/KeyUtils.cs:
+	* src/MarkupUtils.cs:
+	* src/Metadata.cs:
+	* src/MmKeys.cs:
+	* src/Muine.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+	* src/StringUtils.cs:
+	* src/VolumeButton.cs:
+	* src/YesNoDialog.cs:
+
+	Use On<event> instead of Handle<event> for signal naming.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* src/About.cs:
 

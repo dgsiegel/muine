@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004 Lee Willis <lee@leewillis.co.uk>
+ *           (C) 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -34,10 +35,10 @@ public class DashboardPlugin : Plugin
 	{
 		this.player = player;
 		
-		player.SongChangedEvent += new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+		player.SongChangedEvent += new Plugin.SongChangedEventHandler (OnSongChangedEvent);
 	}
 	
-	private void HandleSongChangedEvent (ISong song)
+	private void OnSongChangedEvent (ISong song)
 	{
 		if (song == null)
 			return;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -52,11 +52,11 @@ public class AddSongWindow : AddWindow
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
 
 		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
-		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
+		view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 	
-		Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (HandleSongAdded  );
-		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
-		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+		Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
+		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
+		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
 		int i = 0;
 		foreach (Song s in Muine.DB.Songs.Values) {
@@ -135,7 +135,7 @@ public class AddSongWindow : AddWindow
 		return false;
 	}
 
-	private void HandleSongAdded (Song song)
+	private void OnSongAdded (Song song)
 	{
 		if (search_entry.Text.Length < MinQueryLength &&
 		    view.Length >= FakeLength)
@@ -144,7 +144,7 @@ public class AddSongWindow : AddWindow
 		base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
 	}
 
-	private void HandleSongChanged (Song song)
+	private void OnSongChanged (Song song)
 	{
 		bool may_append = (search_entry.Text.Length >= MinQueryLength ||
 		                   view.Length < FakeLength);
@@ -153,12 +153,12 @@ public class AddSongWindow : AddWindow
 		                    may_append);
 	}
 
-	private void HandleSongRemoved (Song song)
+	private void OnSongRemoved (Song song)
 	{
 		base.HandleRemoved (song.Handle);
 	}
 
-	private void DragDataGetCallback (object o, DragDataGetArgs args)
+	private void OnDragDataGet (object o, DragDataGetArgs args)
 	{
 		List songs = view.SelectedPointers;
 

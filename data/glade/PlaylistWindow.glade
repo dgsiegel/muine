@@ -74,7 +74,7 @@
 			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
-			  <signal name="toggled" handler="HandlePlayPauseCommand" last_modification_time="Mon, 13 Dec 2004 14:23:16 GMT"/>
+			  <signal name="toggled" handler="OnPlayPauseCommand" last_modification_time="Tue, 04 Jan 2005 18:19:38 GMT"/>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment5">
@@ -147,7 +147,7 @@
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="HandlePreviousCommand" last_modification_time="Sat, 03 Jan 2004 14:20:36 GMT"/>
+			  <signal name="clicked" handler="OnPreviousCommand" last_modification_time="Tue, 04 Jan 2005 18:19:46 GMT"/>
 
 			  <child>
 			    <widget class="GtkImage" id="previous_image">
@@ -172,7 +172,7 @@
 			  <property name="can_focus">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="HandleNextCommand" last_modification_time="Sat, 03 Jan 2004 14:20:56 GMT"/>
+			  <signal name="clicked" handler="OnNextCommand" last_modification_time="Tue, 04 Jan 2005 18:19:51 GMT"/>
 
 			  <child>
 			    <widget class="GtkImage" id="next_image">
@@ -234,7 +234,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePlaySongCommand" last_modification_time="Wed, 29 Dec 2004 19:52:09 GMT"/>
+		      <signal name="clicked" handler="OnPlaySongCommand" last_modification_time="Tue, 04 Jan 2005 18:20:06 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment3">
@@ -309,7 +309,7 @@
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePlayAlbumCommand" last_modification_time="Wed, 29 Dec 2004 19:52:14 GMT"/>
+		      <signal name="clicked" handler="OnPlayAlbumCommand" last_modification_time="Tue, 04 Jan 2005 18:20:02 GMT"/>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment4">

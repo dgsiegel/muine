@@ -65,8 +65,8 @@ class VolumeButton : ToggleButton
 
 		popup = null;
 
-		ScrollEvent += new ScrollEventHandler (ScrollHandler);
-		Toggled += new EventHandler (ToggleHandler);
+		ScrollEvent += new ScrollEventHandler (OnScrollEvent);
+		Toggled += new EventHandler (OnToggled);
 		
 		Flags |= (int) WidgetFlags.NoWindow;
 	}
@@ -108,9 +108,9 @@ class VolumeButton : ToggleButton
 		adj = new Adjustment (volume, 0, 100, 5, 10, 0);		
 
 		scale = new VScale (adj);
-		scale.ValueChanged += new EventHandler (ScaleValueChanged);
-		scale.KeyPressEvent += new KeyPressEventHandler (ScaleKeyPressed);
-		popup.ButtonPressEvent += new ButtonPressEventHandler (PopupButtonPressed);
+		scale.ValueChanged += new EventHandler (OnScaleValueChanged);
+		scale.KeyPressEvent += new KeyPressEventHandler (OnScaleKeyPressEvent);
+		popup.ButtonPressEvent += new ButtonPressEventHandler (OnPopupButtonPressEvent);
 
 		scale.Adjustment.Upper = 100.0;
 		scale.Adjustment.Lower = 0.0;
@@ -178,16 +178,15 @@ class VolumeButton : ToggleButton
 		Active = false;
 	}
 
-	private void ToggleHandler (object obj, EventArgs args)
+	private void OnToggled (object obj, EventArgs args)
 	{
-		if (Active) {
+		if (Active)
 			ShowScale ();
-		} else {
+		else
 			HideScale ();
-		}
 	}
 
-	private void ScrollHandler (object obj, ScrollEventArgs args)
+	private void OnScrollEvent (object obj, ScrollEventArgs args)
 	{
 		int tmp_vol = Volume;
 		
@@ -209,12 +208,12 @@ class VolumeButton : ToggleButton
 		Volume = tmp_vol;
 	}
 
-	private void ScaleValueChanged (object obj, EventArgs args)
+	private void OnScaleValueChanged (object obj, EventArgs args)
 	{
 		Volume = (int)((VScale)obj).Value;
 	}
 
-	private void ScaleKeyPressed (object obj, KeyPressEventArgs args)
+	private void OnScaleKeyPressEvent (object obj, KeyPressEventArgs args)
 	{
 		switch (args.Event.Key) {
 		case Gdk.Key.Escape:
@@ -234,7 +233,7 @@ class VolumeButton : ToggleButton
 		}
 	}
 
-	private void PopupButtonPressed (object obj, ButtonPressEventArgs args)
+	private void OnPopupButtonPressEvent (object obj, ButtonPressEventArgs args)
 	{
 		if (popup != null)
 			HideScale ();

@@ -47,9 +47,9 @@ namespace MuineDBusLib
 			this.player = player;
 		
 			player.SongChangedEvent +=
-				new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+				new Plugin.SongChangedEventHandler (OnSongChangedEvent);
 			player.StateChangedEvent +=
-				new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
+				new Plugin.StateChangedEventHandler (OnStateChangedEvent);
 		}
 
 		[Method]
@@ -195,7 +195,7 @@ namespace MuineDBusLib
 		[Signal] public event SongChangedHandler SongChanged;
 		public delegate void SongChangedHandler (string song_data);
 
-		private void HandleSongChangedEvent (ISong song)
+		private void OnSongChangedEvent (ISong song)
 		{
 			string value = "";
 		
@@ -209,7 +209,7 @@ namespace MuineDBusLib
 		[Signal] public event StateChangedHandler StateChanged;
 		public delegate void StateChangedHandler (bool playing);
 
-		private void HandleStateChangedEvent (bool playing)
+		private void OnStateChangedEvent (bool playing)
 		{
 			if (StateChanged != null)
 				StateChanged (playing);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -36,8 +36,8 @@ public class HandleView : TreeView
 	{
 		Raw = pointer_list_view_new ();
 
-		pointer_activated_cb = new SignalUtils.SignalDelegatePtr (PointerActivatedCallback);
-		selection_changed_cb = new SignalUtils.SignalDelegatePtr (SelectionChangedCallback);
+		pointer_activated_cb = new SignalUtils.SignalDelegatePtr (OnPointerActivated);
+		selection_changed_cb = new SignalUtils.SignalDelegatePtr (OnSelectionChanged);
 
 		SignalUtils.SignalConnect (Raw, "pointer_activated", pointer_activated_cb);
 		SignalUtils.SignalConnect (Raw, "selection_changed", selection_changed_cb);
@@ -418,7 +418,7 @@ public class HandleView : TreeView
 		return ret;
 	}
 
-	private void PointerActivatedCallback (IntPtr obj, IntPtr ptr)
+	private void OnPointerActivated (IntPtr obj, IntPtr ptr)
 	{
 		if (RowActivated != null)
 			RowActivated (ptr);
@@ -427,7 +427,7 @@ public class HandleView : TreeView
 	public new delegate void RowActivatedHandler (IntPtr handle);
 	public new event HandleView.RowActivatedHandler RowActivated;
 
-	private void SelectionChangedCallback (IntPtr obj, IntPtr unused_data)
+	private void OnSelectionChanged (IntPtr obj, IntPtr unused_data)
 	{
 		if (SelectionChanged != null)
 			SelectionChanged ();

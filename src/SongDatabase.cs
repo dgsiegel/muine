@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -252,32 +252,32 @@ public class SongDatabase
 		
 		watcher.IncludeSubdirectories = true;
 		
-		watcher.Changed += new FileSystemEventHandler (HandleFileChanged);
-		watcher.Created += new FileSystemEventHandler (HandleFileCreated);
-		watcher.Deleted += new FileSystemEventHandler (HandleFileDeleted);
-		watcher.Renamed += new RenamedEventHandler (HandleFileRenamed);
+		watcher.Changed += new FileSystemEventHandler (OnFileChanged);
+		watcher.Created += new FileSystemEventHandler (OnFileCreated);
+		watcher.Deleted += new FileSystemEventHandler (OnFileDeleted);
+		watcher.Renamed += new RenamedEventHandler (OnFileRenamed);
 
 		watcher.EnableRaisingEvents = true;
 		*/
 	}
 
 /*
-	private static void HandleFileChanged (object o, FileSystemEventArgs e)
+	private static void OnFileChanged (object o, FileSystemEventArgs e)
 	{
 		Console.WriteLine (e.FullPath + " changed");
 	}
 
-	private static void HandleFileCreated (object o, FileSystemEventArgs e)
+	private static void OnFileCreated (object o, FileSystemEventArgs e)
 	{
 		Console.WriteLine (e.FullPath + " created");
 	}
 
-	private static void HandleFileDeleted (object o, FileSystemEventArgs e)
+	private static void OnFileDeleted (object o, FileSystemEventArgs e)
 	{
 		Console.WriteLine (e.FullPath + " deleted");
 	}
 
-	private static void HandleFileRenamed (object o, RenamedEventArgs e)
+	private static void OnFileRenamed (object o, RenamedEventArgs e)
 	{
 		Console.WriteLine (e.OldFullPath + " renamed to " + e.FullPath);
 	}*/
