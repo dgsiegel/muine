@@ -1,3 +1,14 @@
+2005-02-03  Jorn Baayen  <jbaayen@gnome.org>
+
+	* README:
+	* configure.in:
+
+	Release 0.8.1.
+	
+	* libmuine/player-xine.c: (signal_idle), (player_play):
+	
+	Reset timer_add when starting to play again after an EOS.
+
 2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:

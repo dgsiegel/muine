@@ -61,6 +61,7 @@ struct _PlayerPriv {
 
   GTimer *timer;
   long timer_add;
+  gboolean had_eos;
 
   guint tick_timeout_id;
   GAsyncQueue *queue;
@@ -210,6 +211,9 @@ signal_idle (Player *player)
       priv->timer_add += floor (g_timer_elapsed (priv->timer, NULL) + 0.5);
       g_timer_stop (priv->timer);
       g_timer_reset (priv->timer);
+
+      priv->had_eos = TRUE;
+
       g_signal_emit (player, signals[END_OF_STREAM], 0);
       break;
     }
@@ -475,6 +479,12 @@ player_play (Player *player)
   else
     xine_play (priv->stream, 0, 0);
 
+  if (priv->had_eos)
+    {
+      priv->timer_add = 0;
+      priv->had_eos = FALSE;
+    }
+
   g_timer_start (priv->timer);
 }
 
@@ -590,6 +600,12 @@ player_seek (Player *player, int t)
   
   if (priv->stream != NULL)
     {
+      if (priv->had_eos)
+        {
+          priv->timer_add = 0;
+          priv->had_eos = FALSE;
+        }
+
       xine_play (priv->stream, 0, t * 1000);
       
       g_timer_reset (priv->timer);
