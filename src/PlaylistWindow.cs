@@ -598,7 +598,7 @@ public class PlaylistWindow : Window, IPlayer
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting..."), e.Message));
 
-			Muine.Exit ();
+			Environment.Exit (1);
 		}
 
 		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);

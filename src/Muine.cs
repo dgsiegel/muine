@@ -221,7 +221,7 @@ public class Muine : Gnome.Program
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
 
-			Exit ();
+			Environment.Exit (1);
 		}
 		
 		/* Start the action thread */
@@ -233,7 +233,7 @@ public class Muine : Gnome.Program
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
 
-			Exit ();
+			Environment.Exit (1);
 		}
 
 		/* Load song database */
@@ -242,7 +242,7 @@ public class Muine : Gnome.Program
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 
-			Exit ();
+			Environment.Exit (1);
 		}
 
 		db.Load ();
@@ -366,7 +366,6 @@ public class Muine : Gnome.Program
 
 	public static void Exit ()
 	{
-		//Application.Quit ();
 		Environment.Exit (0);
 	}
 	
