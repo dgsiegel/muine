@@ -1,5 +1,12 @@
 2004-05-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.6.
+
+2004-05-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/CoverImage.cs:
 
