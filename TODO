@@ -53,6 +53,8 @@ o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
 o Musicbrainz support
   We need a musicbrainz element for GStreamer
+  We should also use album IDs from musicbrainz to distinguish albums with
+  the same name.
 o Translation
   Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
