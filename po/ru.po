@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-23 11:09+0400\n"
+"POT-Creation-Date: 2004-12-25 12:47+0100\n"
 "PO-Revision-Date: 2004-05-23 11:09+0400\n"
 "Last-Translator: Alekseev Vladimir <compress@linux-online.ru>\n"
 "Language-Team: Russian <compress@linux-online.ru>\n"
@@ -29,7 +29,7 @@ msgstr "_Поставить в очередь"
 
 #: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
-msgstr "_Поиск"
+msgstr "_Поиск:"
 
 #: data/glade/ErrorDialog.glade.h:1
 msgid "Error"
@@ -51,9 +51,9 @@ msgid ""
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
 msgstr ""
-"Muine создаст каталоги Music и Music/Playlists в вашем домашнем каталоге "
-"для хранения ваших музыкальных файлов. Эта опция настойчиво рекомендуется. Вы всегда сможете "
-"импортировать другие каталоги вручную."
+"Muine создаст каталоги Music и Music/Playlists в вашем домашнем каталоге для "
+"хранения ваших музыкальных файлов. Эта опция настойчиво рекомендуется. Вы "
+"всегда сможете импортировать другие каталоги вручную."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
@@ -64,8 +64,8 @@ msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefore not generally recommended."
 msgstr ""
-"Вы должны импортировать ваши музыкальные файлы вручную. Эта возможность только для опытных " 
-"пользователей и поэтому не рекомендуется."
+"Вы должны импортировать ваши музыкальные файлы вручную. Эта возможность "
+"только для опытных пользователей и поэтому не рекомендуется."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
 msgid "_Create an empty music collection"
@@ -76,88 +76,16 @@ msgid "_Nothing, I will manage my music myself"
 msgstr "_Ничего, Я сам буду управлять моей музыкой"
 
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "P_roperties"
-msgstr "Н_астройки"
-
-#: data/glade/PlaylistWindow.glade.h:2
 msgid "Play Album"
 msgstr "Воспроизвести Альбом"
 
-#: data/glade/PlaylistWindow.glade.h:3
+#: data/glade/PlaylistWindow.glade.h:2
 msgid "Play Song"
-msgstr "Воспроизвести песню"
+msgstr "Воспроизвести Песню"
 
-#: data/glade/PlaylistWindow.glade.h:4
-msgid "Play _Album..."
-msgstr "Воспроизвести _Альбом..."
-
-#: data/glade/PlaylistWindow.glade.h:5
-msgid "Play _Song..."
-msgstr "Воспроизвести _Песню..."
-
-#: data/glade/PlaylistWindow.glade.h:6
-msgid "R_epeat"
-msgstr "П_овтор"
-
-#: data/glade/PlaylistWindow.glade.h:7
-msgid "Remove _Played Songs"
-msgstr "Удалить _Уже Воспроизведённые Песни "
-
-#: data/glade/PlaylistWindow.glade.h:8
-msgid "Skip _Backwards"
-msgstr "Проиграть _Назад"
-
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Skip _Forward"
-msgstr "Проиграть _Вперёд"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "TMP"
-msgstr "TMP"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Clear"
-msgstr "_Очистить"
-
-#: data/glade/PlaylistWindow.glade.h:12
-msgid "_Hide Window"
-msgstr "_Свернуть Окно"
-
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Import Folder..."
-msgstr "_Импортировать Каталог..."
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Next"
-msgstr "_Следующая"
-
-#: data/glade/PlaylistWindow.glade.h:15
-msgid "_Open Playlist..."
-msgstr "_Открыть Плейлист..."
-
-#: data/glade/PlaylistWindow.glade.h:16
-msgid "_Playlist"
-msgstr "_Плейлист"
-
-#: data/glade/PlaylistWindow.glade.h:17
-msgid "_Previous"
-msgstr "_Предыдущая"
-
-#: data/glade/PlaylistWindow.glade.h:18
-msgid "_Remove Song"
-msgstr "_Удалить Песню"
-
-#: data/glade/PlaylistWindow.glade.h:19
-msgid "_Save Playlist As..."
-msgstr "_Сохранить Плейлист Как..."
-
-#: data/glade/PlaylistWindow.glade.h:20
-msgid "_Skip to..."
-msgstr "_Перейти к..."
-
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Song"
-msgstr "_Песня"
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Playing"
+msgstr "Проигрывается"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
@@ -280,8 +208,8 @@ msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
-"Какой сайт Amazon использовать для загрузки изображений альбомов, \"us\", \"uk\", \"de\", "
-"or \"jp\"."
+"Какой сайт Amazon использовать для загрузки изображений альбомов, \"us\", "
+"\"uk\", \"de\", or \"jp\"."
 
 #: data/muine.schemas.in.h:26
 msgid "Width of the \"Add album\" window."
@@ -303,21 +231,14 @@ msgstr "Ширина окна плейлиста."
 msgid "false if Muine has been started before."
 msgstr "не возможно, если Muine был запущен ранее."
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
-msgstr "Невозможно создать обьект GstPlay"
+#: libmuine/player-gst.c:154
+msgid "Failed to create a GStreamer play object"
+msgstr "Невозможно создать обьект проигрывателя GStreamer"
 
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr "Невозможно создать необходимый элемент gnomevfssrc GStreamer "
-
-#: libmuine/player-gst.c:173
+#: libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
-msgstr "Не возможно предоставить используемый по умолчанию поток вывода аудио GStreamer"
-
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr "Невозможно найти элемент громкости в конвейере GstPlay"
+msgstr "Не возможно предоставить используемый по умолчанию поток вывода аудио "
+"GStreamer"
 
 #: libmuine/player-xine.c:283
 #, c-format
@@ -325,7 +246,7 @@ msgid ""
 "Couldn't load the '%s' audio driver\n"
 "Check that the device is not busy."
 msgstr ""
-"Невозможно загрузить ауди драйвер '%s'\n"
+"Невозможно загрузить аудио драйвер '%s'\n"
 "Удостоверьтесь, что устройство не занято."
 
 #: libmuine/player-xine.c:378 libmuine/player-xine.c:383
@@ -346,3 +267,4 @@ msgstr "Внутренняя ошибка"
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "Невозможно произвести \"%s\""
+
