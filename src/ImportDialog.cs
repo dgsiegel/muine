@@ -42,8 +42,6 @@ namespace Muine
 		public ImportDialog () 
 		: base (string_title, Global.Playlist, FileChooserAction.SelectFolder)
 		{
-			Global.Playlist.WindowGroup.AddWindow (this);
-
 			base.LocalOnly = true;
 			base.SelectMultiple = true;
 			base.AddButton (Stock.Cancel, ResponseType.Cancel);

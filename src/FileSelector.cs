@@ -36,8 +36,6 @@ namespace Muine
 		// Constructor
 		public FileSelector (string title, FileChooserAction action, string gcp) : base (title, Global.Playlist, action, "gnome-vfs")
 		{
-			Global.Playlist.WindowGroup.AddWindow (this);
-
 			LocalOnly = false;
 
 			AddButton (Stock.Cancel, ResponseType.Cancel);

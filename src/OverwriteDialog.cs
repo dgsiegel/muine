@@ -52,7 +52,6 @@ namespace Muine
 						      StringUtils.EscapeForPango (string_secondary_text));
 
 			window.TransientFor = parent;
-			Global.Playlist.WindowGroup.AddWindow (window);
 		}
 
 		// Methods

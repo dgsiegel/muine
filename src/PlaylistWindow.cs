@@ -239,10 +239,6 @@ namespace Muine
 
 			Gtk.Drag.DestSet (this, DestDefaults.All, drag_entries, Gdk.DragAction.Copy);
 
-			// Grab group
-			window_group = new WindowGroup ();
-			window_group.AddWindow (this);
-
 			// Keep track of window visibility
 			base.VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
 			AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
@@ -405,12 +401,6 @@ namespace Muine
 			get { return repeat; }
 		}
 
-		// Properties :: WindowGroup (get;)
-		private WindowGroup window_group;
-		public WindowGroup WindowGroup {
-			get { return window_group; }
-		}
-		
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: RestorePlaylist

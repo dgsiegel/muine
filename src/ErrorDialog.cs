@@ -39,8 +39,6 @@ namespace Muine
 		: this (primary_text, secondary_text)
 		{
 			window.TransientFor = playlist;
-
-			playlist.WindowGroup.AddWindow (window);
 		}
 
 		public ErrorDialog (string primary_text, string secondary_text)
