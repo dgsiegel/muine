@@ -1,9 +1,13 @@
 Easy:
 =====
 
-o Use GnomeVFS, but we need a new mono release for this
+o Use GnomeVFS
+  Needs a new Mono release first
 o Use D-Bus properties
   Needs a new D-Bus release first
+o Use Hashtable/dictionary in D-Bus song info code
+  Needs a new D-Bus release first
+
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o Fill in the gaps in the API docs
@@ -60,8 +64,6 @@ o Make SM work fully
   Depends on popt support in Gtk#, Ximian Bugzilla #68889
 o Switch metadata and playback all over to GStreamer. But, GST should
   be a bit more reliable first.
-o Use Hashtable/dictionary in D-Bus song info code
-  Blocked by Freedesktop Bugzilla #2175
 o Use Gst# and Egg# when they become "properly available".
 o Remove drop into row stuff
   Depends on Gnome Bugzilla #163129
