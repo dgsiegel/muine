@@ -113,7 +113,7 @@
 		    <widget class="GtkRadioButton" id="empty_radiobutton">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Muine will create the folders Music and Music/Playlists in your home folder to store your music files. This option is highly recommended. You can always import other folders manually.</property>
-		      <property name="label" translatable="yes">_Create an empty music collection </property>
+		      <property name="label" translatable="yes">_Create an empty music collection</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="active">True</property>
