@@ -88,9 +88,10 @@ public class AddAlbumWindow
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc));
 
-		view.Show ();
-
 		scrolledwindow.Add (view);
+
+		view.Realize ();
+		view.Show ();
 
 		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
 		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
@@ -105,6 +106,9 @@ public class AddAlbumWindow
 	public void Run ()
 	{
 		search_entry.GrabFocus ();
+
+		view.SelectFirst ();
+		view.ScrollToPoint (0, 0);
 
 		window.Visible = true;
 	}

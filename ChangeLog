@@ -1,5 +1,12 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Speed tweaks, select first row when opening row.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/pointer-list-view.c: (pointer_list_view_get_length):
 	* libmuine/pointer-list-view.h:
 	* src/AddAlbumWindow.cs:

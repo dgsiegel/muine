@@ -43,7 +43,7 @@ public class AddSongWindow
 	private HandleView view;
 	private CellRenderer text_renderer;
 
-	private static int FakeLength = 200;
+	private static int FakeLength = 150;
 	
 	public AddSongWindow (Window parent)
 	{
@@ -86,9 +86,10 @@ public class AddSongWindow
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc));
 
-		view.Show ();
-
 		scrolledwindow.Add (view);
+
+		view.Realize ();
+		view.Show ();
 
 		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
@@ -106,6 +107,9 @@ public class AddSongWindow
 	public void Run ()
 	{
 		search_entry.GrabFocus ();
+
+		view.SelectFirst ();
+		view.ScrollToPoint (0, 0);
 
 		window.Visible = true;
 	}
