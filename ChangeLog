@@ -1,5 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+	* src/SongDatabase.cs:
+
+	Do look for covers for new files even though CoverDB.Loading = true.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Gracefully cancel the thread instead of using a brute Thread.Abort ().

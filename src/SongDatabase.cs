@@ -229,11 +229,11 @@ namespace Muine
 		{
 			Song song;
 
-			bool has_rq = (rq != null);
-			if (has_rq)
-				song = rq.Song;
-			else
+			bool from_db = (s != null);
+			if (from_db)
 				song = s;
+			else
+				song = rq.Song;
 			
 			if (!song.HasAlbum)
 				return;
@@ -247,17 +247,18 @@ namespace Muine
 			bool songs_changed = false;
 
 			if (album == null) {
-				album = new Album (song);
+				album = new Album (song, !from_db);
 				Albums.Add (key, album);
 
 				added = true;
 			} else {
 				album.Add (song,
+					   !from_db,
 				           out changed,
 					   out songs_changed);
 			}
 
-			if (has_rq) {
+			if (!from_db) {
 				rq.Album = album;
 				rq.AlbumAdded = added;
 				rq.AlbumChanged = changed;

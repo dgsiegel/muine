@@ -89,7 +89,7 @@ namespace Muine
 
 		private static string [] prefixes = null;
 
-		public Album (Song initial_song)
+		public Album (Song initial_song, bool check_cover)
 		{
 			songs = new ArrayList ();
 
@@ -109,10 +109,13 @@ namespace Muine
 			pointers [cur_ptr] = this;
 			base.handle = cur_ptr;
 
-			if (!Muine.CoverDB.Loading) {
-				cover_image = GetCover ();
-				if (initial_song.CoverImage != cover_image)
+			if (check_cover) {
+				if (initial_song.CoverImage != null)
+					cover_image = initial_song.CoverImage;
+				else {
+					cover_image = GetCover ();
 					initial_song.SetCoverImageQuiet (cover_image);
+				}
 			}
 		}
 
@@ -179,6 +182,7 @@ namespace Muine
 		private static IComparer song_comparer = new SongComparer ();
 
 		public void Add (Song song,
+				 bool check_cover,
 		                 out bool changed,
 				 out bool songs_changed)
 		{
@@ -186,7 +190,7 @@ namespace Muine
 			songs_changed = false;
 
 			lock (this) {
-				if (!Muine.CoverDB.Loading) {
+				if (check_cover) {
 					if (cover_image == null && song.CoverImage != null) {
 						changed = true;
 						songs_changed = true;
