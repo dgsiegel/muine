@@ -56,6 +56,10 @@ namespace MuinePluginLib
 		void PlaySong ();
 		void PlayAlbum ();
 
+		SongInterface [] Selection {
+			get;
+		}
+
 		void OpenPlaylist (string uri);
 
 		void PlayFile (string uri);
@@ -79,5 +83,7 @@ namespace MuinePluginLib
 		event Plugin.SongChangedEventHandler SongChangedEvent;
 		
 		event Plugin.StateChangedEventHandler StateChangedEvent;
+
+		event Plugin.SelectionChangedEventHandler SelectionChangedEvent;
 	}
 }

@@ -25,5 +25,6 @@ namespace MuinePluginLib
 
 		public delegate void SongChangedEventHandler (SongInterface song);
 		public delegate void StateChangedEventHandler (bool playing);
+		public delegate void SelectionChangedEventHandler ();
 	}
 }

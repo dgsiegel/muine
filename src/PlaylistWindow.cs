@@ -176,6 +176,23 @@ public class PlaylistWindow : Window, PlayerInterface
 		}
 	}
 
+	public SongInterface [] Selection {
+		get {
+			List sel = playlist.SelectedPointers;
+			
+			SongInterface [] ret = new SongInterface [sel.Count];
+			
+			int i = 0;
+			foreach (int p in sel) {
+				ret [i] = Song.FromHandle (new IntPtr (p));
+
+				i ++;
+			}
+
+			return ret;
+		}
+	}
+
 	private UIManager ui_manager;
 	public UIManager UIManager {
 		get {
@@ -186,6 +203,8 @@ public class PlaylistWindow : Window, PlayerInterface
 	public event Plugin.SongChangedEventHandler SongChangedEvent;
 
 	public event Plugin.StateChangedEventHandler StateChangedEvent;
+
+	public event Plugin.SelectionChangedEventHandler SelectionChangedEvent;
 
 	/* Constructor */
 	public PlaylistWindow () : base (WindowType.Toplevel)
@@ -221,7 +240,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		/* make sure the interface is up to date */
 		SelectionChanged ();
-		StateChanged (false);
+		StateChanged (false, true);
 	}
 
 	public void RestorePlaylist ()
@@ -859,7 +878,8 @@ public class PlaylistWindow : Window, PlayerInterface
 		if (restart) {
 			had_last_eos = false;
 
-			SongChangedEvent (song);
+			if (SongChangedEvent != null)
+				SongChangedEvent (song);
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -869,9 +889,12 @@ public class PlaylistWindow : Window, PlayerInterface
 	private void SelectionChanged ()
 	{
 		remove_song_action.Sensitive = (playlist.SelectedPointers.Count > 0);
+
+		if (SelectionChangedEvent != null)
+			SelectionChangedEvent ();
 	}
 
-	private new void StateChanged (bool playing)
+	private new void StateChanged (bool playing, bool dont_signal)
 	{
 		if (playing) {
 			block_play_pause_action = true;
@@ -886,6 +909,9 @@ public class PlaylistWindow : Window, PlayerInterface
 		}
 
 		playlist.Changed (playlist.Playing);
+
+		if (!dont_signal && StateChangedEvent != null)
+			StateChangedEvent (playing);
 	}
 
 	private void ClearPlaylist ()
@@ -1056,12 +1082,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 	private void HandleStateChanged (bool playing)
 	{
-		StateChanged (playing);
-
-		StateChangedEvent (playing); /* Emit here, not in func, so that
-		                                we don't emit an unnecessary
-					        playing = false StateChange when
-					        starting up */
+		StateChanged (playing, false);
 	}
 
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)

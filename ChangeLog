@@ -1,6 +1,15 @@
 2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
 
 	* PluginLib/PlayerInterface.cs:
+	* PluginLib/Plugin.cs:
+	* src/PlaylistWindow.cs:
+
+	Add support for retreiving the playlist selection and a
+	selection changed event to PlayerInterface.
+
+2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
+
+	* PluginLib/PlayerInterface.cs:
 	* src/NotificationAreaIcon.cs:
 	* src/PlaylistWindow.cs:
 
