@@ -1,5 +1,13 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Hide information menu items again for upcoming release.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* README:
 	* configure.in:
 
