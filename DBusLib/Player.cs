@@ -168,7 +168,8 @@ namespace Muine.DBusLib
 		[Method]
 		public virtual bool WriteAlbumCoverToFile (string file)
 		{
-			if (player.PlayingSong.CoverImage == null)
+			if (player.PlayingSong == null ||
+			    player.PlayingSong.CoverImage == null)
 				return false;
 			
 			try {

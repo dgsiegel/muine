@@ -1,3 +1,9 @@
+2005-01-14  Mark McLauchlan  <mrm21@sussex.ac.uk>
+
+	* DBusLib/Player.cs:
+
+	WriteAlbumCoverToFile PlayingSong null check.
+
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/SongDatabase.cs:

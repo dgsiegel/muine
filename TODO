@@ -3,10 +3,6 @@ Easy:
 
 o Use GnomeVFS
   Needs a new Mono release first
-o Use D-Bus properties
-  Needs a new D-Bus release first
-o Use Hashtable/dictionary in D-Bus song info code
-  Needs a new D-Bus release first
 o Use stock volume icons
   Needs a new gnome-icon-theme release first
 
@@ -77,6 +73,8 @@ o Subclass Gnome.About for Muine.About
   Depends on Ximian Bugzilla #71271
 o Fix DnD hack in PlaylistWindow
   Depends on Gnome Bugzilla #164085
+o Use Hashtable/dictionary in D-Bus song info code
+  Depends on Freedesktop Bugzilla #2175
 
 We won't have:
 ==============
