@@ -1,3 +1,13 @@
+2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.in:
+
+	Mark encoding as UTF-8.
+	
+	* en_GB.po:
+
+	Use round brackets in translator credits for consistency.
+
 2004-05-09  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
