@@ -185,6 +185,9 @@ public class SongDatabase
 			return;
 
 		Album album = (Album) Albums [song.AlbumKey];
+		if (album == null)
+			return;
+
 		album.SyncCoverImageWith (song);
 
 		if (AlbumChanged != null)
