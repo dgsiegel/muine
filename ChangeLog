@@ -1,5 +1,12 @@
 2004-05-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Catch IO errors when loading folders.
+
+2004-05-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* src/About.cs:
 

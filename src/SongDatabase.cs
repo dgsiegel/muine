@@ -404,7 +404,15 @@ public class SongDatabase
 	private void HandleDirectory (DirectoryInfo info,
 				      Queue new_songs)
 	{
-		foreach (FileInfo finfo in info.GetFiles ()) {
+		FileInfo [] finfos;
+		
+		try {
+			finfos = info.GetFiles ();
+		} catch {
+			return;
+		}
+
+		foreach (FileInfo finfo in finfos) {
 			if (Songs [finfo.FullName] == null) {
 				Song song;
 
@@ -418,7 +426,15 @@ public class SongDatabase
 			}
 		}
 
-		foreach (DirectoryInfo dinfo in info.GetDirectories ())
+		DirectoryInfo [] dinfos;
+		
+		try {
+			dinfos = info.GetDirectories ();
+		} catch {
+			return;
+		}
+
+		foreach (DirectoryInfo dinfo in dinfos)
 			HandleDirectory (dinfo, new_songs);
 	}
 

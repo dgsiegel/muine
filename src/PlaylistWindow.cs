@@ -1143,7 +1143,15 @@ public class PlaylistWindow : Window
 	private bool HandleDirectory (DirectoryInfo info,
 				      ProgressWindow pw)
 	{
-		foreach (FileInfo finfo in info.GetFiles ()) {
+		FileInfo [] finfos;
+		
+		try {
+			finfos = info.GetFiles ();
+		} catch {
+			return true;
+		}
+		
+		foreach (FileInfo finfo in finfos) {
 			Song song;
 
 			song = (Song) Muine.DB.Songs [finfo.FullName];
@@ -1162,7 +1170,15 @@ public class PlaylistWindow : Window
 			}
 		}
 
-		foreach (DirectoryInfo dinfo in info.GetDirectories ()) {
+		DirectoryInfo [] dinfos;
+		
+		try {
+			dinfos = info.GetDirectories ();
+		} catch {
+			return true;
+		}
+
+		foreach (DirectoryInfo dinfo in dinfos) {
 			bool ret = HandleDirectory (dinfo, pw);
 			if (ret == false)
 				return false;
