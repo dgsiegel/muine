@@ -56,7 +56,7 @@ namespace Muine
 			db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 			db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 
-			covers = new Hashtable ();
+			covers = Hashtable.Synchronized (new Hashtable ());
 
 			/* Hack to get the GtkStyle .. */
 			Gtk.Label label = new Gtk.Label ("");

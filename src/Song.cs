@@ -231,6 +231,7 @@ namespace Muine
 
 				if (Muine.CoverDB.Covers [key] == null)
 					cover_image = Muine.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
+				/* Album itself will pick up change when this song is added to it */
 			}
 
 			sort_key = null;

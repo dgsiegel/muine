@@ -1,5 +1,12 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/Song.cs:
+
+	Fix thread safety.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 	* src/Song.cs:
 
