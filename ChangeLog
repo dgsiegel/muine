@@ -1,3 +1,10 @@
+2004-04-24  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Muine.cs:
+
+	Start the changes thread *after* all covers have been loaded,
+	to reduce the amount of disc seeking on startup.
+
 2004-04-22  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/FileUtils.cs:

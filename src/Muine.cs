@@ -100,10 +100,10 @@ public class Muine : Gnome.Program
 		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
 		ProcessCommandLine (args, false);
 
-		/* Now we load the album covers, and start the changes thread */
+		/* Now we load the album covers, and after that start the changes thread */
+		CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
+		
 		CoverDB.Load ();
-
-		DB.CheckChanges ();
 
 		/* And finally, check if this is the first start */
 		/* FIXME we dont do this for now as the issue isn't sorted out yet */
@@ -142,6 +142,12 @@ public class Muine : Gnome.Program
 			playlist.WindowVisible = true;
 		else
 			playlist.OpenPlaylist (message);
+	}
+
+	private void HandleCoversDoneLoading ()
+	{
+		/* covers done loading, start the changes thread */
+		DB.CheckChanges ();
 	}
 
 	public static void Exit ()
