@@ -83,6 +83,8 @@ public class CoverDatabase
 	/*** loading ***/
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
+
+	private int decode_func_counter = 0;
 	
 	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
 	{
@@ -93,6 +95,12 @@ public class CoverDatabase
 		LoadedCover lc = new LoadedCover (key, pix_handle);
 
 		loaded_covers.Enqueue (lc);
+
+		decode_func_counter++;
+		if (decode_func_counter == 10) {
+			Thread.Sleep (1);
+			decode_func_counter = 0;
+		}
 	}
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
