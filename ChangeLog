@@ -1,5 +1,12 @@
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.5.1.
+
+2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Makefile.am:
 
 	Please distcheck.
