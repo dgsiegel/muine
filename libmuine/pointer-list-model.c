@@ -340,14 +340,18 @@ pointer_list_model_drag_data_received (GtkTreeDragDest   *drag_dest,
         }
       else
         {
-          /* FIXME debug why drop at end is not working */
           if (gtk_tree_model_get_iter (tree_model, &dest_iter, dest))
             {
               put_before (model, src_iter.user_data,
 			  dest_iter.user_data);
-
-              retval = TRUE;
             }
+	  else
+            {
+              put_before (model, src_iter.user_data,
+		          g_sequence_get_end_ptr (model->pointers));
+            }
+
+	  retval = TRUE;
         }
 
       gtk_tree_path_free (prev);
@@ -709,11 +713,6 @@ remove_ptr (PointerListModel *model, GSequencePtr ptr)
   g_hash_table_remove (model->reverse_map, g_sequence_ptr_get_data (ptr));
   
   g_sequence_remove (ptr);
-
-  /* FIXME: Why oh why is this needed? The length is reported as 0 if we don't
-   * do this after removing a ptr. It's probably due to some missing splay?
-   */
-  /*  g_sequence_get_begin_ptr (model->pointers);*/
 
   model->stamp++;
   

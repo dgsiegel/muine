@@ -15,7 +15,6 @@ o DnD m3u files to the playlist window should load them
 o Clicking an ogg/flac/mp3 in Nautilus should append it to the Muine queue
   and play it. We can create a Song node for the file that is not in the DB.
 o D-BUS service (Sergio Rubio is on this)
-o Make drop-at-end work in the PlaylistWindow.
 
 Tough:
 ======

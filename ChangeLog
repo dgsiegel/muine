@@ -1,5 +1,14 @@
 2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* libmuine/pointer-list-model.c:
+	(pointer_list_model_drag_data_received), (remove_ptr):
+
+	Make drag to end of playlist work. This might need Gtk 2.3,
+	I'm not sure ..
+
+2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* README:
 	* TODO:
 	* configure.in:
