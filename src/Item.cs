@@ -54,7 +54,7 @@ namespace Muine
 			}
 		}
 
-		// Properties :: CoverImage
+		// Properties :: CoverImage (set; get;)
 		public abstract Gdk.Pixbuf CoverImage {
 			set;
 			get;
@@ -65,6 +65,7 @@ namespace Muine
 		protected abstract string GenerateSearchKey ();
 
 		// Methods :: Public		
+		// Methods :: Public :: CompareTo (IComparable)
 		public int CompareTo (object o)
 		{
 			if (o == null)
@@ -77,5 +78,21 @@ namespace Muine
 					
 			return String.CompareOrdinal (this.SortKey, other.SortKey);
 		}
+		
+		// Methods :: Public :: FitsCriteria
+		public bool FitsCriteria (string [] search_bits)
+		{
+			int n_matches = 0;
+				
+			foreach (string search_bit in search_bits) {
+				if (SearchKey.IndexOf (search_bit) >= 0) {
+					n_matches++;
+					continue;
+				}
+			}
+
+			return (n_matches == search_bits.Length);
+		}
+
 	}
 }

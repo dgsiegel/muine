@@ -52,16 +52,16 @@ namespace Muine
 		// Constructor	
 		public AddSongWindow ()
 		{
-			window.Title = string_play_song;
+			base.Title = string_play_song;
 
-			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+			base.SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 			
-			view.SortFunc = new HandleView.CompareFunc (SortFunc);
+			base.List.SortFunc = new HandleView.CompareFunc (SortFunc);
 			
-			view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
+			base.List.AddColumn (base.TextRenderer, new AddWindowList.CellDataFunc (CellDataFunc), true);
 
-			view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
-			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
+			base.List.DragSource = source_entries;
+			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 		
 			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
 			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
@@ -71,7 +71,7 @@ namespace Muine
 				int i = 0;
 
 				foreach (Song s in Global.DB.Songs.Values) {
-					view.Append (s.Handle);
+					base.List.Append (s.Handle);
 
 					i++;
 					if (i >= FakeLength)
@@ -109,14 +109,14 @@ namespace Muine
 			int max_len = -1;
 
 			/* show max. FakeLength songs if < MinQueryLength chars are entered. this is to fake speed. */
-			if (search_entry.Text.Length < MinQueryLength)
+			if (base.Entry.Text.Length < MinQueryLength)
 				max_len = FakeLength;
 
 			lock (Global.DB) {
 				int i = 0;
-				if (search_entry.Text.Length > 0) {
+				if (base.Entry.Text.Length > 0) {
 					foreach (Song s in Global.DB.Songs.Values) {
-						if (!s.FitsCriteria (SearchBits))
+						if (!s.FitsCriteria (base.Entry.SearchBits))
 							continue;
 
 						l.Append (s.Handle);
@@ -136,45 +136,45 @@ namespace Muine
 				}
 			}
 
-			view.RemoveDelta (l);
+			base.List.RemoveDelta (l);
 
 			foreach (int p in l) {
 				IntPtr ptr = new IntPtr (p);
 
-				view.Append (ptr);
+				base.List.Append (ptr);
 			}
 
-			SelectFirst ();
+			base.List.SelectFirst ();
 
 			return false;
 		}
 
-		private void OnSongAdded (Song song)
+		private void OnSongAdded (Item item)
 		{
-			if (search_entry.Text.Length < MinQueryLength &&
-			    view.Length >= FakeLength)
+			if (base.Entry.Text.Length < MinQueryLength &&
+			    base.List.Length >= FakeLength)
 				return;
 
-			base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
+			base.List.HandleAdded (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnSongChanged (Song song)
+		private void OnSongChanged (Item item)
 		{
-			bool may_append = (search_entry.Text.Length >= MinQueryLength ||
-			                   view.Length < FakeLength);
+			bool may_append = (base.Entry.Text.Length >= MinQueryLength ||
+			                   base.List.Length < FakeLength);
 			
-			base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits),
-			                    may_append);
+			base.List.HandleChanged (item.Handle, item.FitsCriteria (base.Entry.SearchBits),
+				may_append);
 		}
 
-		private void OnSongRemoved (Song song)
+		private void OnSongRemoved (Item item)
 		{
-			base.HandleRemoved (song.Handle);
+			base.List.HandleRemoved (item.Handle);
 		}
 
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
-			List songs = view.SelectedPointers;
+			List songs = base.List.SelectedPointers;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:

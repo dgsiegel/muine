@@ -238,20 +238,6 @@ namespace Muine
 			}
 		}
 
-		public bool FitsCriteria (string [] search_bits)
-		{
-			int n_matches = 0;
-				
-			foreach (string search_bit in search_bits) {
-				if (SearchKey.IndexOf (search_bit) >= 0) {
-					n_matches++;
-					continue;
-				}
-			}
-
-			return (n_matches == search_bits.Length);
-		}
-
 		private Pixbuf GetCover (Song initial_song)
 		{
 			string key = Key;

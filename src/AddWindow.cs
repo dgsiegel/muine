@@ -26,7 +26,7 @@ namespace Muine
 	public abstract class AddWindow : Window
 	{
 		// Enums
-		protected enum ResponseType {
+		public enum ResponseType {
 			Close       = Gtk.ResponseType.Close,
 			DeleteEvent = Gtk.ResponseType.DeleteEvent,
 			Play        = 1,
@@ -41,16 +41,17 @@ namespace Muine
 		public event PlayEventHandler PlayEvent;
 
 		// Widgets
-		[Glade.Widget] protected Window         window;
-		[Glade.Widget] protected Entry          search_entry;
-		[Glade.Widget] protected Button         play_button;
-		[Glade.Widget] protected Image          play_button_image;
-		[Glade.Widget] protected Button         queue_button;
-		[Glade.Widget] protected Image          queue_button_image;
-		[Glade.Widget] protected ScrolledWindow scrolledwindow;
+		[Glade.Widget] private Window         window;
+		[Glade.Widget] private Container      entry_container;
+		[Glade.Widget] private Button         play_button;
+		[Glade.Widget] private Image          play_button_image;
+		[Glade.Widget] private Button         queue_button;
+		[Glade.Widget] private Image          queue_button_image;
+		[Glade.Widget] private ScrolledWindow scrolledwindow;
 		
-		protected HandleView   view          = new HandleView ();
-		protected CellRenderer text_renderer = new CellRendererText ();
+		private AddWindowEntry entry         = new AddWindowEntry   ();
+		private AddWindowList  list          = new AddWindowList    ();
+		private CellRenderer   text_renderer = new CellRendererText ();
 
 		// Variables
 		private string gconf_key_width, gconf_key_height;
@@ -67,42 +68,45 @@ namespace Muine
 
 			Raw = window.Handle;
 
-			play_button_image.SetFromStock ("stock_media-play", IconSize.Button);
-			queue_button_image.SetFromStock ("stock_timer", IconSize.Button);
+			play_button_image.SetFromStock  ("stock_media-play", IconSize.Button);
+			queue_button_image.SetFromStock ("stock_timer"     , IconSize.Button);
 
-			view.Selection.Mode = SelectionMode.Multiple;
-			view.RowActivated += new HandleView.RowActivatedHandler (OnRowActivated);
-			view.SelectionChanged += new HandleView.SelectionChangedHandler (OnSelectionChanged);
+			// Entry
+			entry.KeyPressEvent += new Gtk.KeyPressEventHandler (OnEntryKeyPressEvent);
+			entry.Changed       += new System.EventHandler      (OnEntryChanged);
+			entry_container.Add (entry);
+						
+			// List
+			list.RowActivated     += new AddWindowList.RowActivatedHandler     (OnRowActivated);
+			list.SelectionChanged += new AddWindowList.SelectionChangedHandler (OnSelectionChanged);
+			scrolledwindow.Add (list);
 
-			scrolledwindow.Add (view);
-
-			view.Realize ();
-			view.Show ();
+			entry.Show ();
+			list.Show ();
 		}
 
 		// Properties
-		protected TargetEntry [] DragSource {
-			set {
-				view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
-							    value, Gdk.DragAction.Copy);
-			}
+		public AddWindowList List {
+			get { return list; }
 		}
 
-		protected string [] SearchBits {
-			get {
-				return search_entry.Text.ToLower ().Split (' ');
-			}	
+		public AddWindowEntry Entry {
+			get { return entry; }
 		}
-
+		
+		public CellRenderer TextRenderer {
+			get { return text_renderer; }
+		}
+		
 		// Abstract methods
 		protected abstract bool Search ();
 
 		// Public Methods
 		public void Run ()
 		{
-			search_entry.GrabFocus ();
+			entry.GrabFocus ();
 
-			SelectFirst ();
+			list.SelectFirst ();
 
 			window.Present ();
 		}
@@ -120,30 +124,22 @@ namespace Muine
 			int width  = (int) Config.Get (key_width , default_width );
 			int height = (int) Config.Get (key_height, default_height);
 
-			window.SetDefaultSize (width, height);
+			if (width < 1)
+				width = gconf_default_width;
+			
+			if (height < 1)
+				height = gconf_default_height;
+
+			SetDefaultSize (width, height);
 			
 			AddOnSizeAllocated ();
-		}
-
-		protected void SelectFirst ()
-		{
-			scrolledwindow.Hadjustment.Value = 0.0;
-
-			view.SelectFirst ();
-		}
-
-		protected void SelectFirstIfNeeded ()
-		{
-			/* it is insensitive if we have no selection, see OnSelectionChanged */
-			if (!play_button.Sensitive)
-				SelectFirst ();
 		}
 
 		protected void Reset ()
 		{
 			process_changes_immediately = true;
 			
-			search_entry.Text = "";
+			entry.Clear ();
 
 			process_changes_immediately = false;
 		}
@@ -183,15 +179,13 @@ namespace Muine
 
 		private void OnSelectionChanged ()
 		{
-			bool has_sel = (view.SelectedPointers.Count > 0);
-			
-			play_button.Sensitive  = has_sel;
-			queue_button.Sensitive = has_sel;
+			play_button.Sensitive  = list.HasSelection;
+			queue_button.Sensitive = list.HasSelection;
 		}
 		
-		private void OnSearchEntryKeyPressEvent (object o, KeyPressEventArgs args)
+		private void OnEntryKeyPressEvent (object o, KeyPressEventArgs args)
 		{
-			args.RetVal = view.ForwardKeyPress (search_entry, args.Event);
+			args.RetVal = list.ForwardKeyPress (entry, args.Event);
 		}
 
 		private void OnSizeAllocated (object o, SizeAllocatedArgs args)
@@ -221,7 +215,7 @@ namespace Muine
 				window.Visible = false;
 				
 				if (PlayEvent != null)
-					PlayEvent (view.SelectedPointers);
+					PlayEvent (list.Selected);
 
 				Reset ();
 
@@ -229,11 +223,11 @@ namespace Muine
 				
 			case (int) ResponseType.Queue:
 				if (QueueEvent != null)
-					QueueEvent (view.SelectedPointers);
+					QueueEvent (list.Selected);
 					
-				search_entry.GrabFocus ();
+				entry.GrabFocus ();
 
-				view.SelectNext ();
+				list.SelectNext ();
 
 				break;
 				
@@ -242,47 +236,17 @@ namespace Muine
 			}
 		}
 		
-		private void OnSearchEntryChanged (object o, EventArgs args)
+		private void OnEntryChanged (object o, EventArgs args)
 		{
-			if (process_changes_immediately)
+			if (process_changes_immediately) {
 				Search ();
-			else {
+
+			} else {
 				if (search_idle_id > 0)
 					GLib.Source.Remove (search_idle_id);
 
 				search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
 			}
-		}
-		
-		protected void HandleAdded (IntPtr ptr, bool fits)
-		{
-			if (fits)
-				view.Append (ptr);
-		}
-
-		protected void HandleChanged (IntPtr ptr, bool fits)
-		{
-			HandleChanged (ptr, fits, true);
-		}
-
-		protected void HandleChanged (IntPtr ptr, bool fits, bool may_append)
-		{
-			if (fits) {
-				if (view.Contains (ptr))
-					view.Changed (ptr);
-				else if (may_append)
-					view.Append (ptr);
-			} else {
-				view.Remove (ptr);
-			}
-
-			SelectFirstIfNeeded ();	
-		}
-			
-		protected void HandleRemoved (IntPtr ptr)
-		{
-			view.Remove (ptr);
-			SelectFirstIfNeeded ();	
 		}
 	}
 }

@@ -1,5 +1,22 @@
 2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* data/glade/AddWindow.glade:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	* src/Album.cs:
+	* src/Item.cs:
+	* src/Makefile.am:
+	* src/Song.cs:
+	
+	Split AddWindowEntry and AddWindowList off of AddWindow.
+	Moved Song.FitsCriteria and Album.FitsCriteria to Item.
+
+
+2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/About.cs:
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:

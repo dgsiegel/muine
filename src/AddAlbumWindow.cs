@@ -55,20 +55,19 @@ namespace Muine
 		// Constructor
 		public AddAlbumWindow ()
 		{
-			window.Title = string_play_album;
+			base.Title = string_play_album;
 
-			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+			base.SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 			
-			view.SortFunc = new HandleView.CompareFunc (SortFunc);
+			base.List.SortFunc = new AddWindowList.CompareFunc (SortFunc);
 
-			view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
-			view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
+			base.List.AddColumn (pixbuf_renderer  , new AddWindowList.CellDataFunc (PixbufCellDataFunc), false);
+			base.List.AddColumn (base.TextRenderer, new AddWindowList.CellDataFunc (TextCellDataFunc  ), true );
 
-			view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
-						    source_entries, Gdk.DragAction.Copy);
-			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
+			base.List.DragSource = source_entries;
+			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			Global.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
+			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (OnAlbumAdded  );
 			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
 			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
 
@@ -76,7 +75,7 @@ namespace Muine
 
 			lock (Global.DB) {
 				foreach (Album a in Global.DB.Albums.Values) 
-					view.Append (a.Handle);
+					base.List.Append (a.Handle);
 			}
 
 			if (!Global.CoverDB.Loading)
@@ -130,9 +129,9 @@ namespace Muine
 			List l = new List (IntPtr.Zero, typeof (int));
 
 			lock (Global.DB) {
-				if (search_entry.Text.Length > 0) {
+				if (base.Entry.Text.Length > 0) {
 					foreach (Album a in Global.DB.Albums.Values) {
-						if (a.FitsCriteria (SearchBits))
+						if (a.FitsCriteria (base.Entry.SearchBits))
 							l.Append (a.Handle);
 					}
 				} else {
@@ -141,42 +140,42 @@ namespace Muine
 				}
 			}
 
-			view.RemoveDelta (l);
+			base.List.RemoveDelta (l);
 
 			foreach (int i in l) {
 				IntPtr ptr = new IntPtr (i);
 
-				view.Append (ptr);
+				base.List.Append (ptr);
 			}
 
-			SelectFirst ();
+			base.List.SelectFirst ();
 
 			return false;
 		}
 		
-		private void OnAlbumAdded (Album album)
+		private void OnAlbumAdded (Item item)
 		{
-			base.HandleAdded (album.Handle, album.FitsCriteria (SearchBits));
+			base.List.HandleAdded (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnAlbumChanged (Album album)
+		private void OnAlbumChanged (Item item)
 		{
-			base.HandleChanged (album.Handle, album.FitsCriteria (SearchBits));
+			base.List.HandleChanged (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnAlbumRemoved (Album album)
+		private void OnAlbumRemoved (Item item)
 		{
-			base.HandleRemoved (album.Handle);
+			base.List.HandleRemoved (item.Handle);
 		}
 
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			TreePath path;
 
-			if (!view.GetPathAtPos (args.X, args.Y, out path))
+			if (!base.List.GetPathAtPos (args.X, args.Y, out path))
 				return;
 
-			IntPtr album_ptr = view.GetHandleFromPath (path);
+			IntPtr album_ptr = base.List.GetHandleFromPath (path);
 			Album album = Album.FromHandle (album_ptr);
 
 			CoverImage.HandleDrop ((Song) album.Songs [0], args);
@@ -186,7 +185,7 @@ namespace Muine
 		{
 			EnableDragDest ();
 
-			view.QueueDraw ();
+			base.List.QueueDraw ();
 		}
 
 		private bool drag_dest_enabled = false;
@@ -195,8 +194,8 @@ namespace Muine
 			if (drag_dest_enabled)
 				return;
 
-			view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-			Gtk.Drag.DestSet (view, DestDefaults.All,
+			base.List.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			Gtk.Drag.DestSet (base.List, DestDefaults.All,
 					  CoverImage.DragEntries, Gdk.DragAction.Copy);
 
 			drag_dest_enabled = true;
@@ -204,7 +203,7 @@ namespace Muine
 
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
-			List albums = view.SelectedPointers;
+			List albums = base.List.SelectedPointers;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
