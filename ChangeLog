@@ -1,5 +1,11 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/About.cs:
+
+	Mark missing strings for translation.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* autogen.sh:
 	* configure.in:

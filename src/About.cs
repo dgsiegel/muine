@@ -29,13 +29,19 @@ public class About
 		}
 	}
 
-	private static string [] authors = {
-		"Jorn Baayen (jbaayen@gnome.org)",
-		"Lee Willis (lee@leewillis.co.uk)",
-		"Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-	};
+	private static string [] authors = null;
 	public static string [] Authors {
 		get {
+			if (authors == null) {
+				authors = new string [3];
+
+				authors [0] = Muine.Catalog.GetString ("Jorn Baayen (jbaayen@gnome.org)");
+				authors [1] = Muine.Catalog.GetString ("Lee Willis (lee@leewillis.co.uk)");
+				/* please use Vietnamese spelling, if the relevant characters occur in
+				 * your language. */
+				authors [2] = Muine.Catalog.GetString ("Viet Yen Nguyen (nguyen@cs.utwente.nl)");
+			}
+			
 			return authors;
 		}
 	}
@@ -48,11 +54,11 @@ public class About
 		Pixbuf pixbuf = new Pixbuf (null, "muine-playlist.png");
 
 		Gnome.About about;
-		about = new Gnome.About ("Muine", version,
+		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), version,
 					 /* please use the UTF-8 copyright symbol in your translation .. */
 					 Muine.Catalog.GetString ("Copyright (C) 2003, 2004 Jorn Baayen"),
 					 Muine.Catalog.GetString ("A music player"),
-					 authors, documenters,
+					 Authors, documenters,
 					 (translator_credits == "translator-credits") ? null : translator_credits,
 					 pixbuf);
 
