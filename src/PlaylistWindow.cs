@@ -843,6 +843,9 @@ public class PlaylistWindow : Window
 
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
 	{
+		if (!Visible)
+			return;
+			
 		bool old_window_visible = window_visible;
 		window_visible = ((args.Event.NewWindowState != Gdk.WindowState.Iconified) &&
 				  (args.Event.NewWindowState != Gdk.WindowState.Withdrawn));
@@ -853,6 +856,11 @@ public class PlaylistWindow : Window
 
 	private void HandleWindowVisibilityNotifyEvent (object o, VisibilityNotifyEventArgs args)
 	{
+		if (!Visible ||
+		    GdkWindow.State == Gdk.WindowState.Iconified ||
+		    GdkWindow.State == Gdk.WindowState.Withdrawn)
+		    return;
+
 		bool old_window_visible = window_visible;
 		window_visible = (args.Event.State != Gdk.VisibilityState.FullyObscured);
 
