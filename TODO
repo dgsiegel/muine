@@ -21,6 +21,7 @@ o Shift+Arrow keys selects in add windows
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
+o Globally consume ACME keys
 
 Tough:
 ======
