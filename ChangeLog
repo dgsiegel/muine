@@ -1,5 +1,11 @@
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddWindowEntry.cs:
+
+	Restore "<enter> activates default" behaviour.
+
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverGetter.cs:
 
 	Only add border to amazon pixbuf if we got one.

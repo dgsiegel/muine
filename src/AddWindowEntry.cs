@@ -23,6 +23,7 @@ namespace Muine
 	{
 		public AddWindowEntry () : base ()
 		{
+			ActivatesDefault = true;
 		}
 
 		public string [] SearchBits {
