@@ -60,6 +60,7 @@ struct _PlayerPriv {
 	char       *current_file;
 
 	int	    cur_volume;
+	double      volume_scale;
 
 	guint	    eos_idle_id;
 
@@ -328,19 +329,28 @@ player_pause (Player *player)
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_PAUSED);
 }
 
+static void
+update_volume (Player *player)
+{
+	int real_vol;
+	double d;
+
+	real_vol = player->priv->cur_volume * player->priv->volume_scale;
+
+	d = CLAMP (real_vol, 0, 100) / 100.0;
+
+	g_object_set (player->priv->volume, "volume", d, NULL);
+}
+
 void
 player_set_volume (Player *player, int volume)
 {
-	double d;
-
 	g_return_if_fail (IS_PLAYER (player));
 	g_return_if_fail (volume >= 0 && volume <= 100);
 
 	player->priv->cur_volume = volume;
 
-	d = volume / 100.0;
-
-	g_object_set (player->priv->volume, "volume", d, NULL);
+	update_volume (player);
 }
 
 int
@@ -351,6 +361,7 @@ player_get_volume (Player *player)
 	return player->priv->cur_volume;
 }
 
+
 void
 player_set_replaygain (Player *player, double gain, double peak)
 {
@@ -358,8 +369,12 @@ player_set_replaygain (Player *player, double gain, double peak)
 
 	g_return_if_fail (IS_PLAYER (player));
 
-	if (gain == 0)
+	if (gain == 0) {
+		player->priv->volume_scale = 1.0;
+		update_volume (player);
+
 		return;
+	}
 
 	scale = pow (10., gain / 20);
 
@@ -371,8 +386,8 @@ player_set_replaygain (Player *player, double gain, double peak)
 	if (scale > 15)
 		scale = 15;
 
-	g_object_set (player->priv->volume, "volume",
-		      (player->priv->cur_volume / 100) * scale, NULL);
+	player->priv->volume_scale = scale;
+	update_volume (player);
 }
 
 void
