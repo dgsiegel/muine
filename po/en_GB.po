@@ -44,7 +44,7 @@ msgstr "_Overwrite"
 
 #: data/glade/PlaylistWindow.glade.h:1
 msgid "Play"
-msgstr "Pl_ayPlay"
+msgstr "Play"
 
 #: data/glade/PlaylistWindow.glade.h:2
 #: src/AddAlbumWindow.cs:41
