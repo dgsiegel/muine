@@ -1,5 +1,19 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* autogen.sh:
+	* configure.in:
+	R po/Makefile.in:
+	A po/Makefile.in.in.override:
+	* po/POTFILES.in:
+
+	Get POTFILES right.
+	
+	* src/muine.in:
+
+	Use MONO_PATH instead of LD_LIBRARY_PATH.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* configure.in:
 	* po/LINGUAS:

@@ -99,5 +99,5 @@ src/Makefile
 src/muine
 m4/Makefile
 ])
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
+AC_CONFIG_FILES([po/Makefile.in], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT
