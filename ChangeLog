@@ -1,6 +1,13 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Only allow one thread to change the DB at the time.
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
 
 	Avoid checking for changes & loading at the same time.
 

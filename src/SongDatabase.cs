@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 using Gnome;
 
@@ -63,6 +64,8 @@ public class SongDatabase
 
 		Songs = Hashtable.Synchronized (new Hashtable ());
 		Albums = new Hashtable ();
+
+		changing_mutex = new Mutex ();
 	}
 
 	public delegate void SongAddedHandler (Song song);
@@ -157,9 +160,21 @@ public class SongDatabase
 		return false;
 	}
 
+	private Mutex changing_mutex;
+	public bool Changing {
+		set {
+			if (value)
+				changing_mutex.WaitOne ();
+			else
+				changing_mutex.ReleaseMutex ();
+		}
+	}
+
 	/* this is run from the action thread */
 	private void CheckChanges (Action action)
 	{
+		changing_mutex.WaitOne ();
+
 		/* check for removed songs and changes */
 		removed_songs = new Queue ();
 		changed_songs = new Queue ();
@@ -207,6 +222,8 @@ public class SongDatabase
 		}
 		
 		GLib.Timeout.Add (10, new GLib.TimeoutHandler (Proxy));
+		
+		changing_mutex.ReleaseMutex ();
 	}
 
 	public void Load ()
