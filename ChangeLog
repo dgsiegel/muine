@@ -1,5 +1,12 @@
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/rb-cell-renderer-pixbuf.c:
+	(rb_cell_renderer_pixbuf_render):
+
+	Replace deprecated gdk_pixbuf_render_to_drawable_alpha
+
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/PlaylistWindow.cs:
 
