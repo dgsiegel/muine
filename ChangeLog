@@ -1,5 +1,32 @@
 2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* configure.in:
+	* libmuine/Makefile.am:
+	R libmuine/metadata-gst.c:
+	R libmuine/player-gst-0.7.c:
+	A libmuine/player-gst.c: (player_get_type), (player_class_init),
+	(player_init), (player_finalize), (player_new), (eos_idle_cb),
+	(eos_cb), (error_idle_cb), (error_cb), (time_tick_cb),
+	(player_set_file), (player_play), (player_stop), (player_pause),
+	(player_set_volume), (player_get_volume), (player_set_replaygain),
+	(player_seek), (player_tell):
+	A libmuine/player-xine.c: (player_get_type), (player_class_init),
+	(tick_timeout), (player_init), (player_finalize), (signal_idle),
+	(xine_event), (player_construct), (player_new),
+	(player_error_quark), (player_open), (player_close),
+	(player_playing), (player_set_file), (player_play), (player_stop),
+	(player_pause), (player_set_volume), (player_get_volume),
+	(player_set_replaygain), (player_seek), (player_tell):
+	R libmuine/player.c:
+	* libmuine/player.h:
+	* src/Player.cs:
+	* src/SkipToWindow.cs:
+
+	New xine backend. Very much recommended.
+
+2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* libmuine/player.c: (player_get_type), (player_class_init),
 	(player_init), (player_finalize), (player_new), (eos_idle_cb),

@@ -203,7 +203,7 @@ eos_idle_cb (Player *player)
 {
 	player->priv->eos_idle_id = 0;
 
-	g_signal_emit (player, signals[END_OF_STREAM], 0, NULL);
+	g_signal_emit (player, signals[END_OF_STREAM], 0);
 
 	return FALSE;
 }

@@ -23,7 +23,6 @@
 #define __PLAYER_H__
 
 #include <glib-object.h>
-#include <gst/gst.h>
 
 #define TYPE_PLAYER            (player_get_type ())
 #define PLAYER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PLAYER, Player))

@@ -83,23 +83,6 @@ public class Player : GLib.Object
 		}
 	}
 
-	public bool Seeking {
-		set {
-			if (value == true) {
-				player_pause (Raw);
-			} else {
-				player_play (Raw);
-
-				if (playing == false) {
-					playing = true;
-
-					if (StateChanged != null)
-						StateChanged (playing);
-				}
-			}
-		}
-	}
-
 	public delegate void TickEventHandler (int pos);
 	public event TickEventHandler TickEvent;
 

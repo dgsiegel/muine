@@ -20,8 +20,17 @@ INCLUDES =							\
 muinelibdir = $(prefix)/lib/muine
 muinelib_LTLIBRARIES = libmuine.la
 
+if HAVE_XINE
+xine_sources = player-xine.c
+endif
+
+if HAVE_GST
+gst_sources = player-gst.c
+endif
+
 libmuine_la_SOURCES =			\
-	player.c			\
+	$(xine_sources) 		\
+	$(gst_sources)			\
 	player.h			\
 	metadata.c			\
 	metadata.h			\
@@ -51,5 +60,3 @@ libmuine_la_SOURCES =			\
 	mm-keys.h
 	
 libmuine_la_LIBADD = id3-vfs/libid3-vfs.la egg/libegg.la $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS)
-
-EXTRA_DIST = metadata-gst.c player-gst-0.7.c

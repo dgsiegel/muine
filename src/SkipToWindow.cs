@@ -71,28 +71,11 @@ public class SkipToWindow
 		song_slider.SetRange (0, player.Song.Duration);
 	}
 
-	private uint timeout_id = 0;
-
-	private bool TimeoutFunc ()
-	{
-		player.Seeking = false;
-
-		timeout_id = 0;
-
-		return false;
-	}
-
 	private void HandleSongSliderValueChanged (object o, EventArgs a) 
 	{
-		if (!from_tick) {
-			player.Seeking = true;
-
+		if (!from_tick)
 			player.Position = (int) song_slider.Value;
-
-			if (timeout_id != 0)
-				Gtk.Timeout.Remove (timeout_id);
-			timeout_id = Gtk.Timeout.Add (100, new Function (TimeoutFunc));
-		} else
+		else
 			from_tick = false;
 	}
 

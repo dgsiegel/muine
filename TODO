@@ -60,7 +60,6 @@ o Make title and artist label one for easier selection.
 o Use storage
 o Support OGM files
   These will work once GStreamer supports them
-o Use Gstreamer 0.7 for both playback and tag reading once it is solid enough
 o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
   we use GTK 2.3
   Depends on Gtk# supporting Gtk 2.3
