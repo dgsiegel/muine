@@ -169,7 +169,7 @@ public class AddSongWindow : Window
 				
 			search_entry.GrabFocus ();
 
-			view.SelectNext (true, true);
+			view.SelectNext ();
 
 			break;
 		default:

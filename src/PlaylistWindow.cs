@@ -1585,8 +1585,8 @@ public class PlaylistWindow : Window
 			}
 			
 			if (have_only_one) {
-				if (!playlist.SelectNext (false, false))
-					playlist.SelectPrevious (false, false);
+				if (!playlist.SelectNext ())
+					playlist.SelectPrevious ();
 			}
 
 			RemoveSong (sel);
@@ -1757,8 +1757,8 @@ public class PlaylistWindow : Window
 
 			if ((playlist.SelectedPointers.Count == 1) &&
                             ((int) playlist.SelectedPointers [0] == (int) h)) {
-				if (!playlist.SelectNext (false, false))
-                        		playlist.SelectPrevious (false, false);
+				if (!playlist.SelectNext ())
+                        		playlist.SelectPrevious ();
 			}
 
 			playlist.Remove (h);
@@ -1836,7 +1836,7 @@ public class PlaylistWindow : Window
 		}
 
 		bool first = true;
-		
+
 		switch (type) {
 		case (uint) TargetType.SongList:
 		case (uint) TargetType.ModelRow:
@@ -1878,13 +1878,7 @@ public class PlaylistWindow : Window
 				}
 				
 				if (first) {
-					if (type == (uint) TargetType.ModelRow) {
-						/* scroll if the first/last & moved, because it will have scrolled out of
-						   view during the move - hack, hack, hack :( */
-						playlist.Select (new_ptr, playlist.IsFirst (new_ptr) ||
-									  playlist.IsLast (new_ptr));
-					} else
-						playlist.Select (new_ptr);
+					playlist.Select (new_ptr);
 
 					first = false;
 				}
@@ -1937,11 +1931,8 @@ public class PlaylistWindow : Window
 			foreach (string s in uri_list) {
 				string fn = StringUtils.LocalPathFromUri (s);
 
-				if (fn == null) {
-					Drag.Finish (args.Context, false, false, args.Time);
-					
-					return;
-				}
+				if (fn == null)
+					break;
 	
 				DirectoryInfo dinfo = new DirectoryInfo (fn);
 				
@@ -1963,6 +1954,7 @@ public class PlaylistWindow : Window
 					
 					if (FileUtils.IsPlaylist (fn)) {
 						OpenPlaylist (fn);
+
 						first = false;
 					} else {
 						Song song = GetSingleSong (finfo.FullName);

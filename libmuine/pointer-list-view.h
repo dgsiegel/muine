@@ -76,21 +76,12 @@ gpointer	 pointer_list_get_handle_from_path (PointerListView *view,
 int              pointer_list_view_get_length      (PointerListView *view);
 gboolean         pointer_list_view_contains        (PointerListView *view,
 				                    gpointer pointer);
-gboolean         pointer_list_view_is_first        (PointerListView *view,
-				                    gpointer pointer);
-gboolean         pointer_list_view_is_last         (PointerListView *view,
-				                    gpointer pointer);
 GList *          pointer_list_view_get_selection   (PointerListView *view);
 void             pointer_list_view_select_first    (PointerListView *view);
-gboolean         pointer_list_view_select_next     (PointerListView *view,
-						    gboolean center,
-						    gboolean scroll);
-gboolean         pointer_list_view_select_prev     (PointerListView *view,
-						    gboolean center,
-						    gboolean scroll);
+gboolean         pointer_list_view_select_next     (PointerListView *view);
+gboolean         pointer_list_view_select_prev     (PointerListView *view);
 void             pointer_list_view_select          (PointerListView *view,
-						    gpointer pointer,
-						    gboolean scroll);
+						    gpointer pointer);
 void             pointer_list_view_set_sort_func   (PointerListView *view,
 				                    GCompareFunc sort_func);
 void		 pointer_list_view_sort		   (PointerListView *view,

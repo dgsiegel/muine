@@ -121,24 +121,6 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
-	private static extern bool pointer_list_view_is_first (IntPtr view,
-							       IntPtr pointer);
-
-	public bool IsFirst (IntPtr handle)
-	{
-		return pointer_list_view_is_first (Raw, handle);
-	}
-
-	[DllImport ("libmuine")]
-	private static extern bool pointer_list_view_is_last (IntPtr view,
-							      IntPtr pointer);
-
-	public bool IsLast (IntPtr handle)
-	{
-		return pointer_list_view_is_last (Raw, handle);
-	}
-	
-	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_changed (IntPtr view,
 							      IntPtr pointer);
 
@@ -221,38 +203,28 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
-	private static extern bool pointer_list_view_select_prev (IntPtr view,
-								  bool center,
-								  bool scroll);
+	private static extern bool pointer_list_view_select_prev (IntPtr view);
 
-	public bool SelectPrevious (bool center, bool scroll)
+	public bool SelectPrevious ()
 	{
-		return pointer_list_view_select_prev (Raw, center, scroll);
+		return pointer_list_view_select_prev (Raw);
 	}
 
 	[DllImport ("libmuine")]
-	private static extern bool pointer_list_view_select_next (IntPtr view,
-								  bool center,
-								  bool scroll);
+	private static extern bool pointer_list_view_select_next (IntPtr view);
 
-	public bool SelectNext (bool center, bool scroll)
+	public bool SelectNext ()
 	{
-		return pointer_list_view_select_next (Raw, center, scroll);
+		return pointer_list_view_select_next (Raw);
 	}
 
 	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_select (IntPtr view, 
-						             IntPtr handle,
-							     bool scroll);
-
-	public void Select (IntPtr handle, bool scroll)
-	{
-		pointer_list_view_select (Raw, handle, scroll);
-	}
+						             IntPtr handle);
 
 	public void Select (IntPtr handle)
 	{
-		Select (handle, true);
+		pointer_list_view_select (Raw, handle);
 	}
 
 	[DllImport ("libmuine")]

@@ -202,7 +202,7 @@ public class AddAlbumWindow : Window
 
 			search_entry.GrabFocus ();
 
-			view.SelectNext (true, true);
+			view.SelectNext ();
 
 			break;
 		default:
