@@ -154,7 +154,8 @@ namespace Muine
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
-		[Glade.Widget] private Container song_label_container;
+		[Glade.Widget] private Container title_label_container;
+		[Glade.Widget] private Container artist_label_container;
 		[Glade.Widget] private Container cover_image_container;
 
 		// Widgets :: Images
@@ -174,7 +175,8 @@ namespace Muine
 
 		// Widgets :: Player
 		private CoverImage cover_image;
-		private EllipsizingLabel song_label;
+		private EllipsizingLabel title_label;
+		private EllipsizingLabel artist_label;
 		[Glade.Widget] private Label time_label;
 
 		// Widgets :: Playlist
@@ -779,7 +781,7 @@ namespace Muine
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
 			pixbuf_renderer = new ColoredCellRendererPixbuf ();
-			text_renderer   = new Muine.CellRendererText    ();
+			text_renderer   = new Muine.CellRendererText ();
 			
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
@@ -822,11 +824,17 @@ namespace Muine
 			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
 			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
 
-			song_label = new EllipsizingLabel ();
-			song_label.Visible = true;
-			song_label.Xalign = 0.0f;
-			song_label.Selectable = true;
-			song_label_container.Add (song_label);
+			title_label = new EllipsizingLabel ();
+			title_label.Visible = true;
+			title_label.Xalign = 0.0f;
+			title_label.Selectable = true;
+			title_label_container.Add (title_label);
+
+			artist_label = new EllipsizingLabel ();
+			artist_label.Visible = true;
+			artist_label.Xalign = 0.0f;
+			artist_label.Selectable = true;
+			artist_label_container.Add (artist_label);
 
 			cover_image = new CoverImage ();
 			cover_image_container.Add (cover_image);
@@ -1048,10 +1056,10 @@ namespace Muine
 				
 				tooltips.SetTip (cover_image, tip, null);
 
-				string artists = StringUtils.JoinHumanReadable (song.Artists);
-				song_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n{1}",
-								    StringUtils.EscapeForPango (song.Title),
-								    StringUtils.EscapeForPango (artists));
+				title_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>",
+								    StringUtils.EscapeForPango (song.Title));
+
+				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
 				if (player.Song != song || restart) {
 					try {
@@ -1074,9 +1082,10 @@ namespace Muine
 
 				tooltips.SetTip (cover_image, null, null);
 
-				song_label.Markup = "";
+				title_label.Markup = "";
 
-				time_label.Text = "";
+				artist_label.Text = "";
+				time_label  .Text = "";
 
 				this.Title = string_program;
 

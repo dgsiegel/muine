@@ -17,15 +17,49 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// FIXME ditch this whole thing once Gtk# gets 2.6 support
+using System;
+using System.Collections;
+using System.Runtime.InteropServices;
+
+using Gtk;
+
+// FIXME ditch this whole thing once we use gtk 2.6 stuff
 
 namespace Muine
 {
-	public class EllipsizingLabel : Gtk.Label
+	public class EllipsizingLabel : Label
 	{
+		// Constructor
+		[DllImport ("libmuine")]
+		private static extern IntPtr rb_ellipsizing_label_new (string text);
+		
 		public EllipsizingLabel () : base ("")
 		{
-			SetProperty ("ellipsize", new GLib.Value (3));
+			Raw = rb_ellipsizing_label_new ("");
+		}
+
+		// Destructor
+		~EllipsizingLabel ()
+		{
+			Dispose ();
+		}
+
+		// Properties
+		// Properties :: Text (set; get;)
+		[DllImport ("libmuine")]
+		private static extern void rb_ellipsizing_label_set_text (IntPtr label, string text);
+
+		public new string Text {
+			set { rb_ellipsizing_label_set_text (Raw, value); }
+			get { return base.Text; }
+		}
+
+		// Properties :: Markup (set; get;)
+		[DllImport ("libmuine")]
+		private static extern void rb_ellipsizing_label_set_markup (IntPtr label, string markup);
+
+		public new string Markup {
+			set { rb_ellipsizing_label_set_markup (Raw, value); }
 		}
 	}
 }

@@ -10,6 +10,10 @@ o group ["action"] instead of group.GetAction ("action")
 o Subclass Gnome.About for Muine.About
   Needs a new Gtk# release first
 
+o Use stock Gtk ellipsizing label, as soon as we want to depend
+  on Gtk 2.6. This also involves making the artist and title label
+  one label, for easier selection.
+
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
 o Fill in the gaps in the API docs
