@@ -127,11 +127,7 @@ pointer_list_view_init (PointerListView *view)
 	gtk_tree_view_set_rules_hint (tree_view, TRUE);
 	gtk_tree_view_set_enable_search (tree_view, FALSE);
 	gtk_tree_view_set_headers_visible (tree_view, FALSE);
-
-	g_object_set (G_OBJECT (tree_view),
-		      "fixed_height_mode",
-		      GINT_TO_POINTER (TRUE),
-		      NULL);
+	gtk_tree_view_set_fixed_height_mode (tree_view, TRUE);
 
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (tree_view)),
 			  "changed",
