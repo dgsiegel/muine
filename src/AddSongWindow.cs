@@ -171,6 +171,8 @@ public class AddSongWindow
 			search_entry.GrabFocus ();
 			search_entry.SelectRegion (0, -1);
 
+			view.SelectNext ();
+
 			play_button.HasDefault = false;
 			queue_button.HasDefault = true;
 				

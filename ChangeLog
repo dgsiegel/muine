@@ -1,5 +1,12 @@
 2004-01-23  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Better feedback when queueing songs.
+
+2004-01-23  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/AddWindow.glade:
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
