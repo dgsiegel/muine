@@ -4,6 +4,7 @@
 data/glade/AddWindow.glade
 data/glade/ErrorDialog.glade
 data/glade/GroupsWindow.glade
+data/glade/InfoWindow.glade
 data/glade/NoMusicFoundWindow.glade
 data/glade/PlaylistWindow.glade
 data/glade/ProgressWindow.glade

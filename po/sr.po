@@ -1,4 +1,4 @@
-# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2004.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2004.
 #
 # This file is distributed under the same license as the muine package.
 #
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-15 01:10+0100\n"
-"PO-Revision-Date: 2004-01-23 12:44+0100\n"
+"POT-Creation-Date: 2004-02-20 18:04+0100\n"
+"PO-Revision-Date: 2004-02-20 18:08+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,69 +55,63 @@ msgid "_Add song"
 msgstr "_Додај песму"
 
 #: data/glade/NoMusicFoundWindow.glade.h:1
-#, fuzzy
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\">Број песме: </span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Музика није нађена</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
 msgid ""
 "Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
+msgstr "Мујна није успела да нађе вашу музичку колекцију. Шта желите да урадим?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
 msgid ""
 "Muine will create the folders Music and Music/Playlists in your home folder "
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
-msgstr ""
+msgstr "Мујна ће направити директоријуме „Music“ и „Music/Playlists“ у вашем личном директоријуму ради смештања музичких датотека. Ова опција се веома препоручује. Увек можете увући и друге директоријуме ручно."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
-msgstr ""
+msgstr "Музика није нађена"
 
+# bug: s/therefor/therefore/
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefor not generally recommended."
-msgstr ""
+msgstr "Мораћете да увезете вашу музику ручно. Ово је намењено једино вештијим корисницима и зато се не препоручује у сваком случају."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-#, fuzzy
 msgid "_Create an empty music collection "
-msgstr "Организуј и изводи своју музичку збирку"
+msgstr "_Направи праву колекцију музике"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
-msgstr ""
+msgstr "Н_ишта, сам ћу уредити моју музику"
 
 #: data/glade/PlaylistWindow.glade.h:1
-#, fuzzy
 msgid "Play _Album"
-msgstr "Изве_ди албум"
+msgstr "Пусти _албум"
 
 #: data/glade/PlaylistWindow.glade.h:2
-#, fuzzy
 msgid "Play _Album..."
-msgstr "Изве_ди албум"
+msgstr "Пусти _албум..."
 
 #: data/glade/PlaylistWindow.glade.h:3
-#, fuzzy
 msgid "Play _Song"
-msgstr "Изведи песму касније"
+msgstr "Пусти _песму"
 
 #: data/glade/PlaylistWindow.glade.h:4
-#, fuzzy
 msgid "Play _Song..."
-msgstr "_Додај песму..."
+msgstr "Пусти _песму..."
 
 #: data/glade/PlaylistWindow.glade.h:5
-#, fuzzy
 msgid "R_epeat"
 msgstr "_Понављај"
 
 #: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
-msgstr "Уклони _пуштену песму"
+msgstr "Уклони _пуштене песме"
 
 #: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
@@ -144,34 +138,38 @@ msgid "_Import Folder..."
 msgstr "У_вези директоријум..."
 
 #: data/glade/PlaylistWindow.glade.h:13
+msgid "_Information"
+msgstr "Пода_ци"
+
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
 msgstr "Сле_дећа"
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Open Playlist..."
 msgstr "_Отвори списак песама..."
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Playlist"
 msgstr "С_писак песама"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
 msgstr "_Претходна"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Remove Song"
 msgstr "У_клони песму"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Save Playlist As..."
 msgstr "_Сачувај списак песама као..."
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "Прескочи _на..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:21
 msgid "_Song"
 msgstr "_Песма"
 
@@ -216,59 +214,64 @@ msgid "Default import folder."
 msgstr "Подразумевани директоријум за увоз."
 
 #: data/muine.schemas.in.h:6
-#, fuzzy
 msgid "Default playlist folder."
-msgstr "Подразумевани директоријум за „Отвори списак песама“."
+msgstr "Подразумевани директоријум за списак."
 
 #: data/muine.schemas.in.h:7
 msgid "First start."
-msgstr ""
+msgstr "Прво покретање."
 
 #: data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
-msgstr ""
+msgstr "Директоријуми у којима се прате измене."
 
 #: data/muine.schemas.in.h:9
+msgid "Information window height."
+msgstr "Висина прозора са подацима."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window width."
+msgstr "Ширина прозора са подацима."
+
+#: data/muine.schemas.in.h:11
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Последње коришћени директоријум из прозорчета „Увези директоријум“."
 
-#: data/muine.schemas.in.h:10
-#, fuzzy
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from the playlist file selectors."
-msgstr "Последње коришћени директоријум из прозорчета „Отвори списак песама“."
+msgstr "Последње коришћени директоријум из избирача датотека за списак."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:13
 msgid "Playlist window height."
 msgstr "Висина прозора списка песама."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Ширина прозора списка песама."
 
-#: data/muine.schemas.in.h:13
-#, fuzzy
+#: data/muine.schemas.in.h:15
 msgid "Repeat mode."
-msgstr "Изабери режим понављања"
+msgstr "Режим понављања."
 
-#: data/muine.schemas.in.h:14
+#: data/muine.schemas.in.h:16
 msgid "Volume level."
 msgstr "Јачина звука."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:17
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Јачина звука. 0 = најмања, 100 = највећа."
 
-#: data/muine.schemas.in.h:16
-msgid "Watched folders."
-msgstr ""
-
-#: data/muine.schemas.in.h:17
-msgid "Whether or not to enable repeat playlist mode."
-msgstr ""
-
 #: data/muine.schemas.in.h:18
+msgid "Watched folders."
+msgstr "Праћени директоријуми."
+
+#: data/muine.schemas.in.h:19
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Да ли укључити режим понављања списка песама."
+
+#: data/muine.schemas.in.h:20
 msgid "false if Muine has been started before."
-msgstr ""
+msgstr "„false“ ако је Мујна досад већ покретана."
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -278,33 +281,13 @@ msgstr "Усмерење"
 msgid "The orientation of the tray."
 msgstr "Усмерење фиоке."
 
-#: src/About.cs:52
 #, fuzzy
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr "Ауторска права %s 2002, 2003 Jorn Baayen. Сва права задржана."
+#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#~ msgstr "Ауторска права %s 2002, 2003 Jorn Baayen. Сва права задржана."
 
-#: src/About.cs:53
 #, fuzzy
-msgid "A music player"
-msgstr "Затвори музички програм"
-
-#: src/About.cs:62
-msgid "Thanks to Amazon.com for providing album cover images!"
-msgstr ""
-
-#: src/Muine.cs:83
-#, csharp-format
-msgid ""
-"Failed to load the cover database: {0}\n"
-"Exiting..."
-msgstr ""
-
-#: src/Muine.cs:94
-#, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"Exiting..."
-msgstr ""
+#~ msgid "A music player"
+#~ msgstr "Затвори музички програм"
 
 #~ msgid "TITLE"
 #~ msgstr "НАСЛОВ"
@@ -472,9 +455,6 @@ msgstr ""
 
 #~ msgid "_Artist"
 #~ msgstr "И_звођач"
-
-#~ msgid "_Duration"
-#~ msgstr "Тра_јање"
 
 #~ msgid "_Genre"
 #~ msgstr "_Жанр"
