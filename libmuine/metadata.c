@@ -213,6 +213,7 @@ assign_metadata_mp3 (const char *filename,
 		metadata->track_number = atoi (track_number_raw);
 	else
 		metadata->track_number = -1;
+	g_free (track_number_raw);
 
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
 
@@ -367,6 +368,9 @@ metadata_free (Metadata *metadata)
 		g_strfreev (metadata->artists);
 	if (metadata->albums)
 		g_strfreev (metadata->albums);
+
+	g_free (metadata->year);
+	g_free (metadata->mime_type);
 
 	g_free (metadata);
 }

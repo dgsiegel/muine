@@ -1,5 +1,11 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/metadata.c: (assign_metadata_mp3), (metadata_free):
+
+	Plug leaks.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* libmuine/metadata.c: (assign_metadata_mp3),
 	(assign_metadata_ogg), (metadata_get_track_number):
