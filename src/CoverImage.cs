@@ -117,7 +117,7 @@ public class CoverImage : EventBox
 
 			break;
 		case (uint) PlaylistWindow.TargetType.UriList:
-			uri_list = Regex.Split (data, "\r\n");
+			uri_list = StringUtils.SplitSelectionData (data);
 			fn = StringUtils.LocalPathFromUri (uri_list [0]);
 
 			if (fn == null)

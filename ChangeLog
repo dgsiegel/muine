@@ -1,5 +1,13 @@
 2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverImage.cs:
+	* src/PlaylistWindow.cs:
+	* src/StringUtils.cs:
+
+	Clean up SelectionData handling.
+
+2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Clean up DND code.

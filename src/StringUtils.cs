@@ -19,6 +19,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 public class StringUtils
 {
@@ -89,6 +90,18 @@ public class StringUtils
 	public static string SelectionDataToString (Gtk.SelectionData data)
 	{
 		return System.Text.Encoding.UTF8.GetString (data.Data);
+	}
+
+	public static string [] SplitSelectionData (Gtk.SelectionData data)
+	{
+		string str = SelectionDataToString (data);
+
+		return SplitSelectionData (str);
+	}
+
+	public static string [] SplitSelectionData (string data)
+	{
+		return Regex.Split (data, "\r\n");
 	}
 
 	/* these two go away once we have vfs support everywhere */

@@ -20,7 +20,6 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Text.RegularExpressions;
 
 using Gtk;
 using GLib;
@@ -339,13 +338,12 @@ public class PlaylistWindow : Window
 
 	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
 	{
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
 		string [] uri_list;
 		string fn;
 
 		switch (args.Info) {
 		case (uint) TargetType.UriList:
-			uri_list = Regex.Split (data, "\r\n");
+			uri_list = StringUtils.SplitSelectionData (args.SelectionData);
 			fn = StringUtils.LocalPathFromUri (uri_list [0]);
 
 			if (fn == null) {
@@ -1833,6 +1831,7 @@ public class PlaylistWindow : Window
 
 	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
+		string data = StringUtils.SelectionDataToString (args.SelectionData);
 		IntPtr pos_ptr = IntPtr.Zero;
 		TreePath path;
 		TreeViewDropPosition tmp_pos;
@@ -1844,8 +1843,6 @@ public class PlaylistWindow : Window
 			pos.Pointer = playlist.GetHandleFromPath (path);
 			pos.Position = tmp_pos;
 		}
-
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
 
 		uint type = (uint) TargetType.UriList;
 
@@ -1861,12 +1858,12 @@ public class PlaylistWindow : Window
 			data = data.Substring ("\tMUINE_ALBUM_LIST\t".Length);
 		}
 
+		string [] bits = StringUtils.SplitSelectionData (data);
+
 		switch (type) {
 		case (uint) TargetType.SongList:
 		case (uint) TargetType.ModelRow:
-			string [] sngs = Regex.Split (data, "\r\n");
-
-			foreach (string newsong in sngs) {
+			foreach (string newsong in bits) {
 				IntPtr new_ptr;
 
 				try { 
@@ -1901,9 +1898,7 @@ public class PlaylistWindow : Window
 
 			break;
 		case (uint) TargetType.AlbumList:
-			string [] albms = Regex.Split (data, "\r\n");
-
-			foreach (string newalbum in albms) {
+			foreach (string newalbum in bits) {
 				IntPtr new_ptr;
 				
 				try {
@@ -1924,9 +1919,7 @@ public class PlaylistWindow : Window
 
 			break;
 		case (uint) TargetType.UriList:
-			string [] uri_list = Regex.Split (data, "\r\n");
-			
-			foreach (string s in uri_list) {
+			foreach (string s in bits) {
 				string fn = StringUtils.LocalPathFromUri (s);
 
 				if (fn == null)
