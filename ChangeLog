@@ -1,5 +1,12 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlayerDBusObject.cs:
+	* src/PlaylistWindow.cs:
+
+	Move volume check to PlaylistWindow.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* plugins/DashboardPlugin.cs:
 
 	Add null check.

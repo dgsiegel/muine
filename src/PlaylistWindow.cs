@@ -143,7 +143,8 @@ public class PlaylistWindow : Window, PlayerInterface
 
 	public int Volume {
 		set {
-			volume_button.Volume = value;
+			if (value <= 100 && value >= 0)
+				volume_button.Volume = value;
 		}
 		
 		get {

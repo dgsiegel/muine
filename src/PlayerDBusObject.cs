@@ -103,8 +103,7 @@ public class PlayerDBusObject
 	[Method]
 	public void SetVolume (int volume)
 	{
-		if (volume <= 100 && volume >= 0)
-			player.Volume = volume;
+		player.Volume = volume;
 	}
 
 	[Method]
