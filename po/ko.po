@@ -1,0 +1,267 @@
+# muine korean translation
+# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Young-Ho Cha <ganadist at mizi.com>, 2004
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: muine VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-15 22:14+0900\n"
+"PO-Revision-Date: 2004-03-15 13:14+0900\n"
+"Last-Translator: Young-Ho Cha <ganadist at mizi.com>\n"
+"Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2
+msgid "_Play"
+msgstr "연주(_P)"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Queue"
+msgstr "예약(_Q)"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Search:"
+msgstr "찾기(_S):"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "Error"
+msgstr "오류"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">음악을 찾을 수 없습니다</span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr "Muin이 음악 모음을 찾을 수 없습니다. 어떻게 하는 것이 좋겠습니까?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+"Muine이 음악파일을 저장하기 위해 음악과 음악/연주목록 폴더를 만들 것입니다. "
+"이 옵션은 켜두는 것이 좋습니다. 나중에 수동으로 다른 폴더를 가져올 수도 있습"
+"니다."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "음악 없음"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+msgstr ""
+"음악들을 수동으로 가져올 수 있습니다. 고급 사용자만 이 옵션을 쓰십시오. 일반 "
+"사용자에게는 추천하지 않습니다."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "빈 음악 모음 만들기(_C)"
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "내 음악을 스스로 관리하기(_N)"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Play Album"
+msgstr "앨범 연주"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Play Song"
+msgstr "노래 연주"
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Play _Album..."
+msgstr "앨범 연주(_A)..."
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Play _Song..."
+msgstr "노래 연주(_S)..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr "반복(_E)"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Remove _Played Songs"
+msgstr "연주한 노래 지우기(_P)"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Backwards"
+msgstr "이전 곡으로 건너뛰기(_B)"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "Skip _Forward"
+msgstr "다음 곡으로 건너뛰기(_F)"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "_Clear Playlist"
+msgstr "연주 목록 비우기(_C)"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Hide Window"
+msgstr "창 숨기기(_H)"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Import Folder..."
+msgstr "폴더 가져오기(_I)..."
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Information"
+msgstr "정보(_I)"
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "다음(_N)"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "연주 목록 열기(_O)..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "연주 목록(_P)"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "이전(_P)"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "노래 지우기(_R)"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "다른 이름으로 연주목록 저장(_S)..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "건너 뛰기(_S)..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "노래(_S)"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "읽는 중:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "건너 뛰기"
+
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr "질문"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "음악을 듣습니다"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine 음악 연주기"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "앨범 창 높이 더하기."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "앨범 창 너비 더하기."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "노래 창 높이 더하기."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "노래 창 너비 더하기."
+
+#: data/muine.schemas.in.h:5
+msgid "Default import folder."
+msgstr "기본 가져오기 폴더."
+
+#: data/muine.schemas.in.h:6
+msgid "Default playlist folder."
+msgstr "기본 연주목록 폴더."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr "처음 시작."
+
+#: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr "바뀌는 것을 감시하는 폴더들."
+
+#: data/muine.schemas.in.h:9
+msgid "Information window height."
+msgstr "정보 창 높이."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window width."
+msgstr "정보 창 너비."
+
+#: data/muine.schemas.in.h:11
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "\"폴더 가져오기\"창에 마지막으로 쓰인 폴더."
+
+#: data/muine.schemas.in.h:12
+msgid "Last used folder from the playlist file selectors."
+msgstr "연주목록 파일 선택기에서 마지막으로 쓰인 폴더."
+
+#: data/muine.schemas.in.h:13
+msgid "Playlist window height."
+msgstr "연주 목록 창 높이."
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr "연주 목록 창 너비."
+
+#: data/muine.schemas.in.h:15
+msgid "Repeat mode."
+msgstr "반복 모드."
+
+#: data/muine.schemas.in.h:16
+msgid "Volume level."
+msgstr "소리 크기."
+
+#: data/muine.schemas.in.h:17
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "소리 크기. 0 = 가장 낮음, 100 = 가장 높음."
+
+#: data/muine.schemas.in.h:18
+msgid "Watched folders."
+msgstr "일치하는 폴더."
+
+#: data/muine.schemas.in.h:19
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "연주 목록 반복기능을 켜기/끄기."
+
+#: data/muine.schemas.in.h:20
+msgid "false if Muine has been started before."
+msgstr "이전에 Muine이 한번이라도 실행되었다면 false."
+
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
+msgid "Orientation"
+msgstr "방향"
+
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
+msgid "The orientation of the tray."
+msgstr "트레이의 방향."
