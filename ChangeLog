@@ -1,6 +1,17 @@
 2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/muine.schemas.in:
+	* src/Album.cs:
+	* src/SongDatabase.cs:
+
+	Improve album completeness checking logic by looking at the
+	track number of the last song in the album, if no total
+	tracks metadata is available. Inspired by a patch from
+	Peter Oliver <p.d.oliver@mavit.freeserve.co.uk>
+
+2005-01-23  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/muine.schemas.in:
 	* libmuine/pointer-list-view.c: (pointer_list_view_init),
 	(pointer_list_get_handle_from_path):
 	* libmuine/pointer-list-view.h:

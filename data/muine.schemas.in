@@ -102,17 +102,6 @@
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/muine/only_complete_albums</key>
-      <applyto>/apps/muine/only_complete_albums</applyto>
-      <owner>muine</owner>
-      <type>bool</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Only complete albums</short>
-        <long>Only deal with complete albums in the interface.</long>
-      </locale>
-    </schema>
-    <schema>
       <key>/schemas/apps/muine/default_import_folder</key>
       <applyto>/apps/muine/default_import_folder</applyto>
       <owner>muine</owner>

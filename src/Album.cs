@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -167,12 +167,7 @@ namespace Muine
 
 		// Properties :: Public (get;)
 		public override bool Public {
-			get {
-				if (Global.DB.OnlyCompleteAlbums)
-					return complete;
-				else
-					return true;
-			}
+			get { return complete; }
 		}
 
 		// Properties :: Key (get;)
@@ -456,15 +451,23 @@ namespace Muine
 
 			if (total_n_tracks > 0) {
 				int delta = total_n_tracks - n_tracks;
-
+			
 				if (delta <= 0)
 					new_complete = true;
 				else {
+					// Must have at least half of the album
 					int min_n_tracks = (int) Math.Ceiling (total_n_tracks / 2);
-
+				
 					if (n_tracks >= min_n_tracks)
 						new_complete = true;
 				}
+			} else {
+				// Take track number of last song
+				int last_track = ((Song) songs [songs.Count - 1]).TrackNumber;
+
+				if (last_track > 0)
+					if ((last_track - n_tracks) <= 0)
+						new_complete = true;
 			}
 
 			bool changed = (new_complete != complete);
