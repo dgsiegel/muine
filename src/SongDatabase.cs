@@ -74,8 +74,10 @@ namespace Muine
 			public bool SongRemoved = false;
 
 			public Album AddedAlbum   = null;
-			public Album ChangedAlbum = null;
 			public Album RemovedAlbum = null;
+
+			public Album AddChangedAlbum    = null;
+			public Album RemoveChangedAlbum = null;
 
 			public bool AlbumSongsChanged;
 
@@ -493,7 +495,7 @@ namespace Muine
 				if (added)
 					rq.AddedAlbum = album;
 				else if (changed)
-					rq.ChangedAlbum = album;
+					rq.AddChangedAlbum = album;
 					
 				rq.AlbumSongsChanged = songs_changed;
 			}
@@ -511,11 +513,15 @@ namespace Muine
 			if (album == null)
 				return;
 				
-			if (album.Remove (rq.Song)) {
-				// album is empty
+			bool changed, empty;
+			album.Remove (rq.Song, out changed, out empty);
+
+			if (empty) {
 				Albums.Remove (key);
 
 				rq.RemovedAlbum = album;
+			} else if (changed) {
+				rq.RemoveChangedAlbum = album;
 			}
 		}
 
@@ -623,17 +629,21 @@ namespace Muine
 					EmitAlbumAdded (rq.AddedAlbum);
 				}
 				
-				if (rq.ChangedAlbum != null) {
-					EmitAlbumChanged (rq.ChangedAlbum);
+				if (rq.RemovedAlbum != null) {
+					EmitAlbumRemoved (rq.RemovedAlbum);
+				}
+
+				if (rq.AddChangedAlbum != null) {
+					EmitAlbumChanged (rq.AddChangedAlbum);
 
 					if (rq.AlbumSongsChanged)
-						foreach (Song s in rq.ChangedAlbum.Songs)
+						foreach (Song s in rq.AddChangedAlbum.Songs)
 							EmitSongChanged (s);
 
 				}
-				
-				if (rq.RemovedAlbum != null) {
-					EmitAlbumRemoved (rq.RemovedAlbum);
+
+				if (rq.RemoveChangedAlbum != null) {
+					EmitAlbumChanged (rq.RemoveChangedAlbum);
 				}
 			}
 		}

@@ -201,21 +201,20 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Remove
-		// 	Returns: 'true' if the album is now empty
-		public bool Remove (Song song)
+		public void Remove (Song song, out bool changed, out bool empty)
 		{
 			lock (this) {
 				songs.Remove (song);
 
-				if (songs.Count > 0)
-					return false;
+				changed = RemoveArtistsAndPerformers (song);
 
-				pointers.Remove (base.handle);
+				empty = (songs.Count == 0);
+				if (empty) {
+					pointers.Remove (base.handle);
 
-				if (!FileUtils.IsFromRemovableMedia (folder))
-					Global.CoverDB.RemoveCover (Key);
-
-				return true;
+					if (!FileUtils.IsFromRemovableMedia (folder))
+						Global.CoverDB.RemoveCover (Key);
+				}
 			}
 		}
 
@@ -299,8 +298,6 @@ namespace Muine
 					artists.Add (artist);
 
 					artists_changed = true;
-					search_key = null;
-					sort_key = null;
 				}
 			}
 
@@ -312,15 +309,80 @@ namespace Muine
 					performers.Add (performer);
 
 					performers_changed = true;
-					search_key = null;
-					sort_key = null;
 				}
 			}
 
 			if (performers_changed)
 				performers.Sort ();
 
-			return (artists_changed || performers_changed);
+			bool changed = (artists_changed || performers_changed);
+
+			if (changed) {
+				search_key = null;
+				sort_key = null;
+			}
+
+			return changed;
+		}
+
+		// Methods :: Private :: RemoveArtistsAndPerformers
+		private bool RemoveArtistsAndPerformers (Song song)
+		{
+			bool artists_changed = false;
+			bool performers_changed = false;
+
+			foreach (string artist in song.Artists) {
+				bool found = false;
+
+				foreach (Song s in songs) {
+					foreach (string s_artist in s.Artists) {
+						if (artist == s_artist) {
+							found = true;
+							break;
+						}
+					}
+
+					if (found)
+						break;
+				}
+
+				if (!found) {
+					artists.Remove (artist);
+
+					artists_changed = true;
+				}
+			}
+
+			foreach (string performer in song.Performers) {
+				bool found = false;
+
+				foreach (Song s in songs) {
+					foreach (string s_performer in s.Performers) {
+						if (performer == s_performer) {
+							found = true;
+							break;
+						}
+					}
+
+					if (found)
+						break;
+				}
+
+				if (!found) {
+					performers.Remove (performer);
+
+					performers_changed = true;
+				}
+			}
+
+			bool changed = (artists_changed || performers_changed);
+
+			if (changed) {
+				search_key = null;
+				sort_key = null;
+			}
+
+			return changed;
 		}
 
 		// Methods :: Private :: GetCover

@@ -1,5 +1,12 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Album.cs:
+	* src/SongDatabase.cs:
+
+	Add Album.RemoveArtistsAndPerformers.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Support setting both a removed album as well as an added album
