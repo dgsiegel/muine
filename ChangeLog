@@ -1,5 +1,11 @@
 2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Pass both /root and /gacdir to gacutil.
+
+2005-01-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* README:
 	* configure.in:
