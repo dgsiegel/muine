@@ -94,10 +94,10 @@ public class NotificationAreaIcon : Plug
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 
-		play_song_menu_item = new ImageMenuItem ("Play _Song");
+		play_song_menu_item = new ImageMenuItem ("Play _Song...");
 		play_song_menu_item.Image = new Gtk.Image (Stock.Add, IconSize.Menu);
 		menu.Append (play_song_menu_item);
-		play_album_menu_item = new ImageMenuItem ("Play _Album");
+		play_album_menu_item = new ImageMenuItem ("Play _Album...");
 		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
 		menu.Append (play_album_menu_item);
 
