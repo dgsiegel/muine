@@ -1,3 +1,19 @@
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
+	* data/glade/AddWindow.glade:
+	* libmuine/pointer-list-view.c: (pointer_list_view_init),
+	(pointer_foreach_func), (path_foreach_func),
+	(pointer_list_view_get_selection),
+	(pointer_list_view_set_keep_selection),
+	(pointer_list_view_select_first), (pointer_list_view_select_next),
+	(pointer_list_view_select_prev):
+	* libmuine/pointer-list-view.h:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Finish "Add song" window.
+
 2004-01-17  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/AddSongWindow.cs:

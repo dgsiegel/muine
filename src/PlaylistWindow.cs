@@ -151,7 +151,7 @@ public class PlaylistWindow : Window
 			height = 400;
 		}
 
-		Resize (width, height);
+		SetDefaultSize (width, height);
 
 		ConfigureEvent += new ConfigureEventHandler (HandleConfigureEvent);
 	}
@@ -218,6 +218,8 @@ public class PlaylistWindow : Window
 		playlist = new HandleView ();
 
 		playlist.Reorderable = true; 
+		playlist.KeepSelection = true;
+		playlist.Selection.Mode = SelectionMode.Single;
 
 		pixbuf_renderer = new ColoredCellRendererPixbuf ();
 		playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc));
@@ -285,15 +287,33 @@ public class PlaylistWindow : Window
 
 	private void AddSong (Song song)
 	{
+		AddSong (song.Handle);
+	}
+
+	private void AddSong (IntPtr p)
+	{
 		had_last_eos = false;
 
-		playlist.Append (song.Handle);
-
+		if (playlist.Contains (p)) {
+			Song song = Song.FromHandle (p);
+			playlist.Append (song.RegisterExtraHandle ());
+		} else {
+			playlist.Append (p);
+		}
+		
 		if (playlist.Playing == IntPtr.Zero) {
 			playlist.First ();
 
 			SongChanged ();
 		}
+	}
+
+	private void RemoveSong (IntPtr p)
+	{
+		Song song = Song.FromHandle (p);
+
+		if (song.IsExtraHandle (p))
+			song.UnregisterExtraHandle (p);
 	}
 
 	private static string SecondsToString (long time)
@@ -429,7 +449,7 @@ public class PlaylistWindow : Window
 
 	private void SelectionChanged ()
 	{
-		remove_song_menu_item.Sensitive = (playlist.Selection != IntPtr.Zero);
+		remove_song_menu_item.Sensitive = (playlist.SelectedPointers.Count > 0);
 	}
 
 	private void SeekTo (long seconds)
@@ -586,22 +606,24 @@ public class PlaylistWindow : Window
 		SeekTo (sec * 1000);
 	}
 
-	private void HandleQueueSongsEvent (ArrayList songs)
+	private void HandleQueueSongsEvent (List songs)
 	{
-		foreach (Song s in songs)
-			playlist.Append (s.Handle);
+		foreach (int i in songs)
+			AddSong (new IntPtr (i));
 
 		NSongsChanged ();
 	}
 
-	private void HandlePlaySongsEvent (ArrayList songs)
+	private void HandlePlaySongsEvent (List songs)
 	{
 		bool first = true;
-		foreach (Song s in songs) {
-			playlist.Append (s.Handle);
+		foreach (int i in songs) {
+			IntPtr p = new IntPtr (i);
+			
+			AddSong (p);
 			
 			if (first == true) {
-				playlist.Playing = s.Handle;
+				playlist.Playing = p;
 				player.Playing = true;
 
 				SongChanged ();
@@ -756,12 +778,12 @@ public class PlaylistWindow : Window
 	{
 		FileSelection fs;
 		
-		fs = new FileSelection ("Choose a file");
+		fs = new FileSelection ("Choose a Folder");
 		fs.SelectMultiple = true;
 		fs.HideFileopButtons ();
-
 		fs.HistoryPulldown.Visible = false;
 		fs.FileList.Parent.Visible = false;
+		fs.SetDefaultSize (350, 250);
 
 		CheckButton check = new CheckButton ("_Add to playlist");
 		check.Visible = true;
@@ -825,21 +847,25 @@ public class PlaylistWindow : Window
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)
 	{
-		if (playlist.Selection == playlist.Playing) {
-			if (playlist.HasNext)
-				playlist.Next ();
-			else if (playlist.HasPrevious)
-				playlist.Previous ();
-			else {
-				playlist.Playing = IntPtr.Zero;
+		foreach (int i in playlist.SelectedPointers) {
+			IntPtr sel = new IntPtr (i);
 
-				player.Playing = false;
+			if (sel == playlist.Playing) {
+				if (playlist.HasNext)
+					playlist.Next ();
+				else if (playlist.HasPrevious)
+					playlist.Previous ();
+				else {
+					playlist.Playing = IntPtr.Zero;
+
+					player.Playing = false;
+				}
+
+				SongChanged ();
 			}
-
-			SongChanged ();
+			
+			RemoveSong (sel);
 		}
-
-		playlist.Remove (playlist.Selection);
 
 		NSongsChanged ();
 	}
@@ -860,7 +886,7 @@ public class PlaylistWindow : Window
 			if (current == playlist.Playing)
 				break;
 
-			playlist.Remove (current);
+			RemoveSong (current);
 		}
 	}
 

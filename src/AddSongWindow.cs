@@ -66,7 +66,7 @@ public class AddSongWindow
 			height = 300;
 		}
 
-		window.Resize (width, height);
+		window.SetDefaultSize (width, height);
 
 		play_button_image.SetFromStock ("muine-play", IconSize.Button);
 		queue_button_image.SetFromStock ("muine-queue", IconSize.Button);
@@ -81,43 +81,34 @@ public class AddSongWindow
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc));
 
+		AddExplRow ();
+
 		view.Show ();
 
 		scrolledwindow.Add (view);
 
-		foreach (Song s in Muine.DB.Songs.Values)
-			view.Append (s.Handle);
-
 		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
-
-		UpdateSelection ();
-
-		HandleSelectionChanged ();
-
-		/* FIXME multiple selection */
 	}
 
 	public void Run ()
 	{
-		search_entry.Text = "";
 		search_entry.GrabFocus ();
 
 		window.Visible = true;
 	}
 
-	private void UpdateSelection ()
+	private void AddExplRow ()
 	{
-		/* FIXME select altijd first */
-		/* FIXME: if no selection, select first (signal?) */
+		view.Append (new IntPtr (-1));
 
-		/* FIXME laat alleen wat zien bij Length >= 3, anders een rijtje met "Hallo" */
+		view.Selection.Mode = SelectionMode.None;
 	}
 
-	public delegate void QueueSongsEventHandler (ArrayList songs);
+	public delegate void QueueSongsEventHandler (List songs);
 	public event QueueSongsEventHandler QueueSongsEvent;
 	
-	public delegate void PlaySongsEventHandler (ArrayList songs);
+	public delegate void PlaySongsEventHandler (List songs);
 	public event PlaySongsEventHandler PlaySongsEvent;
 
 	private int SortFunc (IntPtr a_ptr,
@@ -126,22 +117,40 @@ public class AddSongWindow
 		Song a = Song.FromHandle (a_ptr);
 		Song b = Song.FromHandle (b_ptr);
 
-		return String.Compare (a.SortKey, b.SortKey);
+		string a_key = null;
+		string b_key = null;
+
+		if (a != null)
+			a_key = a.SortKey;
+
+		if (b != null)
+			b_key = b.SortKey;
+
+		return String.Compare (a_key, b_key);
 	}
 
 	private void CellDataFunc (HandleView view,
 				   CellRenderer cell,
 				   IntPtr handle)
 	{
-		Song song = Song.FromHandle (handle);
 		CellRendererText r = (CellRendererText) cell;
 
-		string title = String.Join (", ", song.Titles);
+		if ((int) handle == -1) {
+			/* explanation row */
+			r.Text = "Please enter 3 or more characters to search";
 
-		r.Text = title + "\n" + String.Join (", ", song.Artists);
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (r.Text),
+						   false, false, false);
+		} else {
+			Song song = Song.FromHandle (handle);
 
-		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
-					   false, true, false);
+			string title = String.Join (", ", song.Titles);
+
+			r.Text = title + "\n" + String.Join (", ", song.Artists);
+
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
+						   false, true, false);
+		}
 	}
 
 	public delegate void SeekEventHandler (int sec);
@@ -156,17 +165,19 @@ public class AddSongWindow
 		switch (args.ResponseId) {
 		case 1: /* Play */
 			if (PlaySongsEvent != null)
-				PlaySongsEvent (null);
+				PlaySongsEvent (view.SelectedPointers);
 
 			break;
 		case 2: /* Queue */
 			if (QueueSongsEvent != null)
-				QueueSongsEvent (null);
+				QueueSongsEvent (view.SelectedPointers);
 				
 			break;
 		default:
-			return;
+			break;
 		}
+
+		search_entry.Text = "";
 	}
 
 	private void HandleWindowDeleteEvent (object o, EventArgs a)
@@ -176,30 +187,46 @@ public class AddSongWindow
 		DeleteEventArgs args = (DeleteEventArgs) a;
 
 		args.RetVal = true;
+
+		search_entry.Text = "";
+	}
+
+	private bool FitsCriteria (Song s, string [] search_bits)
+	{
+		int n_matches = 0;
+			
+		foreach (string search_bit in search_bits) {
+			if (s.AllLowerTitles.IndexOf (search_bit) >= 0) {
+				n_matches++;
+				continue;
+			}
+
+			if (s.AllLowerArtists.IndexOf (search_bit) >= 0) {
+				n_matches++;
+				continue;
+			}
+		}
+
+		return (n_matches == search_bits.Length);
 	}
 
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
+		/* only show something if typing a word >= 3 chars */
+		if (search_entry.Text.Length < 3) {
+			view.RemoveDelta (l);
+			AddExplRow ();
+			return;
+		}
+
+		view.Selection.Mode = SelectionMode.Multiple;
+
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
 		foreach (Song s in Muine.DB.Songs.Values) {
-			int n_matches = 0;
-			
-			foreach (string search_bit in search_bits) {
-				if (s.AllLowerTitles.IndexOf (search_bit) >= 0) {
-					n_matches++;
-					continue;
-				}
-
-				if (s.AllLowerArtists.IndexOf (search_bit) >= 0) {
-					n_matches++;
-					continue;
-				}
-			}
-
-			if (n_matches == search_bits.Length)
+			if (FitsCriteria (s, search_bits))
 				l.Append (s.Handle);
 		}
 
@@ -211,7 +238,8 @@ public class AddSongWindow
 			view.Append (ptr);
 		}
 
-		UpdateSelection ();
+		view.SelectFirst ();
+		view.ScrollToPoint (0, 0);
 	}
 
 	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
@@ -225,14 +253,12 @@ public class AddSongWindow
 
 		switch (args.Event.keyval) {
 		case 0xFF52: /* up */
-			/* FIXME */
+			view.SelectPrevious ();
 			args.RetVal = true;
-			Console.WriteLine ("up");
 			break;
 		case 0xFF54: /* down */
-			/* FIXME */
+			view.SelectNext ();
 			args.RetVal = true;
-			Console.WriteLine ("down");
 			break;
 		default:
 			break;
@@ -259,15 +285,20 @@ public class AddSongWindow
 	{
 		Song song = Song.FromHandle (handle);
 
+		if (song == null)
+			return;
+
 		if (PlaySongsEvent != null)
-			PlaySongsEvent (null);
+			PlaySongsEvent (view.SelectedPointers);
 
 		window.Visible = false;
+
+		search_entry.Text = "";
 	}
 
 	private void HandleSelectionChanged ()
 	{
-		bool has_sel = (view.Selection != IntPtr.Zero);
+		bool has_sel = (view.SelectedPointers.Count > 0);
 		
 		play_button.Sensitive = has_sel;
 		queue_button.Sensitive = has_sel;
@@ -275,11 +306,19 @@ public class AddSongWindow
 
 	private void HandleSongAdded (Song song)
 	{
-		view.Append (song.Handle);
+		if (search_entry.Text.Length < 3)
+			return;
+
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		if (FitsCriteria (song, search_bits))
+			view.Append (song.Handle);
 	}
 
 	private void HandleSongRemoved (Song song)
 	{
 		view.Remove (song.Handle);
+
+		if (!view.HasFirst)
+			AddExplRow ();
 	}
 }

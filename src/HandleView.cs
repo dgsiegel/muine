@@ -144,10 +144,46 @@ public class HandleView : TreeView
 	[DllImport ("libmuine")]
 	private static extern IntPtr pointer_list_view_get_selection (IntPtr view);
 
-	public new IntPtr Selection {
+	public List SelectedPointers {
 		get {
-			return pointer_list_view_get_selection (Raw);
+			List ret = new List (pointer_list_view_get_selection (Raw), typeof (int));
+			ret.Managed = true;
+			return ret;
 		}
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_set_keep_selection (IntPtr view,
+									 bool keep_selection);
+	
+	public bool KeepSelection {
+		set {
+			pointer_list_view_set_keep_selection (Raw, value);
+		}
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_select_first (IntPtr view);
+
+	public void SelectFirst ()
+	{
+		pointer_list_view_select_first (Raw);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_select_prev (IntPtr view);
+
+	public void SelectPrevious ()
+	{
+		pointer_list_view_select_prev (Raw);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_select_next (IntPtr view);
+
+	public void SelectNext ()
+	{
+		pointer_list_view_select_next (Raw);
 	}
 
 	[DllImport ("libmuine")]

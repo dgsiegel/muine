@@ -66,7 +66,12 @@ void             pointer_list_view_clear         (PointerListView *view);
 GList *          pointer_list_view_get_contents  (PointerListView *view);
 gboolean         pointer_list_view_contains      (PointerListView *view,
 				                  gpointer pointer);
-gpointer         pointer_list_view_get_selection (PointerListView *view);
+GList *          pointer_list_view_get_selection (PointerListView *view);
+void             pointer_list_view_set_keep_selection (PointerListView *view,
+						       gboolean keep);
+void             pointer_list_view_select_first  (PointerListView *view);
+void             pointer_list_view_select_next   (PointerListView *view);
+void             pointer_list_view_select_prev   (PointerListView *view);
 void             pointer_list_view_set_sort_func (PointerListView *view,
 				                  GCompareFunc sort_func);
 void             pointer_list_view_set_playing   (PointerListView *view,

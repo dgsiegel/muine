@@ -194,10 +194,6 @@ pointer_list_view_init (PointerListView *view)
 			  view);
 
 	g_signal_connect (G_OBJECT (view->model),
-			  "row_deleted",
-			  G_CALLBACK (row_deleted_cb),
-			  view);
-	g_signal_connect (G_OBJECT (view->model),
 			  "rows_reordered",
 			  G_CALLBACK (pointers_reordered_cb),
 			  view);
@@ -302,20 +298,136 @@ pointer_list_view_contains (PointerListView *view,
 	return pointer_list_model_contains (view->model, pointer);
 }
 
-gpointer
+static gboolean
+pointer_foreach_func (PointerListModel *model,
+	              GtkTreePath *path,
+	              GtkTreeIter *iter,
+	              void **data)
+{
+	GList **list = (GList **) data;
+	gpointer pointer;
+
+	pointer = pointer_list_model_get_pointer (model, iter);
+
+	*list = g_list_append (*list, pointer);
+
+	return FALSE;
+}
+
+static gboolean
+path_foreach_func (PointerListModel *model,
+	           GtkTreePath *path,
+	           GtkTreeIter *iter,
+	           void **data)
+{
+	GList **list = (GList **) data;
+
+	*list = g_list_append (*list, gtk_tree_path_copy (path));
+
+	return FALSE;
+}
+
+GList *
 pointer_list_view_get_selection (PointerListView *view)
 {
 	GtkTreeSelection *sel;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
+	GList *list = NULL;
 
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-	if (gtk_tree_selection_get_selected (sel,
-					     &model,
-					     &iter))
-		return pointer_list_model_get_pointer (view->model, &iter);
-	else
-		return NULL;
+	gtk_tree_selection_selected_foreach (sel,
+					     (GtkTreeSelectionForeachFunc) pointer_foreach_func,
+					     (gpointer) &list);
+
+	return list;
+}
+
+void
+pointer_list_view_set_keep_selection (PointerListView *view,
+				      gboolean keep)
+{
+	/* doesn't handle remove yet */
+	if (keep)
+		g_signal_connect (G_OBJECT (view->model),
+				  "row_deleted",
+				  G_CALLBACK (row_deleted_cb),
+				  view);
+}
+
+void
+pointer_list_view_select_first (PointerListView *view)
+{
+	GtkTreePath *path;
+	GtkTreeSelection *sel;
+
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+
+	path = gtk_tree_path_new_first ();
+	gtk_tree_selection_unselect_all (sel);
+	gtk_tree_selection_select_path (sel, path);
+	gtk_tree_path_free (path);
+}
+
+void
+pointer_list_view_select_next (PointerListView *view)
+{
+	GtkTreeSelection *sel;
+	GList *list = NULL, *l;
+	gboolean last = TRUE;
+
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_selection_selected_foreach (sel,
+					     (GtkTreeSelectionForeachFunc) path_foreach_func,
+					     (gpointer) &list);
+
+	for (l = g_list_last (list); l != NULL; l = g_list_previous (l)) {
+		GtkTreePath *p = (GtkTreePath *) l->data;
+
+		if (last) {
+			GtkTreeIter iter;
+
+			gtk_tree_path_next (p);
+			if (gtk_tree_model_get_iter (GTK_TREE_MODEL (view->model), &iter, p)) {
+				gtk_tree_selection_unselect_all (sel);
+				gtk_tree_selection_select_path (sel, p);
+			}
+
+			last = FALSE;
+		}
+
+		gtk_tree_path_free (p);
+	}
+
+	g_list_free (list);
+}
+
+void
+pointer_list_view_select_prev (PointerListView *view)
+{
+	GtkTreeSelection *sel;
+	GList *list = NULL, *l;
+	gboolean last = TRUE;
+
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_selection_selected_foreach (sel,
+					     (GtkTreeSelectionForeachFunc) path_foreach_func,
+					     (gpointer) &list);
+
+	for (l = g_list_last (list); l != NULL; l = g_list_previous (l)) {
+		GtkTreePath *p = (GtkTreePath *) l->data;
+
+		if (last) {
+			if (gtk_tree_path_prev (p)) {
+				gtk_tree_selection_unselect_all (sel);
+				gtk_tree_selection_select_path (sel, p);
+			}
+
+			last = FALSE;
+		}
+
+		gtk_tree_path_free (p);
+	}
+
+	g_list_free (list);
 }
 
 void
