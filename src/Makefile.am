@@ -31,6 +31,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/AmazonSearchService.cs	\
 	$(srcdir)/CoverDatabase.cs		\
+	$(srcdir)/DashboardFrontend.cs		\
 	$(srcdir)/MessageConnection.cs
 
 ASSEMBLIES =					\

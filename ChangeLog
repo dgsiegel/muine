@@ -1,3 +1,20 @@
+2004-01-31  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jorn@nl.linux.org>
+
+	* NEWS:
+	* TODO:
+	* src/DashboardFrontend.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+
+	Add a dashboard frontend.
+
+2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/PlaylistWindow.cs:
+
+	Small optimization.
+
 2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/Song.cs:

@@ -140,8 +140,11 @@ public class PlaylistWindow : Window
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
 
-		SongChanged (true);
-		NSongsChanged ();
+		if (!playlist.HasFirst) {
+			SongChanged (true);
+			NSongsChanged ();
+		}
+
 		SelectionChanged ();
 		StateChanged (false);
 	}
@@ -530,6 +533,9 @@ public class PlaylistWindow : Window
 			Title = song.Title + " - Muine Music Player";
 
 			icon.Tooltip = artist_label.Text + " - " + song.Title;
+
+			if (restart)
+				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
 		} else {
 			cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
 
