@@ -1,5 +1,12 @@
 2005-01-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* AUTHORS:
+	* src/About.cs:
+
+	Added Tamara.
+
+2005-01-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddSongWindow.cs:
 	* src/AddWindow.cs:
 

@@ -28,13 +28,14 @@ public class About
 	public static string [] Authors {
 		get {
 			if (authors == null) {
-				authors = new string [5];
+				authors = new string [6];
 
 				authors [0] = Muine.Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>");
 				authors [1] = Muine.Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>");
 				authors [2] = Muine.Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>");
-				authors [3] = "";
-				authors [4] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
+				authors [3] = Muine.Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>");
+				authors [4] = "";
+				authors [5] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
 			}
 			
 			return authors;
