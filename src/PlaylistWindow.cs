@@ -757,8 +757,9 @@ public class PlaylistWindow : Window
 				string basename = finfo.Name;
 
 				foreach (string key in Muine.DB.Songs.Keys) {
-					finfo = new FileInfo (key);
-					if (basename == finfo.Name) {
+					string key_basename = System.IO.Path.GetFileName (key);
+
+					if (basename == key_basename) {
 						song = (Song) Muine.DB.Songs [key];
 						break;
 					}

@@ -1,5 +1,12 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Use Path.* where appropiate. (Thanks Lee!)
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	A data/glade/GroupEditor.glade:
 	* data/glade/Makefile.am:
 	A data/glade/PlaylistFilling.glade:

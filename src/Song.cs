@@ -152,18 +152,12 @@ public class Song
 		}
 	}
 
-	[DllImport ("libglib-2.0-0.dll")]
-	private static extern IntPtr g_path_get_dirname (string path);
-
 	public string AlbumKey {
 		get {
 			if (album.Length == 0)
 				return null;
 				
-			/* we do not use FileInfo here, since it touches
-			   the hd which is the last thing we want on startup */
-			IntPtr dirname_ptr = g_path_get_dirname (filename);
-			string dirname = Marshaller.PtrToStringGFree (dirname_ptr);
+			string dirname = Path.GetDirectoryName (filename);
 
 			return dirname + ":" + album;
 		}
@@ -289,10 +283,10 @@ public class Song
 		}
 
 		/* Search for popular image names */
-		FileInfo info = new FileInfo (filename);
+		string dirname = Path.GetDirectoryName (filename);
 
 		foreach (string fn in cover_filenames) {
-			FileInfo cover = new FileInfo (info.DirectoryName + "/" + fn);
+			FileInfo cover = new FileInfo (dirname + "/" + fn);
 			
 			if (cover.Exists) {
 				cover_image = Muine.CoverDB.AddCoverLocal (key, cover.ToString ());
@@ -373,10 +367,8 @@ public class Song
 	{
 		if (metadata.Title.Length > 0)
 			title = metadata.Title;
-		else {
-			FileInfo finfo = new FileInfo (filename);
-			title = finfo.Name;
-		}
+		else
+			title = Path.GetFileNameWithoutExtension (filename);
 		
 		artists = metadata.Artists;
 		performers = metadata.Performers;
