@@ -1,4 +1,15 @@
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/PlaylistWindow.cs:
+	
+	Some more code cleanup. Hey looks like today I also introduced a 
+	couple of very big bugs that I stupidly missed, mainly we crash on 
+	exit now (it usually crashes on exit when I try a new compile because
+	it changes the running program, so I didn't notice that it always 
+	crashes now). I'll go through it tomorrow... I'm not even sure which
+	revision did it. Sorry.
+
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
 	
 	* src/Actions.cs:
 	* src/ImportDialog.cs:

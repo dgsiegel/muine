@@ -34,8 +34,12 @@ namespace Muine
 	public class PlaylistWindow : Window, IPlayer
 	{
 		// Constants
-		private const int STEP = 5; // # seconds to skip back and forth
-	
+		private const int Step = 5; // # seconds to skip back and forth
+		private const int MinRestartTime = 3; // seconds after which song will restart on "previous"
+
+		private const int MinShowHours = 6000; // seconds over which to show remaining time in hours
+		private const int MinShowMinutes = 60; // seconds over which to show remaining time in minutes
+		
 		// Constants :: GConf
 		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
 		private const int GConfDefaultWidth = 450; 
@@ -97,6 +101,10 @@ namespace Muine
 		private static readonly string string_error_write =
 			Catalog.GetString ("Failed to open {0} for writing");
 
+		// Glade
+		private static readonly Glade.XML glade_xml = 
+			new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
+
 		// Events
 		// Events :: SongChangedEvent (IPlayer)
 		public event SongChangedEventHandler SongChangedEvent;
@@ -142,9 +150,25 @@ namespace Muine
 		private CellRenderer pixbuf_renderer;
 		private CellRenderer text_renderer;
 
+		[Glade.Widget] private VBox           main_vbox;
+		[Glade.Widget] private Box            menu_bar_box;
+		[Glade.Widget] private ScrolledWindow scrolledwindow;
+		
+		// Widgets :: Containers
+		[Glade.Widget] private Container volume_button_container;
+		[Glade.Widget] private Container title_label_container;
+		[Glade.Widget] private Container artist_label_container;
+		[Glade.Widget] private Container cover_image_container;
+
+		// Widgets :: Images
+		[Glade.Widget] private Image play_pause_image;
+		[Glade.Widget] private Image previous_image;
+		[Glade.Widget] private Image next_image;
+		[Glade.Widget] private Image add_song_image;
+		[Glade.Widget] private Image add_album_image;
+
 		// Widgets :: Toolbar
 		[Glade.Widget] private ToggleButton play_pause_button;
-		[Glade.Widget] private Image        play_pause_image;
 		[Glade.Widget] private Button       previous_button;
 		[Glade.Widget] private Button       next_button;
 		[Glade.Widget] private Button       add_song_button;
@@ -209,33 +233,29 @@ namespace Muine
 		public PlaylistWindow () : base (WindowType.Toplevel)
 		{
 			// Build the interface
-			Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
-			glade_xml.Autoconnect (this);
-				
-			Add (glade_xml ["main_vbox"]);
+			glade_xml.Autoconnect (this);	
+			base.Add (main_vbox);
 
 			// Hook up window signals
-			WindowStateEvent += new WindowStateEventHandler (OnWindowStateEvent);
-			DeleteEvent += new DeleteEventHandler (OnDeleteEvent);
-			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			base.WindowStateEvent += new WindowStateEventHandler (OnWindowStateEvent);
+			base.DeleteEvent      += new DeleteEventHandler      (OnDeleteEvent     );
+			base.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 
-			Gtk.Drag.DestSet (this, DestDefaults.All,
-					  drag_entries, Gdk.DragAction.Copy);
+			Gtk.Drag.DestSet (this, DestDefaults.All, drag_entries, Gdk.DragAction.Copy);
 
 			// Keep track of window visibility
-			VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
+			base.VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
 			AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
 			// Set up various other UI bits
-			SetupPlayer (glade_xml); // Has to be before the others, they need the Player object
+			SetupPlayer (); // Has to be before the others, they need the Player object
 						    
 			// Setup Menus
 			base.AddAccelGroup (Global.Actions.UIManager.AccelGroup);
-			((Box) glade_xml ["menu_bar_box"]).Add (Global.Actions.MenuBar);
+			menu_bar_box.Add (Global.Actions.MenuBar);
 			
-
-			SetupButtons (glade_xml);
-			SetupPlaylist (glade_xml);
+			SetupButtons ();
+			SetupPlaylist ();
 
 			// Connect to song database signals
 			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
@@ -338,13 +358,14 @@ namespace Muine
 		public uint BusyLevel {
 			set {
 				if (busy_level == 0 && value > 0) {
-					this.Realize ();
-					this.GdkWindow.Cursor =
-						new Gdk.Cursor (Gdk.CursorType.Watch);
-					this.GdkWindow.Display.Flush ();
-				} else if (busy_level > 0 && value == 0)
-					this.GdkWindow.Cursor = null;
-				
+					base.Realize ();
+					base.GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
+					base.GdkWindow.Display.Flush ();
+
+				} else if (busy_level > 0 && value == 0) {
+					base.GdkWindow.Cursor = null;
+				}
+
 				busy_level = value;
 			}
 
@@ -361,9 +382,9 @@ namespace Muine
 						Move (last_x, last_y);
 
 					Present ();
+
 				} else {
 					GetPosition (out last_x, out last_y);
-
 					Visible = false;
 				}
 
@@ -394,9 +415,7 @@ namespace Muine
 		public void RestorePlaylist ()
 		{
 			// Load last playlist
-			System.IO.FileInfo finfo = new System.IO.FileInfo (FileUtils.PlaylistFile);
-
-			if (!finfo.Exists)
+			if (!File.Exists (FileUtils.PlaylistFile))
 				return;
 
 			OpenPlaylistInternal (FileUtils.PlaylistFile);
@@ -409,7 +428,6 @@ namespace Muine
 				SongChanged (true); // make sure the UI is up to date
 
 			RestoreState ();
-
 			WindowVisible = true;
 		}
 
@@ -439,11 +457,8 @@ namespace Muine
 				return;
 
 			IntPtr p = AddSong (song);
-
 			PlayAndSelect (p);
-
 			player.Play ();
-
 			PlaylistChanged ();
 		}
 
@@ -456,9 +471,7 @@ namespace Muine
 				return;
 
 			IntPtr p = AddSong (song);
-
 			EnsurePlaying ();
-
 			PlaylistChanged ();
 		}
 
@@ -466,9 +479,11 @@ namespace Muine
 		public void OpenPlaylist (string fn)
 		{
 			BusyLevel ++;
+
 			OpenPlaylistInternal (fn);
 			PlaylistChanged ();
 			Playing = true;
+
 			BusyLevel --;
 		}
 
@@ -478,8 +493,7 @@ namespace Muine
 			if (!playlist.HasFirst)
 				return;
 
-			// restart song if not in the first 3 seconds
-			if (player.Position < 3) {
+			if (player.Position < MinRestartTime) {
 				if (playlist.HasPrevious) {
 					playlist.Previous ();
 					PlaylistChanged ();
@@ -526,7 +540,6 @@ namespace Muine
 			}
 
 			add_song_window.Run ();
-			
 			AddChildWindowIfVisible (add_song_window);
 		}
 
@@ -541,7 +554,6 @@ namespace Muine
 			}
 
 			add_album_window.Run ();
-
 			AddChildWindowIfVisible (add_album_window);
 		}
 
@@ -549,11 +561,6 @@ namespace Muine
 		public void AddChildWindowIfVisible (Window window)
 		{
 			window.TransientFor = (WindowVisible) ? this : null;
-		}
-
-		// Methods :: Public :: RunSaveDialog		
-		public void RunSaveDialog ()
-		{
 		}
 
 		// Methods :: Public :: RunSkipToDialog
@@ -576,13 +583,13 @@ namespace Muine
 		// Methods :: Public :: SkipBackwards		
 		public void SkipBackwards ()
 		{				
-			SeekTo (player.Position - STEP);
+			SeekTo (player.Position - Step);
 		}
 
-		// Methods :: Public :: SkipForward	
+		// Methods :: Public :: SkipForward
 		public void SkipForward ()
 		{
-			SeekTo (player.Position + STEP);
+			SeekTo (player.Position + Step);
 		}
 
 		// Methods :: Public :: RemoveSelectedSong		
@@ -605,8 +612,9 @@ namespace Muine
 				}
 				
 				if (counter == selected_pointers_count - 1 &&
-				    !playlist.SelectNext ())
+				    !playlist.SelectNext ()) {
 					playlist.SelectPrevious ();
+				}
 
 				RemoveSong (sel);
 
@@ -736,7 +744,6 @@ namespace Muine
 					}
 				
 					Song song = Song.FromHandle (ptr);
-
 					writer.WriteLine (song.Filename);
 				}
 			}
@@ -744,7 +751,8 @@ namespace Muine
 			try {
 				writer.Close ();
 			} catch {
-				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
+				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
+				new ErrorDialog (msg, this);
 			}
 
 			if (remote)
@@ -753,74 +761,67 @@ namespace Muine
 
 		// Methods :: Private
 		// Methods :: Private :: SetupButtons
-		private void SetupButtons (Glade.XML glade_xml)
+		private void SetupButtons ()
 		{
 			// Callbacks
 			play_pause_button.Clicked += new EventHandler (OnPlayPauseButtonClicked);
-			previous_button.Clicked   += new EventHandler (OnPreviousButtonClicked );
-			next_button.Clicked       += new EventHandler (OnNextButtonClicked     );
-			add_song_button.Clicked   += new EventHandler (OnAddSongButtonClicked  );
-			add_album_button.Clicked  += new EventHandler (OnAddAlbumButtonClicked );
+			previous_button  .Clicked += new EventHandler (OnPreviousButtonClicked );
+			next_button      .Clicked += new EventHandler (OnNextButtonClicked     );
+			add_song_button  .Clicked += new EventHandler (OnAddSongButtonClicked  );
+			add_album_button .Clicked += new EventHandler (OnAddAlbumButtonClicked );
 
 			// Images
 			Image image;
-			image = (Image) glade_xml ["play_pause_image"];
-			image.SetFromStock ("stock_media-play", IconSize.LargeToolbar);
-			image = (Image) glade_xml ["previous_image"];
-			image.SetFromStock ("stock_media-prev", IconSize.LargeToolbar);
-			image = (Image) glade_xml ["next_image"];
-			image.SetFromStock ("stock_media-next", IconSize.LargeToolbar);
-			image = (Image) glade_xml ["add_song_image"];
-			image.SetFromStock (Stock.Add, IconSize.LargeToolbar);
-			image = (Image) glade_xml ["add_album_image"];
-			image.SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
+			play_pause_image.SetFromStock ("stock_media-play"     , IconSize.LargeToolbar);
+			previous_image  .SetFromStock ("stock_media-prev"     , IconSize.LargeToolbar);
+			next_image      .SetFromStock ("stock_media-next"     , IconSize.LargeToolbar);
+			add_song_image  .SetFromStock (Stock.Add              , IconSize.LargeToolbar);
+			add_album_image .SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
+
+			// Volume
+			volume_button = new VolumeButton ();
+			volume_button_container.Add (volume_button);
+			volume_button.Visible = true;
+			volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (OnVolumeChanged);
 
 			// Tooltips
 			tooltips = new Tooltips ();
 			tooltips.SetTip (play_pause_button, string_tooltip_play_pause, null);
 			tooltips.SetTip (previous_button  , string_tooltip_previous  , null);
 			tooltips.SetTip (next_button      , string_tooltip_next      , null);
-			tooltips.SetTip (glade_xml ["add_album_button"], string_tooltip_add_album, null);
-			tooltips.SetTip (glade_xml ["add_song_button"] , string_tooltip_add_song , null);
-
-			// Volume
-			volume_button = new VolumeButton ();
-			((Container) glade_xml ["volume_button_container"]).Add (volume_button);
-			volume_button.Visible = true;
-			volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (OnVolumeChanged);
-
-			tooltips.SetTip (volume_button, string_tooltip_volume, null);
+			tooltips.SetTip (add_album_button , string_tooltip_add_album , null);
+			tooltips.SetTip (add_song_button  , string_tooltip_add_song  , null);
+			tooltips.SetTip (volume_button    , string_tooltip_volume    , null);
 		}
 
 		// Methods :: Private :: SetupPlaylist
-		private void SetupPlaylist (Glade.XML glade_xml)
+		private void SetupPlaylist ()
 		{
 			playlist = new HandleView ();
 
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
 			pixbuf_renderer = new ColoredCellRendererPixbuf ();
+			text_renderer   = new CellRendererText ();
+			
 			playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
+			playlist.AddColumn (text_renderer  , new HandleView.CellDataFunc (TextCellDataFunc  ), true );
 
-			text_renderer = new CellRendererText ();
-			playlist.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
-
-			playlist.RowActivated += new HandleView.RowActivatedHandler (OnPlaylistRowActivated);
+			playlist.RowActivated     += new HandleView.RowActivatedHandler     (OnPlaylistRowActivated    );
 			playlist.SelectionChanged += new HandleView.SelectionChangedHandler (OnPlaylistSelectionChanged);
-			playlist.PlayingChanged += new HandleView.PlayingChangedHandler (OnPlaylistPlayingChanged);
+			playlist.PlayingChanged   += new HandleView.PlayingChangedHandler   (OnPlaylistPlayingChanged  );
 
-			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
-							playlist_source_entries,
+			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask, playlist_source_entries,
 							Gdk.DragAction.Copy | Gdk.DragAction.Move);
-			playlist.EnableModelDragDest (playlist_dest_entries,
-						      Gdk.DragAction.Copy | Gdk.DragAction.Move);
+			playlist.EnableModelDragDest   (playlist_dest_entries,
+						        Gdk.DragAction.Copy | Gdk.DragAction.Move);
 
-			playlist.DragDataGet += new DragDataGetHandler (OnPlaylistDragDataGet);
+			playlist.DragDataGet      += new DragDataGetHandler      (OnPlaylistDragDataGet     );
 			playlist.DragDataReceived += new DragDataReceivedHandler (OnPlaylistDragDataReceived);
 
 			playlist.Show ();
 
-			((Container) glade_xml ["scrolledwindow"]).Add (playlist);
+			scrolledwindow.Add (playlist);
 			
 			MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (string_playlist),
 						    false, true, false);
@@ -829,7 +830,7 @@ namespace Muine
 		}
 
 		// Methods :: Private :: SetupPlayer
-		private void SetupPlayer (Glade.XML glade_xml)
+		private void SetupPlayer ()
 		{
 			try {
 				player = new Player ();
@@ -838,39 +839,36 @@ namespace Muine
 			}
 
 			player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
-			player.TickEvent += new Player.TickEventHandler (OnTickEvent);
-			player.StateChanged += new Player.StateChangedHandler (OnStateChanged);
+			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
+			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
 
 			title_label = new EllipsizingLabel ("");
 			title_label.Visible = true;
 			title_label.Xalign = 0.0f;
 			title_label.Selectable = true;
-			((Container) glade_xml ["title_label_container"]).Add (title_label);
+			title_label_container.Add (title_label);
 
 			artist_label = new EllipsizingLabel ("");
 			artist_label.Visible = true;
 			artist_label.Xalign = 0.0f;
 			artist_label.Selectable = true;
-			((Container) glade_xml ["artist_label_container"]).Add (artist_label);
+			artist_label_container.Add (artist_label);
 
 			cover_image = new CoverImage ();
-			((Container) glade_xml ["cover_image_container"]).Add (cover_image);
+			cover_image_container.Add (cover_image);
 			cover_image.ShowAll ();
 
 			// playlist label dnd
-			playlist_label_event_box.DragDataGet +=
-				new DragDataGetHandler (OnPlaylistLabelDragDataGet);
+			playlist_label_event_box.DragDataGet +=	new DragDataGetHandler (OnPlaylistLabelDragDataGet);
 				
-			Gtk.Drag.SourceSet (playlist_label_event_box,
-					    Gdk.ModifierType.Button1Mask,
+			Gtk.Drag.SourceSet (playlist_label_event_box, Gdk.ModifierType.Button1Mask,
 					    drag_entries, Gdk.DragAction.Move);
 
 			// FIXME depends on Ximian Bugzilla #71060
 			// string icon = Gnome.Icon.Lookup (IconTheme.GetForScreen (this.Screen), null, null, null, null, 
 			//				    "audio/x-mpegurl", Gnome.IconLookupFlags.None, null);
 
-			Gtk.Drag.SourceSetIconStock (playlist_label_event_box,
-						     "gnome-mime-audio");
+			Gtk.Drag.SourceSetIconStock (playlist_label_event_box, "gnome-mime-audio");
 		}
 
 		// Methods :: Private :: PlayAndSelect
@@ -951,59 +949,73 @@ namespace Muine
 			
 			Song song = Song.FromHandle (playlist.Playing);
 
-			String pos = StringUtils.SecondsToString (time);
+			String pos   = StringUtils.SecondsToString (time);
 			String total = StringUtils.SecondsToString (song.Duration);
 
 			time_label.Text = String.Format ("{0} / {1}", pos, total);
 
-			if (Repeat) {
-				long r_seconds = remaining_songs_time;
+			// Calculate remaining time
+			long r_seconds = (this.Repeat)
+					 ? remaining_songs_time
+					 : remaining_songs_time + song.Duration - time;
 
-				if (r_seconds > 6000) { // 100 minutes
-					int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist (Repeating {0} hour)", "Playlist (Repeating {0} hours)", hours), hours);
+			int hours   = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
+			int minutes = (int) Math.Floor ((double) r_seconds /   60.0 + 0.5);
 
-				} else if (r_seconds > 60) {
-					int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist (Repeating {0} minute)", "Playlist (Repeating {0} minutes)", minutes), minutes);
+			// Possible strings
+			// TODO: Define these somewhere else...
+			string string_repeat_hour = 
+				Catalog.GetPluralString ("Playlist (Repeating {0} hour)", 
+							 "Playlist (Repeating {0} hours)", 
+							 hours);
 
-				} else if (r_seconds > 0) {
-					playlist_label.Text = string_playlist_repeating;
+			string string_repeat_minute =
+				Catalog.GetPluralString ("Playlist (Repeating {0} minute)", 
+							 "Playlist (Repeating {0} minutes)", 
+							 minutes);
 
-				} else {
-					playlist_label.Text = string_playlist;
-				}
+			string string_normal_hour =
+				Catalog.GetPluralString ("Playlist ({0} hour remaining)", 
+							 "Playlist ({0} hours remaining)", 
+							 hours);
+							 
+			string string_normal_minute =
+				Catalog.GetPluralString ("Playlist ({0} minute remaining)", 
+							 "Playlist ({0} minutes remaining)", 
+							 minutes);
 
-			} else {
-				long r_seconds = remaining_songs_time + song.Duration - time;
-				
-				if (r_seconds > 6000) { // 100 minutes
-					int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist ({0} hour remaining)", "Playlist ({0} hours remaining)", hours), hours);
-
-				} else if (r_seconds > 60) {
-					int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist ({0} minute remaining)", "Playlist ({0} minutes remaining)", minutes), minutes);
-
-				} else if (r_seconds > 0) {
-					playlist_label.Text = string_playlist_under_minute;
-
-				} else {
-					playlist_label.Text = string_playlist;
-				}
-			} 
+			// Choose string for each scenario based on whether we are repeating or not
+			string string_hour = (Repeat)
+			                     ? string_repeat_hour 
+			                     : string_normal_hour;
+			
+			string string_minute = (Repeat)
+			                       ? string_repeat_minute
+			                       : string_normal_minute;
+			
+			string string_second = (Repeat)
+					       ? string_playlist_repeating
+					       : string_playlist_under_minute;
+			
+			// Set the label
+			playlist_label.Text = (r_seconds > MinShowHours)
+					      ? String.Format (string_hour, hours)
+					      : 
+					      (r_seconds > MinShowMinutes)
+					      ? String.Format (string_minute, minutes)
+				              : 
+				              (r_seconds > 0)
+					      ? string_second
+					      : 
+					      string_playlist;
 		}
 
 		// Methods :: Private :: PlaylistChanged
 		private void PlaylistChanged ()
 		{
-			bool start_counting;
+			bool start_counting = this.Repeat;
+			
 			remaining_songs_time = 0;
-
-			if (Repeat)
-				start_counting = true;
-			else
-				start_counting = false;
 
 			foreach (int i in playlist.Contents) {
 				IntPtr current = new IntPtr (i);
@@ -1019,25 +1031,24 @@ namespace Muine
 
 			bool has_first = playlist.HasFirst;
 
-			previous_button.Sensitive = has_first;
+			previous_button  .Sensitive = has_first;
 			play_pause_button.Sensitive = has_first;
-			next_button.Sensitive = playlist.HasNext ||
-						(Repeat && has_first);
+			next_button      .Sensitive = playlist.HasNext || (Repeat && has_first);
 
-			Global.Actions.PlayPause.Sensitive = previous_button.Sensitive;
-			Global.Actions.Previous.Sensitive = play_pause_button.Sensitive;
-			Global.Actions.Next.Sensitive = next_button.Sensitive;
+			Global.Actions.PlayPause.Sensitive = previous_button  .Sensitive;
+			Global.Actions.Previous .Sensitive = play_pause_button.Sensitive;
+			Global.Actions.Next     .Sensitive = next_button      .Sensitive;
 			
-			Global.Actions.SkipTo.Sensitive = has_first;
+			Global.Actions.SkipTo       .Sensitive = has_first;
 			Global.Actions.SkipBackwards.Sensitive = has_first;
-			Global.Actions.SkipForward.Sensitive = has_first;
-
-			Global.Actions.Shuffle.Sensitive = has_first;
+			Global.Actions.SkipForward  .Sensitive = has_first;
+			Global.Actions.Shuffle      .Sensitive = has_first;
 
 			UpdateTimeLabels (player.Position);
 
 			SavePlaylist (FileUtils.PlaylistFile, !Repeat, true);
 
+			// Run PlaylistChangedEvent Handlers
 			if (PlaylistChangedEvent != null)
 				PlaylistChangedEvent ();
 		}
@@ -1082,18 +1093,18 @@ namespace Muine
 					}
 				}
 
-				Title = String.Format (string_title_main, song.Title);
+				this.Title = String.Format (string_title_main, song.Title);
 
 			} else {
 				cover_image.Song = null;
 
 				tooltips.SetTip (cover_image, null, null);
 
-				title_label.Text = "";
+				title_label .Text = "";
 				artist_label.Text = "";
-				time_label.Text = "";
+				time_label  .Text = "";
 
-				Title = string_program;
+				this.Title = string_program;
 
 				if (skip_to_window != null)
 					skip_to_window.Hide ();
@@ -1115,6 +1126,7 @@ namespace Muine
 		{
 			Global.Actions.Remove.Sensitive = (playlist.SelectedPointers.Count > 0);
 
+			// Run SelectionChangedEvent Handlers
 			if (SelectionChangedEvent != null)
 				SelectionChangedEvent ();
 		}
@@ -1122,13 +1134,18 @@ namespace Muine
 		// Methods :: Private :: StateChanged
 		private new void StateChanged (bool playing, bool dont_signal)
 		{
+			// Update action entry and button states
 			block_play_pause_action = true;
+
 			Global.Actions.PlayPause.Active = playing;
-			play_pause_button.Active = playing;
+			play_pause_button       .Active = playing;
+
 			block_play_pause_action = false;
 
+			// Update
 			playlist.Changed (playlist.Playing);
 
+			// Run StateChangedEvent Handlers
 			if (!dont_signal && StateChangedEvent != null)
 				StateChangedEvent (playing);
 		}
@@ -1166,7 +1183,8 @@ namespace Muine
 				stream = new VfsStream (fn, System.IO.FileMode.Open);
 				reader = new StreamReader (stream);
 			} catch {
-				new ErrorDialog (String.Format (string_error_read, FileUtils.MakeHumanReadable (fn)), this);
+				string msg = String.Format (string_error_read, FileUtils.MakeHumanReadable (fn));
+				new ErrorDialog (msg, this);
 				return;
 			}
 
@@ -1198,10 +1216,12 @@ namespace Muine
 					continue;
 				}
 
+				// Get Song
 				Song song = Global.DB.GetSong (line);
-				if (song == null) {
-					// not found, lets see if we can find it anyway...
-					lock (Global.DB) {
+				
+				// If that didn't work, try harder...
+				if (song == null) { 
+					lock (Global.DB) { // XXX: I don't think we need to lock since we're just reading...
 						foreach (string key in Global.DB.Songs.Keys) {
 							string key_basename = System.IO.Path.GetFileName (key);
 
@@ -1214,26 +1234,33 @@ namespace Muine
 					}
 				}
 
+				// If we don't have it in our Database, try adding it.
 				if (song == null)
 					song = AddSongToDB (line);
 
-				if (song != null) {
-					IntPtr p = AddSong (song);
+				// Give up if we don't have the song by now.
+				if (song == null)
+					return; 
 
-					if (playing_song) {
-						PlayAndSelect (p);
-						playing_song = false;
-					}
+				// Add song and play		
+				IntPtr p = AddSong (song);
+
+				if (playing_song) {
+					PlayAndSelect (p);
+					playing_song = false;
 				}
 			}
 
+			// Close File
 			try {
 				reader.Close ();
 			} catch {
-				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
+				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
+				new ErrorDialog (msg, this);
 				return;
 			}
 
+			// Play if we're not already
 			EnsurePlaying ();
 		}
 
@@ -1261,8 +1288,10 @@ namespace Muine
 		// Methods :: Private :: GetSingleSong
 		private Song GetSingleSong (string file)
 		{
+			// Get Song
 			Song song = Global.DB.GetSong (file);
 
+			// If we don't have it, try adding it
 			if (song == null)
 				song = AddSongToDB (file);
 
@@ -1272,38 +1301,40 @@ namespace Muine
 		// Methods :: Private :: HandleEndOfStream
 		private void HandleEndOfStream (Song song, bool update_time)
 		{
+			// If we can, go to the next song
 			if (playlist.HasNext) {
 				playlist.Next ();
 
+			// If we don't have another song and we are repeating,
+			// go to the beginning.
+			} else if (Repeat) {
+				playlist.First ();
+
+			// We have nothing else to play.
 			} else {
-				if (Repeat) {
-					playlist.First ();
-				} else {
-					if (update_time)
-						player.Position = song.Duration;
+				if (update_time)
+					player.Position = song.Duration;
 
-					had_last_eos = true;
+				had_last_eos = true;
 
-					player.Stop ();
-				}
+				player.Stop ();
 			}
 
+			// Update Changes
 			PlaylistChanged ();
 		}
 
 		// Methods :: Private :: DragAddSong
 		private IntPtr DragAddSong (Song song, DragAddSongPosition pos)
 		{
-			if (pos.Pointer != IntPtr.Zero)
-				pos.Pointer = AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
-			else
-				pos.Pointer = AddSong (song.Handle);
+			pos.Pointer = (pos.Pointer == IntPtr.Zero)
+				      ? AddSong      (song.Handle)
+				      : AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
 
 			pos.Position = TreeViewDropPosition.After;
 				
 			if (pos.First) {
 				playlist.Select (pos.Pointer, false);
-
 				pos.First = false;
 			}
 
@@ -1314,7 +1345,7 @@ namespace Muine
 		private ISong [] ArrayFromList (List list)
 		{
 			ISong [] array = new ISong [list.Count];
-				
+
 			int i = 0;
 			foreach (int p in list) {
 				array [i] = Song.FromHandle (new IntPtr (p));
@@ -1356,13 +1387,16 @@ namespace Muine
 		// Handlers :: OnWindowStateEvent
 		private void OnWindowStateEvent (object o, WindowStateEventArgs args)
 		{
-			if (!Visible)
+			// If know we're not even visible, return
+			if (!this.Visible)
 				return;
-				
+			
+			// If we're not Iconified or Withdrawn (minimized), show the window
 			bool old_window_visible = window_visible;
 			window_visible = ((args.Event.NewWindowState != Gdk.WindowState.Iconified) &&
 					  (args.Event.NewWindowState != Gdk.WindowState.Withdrawn));
 
+			// If we changed, update
 			if (old_window_visible != window_visible)
 				UpdateWindowVisibilityUI ();
 		}
@@ -1370,14 +1404,17 @@ namespace Muine
 		// Handlers :: OnVisibilityNotifyEvent
 		private void OnVisibilityNotifyEvent (object o, VisibilityNotifyEventArgs args)
 		{
+			// If we're not visible, iconified, or withdrawn (minimized), return.
 			if (!Visible ||
 			    GdkWindow.State == Gdk.WindowState.Iconified ||
 			    GdkWindow.State == Gdk.WindowState.Withdrawn)
 			    return;
 
+			// See if we became visible (not FullyObscured)
 			bool old_window_visible = window_visible;
 			window_visible = (args.Event.State != Gdk.VisibilityState.FullyObscured);
 
+			// If we did, update
 			if (old_window_visible != window_visible)
 				UpdateWindowVisibilityUI ();
 
@@ -1387,51 +1424,62 @@ namespace Muine
 		// Handlers :: OnDeleteEvent
 		private void OnDeleteEvent (object o, DeleteEventArgs args)
 		{
+			Console.WriteLine ("DELETE!");
 			Quit ();
 		}
 
 		// Handlers :: OnSizeAllocated
 		private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 		{
+			// Get Window size
 			int width, height;
-
 			GetSize (out width, out height);
 
-			Config.Set (GConfKeyWidth, width);
+			// Save it to GConf
+			Config.Set (GConfKeyWidth , width );
 			Config.Set (GConfKeyHeight, height);
 		}
 
 		// Handlers :: OnVolumeChanged
 		private void OnVolumeChanged (int vol)
 		{
+			// Don't update if we're in the middle of changing volume automatically
 			if (setting_volume)
 				return;
 
-			Volume = vol;
+			// Update volume
+			this.Volume = vol;
 		}
 
 		// Handlers :: OnConfigVolumeChanged
 		private void OnConfigVolumeChanged (object o, GConf.NotifyEventArgs args)
 		{
+			// Get new volume from GConf
 			int vol = (int) args.Value;
 
-			if (vol != Volume)
-				Volume = (int) args.Value;
+			// If we changed, update
+			if (vol != this.Volume)
+				this.Volume = (int) args.Value;
 		}
 
 		// Handlers :: OnQueueSongsEvent
 		private void OnQueueSongsEvent (List songs)
 		{
+			// Add Songs
 			foreach (int i in songs)
 				AddSong (new IntPtr (i));
 
+			// Play
 			EnsurePlaying ();
+			
+			// Update
 			PlaylistChanged ();
 		}
 
 		// Handlers :: OnPlaySongsEvent		
 		private void OnPlaySongsEvent (List songs)
 		{
+			// Add Songs
 			bool first = true;
 			foreach (int i in songs) {
 				IntPtr p = new IntPtr (i);
@@ -1441,19 +1489,22 @@ namespace Muine
 				if (!first)
 					continue;
 
+				// Select and Play the first song
 				PlayAndSelect (new_p);
-
 				player.Play ();
-			
+				
+				// We only have one first
 				first = false;
 			}
 
+			// Update
 			PlaylistChanged ();
 		}
 
 		// Handlers :: OnQueueAlbumsEvent
 		private void OnQueueAlbumsEvent (List albums)
 		{
+			// Add songs from albums
 			foreach (int i in albums) {
 				Album a = Album.FromHandle (new IntPtr (i));
 
@@ -1461,13 +1512,17 @@ namespace Muine
 					AddSong (s);
 			}
 
+			// Play
 			EnsurePlaying ();
+			
+			// Update
 			PlaylistChanged ();
 		}
 
 		// Handlers :: OnPlayAlbumsEvent
 		private void OnPlayAlbumsEvent (List albums)
 		{
+			// Add songs from albums
 			bool first = true;
 			foreach (int i in albums) {
 				Album a = Album.FromHandle (new IntPtr (i));
@@ -1478,14 +1533,16 @@ namespace Muine
 					if (!first)
 						continue;
 
+					// Select and play the first song
 					PlayAndSelect (new_p);
-
 					player.Play ();
 
+					// There's only one first
 					first = false;
 				}
 			}
 
+			// Update
 			PlaylistChanged ();
 		}
 
@@ -1498,33 +1555,37 @@ namespace Muine
 		// Handlers :: OnEndOfStreamEvent
 		private void OnEndOfStreamEvent ()
 		{
+			// Get current song
 			Song song = Song.FromHandle (playlist.Playing);
 
+			// If we're not really at the end, we must have had bad info
+			// Update the SongDB with the new length
 			if (song.Duration != player.Position) {
 				song.Duration = player.Position;
-
 				Global.DB.SaveSong (song);
 			}
 			
+			// Do what else we need to do at the EOS
 			HandleEndOfStream (song, false);
 		}
 
 		// Handlers :: OnConfigRepeatChanged
 		private void OnConfigRepeatChanged (object o, GConf.NotifyEventArgs args)
 		{
+			// Get new repeat setting from GConf
 			bool val = (bool) args.Value;
 
-			if (val != Repeat)
-				Repeat = val;
+			// If it changed, update.
+			if (val != this.Repeat)
+				this.Repeat = val;
 		}
 
 		// Handlers :: OnPlaylistRowActivated
 		private void OnPlaylistRowActivated (IntPtr handle)
 		{
+			// Play selected song
 			playlist.Playing = handle;
-
 			PlaylistChanged ();
-
 			player.Play ();
 		}
 
@@ -1545,7 +1606,6 @@ namespace Muine
 		private void OnSongChanged (Song song)
 		{
 			bool song_changed = false;
-			
 			foreach (IntPtr h in song.Handles) {
 				if (!playlist.Contains (h))
 					continue;
@@ -1563,6 +1623,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnPlayingSongRemoved
+		//   TODO: See if we can merge this with HandleEndOfStream.
 		private void OnPlayingSongRemoved ()
 		{
 			if (playlist.HasNext) {
@@ -1662,21 +1723,37 @@ namespace Muine
 			// Work around gtk bug...
 			// TODO: Which bug?
 			string tree_model_row = String.Format ("\t{0}\t", DndUtils.TargetMuineTreeModelRow.Target);
-			string song_list      = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
-			string album_list     = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
+			string song_list      = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList    .Target);
+			string album_list     = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList   .Target);
 			
-			if (data.StartsWith (tree_model_row)) {
-				type = (uint) DndUtils.TargetType.ModelRow;
-				data = data.Substring (tree_model_row.Length);
-				
-			} else if (data.StartsWith (song_list)) {
-				type = (uint) DndUtils.TargetType.SongList;
-				data = data.Substring (song_list.Length);
-				
-			} else if (data.StartsWith (album_list)) {
-				type = (uint) DndUtils.TargetType.AlbumList;
-				data = data.Substring (album_list.Length);
-			}
+			bool is_tree_model = data.StartsWith (tree_model_row);
+			bool is_song_list  = data.StartsWith (song_list     );
+			bool is_album_list = data.StartsWith (album_list    );
+			
+			type = (is_tree_model)
+			       ? (uint) DndUtils.TargetType.ModelRow
+			       :
+			       (is_song_list)
+	                       ? (uint) DndUtils.TargetType.SongList
+	                       :
+	                       (is_album_list)
+			       ? (uint) DndUtils.TargetType.AlbumList
+			       :
+			       type;
+
+						
+			string head = (is_tree_model)
+				      ? tree_model_row
+			              :
+			              (is_song_list)
+				      ? song_list
+				      :
+				      (is_album_list)
+				      ? album_list
+				      :
+				      "";
+
+			data = data.Substring (head.Length);
 
 			string [] bits = DndUtils.SplitSelectionData (data);
 
@@ -1719,9 +1796,7 @@ namespace Muine
 				}
 
 				EnsurePlaying ();
-
 				PlaylistChanged ();
-
 				break;
 				
 			case (uint) DndUtils.TargetType.AlbumList:
@@ -1741,9 +1816,7 @@ namespace Muine
 				}
 				
 				EnsurePlaying ();
-
 				PlaylistChanged ();
-
 				break;
 
 			case (uint) DndUtils.TargetType.UriList:
