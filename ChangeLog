@@ -1,5 +1,12 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Ensure we keep a selection when possible.
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Album.cs:
 	* src/Song.cs:
 

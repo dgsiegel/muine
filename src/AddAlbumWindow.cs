@@ -314,6 +314,15 @@ public class AddAlbumWindow
 			view.Append (album.Handle);
 	}
 
+	private void SelectFirstIfNeeded ()
+	{
+		/* it is insensitive if we have no selection, see HandleSelectionChanged */
+		if (play_button.Sensitive == false) {
+			view.SelectFirst ();
+			view.ScrollToPoint (0, 0);
+		}
+	}
+
 	private void HandleAlbumChanged (Album album)
 	{
 		/* remove and insert because this is sorted */
@@ -322,10 +331,14 @@ public class AddAlbumWindow
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 		if (FitsCriteria (album, search_bits))
 			view.Append (album.Handle);
+
+		SelectFirstIfNeeded ();
 	}
 
 	private void HandleAlbumRemoved (Album album)
 	{
 		view.Remove (album.Handle);
+
+		SelectFirstIfNeeded ();
 	}
 }

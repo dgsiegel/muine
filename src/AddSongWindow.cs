@@ -317,6 +317,15 @@ public class AddSongWindow
 			view.Append (song.Handle);
 	}
 
+	private void SelectFirstIfNeeded ()
+	{
+		/* it is insensitive if we have no selection, see HandleSelectionChanged */
+		if (play_button.Sensitive == false) {
+			view.SelectFirst ();
+			view.ScrollToPoint (0, 0);
+		}
+	}
+
 	private void HandleSongChanged (Song song)
 	{
 		/* remove and insert because this is sorted */
@@ -325,10 +334,14 @@ public class AddSongWindow
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 		if (FitsCriteria (song, search_bits))
 			view.Append (song.Handle);
+
+		SelectFirstIfNeeded ();
 	}
 
 	private void HandleSongRemoved (Song song)
 	{
 		view.Remove (song.Handle);
+
+		SelectFirstIfNeeded ();
 	}
 }

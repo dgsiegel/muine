@@ -1,16 +1,8 @@
-- album cover klikken laat je een cover kiezen
 - fix drop at end
 - pango stuff directly in C# with Gtk# CVS
-- adding smart queries to the playlist?
-
 - listen to multimedia keys
-
-
---------------
 - panel crash
-
 - Do something special with performer tags, other than treat them as artists?
-
 - dnd from nautilus
 - gapless transition
 - volume normalization
@@ -25,15 +17,10 @@
    - create folders for different albums (Artist - Album)
    - create a "Playlist" folder with symlinks to the mp3s, using filenames
    with numbers prepended so that the original playlist order is maintained.
-
-- automatic cover fetching from amazon.com (Lee Willis)
-
 - drag album covers from nautilus to the gnome foot icon
 - dnd from album/song/group windows to playlist
-
 - use 2.6 filesel
-- support gstreamer 0.7
-
+- support gstreamer 0.7 [Richard Hult]
 - groups: include a "Single songs" group.. songs without associated album, smart group creation. (and "never played", "most played"), menuitem to create groups from genres.. 
    'Select groups' button in main ui without editnig support, includes genres + 'never played' by default
    - groups in group menu met number accels
