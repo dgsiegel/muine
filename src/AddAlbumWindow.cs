@@ -57,7 +57,8 @@ public class AddAlbumWindow : Window
 	};
 
 	private static TargetEntry [] source_entries = new TargetEntry [] {
-		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.AlbumList)
+		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.AlbumList),
+		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList)
 	};
 
 	public AddAlbumWindow () : base (IntPtr.Zero)
@@ -382,6 +383,21 @@ public class AddAlbumWindow : Window
 		List albums = view.SelectedPointers;
 
 		switch (args.Info) {
+		case (uint) PlaylistWindow.TargetType.UriList:
+			string files = "";
+
+			foreach (int i in albums) {
+				IntPtr p = new IntPtr (i);
+				Album a = Album.FromHandle (p);
+
+				foreach (Song s in a.Songs)
+					files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
+			}
+	
+			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+						8, System.Text.Encoding.UTF8.GetBytes (files));
+						
+			break;
 		case (uint) PlaylistWindow.TargetType.AlbumList:
 			string ptrs = "\tMUINE_ALBUM_LIST\t";
 			

@@ -21,14 +21,15 @@ using System;
 using System.Text.RegularExpressions;
 
 using Gtk;
+using Gdk;
 
 public class CoverImage : EventBox
 {
-	private Image image;
+	private Gtk.Image image;
 	
 	public CoverImage () : base ()
 	{
-		image = new Image ();	
+		image = new Gtk.Image ();	
 		image.SetSizeRequest (CoverDatabase.AlbumCoverSize, 
 				      CoverDatabase.AlbumCoverSize);
 		
@@ -98,22 +99,14 @@ public class CoverImage : EventBox
 			if (!(uri.Scheme == "http"))
 				break;
 
+			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+				Muine.CoverDB.RemoveCover (song.AlbumKey);
+			song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
+			Muine.DB.SyncAlbumCoverImageWithSong (song);
+				
+			song.DownloadNewCoverImage (uri.AbsoluteUri);
+
 			success = true;
-
-			try {
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
-				
-				song.DownloadNewCoverImage (uri.AbsoluteUri);
-
-				success = true;
-			} catch (Exception e) {
-				success = false;
-				
-				break;
-			}
 
 			break;
 		case (uint) PlaylistWindow.TargetType.UriList:
@@ -123,25 +116,29 @@ public class CoverImage : EventBox
 			if (fn == null)
 				break;
 
-			try {
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCoverLocal (song.AlbumKey, fn);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
+			Pixbuf pixbuf;
 
-				success = true;
+			try {
+				pixbuf = new Pixbuf (fn);
 			} catch {
 				success = false;
 				
 				break;
 			}
+
+			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+				Muine.CoverDB.RemoveCover (song.AlbumKey);
+			song.CoverImage = Muine.CoverDB.AddCoverEmbedded (song.AlbumKey, pixbuf);
+			Muine.DB.SyncAlbumCoverImageWithSong (song);
+
+			success = true;
 			
 			break;
 		default:
 			break;
 		}
 
-		Drag.Finish (args.Context, success, false, args.Time);
+		Gtk.Drag.Finish (args.Context, success, false, args.Time);
 	}
 
 	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)

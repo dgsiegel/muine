@@ -1,5 +1,13 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/AddAlbumWindow.cs:
+	* src/CoverImage.cs:
+
+	Dragging albums now also supports the uri-list dnd type.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Makefile.am:
 
 	Don't compile unused InfoWindow.cs and NoMusicFoundWindow.cs for now.

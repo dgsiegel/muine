@@ -8,16 +8,8 @@ o A song information dialog (Jorn is on this)
 Tough:
 ======
 
-o Portable player integration
-  Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
   See http://huizen.dds.nl/~jbaayen/proposal.html
-o CD burning (Brad Griffith is workong on this)
-  Support both audio and MP3 cds.
-  
-  Create folders for different albums (Artist - Album format)
-  
-  Create a playlist.m3u with the playlist order.
 o Gapless transition/crossfading
   This should be possible with the current GStreamer components, but
   it's a tough one. Well, we could emit EOS a bit earlier than usual
@@ -60,6 +52,7 @@ We won't have:
 o Internet radio support
 o CD ripping
 o CD playback
+o CD burning
 o Volume normalization. We support the replaygain tag, the tagging
   application is responsible for setting these.. Muine is purely a player.
 o Visualization. Other apps can monitor the ALSA device and make fancy effects,
