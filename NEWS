@@ -15,7 +15,7 @@ Updated translations:
 =====
 
 - Take disc number into account when sorting album tracks
-                                            [Mariano Su·rez-Alvarez]
+                                            [Mariano Su√°rez-Alvarez]
 - Fix high CPU usage with GStreamer backend [Jorn Baayen]
 - Fix the bug where pressing a multimedia key would crash with mono 1.1.x
                                             [Jorn Baayen]
