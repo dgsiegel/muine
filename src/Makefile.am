@@ -77,8 +77,9 @@ RESOURCES =												\
 	/resource:$(top_srcdir)/data/images/muine-about.png,muine-about.png				\
 	/resource:$(top_srcdir)/data/images/muine.png,muine.png						
 
+# FIXME MONO_XMLSERIALIZER_THS=no works around Ximian Bugzilla #58194
 AmazonSearchService.cs: AmazonSearchService.wsdl
-	wsdl $(srcdir)/AmazonSearchService.wsdl
+	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
 
 AmazonSearchService.dll: AmazonSearchService.cs
 	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll AmazonSearchService.cs -r:System.Web.Services
