@@ -56,8 +56,15 @@ namespace Muine
 			
 			amazon_locale = (string) Config.Get (GConfKeyAmazonLocale,
 							     GConfDefaultAmazonLocale);
+			Config.AddNotify (GConfKeyAmazonLocale,
+					  new GConf.NotifyEventHandler (OnAmazonLocaleChanged));
 
 			proxy = new GnomeProxy ();	
+		}
+
+		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
+		{
+			amazon_locale = (string) args.Value;
 		}
 
 		public Pixbuf GetLocal (string key, string file)

@@ -71,6 +71,10 @@ namespace Muine
 			
 			songs = new Hashtable ();
 			albums = new Hashtable ();
+
+			watched_folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+			Config.AddNotify (GConfKeyWatchedFolders,
+					  new GConf.NotifyEventHandler (OnWatchedFoldersChanged));
 		}
 
 		// Database interaction
@@ -377,35 +381,49 @@ namespace Muine
 			}
 		}
 
+		private string [] watched_folders;
 		public string [] WatchedFolders {
-			set {
-				Config.Set (GConfKeyWatchedFolders, value);
-			}
-			
 			get {
-				return (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+				return watched_folders;
 			}
 		}
 
 		private void AddToConfig (string folder)
 		{
 			// Update config
-			string [] folders = WatchedFolders;
-			string [] new_folders = new string [folders.Length + 1];
+			string [] new_folders = new string [watched_folders.Length + 1];
 
 			int i = 0;
-			foreach (string s in folders) {
+			foreach (string s in watched_folders) {
 				// check if folder is already monitored at a higher
 				// or same level
 				if (folder.IndexOf (s) == 0)
 					return;
-				new_folders [i] = folders [i];
+				new_folders [i] = watched_folders [i];
 				i++;
 			}
 
-			new_folders [folders.Length] = folder;
+			new_folders [watched_folders.Length] = folder;
 
-			WatchedFolders = new_folders;
+			watched_folders = new_folders;
+			Config.Set (GConfKeyWatchedFolders, watched_folders);
+		}
+
+		private void OnWatchedFoldersChanged (object o, GConf.NotifyEventArgs args)
+		{
+			string [] old_watched_folders = watched_folders;
+			watched_folders = (string []) args.Value;
+
+			foreach (string s in watched_folders) {
+				if (Array.BinarySearch (old_watched_folders, s) < 0) {
+					DirectoryInfo dinfo = new DirectoryInfo (s);
+					if (!dinfo.Exists)
+						continue;
+
+					ProgressWindow pw = new ProgressWindow (Global.Playlist);
+					AddFolderThread t = new AddFolderThread (dinfo, pw);
+				}
+			}
 		}
 
 		// Changes thread

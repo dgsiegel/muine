@@ -50,5 +50,10 @@ namespace Muine
 	        {
 	        	gconf_client.Set (key, val);        	
 	        }
+
+		public static void AddNotify (string key, GConf.NotifyEventHandler notify)
+		{
+			gconf_client.AddNotify (key, notify);
+		}
 	}
 }

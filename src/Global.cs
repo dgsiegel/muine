@@ -34,33 +34,31 @@ namespace Muine
 	{
 		private static SongDatabase db;
 		public static SongDatabase DB {
-			get {
-				return db;
-			}
+			get { return db; }
 		}
 
 		private static CoverDatabase cover_db;
 		public static CoverDatabase CoverDB {
-			get {
-				return cover_db;
-			}
+			get { return cover_db; }
 		}	
 
 		private static PlaylistWindow playlist;
+		public static PlaylistWindow Playlist {
+			get { return playlist; }
+		}
+
 		private static NotificationAreaIcon icon;
 		private static MmKeys mmkeys;
 		private static Gnome.Client session_client;
 
 		public static void Main (string [] args)
 		{
-			Global global = new Global (args);
-
-			Application.Run ();
-		}
-
-		public Global (string [] args) : base ("muine", Defines.VERSION, Gnome.Modules.UI, args)
-		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+
+			Gnome.Program program = new Gnome.Program ("muine",
+								   Defines.VERSION,
+								   Gnome.Modules.UI,
+								   args);
 
 			DBusLib.Player dbo = null;
 
@@ -174,9 +172,12 @@ namespace Muine
 
 			session_client.Die += new EventHandler (OnDieEvent);
 			session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
+
+			/* And run */
+			Application.Run ();
 		}
 
-		private bool ProcessCommandLine (string [] args, DBusLib.Player dbo)
+		private static bool ProcessCommandLine (string [] args, DBusLib.Player dbo)
 		{
 			bool opened_file = false;
 
@@ -216,32 +217,32 @@ namespace Muine
 			return opened_file;
 		}
 		
-		private void SetDefaultWindowIcon ()
+		private static void SetDefaultWindowIcon ()
 		{
 			Pixbuf [] default_icon_list = new Pixbuf [1];
 			default_icon_list [0] = new Pixbuf (null, "muine.png");
 			Gtk.Window.DefaultIconList = default_icon_list;
 		}
 
-		private void Error (string message)
+		private static void Error (string message)
 		{
 			new ErrorDialog (message);
 
 			Environment.Exit (1);
 		}
 
-		private void OnCoversDoneLoading ()
+		private static void OnCoversDoneLoading ()
 		{
 			/* covers done loading, start the changes thread */
 			db.CheckChanges ();
 		}
 
-		private void OnDieEvent (object o, EventArgs args)
+		private static void OnDieEvent (object o, EventArgs args)
 		{
 			Exit ();
 		}
 
-		private void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
+		private static void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
 		{
 			/* FIXME */
 			string [] argv = { "muine" };

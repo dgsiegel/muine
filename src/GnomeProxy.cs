@@ -24,22 +24,24 @@ namespace Muine
 {
 	public class GnomeProxy
 	{
-		private const string GConfKeyUse = "/system/http_proxy/use_http_proxy";
+		private const string GConfProxyPath = "/system/http_proxy";
+
+		private const string GConfKeyUse = GConfProxyPath + "/use_http_proxy";
 		private const bool GConfDefaultUse = false;
 
-		private const string GConfKeyHost = "/system/http_proxy/host";
+		private const string GConfKeyHost = GConfProxyPath + "/host";
 		private const string GConfDefaultHost = "";
 
-		private const string GConfKeyPort = "/system/http_proxy/port";
+		private const string GConfKeyPort = GConfProxyPath + "/port";
 		private const int GConfDefaultPort = 8080;
 
-		private const string GConfKeyUseAuth = "/system/http_proxy/use_authentication";
+		private const string GConfKeyUseAuth = GConfProxyPath + "/use_authentication";
 		private const bool GConfDefaultUseAuth = false;
 
-		private const string GConfKeyUser = "/system/http_proxy/authentication_user";
+		private const string GConfKeyUser = GConfProxyPath + "/authentication_user";
 		private const string GConfDefaultUser = "";
 
-		private const string GConfKeyPass = "/system/http_proxy/authentication_password";
+		private const string GConfKeyPass = GConfProxyPath + "/authentication_password";
 		private const string GConfDefaultPass = "";
 
 		private bool use;
@@ -48,6 +50,16 @@ namespace Muine
 		
 		public GnomeProxy ()
 		{
+			Setup ();
+
+			Config.AddNotify (GConfProxyPath,
+					  new GConf.NotifyEventHandler (OnConfigChanged));
+		}
+
+		private void Setup ()
+		{
+			proxy = null;
+
 			use = (bool) Config.Get (GConfKeyUse, GConfDefaultUse);
 
 			if (!use)
@@ -83,15 +95,16 @@ namespace Muine
 		}
 
 		public bool Use {
-			get {
-				return use;
-			}
+			get { return use; }
 		}
 
 		public WebProxy Proxy {
-			get {
-				return proxy;
-			}
+			get { return proxy; }
+		}
+
+		private void OnConfigChanged (object o, GConf.NotifyEventArgs args)
+		{
+			Setup ();
 		}
 	}
 }
