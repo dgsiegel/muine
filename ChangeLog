@@ -1,3 +1,9 @@
+2004-12-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	Small song deletion optimization.
+
 2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/NotificationAreaIcon.cs:

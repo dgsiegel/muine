@@ -1563,7 +1563,7 @@ public class PlaylistWindow : Window
 	{
 		List selected_pointers = playlist.SelectedPointers;
 
-		int counter = 0;
+		int counter = 0, selected_pointers_count = selected_pointers.Count;
 
 		foreach (int i in selected_pointers) {
 			IntPtr sel = new IntPtr (i);
@@ -1584,7 +1584,7 @@ public class PlaylistWindow : Window
 				SongChanged (true);
 			}
 			
-			if (counter == selected_pointers.Count - 1) {
+			if (counter == selected_pointers_count - 1) {
 				if (!playlist.SelectNext ())
 					playlist.SelectPrevious ();
 			}
