@@ -706,20 +706,20 @@ namespace Muine
 		// Methods :: Public :: SavePlaylist
 		public void SavePlaylist (string fn, bool exclude_played, bool store_playing)
 		{
-			VfsStream stream;
-			StreamWriter writer;
-
 			bool remote = FileUtils.IsRemote (fn);
 
 			if (remote)
 				BusyLevel ++;
+
+			VfsStream stream;
+			StreamWriter writer;
 			
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Create);
 				writer = new StreamWriter (stream);
-
 			} catch {
-				new ErrorDialog (String.Format (string_error_write, FileUtils.MakeHumanReadable (fn)), this);
+				string msg = String.Format (string_error_write, FileUtils.MakeHumanReadable (fn));
+				new ErrorDialog (msg, this);
 				if (remote)
 					BusyLevel --;
 				return;
@@ -731,11 +731,11 @@ namespace Muine
 					IntPtr ptr = new IntPtr (i);
 
 					if (exclude_played) {
-						if (!had_playing_song)
-							continue;
-
 						if (ptr == playlist.Playing)
 							had_playing_song = true;
+
+						else if (!had_playing_song)
+							continue;
 					}
 				
 					if (store_playing &&
@@ -744,6 +744,7 @@ namespace Muine
 					}
 				
 					Song song = Song.FromHandle (ptr);
+
 					writer.WriteLine (song.Filename);
 				}
 			}
@@ -1424,7 +1425,6 @@ namespace Muine
 		// Handlers :: OnDeleteEvent
 		private void OnDeleteEvent (object o, DeleteEventArgs args)
 		{
-			Console.WriteLine ("DELETE!");
 			Quit ();
 		}
 

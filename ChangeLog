@@ -1,5 +1,11 @@
 2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* src/PlaylistWindow.cs:
+	
+	Fix a recently added bug that broke the save-playlist-on-exit feature.
+
+2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/Metadata.cs:
 	
 	Code cleanup. Split up the constructor.
