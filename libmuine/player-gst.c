@@ -25,6 +25,7 @@
 #include <math.h>
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 
 #include "player.h"
@@ -63,7 +64,8 @@ struct _PlayerPriv {
 	guint       iterate_idle_id;
 	guint       tick_timeout_id;
 
-	gint64      pos;
+	GTimer     *timer;
+	long        timer_add;
 };
 
 static GObjectClass *parent_class;
@@ -149,6 +151,10 @@ player_construct (Player *player, char **error)
 	priv = g_new0 (PlayerPriv, 1);
 	player->priv = priv;
 
+	priv->timer = g_timer_new ();
+	g_timer_stop (priv->timer);
+	priv->timer_add = 0;
+
 	priv->eos_idle_id = 0;
 	priv->tick_timeout_id = g_timeout_add (200, (GSourceFunc) tick_timeout, player);
 
@@ -192,6 +198,8 @@ player_finalize (GObject *object)
 
 	player_stop (player);
 
+	g_timer_destroy (player->priv->timer);
+
 	g_free (player->priv);
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)
@@ -226,6 +234,10 @@ tick_timeout (Player *player)
 static gboolean
 eos_idle_cb (Player *player)
 {
+	player->priv->timer_add += floor (g_timer_elapsed (player->priv->timer, NULL) + 0.5);
+	g_timer_stop (player->priv->timer);
+	g_timer_reset (player->priv->timer);
+
 	player->priv->eos_idle_id = 0;
 
 	g_signal_emit (player, signals[END_OF_STREAM], 0);
@@ -277,8 +289,6 @@ error_cb (GObject   *object,
 static gboolean
 iterate_cb (Player *player)
 {
-	GstFormat fmt = GST_FORMAT_TIME;
-	gint64 value;
 	gboolean res;
 
 	if (!GST_FLAG_IS_SET (player->priv->play, GST_BIN_SELF_SCHEDULABLE)) {
@@ -286,12 +296,6 @@ iterate_cb (Player *player)
 	} else {
 		g_usleep (100);
 		res = (gst_element_get_state (player->priv->play) == GST_STATE_PLAYING);
-	}
-
-	/* check pos of stream */
-	if (gst_element_query (GST_ELEMENT (player->priv->play),
-			       GST_QUERY_POSITION, &fmt, &value)) {
-		player->priv->pos = value;
 	}
 
 	if (!res)
@@ -321,6 +325,8 @@ player_set_file (Player     *player,
 		 const char *file,
 		 char      **error)
 {
+	char *escaped;
+
 	g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
 	*error = NULL;
@@ -330,8 +336,14 @@ player_set_file (Player     *player,
 	if (!file)
 		return FALSE;
 
+	g_timer_stop (player->priv->timer);
+	g_timer_reset (player->priv->timer);
+	player->priv->timer_add = 0;
+
+	escaped = gnome_vfs_escape_path_string (file);
 	// FIXME get rid of this one when the switch to gnome-vfs is made
-	player->priv->current_file = g_strdup_printf ("file://%s", file);
+	player->priv->current_file = g_strdup_printf ("file://%s", escaped);
+	g_free (escaped);
 
 	g_object_set (G_OBJECT (player->priv->play), "uri",
 		      player->priv->current_file, NULL);
@@ -345,6 +357,8 @@ player_play (Player *player)
 	g_return_if_fail (IS_PLAYER (player));
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_PLAYING);
+
+	g_timer_start (player->priv->timer);
 }
 
 void
@@ -360,7 +374,9 @@ player_stop (Player *player)
 	g_free (player->priv->current_file);
 	player->priv->current_file = NULL;
 
-	player->priv->pos = 0;
+	g_timer_stop (player->priv->timer);
+	g_timer_reset (player->priv->timer);
+	player->priv->timer_add = 0;
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_READY);
 }
@@ -371,6 +387,10 @@ player_pause (Player *player)
 	g_return_if_fail (IS_PLAYER (player));
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_PAUSED);
+
+	player->priv->timer_add += floor (g_timer_elapsed (player->priv->timer, NULL) + 0.5);
+	g_timer_stop (player->priv->timer);
+	g_timer_reset (player->priv->timer);
 }
 
 static void
@@ -441,6 +461,9 @@ player_seek (Player *player, int t)
 	gst_element_seek (player->priv->play, GST_SEEK_METHOD_SET |
 		          GST_SEEK_FLAG_FLUSH | GST_FORMAT_TIME,
 		          t * GST_SECOND);
+
+	g_timer_reset (player->priv->timer);
+	player->priv->timer_add = t;
 }
 
 int
@@ -448,5 +471,5 @@ player_tell (Player *player)
 {
 	g_return_val_if_fail (IS_PLAYER (player), -1);
 
-	return player->priv->pos / GST_SECOND;
+	return (int) floor (g_timer_elapsed (player->priv->timer, NULL) + 0.5) + player->priv->timer_add;
 }

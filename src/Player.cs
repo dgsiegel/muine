@@ -48,6 +48,9 @@ namespace Muine
 		public delegate void EndOfStreamEventHandler ();
 		public event         EndOfStreamEventHandler EndOfStreamEvent;
 
+		public delegate void InvalidSongHandler (Song song);
+		public event         InvalidSongHandler InvalidSong;
+
 		// Callbacks
 		private SignalUtils.SignalDelegateInt tick_cb;
 		private SignalUtils.SignalDelegate    eos_cb;
@@ -59,6 +62,7 @@ namespace Muine
 		// Variables
 		private bool stopped = true;
 		private bool playing;
+		private uint set_file_idle = 0;
 
 		// Constructor
 		[DllImport ("libmuine")]
@@ -104,19 +108,16 @@ namespace Muine
 				
 				song = value;
 
-				IntPtr error_ptr;
+				if (playing)
+					player_pause (Raw);
 
-				player_set_file (Raw, song.Filename, out error_ptr);
-				if (error_ptr != IntPtr.Zero)
-					throw new PlayerException (error_ptr);
-				
-				player_set_replaygain (Raw, song.Gain, song.Peak);
+				if (set_file_idle > 0)
+					GLib.Source.Remove (set_file_idle);
+
+				set_file_idle = GLib.Idle.Add (new GLib.IdleHandler (SetFileIdleFunc));
 
 				if (TickEvent != null)
 					TickEvent (0);
-
-				if (playing)
-					player_play (Raw);
 			}
 
 			get { return song; }
@@ -142,7 +143,12 @@ namespace Muine
 					TickEvent (value);
 			}
 
-			get { return player_tell (Raw); }
+			get {
+				if (set_file_idle > 0)
+					return 0;
+				else
+					return player_tell (Raw);
+			}
 		}
 
 		// Properties :: Volume (set; get;)
@@ -170,7 +176,8 @@ namespace Muine
 					
 			playing = true;
 
-			player_play (Raw);
+			if (set_file_idle == 0)
+				player_play (Raw);
 
 			if (StateChanged != null)
 				StateChanged (playing);
@@ -212,6 +219,30 @@ namespace Muine
 
 			if (StateChanged != null)
 				StateChanged (playing);
+		}
+		
+		// Methods :: Private
+		// Methods :: Private :: SetFileIdleFunc
+		private bool SetFileIdleFunc ()
+		{
+			set_file_idle = 0;
+
+			IntPtr error_ptr;
+
+			player_set_file (Raw, song.Filename, out error_ptr);
+			if (error_ptr != IntPtr.Zero) {
+				if (InvalidSong != null)
+					InvalidSong (song);
+
+				return false;
+			}
+				
+			player_set_replaygain (Raw, song.Gain, song.Peak);
+
+			if (playing)
+				player_play (Raw);
+
+			return false;
 		}
 
 		// Handlers

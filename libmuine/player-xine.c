@@ -408,15 +408,14 @@ player_open (Player     *player,
       g_free (unesc);
       return FALSE;
     }
-  else
-    {
-      g_timer_stop (priv->timer);
-      g_timer_reset (priv->timer);
-      priv->timer_add = 0;
-    }
-  
+
+  g_timer_stop (priv->timer);
+  g_timer_reset (priv->timer);
+  priv->timer_add = 0;
+
   g_free (priv->current_file);
   priv->current_file = g_strdup (uri);
+
   return TRUE;
 }
 
@@ -497,6 +496,10 @@ player_stop (Player *player)
 
   g_free (priv->current_file);
   priv->current_file = NULL;
+
+  g_timer_stop (priv->timer);
+  g_timer_reset (priv->timer);
+  priv->timer_add = 0;
 
   if (priv->stream != NULL)
     {

@@ -118,23 +118,6 @@ namespace Muine
 		public event GenericEventHandler SelectionChangedEvent;
 
 		// Internal Classes
-		// Internal Classes :: InvalidSong
-		private class InvalidSong
-		{
-			private Song song;
-			
-			public InvalidSong (Song song)
-			{
-				this.song = song;
-			}
-
-			public bool Handle ()
-			{
-				Global.DB.RemoveSong (song);
-				return false;
-			}
-		}
-
 		// Internal Classes :: DragAddSongPosition
 		private class DragAddSongPosition {
 			public IntPtr               Pointer;
@@ -459,8 +442,8 @@ namespace Muine
 
 			IntPtr p = AddSong (song);
 			PlayAndSelect (p);
-			player.Play ();
 			PlaylistChanged ();
+			player.Play ();
 		}
 
 		// Methods :: Public :: QueueFile (IPlayer)
@@ -829,6 +812,7 @@ namespace Muine
 			player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
 			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
 			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
+			player.InvalidSong      += new Player.InvalidSongHandler      (OnInvalidSong     );
 
 			title_label = new EllipsizingLabel ();
 			title_label.Visible = true;
@@ -1067,19 +1051,8 @@ namespace Muine
 
 				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
-				if (player.Song != song || restart) {
-					try {
-						player.Song = song;
-
-					} catch (PlayerException e) {
-						// quietly remove the song
-						// from an idle, not to interfere with song change routines
-						InvalidSong ivs = new InvalidSong (song);
-						Idle.Add (new IdleHandler (ivs.Handle));
-
-						return;
-					}
-				}
+				if (player.Song != song || restart)
+					player.Song = song;
 
 				this.Title = String.Format (string_title_main, song.Title);
 
@@ -1361,6 +1334,12 @@ namespace Muine
 			StateChanged (playing, false);
 		}
 
+		// Handlers :: OnInvalidSong
+		private void OnInvalidSong (Song song)
+		{
+			Global.DB.RemoveSong (song);
+		}
+
 		// Handlers :: OnWindowStateEvent
 		private void OnWindowStateEvent (object o, WindowStateEventArgs args)
 		{
@@ -1464,7 +1443,6 @@ namespace Muine
 
 				// Select and Play the first song
 				PlayAndSelect (new_p);
-				player.Play ();
 				
 				// We only have one first
 				first = false;
@@ -1472,6 +1450,7 @@ namespace Muine
 
 			// Update
 			PlaylistChanged ();
+			player.Play ();
 		}
 
 		// Handlers :: OnQueueAlbumsEvent
@@ -1508,7 +1487,6 @@ namespace Muine
 
 					// Select and play the first song
 					PlayAndSelect (new_p);
-					player.Play ();
 
 					// There's only one first
 					first = false;
@@ -1517,6 +1495,7 @@ namespace Muine
 
 			// Update
 			PlaylistChanged ();
+			player.Play ();
 		}
 
 		// Handlers :: OnTickEvent

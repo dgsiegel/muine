@@ -1,5 +1,26 @@
 2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Make GStreamer the default backend.
+
+	* libmuine/player-gst.c:
+
+	Use a GTimer for time reporting rather than GStreamer, and
+	escape path string before passing it to gst.
+	
+	* libmuine/player-xine.c:
+
+	Small cleanup.
+	
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	Do the actual song loading in an idle. This makes the whole UI
+	feel a lot more responsive.
+
+2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* PluginLib/IPlayer.cs:
 	* doc/en/Muine.PluginLib/IPlayer.xml:
 	* src/PlaylistWindow.cs:
