@@ -21,17 +21,26 @@ namespace Muine
 {
 	public class AddWindowEntry : Gtk.Entry
 	{
+		// Constants
+		public const int MinQueryLength = 3;
+
+		// Constructor
 		public AddWindowEntry () : base ()
 		{
 			ActivatesDefault = true;
 		}
 
+		// Properties
+		// Properties :: SearchBits (get;)
 		public string [] SearchBits {
 			get {
 				return base.Text.ToLower ().Split (' ');
 			}	
 		}
-		
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Clear		
 		public void Clear ()
 		{
 			base.Text = "";

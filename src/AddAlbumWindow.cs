@@ -37,9 +37,9 @@ namespace Muine
 		private const int GConfDefaultHeight = 475; 
 
 		// Strings
-		private static readonly string string_play_album = 
+		private static readonly string string_title = 
 			Catalog.GetString ("Play Album");
-		private static readonly string string_performed_by = 
+		private static readonly string string_artists = 
 			Catalog.GetString ("Performed by {0}");
 
 		// Widgets
@@ -55,10 +55,12 @@ namespace Muine
 		// Constructor
 		public AddAlbumWindow ()
 		{
-			base.Title = string_play_album;
+			base.Title = string_title;
 
 			base.SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
-			
+
+			base.Items = Global.DB.Albums.Values;
+						
 			base.List.SortFunc = new AddWindowList.CompareFunc (SortFunc);
 
 			base.List.AddColumn (pixbuf_renderer  , new AddWindowList.CellDataFunc (PixbufCellDataFunc), false);
@@ -67,9 +69,9 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (OnAlbumAdded  );
-			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
-			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
+			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
+			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
+			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
 
 			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
@@ -82,8 +84,7 @@ namespace Muine
 				EnableDragDest ();
 		}
 
-		private int SortFunc (IntPtr a_ptr,
-				      IntPtr b_ptr)
+		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
 		{
 			Album a = Album.FromHandle (a_ptr);
 			Album b = Album.FromHandle (b_ptr);
@@ -116,56 +117,12 @@ namespace Muine
 
 			string performers = "";
 			if (album.Performers.Length > 0)
-				performers = String.Format (string_performed_by, StringUtils.JoinHumanReadable (album.Performers, 2));
+				performers = String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2));
 
 			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
 
 			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
 						   false, true, false);
-		}
-
-		protected override bool Search ()
-		{
-			List l = new List (IntPtr.Zero, typeof (int));
-
-			lock (Global.DB) {
-				if (base.Entry.Text.Length > 0) {
-					foreach (Album a in Global.DB.Albums.Values) {
-						if (a.FitsCriteria (base.Entry.SearchBits))
-							l.Append (a.Handle);
-					}
-				} else {
-					foreach (Album a in Global.DB.Albums.Values)
-						l.Append (a.Handle);
-				}
-			}
-
-			base.List.RemoveDelta (l);
-
-			foreach (int i in l) {
-				IntPtr ptr = new IntPtr (i);
-
-				base.List.Append (ptr);
-			}
-
-			base.List.SelectFirst ();
-
-			return false;
-		}
-		
-		private void OnAlbumAdded (Album album)
-		{
-			base.List.HandleAdded (album.Handle, album.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		private void OnAlbumChanged (Album album)
-		{
-			base.List.HandleChanged (album.Handle, album.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		private void OnAlbumRemoved (Album album)
-		{
-			base.List.HandleRemoved (album.Handle);
 		}
 
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)

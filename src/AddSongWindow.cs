@@ -30,9 +30,6 @@ namespace Muine
 	public class AddSongWindow : AddWindow
 	{
 		// Constants
-		private const int FakeLength = 150;
-		private const int MinQueryLength = 3;
-
 	        private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
 	        private const int GConfDefaultWidth = 500;
 	        
@@ -40,7 +37,7 @@ namespace Muine
 	        private const int GConfDefaultHeight = 475;  
 
 		// Strings
-		private static readonly string string_play_song = 
+		private static readonly string string_title = 
 			Catalog.GetString ("Play Song");
 
 		// DnD targets	
@@ -52,20 +49,22 @@ namespace Muine
 		// Constructor	
 		public AddSongWindow ()
 		{
-			base.Title = string_play_song;
+			base.Title = string_title;
 
 			base.SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
-			
+	
+			base.Items = Global.DB.Songs.Values;
+						
 			base.List.SortFunc = new HandleView.CompareFunc (SortFunc);
 			
 			base.List.AddColumn (base.TextRenderer, new AddWindowList.CellDataFunc (CellDataFunc), true);
 
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
-		
-			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
-			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
-			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+
+			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
+			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
+			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
 
 			lock (Global.DB) {
 				int i = 0;
@@ -74,14 +73,13 @@ namespace Muine
 					base.List.Append (s.Handle);
 
 					i++;
-					if (i >= FakeLength)
+					if (i >= List.FakeLength)
 						break;
 				}
 			}
 		}
 
-		private int SortFunc (IntPtr a_ptr,
-				      IntPtr b_ptr)
+		private int SortFunc (IntPtr a_ptr, IntPtr b_ptr)
 		{
 			Song a = Song.FromHandle (a_ptr);
 			Song b = Song.FromHandle (b_ptr);
@@ -100,76 +98,6 @@ namespace Muine
 
 			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
 						   false, true, false);
-		}
-
-		protected override bool Search ()
-		{
-			List l = new List (IntPtr.Zero, typeof (int));
-
-			int max_len = -1;
-
-			/* show max. FakeLength songs if < MinQueryLength chars are entered. this is to fake speed. */
-			if (base.Entry.Text.Length < MinQueryLength)
-				max_len = FakeLength;
-
-			lock (Global.DB) {
-				int i = 0;
-				if (base.Entry.Text.Length > 0) {
-					foreach (Song s in Global.DB.Songs.Values) {
-						if (!s.FitsCriteria (base.Entry.SearchBits))
-							continue;
-
-						l.Append (s.Handle);
-					
-						i++;
-						if (max_len > 0 && i >= max_len)
-							break;
-					}
-				} else {
-					foreach (Song s in Global.DB.Songs.Values) {
-						l.Append (s.Handle);
-					
-						i++;
-						if (max_len > 0 && i >= max_len)
-							break;
-					}
-				}
-			}
-
-			base.List.RemoveDelta (l);
-
-			foreach (int p in l) {
-				IntPtr ptr = new IntPtr (p);
-
-				base.List.Append (ptr);
-			}
-
-			base.List.SelectFirst ();
-
-			return false;
-		}
-
-		private void OnSongAdded (Song song)
-		{
-			if (base.Entry.Text.Length < MinQueryLength &&
-			    base.List.Length >= FakeLength)
-				return;
-
-			base.List.HandleAdded (song.Handle, song.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		private void OnSongChanged (Song song)
-		{
-			bool may_append = (base.Entry.Text.Length >= MinQueryLength ||
-			                   base.List.Length < FakeLength);
-			
-			base.List.HandleChanged (song.Handle, song.FitsCriteria (base.Entry.SearchBits),
-				may_append);
-		}
-
-		private void OnSongRemoved (Song song)
-		{
-			base.List.HandleRemoved (song.Handle);
 		}
 
 		private void OnDragDataGet (object o, DragDataGetArgs args)

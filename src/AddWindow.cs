@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.Collections;
 using Gtk;
 
 namespace Muine
@@ -60,6 +61,8 @@ namespace Muine
 		private bool process_changes_immediately = false;
 		private uint search_idle_id = 0;
 
+		private ICollection items;
+
 		// Constructor
 		public AddWindow () : base (IntPtr.Zero)
 		{
@@ -86,32 +89,39 @@ namespace Muine
 		}
 
 		// Properties
+		// Properties :: List (get;)
 		public AddWindowList List {
 			get { return list; }
 		}
 
+		// Properties :: Entry (get;)
 		public AddWindowEntry Entry {
 			get { return entry; }
 		}
 		
+		// Properties :: TextRenderer (get;)
 		public CellRenderer TextRenderer {
 			get { return text_renderer; }
 		}
-		
-		// Abstract methods
-		protected abstract bool Search ();
 
-		// Public Methods
+		// Properties :: Items (set; get;)
+		public ICollection Items {
+			set { items = value; }
+			get { return items;  }
+		}
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: Run
 		public void Run ()
 		{
 			entry.GrabFocus ();
-
 			list.SelectFirst ();
-
 			window.Present ();
 		}
 			
-		// Protected Methods
+		// Methods :: Protected
+		// Methods :: Protected :: SetGConfSize
 		protected void SetGConfSize (string key_width, string key_height, 
 					     int default_width, int default_height)
 		{
@@ -135,6 +145,7 @@ namespace Muine
 			AddOnSizeAllocated ();
 		}
 
+		// Methods :: Protected :: Reset
 		protected void Reset ()
 		{
 			process_changes_immediately = true;
@@ -143,22 +154,39 @@ namespace Muine
 
 			process_changes_immediately = false;
 		}
-		
-		// Private Methods
-		// Private Methods :: Assertions
+				
+		// Methods :: Private
+		// Methods :: Private :: Assertions
+		// Methods :: Private :: Assertions :: HasGConfSize
 		private bool HasGConfSize ()
 		{
 			return (gconf_key_width  != String.Empty && gconf_default_width  > 0 &&
 				gconf_key_height != String.Empty && gconf_default_height > 0);
 		}
 
+		// Methods :: Private :: Assertions :: AssertHasGConfSize
 		private void AssertHasGConfSize ()
 		{
-			if (!HasGConfSize())
+			if (!HasGConfSize ())
 			    	throw new InvalidOperationException ();		
 		}
 
-		// Private Methods :: Other		
+		
+		// Methods :: Private :: Assertions :: HasItems
+		private bool HasItems ()
+		{
+			return (items != null);
+		}
+
+		// Methods :: Private :: Assertions :: AssertHasItems
+		private void AssertHasItems ()
+		{
+			if (!HasItems ())
+				throw new InvalidOperationException ();
+		}
+
+
+		// Methods :: Private :: AddOnSizeAllocated
 		private void AddOnSizeAllocated ()
 		{
 			AssertHasGConfSize ();
@@ -166,28 +194,83 @@ namespace Muine
 			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
 		}
 
+		// Methods :: Private :: Search
+		private bool Search ()
+		{
+			AssertHasItems ();
+		
+			GLib.List l = new GLib.List (IntPtr.Zero, typeof (int));
+
+			int max_len = -1;
+
+			// Show max. FakeLength songs if < MinQueryLength chars are entered. 
+			// This is to fake speed.
+			if (entry.Text.Length < entry.MinQueryLength)
+				max_len = list.FakeLength;
+
+			lock (Global.DB) {
+				int i = 0;
+				if (entry.Text.Length > 0) {
+					foreach (Item item in items) {
+						if (!item.FitsCriteria (entry.SearchBits))
+							continue;
+
+						l.Append (item.Handle);
+					
+						i++;
+						if (max_len > 0 && i >= max_len)
+							break;
+					}
+				} else {
+					foreach (Item item in items) {
+						l.Append (item.Handle);
+					
+						i++;
+						if (max_len > 0 && i >= max_len)
+							break;
+					}
+				}
+			}
+
+			list.RemoveDelta (l);
+
+			foreach (int p in l) {
+				IntPtr ptr = new IntPtr (p);
+				list.Append (ptr);
+			}
+
+			list.SelectFirst ();
+
+			return false;
+		}
+
 		// Handlers
+		// Handlers :: OnWindowDeleteEvent
 		private void OnWindowDeleteEvent (object o, DeleteEventArgs args)
 		{
 			args.RetVal = true;
 		}
 
+		// Handlers :: OnRowActivated
 		private void OnRowActivated (IntPtr handle)
 		{
 			play_button.Click ();
 		}
 
+		// Handlers :: OnSelectionChanged
 		private void OnSelectionChanged ()
 		{
 			play_button.Sensitive  = list.HasSelection;
 			queue_button.Sensitive = list.HasSelection;
 		}
 		
+		// Handlers :: OnEntryKeyPressEvent
 		private void OnEntryKeyPressEvent (object o, KeyPressEventArgs args)
 		{
 			args.RetVal = list.ForwardKeyPress (entry, args.Event);
 		}
 
+		// Handlers :: OnSizeAllocated
 		private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 		{
 			if (!HasGConfSize ())
@@ -200,6 +283,7 @@ namespace Muine
 			Config.Set (gconf_key_height, height);
 		}
 
+		// Handlers :: OnWindowResponse
 		private void OnWindowResponse (object o, ResponseArgs args)
 		{
 			switch ((int) args.ResponseId) {
@@ -236,6 +320,7 @@ namespace Muine
 			}
 		}
 		
+		// Handlers :: OnEntryChanged
 		private void OnEntryChanged (object o, EventArgs args)
 		{
 			if (process_changes_immediately)
@@ -246,6 +331,33 @@ namespace Muine
 
 				search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
 			}
+		}
+		
+		// Delegate Functions
+		// Delegate Functions :: OnAdded
+		protected void OnAdded (Item item)
+		{
+			if (entry.Text.Length < entry.MinQueryLength &&
+			    list.Length >= list.FakeLength)
+				return;
+
+			list.HandleAdded (item.Handle, item.FitsCriteria (entry.SearchBits));
+		}
+
+		// Delegate Functions :: OnChanged
+		protected void OnChanged (Item item)
+		{
+			bool may_append = (entry.Text.Length >= entry.MinQueryLength ||
+			                   list.Length < list.FakeLength);
+			
+			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits),
+				may_append);
+		}
+
+		// Delegate Functions :: OnRemoved
+		protected void OnRemoved (Item item)
+		{
+			list.HandleRemoved (item.Handle);
 		}
 	}
 }

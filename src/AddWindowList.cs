@@ -23,16 +23,22 @@ namespace Muine
 {
 	public class AddWindowList : HandleView
 	{
+		// Constants
+		public const int FakeLength = 150;
+
+		// Constructor
 		public AddWindowList () : base ()
 		{
 			base.Selection.Mode = Gtk.SelectionMode.Multiple;
-
 		}
 		
+		// Properties
+		// Properties :: HasSelection (get;)
 		public bool HasSelection {
 			get { return (base.SelectedPointers.Count > 0); }
 		}
 		
+		// Properties :: DragSource (set;)
 		public Gtk.TargetEntry [] DragSource {
 			set {
 				base.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
@@ -40,33 +46,27 @@ namespace Muine
 			}
 		}
 
+		// Properties :: Selected (get;)
 		public GLib.List Selected {
 			get { return base.SelectedPointers; }
 		}
 
-		protected new void SelectFirst ()
-		{
-			base.ScrollToCell (new Gtk.TreePath ("0"), null, true, 0f, 0f);
-			base.SelectFirst ();
-		}
-
-		protected void SelectFirstIfNeeded ()
-		{
-			if (!this.HasSelection)
-				SelectFirst ();
-		}
-
+		// Methods
+		// Methods :: Public 
+		// Methods :: Public :: HandleAdded
 		public void HandleAdded (IntPtr ptr, bool fits)
 		{
 			if (fits)
 				base.Append (ptr);
 		}
 
+		// Methods :: Public :: HandleChanged
 		public void HandleChanged (IntPtr ptr, bool fits)
 		{
 			HandleChanged (ptr, fits, true);
 		}
 
+		// Methods :: Public :: HandleChanged
 		public void HandleChanged (IntPtr ptr, bool fits, bool may_append)
 		{
 			if (fits) {
@@ -80,12 +80,27 @@ namespace Muine
 
 			SelectFirstIfNeeded ();	
 		}
-			
+
+		// Methods :: Public :: HandleRemoved
 		public void HandleRemoved (IntPtr ptr)
 		{
 			base.Remove (ptr);
 			SelectFirstIfNeeded ();	
 		}
 
+		// Methods :: Private
+		// Methods :: Private :: SelectFirst
+		private new void SelectFirst ()
+		{
+			base.ScrollToCell (new Gtk.TreePath ("0"), null, true, 0f, 0f);
+			base.SelectFirst ();
+		}
+
+		// Methods :: Private :: SelectFirstIfNeeded
+		private void SelectFirstIfNeeded ()
+		{
+			if (!this.HasSelection)
+				SelectFirst ();
+		}
 	}
 }

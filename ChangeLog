@@ -1,3 +1,14 @@
+2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	
+	More unification of AddAlbumWindow and AddSongWindow.
+	As a side effect, searching albums now also fakes speed.
+
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Actions.cs:
