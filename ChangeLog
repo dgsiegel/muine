@@ -1,3 +1,9 @@
+2005-01-05  Peter Johanson  <latexer@gentoo.org>
+
+	* doc/Makefile.am:
+
+	Fix for fakeroot compiles.
+
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
 	R ClientLib/.cvsignore:

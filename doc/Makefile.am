@@ -2,9 +2,13 @@ if ENABLE_MONODOC
 TARGETS = muine-docs.zip muine-docs.tree muine-docs.source
 
 install-data-local:
-	install -m 644 $(srcdir)/muine-docs.source `monodoc --get-sourcesdir`
-	install -m 644 $(srcdir)/muine-docs.tree `monodoc --get-sourcesdir`
-	install -m 644 $(srcdir)/muine-docs.zip `monodoc --get-sourcesdir`
+	mkdir -p $(DESTDIR)/`monodoc --get-sourcesdir`
+	install -m 644 $(srcdir)/muine-docs.source \
+		$(DESTDIR)/`monodoc --get-sourcesdir`
+	install -m 644 $(srcdir)/muine-docs.tree \
+		$(DESTDIR)/`monodoc --get-sourcesdir`
+	install -m 644 $(srcdir)/muine-docs.zip \
+		$(DESTDIR)/`monodoc --get-sourcesdir`
 else
 TARGETS = 
 endif
