@@ -1,3 +1,12 @@
+2005-01-10  Jorn Baayen  <jbaayen@gnome.org>
+
+	* DBusLib/Makefile.am:
+	* PluginLib/Makefile.am:
+	* configure.in:
+
+	Bumped version number, added gacutil check, and a --disable-gac-install
+	configure option, to be used for RPMs and such.
+
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/PlaylistWindow.cs:
