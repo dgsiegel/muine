@@ -1,5 +1,6 @@
 2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
 	* configure.in:
 	* src/About.cs:
 

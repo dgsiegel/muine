@@ -1,3 +1,11 @@
+0.3.2
+=====
+
+- Added a repeat mode [Jorn Baayen]
+- Use Gnome proxy settings [Jorn Baayen]
+- Use Gnome stock icon system whenever possible [Jorn Baayen]
+- Various fixes [Jorn Baayen, Lee Willis]
+
 0.3.1.1
 =======
 
