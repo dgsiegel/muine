@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-17 19:32+0100\n"
-"PO-Revision-Date: 2004-12-18 00:46+0100\n"
+"POT-Creation-Date: 2005-01-09 11:19+0100\n"
+"PO-Revision-Date: 2005-01-09 15:23+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2
+#: data/glade/AddWindow.glade.h:2 src/PlaylistWindow.cs:132
 msgid "_Play"
 msgstr "_Afspelen"
 
@@ -80,18 +80,18 @@ msgstr "Een _lege muziekverzameling aanmaken"
 msgid "_Nothing, I will manage my music myself"
 msgstr "_Niets, ik zal zelf mijn muziek beheren"
 
-#: data/glade/PlaylistWindow.glade.h:1 src/AddAlbumWindow.cs:64
+# Afspelen?
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Play"
+msgstr "Afspelen"
+
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "_Album afspelen"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddSongWindow.cs:59
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
 msgid "Play Song"
 msgstr "_Nummer afspelen"
-
-# afspelende/afspelen/spelend
-#: data/glade/PlaylistWindow.glade.h:3
-msgid "Playing"
-msgstr "Spelende"
 
 # Bezig met laden:
 # Nu aan het laden:
@@ -111,7 +111,7 @@ msgstr "Vraag"
 msgid "Listen to your music"
 msgstr "Naar uw muziek luisteren"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:834
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:67
 msgid "Muine Music Player"
 msgstr "Muine muziekspeler"
 
@@ -240,12 +240,12 @@ msgstr "Breedte van het speellijstvenster."
 msgid "false if Muine has been started before."
 msgstr "onwaar indien Muine al eerder is gestart."
 
-#: libmuine/player-gst.c:154
+#: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
 msgstr "Aanmaken Gstreamer play-object aanmaken is mislukt"
 
 # render - gebruiken?
-#: libmuine/player-gst.c:161
+#: libmuine/player-gst.c:164
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Kon de standaard GStreamer audiouitvoer niet gebruiken"
 
@@ -277,63 +277,64 @@ msgstr "Interne fout"
 msgid "Could not play \"%s\""
 msgstr "Kon \"%s\" niet afspelen"
 
-#: src/About.cs:38
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
-
-#: src/About.cs:39
-msgid "Lee Willis <lee@leewillis.co.uk>"
-msgstr "Lee Willis <lee@leewillis.co.uk>"
-
-#: src/About.cs:40
-msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
-msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
-
-#: src/About.cs:42
-msgid "Album covers are provided by amazon.com."
-msgstr "Albumhoezen geleverd door amazon.com."
-
-#: src/About.cs:52
+#: src/About.cs:33
 msgid "translator-credits"
 msgstr ""
-"Tino Meinen <a.t.meinen@chello.nl>\n"
-"Daniel van Eeden"
+"Tino Meinen\n"
+"Daniel van Eeden\n"
+"zie ook nl.gnome.org"
 
-#: src/About.cs:57
+#: src/About.cs:35
 msgid "Muine"
 msgstr "Muine"
 
-#: src/About.cs:58
-msgid "Copyright © 2003, 2004 Jorn Baayen"
-msgstr "Copyright © 2003, 2004 Jorn Baayen"
+#: src/About.cs:37
+msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
 
-#: src/About.cs:59
+#: src/About.cs:39
 msgid "A music player"
 msgstr "Een muziekspeler"
 
-#: src/AddAlbumWindow.cs:177 src/PlaylistWindow.cs:794
+#: src/About.cs:42
+msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
+
+#: src/About.cs:43
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
+
+#: src/About.cs:44
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+
+#: src/About.cs:45
+msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
+
+#: src/About.cs:47
+msgid "Album covers are provided by amazon.com."
+msgstr "Albumhoezen geleverd door amazon.com."
+
+#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:65
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Uitgevoerd door {0}"
 
-#. Space-separated list of prefixes that will be taken off the front
-#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. * if "the" is included in this list. Also include the English "the"
-#. * if English is generally spoken in your country.
-#: src/Album.cs:83
+#: src/Album.cs:33
 msgid "the dj"
 msgstr "the dj de"
 
-#: src/ErrorDialog.cs:37
+#: src/ErrorDialog.cs:33
 msgid "An error occurred:"
 msgstr "Er was een fout:"
 
-#: src/Metadata.cs:167
+#: src/Global.cs:37
 #, csharp-format
-msgid "Failed to load metadata: {0}"
-msgstr "Kon metadata: {0} niet laden"
+msgid "Failed to export D-Bus object: {0}"
+msgstr "Kon D-Bus object niet exporteren: {0}"
 
-#: src/Muine.cs:94
+#: src/Global.cs:39
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
@@ -344,7 +345,7 @@ msgstr ""
 "\n"
 "Bezig met afsluiten..."
 
-#: src/Muine.cs:103
+#: src/Global.cs:41
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
@@ -355,11 +356,21 @@ msgstr ""
 "\n"
 "Bezig met afsluiten..."
 
-#: src/NotificationAreaIcon.cs:48
+#: src/Metadata.cs:32
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr "Kon metadata: {0} niet laden"
+
+#: src/NotificationAreaIcon.cs:36
 msgid "Muine music player"
 msgstr "Muine muziekspeler"
 
-#: src/Player.cs:240
+#: src/NotificationAreaIcon.cs:39
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#: src/Player.cs:31
 #, csharp-format
 msgid ""
 "Audio backend error:\n"
@@ -368,241 +379,41 @@ msgstr ""
 "Audiobackend fout:\n"
 "{0}"
 
-#: src/PlaylistWindow.cs:177
-msgid "_File"
-msgstr "_Bestand"
+#: src/PlaylistWindow.cs:53
+msgid "Playlist.m3u"
+msgstr "Speellijst.m3u"
 
-#: src/PlaylistWindow.cs:179
-msgid "_Song"
-msgstr "_Nummer"
-
-#: src/PlaylistWindow.cs:181
-msgid "_Playlist"
-msgstr "_Speellijst"
-
-#: src/PlaylistWindow.cs:183
-msgid "_Help"
-msgstr "_Hulp"
-
-#: src/PlaylistWindow.cs:185
-msgid "_Import Folder..."
-msgstr "Map _importeren..."
-
-#: src/PlaylistWindow.cs:188
-msgid "_Open Playlist..."
-msgstr "Speellijst _openen..."
-
-#: src/PlaylistWindow.cs:191
-msgid "_Save Playlist As..."
-msgstr "Speellijst opslaan _als..."
-
-#: src/PlaylistWindow.cs:194
-msgid "_Hide Window"
-msgstr "Venster _verbergen"
-
-#: src/PlaylistWindow.cs:200
-msgid "_Previous"
-msgstr "V_orige"
-
-#: src/PlaylistWindow.cs:203
-msgid "_Next"
-msgstr "_Volgende"
-
-#: src/PlaylistWindow.cs:206
-msgid "_Skip to..."
-msgstr "_Vooruit naar..."
-
-#: src/PlaylistWindow.cs:209
-msgid "Skip _Backwards"
-msgstr "_Terug"
-
-#: src/PlaylistWindow.cs:213
-msgid "Skip _Forward"
-msgstr "_Vooruit"
-
-#: src/PlaylistWindow.cs:215
-msgid "Play _Song..."
-msgstr "_Nummer afspelen..."
-
-#: src/PlaylistWindow.cs:218
-msgid "Play _Album..."
-msgstr "_Album afspelen..."
-
-#: src/PlaylistWindow.cs:221
-msgid "_Remove Song"
-msgstr "Nummer ver_wijderen"
-
-#: src/PlaylistWindow.cs:224
-msgid "Remove _Played Songs"
-msgstr "_Afgespeelde nummers verwijderen"
-
-#: src/PlaylistWindow.cs:227
-msgid "_Clear"
-msgstr "_Wissen"
-
-#: src/PlaylistWindow.cs:230
-msgid "Shu_ffle"
-msgstr "_Door elkaar"
-
-#: src/PlaylistWindow.cs:233
-msgid "_About"
-msgstr "I_nfo"
-
-#: src/PlaylistWindow.cs:242
-msgid "_Playing"
-msgstr "_Spelende"
-
-#: src/PlaylistWindow.cs:245
-msgid "R_epeat"
-msgstr "_Herhalen"
-
-#: src/PlaylistWindow.cs:474
-msgid "Hide _Window"
-msgstr "_Venster verbergen"
-
-#: src/PlaylistWindow.cs:476
-msgid "Show _Window"
-msgstr "_Venster tonen"
-
-# was eerst: afspelen pauzeren. Misschien is dit wel duidelijker
-#: src/PlaylistWindow.cs:497
-msgid "Toggle music playback"
-msgstr "Afspelen schakelen"
-
-#: src/PlaylistWindow.cs:499
-msgid "Play the previous song"
-msgstr "Het vorige nummer afspelen"
-
-#: src/PlaylistWindow.cs:501
-msgid "Play the next song"
-msgstr "Het volgende nummer afspelen"
-
-#: src/PlaylistWindow.cs:503
-msgid "Add an album to the playlist"
-msgstr "Album toevoegen aan de speellijst"
-
-#: src/PlaylistWindow.cs:505
-msgid "Add a song to the playlist"
-msgstr "Nummer toevoegen aan de speellijst"
-
-#: src/PlaylistWindow.cs:513
-msgid "Change the volume level"
-msgstr "Geluidsvolume aanpassen"
-
-#: src/PlaylistWindow.cs:567 src/PlaylistWindow.cs:694
-#: src/PlaylistWindow.cs:718 src/PlaylistWindow.cs:732
+#: src/PlaylistWindow.cs:55
 msgid "Playlist"
 msgstr "Speellijst"
 
-#: src/PlaylistWindow.cs:603
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Initialiseren van de audio-backend is mislukt:\n"
-"{0}\n"
-"\n"
-"Bezig met afsluiten..."
-
-# meervoud van uur is hier uur en niet uren
-#: src/PlaylistWindow.cs:711
-#, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] "Speellijst (gedurende {0} uur herhalen)"
-msgstr[1] "Speellijst (gedurende {0} uur herhalen)"
-
-#: src/PlaylistWindow.cs:714
-#, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] "Speellijst (gedurende {0} minuut herhalen)"
-msgstr[1] "Speellijst (gedurende {0} minuten herhalen)"
-
-#: src/PlaylistWindow.cs:716
+#: src/PlaylistWindow.cs:57
 msgid "Playlist (Repeating)"
 msgstr "Speellijst (herhalen)"
 
-#: src/PlaylistWindow.cs:725
-#, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] "Speellijst ({0} uur resterend)"
-msgstr[1] "Speellijst ({0} uur resterend)"
-
-#: src/PlaylistWindow.cs:728
-#, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "Speellijst ({0} minuut resterend)"
-msgstr[1] "Speellijst ({0} minuten resterend)"
-
-#: src/PlaylistWindow.cs:730
+#: src/PlaylistWindow.cs:59
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Speellijst (minder dan 1 minuut resterend)"
 
 # uit ipv van?
-#: src/PlaylistWindow.cs:790
+#: src/PlaylistWindow.cs:61
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Van \"{0}\""
 
-#: src/PlaylistWindow.cs:792
+#: src/PlaylistWindow.cs:63
 msgid "Album unknown"
 msgstr "Onbekend album"
 
-#: src/PlaylistWindow.cs:797
-msgid "Drop an image here to use it as album cover"
-msgstr "Sleep een afbeelding hiernaartoe om het als hoes te gebruiken"
-
-#: src/PlaylistWindow.cs:816
-#, csharp-format
-msgid "{0} - Muine Music Player"
-msgstr "{0} - Muine muziekspeler"
-
-#: src/PlaylistWindow.cs:921
-#, csharp-format
-msgid "Failed to open {0} for reading"
-msgstr "Openen van {0} voor lezen is mislukt"
-
-#: src/PlaylistWindow.cs:994 src/PlaylistWindow.cs:1045
-#, csharp-format
-msgid "Failed to close {0}"
-msgstr "Kon {0} niet sluiten"
-
-#: src/PlaylistWindow.cs:1012
-#, csharp-format
-msgid "Failed to open {0} for writing"
-msgstr "Openen van {0} voor schrijven is mislukt"
-
-#: src/PlaylistWindow.cs:1470
-msgid "Import Folder"
-msgstr "Map importeren"
-
-#: src/PlaylistWindow.cs:1474
-msgid "_Import"
-msgstr "_Importeren"
-
-#: src/PlaylistWindow.cs:1519
-msgid "Open Playlist"
-msgstr "Speellijst openen"
-
-#: src/PlaylistWindow.cs:1524
+#: src/PlaylistWindow.cs:69
 msgid "Playlist files"
 msgstr "Speellijstbestanden"
 
-#: src/PlaylistWindow.cs:1540
-msgid "Save Playlist"
-msgstr "Speellijst opslaan"
-
-#: src/PlaylistWindow.cs:1543
+#: src/PlaylistWindow.cs:71
 msgid "Untitled"
 msgstr "Zonder titel"
 
-#: src/PlaylistWindow.cs:1555
+#: src/PlaylistWindow.cs:73
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
@@ -615,24 +426,237 @@ msgstr ""
 "\n"
 "Wilt u doorgaan?"
 
-#: src/ProgressWindow.cs:43
+#: src/PlaylistWindow.cs:78
+#, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Muine muziekspeler"
+
+#: src/PlaylistWindow.cs:80
+msgid "Import Folder"
+msgstr "Map importeren"
+
+#: src/PlaylistWindow.cs:82
+msgid "Open Playlist"
+msgstr "Speellijst openen"
+
+#: src/PlaylistWindow.cs:84
+msgid "Save Playlist"
+msgstr "Speellijst opslaan"
+
+#: src/PlaylistWindow.cs:87
+msgid "_Import"
+msgstr "_Importeren"
+
+#: src/PlaylistWindow.cs:90
+msgid "Hide _Window"
+msgstr "_Venster verbergen"
+
+#: src/PlaylistWindow.cs:92
+msgid "Show _Window"
+msgstr "_Venster tonen"
+
+#: src/PlaylistWindow.cs:94
+msgid "_File"
+msgstr "_Bestand"
+
+#: src/PlaylistWindow.cs:96
+msgid "_Song"
+msgstr "_Nummer"
+
+#: src/PlaylistWindow.cs:98
+msgid "_Playlist"
+msgstr "_Speellijst"
+
+#: src/PlaylistWindow.cs:100
+msgid "_Help"
+msgstr "_Hulp"
+
+#: src/PlaylistWindow.cs:102
+msgid "_Import Folder..."
+msgstr "Map _importeren..."
+
+#: src/PlaylistWindow.cs:104
+msgid "_Open Playlist..."
+msgstr "Speellijst _openen..."
+
+#: src/PlaylistWindow.cs:106
+msgid "_Save Playlist As..."
+msgstr "Speellijst opslaan _als..."
+
+#: src/PlaylistWindow.cs:108
+msgid "_Previous"
+msgstr "V_orige"
+
+#: src/PlaylistWindow.cs:110
+msgid "_Next"
+msgstr "_Volgende"
+
+#: src/PlaylistWindow.cs:112
+msgid "_Skip to..."
+msgstr "_Vooruit naar..."
+
+#: src/PlaylistWindow.cs:114
+msgid "Skip _Backwards"
+msgstr "_Terug"
+
+#: src/PlaylistWindow.cs:116
+msgid "Skip _Forward"
+msgstr "_Vooruit"
+
+#: src/PlaylistWindow.cs:118
+msgid "Play _Song..."
+msgstr "_Nummer afspelen..."
+
+#: src/PlaylistWindow.cs:120
+msgid "Play _Album..."
+msgstr "_Album afspelen..."
+
+#: src/PlaylistWindow.cs:122
+msgid "_Remove Song"
+msgstr "Nummer ver_wijderen"
+
+#: src/PlaylistWindow.cs:124
+msgid "Remove _Played Songs"
+msgstr "_Afgespeelde nummers verwijderen"
+
+#: src/PlaylistWindow.cs:126
+msgid "_Clear"
+msgstr "_Wissen"
+
+#: src/PlaylistWindow.cs:128
+msgid "Shu_ffle"
+msgstr "_Door elkaar"
+
+#: src/PlaylistWindow.cs:130
+msgid "_About"
+msgstr "I_nfo"
+
+#: src/PlaylistWindow.cs:134
+msgid "R_epeat"
+msgstr "_Herhalen"
+
+#: src/PlaylistWindow.cs:137
+msgid "Switch music playback on or off"
+msgstr "Afspelen aan- of afzetten"
+
+#: src/PlaylistWindow.cs:139
+msgid "Play the previous song"
+msgstr "Het vorige nummer afspelen"
+
+#: src/PlaylistWindow.cs:141
+msgid "Play the next song"
+msgstr "Het volgende nummer afspelen"
+
+#: src/PlaylistWindow.cs:143
+msgid "Add an album to the playlist"
+msgstr "Album toevoegen aan de speellijst"
+
+#: src/PlaylistWindow.cs:145
+msgid "Add a song to the playlist"
+msgstr "Nummer toevoegen aan de speellijst"
+
+#: src/PlaylistWindow.cs:147
+msgid "Change the volume level"
+msgstr "Geluidsvolume aanpassen"
+
+#: src/PlaylistWindow.cs:149
+msgid "Drop an image here to use it as album cover"
+msgstr "Sleep een afbeelding hiernaartoe om het als hoes te gebruiken"
+
+#: src/PlaylistWindow.cs:152
+#, csharp-format
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Initialiseren van de audio-backend is mislukt:\n"
+"{0}\n"
+"\n"
+"Bezig met afsluiten..."
+
+#: src/PlaylistWindow.cs:154
+#, csharp-format
+msgid "Failed to open {0} for reading"
+msgstr "Openen van {0} voor lezen is mislukt"
+
+#: src/PlaylistWindow.cs:156
+#, csharp-format
+msgid "Failed to close {0}"
+msgstr "Kon {0} niet sluiten"
+
+#: src/PlaylistWindow.cs:158
+#, csharp-format
+msgid "Failed to open {0} for writing"
+msgstr "Openen van {0} voor schrijven is mislukt"
+
+# meervoud van uur is hier uur en niet uren
+#: src/PlaylistWindow.cs:851
+#, csharp-format
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Speellijst (gedurende {0} uur herhalen)"
+msgstr[1] "Speellijst (gedurende {0} uur herhalen)"
+
+#: src/PlaylistWindow.cs:854
+#, csharp-format
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Speellijst (gedurende {0} minuut herhalen)"
+msgstr[1] "Speellijst (gedurende {0} minuten herhalen)"
+
+#: src/PlaylistWindow.cs:865
+#, csharp-format
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Speellijst ({0} uur resterend)"
+msgstr[1] "Speellijst ({0} uur resterend)"
+
+#: src/PlaylistWindow.cs:868
+#, csharp-format
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Speellijst ({0} minuut resterend)"
+msgstr[1] "Speellijst ({0} minuten resterend)"
+
+#: src/PluginManager.cs:34
+#, csharp-format
+msgid "Error loading plug-in {0}: {1}"
+msgstr "Fout bij laden van plug-in {0}: {1}"
+
+#: src/ProgressWindow.cs:33
 #, csharp-format
 msgid "Importing {0}..."
 msgstr "Importeren {0}..."
 
-#: src/StringUtils.cs:45
+#: src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: src/StringUtils.cs:49
+#: src/StringUtils.cs:33
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} en anderen"
 
-#: src/StringUtils.cs:51
+#: src/StringUtils.cs:35
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} en {1}"
+
+# afspelende/afspelen/spelend
+#~ msgid "Playing"
+#~ msgstr "Spelende"
+
+#~ msgid "_Hide Window"
+#~ msgstr "Venster _verbergen"
+
+#~ msgid "_Playing"
+#~ msgstr "_Spelende"
+
+# was eerst: afspelen pauzeren. Misschien is dit wel duidelijker
+#~ msgid "Toggle music playback"
+#~ msgstr "Afspelen schakelen"
 
 #~ msgid "P_roperties"
 #~ msgstr "_Eigenschappen"
@@ -652,25 +676,11 @@ msgstr "{0} en {1}"
 #~ msgid "_Next Song"
 #~ msgstr "_Volgende nummer"
 
-#~ msgid ""
-#~ "Error opening {0}:\n"
-#~ "{1}"
-#~ msgstr ""
-#~ "Fout bij openen van {0}:\n"
-#~ "{1}"
-
 #~ msgid "P_ause"
 #~ msgstr "P_auzeren"
 
 #~ msgid "Resume music playback"
 #~ msgstr "Afspelen hervatten"
-
-# Afspelen?
-#~ msgid "Pl_ay"
-#~ msgstr "_Afspelen"
-
-#~ msgid "Start music playback"
-#~ msgstr "Afspelen starten"
 
 #~ msgid "Failed to set up an audio driver"
 #~ msgstr "Instellen van geluidsstuurprogramma mislukt"
