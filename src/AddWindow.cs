@@ -362,8 +362,8 @@ namespace Muine
 			}
 		}
 		
-		// Delegate Functions
-		// Delegate Functions :: OnAdded
+		// Handlers :: OnAdded
+		// 	UNUSED: Requires Mono 1.1+
 		protected void OnAdded (Item item)
 		{
 			if (enable_speed_hacks &&
@@ -374,7 +374,8 @@ namespace Muine
 			list.HandleAdded (item.Handle, item.FitsCriteria (entry.SearchBits));
 		}
 
-		// Delegate Functions :: OnChanged
+		// Handlers :: OnChanged
+		// 	UNUSED: Requires Mono 1.1+
 		protected void OnChanged (Item item)
 		{
 			bool may_append = (enable_speed_hacks &&
@@ -385,7 +386,8 @@ namespace Muine
 				may_append);
 		}
 
-		// Delegate Functions :: OnRemoved
+		// Handlers :: OnRemoved
+		// 	UNUSED: Requires Mono 1.1+
 		protected void OnRemoved (Item item)
 		{
 			list.HandleRemoved (item.Handle);

@@ -86,9 +86,14 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
-			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
-			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
+			// Requires Mono 1.1+:
+			// Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
+			// Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
+			// Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
+
+			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (OnAdded  );
+			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnChanged);
+			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnRemoved);
 
 			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
@@ -177,6 +182,39 @@ namespace Muine
 			default:
 				break;	
 			}
+		}
+
+		// Handlers :: OnAdded
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnAdded (Album album)
+		{
+			if (base.EnableSpeedHacks &&
+			    base.Entry.Text.Length < base.Entry.MinQueryLength &&
+			    base.List.Length >= base.List.FakeLength)
+				return;
+
+			base.List.HandleAdded (album.Handle, 
+					       album.FitsCriteria (base.Entry.SearchBits));
+		}
+
+		// Handlers :: OnChanged
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnChanged (Album album)
+		{
+			bool may_append = (base.EnableSpeedHacks &&
+					    (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
+			                     base.List.Length < base.List.FakeLength));
+			
+			base.List.HandleChanged (album.Handle, 
+						 album.FitsCriteria (base.Entry.SearchBits),
+						 may_append);
+		}
+
+		// Handlers :: OnRemoved
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnRemoved (Album album)
+		{
+			base.List.HandleRemoved (album.Handle);
 		}
 
 		// Delegate Functions		

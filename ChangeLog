@@ -1,3 +1,12 @@
+2005-01-13  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	
+	Moved OnAdded, OnChanged, and OnRemoved from AddWindow into 
+	AddAlbumWindow and AddSongWindow to please Mono 1.0.
+
 2005-01-11  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/player-xine.c: (signal_idle), (player_construct),

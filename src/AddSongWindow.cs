@@ -76,9 +76,14 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
-			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
-			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
+			// Requires Mono 1.1+:
+			// Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
+			// Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
+			// Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
+
+			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnAdded  );
+			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnChanged);
+			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnRemoved);
 
 			lock (Global.DB) {
 				int i = 0;
@@ -129,6 +134,39 @@ namespace Muine
 			default:
 				break;	
 			}
+		}
+
+		// Handlers :: OnAdded
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnAdded (Song Song)
+		{
+			if (base.EnableSpeedHacks &&
+			    base.Entry.Text.Length < base.Entry.MinQueryLength &&
+			    base.List.Length >= base.List.FakeLength)
+				return;
+
+			base.List.HandleAdded (Song.Handle, 
+					       Song.FitsCriteria (base.Entry.SearchBits));
+		}
+
+		// Handlers :: OnSongChanged
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnChanged (Song Song)
+		{
+			bool may_append = (base.EnableSpeedHacks &&
+					    (base.Entry.Text.Length >= base.Entry.MinQueryLength ||
+			                     base.List.Length < base.List.FakeLength));
+			
+			base.List.HandleChanged (Song.Handle, 
+						 Song.FitsCriteria (base.Entry.SearchBits),
+						 may_append);
+		}
+
+		// Handlers :: OnSongRemoved
+		// 	Remove if we depend on Mono 1.1+
+		protected void OnRemoved (Song Song)
+		{
+			base.List.HandleRemoved (Song.Handle);
 		}
 
 		// Delegate Functions
