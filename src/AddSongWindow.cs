@@ -184,20 +184,6 @@ public class AddSongWindow : Window
 		Reset ();
 	}
 
-	private bool FitsCriteria (Song s, string [] search_bits)
-	{
-		int n_matches = 0;
-			
-		foreach (string search_bit in search_bits) {
-			if (s.SearchKey.IndexOf (search_bit) >= 0) {
-				n_matches++;
-				continue;
-			}
-		}
-
-		return (n_matches == search_bits.Length);
-	}
-
 	private bool Search ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
@@ -213,7 +199,7 @@ public class AddSongWindow : Window
 			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
 			foreach (Song s in Muine.DB.Songs.Values) {
-				if (FitsCriteria (s, search_bits)) {
+				if (s.FitsCriteria (search_bits)) {
 					l.Append (s.Handle);
 				
 					i++;
@@ -296,7 +282,7 @@ public class AddSongWindow : Window
 			return;
 
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (song, search_bits))
+		if (song.FitsCriteria (search_bits))
 			view.Append (song.Handle);
 	}
 
@@ -310,7 +296,7 @@ public class AddSongWindow : Window
 	private void HandleSongChanged (Song song)
 	{
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (song, search_bits)) {
+		if (song.FitsCriteria (search_bits)) {
 			if (view.Contains (song.Handle))
 				view.Changed (song.Handle);
 			else

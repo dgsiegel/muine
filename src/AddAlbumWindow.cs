@@ -223,20 +223,6 @@ public class AddAlbumWindow : Window
 		Reset ();
 	}
 
-	private bool FitsCriteria (Album a, string [] search_bits)
-	{
-		int n_matches = 0;
-			
-		foreach (string search_bit in search_bits) {
-			if (a.SearchKey.IndexOf (search_bit) >= 0) {
-				n_matches++;
-				continue;
-			}
-		}
-
-		return (n_matches == search_bits.Length);
-	}
-
 	private bool Search ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
@@ -245,7 +231,7 @@ public class AddAlbumWindow : Window
 			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
 			foreach (Album a in Muine.DB.Albums.Values) {
-				if (FitsCriteria (a, search_bits))
+				if (a.FitsCriteria (search_bits))
 					l.Append (a.Handle);
 			}
 		} else {
@@ -315,7 +301,7 @@ public class AddAlbumWindow : Window
 	private void HandleAlbumAdded (Album album)
 	{
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (album, search_bits))
+		if (album.FitsCriteria (search_bits))
 			view.Append (album.Handle);
 	}
 
@@ -329,7 +315,7 @@ public class AddAlbumWindow : Window
 	private void HandleAlbumChanged (Album album)
 	{
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (FitsCriteria (album, search_bits)) {
+		if (album.FitsCriteria (search_bits)) {
 			if (view.Contains (album.Handle))
 				view.Changed (album.Handle);
 			else

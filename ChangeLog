@@ -1,3 +1,12 @@
+2004-06-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/Song.cs:
+
+	Make FitsCriteria a method of Song and Album.
+
 2004-06-18  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
