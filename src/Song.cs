@@ -244,7 +244,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Deregister
-		public void Deregister ()
+		public override void Deregister ()
 		{
 			dead = true;
 

@@ -72,6 +72,7 @@ namespace Muine
 		// Methods :: Abstract
 		protected abstract SortKey GenerateSortKey ();
 		protected abstract string GenerateSearchKey ();
+		public abstract void Deregister ();
 
 		// Methods :: Public		
 		// Methods :: Public :: CompareTo (IComparable)

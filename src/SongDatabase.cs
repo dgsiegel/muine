@@ -629,6 +629,7 @@ namespace Muine
 				
 				if (rq.RemovedAlbum != null) {
 					EmitAlbumRemoved (rq.RemovedAlbum);
+					rq.RemovedAlbum.Deregister ();
 				}
 
 				if (rq.AddChangedAlbum != null) {

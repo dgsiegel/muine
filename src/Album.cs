@@ -250,12 +250,8 @@ namespace Muine
 					changed = true;
 
 				empty = (n_tracks == 0);
-				if (empty) {
-					pointers.Remove (base.handle);
-
-					if (!FileUtils.IsFromRemovableMedia (folder))
-						Global.CoverDB.RemoveCover (Key);
-				}
+				if (empty && !FileUtils.IsFromRemovableMedia (folder))
+					Global.CoverDB.RemoveCover (Key);
 			}
 		}
 
@@ -270,6 +266,12 @@ namespace Muine
 		{
 			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
 					new CoverGetter.GotCoverDelegate (OnGotCover));
+		}
+
+		// Methods :: Public :: Deregister
+		public override void Deregister ()
+		{
+			pointers.Remove (base.handle);
 		}
 
 		// Methods :: Protected

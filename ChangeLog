@@ -1,5 +1,21 @@
 2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Item.cs:
+	* src/Song.cs:
+
+	Make Deregister an abstract method of Item.
+	
+	* src/Album.cs:
+
+	Implement Deregister.
+	
+	* src/SongDatabase.cs:
+
+	Call Album.Deregister from the main loop. Fixes rare crash with
+	album removals and UI activity at the same time.
+
+2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	When syncing a song, make sure the call to StartRemoveFromAlbum
