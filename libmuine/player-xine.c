@@ -22,10 +22,13 @@
 #include <string.h>
 #include <math.h>
 #include <xine.h>
-#include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 
 #include "player.h"
+
+/* currently not looking at the error messages anyway .. */
+#define _(x) x
+#define N_(x) x
 
 static void     player_class_init (PlayerClass  *klass);
 static void     player_init       (Player       *player);
