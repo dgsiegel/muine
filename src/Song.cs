@@ -22,7 +22,6 @@ using System.Collections;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Runtime.InteropServices;
 
 using Gdk;
 
@@ -446,56 +445,34 @@ public class Song
 		handles.Add (cur_ptr);
 	}
 
-	[DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_string (IntPtr p, out IntPtr str_ptr);
-        [DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_int (IntPtr p, out int i);
-        [DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
-        [DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_double (IntPtr p, out double d);
-
-	private IntPtr UnpackString (IntPtr p, out string str)
-	{
-		IntPtr ret, str_ptr;
-
-		ret = db_unpack_string (p, out str_ptr);
-		str = GLib.Marshaller.PtrToStringGFree (str_ptr);
-
-		return ret;
-	}
-
-	public Song (string fn,
-	             IntPtr data)
+	public Song (string fn, IntPtr data)
 	{
 		IntPtr p = data;
 		int len;
 
 		filename = fn;
 
-		p = UnpackString (p, out title);
+		p = DatabaseUtils.UnpackString (p, out title);
 
-		p = db_unpack_int (p, out len);
+		p = DatabaseUtils.UnpackInt (p, out len);
 		artists = new string [len];
-		for (int i = 0; i < len; i++) {
-			p = UnpackString (p, out artists [i]);
-		}
+		for (int i = 0; i < len; i++)
+			p = DatabaseUtils.UnpackString (p, out artists [i]);
 
-		p = db_unpack_int (p, out len);
+		p = DatabaseUtils.UnpackInt (p, out len);
 		performers = new string [len];
-		for (int i = 0; i < len; i++) {
-			p = UnpackString (p, out performers [i]);
-		}
+		for (int i = 0; i < len; i++)
+			p = DatabaseUtils.UnpackString (p, out performers [i]);
 
-		p = UnpackString (p, out album);
-		p = db_unpack_int (p, out track_number);
-		p = db_unpack_int (p, out disc_number);
-		p = UnpackString (p, out year);
-		p = db_unpack_int (p, out duration);
-		p = db_unpack_int (p, out mtime);
-		p = db_unpack_bool (p, out checked_cover_image);
-		p = db_unpack_double (p, out gain);
-		p = db_unpack_double (p, out peak);
+		p = DatabaseUtils.UnpackString (p, out album);
+		p = DatabaseUtils.UnpackInt (p, out track_number);
+		p = DatabaseUtils.UnpackInt (p, out disc_number);
+		p = DatabaseUtils.UnpackString (p, out year);
+		p = DatabaseUtils.UnpackInt (p, out duration);
+		p = DatabaseUtils.UnpackInt (p, out mtime);
+		p = DatabaseUtils.UnpackBool (p, out checked_cover_image);
+		p = DatabaseUtils.UnpackDouble (p, out gain);
+		p = DatabaseUtils.UnpackDouble (p, out peak);
 
 		/* cover image is added later, when the covers are being loaded */
 
@@ -510,48 +487,33 @@ public class Song
 			GetCoverImage (null);
 	}
 
-	[DllImport ("libmuine")]
-	private static extern IntPtr db_pack_start ();
-	[DllImport ("libmuine")]
-	private static extern void db_pack_string (IntPtr p, string str);
-	[DllImport ("libmuine")]
-	private static extern void db_pack_int (IntPtr p, int i);
-	[DllImport ("libmuine")]
-	private static extern void db_pack_bool (IntPtr p, bool b);
-	[DllImport ("libmuine")]
-	private static extern void db_pack_double (IntPtr p, double d);
-	[DllImport ("libmuine")]
-	private static extern IntPtr db_pack_end (IntPtr p, out int length);
-
 	public IntPtr Pack (out int length)
 	{
 		IntPtr p;
+		
+		p = DatabaseUtils.PackStart ();
 
-		p = db_pack_start ();
+		DatabaseUtils.PackString (p, title);
+
+		DatabaseUtils.PackInt (p, artists.Length);
+		foreach (string artist in artists)
+			DatabaseUtils.PackString (p, artist);
+
+		DatabaseUtils.PackInt (p, performers.Length);
+		foreach (string performer in performers)
+			DatabaseUtils.PackString (p, performer);
 		
-		db_pack_string (p, title);
-		
-		db_pack_int (p, artists.Length);
-		foreach (string artist in artists) {
-			db_pack_string (p, artist);
-		}
-		
-		db_pack_int (p, performers.Length);
-		foreach (string performer in performers) {
-			db_pack_string (p, performer);
-		}
-		
-		db_pack_string (p, album);
-		db_pack_int (p, track_number);
-		db_pack_int (p, disc_number);
-		db_pack_string (p, year);
-		db_pack_int (p, duration);
-		db_pack_int (p, mtime);
-		db_pack_bool (p, checked_cover_image);
-		db_pack_double (p, gain);
-		db_pack_double (p, peak);
-		
-		return db_pack_end (p, out length);
+		DatabaseUtils.PackString (p, album);
+		DatabaseUtils.PackInt (p, track_number);
+		DatabaseUtils.PackInt (p, disc_number);
+		DatabaseUtils.PackString (p, year);
+		DatabaseUtils.PackInt (p, duration);
+		DatabaseUtils.PackInt (p, mtime);
+		DatabaseUtils.PackBool (p, checked_cover_image);
+		DatabaseUtils.PackDouble (p, gain);
+		DatabaseUtils.PackDouble (p, peak);
+
+		return DatabaseUtils.PackEnd (p, out length);
 	}
 
 	public static Song FromHandle (IntPtr handle)

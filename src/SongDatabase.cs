@@ -20,7 +20,6 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 using Gnome;
@@ -62,10 +61,6 @@ public class SongDatabase
 	/*** constructor ***/
 	private IntPtr dbf;
 
-	[DllImport ("libmuine")]
-	private static extern IntPtr db_open (string filename, int version,
-					      out IntPtr error);
-
 	public SongDatabase (int version)
 	{
 		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
@@ -79,12 +74,7 @@ public class SongDatabase
 		
 		string filename = dinfo.FullName + "/songs.db";
 
-		IntPtr error_ptr;
-
-		dbf = db_open (filename, version, out error_ptr);
-
-		if (dbf == IntPtr.Zero)
-			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
+		dbf = DatabaseUtils.Open (filename, version);
 
 		songs = new Hashtable ();
 		albums = new Hashtable ();
@@ -102,13 +92,9 @@ public class SongDatabase
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 
-	[DllImport ("libmuine")]
-	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
-					       IntPtr user_data);
-
 	public void Load ()
 	{
-		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+		DatabaseUtils.Foreach (dbf, new DatabaseUtils.DecodeFuncDelegate (DecodeFunc));
 
 		/* add file monitors */
 		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
@@ -127,15 +113,11 @@ public class SongDatabase
 
 	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
 
-	[DllImport ("libmuine")]
-	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
-					     EncodeFuncDelegate encode_func,
-					     IntPtr user_data);
-
 	public void AddSong (Song song)
 	{
-		db_store (dbf, song.Filename, false,
-		          new EncodeFuncDelegate (EncodeFunc), song.Handle);
+		DatabaseUtils.Store (dbf, song.Filename, false, 
+				     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
+				     song.Handle);
 
 		Songs.Add (song.Filename, song);
 
@@ -145,12 +127,9 @@ public class SongDatabase
 			SongAdded (song);
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void db_delete (IntPtr dbf, string key);
-
 	public void RemoveSong (Song song)
 	{
-		db_delete (dbf, song.Filename);
+		DatabaseUtils.Delete (dbf, song.Filename);
 
 		if (SongRemoved != null)
 			SongRemoved (song);
@@ -175,10 +154,10 @@ public class SongDatabase
 
 	public void UpdateSong (Song song)
 	{
-		if (!song.Orphan) {
-			db_store (dbf, song.Filename, true,
-				  new EncodeFuncDelegate (EncodeFunc), song.Handle);
-		}
+		if (!song.Orphan)
+			DatabaseUtils.Store (dbf, song.Filename, true,
+				  	     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
+				  	     song.Handle);
 	
 		if (SongChanged != null)
 			SongChanged (song);

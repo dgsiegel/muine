@@ -22,7 +22,6 @@ using System.Collections;
 using System.IO;
 using System.Web;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -55,10 +54,6 @@ public class CoverDatabase
 
 	private GnomeProxy proxy;
 
-	[DllImport ("libmuine")]
-	private static extern IntPtr db_open (string filename, int version,
-	                                      out IntPtr error);
-						   
 	public CoverDatabase (int version)
 	{
 		amazon_locale = (string) Muine.GetGConfValue ("/apps/muine/amazon_locale", "us");
@@ -74,13 +69,8 @@ public class CoverDatabase
 		
 		string filename = dinfo.FullName + "/covers.db";
 
-		IntPtr error_ptr;
 
-		dbf = db_open (filename, version, out error_ptr);
-
-		if (dbf == IntPtr.Zero)
-			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
-
+		dbf = DatabaseUtils.Open (filename, version);
 		dbf_box = dbf;
 
 		covers = new Hashtable ();
@@ -96,25 +86,17 @@ public class CoverDatabase
 	}
 
 	/*** loading ***/
-	[DllImport ("libmuine")]
-	private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
 
 	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
 	{
 		IntPtr pix_handle;
 		
-		db_unpack_pixbuf (data, out pix_handle);
+		DatabaseUtils.UnpackPixbuf (data, out pix_handle);
 
 		LoadedCover lc = new LoadedCover (key, pix_handle);
 
 		loaded_covers.Enqueue (lc);
 	}
-
-	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
-
-	[DllImport ("libmuine")]
-	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
-					       IntPtr user_data);
 
 	private bool thread_done;
 
@@ -199,7 +181,7 @@ public class CoverDatabase
 	private void LoadThread ()
 	{
 		lock (dbf_box) {
-			db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+			DatabaseUtils.Foreach (dbf, new DatabaseUtils.DecodeFuncDelegate (DecodeFunc));
 		}
 
 		thread_done = true;
@@ -303,13 +285,6 @@ public class CoverDatabase
 		return DownloadingPixbuf;
 	}
 
-	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
-
-	[DllImport ("libmuine")]
-	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
-					     EncodeFuncDelegate encode_func,
-					     IntPtr user_data);
-
 	public void AddCover (string key, Pixbuf pix)
 	{
 		if (pix == null)
@@ -318,8 +293,9 @@ public class CoverDatabase
 		Covers.Add (key, pix);
 
 		lock (dbf_box) {
-			db_store (dbf, key, false,
-			          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+			DatabaseUtils.Store (dbf, key, false,
+			          	     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
+			          	     pix.Handle);
 		}
 	}
 
@@ -330,30 +306,20 @@ public class CoverDatabase
 		AddCover (key, pix);
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void db_delete (IntPtr dbf, string key);
-
 	public void RemoveCover (string key)
 	{
 		lock (dbf_box) {
-			db_delete (dbf, key);
+			DatabaseUtils.Delete (dbf, key);
 		}
 
 		Covers.Remove (key);
 	}
 
-	[DllImport ("libmuine")]
-        private static extern IntPtr db_pack_start ();
-	[DllImport ("libmuine")]
-	private static extern void db_pack_pixbuf (IntPtr p, IntPtr pixbuf);
-	[DllImport ("libmuine")]
-        private static extern IntPtr db_pack_end (IntPtr p, out int length);
-
 	private IntPtr EncodeFunc (IntPtr handle, out int length)
 	{
-		IntPtr p = db_pack_start ();
-		db_pack_pixbuf (p, handle);
-		return db_pack_end (p, out length);
+		IntPtr p = DatabaseUtils.PackStart ();
+		DatabaseUtils.PackPixbuf (p, handle);
+		return DatabaseUtils.PackEnd (p, out length);
 	}
 
 	private string SanitizeString (string s)
