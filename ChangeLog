@@ -1,5 +1,14 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/ActionThread.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SongDatabase.cs:
+
+	More threading fixes.
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 	* src/SongDatabase.cs:
 

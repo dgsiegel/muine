@@ -182,25 +182,30 @@ public class PlaylistWindow : Window
   
  		if (!musicdir.Exists) {
  			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
+
+	 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
  		} else { 
- 			/* seems to be that $HOME/Music does exists, but user hasn't started Muine before! */
-			Muine.DB.Changing = true;
-			
- 			Muine.DB.AddWatchedFolder (musicdir.FullName);
-
- 			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
- 			HandleDirectory (musicdir, pw);
- 			pw.Done ();
-
-			Muine.DB.Changing = false;
- 
  			/* create a playlists directory if it still doesn't exists */
  			DirectoryInfo playlistsdir = new DirectoryInfo (dir + "Music/Playlists/");
  			if (!playlistsdir.Exists)
  				playlistsdir.Create ();
+
+ 			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
+
+			Muine.DB.Changing = true;
+
+ 			/* seems to be that $HOME/Music does exists, but user hasn't started Muine before! */
+ 			Muine.DB.AddWatchedFolder (musicdir.FullName);
+
+			/* do this here, because the folder is watched now */
+	 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
+	
+ 			HandleDirectory (musicdir, pw);
+
+			Muine.DB.Changing = false;
+
+ 			pw.Done ();
   		}
- 
- 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
   	}
 	
 	private void SetupWindowSize ()
@@ -1172,15 +1177,16 @@ public class PlaylistWindow : Window
 		DirectoryInfo dinfo = new DirectoryInfo (fs.Filename);
 			
 		if (dinfo.Exists) {
+			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+
 			Muine.DB.Changing = true;
 
 			Muine.DB.AddWatchedFolder (dinfo.FullName);
-
-			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 			HandleDirectory (dinfo, pw);
-			pw.Done ();
 
 			Muine.DB.Changing = false;
+
+			pw.Done ();
 		}
 
 		fs.Destroy ();

@@ -54,6 +54,11 @@ public class ProgressWindow
 					    false, true, false);
 
 		canceled = false;
+
+		file_label.Text = "...";
+
+		while (Global.EventsPending () == 1)
+			Main.Iteration ();
 	}
 
 	public bool ReportFile (string file)

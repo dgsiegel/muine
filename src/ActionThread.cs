@@ -24,12 +24,10 @@ using System.Collections;
 public class ActionThread
 {
 	private Thread thread;
-	private bool stop;
 	private Queue queue;
 	
 	public ActionThread ()
 	{
-		stop = false;
 		queue = Queue.Synchronized (new Queue ());
 		thread = new Thread (new ThreadStart (RunThread));
 		thread.Start ();
@@ -37,18 +35,13 @@ public class ActionThread
 
 	private void RunThread ()
 	{
-		while (!stop) {
-			while (queue.Count > 0) {
-				Action action = (Action) queue.Dequeue ();
+		while (queue.Count > 0) {
+			Action action = (Action) queue.Dequeue ();
 
-				action.EmitPerform ();
-
-				if (stop)
-					return;
-			}
-
-			Thread.Sleep (1000);
+			action.EmitPerform ();
 		}
+
+		Thread.Sleep (1000);
 	}
 
 	public void QueueAction (Action action)
