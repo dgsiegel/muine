@@ -72,9 +72,8 @@ namespace Muine
 					view.Append (a.Handle);
 			}
 
-			view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-			Gtk.Drag.DestSet (view, DestDefaults.All,
-					  CoverImage.DragEntries, Gdk.DragAction.Copy);
+			if (!Global.CoverDB.Loading)
+				EnableDragDest ();
 		}
 
 		private int SortFunc (IntPtr a_ptr,
@@ -178,7 +177,22 @@ namespace Muine
 
 		private void OnCoversDoneLoading ()
 		{
+			EnableDragDest ();
+
 			view.QueueDraw ();
+		}
+
+		private bool drag_dest_enabled = false;
+		private void EnableDragDest ()
+		{
+			if (drag_dest_enabled)
+				return;
+
+			view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			Gtk.Drag.DestSet (view, DestDefaults.All,
+					  CoverImage.DragEntries, Gdk.DragAction.Copy);
+
+			drag_dest_enabled = true;
 		}
 
 		private void OnDragDataGet (object o, DragDataGetArgs args)

@@ -187,7 +187,13 @@ namespace Muine
 		// Amazon getting
 		public Pixbuf GetAmazon (Album album)
 		{
-			db.MarkAsBeingChecked (album.Key);
+			return GetAmazon (album, true);
+		}
+		
+		public Pixbuf GetAmazon (Album album, bool mark)
+		{
+			if (mark)
+				db.MarkAsBeingChecked (album.Key);
 
 			amazon_thread.Queue.Enqueue (album);
 

@@ -184,7 +184,7 @@ namespace Muine
 					item = Global.DB.GetSong (key);
 				if (item != null) {
 					if (being_checked)
-						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item);
+						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item, false);
 					LoadedCover lc = new LoadedCover (item, pixbuf);
 					queue.Enqueue (lc);
 				}

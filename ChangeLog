@@ -1,5 +1,16 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+
+	Do not write to the db while loading it.
+	
+	* src/AddAlbumWindow.cs:
+
+	Only allow dragging in cover images when !CoverDB.Loading.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Forgot to set rq.Album.. oops.. would crash when an album would
