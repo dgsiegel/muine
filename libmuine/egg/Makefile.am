@@ -5,7 +5,6 @@ INCLUDES = \
 noinst_LTLIBRARIES = libegg.la
 
 EGGSOURCES = \
-  eggstatusicon.c \
   eggtrayicon.c \
   eggtraymanager.c 
 
@@ -14,7 +13,6 @@ libegg_la_SOURCES = \
   eggmarshalers.c
 
 EGGHEADERS = \
-  eggstatusicon.h \
   eggtrayicon.h \
   eggtraymanager.h 
 

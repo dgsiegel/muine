@@ -1,6 +1,16 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* libmuine/egg/Makefile.am:
+	* libmuine/egg/eggstatusicon.c:
+	* libmuine/egg/eggstatusicon.h:
+	* src/NotificationAreaIcon.cs:
+
+	Tray icon restores itself after having been destroyed.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* src/PlaylistWindow.cs:
 
 	Add XF86XK_Audio* keybindings.

@@ -22,33 +22,48 @@ using System.Runtime.InteropServices;
 
 using Gtk;
 using Gdk;
+using GtkSharp;
 
-public class NotificationAreaIcon : GLib.Object
+public class NotificationAreaIcon : Plug
 {
 	[DllImport ("libmuine")]
-	private static extern IntPtr egg_status_icon_new ();
+	private static extern IntPtr egg_tray_icon_new (string name);
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegate cb, IntPtr data,
-							  IntPtr p, int flags);
+	private Gtk.Image image;
+	private Tooltips tooltips;
+
+	private bool button_down = false;
 
 	private Pixbuf playing_pixbuf;
 	private Pixbuf paused_pixbuf;
 
 	public void Init ()
 	{
-		Raw = egg_status_icon_new ();
+		Raw = egg_tray_icon_new ("Muine music player");
 
-		playing_pixbuf = new Pixbuf (null, "muine-tray-playing.png");
-		paused_pixbuf = new Pixbuf (null, "muine-tray-paused.png");
+		ButtonPressEvent += new ButtonPressEventHandler (HandleButtonPressEvent);
+		ButtonReleaseEvent += new ButtonReleaseEventHandler (HandleButtonReleaseEvent);
+		DestroyEvent += new DestroyEventHandler (HandleDestroyEvent);
 
-		g_signal_connect_data (Raw, "activate", new SignalDelegate (ActivateCallback),
-				       IntPtr.Zero, IntPtr.Zero, 0);
+		EventBox ebox = new EventBox ();
+		image = new Gtk.Image ();
+
+		ebox.Add (image);
+		Add (ebox);
+
+		UpdateImage ();
+		UpdateTooltip ();
+
+		ShowAll ();
 	}
 
 	public NotificationAreaIcon () : base ()
 	{
+		playing_pixbuf = new Pixbuf (null, "muine-tray-playing.png");
+		paused_pixbuf = new Pixbuf (null, "muine-tray-paused.png");
+
+		tooltips = new Tooltips ();
+
 		Init ();
 	}
 
@@ -57,40 +72,73 @@ public class NotificationAreaIcon : GLib.Object
 		Dispose ();
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void egg_status_icon_set_tooltip (IntPtr status_icon,
-								string tooltip_text,
-								string tooltip_private);
+	private string tooltip = "";
+
+	private void UpdateTooltip ()
+	{
+		tooltips.SetTip (this, tooltip, null);
+	}
 
 	public string Tooltip {
 		set {
-			egg_status_icon_set_tooltip (Raw, value, null);
+			tooltip = value;
+
+			UpdateTooltip ();
+		}
+
+		get {
+			return tooltip;
 		}
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void egg_status_icon_set_from_pixbuf (IntPtr status_icon,
-								    IntPtr pixbuf);
+	private bool playing = false;
+
+	private void UpdateImage ()
+	{
+		if (playing == true)
+			image.FromPixbuf = playing_pixbuf;
+		else
+			image.FromPixbuf = paused_pixbuf;
+	}
 
 	public bool Playing {
 		set {
-			if (value == true)
-				egg_status_icon_set_from_pixbuf (Raw, playing_pixbuf.Handle);
-			else
-				egg_status_icon_set_from_pixbuf (Raw, paused_pixbuf.Handle);
+			playing = value;
+
+			UpdateImage ();
+		}
+
+		get {
+			return playing;
 		}
 	}
 
-	private delegate void SignalDelegate (IntPtr obj);
+	private void HandleButtonPressEvent (object o, ButtonPressEventArgs args)
+	{
+		if ((args.Event.button == 1) && !button_down) {
+			button_down = true;
+			args.RetVal = true;
+			return;
+		}
+
+		args.RetVal = false;
+	}
 
 	public delegate void ActivateEventHandler ();
 	public event ActivateEventHandler ActivateEvent;
 
-	private static void ActivateCallback (IntPtr obj)
+	private void HandleButtonReleaseEvent (object o, ButtonReleaseEventArgs args)
 	{
-		NotificationAreaIcon icon = GLib.Object.GetObject (obj, false) as NotificationAreaIcon;
+		if ((args.Event.button == 1) && button_down) {
+			button_down = false;
+			
+			if (ActivateEvent != null)
+				ActivateEvent ();
+		}
+	}
 
-		if (icon.ActivateEvent != null)
-			icon.ActivateEvent ();
+	private void HandleDestroyEvent (object o, DestroyEventArgs args)
+	{
+		Init ();
 	}
 }

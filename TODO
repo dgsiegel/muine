@@ -1,6 +1,5 @@
 Easy:
 =====
-o Make the notification area icon survive a panel crash
 o Add DnD from Nautilus to the playlist window, adding to a) the library
   and b) the playlist.
 o Use the GTK+ 2.3 fileselector, if it is available.
@@ -8,7 +7,8 @@ o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?
   The 0.6 backend should stay supported because 0.7 is not very solid yet.
 o Drag images from Nautilus or Epiphany to the album cover area in
   the PlaylistWindow to change the cover image.
-o Clicking an m3u file in Nautilus should load it in Muine.
+o Clicking an m3u file in Nautilus should load it in Muine
+o Starting muine when an instance is running already it should present the window
 o Add WMA support
 o Add MP4 support
   This code can be stolen from Rhythmbox
