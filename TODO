@@ -52,8 +52,6 @@ o Monitor imported folders using FileWatcher
   Depends on mono 0.30, which will have the FileWatcher class.
 o Tag editing
   Depends on this to work nicely in GStreamer
-o ButtonReleaseEvent in SkipToWindow isn't working
-  Depends on a Gtk#, Ximian Bugzilla #53399
 o Add DnD from Nautilus to the playlist window, adding to a) the library
   and b) the playlist.
   Depends on Gtk#, Ximian Bugzilla #53397

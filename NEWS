@@ -8,6 +8,8 @@
 - Added an .applications file, so that Nautilus knows about us [Jorn Baayen]
 - Bugfixes [Jorn Baayen]
 - Tray icon shows playback status [Sergio Rubio, Jorn Baayen]
+- Support replay gain for Ogg Vorbis files [Jorn Baayen]
+- Support performer tags [Jorn Baayen]
 - UI enhancements [Jorn Baayen]
 - Check imported folders for changes on startup [Jorn Baayen]
 

@@ -67,7 +67,6 @@
 	      <property name="inverted">False</property>
 	      <property name="adjustment">0 0 0 0 0 0</property>
 	      <signal name="value_changed" handler="HandleSongSliderValueChanged" last_modification_time="Wed, 21 Jan 2004 18:53:44 GMT"/>
-	      <signal name="button_release_event" handler="HandleSongSliderButtonReleaseEvent" last_modification_time="Wed, 21 Jan 2004 20:58:14 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>

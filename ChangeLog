@@ -1,5 +1,17 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* data/glade/SkipToWindow.glade:
+	* src/SkipToWindow.cs:
+
+	Give up on ButtonPressEvent on the seeking HScale. 
+	
+	* NEWS:
+
+	Forgot some stuff.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
 	* NEWS:
 	* configure.in:
 	* src/About.cs:
