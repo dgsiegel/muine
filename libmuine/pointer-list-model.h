@@ -41,7 +41,6 @@ struct _PointerListModel {
   int              stamp;
 
   GCompareFunc     sort_func;
-  GtkSortType      sort_type;
 
   GSequencePtr     current_pointer;
 
@@ -66,8 +65,9 @@ void          pointer_list_model_remove_iter    (PointerListModel *model,
 					         GtkTreeIter      *iter);
 void          pointer_list_model_clear          (PointerListModel *model);
 void          pointer_list_model_set_sorting    (PointerListModel *model,
-					         GCompareFunc      func,
-					         GtkSortType       type);
+					         GCompareFunc      func);
+void          pointer_list_model_sort           (PointerListModel *model,
+                                                 GCompareDataFunc  sort_func);
 gboolean      pointer_list_model_pointer_get_iter (PointerListModel *model,
 					         gpointer          pointer,
 					         GtkTreeIter      *iter);

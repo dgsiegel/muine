@@ -1,3 +1,24 @@
+2004-11-11  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/PlaylistWindow.glade:
+	* data/images/Makefile.am:
+	* data/images/muine-shuffle-16.png:
+	* data/images/muine-shuffle.png:
+	* libmuine/pointer-list-model.c: (pointer_list_model_init),
+	(pointer_list_model_sort), (pointer_list_model_set_sorting):
+	* libmuine/pointer-list-model.h:
+	* libmuine/pointer-list-view.c: (pointer_list_view_set_sort_func),
+	(pointer_list_view_sort):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/StockIcons.cs:
+
+	Add regular shuffle function.
+
 2004-10-16  Hasbullah Bin Pit <sebol@my-penguin.org>
 
         * configure.in: Added "ms" (Malay) to ALL_LINGUAS

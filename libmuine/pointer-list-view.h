@@ -84,6 +84,8 @@ void             pointer_list_view_select          (PointerListView *view,
 						    gpointer pointer);
 void             pointer_list_view_set_sort_func   (PointerListView *view,
 				                    GCompareFunc sort_func);
+void		 pointer_list_view_sort		   (PointerListView *view,
+						    GCompareFunc sort_func);
 void             pointer_list_view_set_playing     (PointerListView *view,
 				                    gpointer pointer);
 gpointer         pointer_list_view_get_playing     (PointerListView *view);

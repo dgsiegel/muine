@@ -515,8 +515,15 @@ pointer_list_view_set_sort_func (PointerListView *view,
 				 GCompareFunc sort_func)
 {
 	pointer_list_model_set_sorting (view->model,
-					sort_func,
-					GTK_SORT_ASCENDING);
+					sort_func);
+}
+
+void
+pointer_list_view_sort (PointerListView *view,
+		        GCompareFunc sort_func)
+{
+	pointer_list_model_sort (view->model,
+				 (GCompareDataFunc) sort_func);
 }
 
 void

@@ -65,6 +65,8 @@ RESOURCES =												\
 	/resource:$(top_srcdir)/data/images/muine-queue.png,muine-queue.png				\
 	/resource:$(top_srcdir)/data/images/muine-add-album.png,muine-add-album.png			\
 	/resource:$(top_srcdir)/data/images/muine-add-album-16.png,muine-add-album-16.png		\
+	/resource:$(top_srcdir)/data/images/muine-shuffle.png,muine-shuffle.png				\
+	/resource:$(top_srcdir)/data/images/muine-shuffle-16.png,muine-shuffle-16.png			\
 	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
 	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
 	/resource:$(top_srcdir)/data/images/muine-nothing.png,muine-nothing.png				\

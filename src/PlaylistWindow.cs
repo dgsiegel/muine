@@ -48,6 +48,8 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private CheckMenuItem repeat_menu_item;
 	private bool setting_repeat_menu_item;
+	[Glade.Widget]
+	private ImageMenuItem shuffle_menu_item;
 
 	/* toolbar widgets */
 	[Glade.Widget]
@@ -384,6 +386,10 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item.Image = image;
 		image.Visible = true;
 
+		image = new Image ("muine-shuffle", IconSize.Menu);
+                shuffle_menu_item.Image = image;
+                image.Visible = true;
+
 		/* FIXME */
 		glade_xml ["information_menu_item_separator"].Visible = false;
 		information_menu_item.Visible = false;
@@ -633,6 +639,7 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item.Sensitive = has_first;
 
 		information_menu_item.Sensitive = has_first;
+		shuffle_menu_item.Sensitive = has_first;
 
 		UpdateTimeLabels (player.Position);
 
@@ -1500,6 +1507,37 @@ public class PlaylistWindow : Window
 		Muine.GConfClient.Set ("/apps/muine/repeat", repeat_menu_item.Active);
 
 		NSongsChanged ();
+	}
+
+	private int ShuffleFunc (IntPtr a, IntPtr b)
+	{
+		Song songa = Song.FromHandle (a);
+		Song songb = Song.FromHandle (b);
+
+		int res = (int) Math.Round (songa.RandomSortKey - songb.RandomSortKey);
+
+		return res;
+	}
+
+	private void HandleShuffleCommand (object o, EventArgs args)
+	{
+		Random rand = new Random ();
+
+		foreach (int i in playlist.Contents) {
+			Song song = Song.FromHandle ((IntPtr) i);
+
+			if (i == (int) playlist.Playing)
+				song.RandomSortKey = -1;
+			else
+				song.RandomSortKey = rand.NextDouble ();
+		}
+
+		playlist.Sort (new HandleView.CompareFunc (ShuffleFunc));
+
+		NSongsChanged ();
+
+		if (playlist.Playing != IntPtr.Zero)
+			playlist.Select (playlist.Playing);
 	}
 
 	private void HandleHideWindowCommand (object o, EventArgs args)

@@ -114,7 +114,6 @@ public class Muine : Gnome.Program
 		conn.MessageReceivedHandler = new MessageConnection.MessageReceivedDelegate (HandleMessageReceived);
 		ProcessCommandLine (args, false);
 
-
 		/* Load playlist */
 		if (!opened_playlist)
 			playlist.RestorePlaylist ();

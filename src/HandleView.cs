@@ -257,6 +257,16 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_sort (IntPtr view,
+	                                                   CompareFuncNative sort_func);
+
+	public void Sort (CompareFunc func)
+	{
+		CompareFuncWrapper wrapper = new CompareFuncWrapper (func, this);
+                pointer_list_view_sort (Raw, wrapper.NativeDelegate);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern IntPtr pointer_list_view_get_playing (IntPtr view);
 	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_set_playing (IntPtr view,

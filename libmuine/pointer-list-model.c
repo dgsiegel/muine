@@ -453,7 +453,6 @@ pointer_list_model_init (PointerListModel *model)
   model->reverse_map = g_hash_table_new (NULL, NULL);
   model->stamp = g_random_int ();
   model->sort_func = NULL;
-  model->sort_type = GTK_SORT_ASCENDING;
 
   model->current_pointer = NULL;
 }
@@ -597,8 +596,8 @@ pointer_list_model_clear (PointerListModel *model)
     }
 }
 
-static void
-pointer_list_model_sort (PointerListModel *model)
+void
+pointer_list_model_sort (PointerListModel *model, GCompareDataFunc sort_func)
 {
   GSequence *pointers;
   GSequencePtr *old_order;
@@ -618,8 +617,8 @@ pointer_list_model_sort (PointerListModel *model)
   for (i = 0; i < length; ++i)
     old_order[i] = g_sequence_get_ptr_at_pos (pointers, i);
 
-  g_sequence_sort (pointers, (GCompareDataFunc) model->sort_func, NULL);
-  
+  g_sequence_sort (pointers, sort_func, NULL);
+
   /* Generate new order. */
   new_order = g_new (int, length);
   for (i = 0; i < length; ++i)
@@ -636,16 +635,14 @@ pointer_list_model_sort (PointerListModel *model)
 
 void
 pointer_list_model_set_sorting (PointerListModel  *model,
-			      GCompareFunc sort_func,
-			      GtkSortType      type)
+			        GCompareFunc sort_func)
 {
-  if (sort_func == model->sort_func && type == model->sort_type)
+  if (sort_func == model->sort_func)
     return;
 
   model->sort_func = sort_func;
-  model->sort_type = type;
 
-  pointer_list_model_sort (model);
+  pointer_list_model_sort (model, (GCompareDataFunc) sort_func);
 }
 
 gboolean

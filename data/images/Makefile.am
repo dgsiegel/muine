@@ -23,7 +23,9 @@ noinst_DATA =					\
 	muine-volume-zero.png			\
 	muine-volume-min.png			\
 	muine-volume-medium.png			\
-	muine-volume-max.png
+	muine-volume-max.png			\
+	muine-shuffle.png			\
+	muine-shuffle-16.png
 
 pixmapdir = $(datadir)/pixmaps
 pixmap_DATA = muine.png

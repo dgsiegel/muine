@@ -43,7 +43,8 @@ public class StockIcons
 		"muine-default-cover",
 		"muine-cover-downloading",
 		"muine-playing",
-		"muine-paused"
+		"muine-paused",
+		"muine-shuffle"
 	};
 
 	public static IconSize AlbumCoverSize;
