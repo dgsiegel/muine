@@ -388,7 +388,7 @@ msgstr "音楽プレイヤ"
 #: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:647
 #, csharp-format
 msgid "Performed by {0}"
-msgstr "{0} で処理しています"
+msgstr "演奏は {0}"
 
 #. Space-separated list of prefixes that will be taken off the front
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",

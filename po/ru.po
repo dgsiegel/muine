@@ -7,19 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-25 12:47+0100\n"
-"PO-Revision-Date: 2004-05-23 11:09+0400\n"
+"POT-Creation-Date: 2005-01-03 12:08+0100\n"
+"PO-Revision-Date: 2005-01-05 12:03+0300\n"
 "Last-Translator: Alekseev Vladimir <compress@linux-online.ru>\n"
 "Language-Team: Russian <compress@linux-online.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 1);\n"
 
 #: data/glade/AddWindow.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2
+#: data/glade/AddWindow.glade.h:2 src/PlaylistWindow.cs:466
 msgid "_Play"
 msgstr "_Воспроизвести"
 
@@ -37,7 +38,7 @@ msgstr "Ошибка"
 
 #: data/glade/NoMusicFoundWindow.glade.h:1
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Музыкальные файлы не были найдены</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Музыкальные композиции не были найдены</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
 msgid ""
@@ -57,7 +58,7 @@ msgstr ""
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
-msgstr "Музыкальные файлы не найдены"
+msgstr "Музыкальные Композиции Не Найдены"
 
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
@@ -76,16 +77,16 @@ msgid "_Nothing, I will manage my music myself"
 msgstr "_Ничего, Я сам буду управлять моей музыкой"
 
 #: data/glade/PlaylistWindow.glade.h:1
+msgid "Play"
+msgstr "Воспроизвести"
+
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:74
 msgid "Play Album"
 msgstr "Воспроизвести Альбом"
 
-#: data/glade/PlaylistWindow.glade.h:2
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:68
 msgid "Play Song"
 msgstr "Воспроизвести Песню"
-
-#: data/glade/PlaylistWindow.glade.h:3
-msgid "Playing"
-msgstr "Проигрывается"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
@@ -103,7 +104,7 @@ msgstr "Вопрос"
 msgid "Listen to your music"
 msgstr "Слушайте вашу музыку"
 
-#: data/muine.desktop.in.h:2
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:842
 msgid "Muine Music Player"
 msgstr "Музыкальный проигрыватель Muine"
 
@@ -125,7 +126,7 @@ msgstr "Ширина окна \"Добавить песню\""
 
 #: data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
-msgstr "Сайт Amazon для использования для изображений альбомов"
+msgstr "Сайт Amazon для скачивания изображений альбомов"
 
 #: data/muine.schemas.in.h:6
 msgid "Default import folder"
@@ -133,7 +134,7 @@ msgstr "Папка импорта по умолчанию"
 
 #: data/muine.schemas.in.h:7
 msgid "Default playlist folder"
-msgstr "Папка плейлиста(ов) по умолчанию"
+msgstr "Папка списка(ов) воспроизведения по умолчанию"
 
 #: data/muine.schemas.in.h:8
 msgid "First start"
@@ -157,7 +158,7 @@ msgstr "Высота окна информации."
 
 #: data/muine.schemas.in.h:13
 msgid "Height of the playlist window."
-msgstr "Высота окна плейлиста."
+msgstr "Высота окна списка воспроизведения."
 
 #: data/muine.schemas.in.h:14
 msgid "Information window height"
@@ -169,11 +170,11 @@ msgstr "Ширина окна информации"
 
 #: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
-msgstr "Последний использованный каталог из диалога \"Импортировать каталог\"."
+msgstr "Последний использованная папка из диалога \"Импортировать каталог\"."
 
 #: data/muine.schemas.in.h:17
 msgid "Last used folder from the playlist file selectors."
-msgstr "Последний использованный каталог из диалога выбора плейлиста."
+msgstr "Последний использованный каталог из диалога выбора списка воспроизведения."
 
 #: data/muine.schemas.in.h:18
 msgid "Playlist window height"
@@ -201,7 +202,7 @@ msgstr "Просматриваемы каталоги"
 
 #: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Возможно или нет включать режим повтора плейлиста."
+msgstr "Возможно или нет включать режим повтора списка воспроизведения."
 
 #: data/muine.schemas.in.h:25
 msgid ""
@@ -225,23 +226,22 @@ msgstr "Ширина окна информации."
 
 #: data/muine.schemas.in.h:29
 msgid "Width of the playlist window."
-msgstr "Ширина окна плейлиста."
+msgstr "Ширина окна списка воспроизведения."
 
 #: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
-msgstr "не возможно, если Muine был запущен ранее."
+msgstr "невозможно, если Muine был запущен ранее."
 
-#: libmuine/player-gst.c:154
+#: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
 msgstr "Невозможно создать обьект проигрывателя GStreamer"
 
-#: libmuine/player-gst.c:161
+#: libmuine/player-gst.c:164
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Не возможно предоставить используемый по умолчанию поток вывода аудио "
 "GStreamer"
 
 #: libmuine/player-xine.c:283
-#, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
 "Check that the device is not busy."
@@ -250,12 +250,10 @@ msgstr ""
 "Удостоверьтесь, что устройство не занято."
 
 #: libmuine/player-xine.c:378 libmuine/player-xine.c:383
-#, c-format
 msgid "No plugin available for \"%s\""
 msgstr "Не доступно не одного плагина для \"%s\""
 
 #: libmuine/player-xine.c:388
-#, c-format
 msgid "Failed playing \"%s\""
 msgstr "Ошибка воспроизведения \"%s\""
 
@@ -264,7 +262,355 @@ msgid "Internal error"
 msgstr "Внутренняя ошибка"
 
 #: libmuine/player-xine.c:401
-#, c-format
 msgid "Could not play \"%s\""
 msgstr "Невозможно произвести \"%s\""
 
+#: src/About.cs:33
+msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
+
+#: src/About.cs:34
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
+
+#: src/About.cs:35
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+
+#: src/About.cs:37
+msgid "Album covers are provided by amazon.com."
+msgstr "Обложки альбомов предоставляются сайтом amazon.com."
+
+#: src/About.cs:47
+msgid "translator-credits"
+msgstr "Алексеев Владимир <compress@linux-online.ru>"
+
+#: src/About.cs:52
+msgid "Muine"
+msgstr "Muine"
+
+#: src/About.cs:53
+msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+
+#: src/About.cs:54
+msgid "A music player"
+msgstr "Музыкальный проигрыватель"
+
+#: src/AddAlbumWindow.cs:176 src/PlaylistWindow.cs:810
+msgid "Performed by {0}"
+msgstr "Исполнена {0}"
+
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
+#: src/Album.cs:88
+msgid "the dj"
+msgstr "the dj the"
+
+#: src/ErrorDialog.cs:37
+msgid "An error occurred:"
+msgstr "Произошла ошибка:"
+
+#: src/Metadata.cs:177
+msgid "Failed to load metadata: {0}"
+msgstr "Ошибка загрузки метаинформации: {0}"
+
+#: src/Muine.cs:209
+msgid "Failed to export D-Bus object: {0}"
+msgstr "Ошибка экспортирования обьекта D-Bus: {0}"
+
+#: src/Muine.cs:226
+msgid ""
+"Failed to initialize the configuration folder: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Ошибка иниициализирования папки конфигурации: {0}\n"
+"\n"
+"Выход..."
+
+#: src/Muine.cs:238
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Ошибка загрузки базы данных обложек: {0}\n"
+"\n"
+"Выход..."
+
+#: src/Muine.cs:247
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Ошибка загрузки базы данных композиций: {0}\n"
+"\n"
+"Выход..."
+
+#: src/NotificationAreaIcon.cs:50
+msgid "Muine music player"
+msgstr "Музыкальный проигрыватель Muine"
+
+#. song artists - song title
+#: src/NotificationAreaIcon.cs:202
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#: src/Player.cs:221
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr ""
+"Ошибка воспроизведения аудио:\n"
+"{0}"
+
+#: src/PlaylistWindow.cs:395
+msgid "Hide _Window"
+msgstr "Скрыть _Окно"
+
+#: src/PlaylistWindow.cs:397
+msgid "Show _Window"
+msgstr "Показать _Окно"
+
+#: src/PlaylistWindow.cs:404
+msgid "_File"
+msgstr "_Файл"
+
+#: src/PlaylistWindow.cs:406
+msgid "_Song"
+msgstr "_Композиция"
+
+#: src/PlaylistWindow.cs:408
+msgid "_Playlist"
+msgstr "_Список Воспроизведения"
+
+#: src/PlaylistWindow.cs:410
+msgid "_Help"
+msgstr "_Помощь"
+
+#: src/PlaylistWindow.cs:412
+msgid "_Import Folder..."
+msgstr "_Импортировать Папку"
+
+#: src/PlaylistWindow.cs:415
+msgid "_Open Playlist..."
+msgstr "Открыть Список _Воспроизведения"
+
+#: src/PlaylistWindow.cs:418
+msgid "_Save Playlist As..."
+msgstr "_Сохранить Список Как..."
+
+#: src/PlaylistWindow.cs:427
+msgid "_Previous"
+msgstr "_Предыдущая"
+
+#: src/PlaylistWindow.cs:430
+msgid "_Next"
+msgstr "_Следующая"
+
+#: src/PlaylistWindow.cs:433
+msgid "_Skip to..."
+msgstr "_Перейти к..."
+
+#: src/PlaylistWindow.cs:436
+msgid "Skip _Backwards"
+msgstr "Перейти На Одну Композицию _Назад"
+
+#: src/PlaylistWindow.cs:440
+msgid "Skip _Forward"
+msgstr "Перейти На Одну Композицию _Вперёд"
+
+#: src/PlaylistWindow.cs:442
+msgid "Play _Song..."
+msgstr "Воспроизвести _Композицию..."
+
+#: src/PlaylistWindow.cs:445
+msgid "Play _Album..."
+msgstr "Воспроизвести _Альбом..."
+
+#: src/PlaylistWindow.cs:448
+msgid "_Remove Song"
+msgstr "_Удалить Композицию"
+
+#: src/PlaylistWindow.cs:451
+msgid "Remove _Played Songs"
+msgstr "Удалить _Воспроизведённые Композиции"
+
+#: src/PlaylistWindow.cs:454
+msgid "_Clear"
+msgstr "О_чистить"
+
+#: src/PlaylistWindow.cs:457
+msgid "Shu_ffle"
+msgstr "_Перемешать"
+
+#: src/PlaylistWindow.cs:460
+msgid "_About"
+msgstr "_О программе"
+
+#: src/PlaylistWindow.cs:469
+msgid "R_epeat"
+msgstr "_Режим Повтора"
+
+#: src/PlaylistWindow.cs:519
+msgid "Switch music playback on or off"
+msgstr "Включает или выключает воспроизведение музыки"
+
+#: src/PlaylistWindow.cs:521
+msgid "Play the previous song"
+msgstr "Воспроизвести предыдущую песню"
+
+#: src/PlaylistWindow.cs:523
+msgid "Play the next song"
+msgstr "Воспроизвести следующую песню"
+
+#: src/PlaylistWindow.cs:525
+msgid "Add an album to the playlist"
+msgstr "Добавить альбом в список воспроизведения"
+
+#: src/PlaylistWindow.cs:527
+msgid "Add a song to the playlist"
+msgstr "Добавить композицию в список воспроизведения"
+
+#: src/PlaylistWindow.cs:535
+msgid "Change the volume level"
+msgstr "Изменить уровень громкости"
+
+#: src/PlaylistWindow.cs:577 src/PlaylistWindow.cs:708
+#: src/PlaylistWindow.cs:732 src/PlaylistWindow.cs:746
+msgid "Playlist"
+msgstr "Список Воспроизведения"
+
+#: src/PlaylistWindow.cs:613
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"Ошибка инициализации аудио:\n"
+"{0}\n"
+"\n"
+"Выход..."
+
+#: src/PlaylistWindow.cs:725
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] "Список Воспроизведения (Повтор каждый {0} час)"
+msgstr[1] "Список Воспроизведения (Повтор каждые {0} часа(ов))"
+
+#: src/PlaylistWindow.cs:728
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] "Список Воспроизведения (Повтор каждую минуту)"
+msgstr[1] "Список Воспроизведения (Повтор каждые {0} минут(ы))"
+
+#: src/PlaylistWindow.cs:730
+msgid "Playlist (Repeating)"
+msgstr "Список Воспроизведения (Повтор)"
+
+#: src/PlaylistWindow.cs:739
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] "Список Воспроизведения (Остаётся {0} час)"
+msgstr[1] "Список Воспроизведения (Остаётся {0} часа(ов))"
+
+#: src/PlaylistWindow.cs:742
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] "Список Воспроизведения (Остаётся {0} минута)"
+msgstr[1] "Список Воспроизведения (Остаётся {0} минут(ы))"
+
+#: src/PlaylistWindow.cs:744
+msgid "Playlist (Less than one minute remaining)"
+msgstr "Список Воспроизведения (Остаётся меньше минуты)"
+
+#: src/PlaylistWindow.cs:806
+msgid "From \"{0}\""
+msgstr "Из \"{0}\""
+
+#: src/PlaylistWindow.cs:808
+msgid "Album unknown"
+msgstr "Неизвестный альбом"
+
+#: src/PlaylistWindow.cs:813
+msgid "Drop an image here to use it as album cover"
+msgstr "Перенесите сюда изображение для использования в качестве картинки альбома"
+
+#: src/PlaylistWindow.cs:832
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Музыкальный проигрыватель Muine"
+
+#: src/PlaylistWindow.cs:930
+msgid "Failed to open {0} for reading"
+msgstr "Ошибка открытия {0} для чтения"
+
+#: src/PlaylistWindow.cs:1000 src/PlaylistWindow.cs:1048
+msgid "Failed to close {0}"
+msgstr "Ошибка закрытия {0}"
+
+#: src/PlaylistWindow.cs:1018
+msgid "Failed to open {0} for writing"
+msgstr "Ошибка открытия {0} для записи"
+
+#: src/PlaylistWindow.cs:1450
+msgid "Import Folder"
+msgstr "Импортировать Папку"
+
+#: src/PlaylistWindow.cs:1454
+msgid "_Import"
+msgstr "_Импортировать"
+
+#: src/PlaylistWindow.cs:1491
+msgid "Open Playlist"
+msgstr "Открыть Список Воспроизведения"
+
+#: src/PlaylistWindow.cs:1496
+msgid "Playlist files"
+msgstr "Файлы списка воспроизведения"
+
+#: src/PlaylistWindow.cs:1512
+msgid "Save Playlist"
+msgstr "Сохранить Список Воспроизведения"
+
+#: src/PlaylistWindow.cs:1515
+msgid "Untitled"
+msgstr "Без заголовка"
+
+#: src/PlaylistWindow.cs:1527
+msgid ""
+"File {0} will be overwritten.\n"
+"If you choose yes, the contents will be lost.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+"Файл {0} будет переписан.\n"
+"Если вы ответите \"Да\", содержимое будет потеряно.\n"
+"\n"
+"Вы хотите продолжить?"
+
+#: src/PluginManager.cs:39
+msgid "Error loading plug-in {0}: {1}"
+msgstr "Ошибка загрузки плагина {0}: {1}"
+
+#: src/ProgressWindow.cs:43
+msgid "Importing {0}..."
+msgstr "Импортируется {0}..."
+
+#: src/StringUtils.cs:46
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: src/StringUtils.cs:50
+msgid "{0} and others"
+msgstr "{0} и другие"
+
+#: src/StringUtils.cs:52
+msgid "{0} and {1}"
+msgstr "{0} и {1}"
