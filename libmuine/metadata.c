@@ -19,15 +19,24 @@
 
 #include <libgnomevfs/gnome-vfs.h>
 #include <vorbis/vorbisfile.h>
-#include <id3tag.h>
 #include <FLAC/metadata.h>
 #include <FLAC/stream_decoder.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <config.h>
 
+#if HAVE_FAAD
+#include <faad.h>
+#include <mp4ff.h>
+#endif /* HAVE_FAAD */
+
+#if HAVE_ID3TAG
+#include <id3tag.h>
 #include "id3-vfs/id3-vfs.h"
+#endif /* HAVE_ID3TAG */
+
 #include "ogg-helper.h"
 #include "metadata.h"
 
@@ -82,6 +91,8 @@ parse_raw_track_number (Metadata *metadata,
 
 	metadata->track_number = atoi (raw);
 }
+
+#if HAVE_ID3TAG
 
 static int
 get_mp3_duration (struct id3_tag *tag)
@@ -393,6 +404,128 @@ assign_metadata_mp3 (const char *filename,
 
 	return metadata;
 }
+
+#endif /* HAVE_ID3TAG */
+
+#if HAVE_FAAD
+
+static uint32_t mp4_read_callback (void *user_data, void *buffer, uint32_t length);
+static uint32_t mp4_seek_callback (void *user_data, uint64_t position);
+
+static uint32_t
+mp4_read_callback (void *user_data, void *buffer, uint32_t length)
+{
+	GnomeVFSFileSize read;
+	gnome_vfs_read ((GnomeVFSHandle*)user_data, (gpointer *) buffer,  length, &read);
+	return (uint32_t)read;
+}
+
+static uint32_t
+mp4_seek_callback (void *user_data, uint64_t position)
+{
+	return (uint32_t) gnome_vfs_seek ((GnomeVFSHandle*) user_data, GNOME_VFS_SEEK_START, position);
+}
+
+static Metadata *
+assign_metadata_mp4 (const char *filename,
+		     char **error_message_return)
+{
+	Metadata *m = NULL;
+	GnomeVFSHandle *fh;
+	mp4ff_t *mp4f;
+	mp4ff_callback_t *mp4cb = (mp4ff_callback_t*) malloc (sizeof (mp4ff_callback_t));
+	gchar *value;
+	gchar *item;
+	unsigned char *buff = NULL;
+        int buff_size = 0;
+	int j, k;
+	mp4AudioSpecificConfig mp4ASC;
+	long samples;
+	float f = 1024.0;
+
+	if (gnome_vfs_open (&fh, filename, GNOME_VFS_OPEN_READ) != GNOME_VFS_OK) {
+                *error_message_return = g_strdup ("Failed to open file for reading");
+                return NULL;
+        }
+
+	mp4cb->read = mp4_read_callback;
+	mp4cb->seek = mp4_seek_callback;
+	mp4cb->user_data = fh;
+
+	mp4f = mp4ff_open_read (mp4cb);
+
+	if (!mp4f) {
+		*error_message_return = g_strdup ("Unable to open the AAC file");
+		return NULL;
+	}
+
+	if (mp4ff_total_tracks (mp4f) > 1) {
+		 *error_message_return = g_strdup ("Multi-track AAC files not supported");
+		 return NULL;
+	}
+
+	m = g_new0 (Metadata, 1);
+
+	j = mp4ff_meta_get_num_items (mp4f);
+
+	for (k = 0; k < j; k++) {
+		if (mp4ff_meta_get_by_index (mp4f, k, &item, &value)) {
+			if (!strcmp (item, "title")) {
+				if (g_utf8_validate (value, -1, NULL))
+					m->title = g_strdup (value);
+			} else if (!strcmp (item, "artist")) {
+				if (g_utf8_validate (value, -1, NULL)) {
+					m->artists = g_new (char *, 2);
+					m->artists[0] = g_strdup (value);
+					m->artists[1] = NULL;
+					m->artists_count = 1;
+				}
+			} else if (!strcmp (item, "album")) {
+				if (g_utf8_validate (value, -1, NULL))
+					m->album = g_strdup (value);
+			} else if (!strcmp (item, "track"))
+				m->track_number = atoi (value);
+			else if (!strcmp (item, "totaltracks"))
+				m->total_tracks = atoi (value);
+			else if (!strcmp (item, "disc"))
+				m->disc_number = atoi (value);
+			else if (!strcmp (item, "date")) {
+				if (g_utf8_validate (value, -1, NULL))
+					m->year = g_strdup (value);
+			}
+			free (item);
+			free (value);
+		}
+	}
+
+	/*
+	 * duration code shameless based on code from frontend/main.c in faad2
+	 */
+
+	samples = mp4ff_num_samples (mp4f, 0);
+	mp4ff_get_decoder_config (mp4f, 0, &buff, &buff_size);
+
+	if (buff)
+	{
+		if (AudioSpecificConfig (buff, buff_size, &mp4ASC) >= 0)
+		{
+			free (buff);
+		        if (mp4ASC.sbr_present_flag == 1) {
+		            f = f * 2.0;
+		        }
+
+			m->duration = (float) samples * (float) (f - 1.0) / (float) mp4ASC.samplingFrequency;
+		}
+	}
+
+	mp4ff_close (mp4f);
+	free (mp4cb);
+	gnome_vfs_close (fh);
+
+	return m;
+}
+
+#endif /* HAVE_FAAD */
 
 static ov_callbacks file_info_callbacks =
 {
@@ -708,15 +841,22 @@ metadata_load (const char *filename,
 	gnome_vfs_get_file_info (escaped, info,
 				 GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
-	if (!strcmp (info->mime_type, "audio/x-mp3") ||
-	    !strcmp (info->mime_type, "audio/mpeg"))
-		m = assign_metadata_mp3 (escaped, info, error_message_return);
-	else if (!strcmp (info->mime_type, "application/x-ogg") ||
-		 !strcmp (info->mime_type, "application/ogg"))
+	if (!strcmp (info->mime_type, "application/x-ogg") ||
+	    !strcmp (info->mime_type, "application/ogg"))
 		m = assign_metadata_ogg (escaped, error_message_return);
+#if HAVE_ID3TAG
+	else if (!strcmp (info->mime_type, "audio/x-mp3") ||
+	         !strcmp (info->mime_type, "audio/mpeg"))
+		m = assign_metadata_mp3 (escaped, info, error_message_return);
+#endif /* HAVE_ID3TAG */
 	else if (!strcmp (info->mime_type, "application/x-flac") ||
 		 !strcmp (info->mime_type, "audio/x-flac"))
 		m = assign_metadata_flac (escaped, error_message_return);
+#if HAVE_FAAD
+	else if (!strcmp (info->mime_type, "application/x-m4a") ||
+		 !strcmp (info->mime_type, "audio/x-m4a"))
+		m = assign_metadata_mp4 (filename, error_message_return);
+#endif /* HAVE_FAAD */
 	else
 		*error_message_return = g_strdup ("Unknown format");
 

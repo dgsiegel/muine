@@ -1,6 +1,17 @@
 2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
+	* libmuine/Makefile.am:
+	* libmuine/metadata.c: (mp4_read_callback), (mp4_seek_callback),
+	(assign_metadata_mp4), (metadata_load):
+
+	Add AAC support, patch by Peter Johanson <latexer@gentoo.org>.
+
+	Also made libid3tag support optional.
+
+2005-01-22  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
 
 	Added 'ro' to ALL_LINGUAS.
 
