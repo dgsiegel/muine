@@ -9,7 +9,7 @@
       <default>500</default>
       <locale name="C">
         <short>Playlist window width</short>
-        <long>Playlist window width.</long>
+        <long>Width of the playlist window.</long>
       </locale>
     </schema>
     <schema>
@@ -20,7 +20,7 @@
       <default>400</default>
       <locale name="C">
         <short>Playlist window height</short>
-        <long>Playlist window height.</long>
+        <long>Height of the playlist window.</long>
       </locale>
     </schema>
     <schema>
@@ -30,8 +30,8 @@
       <type>int</type>
       <default>350</default>
       <locale name="C">
-        <short>Add song window width</short>
-        <long>Add song window width.</long>
+        <short>"Add song" window width</short>
+        <long>Width of the "Add song" window.</long>
       </locale>
     </schema>
     <schema>
@@ -41,8 +41,8 @@
       <type>int</type>
       <default>300</default>
       <locale name="C">
-        <short>Add song window height</short>
-        <long>Add song window height.</long>
+        <short>"Add song" window height</short>
+        <long>Height of the "Add song" window.</long>
       </locale>
     </schema>
     <schema>
@@ -52,8 +52,8 @@
       <type>int</type>
       <default>350</default>
       <locale name="C">
-        <short>Add album window width</short>
-        <long>Add album window width.</long>
+        <short>"Add album" window width</short>
+        <long>Width of the "Add album" window.</long>
       </locale>
     </schema>
     <schema>
@@ -63,8 +63,8 @@
       <type>int</type>
       <default>300</default>
       <locale name="C">
-        <short>Add album window height</short>
-        <long>Add album window height.</long>
+        <short>"Add album" window height</short>
+        <long>Height of the "Add album" window.</long>
       </locale>
     </schema>
     <schema>
@@ -75,7 +75,7 @@
       <default>350</default>
       <locale name="C">
         <short>Information window width</short>
-        <long>Information window width.</long>
+        <long>Width of the information window.</long>
       </locale>
     </schema>
     <schema>
@@ -86,7 +86,7 @@
       <default>300</default>
       <locale name="C">
         <short>Information window height</short>
-        <long>Information window height.</long>
+        <long>Height of the information window.</long>
       </locale>
     </schema>
     <schema>
