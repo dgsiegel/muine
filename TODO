@@ -26,3 +26,4 @@ import/list/direct edit
 
 - serialize cover images to (png?) strings and put them in covers.db
 - songs op tracknr volgorde binnen albums, artists alfabetisch?
+- album sort: eerst artiest, dan album

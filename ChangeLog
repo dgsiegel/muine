@@ -1,5 +1,11 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Tray icon show/hide fixes.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/AddAlbumWindow.cs:
 
 	Handle albums with a lot of artists in a nicer way.

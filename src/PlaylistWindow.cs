@@ -162,6 +162,24 @@ public class PlaylistWindow : Window
 		SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
 	}
 
+	private int last_x;
+	private int last_y;
+
+	private void SetWindowVisible (bool visible)
+	{
+		if (visible == false)
+			GetPosition (out last_x, out last_y);
+		else {
+			Move (last_x, last_y);
+
+			Present ();
+		}
+
+		Visible = visible;
+
+		Muine.GConfClient.Set ("/apps/muine/playlist_window/visible", visible);
+	}
+
 	private void SetupButtonsAndMenuItems ()
 	{
 		Image image;
@@ -558,9 +576,6 @@ public class PlaylistWindow : Window
 		}
 	}
 
-	private int last_x;
-	private int last_y;
-
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
 	{
 		int width, height;
@@ -569,8 +584,6 @@ public class PlaylistWindow : Window
 
 		Muine.GConfClient.Set ("/apps/muine/playlist_window/width", width);
 		Muine.GConfClient.Set ("/apps/muine/playlist_window/height", height);
-
-		GetPosition (out last_x, out last_y);
 	}
 
 	private void HandleVolumeChanged (int vol)
@@ -593,15 +606,7 @@ public class PlaylistWindow : Window
 
 	private void HandleNotificationAreaIconActivateEvent ()
 	{
-		Visible = !Visible;
-
-		if (Visible) {
-			Move (last_x, last_y);
-
-			Present ();
-		}
-
-		Muine.GConfClient.Set ("/apps/muine/playlist_window/visible", Visible);
+		SetWindowVisible (!Visible);
 	}
 
 	private bool had_last_eos;
@@ -952,9 +957,7 @@ public class PlaylistWindow : Window
 
 	private void HandleHideWindowCommand (object o, EventArgs args)
 	{
-		Visible = false;
-
-		Muine.GConfClient.Set ("/apps/muine/playlist_window/visible", false);
+		SetWindowVisible (false);
 	}
 
 	private void HandlePlaylistRowActivated (IntPtr handle)
