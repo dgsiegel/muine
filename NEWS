@@ -9,7 +9,6 @@
 - Search improvements; searching for "rem" will now also yield "R.E.M.",
                                                    [Jorn Baayen]
 - Support DnD-inserting a playlist into the playlist [Jorn Baayen]
-- Depend on Gtk+ 2.6 for ellipsizing label and cell renderer [Jorn Baayen]
 - A new TickEvent on the IPlayer interface [Jorn Baayen]
 - A new GetAlbumCover method on the D-Bus object [Jorn Baayen]
 - Building MP3 support is now optional [Jorn Baayen]
