@@ -325,34 +325,16 @@ player_set_file (Player     *player,
 
 	*error = NULL;
 
-	if (player->priv->eos_idle_id > 0) {
-		g_source_remove (player->priv->eos_idle_id);
-		player->priv->eos_idle_id = 0;
-	}
+	player_stop (player);
 
-	if (!file) {
-		player_stop (player);
-
+	if (!file)
 		return FALSE;
-	}
 
-	switch (gst_element_get_state (GST_ELEMENT (player->priv->play))) {
-	case GST_STATE_PLAYING:
-		player_stop (player);
-		break;
-
-	default:
-		break;
-	}
-
-	g_free (player->priv->current_file);
 	// FIXME get rid of this one when the switch to gnome-vfs is made
 	player->priv->current_file = g_strdup_printf ("file://%s", file);
 
 	g_object_set (G_OBJECT (player->priv->play), "uri",
 		      player->priv->current_file, NULL);
-
-	player->priv->pos = 0;
 
 	return TRUE;
 }
@@ -369,6 +351,11 @@ void
 player_stop (Player *player)
 {
 	g_return_if_fail (IS_PLAYER (player));
+
+	if (player->priv->eos_idle_id > 0) {
+		g_source_remove (player->priv->eos_idle_id);
+		player->priv->eos_idle_id = 0;
+	}
 
 	g_free (player->priv->current_file);
 	player->priv->current_file = NULL;
