@@ -21,6 +21,7 @@
 #define __METADATA_H__
 
 #include <glib.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 typedef struct _Metadata Metadata;
 
@@ -40,6 +41,8 @@ const char *metadata_get_performer       (Metadata *metadata,
 int         metadata_get_performer_count (Metadata *metadata);
 
 const char *metadata_get_album           (Metadata *metadata);
+
+GdkPixbuf  *metadata_get_album_art       (Metadata *metadata);
 
 int         metadata_get_track_number    (Metadata *metadata);
 

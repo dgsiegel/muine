@@ -25,6 +25,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 
 using GLibSharp;
+using Gdk;
 
 public class Song
 {
@@ -245,7 +246,7 @@ public class Song
 		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
 	}
 
-	private void GetCoverImage ()
+	private void GetCoverImage (Metadata metadata)
 	{
 		checked_cover_image = true;
 
@@ -258,6 +259,13 @@ public class Song
 		if (Muine.CoverDB.Covers.ContainsKey (AlbumKey)) {
 			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
 			return;
+		}
+
+		/* Check for an embedded image in the ID3 tag */
+		if (metadata != null && metadata.AlbumArt != null) {
+			cover_image = Muine.CoverDB.AddCoverEmbedded (AlbumKey, metadata.AlbumArt);
+			if (cover_image != null)
+				return;
 		}
 
 		/* Search for popular image names */
@@ -359,7 +367,7 @@ public class Song
 		sort_key = null;
 		search_key = null;
 
-		GetCoverImage ();
+		GetCoverImage (metadata);
 	}
 
 	public Song (string fn)
@@ -451,7 +459,7 @@ public class Song
 		handles.Add (cur_ptr);
 
 		if (checked_cover_image == false)
-			GetCoverImage ();
+			GetCoverImage (null);
 	}
 
 	~Song ()

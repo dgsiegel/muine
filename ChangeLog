@@ -1,3 +1,15 @@
+2004-02-08  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/metadata.c: (get_mp3_duration), (get_mp3_picture_data),
+	(get_mp3_gain), (assign_metadata_mp3), (metadata_get_album_art):
+	* libmuine/metadata.h:
+	* src/CoverDatabase.cs:
+	* src/Metadata.cs:
+	* src/Song.cs:
+
+	Get the album cover from the ID3 tag if available.
+
 2004-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:

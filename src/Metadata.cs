@@ -19,6 +19,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using Gdk;
 
 public class Metadata 
 {
@@ -47,6 +48,13 @@ public class Metadata
 	public string Album {
 		get {
 			return album;
+		}
+	}
+
+	private Pixbuf album_art;
+	public Pixbuf AlbumArt {
+		get {
+			return album_art;
 		}
 	}
 
@@ -125,6 +133,9 @@ public class Metadata
 	private static extern string metadata_get_album (IntPtr metadata);
 
 	[DllImport ("libmuine")]
+	private static extern IntPtr metadata_get_album_art (IntPtr metadata);
+
+	[DllImport ("libmuine")]
 	private static extern int metadata_get_track_number (IntPtr metadata);
 
 	[DllImport ("libmuine")]
@@ -174,6 +185,11 @@ public class Metadata
 			album = String.Copy (s);
 		else
 			album = "";
+
+		if (metadata_get_album_art (md) != IntPtr.Zero)
+			album_art = new Pixbuf (metadata_get_album_art (md));
+		else
+			album_art = null;
 
 		track_number = metadata_get_track_number (md);
 

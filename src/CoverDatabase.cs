@@ -186,6 +186,15 @@ public class CoverDatabase
 		return pix;
 	}
 
+	public Pixbuf AddCoverEmbedded (string key, Pixbuf cover_image)
+	{
+		Pixbuf pix = BeautifyPixbuf (cover_image);
+
+		AddCover (key, pix);
+
+		return pix;
+	}
+
 	public void AddCover (string key, Pixbuf pix)
 	{
 		if (pix == null)

@@ -54,10 +54,12 @@ struct _Metadata {
 
 	double gain;
 	double peak;
+
+	GdkPixbuf *album_art;
 };
 
 static long
-get_duration_from_tag (struct id3_tag *tag)
+get_mp3_duration (struct id3_tag *tag)
 {
 	struct id3_frame const *frame;
 	union id3_field const *field;
@@ -92,6 +94,129 @@ get_duration_from_tag (struct id3_tag *tag)
 		return time;
 
 	return -1;
+}
+
+/*
+ *      <Header for 'Attached picture', ID: "APIC">
+ *      Text encoding      $xx
+ *      MIME type          <text string> $00
+ *      Picture type       $xx
+ *      Description        <text string according to encoding> $00 (00)
+ *      Picture data       <binary data>
+ */
+static GdkPixbuf *
+get_mp3_picture_data (struct id3_tag *tag, const char *field_name)
+{
+	const struct id3_frame *frame;
+	const union id3_field *field;
+	id3_byte_t const *picture_data;
+	id3_length_t length;
+	GdkPixbuf *ret;
+
+	/* Note: An MP3 can actualy have multiple embedded images. We should
+	 * really check them all for one of "type" [field 2] 03, however with
+	 * limited test data, plucking the first image out of the MP3 seems to
+	 * work here. More testing will guage whether we need to go into detail 
+	 */
+	frame = id3_tag_findframe (tag, field_name, 0);
+	if (frame == 0)
+		return NULL;
+
+	/* Picture data resides in frame 4 */
+	field = id3_frame_field (frame, 4);
+
+	if (field == NULL)
+		return NULL;
+
+	picture_data = id3_field_getbinarydata (field, &length);
+
+	if (picture_data == NULL)
+		return NULL;
+
+	GdkPixbufLoader *pb_loader = gdk_pixbuf_loader_new ();
+	if (!gdk_pixbuf_loader_write (pb_loader, picture_data, length, NULL))
+		return NULL;
+
+	if (!gdk_pixbuf_loader_close (pb_loader, NULL))
+		return NULL;
+
+	ret = g_object_ref (gdk_pixbuf_loader_get_pixbuf (pb_loader));
+
+	g_object_unref (pb_loader);
+
+	return ret;
+}
+
+static double
+get_mp3_gain (struct id3_tag *tag)
+{
+	const struct id3_frame *frame;
+	id3_latin1_t const *id;
+	id3_byte_t const *data;
+	id3_length_t length;
+
+	enum {
+		CHANNEL_OTHER         = 0x00,
+		CHANNEL_MASTER_VOLUME = 0x01,
+		CHANNEL_FRONT_RIGHT   = 0x02,
+		CHANNEL_FRONT_LEFT    = 0x03,
+		CHANNEL_BACK_RIGHT    = 0x04,
+		CHANNEL_BACK_LEFT     = 0x05,
+		CHANNEL_FRONT_CENTRE  = 0x06,
+		CHANNEL_BACK_CENTRE   = 0x07,
+		CHANNEL_SUBWOOFER     = 0x08
+	};
+
+	/* get relative volume adjustment information */
+	/* code taken from mad, player.c */
+	frame = id3_tag_findframe (tag, "RVA2", 0);
+	if (frame == 0)
+		return 0.0;
+
+	id = id3_field_getlatin1 (id3_frame_field (frame, 0));
+	data = id3_field_getbinarydata (id3_frame_field (frame, 1), &length);
+
+	if (!id || !data)
+		return 0.0;
+
+	/*
+	* "The 'identification' string is used to identify the situation
+	* and/or device where this adjustment should apply. The following is
+	* then repeated for every channel
+	*
+	*   Type of channel         $xx
+	*   Volume adjustment       $xx xx
+	*   Bits representing peak  $xx
+	*   Peak volume             $xx (xx ...)"
+	*/
+
+	while (length >= 4) {
+		unsigned int peak_bytes;
+
+		peak_bytes = (data[3] + 7) / 8;
+		if (4 + peak_bytes > length)
+			break;
+
+		if (data[0] == CHANNEL_MASTER_VOLUME) {
+			signed int voladj_fixed;
+
+			/*
+			 * "The volume adjustment is encoded as a fixed point decibel
+			 * value, 16 bit signed integer representing (adjustment*512),
+			 * giving +/- 64 dB with a precision of 0.001953125 dB."
+			 */
+
+			voladj_fixed  = (data[1] << 8) | (data[2] << 0);
+			voladj_fixed |= -(voladj_fixed & 0x8000);
+
+			return (double) voladj_fixed / 512;
+		}
+
+		data   += 4 + peak_bytes;
+		length -= 4 + peak_bytes;
+	}
+
+	return 0.0;
 }
 
 static int
@@ -154,7 +279,6 @@ assign_metadata_mp3 (const char *filename,
 	int bitrate, samplerate, channels, version, vbr, count, i;
 	long time, tag_time;
 	char *track_number_raw;
-	const struct id3_frame *frame;
 
 	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
 	if (file == NULL) {
@@ -179,7 +303,7 @@ assign_metadata_mp3 (const char *filename,
 
 	metadata = g_new0 (Metadata, 1);
 
-	tag_time = get_duration_from_tag (tag);
+	tag_time = get_mp3_duration (tag);
 
 	if (tag_time > 0)
 		metadata->duration = tag_time;
@@ -223,71 +347,9 @@ assign_metadata_mp3 (const char *filename,
 
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
 
-	/* get relative volume adjustment information */
-	/* code taken from mad, player.c */
-	frame = id3_tag_findframe (tag, "RVA2", 0);
-	if (frame) {
-		id3_latin1_t const *id;
-		id3_byte_t const *data;
-		id3_length_t length;
+	metadata->gain = get_mp3_gain (tag);
 
-		enum {
-			CHANNEL_OTHER         = 0x00,
-			CHANNEL_MASTER_VOLUME = 0x01,
-			CHANNEL_FRONT_RIGHT   = 0x02,
-			CHANNEL_FRONT_LEFT    = 0x03,
-			CHANNEL_BACK_RIGHT    = 0x04,
-			CHANNEL_BACK_LEFT     = 0x05,
-			CHANNEL_FRONT_CENTRE  = 0x06,
-			CHANNEL_BACK_CENTRE   = 0x07,
-			CHANNEL_SUBWOOFER     = 0x08
-		};
-
-		id = id3_field_getlatin1 (id3_frame_field (frame, 0));
-		data = id3_field_getbinarydata (id3_frame_field (frame, 1), &length);
-
-		g_assert (id && data);
-
-		/*
-		* "The 'identification' string is used to identify the situation
-		* and/or device where this adjustment should apply. The following is
-		* then repeated for every channel
-		*
-		*   Type of channel         $xx
-		*   Volume adjustment       $xx xx
-		*   Bits representing peak  $xx
-		*   Peak volume             $xx (xx ...)"
-		*/
-
-		while (length >= 4) {
-			unsigned int peak_bytes;
-
-			peak_bytes = (data[3] + 7) / 8;
-			if (4 + peak_bytes > length)
-				break;
-
-			if (data[0] == CHANNEL_MASTER_VOLUME) {
-				signed int voladj_fixed;
-
-				/*
-				 * "The volume adjustment is encoded as a fixed point decibel
-				 * value, 16 bit signed integer representing (adjustment*512),
-				 * giving +/- 64 dB with a precision of 0.001953125 dB."
-				 */
-
-				voladj_fixed  = (data[1] << 8) | (data[2] << 0);
-				voladj_fixed |= -(voladj_fixed & 0x8000);
-
-				metadata->gain = (double) voladj_fixed / 512;
-				/* FIXME we need to decode the peak, too */
-
-				break;
-			}
-
-			data   += 4 + peak_bytes;
-			length -= 4 + peak_bytes;
-		}
-	}
+	metadata->album_art = get_mp3_picture_data (tag, "APIC");
 
 	id3_vfs_close (file);
 
@@ -685,6 +747,14 @@ metadata_get_album (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, NULL);
 
 	return (const char *) metadata->album;
+}
+
+GdkPixbuf *
+metadata_get_album_art (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, NULL);
+
+	return metadata->album_art;
 }
 
 int
