@@ -1,3 +1,9 @@
+2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+
+	"the artist" -> "artist the" in sort/search key.
+
 2004-02-05  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/player.c: (player_init), (eos_idle_cb), (eos_cb),

@@ -61,17 +61,32 @@ public class Album
 		}
 	}
 
+	private static string [] prefixes = {
+		"the ",
+		"dj "
+	};
+
 	private string search_key = null;
 	public string SearchKey {
 		get {
 			if (search_key == null) {
 				/* need to keep this in the order for sorting too */
 				string [] lower_artists = new string [artists.Count];
-				string [] lower_performers = new string [performers.Count];
-				for (int i = 0; i < artists.Count; i++)
+				for (int i = 0; i < artists.Count; i++) {
 					lower_artists [i] = ((string) artists [i]).ToLower ();
+					
+					foreach (string prefix in prefixes) {
+						if (lower_artists [i].StartsWith (prefix)) {
+							lower_artists [i] = lower_artists [i].Remove (0, prefix.Length);
+							lower_artists [i] += " " + prefix.Substring (0, prefix.Length - 1);
+						}
+					}
+				}
+
+				string [] lower_performers = new string [performers.Count];
 				for (int i = 0; i < performers.Count; i++)
 					lower_performers [i] = ((string) performers [i]).ToLower ();
+
 				search_key = String.Join (" ", lower_artists) + " " + name.ToLower () + " " + String.Join (" ", lower_performers);
 			}
 
