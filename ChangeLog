@@ -1,3 +1,11 @@
+2004-04-26  Jorn Baayen  <jbaayen@gnome.org>
+
+	* NEWS:
+	* libmuine/player-xine.c: (load_audio_out_driver),
+	(player_construct):
+
+	Load audio driver from xine-config.
+
 2004-04-25  Crispin Flowerday  <gnome@flowerday.cx>
             Jorn Baayen  <jbaayen@gnome.org>
 

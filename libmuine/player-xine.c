@@ -250,12 +250,50 @@ xine_event (Player *player,
     }
 }
 
+static xine_ao_driver_t *
+load_audio_out_driver (Player *player, char **err)
+{
+  xine_ao_driver_t *ao_driver;
+  const char *audio_driver_id;
+
+  audio_driver_id = xine_config_register_string (player->priv->xine,
+			"audio.driver", "auto", "audio driver to use",
+			NULL, 10, NULL, NULL);
+
+  /* No configuration, fallback to auto */
+  if (audio_driver_id == NULL || strcmp (audio_driver_id, "") == 0)
+    audio_driver_id = g_strdup ("auto");
+
+  /* We know how to handle null driver */
+  if (strcmp (audio_driver_id, "null") == 0)
+    return NULL;
+
+  /* auto probe */
+  if (strcmp (audio_driver_id, "auto") == 0)
+    ao_driver = xine_open_audio_driver (player->priv->xine, NULL, NULL);
+  else
+    ao_driver = xine_open_audio_driver (player->priv->xine, audio_driver_id, NULL);
+
+  /* if it failed without autoprobe, probe */
+  if (ao_driver == NULL && strcmp (audio_driver_id, "auto") != 0)
+    ao_driver = xine_open_audio_driver (player->priv->xine, NULL, NULL);
+
+  if (ao_driver == NULL && strcmp (audio_driver_id, "auto") != 0) 
+    {
+      *err = g_strdup_printf (_("Couldn't load the '%s' audio driver\n"
+			      "Check that the device is not busy."),
+		              audio_driver_id ? audio_driver_id : "auto");
+      return NULL;
+    }
+
+  return ao_driver;
+}
+
 static void
 player_construct (Player *player,
 		  char  **error)
 {
   PlayerPriv *priv = player->priv;
-  const char *audio_driver;
   char *configfile;
 
   priv->xine = xine_new ();
@@ -268,26 +306,8 @@ player_construct (Player *player,
 
   xine_init (priv->xine);
 
-  audio_driver = "auto";
+  priv->audio_driver = load_audio_out_driver (player, error);
 
-  if (strcmp (audio_driver, "null") == 0)
-    priv->audio_driver = NULL;
-  else
-    {
-      if (strcmp (audio_driver, "auto") != 0) {
-	/* first try the requested driver */
-	priv->audio_driver = xine_open_audio_driver (priv->xine,
-						     audio_driver, NULL);
-      }
-      
-      /* autoprobe */
-      if (priv->audio_driver == NULL)
-	priv->audio_driver = xine_open_audio_driver (priv->xine, NULL, NULL);
-    }
-  
-  if (priv->audio_driver == NULL)
-    *error = g_strdup (_("Failed to set up an audio driver"));
-  
   priv->video_driver = NULL;
 
   priv->stream = xine_stream_new (priv->xine,
