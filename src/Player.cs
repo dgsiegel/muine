@@ -181,6 +181,10 @@ public class Player : GLib.Object
 							         IntPtr p, int flags);
 	}
 
+	private IntSignalDelegate tick_cb;
+	private SignalDelegate eos_cb;
+	private StringSignalDelegate error_cb;
+
 	public Player () : base (IntPtr.Zero)
 	{
 		IntPtr error_ptr;
@@ -192,11 +196,15 @@ public class Player : GLib.Object
 			throw new Exception (error);
 		}
 		
-		ConnectInt.g_signal_connect_data (Raw, "tick", new IntSignalDelegate (TickCallback),
+		tick_cb = new IntSignalDelegate (TickCallback);
+		eos_cb = new SignalDelegate (EosCallback);
+		error_cb = new StringSignalDelegate (ErrorCallback);
+
+		ConnectInt.g_signal_connect_data (Raw, "tick", tick_cb,
 		                                  IntPtr.Zero, IntPtr.Zero, 0);
-		Connect.g_signal_connect_data (Raw, "end_of_stream", new SignalDelegate (EosCallback),
+		Connect.g_signal_connect_data (Raw, "end_of_stream", eos_cb,
 				               IntPtr.Zero, IntPtr.Zero, 0);
-		ConnectString.g_signal_connect_data (Raw, "error", new StringSignalDelegate (ErrorCallback),
+		ConnectString.g_signal_connect_data (Raw, "error", error_cb,
 				                     IntPtr.Zero, IntPtr.Zero, 0);
 
 		playing = false;

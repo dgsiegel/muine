@@ -34,15 +34,23 @@ public class HandleView : TreeView
 							  SignalDelegate cb, IntPtr data,
 							  IntPtr p, int flags);
 
+	private SignalDelegate pointer_activated_cb;
+	private SignalDelegate pointers_reordered_cb;
+	private SignalDelegate selection_changed_cb;
+
 	public HandleView () : base (IntPtr.Zero)
 	{
 		Raw = pointer_list_view_new ();
 
-		g_signal_connect_data (Raw, "pointer_activated", new SignalDelegate (PointerActivatedCallback),
+		pointer_activated_cb = new SignalDelegate (PointerActivatedCallback);
+		pointers_reordered_cb = new SignalDelegate (PointersReorderedCallback);
+		selection_changed_cb = new SignalDelegate (SelectionChangedCallback);
+
+		g_signal_connect_data (Raw, "pointer_activated", pointer_activated_cb,
 				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "pointers_reordered", new SignalDelegate (PointersReorderedCallback),
+		g_signal_connect_data (Raw, "pointers_reordered", pointers_reordered_cb,
 				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "selection_changed", new SignalDelegate (SelectionChangedCallback),
+		g_signal_connect_data (Raw, "selection_changed", selection_changed_cb,
 				       IntPtr.Zero, IntPtr.Zero, 0);
 	}
 

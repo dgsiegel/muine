@@ -1,5 +1,12 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/HandleView.cs:
+	* src/Player.cs:
+
+	Fix GC issues with Mono 1.1. Thanks to Ross Girshick and Peter Johanson.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/StringUtils.cs: Fix unsigned-to-signed conversion problem.
 	Patch by David Reveman <c99drn@cs.umu.se>.
 
