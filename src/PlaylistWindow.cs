@@ -128,11 +128,20 @@ public class PlaylistWindow : Window
 		add_album_window = new AddAlbumWindow (this);
 		add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
 		add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
-			
+
+		/* load last playlist */
+		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
+		FileInfo finfo = new FileInfo (playlist_filename);
+		if (finfo.Exists)
+			OpenPlaylist (playlist_filename);
+
 		SongChanged ();
+		NSongsChanged ();
 		SelectionChanged ();
 		StateChanged (false);
 	}
+
+	private string playlist_filename;
 
 	public void Run ()
 	{
@@ -450,6 +459,8 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item.Sensitive = has_first;
 
 		UpdateTimeLabels (player.Position);
+
+		SavePlaylist (playlist_filename, true);
 	}
 
 	private void SongChanged ()
@@ -497,8 +508,6 @@ public class PlaylistWindow : Window
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
 		                            true, true, false);
-
-		NSongsChanged ();
 	}
 
 	private void SelectionChanged ()
@@ -538,10 +547,6 @@ public class PlaylistWindow : Window
 		playlist.Clear ();
 
 		player.Playing = false;
-
-		SongChanged ();
-
-		NSongsChanged ();
 	}
 
 	private void SeekTo (long seconds)
@@ -621,7 +626,7 @@ public class PlaylistWindow : Window
 		NSongsChanged ();
 	}
 
-	private void SavePlaylist (string fn)
+	private void SavePlaylist (string fn, bool exclude_played)
 	{
 		StreamWriter writer;
 		
@@ -632,8 +637,23 @@ public class PlaylistWindow : Window
 			return;
 		}
 
+		bool had_playing_song = false;
 		foreach (int i in playlist.Contents) {
-			Song song = Song.FromHandle (new IntPtr (i));
+			IntPtr ptr = new IntPtr (i);
+
+			if (exclude_played) {
+				if (ptr == playlist.Playing) {
+					had_playing_song = true;
+
+					if (had_last_eos)
+						continue;
+				}
+
+				if (!had_playing_song)
+					continue;
+			}
+			
+			Song song = Song.FromHandle (ptr);
 
 			writer.WriteLine (song.Filename);
 		}
@@ -818,6 +838,8 @@ public class PlaylistWindow : Window
 			playlist.Next ();
 
 			SongChanged ();
+
+			NSongsChanged ();
 		} else {
 			had_last_eos = true;
 
@@ -838,6 +860,8 @@ public class PlaylistWindow : Window
 			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged ();
+
+			NSongsChanged ();
 		} else
 			player.Position = 0;
 
@@ -852,6 +876,8 @@ public class PlaylistWindow : Window
 
 			SongChanged ();
 
+			NSongsChanged ();
+
 			had_last_eos = false;
 		}
 
@@ -864,6 +890,8 @@ public class PlaylistWindow : Window
 		playlist.ScrollTo (playlist.Playing);
 
 		SongChanged ();
+
+		NSongsChanged ();
 
 		player.Playing = true;
 	}
@@ -1000,9 +1028,9 @@ public class PlaylistWindow : Window
 			                                 "If you choose yes, the contents will be lost.\n\n" +
 							 "Do you want to continue?", this);
 			if (d.GetAnswer () == true)
-				SavePlaylist (fn);
+				SavePlaylist (fn, false);
 		} else
-			SavePlaylist (fn);
+			SavePlaylist (fn, false);
 	}
 
 	private void HandleImportFolderEvent (DirectoryInfo dinfo)
@@ -1044,6 +1072,8 @@ public class PlaylistWindow : Window
 
 		if (had_last_eos) {
 			ClearPlaylist ();
+			SongChanged ();
+			NSongsChanged ();
 			return;
 		}
 
@@ -1060,6 +1090,8 @@ public class PlaylistWindow : Window
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
 	{
 		ClearPlaylist ();
+		SongChanged ();
+		NSongsChanged ();
 	}
 
 	private void HandleHideWindowCommand (object o, EventArgs args)
@@ -1072,6 +1104,8 @@ public class PlaylistWindow : Window
 		playlist.Playing = handle;
 
 		SongChanged ();
+
+		NSongsChanged ();
 
 		player.Playing = true;
 	}
@@ -1088,8 +1122,7 @@ public class PlaylistWindow : Window
 
 	private void HandleQuitCommand (object o, EventArgs args)
 	{
-		//Application.Quit ();
-		Environment.Exit (0);
+		Muine.Exit ();
 	}
 
 	private void HandleAboutCommand (object o, EventArgs args)

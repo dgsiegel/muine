@@ -89,7 +89,12 @@ public class Muine : Gnome.Program
 
 	private void HandlePlaylistDeleteEvent (object o, DeleteEventArgs args)
 	{
-//		Application.Quit ();
+		Exit ();
+	}
+
+	public static void Exit ()
+	{
+		//Application.Quit ();
 		Environment.Exit (0);
 	}
 }

@@ -1,6 +1,5 @@
 - album cover klikken laat je een cover kiezen
 - fix drop at end
-- impl rest of ui
 - pango stuff directly in C# with Gtk# CVS
 - adding smart queries to the playlist?
 
@@ -19,10 +18,17 @@
 - add wma, mp4 and flac support
 - musicbrainz support
 - clicking an m3u should load it in muine, mp3/ogg add to collection, etc
-- monitor ~/Muine using FileWatcher
-- cd burning:
+- monitor imported folders using FileWatcher
+- cd burning (Brad Griffith):
  - audio cd
  - mp3 cd:
    - create folders for different albums (Artist - Album)
    - create a "Playlist" folder with symlinks to the mp3s, using filenames
    with numbers prepended so that the original playlist order is maintained.
+
+- automatic cover fetching from amazon.com (Lee Willis)
+
+- drag album covers from nautilus to the gnome foot icon
+
+- groups: include a "Single songs" group.. songs without associated album, smart group creation.
+- add windows not staying open can be inconvenient
