@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-12 22:07+0100\n"
-"PO-Revision-Date: 2005-01-12 22:03+0100\n"
+"POT-Creation-Date: 2005-01-14 22:37+0100\n"
+"PO-Revision-Date: 2005-01-14 22:37+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,11 +75,11 @@ msgstr "_Nichts. Ich werde meine Musik selbst verwalten"
 msgid "Play"
 msgstr "Wiedergeben"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:50
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
 msgid "Play Album"
 msgstr "Album wiedergeben"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:50
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
 msgid "Play Song"
 msgstr "Titel wiedergeben"
 
@@ -104,161 +104,114 @@ msgid "Muine Music Player"
 msgstr "Muine Musik-Player"
 
 #: data/muine.schemas.in.h:1
-msgid "\"Add album\" list minimum query length (speed hack)"
-msgstr ""
-"Minimale Abfragelänge der »Album hinzufügen«-Liste (Geschwindigkeits-Hack)"
-
-#: data/muine.schemas.in.h:2
 msgid "\"Add album\" window height"
 msgstr "»Album hinzufügen«-Fensterhöhe"
 
-#: data/muine.schemas.in.h:3
+#: data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
 msgstr "»Album hinzufügen«-Fensterbreite"
 
-#: data/muine.schemas.in.h:4
-msgid "\"Add song\" list fake length (speed hack)"
-msgstr "Getürkte Länge der »Titel hinzufügen«-Liste (Geschwindigkeits-Hack)"
-
-#: data/muine.schemas.in.h:5
-msgid "\"Add song\" list minimum query length (speed hack)"
-msgstr ""
-"Minimale Abfragelänge der »Titel hinzufügen«-Liste (Geschwindigkeits-Hack)"
-
-#: data/muine.schemas.in.h:6
+#: data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
 msgstr "»Titel hinzufügen«-Fensterhöhe"
 
-#: data/muine.schemas.in.h:7
+#: data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
 msgstr "»Titel hinzufügen«-Fensterbreite"
 
-#: data/muine.schemas.in.h:8
+#: data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
 msgstr "Amazon-Seite, die für Albumcover benutzt wird"
 
-#: data/muine.schemas.in.h:9
+#: data/muine.schemas.in.h:6
 msgid "Default import folder"
 msgstr "Importordner-Vorgabe"
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:7
 msgid "Default playlist folder"
 msgstr "Wiedergabelistenordner-Vorgabe"
 
-#: data/muine.schemas.in.h:11
-msgid "Enables speed hacks on the \"Add album\" list."
-msgstr "Aktiviert Geschwindigkeits-Hacks für die »Album hinzufügen«-Liste"
+#: data/muine.schemas.in.h:8
+msgid "Enable speed hacks on the \"Add album\" list."
+msgstr "Aktiviert Geschwindigkeits-Hacks für die »Album hinzufügen«-Liste."
 
-#: data/muine.schemas.in.h:12
-msgid ""
-"Enables speed hacks on the \"Add album\" list. See also min_query_length and "
-"fake_length."
-msgstr ""
-"Aktiviert Geschwindigkeits-Hacks für die »Album hinzufügen«-Liste. Siehe "
-"auch »min_query_length« und »fake_length«."
-
-#: data/muine.schemas.in.h:13
-msgid "Enables speed hacks on the \"Add song\" list."
+#: data/muine.schemas.in.h:9
+msgid "Enable speed hacks on the \"Add song\" list."
 msgstr "Aktiviert Geschwindigkeits-Hacks für die »Titel hinzufügen«-Liste."
 
-#: data/muine.schemas.in.h:14
-msgid ""
-"Enables speed hacks on the \"Add song\" list. See also min_query_length and "
-"fake_length."
-msgstr ""
-"Aktiviert·Geschwindigkeits-Hacks·für·die·»Titel·hinzufügen«-Liste."
-"·Siehe·auch·»min_query_length«·und·»fake_length«."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:10
 msgid "First start"
 msgstr "Erster Start"
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Ordner, die auf Änderungen überwacht werden"
 
-#: data/muine.schemas.in.h:17
+#: data/muine.schemas.in.h:12
 msgid "Height of the \"Add album\" window."
 msgstr "Höhe des »Album hinzufügen«-Fensters"
 
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:13
 msgid "Height of the \"Add song\" window."
 msgstr "Höhe des »Titel hinzufügen«-Fensters"
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:14
 msgid "Height of the information window."
 msgstr "Höhe des Informationsfensters"
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:15
 msgid "Height of the playlist window."
 msgstr "Höhe des Wiedergabelistenfensters"
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:16
 msgid "Information window height"
 msgstr "Informationsfenster-Höhe"
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:17
 msgid "Information window width"
 msgstr "Informationsfenster-Breite"
 
-#: data/muine.schemas.in.h:23
+#: data/muine.schemas.in.h:18
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Letzter benutzter Ordner des Dialogs »Ordner importieren«."
 
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:19
 msgid "Last used folder from the playlist file selectors."
 msgstr "Letzter benutzter Ordner des Wiedergabelistendateiselektors."
 
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:20
 msgid "Playlist window height"
 msgstr "Wiedergabelistenfenster-Höhe"
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:21
 msgid "Playlist window width"
 msgstr "Wiedergabelistenfenster-Breite"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:22
 msgid "Repeat mode"
 msgstr "Wiederholungsmodus"
 
-#: data/muine.schemas.in.h:28
-msgid ""
-"The maximum number of results to show if searching for less than "
-"min_query_length characters. Only used if enable_speed_hacks is set to \"true"
-"\"."
-msgstr ""
-"Die maximale Anzahl von angezeigten Ergebnissen, falls nach weniger als "
-"»min_query_length« Zeichen gesucht wird. Wird nur verwendet, wenn "
-"»enable_speed_hacks« auf »true« gesetzt wurde."
+#: data/muine.schemas.in.h:23
+msgid "Speed hacks"
+msgstr "Geschwindigkeits-Hacks"
 
-#: data/muine.schemas.in.h:29
-msgid ""
-"The minimum number of characters to do a full search. Less than this, and "
-"only fake_length results are shown. Only used if enable_speed_hacks is set "
-"to \"true\"."
-msgstr ""
-"Die minimale Anzahl von Zeichen die zur Ausführung einer vollen Suche "
-"verwendet werden. Werden weniger als diese angegeben, werden nur "
-"»fake_length« Ergebnisse angezeigt. Wird nur verwendet, wenn "
-"»enable_speed_hacks« auf »true« gesetzt wurde."
-
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:24
 msgid "Volume level"
 msgstr "Lautstärke"
 
-#: data/muine.schemas.in.h:31
+#: data/muine.schemas.in.h:25
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Lautstärke 0 = minimal, 100 = maximal."
 
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:26
 msgid "Watched folders"
 msgstr "Überwachte Ordner"
 
-#: data/muine.schemas.in.h:33
+#: data/muine.schemas.in.h:27
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "»Wiedergabeliste wiederholen« an oder aus."
 
-#: data/muine.schemas.in.h:34
+#: data/muine.schemas.in.h:28
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -266,23 +219,23 @@ msgstr ""
 "Welche Amazon-Seite zum Holen von Albumcovern genutzt wird, »us«, »uk«, "
 "»de«, oder »jp«."
 
-#: data/muine.schemas.in.h:35
+#: data/muine.schemas.in.h:29
 msgid "Width of the \"Add album\" window."
 msgstr "Breite des »Album hinzufügen«-Fensters"
 
-#: data/muine.schemas.in.h:36
+#: data/muine.schemas.in.h:30
 msgid "Width of the \"Add song\" window."
 msgstr "Breite des »Titel hinzufügen«-Fensters"
 
-#: data/muine.schemas.in.h:37
+#: data/muine.schemas.in.h:31
 msgid "Width of the information window."
 msgstr "Breite des Informationsfensters"
 
-#: data/muine.schemas.in.h:38
+#: data/muine.schemas.in.h:32
 msgid "Width of the playlist window."
 msgstr "Breite des Wiedergabelistenfensters"
 
-#: data/muine.schemas.in.h:39
+#: data/muine.schemas.in.h:33
 msgid "false if Muine has been started before."
 msgstr "Wenn Muine bereits einmal gestartet wurde, false."
 
@@ -360,7 +313,7 @@ msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgid "Album covers are provided by amazon.com."
 msgstr "Albumcover werden von amazon.com bereitgestellt."
 
-#: src/AddAlbumWindow.cs:52 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Interpret: {0}"
@@ -429,7 +382,7 @@ msgstr ""
 "\n"
 "Beende..."
 
-#: src/Metadata.cs:32
+#: src/Metadata.cs:34
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Konnte metadata: {0} nicht laden"
@@ -540,28 +493,28 @@ msgstr "Konnte {0} nicht schließen"
 msgid "Failed to open {0} for writing"
 msgstr "Konnte {0} nicht zum Schreiben öffnen"
 
-#: src/PlaylistWindow.cs:968
+#: src/PlaylistWindow.cs:944
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
 msgstr[0] "Wiedergabeliste (wiederhole {0} Stunde)"
 msgstr[1] "Wiedergabeliste (wiederhole {0} Stunden)"
 
-#: src/PlaylistWindow.cs:973
+#: src/PlaylistWindow.cs:949
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
 msgstr[0] "Wiedergabeliste (wiederhole {0} Minute)"
 msgstr[1] "Wiedergabeliste (wiederhole {0} Minuten)"
 
-#: src/PlaylistWindow.cs:978
+#: src/PlaylistWindow.cs:954
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
 msgstr[0] "Wiedergabeliste ({0} Stunde verbleibend)"
 msgstr[1] "Wiedergabeliste ({0} Stunden verbleibend)"
 
-#: src/PlaylistWindow.cs:983
+#: src/PlaylistWindow.cs:959
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
@@ -591,6 +544,50 @@ msgstr "{0} und andere"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} und {1}"
+
+#~ msgid "\"Add album\" list minimum query length (speed hack)"
+#~ msgstr ""
+#~ "Minimale Abfragelänge der »Album hinzufügen«-Liste (Geschwindigkeits-Hack)"
+
+#~ msgid "\"Add song\" list fake length (speed hack)"
+#~ msgstr "Getürkte Länge der »Titel hinzufügen«-Liste (Geschwindigkeits-Hack)"
+
+#~ msgid "\"Add song\" list minimum query length (speed hack)"
+#~ msgstr ""
+#~ "Minimale Abfragelänge der »Titel hinzufügen«-Liste (Geschwindigkeits-Hack)"
+
+#~ msgid ""
+#~ "Enables speed hacks on the \"Add album\" list. See also min_query_length "
+#~ "and fake_length."
+#~ msgstr ""
+#~ "Aktiviert Geschwindigkeits-Hacks für die »Album hinzufügen«-Liste. Siehe "
+#~ "auch »min_query_length« und »fake_length«."
+
+#~ msgid ""
+#~ "Enables speed hacks on the \"Add song\" list. See also min_query_length "
+#~ "and fake_length."
+#~ msgstr ""
+#~ "Aktiviert·Geschwindigkeits-Hacks·für·die·»Titel·hinzufügen«-Liste."
+#~ "·Siehe·auch·»min_query_length«·und·»fake_length«."
+
+#~ msgid ""
+#~ "The maximum number of results to show if searching for less than "
+#~ "min_query_length characters. Only used if enable_speed_hacks is set to "
+#~ "\"true\"."
+#~ msgstr ""
+#~ "Die maximale Anzahl von angezeigten Ergebnissen, falls nach weniger als "
+#~ "»min_query_length« Zeichen gesucht wird. Wird nur verwendet, wenn "
+#~ "»enable_speed_hacks« auf »true« gesetzt wurde."
+
+#~ msgid ""
+#~ "The minimum number of characters to do a full search. Less than this, and "
+#~ "only fake_length results are shown. Only used if enable_speed_hacks is "
+#~ "set to \"true\"."
+#~ msgstr ""
+#~ "Die minimale Anzahl von Zeichen die zur Ausführung einer vollen Suche "
+#~ "verwendet werden. Werden weniger als diese angegeben, werden nur "
+#~ "»fake_length« Ergebnisse angezeigt. Wird nur verwendet, wenn "
+#~ "»enable_speed_hacks« auf »true« gesetzt wurde."
 
 #~ msgid "*"
 #~ msgstr "*"
