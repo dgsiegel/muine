@@ -1,0 +1,459 @@
+# muine's Brazilian Portuguese translation.
+# Copyright © 2004 muine
+# This file is distributed under the same license as the muine package.
+# Everson Santos Araujo <nobios@por.com.br>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-23 10:28-0500\n"
+"PO-Revision-Date: 2004-03-22 23:59-0300\n"
+"Last-Translator: Everson Santos Araujo <nobios@por.com.br>\n"
+"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2
+msgid "_Play"
+msgstr "_Tocar"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Queue"
+msgstr "Em _fila"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Search:"
+msgstr "_Procurar:"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "Error"
+msgstr "Erro"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Não foi encontrada nenhuma música</"
+"span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+"Não foi possível encontrar a sua coleção de música. O que deseja fazer?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+"Serão criadas as pastas Music e Music/Playlists na sua pasta pessoal para "
+"armazenar seus arquivos de música. Esta opção é altamente recomendada. Você "
+"pode importar manualmente outras pastas."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "Nenhuma música encontrada"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+msgstr ""
+"Você tem que importar manualmente a sua música. Isso é para usuários "
+"avançados e portanto não é geralmente recomendado."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "_Criar uma coleção de música vazia "
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "_Nada, Irei gerenciar pessoalmente a minha música"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Play Album"
+msgstr "_Tocar álbum"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Play Song"
+msgstr "Tocar _música"
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Play _Album..."
+msgstr "_Tocar álbum..."
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Play _Song..."
+msgstr "Tocar _música..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr "R_epetir"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Remove _Played Songs"
+msgstr "Remover música re_produzida"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Backwards"
+msgstr "Ir para _trás"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "Skip _Forward"
+msgstr "Ir para a _frente"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "_Clear Playlist"
+msgstr "_Limpar a lista de reprodução"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Hide Window"
+msgstr "_Esconder janela"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Import Folder..."
+msgstr "_Importar pasta..."
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Information"
+msgstr "_Informação"
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "_Próximo"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "_Abrir lista de reprodução..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Lista de reprodução"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "_Anterior"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "_Remover música"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "_Salvar lista de reprodução como..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Ir para..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "_Música"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Carregando:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Ir para"
+
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr "Questão"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Escute a sua música"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Reprodutor de música Muine"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Altura da janela de inclusão de álbum."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Largura da janela de inclusão de álbum."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Altura da janela de inclusão de música."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Largura da janela de inclusão de música."
+
+#: data/muine.schemas.in.h:5
+msgid "Default import folder."
+msgstr "Pasta padrão de importação."
+
+#: data/muine.schemas.in.h:6
+msgid "Default playlist folder."
+msgstr "Pasta padrão de lista de reprodução."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr "Primeiro início."
+
+#: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr "Pastas que são monitoradas por alterações."
+
+#: data/muine.schemas.in.h:9
+msgid "Information window height."
+msgstr "Altura da janela de informação."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window width."
+msgstr "Largura da janela de informação."
+
+#: data/muine.schemas.in.h:11
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Última pasta utilizada no diálogo \"Importar pasta\"."
+
+#: data/muine.schemas.in.h:12
+msgid "Last used folder from the playlist file selectors."
+msgstr "Última pasta utilizada para selecionar arquivo de lista de reprodução."
+
+#: data/muine.schemas.in.h:13
+msgid "Playlist window height."
+msgstr "Altura da janela de lista de reprodução."
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr "Largura da janela de lista de reprodução."
+
+#: data/muine.schemas.in.h:15
+msgid "Repeat mode."
+msgstr "Modo de repetição."
+
+#: data/muine.schemas.in.h:16
+msgid "Volume level."
+msgstr "Nível de volume."
+
+#: data/muine.schemas.in.h:17
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Nível de volume. 0 = mais baixo, 100 = mais alto."
+
+#: data/muine.schemas.in.h:18
+msgid "Watched folders."
+msgstr "Pastas monitoradas."
+
+#: data/muine.schemas.in.h:19
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Ativar ou não o modo de repetição de lista de reprodução."
+
+#: data/muine.schemas.in.h:20
+msgid "false if Muine has been started before."
+msgstr "Falso se o Muine já foi anteriormente iniciado."
+
+#~ msgid "Jorn Baayen (jbaayen@gnome.org)"
+#~ msgstr "Jorn Baayen (jbaayen@gnome.org)"
+
+#~ msgid "Lee Willis (lee@leewillis.co.uk)"
+#~ msgstr "Lee Willis (lee@leewillis.co.uk)"
+
+#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+
+#~ msgid "translator-credits"
+#~ msgstr "Everson Santos Araujo (nobios@por.com.br)"
+
+#~ msgid "Muine"
+#~ msgstr "Muine"
+
+#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#~ msgstr "Copyright (C) 2003, 2004 Jorn Baayen"
+
+#~ msgid "A music player"
+#~ msgstr "Reprodutor de música"
+
+#~ msgid "Thanks to Amazon.com for providing album cover images!"
+#~ msgstr "Agradecimentos a Amazon.com por provêr imagens dos álbuns!"
+
+#~ msgid "Performed by {0}"
+#~ msgstr "Executado por {0}"
+
+#~ msgid "the dj"
+#~ msgstr "o Dj"
+
+#~ msgid "Failed to open database: {0}"
+#~ msgstr "Falha ao abrir banco de dados: {0}"
+
+#~ msgid "Failed to load metadata: {0}"
+#~ msgstr "Falha carregando meta dados: {0}"
+
+#~ msgid ""
+#~ "Failed to load the cover database: {0}\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Falha ao abrir banco de dados de capas: {0}\n"
+#~ " Saindo..."
+
+#~ msgid ""
+#~ "Failed to load the song database: {0}\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Falha ao abrir banco de dados de músicas: {0}\n"
+#~ " Saindo..."
+
+#~ msgid "Muine music player"
+#~ msgstr "Reprodutor de música Muine"
+
+#~ msgid "_Previous Song"
+#~ msgstr "_Anterior"
+
+#~ msgid "_Next Song"
+#~ msgstr "_Próxima"
+
+#~ msgid "Song _Information"
+#~ msgstr "_Informação"
+
+#~ msgid "Show _Window"
+#~ msgstr "Mostrar _janela"
+
+#~ msgid "Failed to create Player object"
+#~ msgstr "Falha ao criar objeto do Player"
+
+#~ msgid "Hide _Window"
+#~ msgstr "_Esconder janela"
+
+#~ msgid "Play the previous song"
+#~ msgstr "Tocar a música anterior"
+
+#~ msgid "Play the next song"
+#~ msgstr "Tocar a próxima música"
+
+#~ msgid "Add an album to the playlist"
+#~ msgstr "Adicionar um álbum a lista de reprodução."
+
+#~ msgid "Add a song to the playlist"
+#~ msgstr "Adicionar uma música a lista de reprodução."
+
+#~ msgid "Change the volume level"
+#~ msgstr "Mudar o nível de volume"
+
+#~ msgid "Playlist"
+#~ msgstr "_Lista de reprodução"
+
+#~ msgid ""
+#~ "Failed to create the required GStreamer elements.\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Falha ao criar os elementos GStreamer necessários.\n"
+#~ " Saindo..."
+
+#~ msgid "Playlist (Repeating {0} hour)"
+#~ msgstr "Lista de reprodução (Repetindo {0} hora)"
+
+#~ msgid "Playlist (Repeating {0} minute)"
+#~ msgstr "Lista de reprodução (Repetindo {0} minuto)"
+
+#~ msgid "Playlist (Repeating)"
+#~ msgstr "Lista de reprodução (Repetindo)"
+
+#~ msgid "Playlist ({0} hour remaining)"
+#~ msgstr "Lista de reprodução ({0} horas faltando)"
+
+#~ msgid "Playlist ({0} minute remaining)"
+#~ msgstr "Lista de reprodução ({0} minutos faltando)"
+
+#~ msgid "Playlist (Less than one minute remaining)"
+#~ msgstr "Lista de reprodução (Menos de um minuto faltando)"
+
+#~ msgid "From \"{0}\""
+#~ msgstr "De \"{0}\""
+
+#~ msgid "Album unknown"
+#~ msgstr "Álbum desconhecido"
+
+#~ msgid "Drop an image here to use it as album cover"
+#~ msgstr "Coloque uma imagem aqui para usar como capa do álbum"
+
+#~ msgid "{0} - Muine Music Player"
+#~ msgstr "{0} - Reprodutor de música Muine"
+
+#~ msgid "Pause music playback"
+#~ msgstr "Pausar reprodução de música"
+
+#~ msgid "P_ause"
+#~ msgstr "P_ausa"
+
+#~ msgid "Resume music playback"
+#~ msgstr "Resumir reprodução de música"
+
+#~ msgid "Pl_ay"
+#~ msgstr "_Tocar"
+
+#~ msgid "Start music playback"
+#~ msgstr "Começar reprodução de música"
+
+#~ msgid "Failed to open {0} for reading"
+#~ msgstr "Falha ao abrir {0} para leitura"
+
+#~ msgid "Failed to open {0} for writing"
+#~ msgstr "Falha ao abrir {0} para escrita"
+
+#~ msgid "Import Folder"
+#~ msgstr "Importar pasta..."
+
+#~ msgid "Open Playlist"
+#~ msgstr "Abrir lista de reprodução"
+
+#~ msgid "Save Playlist"
+#~ msgstr "Salvar lista de reprodução"
+
+#~ msgid ""
+#~ "File {0} will be overwritten.\n"
+#~ "If you choose yes, the contents will be lost.\n"
+#~ "\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "Arquivo {0} será subtituído.\n"
+#~ "Se você selecionar sim, o conteúdo será perdido.\n"
+#~ "\n"
+#~ "Você quer continuar?"
+
+#~ msgid "Importing {0}..."
+#~ msgstr "Importando {0}..."
+
+#~ msgid "Unknown"
+#~ msgstr "Desconhecido"
+
+#~ msgid "{0} and others"
+#~ msgstr "{0} e outros"
+
+#~ msgid "{0} and {1}"
+#~ msgstr "{0} e {1}"
+
+#~ msgid "<b>Groups</b>"
+#~ msgstr "<b>Grupos</b>"
+
+#~ msgid "<b>Songs</b> (30 minutes in total)"
+#~ msgstr "<b>Músicas</b> (total de 30 minutos)"
+
+#~ msgid "Groups"
+#~ msgstr "Grupos"
+
+#~ msgid "_Add song"
+#~ msgstr "_Adicionar uma música"
+
+#~ msgid "Orientation"
+#~ msgstr "Orientação"
+
+#~ msgid "The orientation of the tray."
+#~ msgstr "A orientação do ícone de área de notificação."
