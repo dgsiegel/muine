@@ -1363,8 +1363,8 @@ public class PlaylistWindow : Window, PlayerInterface
 		if (add_song_window == null) {
 			add_song_window = new AddSongWindow ();
 
-			add_song_window.QueueSongsEvent += new AddSongWindow.QueueSongsEventHandler (HandleQueueSongsEvent);
-			add_song_window.PlaySongsEvent += new AddSongWindow.PlaySongsEventHandler (HandlePlaySongsEvent);
+			add_song_window.QueueEvent += new AddSongWindow.QueueEventHandler (HandleQueueSongsEvent);
+			add_song_window.PlayEvent  += new AddSongWindow.PlayEventHandler  (HandlePlaySongsEvent );
 		}
 
 		add_song_window.Run ();
@@ -1382,8 +1382,8 @@ public class PlaylistWindow : Window, PlayerInterface
 		if (add_album_window == null) {
 			add_album_window = new AddAlbumWindow ();
 			
-			add_album_window.QueueAlbumsEvent += new AddAlbumWindow.QueueAlbumsEventHandler (HandleQueueAlbumsEvent);
-			add_album_window.PlayAlbumsEvent += new AddAlbumWindow.PlayAlbumsEventHandler (HandlePlayAlbumsEvent);
+			add_album_window.QueueEvent += new AddAlbumWindow.QueueEventHandler (HandleQueueAlbumsEvent);
+			add_album_window.PlayEvent  += new AddAlbumWindow.PlayEventHandler  (HandlePlayAlbumsEvent );
 		}
 
 		add_album_window.Run ();

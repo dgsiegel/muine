@@ -23,7 +23,7 @@ using System.Collections;
 using Gtk;
 using GLib;
 
-public class AddAlbumWindow : Window
+public class AddAlbumWindow : AddWindow
 {
         private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
         private const int GConfDefaultWidth = 500;
@@ -32,24 +32,8 @@ public class AddAlbumWindow : Window
         private const int GConfDefaultHeight = 475; 
 
 	// Widgets
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	Entry search_entry;
-	[Glade.Widget]
-	Button play_button;
-	[Glade.Widget]
-	Image play_button_image;
-	[Glade.Widget]
-	Button queue_button;
-	[Glade.Widget]
-	Image queue_button_image;
-	[Glade.Widget]
-	ScrolledWindow scrolledwindow;
-	private HandleView view;
-	private CellRenderer text_renderer;
-	private CellRenderer pixbuf_renderer;
-	private Gdk.Pixbuf nothing_pixbuf;
+	private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
+	private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 
 	// DnD Targets	
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] { 
@@ -64,47 +48,20 @@ public class AddAlbumWindow : Window
 	};
 
 	// Constructor
-	public AddAlbumWindow () : base (IntPtr.Zero)
+	public AddAlbumWindow ()
 	{
-		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
-		gxml.Autoconnect (this);
-
-		Raw = window.Handle;
-
 		window.Title = Muine.Catalog.GetString ("Play Album");
 
-		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);                
-		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
-
-		window.SetDefaultSize (width, height);
-
-		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
-
-		play_button_image.SetFromStock ("stock_media-play", IconSize.Button);
-		queue_button_image.SetFromStock ("stock_timer", IconSize.Button);
-
-		view = new HandleView ();
-
-		view.Selection.Mode = SelectionMode.Multiple;
+		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+		
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
-		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
-		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
 
-		pixbuf_renderer = new CellRendererPixbuf ();
 		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
-		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
 		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
 					    source_entries, Gdk.DragAction.Copy);
 		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
-
-		scrolledwindow.Add (view);
-
-		view.Realize ();
-		view.Show ();
-
-		nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 
 		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
 		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (HandleAlbumChanged);
@@ -122,21 +79,6 @@ public class AddAlbumWindow : Window
 				  cover_drag_entries, Gdk.DragAction.Copy);
 	}
 
-	public void Run ()
-	{
-		search_entry.GrabFocus ();
-
-		SelectFirst ();
-
-		window.Present ();
-	}
-
-	public delegate void QueueAlbumsEventHandler (List songs);
-	public event QueueAlbumsEventHandler QueueAlbumsEvent;
-	
-	public delegate void PlayAlbumsEventHandler (List songs);
-	public event PlayAlbumsEventHandler PlayAlbumsEvent;
-
 	private int SortFunc (IntPtr a_ptr,
 			      IntPtr b_ptr)
 	{
@@ -148,28 +90,26 @@ public class AddAlbumWindow : Window
 
 	private void PixbufCellDataFunc (HandleView view,
 					 CellRenderer cell,
-					 IntPtr handle)
+					 IntPtr album_ptr)
 	{
 		CellRendererPixbuf r = (CellRendererPixbuf) cell;
-		Album album = Album.FromHandle (handle);
+		Album album = Album.FromHandle (album_ptr);
 
-		if (album.CoverImage != null)
-			r.Pixbuf = album.CoverImage;
-		else if (Muine.CoverDB.Loading)
-			r.Pixbuf = Muine.CoverDB.DownloadingPixbuf;
-		else
-			r.Pixbuf = nothing_pixbuf;
+		r.Pixbuf = (album.CoverImage != null)
+			? album.CoverImage
+			: (Muine.CoverDB.Loading)
+				? Muine.CoverDB.DownloadingPixbuf
+				: nothing_pixbuf;
 
-		r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
-		r.Width = CoverDatabase.AlbumCoverSize + 5 * 2;
+		r.Width = r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
 	}
 
 	private void TextCellDataFunc (HandleView view,
 				       CellRenderer cell,
-				       IntPtr handle)
+				       IntPtr album_ptr)
 	{
 		CellRendererText r = (CellRendererText) cell;
-		Album album = Album.FromHandle (handle);
+		Album album = Album.FromHandle (album_ptr);
 
 		string performers = "";
 		if (album.Performers.Length > 0)
@@ -181,58 +121,13 @@ public class AddAlbumWindow : Window
 					   false, true, false);
 	}
 
-	private void HandleWindowResponse (object o, EventArgs a)
-	{
-		ResponseArgs args = (ResponseArgs) a;
-
-		switch ((int) args.ResponseId) {
-		case 1: /* Play */
-			window.Visible = false;
-
-			if (PlayAlbumsEvent != null)
-				PlayAlbumsEvent (view.SelectedPointers);
-
-			Reset ();
-
-			break;
-		case 2: /* Queue */
-			if (QueueAlbumsEvent != null)
-				QueueAlbumsEvent (view.SelectedPointers);
-
-			search_entry.GrabFocus ();
-
-			view.SelectNext ();
-
-			break;
-		default:
-			window.Visible = false;
-
-			Reset ();
-
-			break;
-		}
-	}
-
-	private void HandleWindowDeleteEvent (object o, EventArgs a)
-	{
-		window.Visible = false;
-
-		DeleteEventArgs args = (DeleteEventArgs) a;
-
-		args.RetVal = true;
-
-		Reset ();
-	}
-
-	private bool Search ()
+	protected override bool Search ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
 		if (search_entry.Text.Length > 0) {
-			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-
 			foreach (Album a in Muine.DB.Albums.Values) {
-				if (a.FitsCriteria (search_bits))
+				if (a.FitsCriteria (SearchBits))
 					l.Append (a.Handle);
 			}
 		} else {
@@ -252,93 +147,20 @@ public class AddAlbumWindow : Window
 
 		return false;
 	}
-
-	private uint search_idle_id = 0;
-
-	private bool process_changes_immediately = false;
 	
-	private void HandleSearchEntryChanged (object o, EventArgs args)
-	{
-		if (process_changes_immediately)
-			Search ();
-		else {
-			if (search_idle_id > 0)
-				GLib.Source.Remove (search_idle_id);
-
-			search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
-		}
-	}
-
-	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
-	{
-		KeyPressEventArgs args = (KeyPressEventArgs) a;
-
-		args.RetVal = view.ForwardKeyPress (search_entry, args.Event);
-	}
-
-	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
-	{
-		int width, height;
-
-		window.GetSize (out width, out height);
-
-		Muine.SetGConfValue (GConfKeyWidth, width);
-		Muine.SetGConfValue (GConfKeyHeight, height);
-	}
-
-	private void HandleRowActivated (IntPtr handle)
-	{
-		play_button.Click ();
-	}
-
-	private void HandleSelectionChanged ()
-	{
-		bool has_sel = (view.SelectedPointers.Count > 0);
-		
-		play_button.Sensitive = has_sel;
-		queue_button.Sensitive = has_sel;
-	}
-
 	private void HandleAlbumAdded (Album album)
 	{
-		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (album.FitsCriteria (search_bits))
-			view.Append (album.Handle);
-	}
-
-	private void SelectFirst ()
-	{
-		scrolledwindow.Hadjustment.Value = 0.0;
-
-		view.SelectFirst ();
-	}
-
-	private void SelectFirstIfNeeded ()
-	{
-		/* it is insensitive if we have no selection, see HandleSelectionChanged */
-		if (!play_button.Sensitive)
-			SelectFirst ();
+		base.HandleAdded (album.Handle, album.FitsCriteria (SearchBits));
 	}
 
 	private void HandleAlbumChanged (Album album)
 	{
-		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (album.FitsCriteria (search_bits)) {
-			if (view.Contains (album.Handle))
-				view.Changed (album.Handle);
-			else
-				view.Append (album.Handle);
-		} else
-			view.Remove (album.Handle);
-
-		SelectFirstIfNeeded ();
+		base.HandleChanged (album.Handle, album.FitsCriteria (SearchBits));
 	}
 
 	private void HandleAlbumRemoved (Album album)
 	{
-		view.Remove (album.Handle);
-
-		SelectFirstIfNeeded ();
+		base.HandleRemoved (album.Handle);
 	}
 
 	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
@@ -370,15 +192,6 @@ public class AddAlbumWindow : Window
 	private void HandleDoneLoading ()
 	{
 		view.QueueDraw ();
-	}
-
-	private void Reset ()
-	{
-		process_changes_immediately = true;
-		
-		search_entry.Text = "";
-
-		process_changes_immediately = false;
 	}
 
 	private void DragDataGetCallback (object o, DragDataGetArgs args)

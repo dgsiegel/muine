@@ -36,7 +36,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/Database.cs			\
 	$(srcdir)/MuineDBusService.cs		\
 	$(srcdir)/PlayerDBusObject.cs		\
-	$(srcdir)/PluginManager.cs
+	$(srcdir)/PluginManager.cs		\
+	$(srcdir)/AddWindow.cs
 
 ASSEMBLIES =						\
 	-r:AmazonSearchService.dll			\

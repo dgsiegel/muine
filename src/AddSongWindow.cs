@@ -23,7 +23,7 @@ using System.Collections;
 using Gtk;
 using GLib;
 
-public class AddSongWindow : Window
+public class AddSongWindow : AddWindow
 {
 	private const int FakeLength = 150;
 
@@ -33,24 +33,6 @@ public class AddSongWindow : Window
         private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
         private const int GConfDefaultHeight = 475;  
 
-	// Widgets
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	Entry search_entry;
-	[Glade.Widget]
-	Button play_button;
-	[Glade.Widget]
-	Image play_button_image;
-	[Glade.Widget]
-	Button queue_button;
-	[Glade.Widget]
-	Image queue_button_image;
-	[Glade.Widget]
-	ScrolledWindow scrolledwindow;
-	private HandleView view;
-	private CellRenderer text_renderer;
-
 	// DnD targets	
 	private static TargetEntry [] source_entries = new TargetEntry [] {
 		Muine.TargetMuineSongList,
@@ -58,45 +40,20 @@ public class AddSongWindow : Window
 	};
 
 	// Constructor	
-	public AddSongWindow () : base (IntPtr.Zero)
+	public AddSongWindow ()
 	{
-		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
-		gxml.Autoconnect (this);
-
-		Raw = window.Handle;
-
 		window.Title = Muine.Catalog.GetString ("Play Song");
 
-		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);
-		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
-
-		window.SetDefaultSize (width, height);
-
-		window.SizeAllocated += new SizeAllocatedHandler (HandleSizeAllocated);
-
-		play_button_image.SetFromStock ("stock_media-play", IconSize.Button);
-		queue_button_image.SetFromStock ("stock_timer", IconSize.Button);
-
-		view = new HandleView ();
-
-		view.Selection.Mode = SelectionMode.Multiple;
+		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+		
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
-		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
-		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
-
-		text_renderer = new CellRendererText ();
+		
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
 
-		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
-					    source_entries, Gdk.DragAction.Copy);
+		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
 		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
 	
-		scrolledwindow.Add (view);
-
-		view.Realize ();
-		view.Show ();
-
-		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
+		Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (HandleSongAdded  );
 		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
 
@@ -109,21 +66,6 @@ public class AddSongWindow : Window
 				break;
 		}
 	}
-
-	public void Run ()
-	{
-		search_entry.GrabFocus ();
-
-		SelectFirst ();
-
-		window.Present ();
-	}
-
-	public delegate void QueueSongsEventHandler (List songs);
-	public event QueueSongsEventHandler QueueSongsEvent;
-	
-	public delegate void PlaySongsEventHandler (List songs);
-	public event PlaySongsEventHandler PlaySongsEvent;
 
 	private int SortFunc (IntPtr a_ptr,
 			      IntPtr b_ptr)
@@ -147,50 +89,7 @@ public class AddSongWindow : Window
 					   false, true, false);
 	}
 
-	private void HandleWindowResponse (object o, EventArgs a)
-	{
-		ResponseArgs args = (ResponseArgs) a;
-
-		switch ((int) args.ResponseId) {
-		case 1: /* Play */
-			window.Visible = false;
-			
-			if (PlaySongsEvent != null)
-				PlaySongsEvent (view.SelectedPointers);
-
-			Reset ();
-
-			break;
-		case 2: /* Queue */
-			if (QueueSongsEvent != null)
-				QueueSongsEvent (view.SelectedPointers);
-				
-			search_entry.GrabFocus ();
-
-			view.SelectNext ();
-
-			break;
-		default:
-			window.Visible = false;
-
-			Reset ();
-
-			break;
-		}
-	}
-
-	private void HandleWindowDeleteEvent (object o, EventArgs a)
-	{
-		window.Visible = false;
-
-		DeleteEventArgs args = (DeleteEventArgs) a;
-
-		args.RetVal = true;
-
-		Reset ();
-	}
-
-	private bool Search ()
+	protected override bool Search ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
@@ -202,16 +101,15 @@ public class AddSongWindow : Window
 
 		int i = 0;
 		if (search_entry.Text.Length > 0) {
-			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-
 			foreach (Song s in Muine.DB.Songs.Values) {
-				if (s.FitsCriteria (search_bits)) {
-					l.Append (s.Handle);
+				if (!s.FitsCriteria (SearchBits))
+					continue;
+
+				l.Append (s.Handle);
 				
-					i++;
-					if (max_len > 0 && i >= max_len)
-						break;
-				}	
+				i++;
+				if (max_len > 0 && i >= max_len)
+					break;
 			}
 		} else {
 			foreach (Song s in Muine.DB.Songs.Values) {
@@ -236,104 +134,22 @@ public class AddSongWindow : Window
 		return false;
 	}
 
-	private uint search_idle_id = 0;
-
-	private bool process_changes_immediately = false;
-	
-	private void HandleSearchEntryChanged (object o, EventArgs args)
-	{
-		if (process_changes_immediately)
-			Search ();
-		else {
-			if (search_idle_id > 0)
-				GLib.Source.Remove (search_idle_id);
-
-			search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
-		}
-	}
-
-	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
-	{
-		KeyPressEventArgs args = (KeyPressEventArgs) a;
-
-		args.RetVal = view.ForwardKeyPress (search_entry, args.Event);
-	}
-
-	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
-	{
-		int width, height;
-
-		window.GetSize (out width, out height);
-
-		Muine.SetGConfValue (GConfKeyWidth, width);
-		Muine.SetGConfValue (GConfKeyHeight, height);
-	}
-
-	private void HandleRowActivated (IntPtr handle)
-	{
-		play_button.Click ();
-	}
-
-	private void HandleSelectionChanged ()
-	{
-		bool has_sel = (view.SelectedPointers.Count > 0);
-		
-		play_button.Sensitive = has_sel;
-		queue_button.Sensitive = has_sel;
-	}
-
 	private void HandleSongAdded (Song song)
 	{
 		if (search_entry.Text.Length < 3 && view.Length >= FakeLength)
 			return;
 
-		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (song.FitsCriteria (search_bits))
-			view.Append (song.Handle);
-	}
-
-	private void SelectFirst ()
-	{
-		scrolledwindow.Hadjustment.Value = 0.0;
-
-		view.SelectFirst ();
-	}
-
-	private void SelectFirstIfNeeded ()
-	{
-		/* it is insensitive if we have no selection, see HandleSelectionChanged */
-		if (!play_button.Sensitive)
-			SelectFirst ();
+		base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
 	}
 
 	private void HandleSongChanged (Song song)
 	{
-		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
-		if (song.FitsCriteria (search_bits)) {
-			if (view.Contains (song.Handle))
-				view.Changed (song.Handle);
-			else
-				view.Append (song.Handle);
-		} else
-			view.Remove (song.Handle);
-
-		SelectFirstIfNeeded ();
+		base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits));
 	}
 
 	private void HandleSongRemoved (Song song)
 	{
-		view.Remove (song.Handle);
-
-		SelectFirstIfNeeded ();
-	}
-
-	private void Reset ()
-	{
-		process_changes_immediately = true;
-		
-		search_entry.Text = "";
-
-		process_changes_immediately = false;
+		base.HandleRemoved (song.Handle);
 	}
 
 	private void DragDataGetCallback (object o, DragDataGetArgs args)
