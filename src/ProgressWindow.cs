@@ -57,30 +57,22 @@ namespace Muine
 
 			canceled = false;
 
-			file_label.Text = "...";
-
-			while (MainContext.Pending ())
-				Main.Iteration ();
+			file_label.Text = Catalog.GetString ("...");
 		}
 
-		public void ReportFolder (string folder)
-		{
-			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
-		}
-
-		public bool ReportFile (string file)
+		public bool Report (string folder, string file)
 		{
 			if (canceled)
-				return false;
+				return true;
+
+			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
+
+			if (file != null)
+				file_label.Text = file;
 
 			window.Visible = true;
 
-			file_label.Text = file;
-
-			while (MainContext.Pending ())
-				Main.Iteration ();
-
-			return true;
+			return false;
 		}
 
 		public void Done ()

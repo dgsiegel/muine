@@ -46,13 +46,6 @@ namespace Muine
 			}
 		}	
 
-		private static ActionThread action_thread; 
-		public static ActionThread ActionThread {
-			get {
-				return action_thread;
-			}
-		}
-
 		private static PlaylistWindow playlist;
 		private static NotificationAreaIcon icon;
 		private static MmKeys mmkeys;
@@ -116,9 +109,6 @@ namespace Muine
 			/* Set default window icon */
 			SetDefaultWindowIcon ();
 
-			/* Start the action thread */
-			action_thread = new ActionThread ();
-
 			/* Open cover database */
 			try {
 				cover_db = new CoverDatabase (3);
@@ -178,10 +168,6 @@ namespace Muine
 			cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 			
 			cover_db.Load ();
-
-			/* And finally, check if this is the first start */
-			/* FIXME we dont do this for now as the issue isn't sorted out yet */
-			//playlist.CheckFirstStartUp ();
 
 			/* Hook up to the session manager */
 			session_client = Gnome.Global.MasterClient ();

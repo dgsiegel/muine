@@ -9,7 +9,9 @@
 - Possible to drag a playlist file from the "Playlist" label [Jorn Baayen]
 - Support for dragging whole albums out of Muine [Jorn Baayen]
 - Playing external files in Muine now adds them to the library [Jorn Baayen]
+- Major UI responsibility improvements [Jorn Baayen]
 - Major code cleanups [Tamara Roberson, Jorn Baayen]
+- Various bugfixes [Tamara Roberson, Jorn Baayen]
 
 Updated translations:
 - Canadian English [Adam Weinberger]

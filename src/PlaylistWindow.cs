@@ -319,50 +319,12 @@ namespace Muine
 			}
 				
 			ProgressWindow pw = new ProgressWindow (this);
-			pw.ReportFolder (dinfo.Name);
 			
-			Muine.DB.AddWatchedFolder (dinfo.FullName);
-			HandleDirectory (dinfo, pw);
-			
-			pw.Done ();
+			Muine.DB.AddFolder (dinfo, pw);
 
 			Drag.Finish (args.Context, true, false, args.Time);
 		}
 
-		/*
-		public void CheckFirstStartUp () 
-		{
-			bool first_start = (bool) Muine.GetGConfValue (GConfKeyFirstStart, GConfDefaultFirstStart);
-
-			if (!first_start)
-				return;
-
-			DirectoryInfo musicdir = new DirectoryInfo (Muine.MusicDirectory);
-	  
-			if (!musicdir.Exists) {
-				NoMusicFoundWindow w = new NoMusicFoundWindow (this);
-
-				Muine.SetGConfValue (GConfKeyFirstStart, false);
-			} else { 
-				// create a playlists directory if it still doesn't exists
-				DirectoryInfo playlistsdir = new DirectoryInfo (Muine.PlaylistsDirectory);
-				if (!playlistsdir.Exists)
-					playlistsdir.Create ();
-
-				ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
-
-				// seems to be that MusicDirectory does exists, but user hasn't started Muine before!
-				Muine.DB.AddWatchedFolder (musicdir.FullName);
-
-				// do this here, because the folder is watched now
-				Muine.SetGConfValue (GConfKeyFirstStart, false);
-		
-				HandleDirectory (musicdir, pw);
-
-				pw.Done ();
-			}
-		}*/
-		
 		private void SetupWindowSize ()
 		{
 			int width = (int) Config.Get (GConfKeyWidth, GConfDefaultWidth);
@@ -1425,47 +1387,6 @@ namespace Muine
 			PlayAlbum ();
 		}
 
-		private bool HandleDirectory (DirectoryInfo info,
-					      ProgressWindow pw)
-		{
-			System.IO.FileInfo [] finfos;
-			
-			try {
-				finfos = info.GetFiles ();
-			} catch {
-				return true;
-			}
-			
-			foreach (System.IO.FileInfo finfo in finfos) {
-				Song song;
-
-				song = Muine.DB.GetSong (finfo.FullName);
-				if (song == null) {
-					bool ret = pw.ReportFile (finfo.Name);
-					if (!ret)
-						return false;
-
-					AddSongToDB (finfo.FullName);
-				}
-			}
-
-			DirectoryInfo [] dinfos;
-			
-			try {
-				dinfos = info.GetDirectories ();
-			} catch {
-				return true;
-			}
-
-			foreach (DirectoryInfo dinfo in dinfos) {
-				bool ret = HandleDirectory (dinfo, pw);
-				if (!ret)
-					return false;
-			}
-
-			return true;
-		}
-
 		private void OnImportFolder (object o, EventArgs args) 
 		{
 			FileChooserDialog fc;
@@ -1473,10 +1394,10 @@ namespace Muine
 			fc = new FileChooserDialog (Catalog.GetString ("Import Folder"), this,
 						    FileChooserAction.SelectFolder);
 			fc.LocalOnly = true;
+			fc.SelectMultiple = true;
 			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
 			fc.AddButton (Catalog.GetString ("_Import"), ResponseType.Ok);
 			fc.DefaultResponse = ResponseType.Ok;
-			fc.SelectMultiple = true;
 			
 			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
 
@@ -1499,15 +1420,9 @@ namespace Muine
 			foreach (string dir in fc.Filenames) {
 				DirectoryInfo dinfo = new DirectoryInfo (dir);
 				
-				if (dinfo.Exists) {
-					pw.ReportFolder (dinfo.Name);
-
-					Muine.DB.AddWatchedFolder (dinfo.FullName);
-					HandleDirectory (dinfo, pw);
-				}
+				if (dinfo.Exists)
+					Muine.DB.AddFolder (dinfo, pw);
 			}
-
-			pw.Done ();
 
 			fc.Destroy ();
 		}
@@ -1974,12 +1889,8 @@ namespace Muine
 					
 					if (dinfo.Exists) {
 						ProgressWindow pw = new ProgressWindow (this);
-						pw.ReportFolder (dinfo.Name);
 			
-						Muine.DB.AddWatchedFolder (dinfo.FullName);
-						HandleDirectory	(dinfo, pw);
-			
-						pw.Done ();
+						Muine.DB.AddFolder (dinfo, pw);
 					} else {
 						System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 						

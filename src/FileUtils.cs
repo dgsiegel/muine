@@ -150,6 +150,13 @@ namespace Muine
 			return ret;
 		}
 
+		readonly static DateTime datetTime1970 = new DateTime (1970, 1, 1, 0, 0, 0, 0);
+
+		public static long MTimeToTicks (int mtime)
+		{
+			return (long) (mtime * 10000000L) + datetTime1970.Ticks;
+		}
+
 		private static void CreateDirectory (string dir)
 		{
 			DirectoryInfo dinfo = new DirectoryInfo (dir);

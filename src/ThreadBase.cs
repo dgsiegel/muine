@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2005 Jorn Baayen <jbaayen@gnome.org> 
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,42 +18,30 @@
  */
 
 using System;
-using System.Threading;
 using System.Collections;
+using System.Threading;
 
 namespace Muine
 {
-	public class ActionThread
+	public abstract class ThreadBase
 	{
-		private Thread thread;
-		private Queue queue;
+		protected bool thread_done = false;
+		protected Thread thread;
+		protected Queue queue;
 
-		public delegate void Action (Action action);
-		
-		public ActionThread ()
+		protected abstract void ThreadFunc ();
+		protected abstract bool MainLoopIdle ();
+
+		public ThreadBase ()
 		{
 			queue = Queue.Synchronized (new Queue ());
-			thread = new Thread (new ThreadStart (RunThread));
 
+			GLib.IdleHandler idle = new GLib.IdleHandler (MainLoopIdle);
+			GLib.Idle.Add (idle);
+
+			thread = new Thread (new ThreadStart (ThreadFunc));
+			thread.Priority = ThreadPriority.BelowNormal;
 			thread.Start ();
-		}
-
-		private void RunThread ()
-		{
-			while (true) {
-				while (queue.Count > 0) {
-					Action action = (Action) queue.Dequeue ();
-
-					action (action);
-				}
-
-				Thread.Sleep (1000);
-			}
-		}
-
-		public void QueueAction (Action action)
-		{
-			queue.Enqueue (action);
 		}
 	}
 }

@@ -20,7 +20,6 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Threading;
 
 namespace Muine
 {
@@ -320,16 +319,80 @@ namespace Muine
 		}
 
 		// Folder watching
-		public void AddWatchedFolder (string folder)
+		public void AddFolder (DirectoryInfo dinfo, ProgressWindow pw)
 		{
-			string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+			pw.Report (dinfo.Name, null);
 
+			AddToConfig (dinfo.FullName);
+
+			AddFolderThread t = new AddFolderThread (dinfo, pw);
+		}
+
+		private class AddFolderThread : ThreadBase
+		{
+			private DirectoryInfo dinfo;
+			private ProgressWindow pw;
+			private bool canceled = false;
+			
+			protected override void ThreadFunc ()
+			{
+				Muine.DB.HandleDirectory (dinfo, queue);
+
+				thread_done = true;
+			}
+			
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0) {
+					if (thread_done) {
+						pw.Done ();
+					
+						return false;
+					} else
+						return true;
+				}
+
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
+
+				canceled = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
+				if (canceled) {
+					thread.Abort ();
+
+					return false;
+				}
+
+				Muine.DB.HandleSignalRequest (rq);
+	
+				return true;
+			}
+			
+			public AddFolderThread (DirectoryInfo dinfo, ProgressWindow pw)
+			{
+				this.dinfo = dinfo;
+				this.pw = pw;
+			}
+		}
+
+		public string [] WatchedFolders {
+			set {
+				Config.Set (GConfKeyWatchedFolders, value);
+			}
+			
+			get {
+				return (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+			}
+		}
+
+		private void AddToConfig (string folder)
+		{
+			// Update config
+			string [] folders = WatchedFolders;
 			string [] new_folders = new string [folders.Length + 1];
 
 			int i = 0;
 			foreach (string s in folders) {
 				// check if folder is already monitored at a higher
-				// level
+				// or same level
 				if (folder.IndexOf (s) == 0)
 					return;
 				new_folders [i] = folders [i];
@@ -338,44 +401,75 @@ namespace Muine
 
 			new_folders [folders.Length] = folder;
 
-			Config.Set (GConfKeyWatchedFolders, new_folders);
+			WatchedFolders = new_folders;
 		}
 
 		// Changes thread
-		private Thread thread;
-
-		private bool thread_done;
-
-		private Queue signal_requests;
-		
 		public void CheckChanges ()
 		{
-			thread_done = false;
-
-			signal_requests = Queue.Synchronized (new Queue ());
-
-			GLib.IdleHandler idle = new GLib.IdleHandler (ProcessActionsFromThread);
-			GLib.Idle.Add (idle);
-
-			thread = new Thread (new ThreadStart (CheckChangesThread));
-			thread.Priority = ThreadPriority.BelowNormal;
-			thread.Start ();
+			CheckChangesThread t = new CheckChangesThread ();
 		}
-
-		private bool ProcessActionsFromThread ()
+		
+		private class CheckChangesThread : ThreadBase
 		{
-			if (signal_requests.Count > 0) {
-				SignalRequest rq = (SignalRequest) signal_requests.Dequeue ();
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count > 0) {
+					SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-				HandleSignalRequest (rq);
+					Muine.DB.HandleSignalRequest (rq);
 
-				return true;
+					return true;
+				}
+
+				return !thread_done;
 			}
 
-			return !thread_done;
+			protected override void ThreadFunc ()
+			{
+				Hashtable snapshot;
+				lock (this)
+					snapshot = (Hashtable) Muine.DB.Songs.Clone ();
+
+				/* check for removed songs and changes */
+				foreach (string file in snapshot.Keys) {
+					FileInfo finfo = new FileInfo (file);
+					Song song = (Song) snapshot [file];
+
+					SignalRequest rq = null;
+
+					if (!finfo.Exists)
+						rq = Muine.DB.StartRemoveSong (song);
+					else {
+						if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
+							try {
+								Metadata metadata = new Metadata (song.Filename);
+								rq = Muine.DB.StartSyncSong (song, metadata);
+							} catch {
+								rq = Muine.DB.StartRemoveSong (song);
+							}
+						}
+					}
+
+					if (rq != null)
+						queue.Enqueue (rq);
+				}
+
+				/* check for new songs */
+				foreach (string folder in Muine.DB.WatchedFolders) {
+					DirectoryInfo dinfo = new DirectoryInfo (folder);
+					if (!dinfo.Exists)
+						continue;
+
+					Muine.DB.HandleDirectory (dinfo, queue);
+				}
+
+				thread_done = true;
+			}
 		}
 
-		private void HandleDirectory (DirectoryInfo info)
+		// Directory walking
+		private void HandleDirectory (DirectoryInfo info, Queue queue)
 		{
 			FileInfo [] finfos;
 			
@@ -397,7 +491,7 @@ namespace Muine
 					
 					SignalRequest rq = StartAddSong (song);
 					if (rq != null)
-						signal_requests.Enqueue (rq);
+						queue.Enqueue (rq);
 				}
 			}
 
@@ -410,60 +504,9 @@ namespace Muine
 			}
 
 			foreach (DirectoryInfo dinfo in dinfos)
-				HandleDirectory (dinfo);
+				HandleDirectory (dinfo, queue);
 		}
 
-		readonly static DateTime datetTime1970 = new DateTime (1970, 1, 1, 0, 0, 0, 0);
-
-		private long MTimeToTicks (int mtime)
-		{
-			return (long) (mtime * 10000000L) + datetTime1970.Ticks;
-		}
-
-		private void CheckChangesThread ()
-		{
-			Hashtable snapshot;
-			lock (this)
-				snapshot = (Hashtable) Songs.Clone ();
-
-			/* check for removed songs and changes */
-			foreach (string file in snapshot.Keys) {
-				FileInfo finfo = new FileInfo (file);
-				Song song = (Song) snapshot [file];
-
-				SignalRequest rq = null;
-
-				if (!finfo.Exists)
-					rq = StartRemoveSong (song);
-				else {
-					if (MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
-						try {
-							Metadata metadata = new Metadata (song.Filename);
-							rq = StartSyncSong (song, metadata);
-						} catch {
-							rq = StartRemoveSong (song);
-						}
-					}
-				}
-
-				if (rq != null)
-					signal_requests.Enqueue (rq);
-			}
-
-			/* check for new songs */
-			string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
-
-			foreach (string folder in folders) {
-				DirectoryInfo dinfo = new DirectoryInfo (folder);
-				if (!dinfo.Exists)
-					continue;
-
-				HandleDirectory (dinfo);
-			}
-
-			thread_done = true;
-		}
-		
 		// SignalRequest
 		private class SignalRequest
 		{

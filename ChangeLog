@@ -1,5 +1,20 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	R src/ActionThread.cs:
+	* src/FileUtils.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SongDatabase.cs:
+	* src/ThreadBase.cs:
+
+	Run regular folder imports in a thread too, clean up
+	thread stuff.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/Album.cs:

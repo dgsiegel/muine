@@ -4,7 +4,6 @@ TARGET = muine.exe
 WRAPPER = muine
 
 MUINE_CSFILES =					\
-	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
 	$(srcdir)/AddAlbumWindow.cs		\
 	$(srcdir)/Muine.cs			\
@@ -42,7 +41,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/AddWindow.cs			\
 	$(srcdir)/Config.cs			\
 	$(srcdir)/DndUtils.cs			\
-	$(srcdir)/Item.cs
+	$(srcdir)/Item.cs			\
+	$(srcdir)/ThreadBase.cs
 
 MUINE_GENERATED_CSFILES =			\
 	$(srcdir)/AmazonSearchService.cs	\
