@@ -191,7 +191,7 @@ public class AddAlbumWindow : Window
 			if (PlayAlbumsEvent != null)
 				PlayAlbumsEvent (view.SelectedPointers);
 
-			search_entry.Text = "";
+			Reset ();
 
 			break;
 		case 2: /* Queue */
@@ -206,7 +206,7 @@ public class AddAlbumWindow : Window
 		default:
 			window.Visible = false;
 
-			search_entry.Text = "";
+			Reset ();
 
 			break;
 		}
@@ -220,7 +220,7 @@ public class AddAlbumWindow : Window
 
 		args.RetVal = true;
 
-		search_entry.Text = "";
+		Reset ();
 	}
 
 	private bool FitsCriteria (Album a, string [] search_bits)
@@ -237,14 +237,19 @@ public class AddAlbumWindow : Window
 		return (n_matches == search_bits.Length);
 	}
 
-	private bool SearchIdleFunc ()
+	private bool Search ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
-		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		if (search_entry.Text.Length > 0) {
+			string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
-		foreach (Album a in Muine.DB.Albums.Values) {
-			if (FitsCriteria (a, search_bits))
+			foreach (Album a in Muine.DB.Albums.Values) {
+				if (FitsCriteria (a, search_bits))
+					l.Append (a.Handle);
+			}
+		} else {
+			foreach (Album a in Muine.DB.Albums.Values)
 				l.Append (a.Handle);
 		}
 
@@ -262,13 +267,19 @@ public class AddAlbumWindow : Window
 	}
 
 	private uint search_idle_id = 0;
+
+	private bool process_changes_immediately = false;
 	
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
-		if (search_idle_id > 0)
-			GLib.Source.Remove (search_idle_id);
+		if (process_changes_immediately)
+			Search ();
+		else {
+			if (search_idle_id > 0)
+				GLib.Source.Remove (search_idle_id);
 
-		search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (SearchIdleFunc));
+			search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (Search));
+		}
 	}
 
 	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)
@@ -362,5 +373,14 @@ public class AddAlbumWindow : Window
 	private void HandleDoneLoading ()
 	{
 		view.QueueDraw ();
+	}
+
+	private void Reset ()
+	{
+		process_changes_immediately = true;
+		
+		search_entry.Text = "";
+
+		process_changes_immediately = false;
 	}
 }
