@@ -5,10 +5,6 @@ o Use GnomeVFS
   Needs a new Mono release first
 o Use stock volume icons
   Needs a new gnome-icon-theme release first
-o group ["action"] instead of group.GetAction ("action")
-  Needs a new Gtk# release first
-o Subclass Gnome.About for Muine.About
-  Needs a new Gtk# release first
 
 o Use stock Gtk ellipsizing label, as soon as we want to depend
   on Gtk 2.6. This also involves making the artist and title label

@@ -28,7 +28,7 @@ using Gtk;
 
 namespace Muine
 {
-	public class Actions
+	public class Actions : ActionGroup
 	{
 		// Strings
 		private static readonly string string_file_menu =
@@ -153,7 +153,7 @@ namespace Muine
 			new ToggleActionEntry ("ToggleRepeat", null, string_toggle_repeat,
 					       "<control>R", null, null, false),
 		};
-		
+
 		// Static :: Properties
 		// Static :: Properties :: StringToggleVisibleHide (get;)
 		public static string StringToggleVisibleHide {
@@ -176,136 +176,40 @@ namespace Muine
 		}
 
 		// Objects
-		private ActionGroup action_group = new ActionGroup ("Actions");
 		private UIManager ui_manager = new UIManager ();
 
 		// Constructor
-		public Actions ()
+		public Actions () : base ("Actions")
 		{
-			action_group.Add (entries);
-			action_group.Add (toggle_entries);
+			Add (entries);
+			Add (toggle_entries);
 
-			ui_manager.InsertActionGroup (action_group, 0);
+			ui_manager.InsertActionGroup (this, 0);
 			ui_manager.AddUiFromResource ("PlaylistWindow.xml");
-
+			
 			// Setup Callbacks
-                        this.Import       .Activated += new EventHandler (OnImport       );
-                        this.Open         .Activated += new EventHandler (OnOpen         );
-                        this.Save         .Activated += new EventHandler (OnSave         );
-                        this.ToggleVisible.Activated += new EventHandler (OnToggleVisible);
-                        this.Quit         .Activated += new EventHandler (OnQuit         );
-                        this.Previous     .Activated += new EventHandler (OnPrevious     );
-                        this.Next         .Activated += new EventHandler (OnNext         );
-                        this.SkipTo       .Activated += new EventHandler (OnSkipTo       );
-                        this.SkipBackwards.Activated += new EventHandler (OnSkipBackwards);
-                        this.SkipForward  .Activated += new EventHandler (OnSkipForward  );
-                        this.PlaySong     .Activated += new EventHandler (OnPlaySong     );
-                        this.PlayAlbum    .Activated += new EventHandler (OnPlayAlbum    );
-                        this.Remove       .Activated += new EventHandler (OnRemove       );
-                        this.RemovePlayed .Activated += new EventHandler (OnRemovePlayed );
-                        this.Clear        .Activated += new EventHandler (OnClear        );
-                        this.Shuffle      .Activated += new EventHandler (OnShuffle      );
-                        this.About        .Activated += new EventHandler (OnAbout        );
-                        this.TogglePlay   .Activated += new EventHandler (OnTogglePlay   );
-                        this.ToggleRepeat .Activated += new EventHandler (OnToggleRepeat );
+                        this ["Import"       ].Activated += new EventHandler (OnImport       );
+                        this ["Open"         ].Activated += new EventHandler (OnOpen         );
+                        this ["Save"         ].Activated += new EventHandler (OnSave         );
+                        this ["ToggleVisible"].Activated += new EventHandler (OnToggleVisible);
+                        this ["Quit"         ].Activated += new EventHandler (OnQuit         );
+                        this ["Previous"     ].Activated += new EventHandler (OnPrevious     );
+                        this ["Next"         ].Activated += new EventHandler (OnNext         );
+                        this ["SkipTo"       ].Activated += new EventHandler (OnSkipTo       );
+                        this ["SkipBackwards"].Activated += new EventHandler (OnSkipBackwards);
+                        this ["SkipForward"  ].Activated += new EventHandler (OnSkipForward  );
+                        this ["PlaySong"     ].Activated += new EventHandler (OnPlaySong     );
+                        this ["PlayAlbum"    ].Activated += new EventHandler (OnPlayAlbum    );
+                        this ["Remove"       ].Activated += new EventHandler (OnRemove       );
+                        this ["RemovePlayed" ].Activated += new EventHandler (OnRemovePlayed );
+                        this ["Clear"        ].Activated += new EventHandler (OnClear        );
+                        this ["Shuffle"      ].Activated += new EventHandler (OnShuffle      );
+                        this ["About"        ].Activated += new EventHandler (OnAbout        );
+                        this ["TogglePlay"   ].Activated += new EventHandler (OnTogglePlay   );
+                        this ["ToggleRepeat" ].Activated += new EventHandler (OnToggleRepeat );
 		}
 
 		// Properties
-		// Properties :: Import (get;)
-		public Action Import {
-			get { return action_group.GetAction ("Import"); }
-		}
-		
-		// Properties :: Open (get;)
-		public Action Open {
-			get { return action_group.GetAction ("Open"); }
-		}
-		
-		// Properties :: Save (get;)
-		public Action Save {
-			get { return action_group.GetAction ("Save"); }
-		}
-
-		// Properties :: ToggleVisible (get;)
-		public Action ToggleVisible {
-			get { return action_group.GetAction ("ToggleVisible"); }
-		}
-
-		// Properties :: Quit (get;)
-		public Action Quit {
-			get { return action_group.GetAction ("Quit"); }
-		}
-
-		// Properties :: Previous (get;)
-		public Action Previous {
-			get { return action_group.GetAction ("Previous"); }
-		}
-		
-		// Properties :: Next (get;)
-		public Action Next {
-			get { return action_group.GetAction ("Next"); }
-		}
-
-		// Properties :: SkipTo (get;)
-		public Action SkipTo {
-			get { return action_group.GetAction ("SkipTo"); }
-		}
-		
-		// Properties :: SkipBackwards (get;)
-		public Action SkipBackwards {
-			get { return action_group.GetAction ("SkipBackwards"); }
-		}
-		
-		// Properties :: SkipForward (get;)
-		public Action SkipForward {
-			get { return action_group.GetAction ("SkipForward"); }
-		}
-		
-		// Properties :: PlaySong (get;)
-		public Action PlaySong {
-			get { return action_group.GetAction ("PlaySong"); }
-		}
-		
-		// Properties :: PlayAlbum (get;)
-		public Action PlayAlbum {
-			get { return action_group.GetAction ("PlayAlbum"); }
-		}
-
-		// Properties :: Remove (get;)
-		public Action Remove {
-			get { return action_group.GetAction ("Remove"); }
-		}
-		
-		// Properties :: RemovePlayed (get;)
-		public Action RemovePlayed {
-			get { return action_group.GetAction ("RemovePlayed"); }
-		}
-		
-		// Properties :: Clear (get;)
-		public Action Clear {
-			get { return action_group.GetAction ("Clear"); }
-		}
-		
-		// Properties :: Shuffle (get;)
-		public Action Shuffle {
-			get { return action_group.GetAction ("Shuffle"); }		
-		}
-		
-		// Properties :: About (get;)
-		public Action About {
-			get { return action_group.GetAction ("About"); }
-		}
-		
-		// Properties :: TogglePlay (get;)
-		public ToggleAction TogglePlay {
-			get { return (ToggleAction) action_group.GetAction ("TogglePlay"); }
-		}
-
-		// Properties :: ToggleRepeat (get;)
-		public ToggleAction ToggleRepeat {
-			get { return (ToggleAction) action_group.GetAction ("ToggleRepeat"); }
-		}
-		
 		// Properties :: UIManager (get;)
 		public UIManager UIManager {
 			get { return ui_manager; }
@@ -416,7 +320,7 @@ namespace Muine
 		// Handlers :: OnAbout
 		private void OnAbout (object o, EventArgs args)
 		{
-			Muine.About.ShowWindow (Global.Playlist);
+			new Muine.About (Global.Playlist);
 		}
 
 		// Handlers :: OnTogglePlay

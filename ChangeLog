@@ -1,5 +1,28 @@
 2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Depend on Gtk# 1.9.2.
+	
+	* src/About.cs:
+
+	Subclass from Gnome.About.
+	
+	* src/Actions.cs:
+
+	Subclass from ActionGroup, and use string index to access 
+	actions.
+	
+	* src/PlaylistWindow.cs:
+
+	Updated for Actions updates.
+	
+	* src/HandleModel.cs:
+
+	Update to Gtk# 1.9.2 stuff.
+
+2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SkipToWindow.cs:
 
 	Kill a gtk warning.

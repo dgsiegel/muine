@@ -514,9 +514,31 @@ namespace Muine
 			gtk_tree_model_row_changed(Handle, path.Handle, ref iter);
 		}
 
-		delegate void RowsReorderedDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter, out int new_order);
+		delegate void RowsReorderedSignalDelegate (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, out int arg3, IntPtr gch);
 
-		static RowsReorderedDelegate RowsReorderedCallback;
+		static void RowsReorderedSignalCallback (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, out int arg3, IntPtr gch)
+		{
+			GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
+			if (sig == null)
+				throw new Exception("Unknown signal GC handle received " + gch);
+
+			Gtk.RowsReorderedArgs args = new Gtk.RowsReorderedArgs ();
+			args.Args = new object[3];
+			if (arg1 == IntPtr.Zero)
+				args.Args[0] = null;
+			else {
+				args.Args[0] = new Gtk.TreePath(arg1);
+			}
+			args.Args[1] = arg2;
+			Gtk.RowsReorderedHandler handler = (Gtk.RowsReorderedHandler) sig.Handler;
+			handler (GLib.Object.GetObject (arg0), args);
+			arg3 = ((int)args.Args[2]);
+
+		}
+
+		delegate void RowsReorderedVMDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter, out int new_order);
+
+		static RowsReorderedVMDelegate RowsReorderedVMCallback;
 
 		static void rowsreordered_cb (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter, out int new_order)
 		{
@@ -526,9 +548,9 @@ namespace Muine
 
 		private static void OverrideRowsReordered (GLib.GType gtype)
 		{
-			if (RowsReorderedCallback == null)
-				RowsReorderedCallback = new RowsReorderedDelegate (rowsreordered_cb);
-			OverrideVirtualMethod (gtype, "rows_reordered", RowsReorderedCallback);
+			if (RowsReorderedVMCallback == null)
+				RowsReorderedVMCallback = new RowsReorderedVMDelegate (rowsreordered_cb);
+			OverrideVirtualMethod (gtype, "rows_reordered", RowsReorderedVMCallback);
 		}
 
 		[GLib.DefaultSignalHandler(Type=typeof(HandleModel), ConnectionMethod="OverrideRowsReordered")]
@@ -553,42 +575,39 @@ namespace Muine
 		[GLib.Signal("rows_reordered")]
 		public event Gtk.RowsReorderedHandler RowsReordered {
 			add {
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					if (BeforeHandlers["rows_reordered"] == null)
-						BeforeSignals["rows_reordered"] = new GtkSharp.voidObjectTreePathTreeIteroutintSignal(this, "rows_reordered", value, typeof (Gtk.RowsReorderedArgs), 0);					else
-						((GLib.SignalCallback) BeforeSignals ["rows_reordered"]).AddDelegate (value);
-					BeforeHandlers.AddHandler("rows_reordered", value);
-				} else {
-					if (AfterHandlers["rows_reordered"] == null)
-						AfterSignals["rows_reordered"] = new GtkSharp.voidObjectTreePathTreeIteroutintSignal(this, "rows_reordered", value, typeof (Gtk.RowsReorderedArgs), 1);					else
-						((GLib.SignalCallback) AfterSignals ["rows_reordered"]).AddDelegate (value);
-					AfterHandlers.AddHandler("rows_reordered", value);
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "rows_reordered", new RowsReorderedSignalDelegate(RowsReorderedSignalCallback));
+				sig.AddDelegate (value);
 			}
 			remove {
-				System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-				Hashtable signals = AfterSignals;
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					event_list = BeforeHandlers;
-					signals = BeforeSignals;
-				}
-				GLib.SignalCallback cb = signals ["rows_reordered"] as GLib.SignalCallback;
-				event_list.RemoveHandler("rows_reordered", value);
-				if (cb == null)
-					return;
-
-				cb.RemoveDelegate (value);
-
-				if (event_list["rows_reordered"] == null) {
-					signals.Remove("rows_reordered");
-					cb.Dispose ();
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "rows_reordered", new RowsReorderedSignalDelegate(RowsReorderedSignalCallback));
+				sig.RemoveDelegate (value);
 			}
 		}
 
-		delegate void RowChangedDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+		delegate void RowChangedSignalDelegate (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch);
 
-		static RowChangedDelegate RowChangedCallback;
+		static void RowChangedSignalCallback (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch)
+		{
+			GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
+			if (sig == null)
+				throw new Exception("Unknown signal GC handle received " + gch);
+
+			Gtk.RowChangedArgs args = new Gtk.RowChangedArgs ();
+			args.Args = new object[2];
+			if (arg1 == IntPtr.Zero)
+				args.Args[0] = null;
+			else {
+				args.Args[0] = new Gtk.TreePath(arg1);
+			}
+			args.Args[1] = arg2;
+			Gtk.RowChangedHandler handler = (Gtk.RowChangedHandler) sig.Handler;
+			handler (GLib.Object.GetObject (arg0), args);
+
+		}
+
+		delegate void RowChangedVMDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+
+		static RowChangedVMDelegate RowChangedVMCallback;
 
 		static void rowchanged_cb (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter)
 		{
@@ -598,9 +617,9 @@ namespace Muine
 
 		private static void OverrideRowChanged (GLib.GType gtype)
 		{
-			if (RowChangedCallback == null)
-				RowChangedCallback = new RowChangedDelegate (rowchanged_cb);
-			OverrideVirtualMethod (gtype, "row_changed", RowChangedCallback);
+			if (RowChangedVMCallback == null)
+				RowChangedVMCallback = new RowChangedVMDelegate (rowchanged_cb);
+			OverrideVirtualMethod (gtype, "row_changed", RowChangedVMCallback);
 		}
 
 		[GLib.DefaultSignalHandler(Type=typeof(HandleModel), ConnectionMethod="OverrideRowChanged")]
@@ -621,42 +640,38 @@ namespace Muine
 		[GLib.Signal("row_changed")]
 		public event Gtk.RowChangedHandler RowChanged {
 			add {
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					if (BeforeHandlers["row_changed"] == null)
-						BeforeSignals["row_changed"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_changed", value, typeof (Gtk.RowChangedArgs), 0);					else
-						((GLib.SignalCallback) BeforeSignals ["row_changed"]).AddDelegate (value);
-					BeforeHandlers.AddHandler("row_changed", value);
-				} else {
-					if (AfterHandlers["row_changed"] == null)
-						AfterSignals["row_changed"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_changed", value, typeof (Gtk.RowChangedArgs), 1);					else
-						((GLib.SignalCallback) AfterSignals ["row_changed"]).AddDelegate (value);
-					AfterHandlers.AddHandler("row_changed", value);
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_changed", new RowChangedSignalDelegate(RowChangedSignalCallback));
+				sig.AddDelegate (value);
 			}
 			remove {
-				System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-				Hashtable signals = AfterSignals;
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					event_list = BeforeHandlers;
-					signals = BeforeSignals;
-				}
-				GLib.SignalCallback cb = signals ["row_changed"] as GLib.SignalCallback;
-				event_list.RemoveHandler("row_changed", value);
-				if (cb == null)
-					return;
-
-				cb.RemoveDelegate (value);
-
-				if (event_list["row_changed"] == null) {
-					signals.Remove("row_changed");
-					cb.Dispose ();
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_changed", new RowChangedSignalDelegate(RowChangedSignalCallback));
+				sig.RemoveDelegate (value);
 			}
 		}
 
-		delegate void RowDeletedDelegate (IntPtr tree_model, IntPtr path);
+			delegate void RowDeletedSignalDelegate (IntPtr arg0, IntPtr arg1, IntPtr gch);
 
-		static RowDeletedDelegate RowDeletedCallback;
+		static void RowDeletedSignalCallback (IntPtr arg0, IntPtr arg1, IntPtr gch)
+		{
+			GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
+			if (sig == null)
+				throw new Exception("Unknown signal GC handle received " + gch);
+
+			Gtk.RowDeletedArgs args = new Gtk.RowDeletedArgs ();
+			args.Args = new object[1];
+			if (arg1 == IntPtr.Zero)
+				args.Args[0] = null;
+			else {
+				args.Args[0] = new Gtk.TreePath(arg1);
+			}
+			Gtk.RowDeletedHandler handler = (Gtk.RowDeletedHandler) sig.Handler;
+			handler (GLib.Object.GetObject (arg0), args);
+
+		}
+
+		delegate void RowDeletedVMDelegate (IntPtr tree_model, IntPtr path);
+
+		static RowDeletedVMDelegate RowDeletedVMCallback;
 
 		static void rowdeleted_cb (IntPtr tree_model, IntPtr path)
 		{
@@ -666,9 +681,9 @@ namespace Muine
 
 		private static void OverrideRowDeleted (GLib.GType gtype)
 		{
-			if (RowDeletedCallback == null)
-				RowDeletedCallback = new RowDeletedDelegate (rowdeleted_cb);
-			OverrideVirtualMethod (gtype, "row_deleted", RowDeletedCallback);
+			if (RowDeletedVMCallback == null)
+				RowDeletedVMCallback = new RowDeletedVMDelegate (rowdeleted_cb);
+			OverrideVirtualMethod (gtype, "row_deleted", RowDeletedVMCallback);
 		}
 
 		[GLib.DefaultSignalHandler(Type=typeof(HandleModel), ConnectionMethod="OverrideRowDeleted")]
@@ -687,42 +702,39 @@ namespace Muine
 		[GLib.Signal("row_deleted")]
 		public event Gtk.RowDeletedHandler RowDeleted {
 			add {
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					if (BeforeHandlers["row_deleted"] == null)
-						BeforeSignals["row_deleted"] = new GtkSharp.voidObjectTreePathSignal(this, "row_deleted", value, typeof (Gtk.RowDeletedArgs), 0);					else
-						((GLib.SignalCallback) BeforeSignals ["row_deleted"]).AddDelegate (value);
-					BeforeHandlers.AddHandler("row_deleted", value);
-				} else {
-					if (AfterHandlers["row_deleted"] == null)
-						AfterSignals["row_deleted"] = new GtkSharp.voidObjectTreePathSignal(this, "row_deleted", value, typeof (Gtk.RowDeletedArgs), 1);					else
-						((GLib.SignalCallback) AfterSignals ["row_deleted"]).AddDelegate (value);
-					AfterHandlers.AddHandler("row_deleted", value);
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_deleted", new RowDeletedSignalDelegate(RowDeletedSignalCallback));
+				sig.AddDelegate (value);
 			}
 			remove {
-				System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-				Hashtable signals = AfterSignals;
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					event_list = BeforeHandlers;
-					signals = BeforeSignals;
-				}
-				GLib.SignalCallback cb = signals ["row_deleted"] as GLib.SignalCallback;
-				event_list.RemoveHandler("row_deleted", value);
-				if (cb == null)
-					return;
-
-				cb.RemoveDelegate (value);
-
-				if (event_list["row_deleted"] == null) {
-					signals.Remove("row_deleted");
-					cb.Dispose ();
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_deleted", new RowDeletedSignalDelegate(RowDeletedSignalCallback));
+				sig.RemoveDelegate (value);
 			}
 		}
 
-		delegate void RowInsertedDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+		delegate void RowInsertedSignalDelegate (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch);
 
-		static RowInsertedDelegate RowInsertedCallback;
+		static void RowInsertedSignalCallback (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch)
+		{
+			GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
+			if (sig == null)
+				throw new Exception("Unknown signal GC handle received " + gch);
+
+			Gtk.RowInsertedArgs args = new Gtk.RowInsertedArgs ();
+			args.Args = new object[2];
+			if (arg1 == IntPtr.Zero)
+				args.Args[0] = null;
+			else {
+				args.Args[0] = new Gtk.TreePath(arg1);
+			}
+			args.Args[1] = arg2;
+			Gtk.RowInsertedHandler handler = (Gtk.RowInsertedHandler) sig.Handler;
+			handler (GLib.Object.GetObject (arg0), args);
+
+		}
+
+		delegate void RowInsertedVMDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+
+		static RowInsertedVMDelegate RowInsertedVMCallback;
 
 		static void rowinserted_cb (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter)
 		{
@@ -732,9 +744,9 @@ namespace Muine
 
 		private static void OverrideRowInserted (GLib.GType gtype)
 		{
-			if (RowInsertedCallback == null)
-				RowInsertedCallback = new RowInsertedDelegate (rowinserted_cb);
-			OverrideVirtualMethod (gtype, "row_inserted", RowInsertedCallback);
+			if (RowInsertedVMCallback == null)
+				RowInsertedVMCallback = new RowInsertedVMDelegate (rowinserted_cb);
+			OverrideVirtualMethod (gtype, "row_inserted", RowInsertedVMCallback);
 		}
 
 		[GLib.DefaultSignalHandler(Type=typeof(HandleModel), ConnectionMethod="OverrideRowInserted")]
@@ -755,42 +767,39 @@ namespace Muine
 		[GLib.Signal("row_inserted")]
 		public event Gtk.RowInsertedHandler RowInserted {
 			add {
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					if (BeforeHandlers["row_inserted"] == null)
-						BeforeSignals["row_inserted"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_inserted", value, typeof (Gtk.RowInsertedArgs), 0);					else
-						((GLib.SignalCallback) BeforeSignals ["row_inserted"]).AddDelegate (value);
-					BeforeHandlers.AddHandler("row_inserted", value);
-				} else {
-					if (AfterHandlers["row_inserted"] == null)
-						AfterSignals["row_inserted"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_inserted", value, typeof (Gtk.RowInsertedArgs), 1);					else
-						((GLib.SignalCallback) AfterSignals ["row_inserted"]).AddDelegate (value);
-					AfterHandlers.AddHandler("row_inserted", value);
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_inserted", new RowInsertedSignalDelegate(RowInsertedSignalCallback));
+				sig.AddDelegate (value);
 			}
 			remove {
-				System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-				Hashtable signals = AfterSignals;
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					event_list = BeforeHandlers;
-					signals = BeforeSignals;
-				}
-				GLib.SignalCallback cb = signals ["row_inserted"] as GLib.SignalCallback;
-				event_list.RemoveHandler("row_inserted", value);
-				if (cb == null)
-					return;
-
-				cb.RemoveDelegate (value);
-
-				if (event_list["row_inserted"] == null) {
-					signals.Remove("row_inserted");
-					cb.Dispose ();
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_inserted", new RowInsertedSignalDelegate(RowInsertedSignalCallback));
+				sig.RemoveDelegate (value);
 			}
 		}
 
-		delegate void RowHasChildToggledDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+		delegate void RowHasChildToggledSignalDelegate (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch);
 
-		static RowHasChildToggledDelegate RowHasChildToggledCallback;
+		static void RowHasChildToggledSignalCallback (IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, IntPtr gch)
+		{
+			GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
+			if (sig == null)
+				throw new Exception("Unknown signal GC handle received " + gch);
+
+			Gtk.RowHasChildToggledArgs args = new Gtk.RowHasChildToggledArgs ();
+			args.Args = new object[2];
+			if (arg1 == IntPtr.Zero)
+				args.Args[0] = null;
+			else {
+				args.Args[0] = new Gtk.TreePath(arg1);
+			}
+			args.Args[1] = arg2;
+			Gtk.RowHasChildToggledHandler handler = (Gtk.RowHasChildToggledHandler) sig.Handler;
+			handler (GLib.Object.GetObject (arg0), args);
+
+		}
+
+		delegate void RowHasChildToggledVMDelegate (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter);
+
+		static RowHasChildToggledVMDelegate RowHasChildToggledVMCallback;
 
 		static void rowhaschildtoggled_cb (IntPtr tree_model, IntPtr path, ref Gtk.TreeIter iter)
 		{
@@ -800,9 +809,9 @@ namespace Muine
 
 		private static void OverrideRowHasChildToggled (GLib.GType gtype)
 		{
-			if (RowHasChildToggledCallback == null)
-				RowHasChildToggledCallback = new RowHasChildToggledDelegate (rowhaschildtoggled_cb);
-			OverrideVirtualMethod (gtype, "row_has_child_toggled", RowHasChildToggledCallback);
+			if (RowHasChildToggledVMCallback == null)
+				RowHasChildToggledVMCallback = new RowHasChildToggledVMDelegate (rowhaschildtoggled_cb);
+			OverrideVirtualMethod (gtype, "row_has_child_toggled", RowHasChildToggledVMCallback);
 		}
 
 		[GLib.DefaultSignalHandler(Type=typeof(HandleModel), ConnectionMethod="OverrideRowHasChildToggled")]
@@ -823,36 +832,12 @@ namespace Muine
 		[GLib.Signal("row_has_child_toggled")]
 		public event Gtk.RowHasChildToggledHandler RowHasChildToggled {
 			add {
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					if (BeforeHandlers["row_has_child_toggled"] == null)
-						BeforeSignals["row_has_child_toggled"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_has_child_toggled", value, typeof (Gtk.RowHasChildToggledArgs), 0);					else
-						((GLib.SignalCallback) BeforeSignals ["row_has_child_toggled"]).AddDelegate (value);
-					BeforeHandlers.AddHandler("row_has_child_toggled", value);
-				} else {
-					if (AfterHandlers["row_has_child_toggled"] == null)
-						AfterSignals["row_has_child_toggled"] = new GtkSharp.voidObjectTreePathTreeIterSignal(this, "row_has_child_toggled", value, typeof (Gtk.RowHasChildToggledArgs), 1);					else
-						((GLib.SignalCallback) AfterSignals ["row_has_child_toggled"]).AddDelegate (value);
-					AfterHandlers.AddHandler("row_has_child_toggled", value);
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_has_child_toggled", new RowHasChildToggledSignalDelegate(RowHasChildToggledSignalCallback));
+				sig.AddDelegate (value);
 			}
 			remove {
-				System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-				Hashtable signals = AfterSignals;
-				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
-					event_list = BeforeHandlers;
-					signals = BeforeSignals;
-				}
-				GLib.SignalCallback cb = signals ["row_has_child_toggled"] as GLib.SignalCallback;
-				event_list.RemoveHandler("row_has_child_toggled", value);
-				if (cb == null)
-					return;
-
-				cb.RemoveDelegate (value);
-
-				if (event_list["row_has_child_toggled"] == null) {
-					signals.Remove("row_has_child_toggled");
-					cb.Dispose ();
-				}
+				GLib.Signal sig = GLib.Signal.Lookup (this, "row_has_child_toggled", new RowHasChildToggledSignalDelegate(RowHasChildToggledSignalCallback));
+				sig.RemoveDelegate (value);
 			}
 		}
 
@@ -986,11 +971,10 @@ namespace Muine
 
 namespace GtkSharp
 {
-	using System;
-
 	internal delegate bool TreeModelForeachFuncNative(IntPtr model, IntPtr path, ref Gtk.TreeIter iter, IntPtr data);
 
 	internal class TreeModelForeachFuncWrapper : GLib.DelegateWrapper {
+
 		public bool NativeCallback (IntPtr model, IntPtr path, ref Gtk.TreeIter iter, IntPtr data)
 		{
 			Gtk.TreeModel _arg0 = (Gtk.TreeModel) GLib.Object.GetObject(model);
@@ -1006,141 +990,6 @@ namespace GtkSharp
 		{
 			NativeDelegate = new TreeModelForeachFuncNative (NativeCallback);
 			_managed = managed;
-		}
-	}
-
-	internal delegate void voidObjectTreePathTreeIterDelegate(IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, int key);
-
-	internal class voidObjectTreePathTreeIterSignal : GLib.SignalCallback {
-
-		private static voidObjectTreePathTreeIterDelegate _Delegate;
-
-		private static void voidObjectTreePathTreeIterCallback(IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, int key)
-		{
-			if (!_Instances.Contains(key))
-				throw new Exception("Unexpected signal key " + key);
-
-			voidObjectTreePathTreeIterSignal inst = (voidObjectTreePathTreeIterSignal) _Instances[key];
-			GLib.SignalArgs args = (GLib.SignalArgs) Activator.CreateInstance (inst._argstype);
-			args.Args = new object[2];
-			if (arg1 == IntPtr.Zero)
-				args.Args[0] = null;
-			else {
-				args.Args[0] = new Gtk.TreePath(arg1);
-			}
-			args.Args[1] = arg2;
-			object[] argv = new object[2];
-			argv[0] = inst._obj;
-			argv[1] = args;
-			inst._handler.DynamicInvoke(argv);
-		}
-
-		public voidObjectTreePathTreeIterSignal(GLib.Object obj, string name, Delegate eh, Type argstype, int connect_flags) : base(obj, eh, argstype)
-		{
-			if (_Delegate == null) {
-				_Delegate = new voidObjectTreePathTreeIterDelegate(voidObjectTreePathTreeIterCallback);
-			}
-			Connect (name, _Delegate, connect_flags);
-		}
-
-		protected override void Dispose (bool disposing)
-		{
-			_Instances.Remove(_key);
-			if(_Instances.Count == 0)
-				_Delegate = null;
-
-			Disconnect ();
-			base.Dispose (disposing);
-		}
-	}
-	
-	internal delegate void voidObjectTreePathDelegate(IntPtr arg0, IntPtr arg1, int key);
-
-	internal class voidObjectTreePathSignal : GLib.SignalCallback {
-
-		private static voidObjectTreePathDelegate _Delegate;
-
-		private static void voidObjectTreePathCallback(IntPtr arg0, IntPtr arg1, int key)
-		{
-			if (!_Instances.Contains(key))
-				throw new Exception("Unexpected signal key " + key);
-
-			voidObjectTreePathSignal inst = (voidObjectTreePathSignal) _Instances[key];
-			GLib.SignalArgs args = (GLib.SignalArgs) Activator.CreateInstance (inst._argstype);
-			args.Args = new object[1];
-			if (arg1 == IntPtr.Zero)
-				args.Args[0] = null;
-			else {
-				args.Args[0] = new Gtk.TreePath(arg1);
-			}
-			object[] argv = new object[2];
-			argv[0] = inst._obj;
-			argv[1] = args;
-			inst._handler.DynamicInvoke(argv);
-		}
-
-		public voidObjectTreePathSignal(GLib.Object obj, string name, Delegate eh, Type argstype, int connect_flags) : base(obj, eh, argstype)
-		{
-			if (_Delegate == null) {
-				_Delegate = new voidObjectTreePathDelegate(voidObjectTreePathCallback);
-			}
-			Connect (name, _Delegate, connect_flags);
-		}
-
-		protected override void Dispose (bool disposing)
-		{
-			_Instances.Remove(_key);
-			if(_Instances.Count == 0)
-				_Delegate = null;
-
-			Disconnect ();
-			base.Dispose (disposing);
-		}
-	}
-
-	internal delegate void voidObjectTreePathTreeIteroutintDelegate(IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, out int arg3, int key);
-
-	internal class voidObjectTreePathTreeIteroutintSignal : GLib.SignalCallback {
-
-		private static voidObjectTreePathTreeIteroutintDelegate _Delegate;
-
-		private static void voidObjectTreePathTreeIteroutintCallback(IntPtr arg0, IntPtr arg1, ref Gtk.TreeIter arg2, out int arg3, int key)
-		{
-			if (!_Instances.Contains(key))
-				throw new Exception("Unexpected signal key " + key);
-
-			voidObjectTreePathTreeIteroutintSignal inst = (voidObjectTreePathTreeIteroutintSignal) _Instances[key];
-			GLib.SignalArgs args = (GLib.SignalArgs) Activator.CreateInstance (inst._argstype);
-			args.Args = new object[3];
-			if (arg1 == IntPtr.Zero)
-				args.Args[0] = null;
-			else {
-				args.Args[0] = new Gtk.TreePath(arg1);
-			}
-			args.Args[1] = arg2;
-			object[] argv = new object[2];
-			argv[0] = inst._obj;
-			argv[1] = args;
-			inst._handler.DynamicInvoke(argv);
-			arg3 = ((int)args.Args[2]);
-		}
-
-		public voidObjectTreePathTreeIteroutintSignal(GLib.Object obj, string name, Delegate eh, Type argstype, int connect_flags) : base(obj, eh, argstype)
-		{
-			if (_Delegate == null) {
-				_Delegate = new voidObjectTreePathTreeIteroutintDelegate(voidObjectTreePathTreeIteroutintCallback);
-			}
-			Connect (name, _Delegate, connect_flags);
-		}
-
-		protected override void Dispose (bool disposing)
-		{
-			_Instances.Remove(_key);
-			if(_Instances.Count == 0)
-				_Delegate = null;
-
-			Disconnect ();
-			base.Dispose (disposing);
 		}
 	}
 }

@@ -374,7 +374,7 @@ namespace Muine
 			set {
 				repeat = value;
 
-				Global.Actions.ToggleRepeat.Active = value;
+				((ToggleAction) Global.Actions ["ToggleRepeat"]).Active = value;
 
 				Config.Set (GConfKeyRepeat, value);			
 
@@ -427,7 +427,7 @@ namespace Muine
 			if (WindowVisible && playlist.Model.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Model.Playing);
 
-			Global.Actions.ToggleVisible.Label = (WindowVisible)
+			Global.Actions ["ToggleVisible"].Label = (WindowVisible)
 							     ? Actions.StringToggleVisibleHide
 							     : Actions.StringToggleVisibleShow;
 		}
@@ -1006,14 +1006,14 @@ namespace Muine
 			toggle_play_button.Sensitive = has_first;
 			next_button       .Sensitive = playlist.Model.HasNext || (this.repeat && has_first);
 
-			Global.Actions.TogglePlay.Sensitive = previous_button   .Sensitive;
-			Global.Actions.Previous  .Sensitive = toggle_play_button.Sensitive;
-			Global.Actions.Next      .Sensitive = next_button       .Sensitive;
+			Global.Actions ["TogglePlay"   ].Sensitive = previous_button   .Sensitive;
+			Global.Actions ["Previous"     ].Sensitive = toggle_play_button.Sensitive;
+			Global.Actions ["Next"         ].Sensitive = next_button       .Sensitive;
 			
-			Global.Actions.SkipTo       .Sensitive = has_first;
-			Global.Actions.SkipBackwards.Sensitive = has_first;
-			Global.Actions.SkipForward  .Sensitive = has_first;
-			Global.Actions.Shuffle      .Sensitive = has_first;
+			Global.Actions ["SkipTo"       ].Sensitive = has_first;
+			Global.Actions ["SkipBackwards"].Sensitive = has_first;
+			Global.Actions ["SkipForward"  ].Sensitive = has_first;
+			Global.Actions ["Shuffle"      ].Sensitive = has_first;
 
 			UpdateTimeLabels (player.Position);
 
@@ -1082,7 +1082,7 @@ namespace Muine
 		// Methods :: Private :: SelectionChanged
 		private void SelectionChanged ()
 		{
-			Global.Actions.Remove.Sensitive = (playlist.Selection.CountSelectedRows () > 0);
+			Global.Actions ["Remove"].Sensitive = (playlist.Selection.CountSelectedRows () > 0);
 
 			// Run SelectionChangedEvent Handlers
 			if (SelectionChangedEvent != null)
@@ -1093,7 +1093,7 @@ namespace Muine
 		private new void StateChanged (bool playing, bool dont_signal)
 		{
 			// Update action entry and button states
-			Global.Actions.TogglePlay.Active = playing;
+			((ToggleAction) Global.Actions ["TogglePlay"]).Active = playing;
 			toggle_play_button.Active        = playing;
 
 			// Update
@@ -1747,7 +1747,7 @@ namespace Muine
 
 					ptr = DragAddSong (song, pos);
 
-					// Reorder part 2: if the row was playing, keep it playing						
+					// Reorder part 2: if the row was playing, keep it playing
 					if (play) {
 						playlist.Model.Playing = ptr;
 						ignore_song_change = false;
