@@ -288,7 +288,6 @@ public class PlaylistWindow : Window
 		playlist = new HandleView ();
 
 		playlist.Reorderable = true; 
-		playlist.KeepSelection = true;
 		playlist.Selection.Mode = SelectionMode.Single;
 
 		pixbuf_renderer = new ColoredCellRendererPixbuf ();
@@ -416,6 +415,9 @@ public class PlaylistWindow : Window
 
 	private void RemoveSong (IntPtr p)
 	{
+		if (!playlist.SelectNext (false))
+			playlist.SelectPrevious (false);
+
 		playlist.Remove (p);
 
 		Song song = Song.FromHandle (p);

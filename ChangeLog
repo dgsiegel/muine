@@ -1,3 +1,13 @@
+2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
+
+	* libmuine/pointer-list-view.c: (pointer_list_view_select_next),
+	(pointer_list_view_select_prev):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Don't unnecessarily change the selected row when a row is deleted.
+
 2004-01-28  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/PlaylistWindow.cs:

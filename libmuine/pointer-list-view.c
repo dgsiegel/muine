@@ -139,29 +139,6 @@ pointers_reordered_cb (GtkTreeModel *tree_model,
 }
 
 static void
-row_deleted_cb (GtkTreeModel *tree_model,
-		GtkTreePath *path,
-		PointerListView *view)
-{
-	GtkTreeSelection *sel;
-	GtkTreeIter iter;
-
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-
-	if (!gtk_tree_model_get_iter (tree_model, &iter, path)) {
-		GtkTreePath *prev = gtk_tree_path_copy (path);
-		if (!gtk_tree_path_prev (prev)) {
-			gtk_tree_path_free (prev);
-			return;
-		}
-		gtk_tree_model_get_iter (tree_model, &iter, prev);
-		gtk_tree_path_free (prev);
-	}
-
-	gtk_tree_selection_select_iter (sel, &iter);
-}
-
-static void
 selection_changed_cb (GtkTreeSelection *sel,
 		      PointerListView *view)
 {
@@ -365,18 +342,6 @@ pointer_list_view_get_selection (PointerListView *view)
 }
 
 void
-pointer_list_view_set_keep_selection (PointerListView *view,
-				      gboolean keep)
-{
-	/* doesn't handle remove yet */
-	if (keep)
-		g_signal_connect (G_OBJECT (view->model),
-				  "row_deleted",
-				  G_CALLBACK (row_deleted_cb),
-				  view);
-}
-
-void
 pointer_list_view_select_first (PointerListView *view)
 {
 	GtkTreePath *path;
@@ -399,12 +364,13 @@ scroll_to_path (PointerListView *view, GtkTreePath *path,
 				      center, 0.5, 0.5);
 }
 
-void
+gboolean
 pointer_list_view_select_next (PointerListView *view, gboolean center)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
 	gboolean last = TRUE;
+	gboolean ret = FALSE;
 
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_selected_foreach (sel,
@@ -424,6 +390,8 @@ pointer_list_view_select_next (PointerListView *view, gboolean center)
 				gtk_tree_selection_unselect_all (sel);
 				gtk_tree_selection_select_path (sel, next);
 				scroll_to_path (view, next, center);
+
+				ret = TRUE;
 			} else {
 				scroll_to_path (view, p, center);
 			}
@@ -436,14 +404,17 @@ pointer_list_view_select_next (PointerListView *view, gboolean center)
 	}
 
 	g_list_free (list);
+
+	return ret;
 }
 
-void
+gboolean
 pointer_list_view_select_prev (PointerListView *view, gboolean center)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
 	gboolean last = TRUE;
+	gboolean ret = FALSE;
 
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_selected_foreach (sel,
@@ -459,6 +430,8 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center)
 				gtk_tree_selection_unselect_all (sel);
 				gtk_tree_selection_select_path (sel, prev);
 				scroll_to_path (view, prev, center);
+
+				ret = TRUE;
 			} else {
 				scroll_to_path (view, p, center);
 			}
@@ -471,6 +444,8 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center)
 	}
 
 	g_list_free (list);
+
+	return ret;
 }
 
 void

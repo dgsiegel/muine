@@ -70,12 +70,10 @@ int              pointer_list_view_get_length    (PointerListView *view);
 gboolean         pointer_list_view_contains      (PointerListView *view,
 				                  gpointer pointer);
 GList *          pointer_list_view_get_selection (PointerListView *view);
-void             pointer_list_view_set_keep_selection (PointerListView *view,
-						       gboolean keep);
 void             pointer_list_view_select_first  (PointerListView *view);
-void             pointer_list_view_select_next   (PointerListView *view,
+gboolean         pointer_list_view_select_next   (PointerListView *view,
 						  gboolean center);
-void             pointer_list_view_select_prev   (PointerListView *view,
+gboolean         pointer_list_view_select_prev   (PointerListView *view,
 						  gboolean center);
 void             pointer_list_view_scroll_to     (PointerListView *view,
 						  gpointer pointer);

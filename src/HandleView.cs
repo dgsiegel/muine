@@ -171,16 +171,6 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
-	private static extern void pointer_list_view_set_keep_selection (IntPtr view,
-									 bool keep_selection);
-	
-	public bool KeepSelection {
-		set {
-			pointer_list_view_set_keep_selection (Raw, value);
-		}
-	}
-
-	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_select_first (IntPtr view);
 
 	public void SelectFirst ()
@@ -189,21 +179,21 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
-	private static extern void pointer_list_view_select_prev (IntPtr view,
+	private static extern bool pointer_list_view_select_prev (IntPtr view,
 								  bool center);
 
-	public void SelectPrevious (bool center)
+	public bool SelectPrevious (bool center)
 	{
-		pointer_list_view_select_prev (Raw, center);
+		return pointer_list_view_select_prev (Raw, center);
 	}
 
 	[DllImport ("libmuine")]
-	private static extern void pointer_list_view_select_next (IntPtr view,
+	private static extern bool pointer_list_view_select_next (IntPtr view,
 								  bool center);
 
-	public void SelectNext (bool center)
+	public bool SelectNext (bool center)
 	{
-		pointer_list_view_select_next (Raw, center);
+		return pointer_list_view_select_next (Raw, center);
 	}
 
 	[DllImport ("libmuine")]
