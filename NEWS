@@ -1,3 +1,16 @@
+0.4.0
+=====
+
+- Get the album cover from the ID3 tag if available [Lee Willis]
+- Sort artists like "Cardigans, The" instead of "The Cardigans" [Jorn Baayen]
+- Include playlist duration in playlist label when in shuffle mode [Jorn Baayen]
+- Reduce memory footprint [Jorn Baayen]
+- Reduce startup time [Jorn Baayen]
+- Further UI enhancements [Jorn Baayen]
+- Code cleanups [Jorn Baayen]
+- Various bugfixes [Jorn Baayen, Vaclav Slavik]
+- Improved first start window (Disabled for now) [Viet Yen Nguyen]
+
 0.3.2
 =====
 
