@@ -1217,7 +1217,7 @@ public class PlaylistWindow : Window
 
 		string fn = sel.GetFile ();
 
-		if (fn.Length == 0 || System.IO.Path.GetExtension (fn) != ".m3u")
+		if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
 			return;
 
 		FileInfo finfo = new FileInfo (fn);
@@ -1242,7 +1242,7 @@ public class PlaylistWindow : Window
 			return;
 
 		/* make sure the extension is ".m3u" */
-		if (!fn.EndsWith (".m3u"))
+		if (!FileUtils.IsPlaylist (fn))
 			fn += ".m3u";
 
 		FileInfo finfo = new FileInfo (fn);

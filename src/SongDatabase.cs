@@ -216,10 +216,7 @@ public class SongDatabase
 
 			/* only remove the album cover if we are not dealing
 			 * with removable media */
-			if (!(song.Filename.StartsWith ("/mnt/") ||
-			      song.Filename.StartsWith ("file:///mnt/") ||
-			      song.Filename.StartsWith ("/media/") ||
-			      song.Filename.StartsWith ("file:///media/")))
+			if (!FileUtils.IsFromRemovableMedia (song.Filename))
 				Muine.CoverDB.RemoveCover (key);
 
 			if (AlbumRemoved != null)

@@ -1,3 +1,13 @@
+2004-04-22  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/FileUtils.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Split out filename peeking utilities to a separate class.
+
 2004-04-21  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/SongDatabase.cs:
