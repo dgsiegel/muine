@@ -37,8 +37,8 @@ namespace Muine
 		private static readonly string string_program =
 			Catalog.GetString ("Muine music player");
 
-		private static readonly string string_tooltip_format =
-			Catalog.GetString ("{0} - {1}"); // song artists - song title
+		// song artists - song title
+		private static readonly string string_tooltip_format = Catalog.GetString ("{0} - {1}");
 
 		// Widgets
 		private EventBox ebox;

@@ -30,12 +30,12 @@ namespace Muine
 	{
 		// Strings
 		// Strings :: Prefixes
-		// 	Space-separated list of prefixes that will be taken off the front
+
+		//      Space-separated list of prefixes that will be taken off the front
 		// 	when sorting. For example, "The Beatles" will be sorted as "Beatles",
 		// 	if "the" is included in this list. Also include the English "the"
-		// 	if English is generally spoken in your country.
-		private static readonly string string_prefixes =
-			Catalog.GetString ("the dj");
+		// 	if English is generally spoken in your country.*/
+		private static readonly string string_prefixes = Catalog.GetString ("the dj");
 
 		// Static
 		// Static :: Methods
