@@ -172,6 +172,13 @@ namespace Muine
 					pixbuf = new Pixbuf (pix_handle);
 				}
 
+				if (Muine.CoverDB.Covers.Contains (key)) {
+					if (pixbuf == null)
+						return;
+					else
+						Muine.CoverDB.Covers.Remove (key);
+				}
+				
 				Muine.CoverDB.Covers.Add (key, pixbuf);
 
 				Item item = Muine.DB.GetAlbum (key);

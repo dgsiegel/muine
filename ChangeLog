@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs (DecodeFunction):
+
+	Check if key is already there before adding.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
 	* src/Item.cs:
