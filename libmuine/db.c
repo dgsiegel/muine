@@ -19,6 +19,7 @@
  * Some code stolen from song-db.c from Jamboree.
  */
 
+#include <gdk-pixbuf/gdk-pixdata.h>
 #include <glib.h>
 #include <gdbm.h>
 #include <string.h>
@@ -169,6 +170,29 @@ db_unpack_long (gpointer p, long *val)
 	return p;
 }
 
+gpointer
+db_unpack_pixbuf (gpointer p, GdkPixbuf **pixbuf)
+{
+	int len;
+	GdkPixdata *pixdata;
+
+	p = _ALIGN_ADDRESS (p, 4);
+
+	len = *(int *) p;
+
+	(unsigned long) p += 4;
+
+	pixdata = g_new0 (GdkPixdata, 1);
+	gdk_pixdata_deserialize (pixdata, len, (const guint8 *) p, NULL);
+
+	if (pixbuf)
+		*pixbuf = gdk_pixbuf_from_pixdata (pixdata, TRUE, NULL);
+
+	g_free (pixdata);
+
+	return (gpointer) ((unsigned long) p + len + 1);
+}
+
 static void
 string_align (GString *string, int boundary)
 {
@@ -227,6 +251,33 @@ db_pack_long (gpointer p, long val)
 	string_align (string, 4);
 
 	g_string_append_len (string, (char *) &val, 4);
+}
+
+void
+db_pack_pixbuf (gpointer p, GdkPixbuf *pixbuf)
+{
+	GString *string = (GString *) p;
+	GdkPixdata *pixdata;
+	int len = 0;
+	char *str;
+
+	pixdata = g_new0 (GdkPixdata, 1);
+	gdk_pixdata_from_pixbuf (pixdata, pixbuf, FALSE);
+
+	str = gdk_pixdata_serialize (pixdata, &len);
+
+	db_pack_int (string, len);
+
+	if (str) {
+		int i;
+		for (i = 0; i < len; i++)
+			g_string_append_c (string, str [i]);
+		g_free (str);
+	}
+
+	g_free (pixdata);
+
+	g_string_append_c (string, 0);
 }
 
 gpointer

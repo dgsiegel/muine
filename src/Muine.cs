@@ -32,6 +32,8 @@ public class Muine : Gnome.Program
 
 	public static SongDatabase DB;
 
+	public static CoverDatabase CoverDB;
+
 	public static void Main (string [] args)
 	{
 		Muine muine = new Muine (args);
@@ -50,11 +52,21 @@ public class Muine : Gnome.Program
 		/* Set default window icon */
 		SetDefaultWindowIcon ();
 
+		/* Load cover database */
+		try {
+			CoverDB = new CoverDatabase ();
+		} catch (Exception e) {
+			new ErrorDialog ("Failed to load the cover database: " + e.ToString () + "\nExiting...");
+			Environment.Exit (0);
+		}
+
+		CoverDB.Load ();
+
 		/* Load song database */
 		try {
 			DB = new SongDatabase ();
 		} catch (Exception e) {
-			new ErrorDialog ("Failed to load the database: " + e.ToString () + "\nExiting...");
+			new ErrorDialog ("Failed to load the song database: " + e.ToString () + "\nExiting...");
 
 			Environment.Exit (0);
 		}

@@ -20,6 +20,7 @@
 #ifndef __DB_H
 #define __DB_H
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib.h>
 
 typedef gpointer (*EncodeFunc) (gpointer user_data,
@@ -46,11 +47,13 @@ void     db_foreach       (gpointer db,
 gpointer db_unpack_string (gpointer p, char **str);
 gpointer db_unpack_int    (gpointer p, int *val);
 gpointer db_unpack_long   (gpointer p, long *val);
+gpointer db_unpack_pixbuf (gpointer p, GdkPixbuf **pixbuf);
 
 gpointer db_pack_start    (void);
 void     db_pack_string   (gpointer p, const char *str);
 void     db_pack_int      (gpointer p, int val);
 void     db_pack_long     (gpointer p, long val);
+void	 db_pack_pixbuf   (gpointer p, GdkPixbuf *pixbuf);
 gpointer db_pack_end      (gpointer p, int *len);
 
 #endif /* __DB_H */

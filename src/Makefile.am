@@ -23,7 +23,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/StockIcons.cs			\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/MarkupUtils.cs		\
-	$(srcdir)/PixbufUtils.cs
+	$(srcdir)/CoverDatabase.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\

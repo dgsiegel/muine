@@ -120,19 +120,9 @@ public class Song
 		}
 	}
 
-	private static Hashtable cover_images = new Hashtable ();
-	
 	public Gdk.Pixbuf CoverImage {
 		get {
-			if (cover_image_filename.Length == 0)
-				return null;
-
-			if (cover_images [cover_image_filename] == null) {
-				cover_images.Add (cover_image_filename,
-						  PixbufUtils.CoverPixbufFromFile (cover_image_filename));
-			}
-
-			return (Gdk.Pixbuf) cover_images [cover_image_filename];
+			return Muine.CoverDB.CoverFromFile (cover_image_filename);
 		}
 	}
 
@@ -300,11 +290,11 @@ public class Song
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_pack_start ();
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_pack_string (IntPtr p, string str);
+	private static extern void db_pack_string (IntPtr p, string str);
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_pack_int (IntPtr p, int i);
+	private static extern void db_pack_int (IntPtr p, int i);
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_pack_long (IntPtr p, long l);
+	private static extern void db_pack_long (IntPtr p, long l);
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_pack_end (IntPtr p, out int length);
 
