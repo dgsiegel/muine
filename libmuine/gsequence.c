@@ -375,7 +375,7 @@ g_sequence_ptr_is_end         (GSequencePtr             ptr)
 gboolean
 g_sequence_ptr_is_begin       (GSequencePtr             ptr)
 {
-    return (g_sequence_node_prev (ptr) == NULL);
+    return (g_sequence_node_prev (ptr) == ptr);
 }
 
 gint
