@@ -44,8 +44,6 @@ libmuine_la_SOURCES =			\
 	gsequence.h			\
 	pointer-list-model.c		\
 	pointer-list-model.h		\
-	pointer-list-view.c		\
-	pointer-list-view.h		\
 	string-utils.c			\
 	string-utils.h			\
 	rb-cell-renderer-pixbuf.c	\

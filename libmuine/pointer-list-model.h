@@ -74,7 +74,7 @@ void          pointer_list_model_sort           (PointerListModel *model,
 gboolean      pointer_list_model_pointer_get_iter (PointerListModel *model,
 					         gpointer          pointer,
 					         GtkTreeIter      *iter);
-gpointer      pointer_list_model_get_pointer    (PointerListModel *model,
+gpointer      pointer_list_model_iter_get_pointer (PointerListModel *model,
 					         GtkTreeIter      *iter);
 GList *       pointer_list_model_get_pointers   (PointerListModel *model);
 gboolean      pointer_list_model_contains       (PointerListModel *model,

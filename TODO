@@ -78,8 +78,8 @@ o Use stock Gtk pixbuf colouring
   Once we have Gtk 2.6 support in Gtk# and a new Gtk release
 o Remove EllipsizingLabel and CellRendererText hack classes
   Once we have Gtk 2.6 support in Gtk#
-o Remove HandleView.Changed hack
-  Depends on Gnome Bugzilla #165017
+o Re-enable fixed-height-mode in HandleView
+  Depends on Gnome Bugzilla #165017, #165034
 
 We won't have:
 ==============

@@ -87,8 +87,8 @@ namespace Muine
 			entry_container.Add (entry);
 						
 			// List
-			list.RowActivated     += new AddWindowList.RowActivatedHandler     (OnRowActivated);
-			list.SelectionChanged += new AddWindowList.SelectionChangedHandler (OnSelectionChanged);
+			list.RowActivated      += new RowActivatedHandler (OnRowActivated);
+			list.Selection.Changed += new EventHandler        (OnSelectionChanged);
 			scrolledwindow.Add (list);
 
 			entry.Show ();
@@ -228,11 +228,11 @@ namespace Muine
 				}
 			}
 
-			list.RemoveDelta (l);
+			list.Model.RemoveDelta (l);
 
 			foreach (int p in l) {
 				IntPtr ptr = new IntPtr (p);
-				list.Append (ptr);
+				list.Model.Append (ptr);
 			}
 
 			list.SelectFirst ();
@@ -268,13 +268,13 @@ namespace Muine
 		}
 
 		// Handlers :: OnRowActivated
-		private void OnRowActivated (IntPtr handle)
+		private void OnRowActivated (object o, RowActivatedArgs args)
 		{
 			play_button.Click ();
 		}
 
 		// Handlers :: OnSelectionChanged
-		private void OnSelectionChanged ()
+		private void OnSelectionChanged (object o, EventArgs args)
 		{
 			play_button.Sensitive  = list.HasSelection;
 			queue_button.Sensitive = list.HasSelection;

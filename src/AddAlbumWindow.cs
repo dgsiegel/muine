@@ -66,7 +66,7 @@ namespace Muine
 
 			base.Items = Global.DB.Albums.Values;
 						
-			base.List.SortFunc = new AddWindowList.CompareFunc (SortFunc);
+			base.List.Model.SortFunc = new HandleModel.CompareFunc (SortFunc);
 
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
@@ -127,7 +127,7 @@ namespace Muine
 			if (!base.List.GetPathAtPos (args.X, args.Y, out path))
 				return;
 
-			IntPtr album_ptr = base.List.GetHandleFromPath (path);
+			IntPtr album_ptr = base.List.Model.HandleFromPath (path);
 			Album album = Album.FromHandle (album_ptr);
 
 			CoverImage.HandleDrop ((Song) album.Songs [0], args);
@@ -136,7 +136,7 @@ namespace Muine
 		// Handlers :: OnDragDataGet
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
-			List albums = base.List.SelectedPointers;
+			List albums = base.List.SelectedHandles;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
@@ -211,7 +211,7 @@ namespace Muine
 					         TreeModel model, TreeIter iter)
 		{
 			CellRendererPixbuf r = (CellRendererPixbuf) cell;
-			Album album = Album.FromHandle (base.List.HandleFromIter (iter));
+			Album album = Album.FromHandle (base.List.Model.HandleFromIter (iter));
 
 			r.Pixbuf = (album.CoverImage != null)
 				? album.CoverImage
@@ -227,7 +227,7 @@ namespace Muine
 					       TreeModel model, TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Album album = Album.FromHandle (base.List.HandleFromIter (iter));
+			Album album = Album.FromHandle (base.List.Model.HandleFromIter (iter));
 
 			string performers = "";
 			if (album.Performers.Length > 0)

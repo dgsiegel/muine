@@ -1,5 +1,27 @@
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* libmuine/Makefile.am:
+	* libmuine/pointer-list-model.c:
+	(pointer_list_model_drag_data_received),
+	(pointer_list_model_iter_get_pointer):
+	* libmuine/pointer-list-model.h:
+	R libmuine/pointer-list-view.c:
+	R libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowList.cs:
+	* src/HandleModel.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+	* src/muine.exe.config.in:
+
+	Wrap pointer-list-model as HandleModel, ditch pointer-list-view,
+	and make HandleView a pure C# thing using HandleModel.
+
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
 	* DBusLib/Makefile.am:
 	* PluginLib/Makefile.am:
 	* configure.in:

@@ -251,116 +251,12 @@ pointer_list_model_drag_data_get (GtkTreeDragSource *drag_source,
   return FALSE;
 }
 
-static void
-put_before (PointerListModel *model,
-            GSequencePtr      ptr,
-            GSequencePtr      before)
-{
-  GSequence *pointers;
-  GSequencePtr *old_order;
-  GtkTreePath *path;
-  int *new_order;
-  int length;
-  int i;
-
-  if (ptr == before)
-    return;
-
-  pointers = model->pointers;
-  length = g_sequence_get_length (pointers);
-
-  if (length <= 1)
-    return;
- 
-  /* Generate old order of GSequencePtrs. */
-  old_order = g_new (GSequencePtr, length);
-  for (i = 0; i < length; ++i)
-    old_order[i] = g_sequence_get_ptr_at_pos (pointers, i);
-
-  g_sequence_ptr_move_before (ptr, before);
-
-  /* Generate new order. */
-  new_order = g_new (int, length);
-  for (i = 0; i < length; ++i)
-    new_order[i] = g_sequence_ptr_get_position (old_order[i]);
-
-  path = gtk_tree_path_new ();
-  
-  gtk_tree_model_rows_reordered (GTK_TREE_MODEL (model), path, NULL, new_order);
-  
-  gtk_tree_path_free (path);
-  g_free (old_order);
-  g_free (new_order);
-}
-
 static gboolean
 pointer_list_model_drag_data_received (GtkTreeDragDest   *drag_dest,
-                                     GtkTreePath       *dest,
-                                     GtkSelectionData  *selection_data)
+                                       GtkTreePath       *dest,
+                                       GtkSelectionData  *selection_data)
 {
-  GtkTreeModel *tree_model;
-  PointerListModel *model;
-  GtkTreeModel *src_model = NULL;
-  GtkTreePath *src_path = NULL;
-  gboolean retval = FALSE;
-
-  g_return_val_if_fail (IS_POINTER_LIST_MODEL (drag_dest), FALSE);
-
-  tree_model = GTK_TREE_MODEL (drag_dest);
-  model = POINTER_LIST_MODEL (drag_dest);
-
-  if (gtk_tree_get_row_drag_data (selection_data,
-				  &src_model,
-				  &src_path) &&
-      src_model == tree_model)
-    {
-      /* Copy the given row to a new position */
-      GtkTreeIter src_iter;
-      GtkTreeIter dest_iter;
-      GtkTreePath *prev;
-
-      if (!gtk_tree_model_get_iter (src_model,
-                                    &src_iter,
-                                    src_path))
-        {
-          goto out;
-        }
-
-      /* Get the path to insert _after_ (dest is the path to insert _before_) */
-      prev = gtk_tree_path_copy (dest);
-
-      if (!gtk_tree_path_prev (prev))
-        {
-          put_before (model, src_iter.user_data,
-		      g_sequence_get_begin_ptr (model->pointers));
-
-          retval = TRUE;
-        }
-      else
-        {
-          if (gtk_tree_model_get_iter (tree_model, &dest_iter, dest))
-            {
-              put_before (model, src_iter.user_data,
-			  dest_iter.user_data);
-            }
-	  else
-            {
-              put_before (model, src_iter.user_data,
-		          g_sequence_get_end_ptr (model->pointers));
-            }
-
-	  retval = TRUE;
-        }
-
-      gtk_tree_path_free (prev);
-    }
-
- out:
-
-  if (src_path)
-    gtk_tree_path_free (src_path);
-
-  return retval;
+  return FALSE;
 }
 
 static gboolean
@@ -712,7 +608,7 @@ pointer_list_model_pointer_get_iter (PointerListModel *model,
 }
 
 gpointer
-pointer_list_model_get_pointer (PointerListModel *model, GtkTreeIter *iter)
+pointer_list_model_iter_get_pointer (PointerListModel *model, GtkTreeIter *iter)
 {
   g_return_val_if_fail (model->stamp == iter->stamp, NULL);
   

@@ -265,16 +265,16 @@ namespace Muine
 		// Properties :: PlayingSong (get;) (IPlayer)
 		public ISong PlayingSong {
 			get {
-				return (playlist.Playing == IntPtr.Zero)
+				return (playlist.Model.Playing == IntPtr.Zero)
 				       ? null
-				       : Song.FromHandle (playlist.Playing);
+				       : Song.FromHandle (playlist.Model.Playing);
 			}
 		}
 
 		// Properties :: Playing (set; get;) (IPlayer)
 		public bool Playing {
 			set {
-				if (!playlist.HasFirst)
+				if (!playlist.Model.HasFirst)
 					return;
 
 				if (value) {
@@ -315,22 +315,22 @@ namespace Muine
 
 		// Properties :: HasNext (get;) (IPlayer)
 		public bool HasNext {
-			get { return playlist.HasNext; }
+			get { return playlist.Model.HasNext; }
 		}
 
 		// Properties :: HasPrevious (get;) (IPlayer)
 		public bool HasPrevious {
-			get { return playlist.HasPrevious; }
+			get { return playlist.Model.HasPrevious; }
 		}
 
 		// Properties :: Playlist (get;) (IPlayer)
 		public ISong [] Playlist {
-			get { return ArrayFromList (playlist.Contents); }
+			get { return ArrayFromList (playlist.Model.Contents); }
 		}
 
 		// Properties :: Selection (get;) (IPlayer)
 		public ISong [] Selection {
-			get { return ArrayFromList (playlist.SelectedPointers); }
+			get { return ArrayFromList (playlist.SelectedHandles); }
 		}
 
 		// Properties :: UIManager (get;) (IPlayer)
@@ -417,7 +417,7 @@ namespace Muine
 		// Methods :: Public :: Run
 		public void Run ()
 		{
-			if (!playlist.HasFirst)
+			if (!playlist.Model.HasFirst)
 				SongChanged (true); // make sure the UI is up to date
 
 			RestoreState ();
@@ -433,8 +433,8 @@ namespace Muine
 		// Methods :: Public :: UpdateWindowVisibilityUI
 		public void UpdateWindowVisibilityUI ()
 		{
-			if (WindowVisible && playlist.Playing != IntPtr.Zero)
-				playlist.Select (playlist.Playing);
+			if (WindowVisible && playlist.Model.Playing != IntPtr.Zero)
+				playlist.Select (playlist.Model.Playing);
 
 			Global.Actions.ToggleVisible.Label = (WindowVisible)
 							     ? Actions.StringToggleVisibleHide
@@ -487,16 +487,16 @@ namespace Muine
 		// Methods :: Public :: Previous (IPlayer)
 		public void Previous ()
 		{
-			if (!playlist.HasFirst)
+			if (!playlist.Model.HasFirst)
 				return;
 
 			if (player.Position < MinRestartTime) {
-				if (playlist.HasPrevious) {
-					playlist.Previous ();
+				if (playlist.Model.HasPrevious) {
+					playlist.Model.Previous ();
 					PlaylistChanged ();
 
 				} else if (repeat) {
-					playlist.Last ();
+					playlist.Model.Last ();
 					PlaylistChanged ();
 
 				} else {
@@ -507,21 +507,21 @@ namespace Muine
 				player.Position = 0;
 			}
 
-			playlist.Select (playlist.Playing);
+			playlist.Select (playlist.Model.Playing);
 			player.Play ();
 		}
 
 		// Methods :: Public :: Next (IPlayer)
 		public void Next ()
 		{
-			if (playlist.HasNext)
-				playlist.Next ();
-			else if (repeat && playlist.HasFirst)
-				playlist.First ();
+			if (playlist.Model.HasNext)
+				playlist.Model.Next ();
+			else if (repeat && playlist.Model.HasFirst)
+				playlist.Model.First ();
 			else
 				return;
 
-			playlist.Select (playlist.Playing);
+			playlist.Select (playlist.Model.Playing);
 			PlaylistChanged ();
 			player.Play ();
 		}
@@ -563,7 +563,7 @@ namespace Muine
 		// Methods :: Public :: RunSkipToDialog
 		public void RunSkipToDialog ()
 		{
-			playlist.Select (playlist.Playing);
+			playlist.Select (playlist.Model.Playing);
 
 			if (skip_to_window == null)
 				skip_to_window = new SkipToWindow (this);
@@ -592,7 +592,7 @@ namespace Muine
 		// Methods :: Public :: RemoveSelected
 		public void RemoveSelected ()
 		{
-			List selected_pointers = playlist.SelectedPointers;
+			List selected_pointers = playlist.SelectedHandles;
 
 			int counter = 0, selected_pointers_count = selected_pointers.Count;
 			bool song_changed = false;
@@ -603,7 +603,7 @@ namespace Muine
 			foreach (int i in selected_pointers) {
 				IntPtr sel = new IntPtr (i);
 
-				if (sel == playlist.Playing) {
+				if (sel == playlist.Model.Playing) {
 					OnPlayingSongRemoved ();		
 					song_changed = true;
 				}
@@ -629,7 +629,7 @@ namespace Muine
 		// Methods :: Public :: RemovePlayed
 		public void RemovePlayed ()
 		{
-			if (playlist.Playing == IntPtr.Zero)
+			if (playlist.Model.Playing == IntPtr.Zero)
 				return;
 
 			if (had_last_eos) {
@@ -638,16 +638,16 @@ namespace Muine
 				return;
 			}
 
-			foreach (int i in playlist.Contents) {
+			foreach (int i in playlist.Model.Contents) {
 				IntPtr current = new IntPtr (i);
 
-				if (current == playlist.Playing)
+				if (current == playlist.Model.Playing)
 					break;
 
 				RemoveSong (current);
 			}
 
-			playlist.Select (playlist.Playing);
+			playlist.Select (playlist.Model.Playing);
 			PlaylistChanged ();
 		}
 		
@@ -665,19 +665,19 @@ namespace Muine
 
 			random_sort_keys = new Hashtable ();
 
-			foreach (int i in playlist.Contents) {
-				double val = (i == (int) playlist.Playing) ? -1.0 : rand.NextDouble ();
+			foreach (int i in playlist.Model.Contents) {
+				double val = (i == (int) playlist.Model.Playing) ? -1.0 : rand.NextDouble ();
 				random_sort_keys.Add (i, val);
 			}
 
-			playlist.Sort (new HandleView.CompareFunc (ShuffleFunc));
+			playlist.Model.Sort (new HandleModel.CompareFunc (ShuffleFunc));
 
 			random_sort_keys = null;
 
 			PlaylistChanged ();
 
-			if (playlist.Playing != IntPtr.Zero)
-				playlist.Select (playlist.Playing);
+			if (playlist.Model.Playing != IntPtr.Zero)
+				playlist.Select (playlist.Model.Playing);
 		}
 		
 		// Methods :: Public :: SavePlaylist
@@ -704,11 +704,11 @@ namespace Muine
 
 			if (!(exclude_played && had_last_eos)) {
 				bool had_playing_song = false;
-				foreach (int i in playlist.Contents) {
+				foreach (int i in playlist.Model.Contents) {
 					IntPtr ptr = new IntPtr (i);
 
 					if (exclude_played) {
-						if (ptr == playlist.Playing)
+						if (ptr == playlist.Model.Playing)
 							had_playing_song = true;
 
 						else if (!had_playing_song)
@@ -716,7 +716,7 @@ namespace Muine
 					}
 				
 					if (store_playing &&
-					    ptr == playlist.Playing) {
+					    ptr == playlist.Model.Playing) {
 						writer.WriteLine ("# PLAYING");
 					}
 				
@@ -791,9 +791,9 @@ namespace Muine
 			col.SetCellDataFunc (text_renderer, new TreeCellDataFunc (TextCellDataFunc));
 			playlist.AppendColumn (col);
 			
-			playlist.RowActivated     += new HandleView.RowActivatedHandler     (OnPlaylistRowActivated    );
-			playlist.SelectionChanged += new HandleView.SelectionChangedHandler (OnPlaylistSelectionChanged);
-			playlist.PlayingChanged   += new HandleView.PlayingChangedHandler   (OnPlaylistPlayingChanged  );
+			playlist.RowActivated         += new RowActivatedHandler               (OnPlaylistRowActivated    );
+			playlist.Selection.Changed    += new EventHandler                      (OnPlaylistSelectionChanged);
+			playlist.Model.PlayingChanged += new HandleModel.PlayingChangedHandler (OnPlaylistPlayingChanged  );
 
 			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask, playlist_source_entries,
 							Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
@@ -849,21 +849,21 @@ namespace Muine
 		// Methods :: Private :: PlayAndSelect
 		private void PlayAndSelect (IntPtr ptr)
 		{
-			playlist.Playing = ptr;
-			playlist.Select (playlist.Playing);
+			playlist.Model.Playing = ptr;
+			playlist.Select (playlist.Model.Playing);
 		}
 
 		// Methods :: Private :: PlayFirstAndSelect
 		private void PlayFirstAndSelect ()
 		{
-			playlist.First ();
-			playlist.Select (playlist.Playing);
+			playlist.Model.First ();
+			playlist.Select (playlist.Model.Playing);
 		}
 
 		// Methods :: Private :: EnsurePlaying
 		private void EnsurePlaying ()
 		{
-			if (playlist.Playing == IntPtr.Zero && playlist.HasFirst)
+			if (playlist.Model.Playing == IntPtr.Zero && playlist.Model.HasFirst)
 				PlayFirstAndSelect ();
 		}
 
@@ -889,15 +889,15 @@ namespace Muine
 		{
 			IntPtr new_p = p;
 
-			if (playlist.Contains (p)) {
+			if (playlist.Model.Contains (p)) {
 				Song song = Song.FromHandle (p);
 				new_p = song.RegisterExtraHandle ();
 			} 
 		
 			if (pos == IntPtr.Zero)
-				playlist.Append (new_p);
+				playlist.Model.Append (new_p);
 			else
-				playlist.Insert (new_p, pos, dp);
+				playlist.Model.Insert (new_p, pos, dp);
 
 			return new_p;
 		}
@@ -905,7 +905,7 @@ namespace Muine
 		// Methods :: Private :: RemoveSong
 		private void RemoveSong (IntPtr p)
 		{
-			playlist.Remove (p);
+			playlist.Model.Remove (p);
 
 			Song song = Song.FromHandle (p);
 
@@ -916,13 +916,13 @@ namespace Muine
 		// Methods :: Private :: UpdateTimeLabels
 		private void UpdateTimeLabels (int time)
 		{
-			if (playlist.Playing == IntPtr.Zero) {
+			if (playlist.Model.Playing == IntPtr.Zero) {
 				time_label.Text = "";
 				playlist_label.Markup = string_playlist;
 				return;
 			}
 			
-			Song song = Song.FromHandle (playlist.Playing);
+			Song song = Song.FromHandle (playlist.Model.Playing);
 
 			String pos   = StringUtils.SecondsToString (time);
 			String total = StringUtils.SecondsToString (song.Duration);
@@ -991,7 +991,7 @@ namespace Muine
 			
 			remaining_songs_time = 0;
 
-			foreach (int i in playlist.Contents) {
+			foreach (int i in playlist.Model.Contents) {
 				IntPtr current = new IntPtr (i);
 
 				if (start_counting) {
@@ -999,15 +999,15 @@ namespace Muine
 					remaining_songs_time += song.Duration;
 				}
 					
-				if (current == playlist.Playing)
+				if (current == playlist.Model.Playing)
 					start_counting = true;
 			}
 
-			bool has_first = playlist.HasFirst;
+			bool has_first = playlist.Model.HasFirst;
 
 			previous_button   .Sensitive = has_first;
 			toggle_play_button.Sensitive = has_first;
-			next_button       .Sensitive = playlist.HasNext || (this.repeat && has_first);
+			next_button       .Sensitive = playlist.Model.HasNext || (this.repeat && has_first);
 
 			Global.Actions.TogglePlay.Sensitive = previous_button   .Sensitive;
 			Global.Actions.Previous  .Sensitive = toggle_play_button.Sensitive;
@@ -1032,8 +1032,8 @@ namespace Muine
 		{
 			Song song = null;
 
-			if (playlist.Playing != IntPtr.Zero) {
-				song = Song.FromHandle (playlist.Playing);
+			if (playlist.Model.Playing != IntPtr.Zero) {
+				song = Song.FromHandle (playlist.Model.Playing);
 
 				cover_image.Song = song;
 
@@ -1095,7 +1095,7 @@ namespace Muine
 		// Methods :: Private :: SelectionChanged
 		private void SelectionChanged ()
 		{
-			Global.Actions.Remove.Sensitive = (playlist.SelectedPointers.Count > 0);
+			Global.Actions.Remove.Sensitive = (playlist.Selection.CountSelectedRows () > 0);
 
 			// Run SelectionChangedEvent Handlers
 			if (SelectionChangedEvent != null)
@@ -1110,7 +1110,8 @@ namespace Muine
 			toggle_play_button.Active        = playing;
 
 			// Update
-			playlist.Changed (playlist.Playing);
+			if (playlist.Model.Playing != IntPtr.Zero)
+				playlist.Model.Changed (playlist.Model.Playing);
 
 			// Run StateChangedEvent Handlers
 			if (!dont_signal && StateChangedEvent != null)
@@ -1120,14 +1121,14 @@ namespace Muine
 		// Methods :: Private :: ClearPlaylist
 		private void ClearPlaylist ()
 		{
-			playlist.Clear ();
+			playlist.Model.Clear ();
 			player.Stop ();
 		}
 
 		// Methods :: Private :: SeekTo
 		private void SeekTo (int seconds)
 		{
-			Song song = Song.FromHandle (playlist.Playing);
+			Song song = Song.FromHandle (playlist.Model.Playing);
 
 			if (seconds >= song.Duration) {
 				EndOfStream (song, true);
@@ -1137,7 +1138,7 @@ namespace Muine
 				player.Play ();
 			}
 
-			playlist.Select (playlist.Playing);
+			playlist.Select (playlist.Model.Playing);
 		}
 
 		// Methods :: Private :: OpenPlaylistInternal
@@ -1264,13 +1265,13 @@ namespace Muine
 		private void EndOfStream (Song song, bool update_time)
 		{
 			// If we can, go to the next song
-			if (playlist.HasNext) {
-				playlist.Next ();
+			if (playlist.Model.HasNext) {
+				playlist.Model.Next ();
 
 			// If we don't have another song and we are repeating,
 			// go to the beginning.
 			} else if (repeat) {
-				playlist.First ();
+				playlist.Model.First ();
 
 			// We have nothing else to play.
 			} else {
@@ -1517,7 +1518,7 @@ namespace Muine
 		private void OnEndOfStreamEvent ()
 		{
 			// Get current song
-			Song song = Song.FromHandle (playlist.Playing);
+			Song song = Song.FromHandle (playlist.Model.Playing);
 
 			// If we're not really at the end, we must have had bad info
 			// Update the SongDB with the new length
@@ -1547,16 +1548,18 @@ namespace Muine
 		}
 
 		// Handlers :: OnPlaylistRowActivated
-		private void OnPlaylistRowActivated (IntPtr handle)
+		private void OnPlaylistRowActivated (object o, RowActivatedArgs args)
 		{
+			IntPtr handle = playlist.Model.HandleFromPath (args.Path);
+			
 			// Play selected song
-			playlist.Playing = handle;
+			playlist.Model.Playing = handle;
 			PlaylistChanged ();
 			player.Play ();
 		}
 
 		// Handlers :: OnPlaylistSelectionChanged
-		private void OnPlaylistSelectionChanged ()
+		private void OnPlaylistSelectionChanged (object o, EventArgs args)
 		{
 			SelectionChanged ();
 		}
@@ -1573,15 +1576,15 @@ namespace Muine
 		{
 			bool song_changed = false;
 			foreach (IntPtr h in song.Handles) {
-				if (!playlist.Contains (h))
+				if (!playlist.Model.Contains (h))
 					continue;
 
 				song_changed = true;
 				
-				if (h == playlist.Playing)
+				if (h == playlist.Model.Playing)
 					SongChanged (false);
 
-				playlist.Changed (h);
+				playlist.Model.Changed (h);
 			}
 			
 			if (song_changed)
@@ -1591,14 +1594,14 @@ namespace Muine
 		// Handlers :: OnPlayingSongRemoved
 		private void OnPlayingSongRemoved ()
 		{
-			if (playlist.HasNext) {
-				playlist.Next ();
+			if (playlist.Model.HasNext) {
+				playlist.Model.Next ();
 
-			} else if (playlist.HasPrevious) {
-				playlist.Previous ();
+			} else if (playlist.Model.HasPrevious) {
+				playlist.Model.Previous ();
 
 			} else { // playlist is empty now
-				playlist.Playing = IntPtr.Zero;
+				playlist.Model.Playing = IntPtr.Zero;
 				player.Stop ();
 			}
 		}
@@ -1609,21 +1612,21 @@ namespace Muine
 			bool n_songs_changed = false;
 			
 			foreach (IntPtr h in song.Handles) {
-				if (!playlist.Contains (h))
+				if (!playlist.Model.Contains (h))
 					continue;
 
 				n_songs_changed = true;
 				
-				if (h == playlist.Playing)
+				if (h == playlist.Model.Playing)
 					OnPlayingSongRemoved ();
 
-				if ((playlist.SelectedPointers.Count == 1) &&
-				    ((int) playlist.SelectedPointers [0] == (int) h)) {
+				if ((playlist.Selection.CountSelectedRows () == 1) &&
+				    ((int) playlist.SelectedHandles [0] == (int) h)) {
 					if (!playlist.SelectNext ())
 						playlist.SelectPrevious ();
 				}
 
-				playlist.Remove (h);
+				playlist.Model.Remove (h);
 			}
 			
 			if (n_songs_changed)
@@ -1633,7 +1636,7 @@ namespace Muine
 		// Handlers :: OnPlaylistDragDataGet
 		private void OnPlaylistDragDataGet (object o, DragDataGetArgs args)
 		{
-			List songs = playlist.SelectedPointers;
+			List songs = playlist.SelectedHandles;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
@@ -1679,7 +1682,7 @@ namespace Muine
 			pos.First = true;
 
 			if (playlist.GetDestRowAtPos (args.X, args.Y, out path, out tmp_pos)) {
-				pos.Pointer = playlist.GetHandleFromPath (path);
+				pos.Pointer = playlist.Model.HandleFromPath (path);
 				pos.Position = tmp_pos;
 			}
 
@@ -1741,7 +1744,7 @@ namespace Muine
 						if (ptr == pos.Pointer)
 							break;
 
-						if (ptr == playlist.Playing) {
+						if (ptr == playlist.Model.Playing) {
 							play = true;
 							ignore_song_change = true;
 						}
@@ -1753,7 +1756,7 @@ namespace Muine
 
 					// Reorder part 2: if the row was playing, keep it playing						
 					if (play) {
-						playlist.Playing = ptr;
+						playlist.Model.Playing = ptr;
 						ignore_song_change = false;
 					}
 				}
@@ -1952,9 +1955,9 @@ namespace Muine
 					         TreeModel model, TreeIter iter)
 		{
 			ColoredCellRendererPixbuf r = (ColoredCellRendererPixbuf) cell;
-			IntPtr handle = playlist.HandleFromIter (iter);
+			IntPtr handle = playlist.Model.HandleFromIter (iter);
 
-			r.Pixbuf = (handle == playlist.Playing)
+			r.Pixbuf = (handle == playlist.Model.Playing)
 				   ? (player.Playing)
 				     ? playlist.RenderIcon ("muine-playing", IconSize.Menu, null)
 				     : playlist.RenderIcon ("muine-paused" , IconSize.Menu, null)
@@ -1965,7 +1968,7 @@ namespace Muine
 		private void TextCellDataFunc (TreeViewColumn col, CellRenderer cell,
 					       TreeModel model, TreeIter iter)
 		{
-			Song song = Song.FromHandle (playlist.HandleFromIter (iter));
+			Song song = Song.FromHandle (playlist.Model.HandleFromIter (iter));
 			CellRendererText r = (CellRendererText) cell;
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",

@@ -32,7 +32,7 @@ namespace Muine
 		// Properties
 		// Properties :: HasSelection (get;)
 		public bool HasSelection {
-			get { return (base.SelectedPointers.Count > 0); }
+			get { return (base.Selection.CountSelectedRows () > 0); }
 		}
 		
 		// Properties :: DragSource (set;)
@@ -46,7 +46,7 @@ namespace Muine
 
 		// Properties :: Selected (get;)
 		public GLib.List Selected {
-			get { return base.SelectedPointers; }
+			get { return base.SelectedHandles; }
 		}
 
 		// Methods
@@ -55,19 +55,19 @@ namespace Muine
 		public void HandleAdded (IntPtr ptr, bool fits)
 		{
 			if (fits)
-				base.Append (ptr);
+				base.Model.Append (ptr);
 		}
 
 		// Methods :: Public :: HandleChanged
 		public void HandleChanged (IntPtr ptr, bool fits)
 		{
 			if (fits) {
-				if (base.Contains (ptr))
-					base.Changed (ptr);
+				if (base.Model.Contains (ptr))
+					base.Model.Changed (ptr);
 				else
-					base.Append (ptr);
+					base.Model.Append (ptr);
 			} else {
-				base.Remove (ptr);
+				base.Model.Remove (ptr);
 			}
 
 			SelectFirstIfNeeded ();	
@@ -76,23 +76,15 @@ namespace Muine
 		// Methods :: Public :: HandleRemoved
 		public void HandleRemoved (IntPtr ptr)
 		{
-			base.Remove (ptr);
+			base.Model.Remove (ptr);
 
 			SelectFirstIfNeeded ();	
-		}
-
-		// Methods :: Private
-		// Methods :: Private :: SelectFirst
-		private new void SelectFirst ()
-		{
-			base.ScrollToCell (new Gtk.TreePath ("0"), null, true, 0f, 0f);
-			base.SelectFirst ();
 		}
 
 		// Methods :: Private :: SelectFirstIfNeeded
 		private void SelectFirstIfNeeded ()
 		{
-			if (!this.HasSelection && this.Length > 0)
+			if (!this.HasSelection && this.Model.Length > 0)
 				SelectFirst ();
 		}
 	}

@@ -56,7 +56,7 @@ namespace Muine
 
 			base.Items = Global.DB.Songs.Values;
 						
-			base.List.SortFunc = new HandleView.CompareFunc (SortFunc);
+			base.List.Model.SortFunc = new HandleModel.CompareFunc (SortFunc);
 
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
@@ -81,7 +81,7 @@ namespace Muine
 		// Handlers :: OnDragDataGet
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
-			List songs = base.List.SelectedPointers;
+			List songs = base.List.SelectedHandles;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
@@ -153,7 +153,7 @@ namespace Muine
 					   TreeModel model, TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Song song = Song.FromHandle (base.List.HandleFromIter (iter));
+			Song song = Song.FromHandle (base.List.Model.HandleFromIter (iter));
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",
 			                          StringUtils.EscapeForPango (song.Title),
