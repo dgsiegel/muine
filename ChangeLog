@@ -1,5 +1,15 @@
 2004-12-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* libmuine/player-gst.c: (player_construct), (iterate_cb),
+	(state_change_cb), (player_set_file), (update_volume),
+	(player_seek):
+
+	Make gst backend use the new playbin stuff. A lot faster, but
+	flaky with reporting time and seeking.
+
+2004-12-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/player-gst.c: (player_set_file), (player_stop),
 	(player_pause):
 

@@ -25,7 +25,6 @@
 #include <math.h>
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
-#include <gst/play/play.h>
 #include <libgnome/gnome-i18n.h>
 
 #include "player.h"
@@ -39,10 +38,10 @@ static void error_cb          (GObject         *object,
 			       GstObject       *origin,
 			       char            *error,
 			       Player          *player);
-static void time_tick_cb      (GstPlay         *play,
-			       gint64           time_nanos,
+static void state_change_cb   (GstElement      *play,
+			       GstElementState  old_state,
+		               GstElementState  new_state,
 			       Player          *player);
-
 
 enum {
 	END_OF_STREAM,
@@ -52,11 +51,7 @@ enum {
 };
 
 struct _PlayerPriv {
-	GstPlay    *play;
-
-	GstElement *source;
-	GstElement *volume;
-	GstElement *sink;
+	GstElement *play;
 
 	char       *current_file;
 
@@ -64,6 +59,7 @@ struct _PlayerPriv {
 	double      volume_scale;
 
 	guint	    eos_idle_id;
+	guint       iterate_idle_id;
 
 	gint64      pos;
 };
@@ -144,6 +140,7 @@ static void
 player_construct (Player *player, char **error)
 {
 	PlayerPriv *priv;
+	GstElement *sink;
 
 	gst_init (NULL, NULL);
 
@@ -152,37 +149,22 @@ player_construct (Player *player, char **error)
 
 	priv->eos_idle_id = 0;
 
-	priv->play = gst_play_new (NULL);
+	priv->play = gst_element_factory_make ("playbin", "play");
 	if (!priv->play) {
-		*error = g_strdup (_("Failed to create GstPlay object"));
+		*error = g_strdup (_("Failed to create a GStreamer play object"));
 
 		return;
 	}
 
-	priv->source = gst_element_factory_make ("gnomevfssrc", "source");
-	if (!priv->source) {
-		*error = g_strdup (_("Failed to create the required gnomevfssrc GStreamer element"));
-
-		return;
-	}
-
-	gst_play_set_data_src (priv->play, priv->source);
-
-	priv->sink = gst_gconf_get_default_audio_sink ();
-	if (!priv->sink) {
+	sink = gst_gconf_get_default_audio_sink ();
+	if (!sink) {
 		*error = g_strdup (_("Could not render default GStreamer audio output sink"));
 
 		return;
 	}
 
-	gst_play_set_audio_sink (priv->play, priv->sink);
-
-	priv->volume = gst_bin_get_by_name (GST_BIN (priv->play), "volume");
-	if (!priv->volume) {
-		*error = g_strdup (_("Could not find the volume element in the GstPlay pipeline"));
-
-		return;
-	}
+	g_object_set (G_OBJECT (priv->play), "audio-sink",
+		      sink, NULL);
 
 	g_signal_connect (priv->play,
 			  "error",
@@ -195,8 +177,8 @@ player_construct (Player *player, char **error)
 			  player);
 
 	g_signal_connect (priv->play,
-			  "time_tick",
-			  G_CALLBACK (time_tick_cb),
+			  "state_change",
+			  G_CALLBACK (state_change_cb),
 			  player);
 }
 
@@ -278,12 +260,48 @@ error_cb (GObject   *object,
 	g_idle_add ((GSourceFunc) error_idle_cb, data);
 }
 
-static void
-time_tick_cb (GstPlay *play, gint64 time_nanos, Player *player)
+static gboolean
+iterate_cb (Player *player)
 {
-	player->priv->pos = time_nanos;
+	GstFormat fmt = GST_FORMAT_TIME;
+	gint64 value;
+	gboolean res;
 
-	g_signal_emit (player, signals[TICK], 0, (int) (time_nanos / GST_SECOND));
+	if (!GST_FLAG_IS_SET (player->priv->play, GST_BIN_SELF_SCHEDULABLE)) {
+		res = gst_bin_iterate (GST_BIN (player->priv->play));
+	} else {
+		g_usleep (100);
+		res = (gst_element_get_state (player->priv->play) == GST_STATE_PLAYING);
+	}
+
+	/* check pos of stream */
+	if (gst_element_query (GST_ELEMENT (player->priv->play),
+			       GST_QUERY_POSITION, &fmt, &value)) {
+		player->priv->pos = value;
+
+		g_signal_emit (player, signals[TICK], 0, (int) (value / GST_SECOND));
+	}
+
+	if (!res)
+		player->priv->iterate_idle_id = 0;
+
+	return res;
+}
+
+static void
+state_change_cb (GstElement *play, GstElementState old_state,
+		 GstElementState new_state, Player *player)
+{
+	if (old_state == GST_STATE_PLAYING) {
+		if (player->priv->iterate_idle_id != 0) {
+			g_source_remove (player->priv->iterate_idle_id);
+			player->priv->iterate_idle_id = 0;
+		}
+	} else if (new_state == GST_STATE_PLAYING) {
+		if (player->priv->iterate_idle_id != 0)
+			g_source_remove (player->priv->iterate_idle_id);
+		player->priv->iterate_idle_id = g_idle_add ((GSourceFunc) iterate_cb, player);
+	}
 }
 
 gboolean
@@ -320,9 +338,11 @@ player_set_file (Player     *player,
 	}
 
 	g_free (player->priv->current_file);
-	player->priv->current_file = g_strdup (file);
+	// FIXME get rid of this one when the switch to gnome-vfs is made
+	player->priv->current_file = g_strdup_printf ("file://%s", file);
 
-	gst_play_set_location (player->priv->play, file);
+	g_object_set (G_OBJECT (player->priv->play), "uri",
+		      player->priv->current_file, NULL);
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), new_state);
 
@@ -370,7 +390,7 @@ update_volume (Player *player)
 
 	d = CLAMP (real_vol, 0, 100) / 100.0;
 
-	g_object_set (player->priv->volume, "volume", d, NULL);
+	g_object_set (G_OBJECT (player->priv->play), "volume", d, NULL);
 }
 
 void
@@ -425,7 +445,9 @@ player_seek (Player *player, int t)
 {
 	g_return_if_fail (IS_PLAYER (player));
 
-	gst_play_seek_to_time (player->priv->play, t * GST_SECOND);
+	gst_element_seek (player->priv->play, GST_SEEK_METHOD_SET |
+		          GST_SEEK_FLAG_FLUSH | GST_FORMAT_TIME,
+		          t * GST_SECOND);
 }
 
 int

@@ -29,7 +29,7 @@ dnl Audio backend stuff
 AC_ARG_ENABLE(gstreamer, [  --enable-gstreamer=[no/yes]    compile with gstreamer support.],,enable_gstreamer=no)
 
 if test "x$enable_gstreamer" = "xyes"; then
-   audio_pkgconfig="gstreamer-0.8 >= $GSTREAMER_REQUIRED gstreamer-play-0.8 >= $GSTREAMER_REQUIRED gstreamer-gconf-0.8 >= $GSTREAMER_REQUIRED"
+   audio_pkgconfig="gstreamer-0.8 >= $GSTREAMER_REQUIRED gstreamer-gconf-0.8 >= $GSTREAMER_REQUIRED"
    have_xine=no
    AC_DEFINE(HAVE_GST, 1, gstreamer support)
 else
