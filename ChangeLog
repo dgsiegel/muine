@@ -1,3 +1,10 @@
+2005-02-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddWindow.cs:
+
+	Clicking "Play" no longer closes the window, and the contents are once
+	again reset when the dialog is reopened.
+
 2005-02-17  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Actions.cs:

@@ -65,6 +65,7 @@ namespace Muine
 		private uint search_timeout_id = 0;
 		private const uint search_timeout = 100;
 		private bool first_time = true;
+		private bool ignore_change = false;
 
 		// Constructor
 		public AddWindow () : base (IntPtr.Zero)
@@ -92,6 +93,9 @@ namespace Muine
 
 			entry.Show ();
 			list.Show ();
+
+			// And realize, needed for the cursor changing later on
+			window.Realize ();
 		}
 
 		// Properties
@@ -121,18 +125,19 @@ namespace Muine
 		// Methods :: Public :: Run
 		public void Run ()
 		{
-			if (first_time) {
-				// So that we do the initial query *after* th
-				// window has been shown. It seems more 
-				// responsive this way.
-				window.Realize ();
+			if (first_time || entry.Text.Length > 0) {
 				window.GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
 				window.GdkWindow.Display.Flush ();
 
-				search_timeout_id = GLib.Idle.Add (new GLib.IdleHandler (FirstSearch));
+				ignore_change = true;
+				entry.Text = "";
+				ignore_change = false;
+
+				GLib.Idle.Add (new GLib.IdleHandler (Reset));
 
 				first_time = false;
-			}
+			} else
+				list.SelectFirst ();
 
 			entry.GrabFocus ();
 
@@ -239,8 +244,8 @@ namespace Muine
 			return false;
 		}
 
-		// Methods :: Private :: FirstSearch
-		private bool FirstSearch ()
+		// Methods :: Private :: Reset
+		private bool Reset ()
 		{
 			Search ();
 
@@ -309,10 +314,10 @@ namespace Muine
 				break;
 				
 			case (int) ResponseType.Play:
-				window.Visible = false;
-				
 				if (PlayEvent != null)
 					PlayEvent (list.Selected);
+
+				entry.GrabFocus ();
 
 				list.SelectNext ();
 
@@ -336,6 +341,9 @@ namespace Muine
 		// Handlers :: OnEntryChanged
 		private void OnEntryChanged (object o, EventArgs args)
 		{
+			if (ignore_change)
+				return;
+
 			if (search_timeout_id > 0)
 				GLib.Source.Remove (search_timeout_id);
 
