@@ -1,3 +1,9 @@
+2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/Song.cs:
+
+	Fix SearchKey calculation. Bug pointed out by Lee Willis.
+
 2004-01-31  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jorn@nl.linux.org>
 

@@ -153,7 +153,7 @@ public class Song
 				for (int i = 0; i < artists.Length; i++)
 					lower_artists [i] = artists [i].ToLower ();
 				for (int i = 0; i < performers.Length; i++)
-					lower_artists [artists.Length - 1 + i] = performers [i].ToLower ();
+					lower_artists [artists.Length + i] = performers [i].ToLower ();
 				search_key = String.Join (" ", lower_artists) + " " + title.ToLower ();
 			}
 
