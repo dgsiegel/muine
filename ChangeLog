@@ -1,4 +1,16 @@
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+	
+	* src/Actions.cs:
+	* src/ImportDialog.cs:
+	* src/Makefile.am:
+	* src/OpenDialog.cs:
+	* src/PlaylistWindow.cs:
+	* src/SaveDialog.cs:
+
+	Split off the Import Folder, Open Playlist, and Save Playlist
+	dialogs into their own classes.
+
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/PlaylistWindow.cs:
 	

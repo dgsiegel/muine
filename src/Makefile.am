@@ -45,7 +45,10 @@ MUINE_CSFILES =					\
 	$(srcdir)/ThreadBase.cs			\
 	$(srcdir)/AddWindowList.cs		\
 	$(srcdir)/AddWindowEntry.cs		\
-	$(srcdir)/Actions.cs
+	$(srcdir)/Actions.cs			\
+	$(srcdir)/ImportDialog.cs		\
+	$(srcdir)/OpenDialog.cs			\
+	$(srcdir)/SaveDialog.cs
 
 MUINE_GENERATED_CSFILES =			\
 	AmazonSearchService.cs			\

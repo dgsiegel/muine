@@ -295,17 +295,17 @@ namespace Muine
 		// Handlers
 		private void OnImportFolder (object o, EventArgs args) 
 		{
-			Global.Playlist.RunImportDialog ();
+			new ImportDialog ();
 		}
 
 		private void OnOpenPlaylist (object o, EventArgs args)
 		{
-			Global.Playlist.RunOpenDialog ();
+			new OpenDialog ();
 		}
 
 		private void OnSavePlaylistAs (object o, EventArgs args)
 		{
-			Global.Playlist.RunSaveDialog ();
+			new SaveDialog ();
 		}
 		
 		private void OnToggleWindowVisibility (object o, EventArgs args)

@@ -49,12 +49,9 @@ namespace Muine
 		private const string GConfKeyRepeat = "/apps/muine/repeat";
 		private const bool GConfDefaultRepeat = false;
 
-		private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
-		private const string GConfDefaultImportFolder = "~";
-		
-		private const string GConfKeyDefaultPlaylistFolder = "/apps/muine/default_playlist_folder";
-
 		// Strings
+		private static readonly string string_program = 
+			Catalog.GetString ("Muine Music Player");
 		private static readonly string string_playlist_filename =
 			Catalog.GetString ("Playlist.m3u");
 		private static readonly string string_playlist = 
@@ -69,30 +66,10 @@ namespace Muine
 			Catalog.GetString ("Album unknown");
 		private static readonly string string_performers =
 			Catalog.GetString ("Performed by {0}");
-		private static readonly string string_program = 
-			Catalog.GetString ("Muine Music Player");
-		private static readonly string string_open_filter =
-			Catalog.GetString ("Playlist files");
-		private static readonly string string_save_default =
-			Catalog.GetString ("Untitled");
-		private static readonly string string_overwrite =
-			Catalog.GetString ("File {0} will be overwritten.\n" +
-					   "If you choose yes, the contents will be lost.\n\n" +
-					   "Do you want to continue?");
 
 		// Strings :: Window Titles
 		private static readonly string string_title_main =
 			Catalog.GetString ("{0} - Muine Music Player");
-		private static readonly string string_title_import =
-			Catalog.GetString ("Import Folder");
-		private static readonly string string_title_open =
-			Catalog.GetString ("Open Playlist");
-		private static readonly string string_title_save =
-			Catalog.GetString ("Save Playlist");
-
-		// Strings :: Buttons
-		private static readonly string string_button_import =
-			Catalog.GetString ("_Import");
 
 		// Strings :: Tooltips
 		private static readonly string string_tooltip_play_pause =
@@ -574,94 +551,9 @@ namespace Muine
 			window.TransientFor = (WindowVisible) ? this : null;
 		}
 
-		// Methods :: Public :: RunImportDialog		
-		public void RunImportDialog ()
-		{
-			FileChooserDialog fc;
-
-			fc = new FileChooserDialog (string_title_import, this,
-						    FileChooserAction.SelectFolder);
-			fc.LocalOnly = true;
-			fc.SelectMultiple = true;
-			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
-			fc.AddButton (string_button_import, ResponseType.Ok);
-			fc.DefaultResponse = ResponseType.Ok;
-			
-			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
-
-			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
-
-			fc.SetCurrentFolder (start_dir);
-
-			if (fc.Run () != (int) ResponseType.Ok) {
-				fc.Destroy ();
-
-				return;
-			}
-
-			fc.Visible = false;
-
-			Config.Set (GConfKeyImportFolder, fc.CurrentFolder);
-
-			ArrayList new_dinfos = new ArrayList ();
-			foreach (string dir in fc.Filenames) {
-				DirectoryInfo dinfo = new DirectoryInfo (dir);
-				
-				if (dinfo.Exists)
-					new_dinfos.Add (dinfo);
-			}
-
-			if (new_dinfos.Count > 0)
-				Global.DB.AddFolders (new_dinfos);
-
-			fc.Destroy ();
-		}
-
-		// Methods :: Public :: RunOpenDialog		
-		public void RunOpenDialog ()
-		{
-			FileSelector sel = new FileSelector (string_title_open, this, FileChooserAction.Open,
-							     GConfKeyDefaultPlaylistFolder);
-
-			FileFilter filter = new FileFilter ();
-			filter.Name = string_open_filter;
-			filter.AddMimeType ("audio/x-mpegurl");
-			filter.AddPattern ("*.m3u");
-			sel.AddFilter (filter);
-
-			string fn = sel.GetFile ();
-
-			if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
-				return;
-
-			if (FileUtils.Exists (fn))
-				OpenPlaylist (fn);
-		}
-
 		// Methods :: Public :: RunSaveDialog		
 		public void RunSaveDialog ()
 		{
-			FileSelector sel = new FileSelector (string_title_save, this, FileChooserAction.Save,
-							     GConfKeyDefaultPlaylistFolder);
-
-			sel.CurrentName = string_save_default;
-
-			string fn = sel.GetFile ();
-
-			if (fn.Length == 0)
-				return;
-
-			// make sure the extension is ".m3u"
-			if (!FileUtils.IsPlaylist (fn))
-				fn += ".m3u";
-
-			if (FileUtils.Exists (fn)) {
-				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), this);
-				if (!d.GetAnswer ()) // user said don't overwrite
-					return;
-			}
-			
-			SavePlaylist (fn, false, false);
 		}
 
 		// Methods :: Public :: RunSkipToDialog
@@ -803,6 +695,61 @@ namespace Muine
 			this.Repeat = Global.Actions.Repeat.Active;
 		}
 
+		// Methods :: Public :: SavePlaylist
+		public void SavePlaylist (string fn, bool exclude_played, bool store_playing)
+		{
+			VfsStream stream;
+			StreamWriter writer;
+
+			bool remote = FileUtils.IsRemote (fn);
+
+			if (remote)
+				BusyLevel ++;
+			
+			try {
+				stream = new VfsStream (fn, System.IO.FileMode.Create);
+				writer = new StreamWriter (stream);
+
+			} catch {
+				new ErrorDialog (String.Format (string_error_write, FileUtils.MakeHumanReadable (fn)), this);
+				if (remote)
+					BusyLevel --;
+				return;
+			}
+
+			if (!(exclude_played && had_last_eos)) {
+				bool had_playing_song = false;
+				foreach (int i in playlist.Contents) {
+					IntPtr ptr = new IntPtr (i);
+
+					if (exclude_played) {
+						if (!had_playing_song)
+							continue;
+
+						if (ptr == playlist.Playing)
+							had_playing_song = true;
+					}
+				
+					if (store_playing &&
+					    ptr == playlist.Playing) {
+							writer.WriteLine ("# PLAYING");
+					}
+				
+					Song song = Song.FromHandle (ptr);
+
+					writer.WriteLine (song.Filename);
+				}
+			}
+
+			try {
+				writer.Close ();
+			} catch {
+				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
+			}
+
+			if (remote)
+				BusyLevel --;
+		}
 
 		// Methods :: Private
 		// Methods :: Private :: SetupButtons
@@ -1288,62 +1235,6 @@ namespace Muine
 			}
 
 			EnsurePlaying ();
-		}
-
-		// Methods :: Private :: SavePlaylist
-		private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
-		{
-			VfsStream stream;
-			StreamWriter writer;
-
-			bool remote = FileUtils.IsRemote (fn);
-
-			if (remote)
-				BusyLevel ++;
-			
-			try {
-				stream = new VfsStream (fn, System.IO.FileMode.Create);
-				writer = new StreamWriter (stream);
-
-			} catch {
-				new ErrorDialog (String.Format (string_error_write, FileUtils.MakeHumanReadable (fn)), this);
-				if (remote)
-					BusyLevel --;
-				return;
-			}
-
-			if (!(exclude_played && had_last_eos)) {
-				bool had_playing_song = false;
-				foreach (int i in playlist.Contents) {
-					IntPtr ptr = new IntPtr (i);
-
-					if (exclude_played) {
-						if (!had_playing_song)
-							continue;
-
-						if (ptr == playlist.Playing)
-							had_playing_song = true;
-					}
-				
-					if (store_playing &&
-					    ptr == playlist.Playing) {
-							writer.WriteLine ("# PLAYING");
-					}
-				
-					Song song = Song.FromHandle (ptr);
-
-					writer.WriteLine (song.Filename);
-				}
-			}
-
-			try {
-				writer.Close ();
-			} catch {
-				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
-			}
-
-			if (remote)
-				BusyLevel --;
 		}
 
 		// Methods :: Private :: AddSongToDB
@@ -1962,6 +1853,7 @@ namespace Muine
 							8, System.Text.Encoding.UTF8.GetBytes (uri));
 							
 				break;
+
 			default:
 				break;
 			}
