@@ -42,6 +42,7 @@ static void state_change_cb   (GstElement      *play,
 			       GstElementState  old_state,
 		               GstElementState  new_state,
 			       Player          *player);
+static gboolean tick_timeout  (Player          *player);
 
 enum {
 	END_OF_STREAM,
@@ -60,6 +61,7 @@ struct _PlayerPriv {
 
 	guint	    eos_idle_id;
 	guint       iterate_idle_id;
+	guint       tick_timeout_id;
 
 	gint64      pos;
 };
@@ -148,6 +150,7 @@ player_construct (Player *player, char **error)
 	player->priv = priv;
 
 	priv->eos_idle_id = 0;
+	priv->tick_timeout_id = g_timeout_add (200, (GSourceFunc) tick_timeout, player);
 
 	priv->play = gst_element_factory_make ("playbin", "play");
 	if (!priv->play) {
@@ -207,6 +210,17 @@ player_new (char **error)
 	player_construct (player, error);
 
 	return player;
+}
+
+static gboolean
+tick_timeout (Player *player)
+{
+	if (gst_element_get_state (player->priv->play) != GST_STATE_PLAYING)
+		return TRUE;
+
+	g_signal_emit (player, signals[TICK], 0, player_tell (player));
+
+	return TRUE;
 }
 
 static gboolean
@@ -278,8 +292,6 @@ iterate_cb (Player *player)
 	if (gst_element_query (GST_ELEMENT (player->priv->play),
 			       GST_QUERY_POSITION, &fmt, &value)) {
 		player->priv->pos = value;
-
-		g_signal_emit (player, signals[TICK], 0, (int) (value / GST_SECOND));
 	}
 
 	if (!res)

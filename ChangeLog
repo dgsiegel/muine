@@ -1,5 +1,12 @@
 2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-gst.c: (player_construct), (tick_timeout),
+	(iterate_cb):
+
+	Separate timeout for tick signals.
+
+2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverImage.cs:
 	* src/PlaylistWindow.cs:
 	* src/StringUtils.cs:
