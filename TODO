@@ -79,6 +79,9 @@ o Re-enable fixed-height-mode in HandleView
 o Remove amazon cover fetching
   Once there is a tagger which can do this for us
 o Use TrayIcon.cs once it is done (handles panel crashes etc)
+o Diacritic mark-insensitive searching
+  Requires .NET 2.0, see also
+  http://weblogs.asp.net/michkap/archive/2005/02/19/376617.aspx
 
 We won't have:
 ==============
