@@ -1,3 +1,10 @@
+2004-03-31  Edd Dumbill  <edd@usefulinc.com>
+
+	* libmuine/db.c: (db_unpack_string), (db_unpack_int),
+	(db_unpack_pixbuf):
+
+	Compile fix.
+
 2004-03-30  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:

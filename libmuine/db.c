@@ -209,7 +209,7 @@ db_unpack_string (gpointer p, char **str)
 	if (str)
 		*str = g_malloc (len + 1);
 
-	(unsigned long) p += 4;
+	p = (gpointer) ((unsigned long) p + 4);
 
 	if (str) {
 		memcpy (*str, p, len);
@@ -227,7 +227,7 @@ db_unpack_int (gpointer p, int *val)
 	if (val)
 		*val = *(int *) p;
 
-	(unsigned long) p += 4;
+	p= (gpointer) ((unsigned long) p + 4);
 
 	return p;
 }
@@ -261,7 +261,7 @@ db_unpack_pixbuf (gpointer p, GdkPixbuf **pixbuf)
 
 	len = *(int *) p;
 
-	(unsigned long) p += 4;
+	p = (gpointer) ((unsigned long) p + 4);
 
 	pixdata = g_new0 (GdkPixdata, 1);
 	gdk_pixdata_deserialize (pixdata, len, (const guint8 *) p, NULL);
