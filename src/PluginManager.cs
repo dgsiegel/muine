@@ -72,7 +72,7 @@ public class PluginManager
 			foreach (string dir in path.Split (':'))
 				FindAssemblies (dir);
 
-		FindAssemblies (Muine.SystemPluginDirectory);
-		FindAssemblies (Muine.UserPluginDirectory);
+		FindAssemblies (FileUtils.SystemPluginDirectory);
+		FindAssemblies (FileUtils.UserPluginDirectory);
 	}
 }

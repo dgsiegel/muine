@@ -46,15 +46,15 @@ public class GnomeProxy
 	
 	public GnomeProxy ()
 	{
-		use = (bool) Muine.GetGConfValue (GConfKeyUse, GConfDefaultUse);
+		use = (bool) Config.Get (GConfKeyUse, GConfDefaultUse);
 
 		if (!use)
 			return;
 
 		// Host / Proxy
-		string host = (string) Muine.GetGConfValue (GConfKeyHost, GConfDefaultHost);
+		string host = (string) Config.Get (GConfKeyHost, GConfDefaultHost);
 
-		int port = (int) Muine.GetGConfValue (GConfKeyPort, GConfDefaultPort);
+		int port = (int) Config.Get (GConfKeyPort, GConfDefaultPort);
 		
 		try {
 			proxy = new WebProxy (host, port);
@@ -64,14 +64,14 @@ public class GnomeProxy
 		}
 
 		// Authentication
-		bool use_auth = (bool) Muine.GetGConfValue (GConfKeyUseAuth, GConfDefaultUseAuth);
+		bool use_auth = (bool) Config.Get (GConfKeyUseAuth, GConfDefaultUseAuth);
 
 		if (!use_auth)
 			return;
 
-		string user = (string) Muine.GetGConfValue (GConfKeyUser, GConfDefaultUser);
+		string user = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
 
-		string passwd = (string) Muine.GetGConfValue (GConfKeyPass, GConfDefaultPass);
+		string passwd = (string) Config.Get (GConfKeyPass, GConfDefaultPass);
 				
 		try {
 			proxy.Credentials = new NetworkCredential (user, passwd);

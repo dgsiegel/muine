@@ -98,19 +98,19 @@ public class PlaylistWindow : Window, IPlayer
 
 	/* Drag and drop targets. */
 	private static TargetEntry [] drag_entries = new TargetEntry [] {
-		Muine.TargetUriList
+		DndUtils.TargetUriList
 	};
 
 	private static TargetEntry [] playlist_source_entries = new TargetEntry [] {
-		Muine.TargetMuineTreeModelRow,
-		Muine.TargetUriList
+		DndUtils.TargetMuineTreeModelRow,
+		DndUtils.TargetUriList
  	};
 		
 	private static TargetEntry [] playlist_dest_entries = new TargetEntry [] {
-		Muine.TargetMuineTreeModelRow,
-		Muine.TargetMuineSongList,
-		Muine.TargetMuineAlbumList,
-		Muine.TargetUriList
+		DndUtils.TargetMuineTreeModelRow,
+		DndUtils.TargetMuineSongList,
+		DndUtils.TargetMuineAlbumList,
+		DndUtils.TargetUriList
 	};
 
 	/* public properties, for plug-ins and for dbus interface */
@@ -249,9 +249,9 @@ public class PlaylistWindow : Window, IPlayer
 	public void RestorePlaylist ()
 	{
 		/* load last playlist */
-		System.IO.FileInfo finfo = new System.IO.FileInfo (Muine.PlaylistFile);
+		System.IO.FileInfo finfo = new System.IO.FileInfo (FileUtils.PlaylistFile);
 		if (finfo.Exists)
-			OpenPlaylist (Muine.PlaylistFile);
+			OpenPlaylist (FileUtils.PlaylistFile);
 	}
 
 	public void Run ()
@@ -271,8 +271,8 @@ public class PlaylistWindow : Window, IPlayer
 		string fn;
 
 		switch (args.Info) {
-		case (uint) Muine.TargetType.UriList:
-			uri_list = StringUtils.SplitSelectionData (args.SelectionData);
+		case (uint) DndUtils.TargetType.UriList:
+			uri_list = DndUtils.SplitSelectionData (args.SelectionData);
 			fn = FileUtils.LocalPathFromUri (uri_list [0]);
 
 			if (fn == null) {
@@ -339,8 +339,8 @@ public class PlaylistWindow : Window, IPlayer
 	
 	private void SetupWindowSize ()
 	{
-		int width = (int) Muine.GetGConfValue (GConfKeyWidth, GConfDefaultWidth);
-		int height = (int) Muine.GetGConfValue (GConfKeyHeight, GConfDefaultHeight);
+		int width = (int) Config.Get (GConfKeyWidth, GConfDefaultWidth);
+		int height = (int) Config.Get (GConfKeyHeight, GConfDefaultHeight);
 
 		SetDefaultSize (width, height);
 
@@ -481,7 +481,7 @@ public class PlaylistWindow : Window, IPlayer
 		((Box) glade_xml ["menu_bar_box"]).Add (ui_manager.GetWidget ("/MenuBar"));
 
 		block_repeat_action = true;
-		repeat_action.Active = (bool) Muine.GetGConfValue (GConfKeyRepeat, GConfDefaultRepeat);
+		repeat_action.Active = (bool) Config.Get (GConfKeyRepeat, GConfDefaultRepeat);
 		block_repeat_action = false;
 	}
 
@@ -520,7 +520,7 @@ public class PlaylistWindow : Window, IPlayer
 		tooltips.SetTip (volume_button,
 				 Catalog.GetString ("Change the volume level"), null);
 
-		int vol = (int) Muine.GetGConfValue (GConfKeyVolume, GConfDefaultVolume);
+		int vol = (int) Config.Get (GConfKeyVolume, GConfDefaultVolume);
 
 		volume_button.Volume = vol;
 		player.Volume = vol;
@@ -775,7 +775,7 @@ public class PlaylistWindow : Window, IPlayer
 
 		UpdateTimeLabels (player.Position);
 
-		SavePlaylist (Muine.PlaylistFile, !repeat_action.Active, true);
+		SavePlaylist (FileUtils.PlaylistFile, !repeat_action.Active, true);
 
 		if (PlaylistChangedEvent != null)
 			PlaylistChangedEvent ();
@@ -1084,15 +1084,15 @@ public class PlaylistWindow : Window, IPlayer
 
 		GetSize (out width, out height);
 
-		Muine.SetGConfValue (GConfKeyWidth, width);
-		Muine.SetGConfValue (GConfKeyHeight, height);
+		Config.Set (GConfKeyWidth, width);
+		Config.Set (GConfKeyHeight, height);
 	}
 
 	private void OnVolumeChanged (int vol)
 	{
 		player.Volume = vol;
 
-		Muine.SetGConfValue (GConfKeyVolume, vol);
+		Config.Set (GConfKeyVolume, vol);
 	}
 
 	private void OnToggleWindowVisibility (object o, EventArgs args)
@@ -1443,9 +1443,9 @@ public class PlaylistWindow : Window, IPlayer
 		fc.AddButton (Catalog.GetString ("_Import"), ResponseType.Ok);
 		fc.DefaultResponse = ResponseType.Ok;
 		
-		string start_dir = (string) Muine.GetGConfValue (GConfKeyImportFolder, GConfDefaultImportFolder);
+		string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
 
-		start_dir.Replace ("~", Muine.HomeDirectory);
+		start_dir.Replace ("~", FileUtils.HomeDirectory);
 
 		fc.SetCurrentFolderUri (start_dir);
 
@@ -1459,7 +1459,7 @@ public class PlaylistWindow : Window, IPlayer
 
 		string res = FileUtils.LocalPathFromUri (fc.Uri);
 
-		Muine.SetGConfValue (GConfKeyImportFolder, res);
+		Config.Set (GConfKeyImportFolder, res);
 
 		DirectoryInfo dinfo = new DirectoryInfo (res);
 			
@@ -1593,7 +1593,7 @@ public class PlaylistWindow : Window, IPlayer
 		if (block_repeat_action)
 			return;
 
-		Muine.SetGConfValue (GConfKeyRepeat, repeat_action.Active);
+		Config.Set (GConfKeyRepeat, repeat_action.Active);
 
 		PlaylistChanged ();
 	}
@@ -1746,7 +1746,7 @@ public class PlaylistWindow : Window, IPlayer
 		List songs = playlist.SelectedPointers;
 
 		switch (args.Info) {
-		case (uint) Muine.TargetType.UriList:
+		case (uint) DndUtils.TargetType.UriList:
 			string files = "";
 
 			foreach (int p in songs) {
@@ -1754,20 +1754,20 @@ public class PlaylistWindow : Window, IPlayer
 				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
 			}
 	
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetUriList.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
 						8, System.Text.Encoding.UTF8.GetBytes (files));
 						
 			break;
 
-		case (uint) Muine.TargetType.ModelRow:
-			string ptrs = String.Format ("\t{0}\t", Muine.TargetMuineTreeModelRow.Target);
+		case (uint) DndUtils.TargetType.ModelRow:
+			string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineTreeModelRow.Target);
 
 			foreach (int p in songs) {
 				IntPtr s = new IntPtr (p);
 				ptrs += s.ToString () + "\r\n";
 			}
 			
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetMuineTreeModelRow.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineTreeModelRow.Target, false),
 					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 					
 			break;
@@ -1824,7 +1824,7 @@ public class PlaylistWindow : Window, IPlayer
 
 	private void OnPlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
+		string data = DndUtils.SelectionDataToString (args.SelectionData);
 		TreePath path;
 		TreeViewDropPosition tmp_pos;
 
@@ -1836,31 +1836,31 @@ public class PlaylistWindow : Window, IPlayer
 			pos.Position = tmp_pos;
 		}
 
-		uint type = (uint) Muine.TargetType.UriList;
+		uint type = (uint) DndUtils.TargetType.UriList;
 
 		/* work around gtk bug .. */
-		string tree_model_row = String.Format ("\t{0}\t", Muine.TargetMuineTreeModelRow.Target);
-		string song_list      = String.Format ("\t{0}\t", Muine.TargetMuineSongList.Target);
-		string album_list     = String.Format ("\t{0}\t", Muine.TargetMuineAlbumList.Target);
+		string tree_model_row = String.Format ("\t{0}\t", DndUtils.TargetMuineTreeModelRow.Target);
+		string song_list      = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
+		string album_list     = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
 		
 		if (data.StartsWith (tree_model_row)) {
-			type = (uint) Muine.TargetType.ModelRow;
+			type = (uint) DndUtils.TargetType.ModelRow;
 			data = data.Substring (tree_model_row.Length);
 			
 		} else if (data.StartsWith (song_list)) {
-			type = (uint) Muine.TargetType.SongList;
+			type = (uint) DndUtils.TargetType.SongList;
 			data = data.Substring (song_list.Length);
 			
 		} else if (data.StartsWith (album_list)) {
-			type = (uint) Muine.TargetType.AlbumList;
+			type = (uint) DndUtils.TargetType.AlbumList;
 			data = data.Substring (album_list.Length);
 		}
 
-		string [] bits = StringUtils.SplitSelectionData (data);
+		string [] bits = DndUtils.SplitSelectionData (data);
 
 		switch (type) {
-		case (uint) Muine.TargetType.SongList:
-		case (uint) Muine.TargetType.ModelRow:
+		case (uint) DndUtils.TargetType.SongList:
+		case (uint) DndUtils.TargetType.ModelRow:
 			foreach (string s in bits) {
 				IntPtr ptr;
 
@@ -1874,7 +1874,7 @@ public class PlaylistWindow : Window, IPlayer
 
 				bool play = false;
 
-				if (type == (uint) Muine.TargetType.ModelRow) {
+				if (type == (uint) DndUtils.TargetType.ModelRow) {
 					// Reorder part 1: remove old row
 					if (ptr == pos.Pointer)
 						break;
@@ -1904,7 +1904,7 @@ public class PlaylistWindow : Window, IPlayer
 
 			break;
 			
-		case (uint) Muine.TargetType.AlbumList:
+		case (uint) DndUtils.TargetType.AlbumList:
 			foreach (string s in bits) {
 				IntPtr ptr;
 				
@@ -1926,7 +1926,7 @@ public class PlaylistWindow : Window, IPlayer
 
 			break;
 
-		case (uint) Muine.TargetType.UriList:
+		case (uint) DndUtils.TargetType.UriList:
 			foreach (string s in bits) {
 				string fn = FileUtils.LocalPathFromUri (s);
 

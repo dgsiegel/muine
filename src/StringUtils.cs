@@ -19,7 +19,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 using Mono.Posix;
 
@@ -87,22 +86,5 @@ public class StringUtils
 		IntPtr str_ptr = g_utf8_collate_key (key, -1);
 		
 		return GLib.Marshaller.PtrToStringGFree (str_ptr);
-	}
-
-	public static string SelectionDataToString (Gtk.SelectionData data)
-	{
-		return System.Text.Encoding.UTF8.GetString (data.Data);
-	}
-
-	public static string [] SplitSelectionData (Gtk.SelectionData data)
-	{
-		string str = SelectionDataToString (data);
-
-		return SplitSelectionData (str);
-	}
-
-	public static string [] SplitSelectionData (string data)
-	{
-		return Regex.Split (data, "\r\n");
 	}
 }

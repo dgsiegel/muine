@@ -46,9 +46,9 @@ public class CoverImage : EventBox
 	}
 
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		Muine.TargetUriList,
-		Muine.TargetGnomeIconList,
-		Muine.TargetNetscapeUrl
+		DndUtils.TargetUriList,
+		DndUtils.TargetGnomeIconList,
+		DndUtils.TargetNetscapeUrl
 	};
 
 	private void Sync ()
@@ -82,7 +82,7 @@ public class CoverImage : EventBox
 
 	public static void HandleDrop (Song song, DragDataReceivedArgs args)
 	{
-		string data = StringUtils.SelectionDataToString (args.SelectionData);
+		string data = DndUtils.SelectionDataToString (args.SelectionData);
 
 		bool success = false;
 
@@ -90,7 +90,7 @@ public class CoverImage : EventBox
 		string fn;
 		
 		switch (args.Info) {
-		case (uint) Muine.TargetType.Uri:
+		case (uint) DndUtils.TargetType.Uri:
 			uri_list = Regex.Split (data, "\n");
 			fn = uri_list [0];
 			
@@ -111,8 +111,8 @@ public class CoverImage : EventBox
 
 			break;
 			
-		case (uint) Muine.TargetType.UriList:
-			uri_list = StringUtils.SplitSelectionData (data);
+		case (uint) DndUtils.TargetType.UriList:
+			uri_list = DndUtils.SplitSelectionData (data);
 			fn = FileUtils.LocalPathFromUri (uri_list [0]);
 
 			if (fn == null)

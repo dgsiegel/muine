@@ -30,115 +30,6 @@ using Mono.Posix;
 
 public class Muine : Gnome.Program
 {
-	// directories
-	private static void CreateDirectory (string dir)
-	{
-		DirectoryInfo dinfo = new DirectoryInfo (dir);
-		if (dinfo.Exists)
-			return;
-				
-		dinfo.Create ();
-	}
-	
-	private static string home_directory = Environment.GetEnvironmentVariable ("HOME");
-	public static string HomeDirectory {
-		get {
-			return home_directory;
-		}
-	}
-	
-	// We set these proper in the constructor because we use 
-	// Gnome.User.DirGet () and Gtk has to be initialized for that
-	private static string config_directory;
-	public static string ConfigDirectory {
-		get {
-			return config_directory;
-		}
-		
-		set {
-			config_directory = value;
-			CreateDirectory (config_directory);
-			playlist_file = Path.Combine (config_directory, playlist_filename);
-			songsdb_file = Path.Combine (config_directory, songsdb_filename);
-			coversdb_file = Path.Combine (config_directory, coversdb_filename);
-			user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
-		}
-	}
-	
-	private static string playlist_file;
-	private const string playlist_filename = "playlist.m3u";
-	public static string PlaylistFile {
-		get {
-			return playlist_file;
-		}
-	}
-
-	private static string songsdb_file;
-	private const string songsdb_filename = "songs.db";
-	public static string SongsDBFile {
-		get {
-			return songsdb_file;
-		}
-	}
-
-	private static string coversdb_file;
-	private const string coversdb_filename = "covers.db";
-	public static string CoversDBFile {
-		get {
-			return coversdb_file;
-		}
-	}
-
-	public static string SystemPluginDirectory {
-		get {
-			return Defines.PLUGIN_DIR;
-		}
-	}
-
-	private const string plugin_dirname = "plugins";
-	private static string user_plugin_directory;
-	public static string UserPluginDirectory {
-		get {
-			return user_plugin_directory;
-		}
-	}
-	
-	// DnD targets
-	public enum TargetType {
-		UriList,
-		Uri,
-		SongList,
-		AlbumList,
-		ModelRow
-	};
-
-	public static readonly TargetEntry TargetUriList = 
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
-		
-	public static readonly TargetEntry TargetGnomeIconList = 
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList);
-		
-	public static readonly TargetEntry TargetNetscapeUrl = 
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri);
-		
-	public static readonly TargetEntry TargetMuineAlbumList = 
-		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList);
-
-	public static readonly TargetEntry TargetMuineSongList = 
-		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList);
-		
-	public static readonly TargetEntry TargetMuineTreeModelRow = 
-		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
-	
-	// objects
-	private static PlaylistWindow playlist;
-
-	private static NotificationAreaIcon icon;
-
-	private static MmKeys mmkeys;
-
-	private static GConf.Client gconf_client;
-
 	private static SongDatabase db;
 	public static SongDatabase DB {
 		get {
@@ -160,9 +51,10 @@ public class Muine : Gnome.Program
 		}
 	}
 
-	private static Gnome.Client client;
-
-	private static bool opened_playlist = false;
+	private static PlaylistWindow playlist;
+	private static NotificationAreaIcon icon;
+	private static MmKeys mmkeys;
+	private static Gnome.Client session_client;
 
 	public static void Main (string [] args)
 	{
@@ -207,7 +99,16 @@ public class Muine : Gnome.Program
 		}
 
 		/* Init GConf */
-		gconf_client = new GConf.Client ();
+		Config.Init ();
+
+		/* Init files */
+		try {
+			FileUtils.Init ();
+		} catch (Exception e) {
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+
+			Environment.Exit (1);
+		}
 
 		/* Register stock icons */
 		StockIcons.Initialize ();
@@ -215,15 +116,6 @@ public class Muine : Gnome.Program
 		/* Set default window icon */
 		SetDefaultWindowIcon ();
 
-		/* Setup config directory (~/.gnome2/muine) */
-		try {
-			ConfigDirectory = Path.Combine (Gnome.User.DirGet (), "muine");
-		} catch (Exception e) {
-			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
-
-			Environment.Exit (1);
-		}
-		
 		/* Start the action thread */
 		action_thread = new ActionThread ();
 
@@ -267,10 +159,10 @@ public class Muine : Gnome.Program
 		icon = new NotificationAreaIcon (playlist);
 
 		/* Process command line options */
-		ProcessCommandLine (args, null);
+		bool opened_file = ProcessCommandLine (args, null);
 
 		/* Load playlist */
-		if (!opened_playlist)
+		if (!opened_file)
 			playlist.RestorePlaylist ();
 
 		/* Show UI */
@@ -292,14 +184,16 @@ public class Muine : Gnome.Program
 		//playlist.CheckFirstStartUp ();
 
 		/* Hook up to the session manager */
-		client = Gnome.Global.MasterClient ();
+		session_client = Gnome.Global.MasterClient ();
 
-		client.Die += new EventHandler (OnDieEvent);
-		client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
+		session_client.Die += new EventHandler (OnDieEvent);
+		session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
 	}
 
-	private void ProcessCommandLine (string [] args, MuineDBusLib.Player dbo)
+	private bool ProcessCommandLine (string [] args, MuineDBusLib.Player dbo)
 	{
+		bool opened_file = false;
+
 		for (int i = 0; i < args.Length; i++) {
 			System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
 		
@@ -325,12 +219,14 @@ public class Muine : Gnome.Program
 					}
 				}
 
-				opened_playlist = true;
+				opened_file = true;
 			}
 		}
 
 		if (dbo != null && args.Length == 0)
 			dbo.SetWindowVisible (true);
+
+		return opened_file;
 	}
 	
 	private void SetDefaultWindowIcon ()
@@ -356,34 +252,11 @@ public class Muine : Gnome.Program
 		/* FIXME */
 		string [] argv = { "muine" };
 
-		client.SetRestartCommand (1, argv);
+		session_client.SetRestartCommand (1, argv);
 	}
 
 	public static void Exit ()
 	{
 		Environment.Exit (0);
 	}
-	
-	public static object GetGConfValue (string key)
-	{
-	       return gconf_client.Get (key);
-	}
-	
-	public static object GetGConfValue (string key, object default_val)
-        {
-                object val;
-
-                try {
-                        val = GetGConfValue (key);
-                } catch {
-                        val = default_val;
-                }
-
-                return val;
-        }
-        
-        public static void SetGConfValue (string key, object val)
-        {
-        	gconf_client.Set (key, val);        	
-        }
 }

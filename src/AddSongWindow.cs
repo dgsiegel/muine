@@ -38,8 +38,8 @@ public class AddSongWindow : AddWindow
 
 	// DnD targets	
 	private static TargetEntry [] source_entries = new TargetEntry [] {
-		Muine.TargetMuineSongList,
-		Muine.TargetUriList
+		DndUtils.TargetMuineSongList,
+		DndUtils.TargetUriList
 	};
 
 	// Constructor	
@@ -165,7 +165,7 @@ public class AddSongWindow : AddWindow
 		List songs = view.SelectedPointers;
 
 		switch (args.Info) {
-		case (uint) Muine.TargetType.UriList:
+		case (uint) DndUtils.TargetType.UriList:
 			string files = "";
 
 			foreach (int p in songs) {
@@ -173,20 +173,20 @@ public class AddSongWindow : AddWindow
 				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
 			}
 	
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetUriList.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
 						8, System.Text.Encoding.UTF8.GetBytes (files));
 						
 			break;	
 			
-		case (uint) Muine.TargetType.SongList:
-			string ptrs = String.Format ("\t{0}\t", Muine.TargetMuineSongList.Target);
+		case (uint) DndUtils.TargetType.SongList:
+			string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
 			
 			foreach (int p in songs) {
 				IntPtr s = new IntPtr (p);
 				ptrs += s.ToString () + "\r\n";
 			}
 			
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetMuineSongList.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineSongList.Target, false),
 					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 
 			break;

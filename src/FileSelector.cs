@@ -42,9 +42,9 @@ public class FileSelector : FileChooserDialog
 
 		gconf_path = gcp;
 
-		string start_dir = (string) Muine.GetGConfValue (gconf_path, GConfDefaultStartDir);
+		string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
-		start_dir.Replace ("~", Muine.HomeDirectory);
+		start_dir.Replace ("~", FileUtils.HomeDirectory);
 
 		SetCurrentFolderUri (start_dir);
 	}
@@ -59,7 +59,7 @@ public class FileSelector : FileChooserDialog
 
 		string ret = Uri;
 
-		Muine.SetGConfValue (gconf_path, System.IO.Path.GetDirectoryName (ret));
+		Config.Set (gconf_path, System.IO.Path.GetDirectoryName (ret));
 
 		Destroy ();
 

@@ -115,8 +115,8 @@ public abstract class AddWindow : Window
 		gconf_default_width  = default_width;
 		gconf_default_height = default_height;
 		
-		int width  = (int) Muine.GetGConfValue (key_width , default_width );
-		int height = (int) Muine.GetGConfValue (key_height, default_height);
+		int width  = (int) Config.Get (key_width , default_width );
+		int height = (int) Config.Get (key_height, default_height);
 
 		window.SetDefaultSize (width, height);
 		
@@ -200,8 +200,8 @@ public abstract class AddWindow : Window
 		int width, height;
 		window.GetSize (out width, out height);
 
-		Muine.SetGConfValue (gconf_key_width , width );
-		Muine.SetGConfValue (gconf_key_height, height);
+		Config.Set (gconf_key_width , width );
+		Config.Set (gconf_key_height, height);
 	}
 
 	private void OnWindowResponse (object o, ResponseArgs args)

@@ -63,7 +63,7 @@ public class SongDatabase
 
 	public SongDatabase (int version)
 	{
-		db = new Database (Muine.SongsDBFile, version);
+		db = new Database (FileUtils.SongsDBFile, version);
 		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 		
@@ -86,7 +86,7 @@ public class SongDatabase
 		db.Load ();
 		
 		/* add file monitors */
-		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+		string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		foreach (string folder in folders)
 			AddMonitor (folder);
@@ -223,7 +223,7 @@ public class SongDatabase
 	/*** monitoring ***/
 	public void AddWatchedFolder (string folder)
 	{
-		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+		string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		string [] new_folders = new string [folders.Length + 1];
 
@@ -237,7 +237,7 @@ public class SongDatabase
 
 		new_folders [folders.Length] = folder;
 
-		Muine.SetGConfValue (GConfKeyWatchedFolders, new_folders);
+		Config.Set (GConfKeyWatchedFolders, new_folders);
 
 		AddMonitor (folder);
 	}
@@ -455,7 +455,7 @@ public class SongDatabase
 		}
 
 		/* check for new songs */
-		string [] folders = (string []) Muine.GetGConfValue (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+		string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
 
 		foreach (string folder in folders) {
 			DirectoryInfo dinfo = new DirectoryInfo (folder);

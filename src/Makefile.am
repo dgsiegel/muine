@@ -38,7 +38,9 @@ MUINE_CSFILES =					\
 	$(srcdir)/Database.cs			\
 	$(srcdir)/MuineDBusService.cs		\
 	$(srcdir)/PluginManager.cs		\
-	$(srcdir)/AddWindow.cs
+	$(srcdir)/AddWindow.cs			\
+	$(srcdir)/Config.cs			\
+	$(srcdir)/DndUtils.cs
 
 MUINE_GENERATED_CSFILES =			\
 	$(srcdir)/AmazonSearchService.cs	\

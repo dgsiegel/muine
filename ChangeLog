@@ -1,5 +1,27 @@
 2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/Config.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/DndUtils.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/GnomeProxy.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:
+
+	Move GConf stuff to new Config class, move all DND related stuff
+	to DndUtils.
+
+2005-01-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Muine.cs:
 
 	Small cleanup.

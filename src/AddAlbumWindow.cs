@@ -39,14 +39,14 @@ public class AddAlbumWindow : AddWindow
 
 	// DnD Targets	
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] { 
-		Muine.TargetUriList, 
-		Muine.TargetGnomeIconList, 
-		Muine.TargetNetscapeUrl 
+		DndUtils.TargetUriList, 
+		DndUtils.TargetGnomeIconList, 
+		DndUtils.TargetNetscapeUrl 
 	};
 
 	private static TargetEntry [] source_entries = new TargetEntry [] {
-		Muine.TargetMuineAlbumList,
-		Muine.TargetUriList
+		DndUtils.TargetMuineAlbumList,
+		DndUtils.TargetUriList
 	};
 
 	// Constructor
@@ -201,7 +201,7 @@ public class AddAlbumWindow : AddWindow
 		List albums = view.SelectedPointers;
 
 		switch (args.Info) {
-		case (uint) Muine.TargetType.UriList:
+		case (uint) DndUtils.TargetType.UriList:
 			string files = "";
 
 			foreach (int i in albums) {
@@ -212,20 +212,20 @@ public class AddAlbumWindow : AddWindow
 					files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
 			}
 	
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetUriList.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
 						8, System.Text.Encoding.UTF8.GetBytes (files));
 						
 			break;
 
-		case (uint) Muine.TargetType.AlbumList:
-			string ptrs = String.Format ("\t{0}\t", Muine.TargetMuineAlbumList.Target);
+		case (uint) DndUtils.TargetType.AlbumList:
+			string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
 			
 			foreach (int p in albums) {
 				IntPtr s = new IntPtr (p);
 				ptrs += s.ToString () + "\r\n";
 			}
 			
-			args.SelectionData.Set (Gdk.Atom.Intern (Muine.TargetMuineAlbumList.Target, false),
+			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
 					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 						
 			break;

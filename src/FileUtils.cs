@@ -25,6 +25,72 @@ using Gnome.Vfs;
 
 public class FileUtils
 {
+	// Filenames
+	public static void Init ()
+	{
+		config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
+
+		CreateDirectory (config_directory);
+
+		playlist_file = Path.Combine (config_directory, playlist_filename);
+		songsdb_file = Path.Combine (config_directory, songsdb_filename);
+		coversdb_file = Path.Combine (config_directory, coversdb_filename);
+		user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
+	}
+	
+	private static string home_directory = Environment.GetEnvironmentVariable ("HOME");
+	public static string HomeDirectory {
+		get {
+			return home_directory;
+		}
+	}
+	
+	private static string config_directory;
+	public static string ConfigDirectory {
+		get {
+			return config_directory;
+		}
+	}
+	
+	private static string playlist_file;
+	private const string playlist_filename = "playlist.m3u";
+	public static string PlaylistFile {
+		get {
+			return playlist_file;
+		}
+	}
+
+	private static string songsdb_file;
+	private const string songsdb_filename = "songs.db";
+	public static string SongsDBFile {
+		get {
+			return songsdb_file;
+		}
+	}
+
+	private static string coversdb_file;
+	private const string coversdb_filename = "covers.db";
+	public static string CoversDBFile {
+		get {
+			return coversdb_file;
+		}
+	}
+
+	public static string SystemPluginDirectory {
+		get {
+			return Defines.PLUGIN_DIR;
+		}
+	}
+
+	private const string plugin_dirname = "plugins";
+	private static string user_plugin_directory;
+	public static string UserPluginDirectory {
+		get {
+			return user_plugin_directory;
+		}
+	}
+	
+	// Methods
 	public static bool IsFromRemovableMedia (string fn)
 	{
 		return (fn.StartsWith ("/mnt/") ||
@@ -57,6 +123,15 @@ public class FileUtils
 			ret = ret.Substring ("file://".Length);
 
 		return ret;
+	}
+
+	private static void CreateDirectory (string dir)
+	{
+		DirectoryInfo dinfo = new DirectoryInfo (dir);
+		if (dinfo.Exists)
+			return;
+				
+		dinfo.Create ();
 	}
 
 	/* these two go away once we have vfs support everywhere */

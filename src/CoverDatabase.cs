@@ -54,9 +54,9 @@ public class CoverDatabase
 
 	public CoverDatabase (int version)
 	{
-		amazon_locale = (string) Muine.GetGConfValue (GConfKeyAmazonLocale, GConfDefaultAmazonLocale);
+		amazon_locale = (string) Config.Get (GConfKeyAmazonLocale, GConfDefaultAmazonLocale);
 
-		db = new Database (Muine.CoversDBFile, version);
+		db = new Database (FileUtils.CoversDBFile, version);
 		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 
