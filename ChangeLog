@@ -1,3 +1,9 @@
+2004-02-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	Remove some unneccessary code.
+
 2004-02-17  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:

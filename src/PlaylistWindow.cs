@@ -1414,11 +1414,6 @@ public class PlaylistWindow : Window
 
 	private void HandleCoverImageDragDataReceived (object o, DragDataReceivedArgs args)
 	{
-		/* FIXME ...
-		GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
-		while (Global.EventsPending () == 1)
-			Main.Iteration ();*/
-
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
 
 		bool success = false;
@@ -1485,8 +1480,6 @@ public class PlaylistWindow : Window
 		}
 
 		Gtk.Drag.Finish (args.Context, success, false, args.Time);
-
-		//GdkWindow.Cursor = null;
 	}
 
 	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
