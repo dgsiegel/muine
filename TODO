@@ -8,6 +8,7 @@ o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
 o Opening music files directly from nautilus
 o Queueing files that are not contained in the library
+o Use GnomeClient for SM
 
 Tough:
 ======
