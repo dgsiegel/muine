@@ -307,8 +307,12 @@ public class SongDatabase
 
 	private uint timeout_id;
 
+	private bool thread_done;
+
 	public void CheckChanges ()
 	{
+		thread_done = false;
+
 		removed_songs = Queue.Synchronized (new Queue ());
 		changed_songs = Queue.Synchronized (new Queue ());
 		new_songs = Queue.Synchronized (new Queue ());
@@ -370,7 +374,7 @@ public class SongDatabase
 			return true;
 		}
 
-		return true;
+		return !thread_done;
 	}
 
 	private void HandleDirectory (DirectoryInfo info,
@@ -441,6 +445,6 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 		}
 		
-		GLib.Source.Remove (timeout_id);
+		thread_done = true;
 	}
 }

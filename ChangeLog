@@ -1,3 +1,9 @@
+2004-04-06  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SongDatabase.cs:
+
+	Stop ProcessActionsFromThread at the right time.
+
 2004-04-05  Jorn Baayen  <jbaayen@gnome.org>
 
 	* README:
