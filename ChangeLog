@@ -1,5 +1,12 @@
 2005-01-16  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-xine.c: (signal_idle), (player_open),
+	(player_pause), (player_seek):
+
+	Fix some more GTimer borkage.
+
+2005-01-16  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/PlaylistWindow.cs:
