@@ -97,7 +97,9 @@ public class SkipToWindow
 			from_tick = false;
 	}
 
-	/* FIXME this isn't working, but it should. */
+	/* FIXME this isn't working, but it should. When it works, we don't
+	   need the timeout - just pause when we move the slider and unpause
+	   when done */
 	private void HandleSongSliderButtonReleaseEvent (object o, EventArgs a)
 	{
 		player.Seeking = false;

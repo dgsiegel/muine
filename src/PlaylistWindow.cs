@@ -20,6 +20,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Text.RegularExpressions;
 
 using Gtk;
 using GtkSharp;
@@ -336,6 +337,17 @@ public class PlaylistWindow : Window
 		                           false, true, false);
 	}
 
+	private enum TargetType {
+		UriList,
+		Uri
+	}
+
+	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
+		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
+	};
+
 	private void SetupPlayer ()
 	{
 		try {
@@ -361,6 +373,12 @@ public class PlaylistWindow : Window
 		artist_label.Xalign = 0.0f;
 		artist_label.Selectable = true;
 		artist_label_container.Add (artist_label);
+
+		/* FIXME 
+		Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
+				  cover_drag_entries, Gdk.DragAction.Copy);
+		cover_ebox.DragDataReceived += new DragDataReceivedHandler (HandleCoverImageDragDataReceived);
+		*/
 	}
 
 	private void AddSong (Song song)
@@ -709,7 +727,6 @@ public class PlaylistWindow : Window
 		OpenPlaylist (file);
 	}
 
-	/* FIXME this is not called anymore with Gtk# 0.15? */
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
 	{
 		if (KeyUtils.HaveModifier (args.Event.state)) {
@@ -745,14 +762,6 @@ public class PlaylistWindow : Window
 		case 0x073: /* s */
 		case 0x053: /* S */
 			HandleAddSongCommand (null, null);
-			break;
-		case 0xFF51: /* left */
-			if (playlist.HasFirst)
-				HandleSkipBackwardsCommand (null, null);
-			break;
-		case 0xFF53: /* right */
-			if (playlist.HasFirst)
-				HandleSkipForwardCommand (null, null);
 			break;
 		default:
 			args.RetVal = false;
@@ -1212,5 +1221,54 @@ public class PlaylistWindow : Window
 		
 		if (n_songs_changed)
 			NSongsChanged ();
+	}
+
+	private void HandleCoverImageDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		/* FIXME niet altijd draggable, geen album of ditte */
+		if (playlist.Playing == IntPtr.Zero)
+			return;
+
+		Song song = Song.FromHandle (playlist.Playing);
+
+//		string data = new string (args.SelectionData.Data);
+		string data = "";
+		
+		Console.WriteLine ("Received!");
+		switch (args.Info) {
+		case (uint) TargetType.Uri:
+			if (!data.StartsWith ("http://"))
+				break;
+			
+			try {
+				/* FIXME should be threaded */
+				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromURL (data);
+				Muine.CoverDB.ReplaceCover (song.Album, pix);
+				Muine.DB.AlbumChangedForSong (song);
+			} catch {
+				break;
+			}
+
+			break;
+		case (uint) TargetType.UriList:
+			string [] uris = Regex.Split (data, "\r\n");
+			if (uris.Length != 1)
+				break;
+
+			if (!uris [0].StartsWith ("file://") && !uris [0].StartsWith ("/"))
+				break;
+
+			try {
+				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromFile (uris [0]);
+				Muine.CoverDB.ReplaceCover (song.Album, pix);
+				Muine.DB.AlbumChangedForSong (song);
+			} catch {
+				break;
+			}
+			
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -116,7 +116,7 @@ public class CoverDatabase
 		return border;
 	}
 
-	private Pixbuf CoverPixbufFromFile (string filename)
+	public Pixbuf CoverPixbufFromFile (string filename)
 	{
 		Pixbuf cover;
 
