@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-22 16:56+0200\n"
+"POT-Creation-Date: 2004-07-23 14:06+0200\n"
 "PO-Revision-Date: 2004-06-06 15:29+0200\n"
 "Last-Translator: Matthias Debus <psic4t@netbands.de>\n"
 "Language-Team: german <psic4t@netbands.de>\n"
@@ -23,7 +23,7 @@ msgstr "*"
 
 #: data/glade/AddWindow.glade.h:2
 msgid "_Play"
-msgstr "_Abspielen"
+msgstr "_Wiedergeben"
 
 #: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
@@ -83,19 +83,19 @@ msgstr "_Eigenschaften"
 
 #: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
 msgid "Play Album"
-msgstr "Album abspielen"
+msgstr "Album wiedergeben"
 
 #: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
 msgid "Play Song"
-msgstr "Song abspielen"
+msgstr "Song wiedergeben"
 
 #: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
 msgid "Play _Album..."
-msgstr "_Album abspielen..."
+msgstr "_Album wiedergeben..."
 
 #: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
 msgid "Play _Song..."
-msgstr "_Song abspielen..."
+msgstr "_Song wiedergeben..."
 
 #: data/glade/PlaylistWindow.glade.h:6
 msgid "R_epeat"
@@ -179,7 +179,7 @@ msgstr "Ihre Musik anhören"
 
 #: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:687
 msgid "Muine Music Player"
-msgstr "Muine Music Player"
+msgstr "Muine Musik-Player"
 
 #: data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -379,7 +379,7 @@ msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
 #: src/About.cs:59
 msgid "A music player"
-msgstr "Ein Musik-Abspieler"
+msgstr "Ein Musik-Player"
 
 #: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:655
 #, csharp-format
@@ -423,7 +423,7 @@ msgstr ""
 
 #: src/NotificationAreaIcon.cs:53
 msgid "Muine music player"
-msgstr "Muine Music Player"
+msgstr "Muine Musik-Player"
 
 #: src/NotificationAreaIcon.cs:86
 msgid "_Previous Song"
@@ -519,19 +519,19 @@ msgstr "Wiedergabeliste (Wiederholung)"
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] "Wiedergabeliste (Weniger als eine Minute übrig)"
-msgstr[1] "Wiedergabeliste ({0} Stunden übrig)"
+msgstr[0] "Wiedergabeliste (Weniger als eine Minute)"
+msgstr[1] "Wiedergabeliste Noch ({0} Stunden)"
 
 #: src/PlaylistWindow.cs:586
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "Wiedergabeliste (Weniger als eine Minute übrig)"
-msgstr[1] "Wiedergabeliste ({0} Minuten übrig)"
+msgstr[0] "Wiedergabeliste (Weniger als eine Minute)"
+msgstr[1] "Wiedergabeliste (Noch {0} Minuten)"
 
 #: src/PlaylistWindow.cs:588
 msgid "Playlist (Less than one minute remaining)"
-msgstr "Wiedergabeliste (Weniger als eine Minute übrig)"
+msgstr "Wiedergabeliste (Weniger als eine Minute)"
 
 #: src/PlaylistWindow.cs:651
 #, csharp-format
@@ -550,7 +550,7 @@ msgstr ""
 #: src/PlaylistWindow.cs:669
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "{0} - Muine Music Player"
+msgstr "{0} - Muine Musik-Player"
 
 #: src/PlaylistWindow.cs:707
 msgid "Pause music playback"
