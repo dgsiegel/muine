@@ -1,0 +1,12 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/glade/AddWindow.glade
+data/glade/ErrorDialog.glade
+data/glade/PlaylistWindow.glade
+data/glade/ProgressWindow.glade
+data/glade/SkipToWindow.glade
+data/muine.desktop.in
+data/muine.schemas.in
+libmuine/egg/eggstatusicon.c
+libmuine/egg/eggtrayicon.c
+libmuine/egg/eggtraymanager.c
