@@ -1,3 +1,15 @@
+2004-04-25  Crispin Flowerday  <gnome@flowerday.cx>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/mm-keys.c: (mmkeys_class_init), (mmkeys_init),
+	(filter_mmkeys):
+	* src/MmKeys.cs:
+	* src/PlaylistWindow.cs:
+
+	Make the "Stop" multimedia key pause playback.
+
+	(Did some general mmkey code cleanup --Jorn)
+
 2004-04-25  Lee Willis  <lee@leewillis.co.uk>
 
 	* data/muine.schemas.in:

@@ -44,6 +44,8 @@ public class MmKeys : GLib.Object
 				       IntPtr.Zero, IntPtr.Zero, 0);
 		g_signal_connect_data (Raw, "mm_next", new SignalDelegate (MmNextCallback),
 				       IntPtr.Zero, IntPtr.Zero, 0);
+		g_signal_connect_data (Raw, "mm_stop", new SignalDelegate (MmStopCallback),
+				       IntPtr.Zero, IntPtr.Zero, 0);
 	}
 
 	~MmKeys ()
@@ -53,14 +55,10 @@ public class MmKeys : GLib.Object
 
 	private delegate void SignalDelegate (IntPtr obj, int vol);
 
-	public delegate void PlayPauseHandler (object o, EventArgs args);
-	public event PlayPauseHandler PlayPause;
-
-	public delegate void PreviousHandler (object o, EventArgs args);
-	public event PreviousHandler Previous;
-
-	public delegate void NextHandler (object o, EventArgs args);
-	public event NextHandler Next;
+	public event EventHandler PlayPause;
+	public event EventHandler Previous;
+	public event EventHandler Next;
+	public event EventHandler Stop;
 
 	private static void MmPlayPauseCallback (IntPtr obj, int vol)
 	{
@@ -78,5 +76,11 @@ public class MmKeys : GLib.Object
 	{
 		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
 		mmkeys_object.Previous (null, null);
+	}
+
+	private static void MmStopCallback (IntPtr obj, int vol)
+	{
+		MmKeys mmkeys_object = GLib.Object.GetObject (obj, false) as MmKeys;
+		mmkeys_object.Stop (null, null);
 	}
 }

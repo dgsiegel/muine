@@ -120,9 +120,10 @@ public class PlaylistWindow : Window
 
 		/* Create multimedia key handler */
 		mmkeys = new MmKeys ();
-		mmkeys.Next += new MmKeys.NextHandler (HandleNextCommand);
-		mmkeys.Previous += new MmKeys.PreviousHandler (HandlePreviousCommand);
-		mmkeys.PlayPause += new MmKeys.PlayPauseHandler (HandlePlayPauseCommand);
+		mmkeys.Next += new EventHandler (HandleNextCommand);
+		mmkeys.Previous += new EventHandler (HandlePreviousCommand);
+		mmkeys.PlayPause += new EventHandler (HandlePlayPauseCommand);
+		mmkeys.Stop += new EventHandler (HandleStopCommand);
 
 		/* load last playlist */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
@@ -1046,6 +1047,14 @@ public class PlaylistWindow : Window
 		}
 
 		player.Playing = !player.Playing;
+	}
+
+	private void HandleStopCommand (object o, EventArgs args)
+	{
+		if (!playlist.HasFirst)
+			return;
+
+		player.Playing = false;
 	}
 
 	private void HandleNextCommand (object o, EventArgs args)
