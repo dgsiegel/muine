@@ -1,6 +1,7 @@
 #!/bin/sh
 
 MONO_PATH="@prefix@/lib/muine:$MONO_PATH"
-export MONO_PATH
+LD_LIBRARY_PATH="@prefix@/lib/muine:$LD_LIBRARY_PATH"
+export MONO_PATH LD_LIBRARY_PATH
 
 @MONO@ @MONO_FLAGS@ @prefix@/lib/muine/muine.exe "$@"
