@@ -25,7 +25,7 @@ using MuinePluginLib;
 
 public class PluginManager
 {
-	private PlayerInterface player;
+	private IPlayer player;
 	
 	private void ScanAssemblyForPlugins (Assembly assembly)
 	{
@@ -33,11 +33,7 @@ public class PluginManager
 			if (t.IsSubclassOf (typeof (Plugin)) && !t.IsAbstract) {
 				Plugin plugin = (Plugin) Activator.CreateInstance (t);
 
-				try {
-					plugin.Initialize (player);
-				} catch (Exception e) {
-					Console.WriteLine (Muine.Catalog.GetString ("Error loading plug-in {0}: {1}"), assembly.FullName, e.Message);
-				}
+				plugin.Initialize (player);
 			}
 		}
 	}
@@ -53,14 +49,18 @@ public class PluginManager
 
 		foreach (FileInfo file in info.GetFiles ()) {
 			if (file.Extension == ".dll") {
-				Assembly a = Assembly.LoadFrom (file.FullName);
+				try {
+					Assembly a = Assembly.LoadFrom (file.FullName);
 
-				ScanAssemblyForPlugins (a);
+					ScanAssemblyForPlugins (a);
+				} catch (Exception e) {
+					Console.WriteLine (Muine.Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
+				}
 			}
 		}
 	}
 
-	public PluginManager (PlayerInterface player)
+	public PluginManager (IPlayer player)
 	{
 		this.player = player;
 

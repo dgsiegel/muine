@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2005 Jorn Baayen <jorn@nl.linux.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -17,50 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-namespace MuinePluginLib
-{
-	public interface SongInterface
-	{
-		string Filename {
-			get;
-		}
-	
-		string Title {
-			get;
-		}
-	
-		string [] Artists {
-			get;
-		}
-	
-		string [] Performers {
-			get;
-		}
-	
-		string Album {
-			get;
-		}
-	
-		string Year {
-			get;
-		}
-	
-		int TrackNumber {
-			get;
-		}
-	
-		int DiscNumber {
-			get;
-		}
-	
-		int Duration {
-			get;
-		}
-
-		Gdk.Pixbuf CoverImage {
-			get;
-		}
-	}
-}
+[assembly:AssemblyVersion("1.0.0.0")]
+[assembly:AssemblyDelaySign(false)]
+[assembly:AssemblyKeyFile("muine.snk")]

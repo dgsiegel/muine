@@ -2,6 +2,7 @@ SUBDIRS = 		\
 	data		\
 	libmuine	\
 	PluginLib	\
+	ClientLib	\
 	src		\
 	plugins		\
 	m4		\
@@ -16,7 +17,8 @@ EXTRA_DIST =			\
 	intltool-merge.in	\
 	intltool-update.in	\
 	muine.spec.in		\
-	muine.spec
+	muine.spec		\
+	muine.snk
 
 DISTCLEANFILES = 		\
 	intltool-extract 	\

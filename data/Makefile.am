@@ -17,14 +17,16 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 @INTLTOOL_SCHEMAS_RULE@
 
+pkgconfig_in_files = muine-plugin.pc.in muine-client.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = muine.pc
+pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 EXTRA_DIST =			\
 	$(desktop_in_files)	\
 	$(desktop_DATA)		\
 	$(schema_in_files)	\
 	$(schema_DATA)		\
+	$(pkgconfig_in_files)	\
 	$(pkgconfig_DATA)
 
 DISTCLEANFILES = 		\

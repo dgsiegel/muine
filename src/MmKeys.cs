@@ -37,9 +37,9 @@ public class MmKeys : GLib.Object
 	private SignalUtils.SignalDelegate mm_next_cb;
 	private SignalUtils.SignalDelegate mm_stop_cb;
 
-	PlayerInterface player;
+	IPlayer player;
 
-	public MmKeys (PlayerInterface player) : base (IntPtr.Zero)
+	public MmKeys (IPlayer player) : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
 

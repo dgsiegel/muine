@@ -34,7 +34,7 @@ public class NotificationAreaIcon : Plug
 	private Gtk.Image image;
 	private Tooltips tooltips;
 
-	private PlayerInterface player;
+	private IPlayer player;
 
 	private int menu_x;
 	private int menu_y;
@@ -66,7 +66,7 @@ public class NotificationAreaIcon : Plug
 			ShowAll ();
 	}
 
-	public NotificationAreaIcon (PlayerInterface player) : base (IntPtr.Zero)
+	public NotificationAreaIcon (IPlayer player) : base (IntPtr.Zero)
 	{
 		/* connect to player */
 		this.player = player;
@@ -196,7 +196,7 @@ public class NotificationAreaIcon : Plug
 		Init ();
 	}
 
-	private string CreateTooltip (SongInterface song)
+	private string CreateTooltip (ISong song)
 	{
 		/* song artists - song title */
 		return String.Format (Muine.Catalog.GetString ("{0} - {1}"),
@@ -204,7 +204,7 @@ public class NotificationAreaIcon : Plug
 				      song.Title);
 	}
 
-	private void HandleSongChangedEvent (SongInterface song)
+	private void HandleSongChangedEvent (ISong song)
 	{
 		if (song != null)
 			tooltip = CreateTooltip (song);

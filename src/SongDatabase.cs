@@ -32,16 +32,12 @@ public class SongDatabase
 
 	private Hashtable songs;
 	public Hashtable Songs {
-		get {
-			return songs;
-		}
+		get { return songs; }
 	}
 
 	private Hashtable albums;
 	public Hashtable Albums {
-		get {
-			return albums;
-		}
+		get { return albums; }
 	}
 
 	public delegate void SongAddedHandler (Song song);

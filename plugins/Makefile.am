@@ -1,11 +1,11 @@
-CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS)
+CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
 
-DASHBOARD_PLUGIN_CSFILES =				\
-	$(top_srcdir)/plugins/DashboardPlugin.cs
+DASHBOARD_PLUGIN_CSFILES =		\
+	$(srcdir)/DashboardPlugin.cs
 
-ASSEMBLIES = -r:$(top_builddir)/PluginLib/PluginLib.dll
+ASSEMBLIES = -r:$(top_builddir)/PluginLib/muine-plugin.dll
 	
-DashboardPlugin.dll: $(DASHBOARD_PLUGIN_CSFILES)
+DashboardPlugin.dll: $(DASHBOARD_PLUGIN_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll
 	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(DASHBOARD_PLUGIN_CSFILES) $(ASSEMBLIES)
 
 all: DashboardPlugin.dll

@@ -25,93 +25,67 @@ public class Metadata
 {
 	private string title;
 	public string Title {
-		get {
-			return title;
-		}
+		get { return title; }
 	}
 
 	private string [] artists;
 	public string [] Artists {
-		get {
-			return artists;
-		}
+		get { return artists; }
 	}
 
 	private string [] performers;
 	public string [] Performers {
-		get {
-			return performers;
-		}
+		get { return performers; }
 	}
 
 	private string album;
 	public string Album {
-		get {
-			return album;
-		}
+		get { return album; }
 	}
 
 	private Pixbuf album_art;
 	public Pixbuf AlbumArt {
-		get {
-			return album_art;
-		}
+		get { return album_art; }
 	}
 
 	private int track_number;
 	public int TrackNumber {
-		get {
-			return track_number;
-		}
+		get { return track_number; }
 	}
 
 	private int disc_number;
 	public int DiscNumber {
-		get {
-			return disc_number;
-		}
+		get { return disc_number; }
 	}
 
 	private string year;
 	public string Year {
-		get {
-			return year;
-		}
+		get { return year; }
 	}
 
 	private int duration;
 	public int Duration {
-		get {
-			return duration;
-		}
+		get { return duration; }
 	}
 
 	private string mime_type;
 	public string MimeType {
-		get {
-			return mime_type;
-		}
+		get { return mime_type; }
 	}
 
 	private int mtime;
 	public int MTime {
-		get {
-			return mtime;
-		}
+		get { return mtime; }
 	}
 
 	private double gain;
 	public double Gain {
-		get {
-			return gain;
-		}
+		get { return gain; }
 	}
 
 	private double peak;
 	public double Peak {
-		get {
-			return peak;
-		}
+		get { return peak; }
 	}
 
 	[DllImport ("libmuine")]

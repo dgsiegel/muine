@@ -21,73 +21,46 @@ using System;
 
 namespace MuinePluginLib
 {
-	public interface PlayerInterface
+	public interface ISong
 	{
-		SongInterface PlayingSong {
-			get;
-		}
-
-		bool Playing {
-			get;
-			set;
-		}
-
-		int Volume {
-			get;
-			set;
-		}
-	
-		int Position {
-			get;
-			set;
-		}
-	
-		bool HasNext {
+		string Filename {
 			get;
 		}
 	
-		bool HasPrevious {
+		string Title {
 			get;
 		}
 	
-		void Next ();
-		void Previous ();
-
-		void PlaySong ();
-		void PlayAlbum ();
-
-		SongInterface [] Playlist {
+		string [] Artists {
 			get;
-		}
-
-		SongInterface [] Selection {
-			get;
-		}
-
-		void OpenPlaylist (string uri);
-
-		void PlayFile (string uri);
-		void QueueFile (string uri);
-
-		void Quit ();
-
-		bool WindowVisible {
-			get;
-			set;
 		}
 	
-		bool WindowFocused {
+		string [] Performers {
+			get;
+		}
+	
+		string Album {
+			get;
+		}
+	
+		string Year {
+			get;
+		}
+	
+		int TrackNumber {
+			get;
+		}
+	
+		int DiscNumber {
+			get;
+		}
+	
+		int Duration {
 			get;
 		}
 
-		Gtk.UIManager UIManager {
+		Gdk.Pixbuf CoverImage {
 			get;
 		}
-
-		event Plugin.SongChangedEventHandler SongChangedEvent;
-		
-		event Plugin.StateChangedEventHandler StateChangedEvent;
-
-		event Plugin.SelectionChangedEventHandler SelectionChangedEvent;
 	}
 }

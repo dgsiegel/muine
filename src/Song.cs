@@ -27,75 +27,55 @@ using Gdk;
 
 using MuinePluginLib;
 
-public class Song : SongInterface
+public class Song : ISong
 {
 	private string filename;
 	public string Filename {
-		get {
-			return filename;
-		}
+		get { return filename; }
 	}
 		
 	private string title;
 	public string Title {
-		get {
-			return title;
-		}
+		get { return title; }
 	}
 
 	private string [] artists;
 	public string [] Artists {
-		get {
-			return artists;
-		}
+		get { return artists; }
 	}
 
 	private string [] performers;
 	public string [] Performers {
-		get {
-			return performers;
-		}
+		get { return performers; }
 	}
 
 	private string album;
 	public string Album {
-		get {
-			return album;
-		}
+		get { return album; }
 	}
 
 	private int track_number;
 	public int TrackNumber {
-		get {
-			return track_number;
-		}
+		get { return track_number; }
 	}
 
 	private int disc_number;
 	public int DiscNumber {
-		get {
-			return disc_number;
-		}
+		get { return disc_number; }
 	}
 
 	private string year;
 	public string Year {
-		get {
-			return year;
-		}
+		get { return year; }
 	}
 
 	private int duration;
 	public int Duration {
 		/* we have a setter too, because sometimes we want
 		 * to correct the duration. */
-		set {
-			duration = value;
-		}
+		set { duration = value; }
 		
-		get {
-			return duration;
-		}
+		get { return duration; }
 	}
 
 	private Gdk.Pixbuf cover_image;
@@ -107,30 +87,22 @@ public class Song : SongInterface
 				checked_cover_image = true;
 		}
 		
-		get {
-			return cover_image;
-		}
+		get { return cover_image; }
 	}
 
 	private int mtime;
 	public int MTime {
-		get {
-			return mtime;
-		}
+		get { return mtime; }
 	}
 
 	private double gain;
 	public double Gain {
-		get {
-			return gain;
-		}
+		get { return gain; }
 	}
 
 	private double peak;
 	public double Peak {
-		get {
-			return peak;
-		}
+		get { return peak; }
 	}
 
 	private string sort_key = null;
@@ -192,9 +164,7 @@ public class Song : SongInterface
 
 	private bool dead = false;
 	public bool Dead {
-		get {
-			return dead;
-		}
+		get { return dead; }
 	}
 
 	public void Kill ()
@@ -209,13 +179,9 @@ public class Song : SongInterface
 
 	private bool orphan = false;
 	public bool Orphan {
-		set {
-			orphan = value;
-		}
+		set { orphan = value; }
 		
-		get {
-			return orphan;
-		}
+		get { return orphan; }
 	}
 
 	private static string [] cover_filenames = {
@@ -357,9 +323,7 @@ public class Song : SongInterface
 
 	private IntPtr handle;
 	public IntPtr Handle {
-		get {
-			return handle;
-		}
+		get { return handle; }
 	}
 
 	private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
@@ -388,9 +352,7 @@ public class Song : SongInterface
 	}
 
 	public ArrayList Handles {
-		get {
-			return handles;
-		}
+		get { return handles; }
 	}
 
 	public void UnregisterExtraHandle (IntPtr handle)

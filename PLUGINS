@@ -13,7 +13,7 @@ interfaces through MuinePluginLib, these have more or less the same
 functionality as what is exported through D-Bus. Muine installs a pkg-config
 file, so compiling your plugin will be something along the lines of:
 
-mcs -target:library -out:Plugin.dll Plugin.cs -pkg:muine 
+mcs -target:library -out:Plugin.dll Plugin.cs -pkg:muine-plugin
 
 An example plugin adding Dashboard support to Muine can be found in plugins/.
 

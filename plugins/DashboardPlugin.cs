@@ -28,16 +28,16 @@ using MuinePluginLib;
 
 public class DashboardPlugin : Plugin
 {
-	private PlayerInterface player;
+	private IPlayer player;
 
-	public override void Initialize (PlayerInterface player)
+	public override void Initialize (IPlayer player)
 	{
 		this.player = player;
 		
 		player.SongChangedEvent += new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
 	}
 	
-	private void HandleSongChangedEvent (SongInterface song)
+	private void HandleSongChangedEvent (ISong song)
 	{
 		if (song == null)
 			return;

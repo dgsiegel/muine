@@ -27,7 +27,7 @@ using Gnome.Vfs;
 
 using MuinePluginLib;
 
-public class PlaylistWindow : Window, PlayerInterface
+public class PlaylistWindow : Window, IPlayer
 {
         private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
         private const int GConfDefaultWidth = 450; 
@@ -112,7 +112,7 @@ public class PlaylistWindow : Window, PlayerInterface
 	};
 
 	/* public properties, for plug-ins and for dbus interface */
-	public SongInterface PlayingSong {
+	public ISong PlayingSong {
 		get {
 			if (playlist.Playing != IntPtr.Zero)
 				return Song.FromHandle (playlist.Playing);
@@ -138,9 +138,7 @@ public class PlaylistWindow : Window, PlayerInterface
 				player.Pause ();
 		}
 
-		get {
-			return player.Playing;
-		}
+		get { return player.Playing; }
 	}
 
 	public int Volume {
@@ -149,36 +147,26 @@ public class PlaylistWindow : Window, PlayerInterface
 				volume_button.Volume = value;
 		}
 		
-		get {
-			return volume_button.Volume;
-		}
+		get { return volume_button.Volume; }
 	}
 
 	public int Position {
-		set {
-			SeekTo (value);
-		}
+		set { SeekTo (value); }
 
-		get {
-			return player.Position;
-		}
+		get { return player.Position; }
 	}
 
 	public bool HasNext {
-		get {
-			return playlist.HasNext;
-		}
+		get { return playlist.HasNext; }
 	}
 
 	public bool HasPrevious {
-		get {
-			return playlist.HasPrevious;
-		}
+		get { return playlist.HasPrevious; }
 	}
 
-	private SongInterface [] ArrayFromList (List list)
+	private ISong [] ArrayFromList (List list)
 	{
-		SongInterface [] array = new SongInterface [list.Count];
+		ISong [] array = new ISong [list.Count];
 			
 		int i = 0;
 		foreach (int p in list) {
@@ -190,13 +178,13 @@ public class PlaylistWindow : Window, PlayerInterface
 		return array;
 	}
 
-	public SongInterface [] Playlist {
+	public ISong [] Playlist {
 		get {
 			return ArrayFromList (playlist.Contents);
 		}
 	}
 
-	public SongInterface [] Selection {
+	public ISong [] Selection {
 		get {
 			return ArrayFromList (playlist.SelectedPointers);
 		}
@@ -204,16 +192,16 @@ public class PlaylistWindow : Window, PlayerInterface
 
 	private UIManager ui_manager;
 	public UIManager UIManager {
-		get {
-			return ui_manager;
-		}
+		get { return ui_manager; }
 	}
 
 	public event Plugin.SongChangedEventHandler SongChangedEvent;
 
 	public event Plugin.StateChangedEventHandler StateChangedEvent;
 
-	public event Plugin.SelectionChangedEventHandler SelectionChangedEvent;
+	public event Plugin.GenericEventHandler PlaylistChangedEvent;
+
+	public event Plugin.GenericEventHandler SelectionChangedEvent;
 
 	/* Constructor */
 	public PlaylistWindow () : base (WindowType.Toplevel)
@@ -375,15 +363,11 @@ public class PlaylistWindow : Window, PlayerInterface
 			UpdateWindowVisibilityUI ();
 		}
 
-		get {
-			return window_visible;
-		}
+		get { return window_visible; }
 	}
 
 	public bool WindowFocused  {
-		get {
-			return HasToplevelFocus;
-		}
+		get { return HasToplevelFocus; }
 	}
 
 	public void UpdateWindowVisibilityUI ()
@@ -790,6 +774,9 @@ public class PlaylistWindow : Window, PlayerInterface
 		UpdateTimeLabels (player.Position);
 
 		SavePlaylist (Muine.PlaylistFile, !repeat_action.Active, true);
+
+		if (PlaylistChangedEvent != null)
+			PlaylistChangedEvent ();
 	}
 
 	private void SongChanged (bool restart)
@@ -1791,24 +1778,16 @@ public class PlaylistWindow : Window, PlayerInterface
 	private class DragAddSongPosition {
 		private IntPtr pointer;
 		public IntPtr Pointer {
-			set {
-				pointer = value;
-			}
+			set { pointer = value; }
 
-			get {
-				return pointer;
-			}
+			get { return pointer; }
 		}
 
 		private TreeViewDropPosition position;
 		public TreeViewDropPosition Position {
-			set {
-				position = value;
-			}
+			set { position = value; }
 
-			get {
-				return position;
-			}
+			get { return position; }
 		}
 
 		private bool first;

@@ -1,23 +1,24 @@
-ASSEMBLY = muine-plugin.dll
+ASSEMBLY = muine-client.dll
 TARGET = $(ASSEMBLY)
 
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
 
-PLUGIN_LIB_CSFILES =			\
-	$(srcdir)/Plugin.cs		\
-	$(srcdir)/IPlayer.cs		\
-	$(srcdir)/ISong.cs		\
+CLIENT_LIB_CSFILES =			\
+	$(srcdir)/Player.cs		\
 	$(srcdir)/AssemblyInfo.cs
+
+CLIENT_LIB_ASSEMBLIES = 						\
+	-r:$(top_builddir)/PluginLib/muine-plugin.dll
 
 muine.snk: $(top_srcdir)/muine.snk
 	cp $(top_srcdir)/muine.snk .
 
-$(ASSEMBLY): $(PLUGIN_LIB_CSFILES) muine.snk
-	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(PLUGIN_LIB_CSFILES) $(GTKSHARP_LIBS)
+$(ASSEMBLY): $(CLIENT_LIB_CSFILES) muine.snk
+	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(CLIENT_LIB_CSFILES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS) $(CLIENT_LIB_ASSEMBLIES)
 
 all: $(ASSEMBLY)
 
-EXTRA_DIST = $(PLUGIN_LIB_CSFILES)
+EXTRA_DIST = $(CLIENT_LIB_CSFILES)
 
 CLEANFILES = $(ASSEMBLY) muine.snk
 

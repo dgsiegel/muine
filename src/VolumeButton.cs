@@ -51,9 +51,7 @@ class VolumeButton : ToggleButton
 			VolumeChanged (Volume);
 		}
 
-		get {
-			return volume;
-		}
+		get { return volume; }
 	}
 
 	public delegate void VolumeChangedHandler (int vol);
@@ -238,8 +236,7 @@ class VolumeButton : ToggleButton
 
 	private void PopupButtonPressed (object obj, ButtonPressEventArgs args)
 	{
-		if (popup != null) {
+		if (popup != null)
 			HideScale ();
-		}
 	}
 }

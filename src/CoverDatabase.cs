@@ -37,16 +37,12 @@ public class CoverDatabase
 
 	private Hashtable covers;
 	public Hashtable Covers {
-		get {
-			return covers;
-		}
+		get { return covers; }
 	}
 
 	private Pixbuf downloading_pixbuf;
 	public Pixbuf DownloadingPixbuf {
-		get {
-			return downloading_pixbuf;
-		}
+		get { return downloading_pixbuf; }
 	}
 	
 	private string amazon_locale;
@@ -95,9 +91,7 @@ public class CoverDatabase
 
 	private bool loading = true;
 	public bool Loading {
-		get {
-			return loading;
-		}
+		get { return loading; }
 	}
 
 	public delegate void DoneLoadingHandler ();
@@ -119,16 +113,12 @@ public class CoverDatabase
 	private struct LoadedCover {
 		private string key;
 		public string Key {
-			get {
-				return key;
-			}
+			get { return key; }
 		}
 		
 		private Pixbuf pixbuf;
 		public Pixbuf Pixbuf {
-			get {
-				return pixbuf;
-			}
+			get { return pixbuf; }
 		} 
 
 		public LoadedCover (string key, IntPtr pixbuf_ptr) {

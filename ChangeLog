@@ -1,3 +1,62 @@
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
+	* ClientLib/.cvsignore:
+	* ClientLib/AssemblyInfo.cs:
+	* ClientLib/Makefile.am:
+	* ClientLib/Player.cs:
+	* Makefile.am:
+	* PLUGINS:
+	* PluginLib/.cvsignore:
+	* PluginLib/AssemblyInfo.cs:
+	* PluginLib/IPlayer.cs:
+	* PluginLib/ISong.cs:
+	* PluginLib/Makefile.am:
+	R PluginLib/PlayerInterface.cs:
+	* PluginLib/Plugin.cs:
+	R PluginLib/SongInterface.cs:
+	* configure.in:
+	* data/.cvsignore:
+	* data/Makefile.am:
+	* data/muine-client.pc.in:
+	* data/muine-plugin.pc.in:
+	R data/muine.pc.in:
+	* muine.snk:
+	* plugins/DashboardPlugin.cs:
+	* plugins/Makefile.am:
+	R src/PlayerDBusObject.cs:
+	* src/MmKeys.cs:
+	* src/Muine.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/muine.in:
+
+	- Move Player D-Bus object to its own library. Install both libraries
+	  into GAC.
+	- Rename PlayerInterface and SongInterface to IPlayer and ISong.
+
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/Makefile.am:
+	* src/Metadata.cs:
+	* src/MmKeys.cs:
+	* src/Muine.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/VolumeButton.cs:
+
+	Compact notation for "small" properties.
+
+	* PluginLib/IPlayer.cs:
+	* src/PlaylistWindow.cs:
+
+	Add a PlaylistChanged event.
+	
+	* src/PluginManager.cs:
+
+	Better error handling.
+
 2005-01-03  Jorn Baayen  <jbaayen@gnome.org>
 
 	* AUTHORS:

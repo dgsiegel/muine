@@ -24,16 +24,12 @@ public class Album
 {
 	private string name;
 	public string Name {
-		get {
-			return name;
-		}
+		get { return name; }
 	}
 
 	private ArrayList songs;
 	public ArrayList Songs {
-		get {
-			return songs;
-		}
+		get { return songs; }
 	}
 
 	private ArrayList artists;
@@ -52,9 +48,7 @@ public class Album
 
 	private string year;
 	public string Year {
-		get {
-			return year;
-		}
+		get { return year; }
 	}
 
 	private Gdk.Pixbuf cover_image;
@@ -69,9 +63,7 @@ public class Album
 			}
 		}
 
-		get {
-			return cover_image;
-		}
+		get { return cover_image; }
 	}
 
 	private static string [] prefixes = null;
@@ -149,9 +141,7 @@ public class Album
 
 	private IntPtr handle;
 	public IntPtr Handle {
-		get {
-			return handle;
-		}
+		get { return handle; }
 	}
 
 	public Album (Song initial_song)

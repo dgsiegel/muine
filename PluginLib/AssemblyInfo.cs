@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2005 Jorn Baayen <jorn@nl.linux.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -17,14 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-namespace MuinePluginLib
-{
-	public abstract class Plugin
-	{
-		public abstract void Initialize (IPlayer playlist);
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-		public delegate void SongChangedEventHandler (ISong song);
-		public delegate void StateChangedEventHandler (bool playing);
-		public delegate void GenericEventHandler ();
-	}
-}
+[assembly:AssemblyVersion("1.0.0.0")]
+[assembly:AssemblyDelaySign(false)]
+[assembly:AssemblyKeyFile("muine.snk")]

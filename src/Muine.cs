@@ -173,7 +173,7 @@ public class Muine : Gnome.Program
 
 	public Muine (string [] args) : base ("muine", About.Version, Gnome.Modules.UI, args)
 	{
-		PlayerDBusObject dbo = null;
+		MuineClientLib.Player dbo = null;
 
 		/* Try to find a running Muine */
 		try {
@@ -181,8 +181,8 @@ public class Muine : Gnome.Program
 			
 			Service service = Service.Get (conn, "org.gnome.Muine");
 			
-			dbo = (PlayerDBusObject) service.GetObject
-					(typeof (PlayerDBusObject), "/org/gnome/Muine/Player");
+			dbo = (MuineClientLib.Player) service.GetObject
+					(typeof (MuineClientLib.Player), "/org/gnome/Muine/Player");
 
 		} catch {}
 
@@ -196,12 +196,12 @@ public class Muine : Gnome.Program
 			Environment.Exit (0);
 		} else {
 			/* Register with D-Bus ASAP.
-			   Actual hooking up to PlayerInterface happens later,
+			   Actual hooking up to IPlayer happens later,
 			   but this is safe, as D-Bus communication happens
 			   through the main thread anyway. For now it is
 			   just important to have the thing registered. */
 			try {
-				dbo = new PlayerDBusObject ();
+				dbo = new MuineClientLib.Player ();
 			
 				MuineDBusService.Instance.RegisterObject
 					(dbo, "/org/gnome/Muine/Player");
@@ -257,7 +257,7 @@ public class Muine : Gnome.Program
 		/* Hook up D-Bus object before loading any songs into the
 		   playlist, to make sure that the song change gets emitted
 		   to the bus */
-		dbo.Player = playlist;
+		dbo.HookUp (playlist);
 
 		/* Initialize plug-ins (also before loading any songs, to make
 		   sure that the song change gets through to all the
@@ -307,7 +307,7 @@ public class Muine : Gnome.Program
 			Gtk.Main.Iteration ();
 	}
 
-	private void ProcessCommandLine (string [] args, PlayerDBusObject dbo)
+	private void ProcessCommandLine (string [] args, MuineClientLib.Player dbo)
 	{
 		for (int i = 0; i < args.Length; i++) {
 			System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
