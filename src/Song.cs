@@ -151,7 +151,7 @@ namespace Muine
 				Global.CoverDB.RemoveCover (filename);
 		}
 
-		public new IntPtr Handle {
+		public override IntPtr Handle {
 			get { return (IntPtr) handles [0]; }
 		}
 

@@ -1,3 +1,15 @@
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/Item.cs:
+	* src/Song.cs:
+
+	Minor cleanups, and deal with Songs and Albums
+	in SongWindow and AlbumWindow, not Items, as those
+	are what the signals provide.
+
 2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* data/glade/AddWindow.glade:
@@ -13,7 +25,6 @@
 	
 	Split AddWindowEntry and AddWindowList off of AddWindow.
 	Moved Song.FitsCriteria and Album.FitsCriteria to Item.
-
 
 2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
 

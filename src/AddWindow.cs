@@ -238,10 +238,9 @@ namespace Muine
 		
 		private void OnEntryChanged (object o, EventArgs args)
 		{
-			if (process_changes_immediately) {
+			if (process_changes_immediately)
 				Search ();
-
-			} else {
+			else {
 				if (search_idle_id > 0)
 					GLib.Source.Remove (search_idle_id);
 

@@ -153,19 +153,19 @@ namespace Muine
 			return false;
 		}
 		
-		private void OnAlbumAdded (Item item)
+		private void OnAlbumAdded (Album album)
 		{
-			base.List.HandleAdded (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
+			base.List.HandleAdded (album.Handle, album.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnAlbumChanged (Item item)
+		private void OnAlbumChanged (Album album)
 		{
-			base.List.HandleChanged (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
+			base.List.HandleChanged (album.Handle, album.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnAlbumRemoved (Item item)
+		private void OnAlbumRemoved (Album album)
 		{
-			base.List.HandleRemoved (item.Handle);
+			base.List.HandleRemoved (album.Handle);
 		}
 
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)

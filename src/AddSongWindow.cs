@@ -149,27 +149,27 @@ namespace Muine
 			return false;
 		}
 
-		private void OnSongAdded (Item item)
+		private void OnSongAdded (Song song)
 		{
 			if (base.Entry.Text.Length < MinQueryLength &&
 			    base.List.Length >= FakeLength)
 				return;
 
-			base.List.HandleAdded (item.Handle, item.FitsCriteria (base.Entry.SearchBits));
+			base.List.HandleAdded (song.Handle, song.FitsCriteria (base.Entry.SearchBits));
 		}
 
-		private void OnSongChanged (Item item)
+		private void OnSongChanged (Song song)
 		{
 			bool may_append = (base.Entry.Text.Length >= MinQueryLength ||
 			                   base.List.Length < FakeLength);
 			
-			base.List.HandleChanged (item.Handle, item.FitsCriteria (base.Entry.SearchBits),
+			base.List.HandleChanged (song.Handle, song.FitsCriteria (base.Entry.SearchBits),
 				may_append);
 		}
 
-		private void OnSongRemoved (Item item)
+		private void OnSongRemoved (Song song)
 		{
-			base.List.HandleRemoved (item.Handle);
+			base.List.HandleRemoved (song.Handle);
 		}
 
 		private void OnDragDataGet (object o, DragDataGetArgs args)

@@ -30,7 +30,7 @@ namespace Muine
 	
 		// Properties
 		// Properties :: Handle (get;)
-		public IntPtr Handle {
+		public virtual IntPtr Handle {
 			get { return handle; }
 		}
 

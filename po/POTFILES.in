@@ -19,6 +19,7 @@ src/AddSongWindow.cs
 src/Album.cs
 src/CoverDatabase.cs
 src/ErrorDialog.cs
+src/FileUtils.cs
 src/Global.cs
 src/Metadata.cs
 src/NotificationAreaIcon.cs
