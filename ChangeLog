@@ -1,3 +1,9 @@
+2004-11-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/muine.in:
+
+	Have the wrapper exec mono instead of forking. Patch by Peter Oliver.
+
 2004-11-12  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
