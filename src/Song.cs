@@ -70,6 +70,13 @@ public class Song
 		}
 	}
 
+	private int disc_number;
+	public int DiscNumber {
+		get {
+			return disc_number;
+		}
+	}
+
 	private string year;
 	public string Year {
 		get {
@@ -395,6 +402,7 @@ public class Song
 		performers = metadata.Performers;
 		album = metadata.Album;
 		track_number = metadata.TrackNumber;
+		disc_number = metadata.DiscNumber;
 		year = metadata.Year;
 		duration = metadata.Duration;
 		mtime = metadata.MTime;
@@ -472,6 +480,7 @@ public class Song
 
 		p = UnpackString (p, out album);
 		p = db_unpack_int (p, out track_number);
+		p = db_unpack_int (p, out disc_number);
 		p = UnpackString (p, out year);
 		p = db_unpack_int (p, out duration);
 		p = db_unpack_int (p, out mtime);
@@ -525,6 +534,7 @@ public class Song
 		
 		db_pack_string (p, album);
 		db_pack_int (p, track_number);
+		db_pack_int (p, disc_number);
 		db_pack_string (p, year);
 		db_pack_int (p, duration);
 		db_pack_int (p, mtime);

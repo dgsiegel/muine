@@ -65,6 +65,13 @@ public class Metadata
 		}
 	}
 
+	private int disc_number;
+	public int DiscNumber {
+		get {
+			return disc_number;
+		}
+	}
+
 	private string year;
 	public string Year {
 		get {
@@ -139,6 +146,9 @@ public class Metadata
 	private static extern int metadata_get_track_number (IntPtr metadata);
 
 	[DllImport ("libmuine")]
+	private static extern int metadata_get_disc_number (IntPtr metadata);
+
+	[DllImport ("libmuine")]
 	private static extern IntPtr metadata_get_year (IntPtr metadata);
 
 	[DllImport ("libmuine")]
@@ -193,6 +203,7 @@ public class Metadata
 			album_art = null;
 
 		track_number = metadata_get_track_number (md);
+		disc_number = metadata_get_disc_number (md);
 
 		p = metadata_get_year (md);
 		if (p != IntPtr.Zero)

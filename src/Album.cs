@@ -214,12 +214,18 @@ public class Album
 			Song song_a = (Song) a;
 			Song song_b = (Song) b;
 
-			if (song_a.TrackNumber < song_b.TrackNumber)
-				return -1;
-			else if (song_a.TrackNumber > song_b.TrackNumber)
+                        if (song_a.DiscNumber < song_b.DiscNumber)
+                                return -1;
+			else if (song_a.DiscNumber > song_b.DiscNumber)
 				return 1;
-			else
-				return 0;
+			else {
+                                if (song_a.TrackNumber < song_b.TrackNumber)
+                                        return -1;
+                                else if (song_a.TrackNumber > song_b.TrackNumber)
+                                        return 1;
+                                else 
+                                        return 0;
+			}
 		}
 	}
 

@@ -48,7 +48,6 @@ PKG_CHECK_MODULES(MUINE,
 		  gdk-pixbuf-2.0 \
 		  gnome-vfs-2.0 \
 		  gtk+-2.0 \
-		  libgnome-2.0 \
 		  gnome-icon-theme \
 		  $audio_pkgconfig)
 AC_SUBST(MUINE_CFLAGS)

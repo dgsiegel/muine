@@ -1,3 +1,23 @@
+2004-12-26  Mariano Suárez-Alvarez  <msuarezalvarez@arnet.com.ar>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/metadata.c: (assign_metadata_mp3),
+	(assign_metadata_vorbiscomment), (metadata_get_track_number),
+	(metadata_get_disc_number):
+	* libmuine/metadata.h:
+	* src/Album.cs:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/Song.cs:
+
+	Take disc number into account when sorting album tracks.
+	
+	* configure.in:
+	* libmuine/player-gst.c:
+	* libmuine/player-xine.c:
+
+	Remove libgnome dependency.
+
 2004-12-25  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:

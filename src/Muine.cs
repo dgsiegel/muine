@@ -98,7 +98,7 @@ public class Muine : Gnome.Program
 
 		/* Load song database */
 		try {
-			DB = new SongDatabase (3);
+			DB = new SongDatabase (4);
 		} catch (Exception e) {
 			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 

@@ -46,6 +46,8 @@ GdkPixbuf  *metadata_get_album_art       (Metadata *metadata);
 
 int         metadata_get_track_number    (Metadata *metadata);
 
+int         metadata_get_disc_number     (Metadata *metadata);
+
 int         metadata_get_duration        (Metadata *metadata);
 
 const char *metadata_get_year            (Metadata *metadata);

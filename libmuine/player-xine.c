@@ -23,7 +23,7 @@
 #include <math.h>
 #include <xine.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include "player.h"
 

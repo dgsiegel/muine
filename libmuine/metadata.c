@@ -43,6 +43,7 @@ struct _Metadata {
 	char *album;
 
 	int track_number;
+	int disc_number;
 
 	char *year;
 
@@ -285,6 +286,7 @@ assign_metadata_mp3 (const char *filename,
 	int bitrate, samplerate, channels, version, vbr, count, i;
 	int time, tag_time;
 	char *track_number_raw;
+	char *disc_number_raw;
 
 	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
 	if (file == NULL) {
@@ -350,6 +352,13 @@ assign_metadata_mp3 (const char *filename,
 	else
 		metadata->track_number = -1;
 	g_free (track_number_raw);
+
+        disc_number_raw = get_mp3_comment_value (tag, "TPOS", 0);
+        if (disc_number_raw != NULL)
+                metadata->disc_number = atoi (disc_number_raw);
+        else
+                metadata->disc_number = -1;
+        g_free (disc_number_raw);
 
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
 
@@ -435,6 +444,12 @@ assign_metadata_vorbiscomment (Metadata *metadata,
 		metadata->track_number = atoi (raw);
 	else
 		metadata->track_number = -1;
+
+	raw = vorbis_comment_query (comment, "discnumber", 0);
+	if (raw != NULL)
+		metadata->disc_number = atoi (raw);
+	else
+		metadata->disc_number = -1;
 
 	metadata->year = get_vorbis_comment_value (comment, "date", 0);
 
@@ -776,6 +791,14 @@ metadata_get_track_number (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, -1);
 
 	return metadata->track_number;
+}
+
+int
+metadata_get_disc_number (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->disc_number;
 }
 
 const char *

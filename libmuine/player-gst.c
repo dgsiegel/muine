@@ -25,7 +25,7 @@
 #include <math.h>
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include "player.h"
 
