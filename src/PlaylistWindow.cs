@@ -1004,6 +1004,11 @@ public class PlaylistWindow : Window
 			try {
 				song = new Song (file);
 			} catch {
+				if (!playlist.HasFirst) {
+					SongChanged (true);
+					NSongsChanged ();
+				}
+
 				return;
 			}
 

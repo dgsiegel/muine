@@ -1,5 +1,11 @@
 2004-11-12  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Fix problem when opening muine with a bad file on the cmdline.
+
+2004-11-12  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 
 	Cut of "disc 1" and friends from album name before amazoning.
