@@ -206,7 +206,7 @@ cell_data_func (GtkTreeViewColumn *col,
 		CellDataFuncData *data)
 {
 	data->func (data->view, cell,
-	            pointer_list_model_get_pointer ((PointerListModel *) model, iter));
+		    pointer_list_model_get_pointer ((PointerListModel *) model, iter));
 }
 
 void
@@ -284,6 +284,18 @@ GList *
 pointer_list_view_get_contents (PointerListView *view)
 {
 	return pointer_list_model_get_pointers (view->model);
+}
+
+gpointer 
+pointer_list_get_handle_from_path (PointerListView *view, 
+		                   GtkTreePath *path)
+{
+	GtkTreeIter iter;
+
+	gtk_tree_model_get_iter ((GtkTreeModel *) view->model,
+				 &iter, path);
+
+	return pointer_list_model_get_pointer (view->model, &iter);
 }
 
 int

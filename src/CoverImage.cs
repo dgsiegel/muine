@@ -75,7 +75,7 @@ public class CoverImage : EventBox
 		}
 	}
 
-	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	public static void HandleDrop (Song song, DragDataReceivedArgs args)
 	{
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
 
@@ -141,5 +141,10 @@ public class CoverImage : EventBox
 		}
 
 		Drag.Finish (args.Context, success, false, args.Time);
+	}
+
+	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		HandleDrop (song, args);
 	}
 }

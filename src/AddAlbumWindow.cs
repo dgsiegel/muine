@@ -44,6 +44,17 @@ public class AddAlbumWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private Gdk.Pixbuf nothing_pixbuf;
 	
+	private enum TargetType {
+		UriList,
+		Uri
+	}
+
+	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
+		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
+	};
+
 	public AddAlbumWindow ()
 	{
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
@@ -101,6 +112,11 @@ public class AddAlbumWindow : Window
 		foreach (Album a in Muine.DB.Albums.Values) 
 			view.Append (a.Handle);
 		view.SelectFirst ();
+
+		view.DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
+		view.DragMotion += new DragMotionHandler (HandleDragMotion);
+		Gtk.Drag.DestSet (view, DestDefaults.All,
+				  cover_drag_entries, Gdk.DragAction.Copy);
 	}
 
 	public void Run ()
@@ -302,5 +318,28 @@ public class AddAlbumWindow : Window
 		view.Remove (album.Handle);
 
 		SelectFirstIfNeeded ();
+	}
+
+	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		TreePath path;
+
+		if (!view.GetPathAtPos (args.X, args.Y, out path, null))
+			return;
+
+		IntPtr album_ptr = view.GetHandleFromPath (path);
+		Album album = Album.FromHandle (album_ptr);
+
+		CoverImage.HandleDrop ((Song) album.Songs [0], args);
+	}
+
+	private void HandleDragMotion (object o, DragMotionArgs args)
+	{
+		TreePath path;
+
+		if (!view.GetPathAtPos (args.X, args.Y, out path, null))
+			return;
+		
+		view.SetDragDestRow (path, Gtk.TreeViewDropPosition.IntoOrAfter);
 	}
 }

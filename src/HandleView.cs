@@ -152,6 +152,14 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern IntPtr pointer_list_get_handle_from_path (IntPtr view,
+			                                                IntPtr path);
+
+	public IntPtr GetHandleFromPath (TreePath path) {
+		return pointer_list_get_handle_from_path (Raw, path.Handle);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern int pointer_list_view_get_length (IntPtr view);
 
 	public int Length {
