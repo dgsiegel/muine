@@ -30,6 +30,8 @@ o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
 o Support mastroska and mp3cue
+o Figure out how to add new command line options (showing up in --help etc),
+  and add gstreamer command line options and --start-hidden
 
 Depends on other components:
 ============================
