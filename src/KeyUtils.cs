@@ -58,6 +58,8 @@ public class KeyUtils
 		case Key.Super_R:
 		case Key.Hyper_L:
 		case Key.Hyper_R:
+		case Key.Mode_switch:
+		case Key.ISO_Level3_Shift:
 			ret = true;
 			break;
 		default:

@@ -1,3 +1,9 @@
+2004-03-06  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/KeyUtils.cs:
+
+	Add more modifier keys.
+
 2004-02-29  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
