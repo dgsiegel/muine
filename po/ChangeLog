@@ -1,3 +1,9 @@
+2004-04-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.skip:
+
+	Added player-xine.c.
+
 2004-03-23  Gustavo Maciel Dias Vieira  <gdvieira@zaz.com.br>
 
 	* pt_BR.po: Added Brazilian Portuguese translation done by
