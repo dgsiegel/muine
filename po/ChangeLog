@@ -1,4 +1,8 @@
 2004-03-10  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.in: Remove GroupsWindow.glade as it is not used atm.
+
+2004-03-10  Jorn Baayen  <jbaayen@gnome.org>
 	
 	* fr.po: Updated French translation by Vincent Carriere.
 
