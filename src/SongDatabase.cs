@@ -311,6 +311,8 @@ public class SongDatabase
 		if (album.RemoveSong (song)) {
 			Albums.Remove (song.AlbumKey);
 
+			Muine.CoverDB.RemoveCover (song.AlbumKey);
+
 			if (AlbumRemoved != null)
 				AlbumRemoved (album);
 		}

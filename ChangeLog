@@ -1,5 +1,11 @@
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/SongDatabase.cs:
+
+	Remove album cover pixbuf when not needed anymore.
+
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
 	* NEWS:
 	* configure.in:
 	* src/About.cs:
