@@ -309,7 +309,7 @@ public class CoverDatabase
 				double match_percent;
 				match_percent = match_count / (double) album_title_array.Length;
 
-				if (match_percent > 0.6) {
+				if (match_percent >= 0.6) {
 					string url = pi.Details [i].ImageUrlMedium;
 
 					if (url != null && url.Length > 0)

@@ -1,5 +1,11 @@
 2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+
+	Change > 0.6 to >= 0.6 in the amazon matching stuff.
+
+2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/StringUtils.cs:
