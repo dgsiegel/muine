@@ -293,8 +293,6 @@ public class PlaylistWindow : Window
 		setting_repeat_menu_item = false;
 	}
 
-	private Gdk.Pixbuf playing_pixbuf;
-	private Gdk.Pixbuf paused_pixbuf;
 	private Gdk.Pixbuf empty_pixbuf;
 
 	private CellRenderer pixbuf_renderer;
@@ -324,8 +322,6 @@ public class PlaylistWindow : Window
 		MarkupUtils.LabelSetMarkup (playlist_label, 0, (uint) "Playlist".Length,
 		                            false, true, false);
 
-		playing_pixbuf = new Gdk.Pixbuf (null, "muine-playing.png");
-		paused_pixbuf = new Gdk.Pixbuf (null, "muine-paused.png");
 		empty_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 	}
 
@@ -335,9 +331,9 @@ public class PlaylistWindow : Window
 
 		if (handle == view.Playing) {
 			if (player.Playing)
-				r.Pixbuf = playing_pixbuf;
+				r.Pixbuf = view.RenderIcon ("muine-playing", IconSize.Menu, null);
 			else
-				r.Pixbuf = paused_pixbuf;
+				r.Pixbuf = view.RenderIcon ("muine-paused", IconSize.Menu, null);
 		} else {
 			r.Pixbuf = empty_pixbuf;
 		}
@@ -536,7 +532,8 @@ public class PlaylistWindow : Window
 			if (song.CoverImage != null)
 				cover_image.FromPixbuf = song.CoverImage;
 			else
-				cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
+				cover_image.SetFromStock ("muine-default-cover",
+							  StockIcons.AlbumCoverSize);
 
 			string tip;
 			if (song.Album.Length > 0)
@@ -561,7 +558,8 @@ public class PlaylistWindow : Window
 			if (restart)
 				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
 		} else {
-			cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
+			cover_image.SetFromStock ("muine-default-cover",
+						  StockIcons.AlbumCoverSize);
 
 			tooltips.SetTip (cover_ebox, null, null);
 

@@ -1,5 +1,16 @@
 2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* data/images/muine-default-cover.png:
+	* src/CoverDatabase.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+	* src/StockIcons.cs:
+
+	Use stock icon system whenever possible.
+
+2004-02-02  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/CoverDatabase.cs:
 	* src/GnomeProxy.cs:
 	* src/Makefile.am:

@@ -37,8 +37,16 @@ public class StockIcons
 		"muine-volume-zero",
 		"muine-volume-min",
 		"muine-volume-medium",
-		"muine-volume-max"
+		"muine-volume-max",
+		"muine-tray-playing",
+		"muine-tray-paused",
+		"muine-default-cover",
+		"muine-cover-downloading",
+		"muine-playing",
+		"muine-paused"
 	};
+
+	public static IconSize AlbumCoverSize;
 
 	public static void Initialize ()
 	{
@@ -56,10 +64,14 @@ public class StockIcons
 				source.Pixbuf = new Pixbuf (menu_stream);
 				source.Size = IconSize.Menu;
 				source.SizeWildcarded = false;
+
 				iconset.AddSource (source);
 			}
 			
 			factory.Add (name, iconset);
 		}
+
+		/* register cover image icon size */
+		AlbumCoverSize = Icon.SizeRegister ("muine-album-cover-size", 66, 66);
 	}
 }

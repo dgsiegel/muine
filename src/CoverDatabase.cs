@@ -70,7 +70,12 @@ public class CoverDatabase
 
 		Covers = new Hashtable ();
 
-		DownloadingPixbuf = new Pixbuf (null, "muine-cover-downloading.png");
+		/* Hack to get the GtkStyle .. */
+		Gtk.Label label = new Gtk.Label ("");
+		label.EnsureStyle ();
+		DownloadingPixbuf = label.RenderIcon ("muine-cover-downloading",
+						      StockIcons.AlbumCoverSize, null);
+		label.Destroy ();
 
 		proxy = new GnomeProxy ();
 	}
@@ -115,7 +120,7 @@ public class CoverDatabase
 
 		/* create the background + border pixbuf */
 		border = new Pixbuf (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
-		border.Fill (0x000000ff); /* TODO get from theme */
+		border.Fill (0x000000ff);
 			
 		/* put the cover image on the border area */
 		cover.CopyArea (0, 0, cover.Width, cover.Height, border, 1, 1);

@@ -34,9 +34,6 @@ public class NotificationAreaIcon : Plug
 
 	private bool button_down = false;
 
-	private Pixbuf playing_pixbuf;
-	private Pixbuf paused_pixbuf;
-
 	public void Init ()
 	{
 		Raw = egg_tray_icon_new ("Muine music player");
@@ -59,9 +56,6 @@ public class NotificationAreaIcon : Plug
 
 	public NotificationAreaIcon () : base ()
 	{
-		playing_pixbuf = new Pixbuf (null, "muine-tray-playing.png");
-		paused_pixbuf = new Pixbuf (null, "muine-tray-paused.png");
-
 		tooltips = new Tooltips ();
 
 		Init ();
@@ -96,9 +90,9 @@ public class NotificationAreaIcon : Plug
 	private void UpdateImage ()
 	{
 		if (playing == true)
-			image.FromPixbuf = playing_pixbuf;
+			image.SetFromStock ("muine-tray-playing", IconSize.Menu);
 		else
-			image.FromPixbuf = paused_pixbuf;
+			image.SetFromStock ("muine-tray-paused", IconSize.Menu);
 	}
 
 	public bool Playing {
