@@ -6,7 +6,6 @@ o A song information dialog (Jorn is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
-o Queueing files that are not contained in the library
 
 Tough:
 ======
@@ -58,8 +57,6 @@ o Fix the bug where keysyms that are assigned while muine is running aren't
   Depends on GConf#, Ximian Bugzilla #55877
 o Figure out how to add new command line options (showing up in --help etc),
   and add gstreamer command line options and --start-hidden
-  Depends on popt support in Gtk#
-o Opening music files directly from nautilus
   Depends on popt support in Gtk#
 o Make SM work fully
   Depends on popt support in Gtk#

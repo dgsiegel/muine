@@ -6,4 +6,4 @@ muine
 	requires_terminal=false
 	startup_notify=true
 	supported_uri_schemes=file
-	mime_types=audio/x-mpegurl
+	mime_types=audio/x-mpegurl,application/x-ogg,application/ogg,application/x-flac,audio/x-flac,audio/x-mp3,audio/x-mpeg,audio/mpeg

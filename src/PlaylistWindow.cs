@@ -835,6 +835,17 @@ public class PlaylistWindow : Window
 				}
 			}
 
+			if (song == null) {
+				try {
+					song = new Song (line);
+				} catch {
+					song = null;
+				}
+
+				if (song != null)
+					song.Orphan = true;
+			}
+
 			if (song != null) {
 				AddSong (song);
 
@@ -963,6 +974,38 @@ public class PlaylistWindow : Window
 	{
 		foreach (int i in songs)
 			AddSong (new IntPtr (i));
+
+		EnsurePlaying ();
+
+		NSongsChanged ();
+	}
+
+	public void PlayFile (string file)
+	{
+		Song song = (Song) Muine.DB.Songs [file];
+
+		if (song == null) {
+			/* try to create a new song object */
+			try {
+				song = new Song (file);
+			} catch {
+				return;
+			}
+
+			song.Orphan = true;
+		}
+
+		if (song == null)
+			return;
+
+		IntPtr p = AddSong (song);
+
+		playlist.Playing = p;
+		playlist.Select (p);
+
+		SongChanged (true);
+
+		player.Playing = true;
 
 		EnsurePlaying ();
 
@@ -1234,7 +1277,7 @@ public class PlaylistWindow : Window
 
 				try {
 					song = new Song (finfo.FullName);
-				} catch (Exception e) {
+				} catch {
 					continue;
 				}
 

@@ -129,14 +129,23 @@ public class Muine : Gnome.Program
 	private void ProcessCommandLine (string [] args, bool use_conn)
 	{
 		if (args.Length > 0) {
-			/* try to load first argument as playlist */
+			/* try to load first argument as a playlist or music file */
 			System.IO.FileInfo finfo = new System.IO.FileInfo (args [0]);
 			
-			if (finfo.Exists && FileUtils.IsPlaylist (args [0])) {
-				if (use_conn)
-					conn.Send (finfo.FullName);
-				else
-					playlist.OpenPlaylist (finfo.FullName);
+			if (finfo.Exists) {
+				if (FileUtils.IsPlaylist (args [0])) {
+					/* load as playlist */
+					if (use_conn)
+						conn.Send ("LoadPlaylist " + finfo.FullName);
+					else
+						playlist.OpenPlaylist (finfo.FullName);
+				} else {
+					/* load as music file */
+					if (use_conn)
+						conn.Send ("PlayFile " + finfo.FullName);
+					else
+						playlist.PlayFile (finfo.FullName);
+				}
 
 				opened_playlist = true;
 			}
@@ -158,8 +167,10 @@ public class Muine : Gnome.Program
 	{
 		if (message == "ShowWindow")
 			playlist.WindowVisible = true;
-		else
-			playlist.OpenPlaylist (message);
+		else if (message.StartsWith ("LoadPlaylist "))
+			playlist.OpenPlaylist (message.Substring (13));
+		else if (message.StartsWith ("PlayFile "))
+			playlist.PlayFile (message.Substring (9));
 	}
 
 	private void HandleCoversDoneLoading ()

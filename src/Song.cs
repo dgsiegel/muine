@@ -200,6 +200,8 @@ public class Song
 		}
 	}
 
+	public bool Orphan = false;
+
 	private static string [] cover_filenames = {
 		"cover.jpg",
 		"Cover.jpg",
@@ -231,12 +233,12 @@ public class Song
 
 		checked_cover_image = true;
 
-		Muine.DB.UpdateSong (this);
-
 		cover_image = tmp_cover_image;
 		tmp_cover_image = null;
 		
 		Muine.CoverDB.ReplaceCover (AlbumKey, cover_image);
+
+		Muine.DB.UpdateSong (this);
 		
 		Muine.DB.SyncAlbumCoverImageWithSong (this);
 		

@@ -1,6 +1,18 @@
 2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
+	* data/muine.applications:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Support playing files that are not in the library.  Set Muine as 
+	your default ogg/mp3 handler in nautilus and you're in heaven.
+
+2004-06-13  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
 	* src/Muine.cs:
 	* src/PlaylistWindow.cs:
 

@@ -170,8 +170,10 @@ public class SongDatabase
 
 	public void UpdateSong (Song song)
 	{
-		db_store (dbf, song.Filename, true,
-			  new EncodeFuncDelegate (EncodeFunc), song.Handle);
+		if (!song.Orphan) {
+			db_store (dbf, song.Filename, true,
+				  new EncodeFuncDelegate (EncodeFunc), song.Handle);
+		}
 	
 		if (SongChanged != null)
 			SongChanged (song);
@@ -180,7 +182,7 @@ public class SongDatabase
 	/*** album management ***/
 	public void SyncAlbumCoverImageWithSong (Song song)
 	{
-		if (song.Album.Length == 0)
+		if (song.Album.Length == 0 || song.Orphan)
 			return;
 
 		Album album = (Album) Albums [song.AlbumKey];
