@@ -3,9 +3,9 @@ Easy:
 o Use the GTK+ 2.3 fileselector, if it is available.
 o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?)
   The 0.6 backend should stay supported because 0.7 is not very solid yet.
-o Add WMA support
-o Add MP4 support
-  This code can be stolen from Rhythmbox
+o Support OGM files
+  This will work once we use GStreamer 0.7
+o Use Gst 0.7 tag reading
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
   we use GTK 2.3
@@ -22,14 +22,6 @@ o Improve first time dialog once again ..
 
 Tough:
 ======
-o Volume normalization
-  We need a volume normalization algorithm. We can just change the relative
-  volume on the Player.
-  Now that gst 0.7 supports tag writing, we should just nick the replaygain
-  algorithm and set that on songs. Do it automatically. (GConf key to turn it off)
-  Only write to DB if file not writable ..
-o Support OGM files
-  This will work once we use GStreamer 0.7
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
@@ -62,9 +54,6 @@ Depends on other components:
 ============================
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
-o Support setting different equalizer settings, reverb etc for different
-  albums.
-  We need an equalizer element etc for GStreamer.
 o Translation
   Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
@@ -91,6 +80,8 @@ o Internet radio support
 o CD ripping
 o CD playback
 o Tagging support
+o Volume normalization. We support the replaygain tag, the tagging
+  application is responsible for setting these.. Muine is purely a player.
 
 All of these because these tasks can be handled much better by specialized
 applications.
