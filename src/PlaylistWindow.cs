@@ -50,12 +50,6 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private ImageMenuItem remove_song_menu_item;
 	[Glade.Widget]
-	private ImageMenuItem volume_up_menu_item;
-	private Image volume_up_menu_item_image;
-	[Glade.Widget]
-	private ImageMenuItem volume_down_menu_item;
-	private Image volume_down_menu_item_image;
-	[Glade.Widget]
 	private Button previous_button;
 	[Glade.Widget]
 	private Button play_pause_button;
@@ -248,13 +242,6 @@ public class PlaylistWindow : Window
 		skip_forward_menu_item_image = new Image ("muine-forward", IconSize.Menu);
 		skip_forward_menu_item.Image = skip_forward_menu_item_image;
 		skip_forward_menu_item_image.Visible = true;
-
-		volume_up_menu_item_image = new Image ("muine-volume-medium", IconSize.Menu);
-		volume_up_menu_item.Image = volume_up_menu_item_image;
-		volume_up_menu_item_image.Visible = true;
-		volume_down_menu_item_image = new Image ("muine-volume-min", IconSize.Menu);
-		volume_down_menu_item.Image = volume_down_menu_item_image;
-		volume_down_menu_item_image.Visible = true;
 	}
 
 	private Gdk.Pixbuf playing_pixbuf;
@@ -697,9 +684,6 @@ public class PlaylistWindow : Window
 		} else if (vol == 100) {
 			up_sensitive = false;
 		}
-
-		volume_up_menu_item.Sensitive = up_sensitive;
-		volume_down_menu_item.Sensitive = down_sensitive;
 	}
 
 	private void HandleNotificationAreaIconActivateEvent ()
@@ -858,24 +842,6 @@ public class PlaylistWindow : Window
 	private void HandleSkipForwardCommand (object o, EventArgs args)
 	{
 		SeekTo (player.Position + 5000);
-	}
-
-	private void HandleVolumeUpCommand (object o, EventArgs args)
-	{
-		int new_vol = player.Volume + 10;
-		if (new_vol > 100)
-			new_vol = 100;
-		
-		volume_button.Volume = new_vol;
-	}
-
-	private void HandleVolumeDownCommand (object o, EventArgs args)
-	{
-		int new_vol = player.Volume - 10;
-		if (new_vol < 0)
-			new_vol = 0;
-			
-		volume_button.Volume = new_vol;
 	}
 
 	private void HandleAddSongCommand (object o, EventArgs args)

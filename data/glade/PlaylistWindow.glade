@@ -40,7 +40,7 @@
 		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image320">
+			<widget class="GtkImage" id="image333">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-execute</property>
 			  <property name="icon_size">1</property>
@@ -68,7 +68,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image321">
+			<widget class="GtkImage" id="image334">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -90,7 +90,7 @@
 		      <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image322">
+			<widget class="GtkImage" id="image335">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save-as</property>
 			  <property name="icon_size">1</property>
@@ -155,7 +155,7 @@
 		      <accelerator key="space" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image323">
+			<widget class="GtkImage" id="image336">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -183,7 +183,7 @@
 		      <accelerator key="P" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image324">
+			<widget class="GtkImage" id="image337">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -205,7 +205,7 @@
 		      <accelerator key="N" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image325">
+			<widget class="GtkImage" id="image338">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -233,7 +233,7 @@
 		      <accelerator key="T" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image326">
+			<widget class="GtkImage" id="image339">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -255,7 +255,7 @@
 		      <accelerator key="Left" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image327">
+			<widget class="GtkImage" id="image340">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -277,7 +277,7 @@
 		      <accelerator key="Right" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image328">
+			<widget class="GtkImage" id="image341">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -312,7 +312,7 @@
 		      <accelerator key="S" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image329">
+			<widget class="GtkImage" id="image342">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -334,7 +334,7 @@
 		      <accelerator key="A" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image330">
+			<widget class="GtkImage" id="image343">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -362,7 +362,7 @@
 		      <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image331">
+			<widget class="GtkImage" id="image344">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -391,63 +391,6 @@
 		      <property name="label" translatable="yes">_Clear Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="HandleClearPlaylistCommand" last_modification_time="Sun, 11 Jan 2004 21:49:02 GMT"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkMenuItem" id="volume1">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Volume</property>
-	      <property name="use_underline">True</property>
-
-	      <child>
-		<widget class="GtkMenu" id="volume1_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="volume_up_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Volume _Up</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleVolumeUpCommand" last_modification_time="Sun, 11 Jan 2004 21:28:39 GMT"/>
-		      <accelerator key="Up" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image332">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="volume_down_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Volume _Down</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleVolumeDownCommand" last_modification_time="Sun, 11 Jan 2004 21:28:39 GMT"/>
-		      <accelerator key="Down" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image333">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 		</widget>

@@ -1,5 +1,12 @@
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/PlaylistWindow.cs:
+
+	Get rid of messy volume menu.
+
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
 	* configure.in:
 	* libmuine/Makefile.am:
 
