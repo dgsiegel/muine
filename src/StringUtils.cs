@@ -65,4 +65,12 @@ public class StringUtils
 	{
 		return JoinHumanReadable (strings, -1);
 	}
+
+	[DllImport ("libc")]
+	private static extern int strcmp (string a, string b);
+
+	public static int StrCmp (string a, string b)
+	{
+		return strcmp (a, b);
+	}
 }

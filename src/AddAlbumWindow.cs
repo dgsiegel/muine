@@ -129,7 +129,7 @@ public class AddAlbumWindow
 		Album a = Album.FromHandle (a_ptr);
 		Album b = Album.FromHandle (b_ptr);
 
-		return String.Compare (a.SortKey, b.SortKey);
+		return StringUtils.StrCmp (a.SortKey, b.SortKey);
 	}
 
 	private void PixbufCellDataFunc (HandleView view,

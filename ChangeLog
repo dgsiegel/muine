@@ -1,5 +1,13 @@
 2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/StringUtils.cs:
+
+	Use legacy strcmp for comparing sort keys.
+
+2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Scroll to playing song when having removed the playing songs.
