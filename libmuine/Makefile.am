@@ -3,8 +3,6 @@ SUBDIRS = id3-vfs egg
 INCLUDES =							\
 	-I$(top_srcdir)						\
         -DG_LOG_DOMAIN=\"libmuine\"				\
-	-DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED		\
-	-DGDK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED	\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"		\
 	$(MUINE_CFLAGS)						\
 	$(OGG_CFLAGS)						\

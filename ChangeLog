@@ -1,3 +1,9 @@
+2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/Makefile.am:
+
+	Remove duplicate deprecation markers.
+
 2004-12-31  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/AddAlbumWindow.cs:
