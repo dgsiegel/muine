@@ -2,7 +2,11 @@ Easy:
 =====
 
 o A song information dialog (in tray and song menus, and in add album window)
-  This one is half done, I'm on this (Jorn)
+  This one is half done, I'm on this (Jorn):
+  http://brokenbits.de/lars/cruft/edit-album-tab1.png
+  http://brokenbits.de/lars/cruft/edit-album-tab2.png
+  http://brokenbits.de/lars/cruft/edit-album-tab3.png
+  http://brokenbits.de/lars/cruft/track-info.png
 o D-BUS service (Sergio Rubio is on this)
 
 Tough:
@@ -39,6 +43,8 @@ o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
 o Speedier startup
+o Tagging backend
+o "Calculate replaygain" button
 
 Graphic artists needed:
 =======================
@@ -77,7 +83,6 @@ We won't have:
 o Internet radio support
 o CD ripping
 o CD playback
-o Tagging support
 o Volume normalization. We support the replaygain tag, the tagging
   application is responsible for setting these.. Muine is purely a player.
 o Opening music files directly from nautilus
