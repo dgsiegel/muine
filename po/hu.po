@@ -1,0 +1,448 @@
+# Hungarian translation of muine.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# This file is distributed under the same license as the muine package.
+# Laszlo Dvornik <dvornikl@mailbox.hu>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: muine\n"
+"POT-Creation-Date: 2004-04-06 20:30+0200\n"
+"PO-Revision-Date: 2004-04-05 19:17+0200\n"
+"Last-Translator: Laszlo Dvornik <dvornikl@mailbox.hu>\n"
+"Language-Team: Hungarian <gnome@gnome.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2
+msgid "_Play"
+msgstr "_Lejátszás"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Queue"
+msgstr "_Várólista"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Search:"
+msgstr "_Keresés:"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "Error"
+msgstr "Hiba"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Nem található zene</span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+"A Muine nem tudta megtalálni a zenegyűjteményét. Mit szeretne, mit tegyek?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+"A Muine az ön zenefájljainak tárolásához létre fogja hozni a Music és a "
+"Music/Playlists mappákat a saját mappájában. Ez a beállítás erősen ajánlott. "
+"Kézzel mindig importálhat más mappákat."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "Nem található zene"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+msgstr ""
+"Kézzel kell importálnia a zenéit. Ez általában nem ajánlott, csak tapasztalt "
+"felhasználók számára."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "Üres zenegyűjtemény _létrehozása"
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "_Semmit, saját magam fogom kezelni a zenéimet"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Play Album"
+msgstr "Album lejátszása"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Play Song"
+msgstr "Dal lejátszása"
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Play _Album..."
+msgstr "_Album lejátszása..."
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Play _Song..."
+msgstr "Dal le_játszása..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr "_Ismétlés"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Remove _Played Songs"
+msgstr "_Lejátszott dalok eltávolítása"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Backwards"
+msgstr "Ugrás _vissza"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "Skip _Forward"
+msgstr "Ugrás _előre"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "_Clear Playlist"
+msgstr "Lejátszólista _törlése"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Hide Window"
+msgstr "Ablak _elrejtése"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Import Folder..."
+msgstr "Mappa _importálása..."
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Information"
+msgstr "_Információ"
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "_Következő"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "Lejátszólista _megnyitása..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Lejátszólista"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "_Előző"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "Dal _eltávolítása"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "Lejátszólista men_tése másként..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Ugrás..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "_Dal"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Betöltés:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Ugrás"
+
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr "Kérdés"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Zenehallgatás"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine zenelejátszó"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Album hozzáadása ablak magassága."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Album hozzáadása ablak szélessége."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Dal hozzáadása ablak magassága."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Dal hozzáadása ablak szélessége."
+
+#: data/muine.schemas.in.h:5
+msgid "Default import folder."
+msgstr "Alapértelmezett importált mappa."
+
+#: data/muine.schemas.in.h:6
+msgid "Default playlist folder."
+msgstr "Alapértelmezett lejátszólista mappa."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr "Első indítás."
+
+#: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr "Figyelt mappák."
+
+#: data/muine.schemas.in.h:9
+msgid "Information window height."
+msgstr "Információ ablak magassága."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window width."
+msgstr "Információ ablak szélessége."
+
+#: data/muine.schemas.in.h:11
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Legutóbb használt mappa a \"Mappa importálása\" párbeszédablakból."
+
+#: data/muine.schemas.in.h:12
+msgid "Last used folder from the playlist file selectors."
+msgstr "Legutóbb használt mappa a lejátszólista fájlválasztókból."
+
+#: data/muine.schemas.in.h:13
+msgid "Playlist window height."
+msgstr "Lejátszólista ablak magassága."
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr "Lejátszólista ablak szélessége."
+
+#: data/muine.schemas.in.h:15
+msgid "Repeat mode."
+msgstr "Ismétlés mód."
+
+#: data/muine.schemas.in.h:16
+msgid "Volume level."
+msgstr "Hangerő."
+
+#: data/muine.schemas.in.h:17
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Hangerő. 0 = legalacsonyabb, 100 = legmagasabb."
+
+#: data/muine.schemas.in.h:18
+msgid "Watched folders."
+msgstr "Figyelt mappák."
+
+#: data/muine.schemas.in.h:19
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Engedélyezve legyen-e a lejátszólista ismétlés mód."
+
+#: data/muine.schemas.in.h:20
+msgid "false if Muine has been started before."
+msgstr "hamis, ha a Muine már előtte el volt indítva."
+
+#~ msgid "Jorn Baayen (jbaayen@gnome.org)"
+#~ msgstr "Jorn Baayen (jbaayen@gnome.org)"
+
+#~ msgid "Lee Willis (lee@leewillis.co.uk)"
+#~ msgstr "Lee Willis (lee@leewillis.co.uk)"
+
+#~ msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#~ msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+
+#~ msgid "translator-credits"
+#~ msgstr "Dvornik László <dvornikl@mailbox.hu>"
+
+#~ msgid "Muine"
+#~ msgstr "Muine"
+
+#~ msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#~ msgstr "Copyright © 2003, 2004 Jorn Baayen"
+
+#~ msgid "A music player"
+#~ msgstr "Egy zenelejátszó"
+
+#~ msgid "Thanks to Amazon.com for providing album cover images!"
+#~ msgstr "Köszönet az Amazon.com-nak az albumborító képek biztosításáért!"
+
+#~ msgid "Performed by {0}"
+#~ msgstr "Előadó: {0}"
+
+#~ msgid "the dj"
+#~ msgstr "a az the dj"
+
+#~ msgid "Failed to open database: {0}"
+#~ msgstr "Adatbázis megnyitása sikertelen: {0}"
+
+#~ msgid "Failed to load metadata: {0}"
+#~ msgstr "Metadata betöltése sikertelen: {0}"
+
+#~ msgid ""
+#~ "Failed to load the cover database: {0}\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Borító adatbázis betöltése sikertelen: {0}\n"
+#~ "Kilépés..."
+
+#~ msgid ""
+#~ "Failed to load the song database: {0}\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "Dal adatbázis betöltése sikertelen: {0}\n"
+#~ "Kilépés..."
+
+#~ msgid "Muine music player"
+#~ msgstr "Muine zenelejátszó"
+
+#~ msgid "_Previous Song"
+#~ msgstr "_Előző dal"
+
+#~ msgid "_Next Song"
+#~ msgstr "_Következő dal"
+
+#~ msgid "Song _Information"
+#~ msgstr "Dal _információ"
+
+#~ msgid "Show _Window"
+#~ msgstr "_Ablak megjelenítése"
+
+#~ msgid "Failed to create Player object"
+#~ msgstr "Lejátszó objektum létrehozása sikertelen"
+
+#~ msgid "Hide _Window"
+#~ msgstr "Ablak elre_jtése"
+
+#~ msgid "Play the previous song"
+#~ msgstr "Előző dal lejátszása"
+
+#~ msgid "Play the next song"
+#~ msgstr "Következő dal lejátszása"
+
+#~ msgid "Add an album to the playlist"
+#~ msgstr "Album hozzáadása a lejátszólistához"
+
+#~ msgid "Add a song to the playlist"
+#~ msgstr "Dal hozzáadása a lejátszólistához"
+
+#~ msgid "Change the volume level"
+#~ msgstr "Hangerő megváltoztatása"
+
+#~ msgid "Playlist"
+#~ msgstr "Lejátszólista"
+
+#~ msgid ""
+#~ "Failed to create the required GStreamer elements.\n"
+#~ "Exiting..."
+#~ msgstr ""
+#~ "A szükséges GStreamer elemek létrehozása sikertelen.\n"
+#~ "Kilépés..."
+
+#~ msgid "Playlist (Repeating {0} hour)"
+#~ msgid_plural "Playlist (Repeating {0} hours)"
+#~ msgstr[0] "Lejátszólista ({0} óra ismétlése)"
+#~ msgstr[1] "Lejátszólista ({0} óra ismétlése)"
+
+#~ msgid "Playlist (Repeating {0} minute)"
+#~ msgid_plural "Playlist (Repeating {0} minutes)"
+#~ msgstr[0] "Lejátszólista ({0} perc ismétlése)"
+#~ msgstr[1] "Lejátszólista ({0} perc ismétlése)"
+
+#~ msgid "Playlist (Repeating)"
+#~ msgstr "Lejátszólista (ismétlés)"
+
+#~ msgid "Playlist ({0} hour remaining)"
+#~ msgid_plural "Playlist ({0} hours remaining)"
+#~ msgstr[0] "Lejátszólista ({0} óra van hátra)"
+#~ msgstr[1] "Lejátszólista ({0} óra van hátra)"
+
+#~ msgid "Playlist ({0} minute remaining)"
+#~ msgid_plural "Playlist ({0} minutes remaining)"
+#~ msgstr[0] "Lejátszólista ({0} perc van hátra)"
+#~ msgstr[1] "Lejátszólista ({0} perc van hátra)"
+
+#~ msgid "Playlist (Less than one minute remaining)"
+#~ msgstr "Lejátszólista (kevesebb mint egy perc van hátra)"
+
+#~ msgid "From \"{0}\""
+#~ msgstr "Ettől: \"{0}\""
+
+#~ msgid "Album unknown"
+#~ msgstr "Ismeretlen album"
+
+#~ msgid "Drop an image here to use it as album cover"
+#~ msgstr "Ejtsen ide egy albumborítóként használandó képet"
+
+#~ msgid "{0} - Muine Music Player"
+#~ msgstr "{0} - Muine zenelejátszó"
+
+#~ msgid "Pause music playback"
+#~ msgstr "Zenelejátszás szüneteltetése"
+
+#~ msgid "P_ause"
+#~ msgstr "_Szünet"
+
+#~ msgid "Resume music playback"
+#~ msgstr "Zenelejátszás folytatása"
+
+#~ msgid "Pl_ay"
+#~ msgstr "_Lejátszás"
+
+#~ msgid "Start music playback"
+#~ msgstr "Zenelejátszás indítása"
+
+#~ msgid "Failed to open {0} for reading"
+#~ msgstr "{0} megnyitása olvasásra sikertelen"
+
+#~ msgid "Failed to open {0} for writing"
+#~ msgstr "{0} megnyitása írásra sikertelen"
+
+#~ msgid "Import Folder"
+#~ msgstr "Mappa importálása"
+
+#~ msgid "Open Playlist"
+#~ msgstr "Lejátszólista megnyitása"
+
+#~ msgid "Save Playlist"
+#~ msgstr "Lejátszólista mentése"
+
+#~ msgid ""
+#~ "File {0} will be overwritten.\n"
+#~ "If you choose yes, the contents will be lost.\n"
+#~ "\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "A(z) {0} fájl felül fog íródni.\n"
+#~ "Ha igent választ, a tartalom el fog veszni.\n"
+#~ "\n"
+#~ "Folytatja?"
+
+#~ msgid "Importing {0}..."
+#~ msgstr "{0} importálása..."
+
+#~ msgid "Unknown"
+#~ msgstr "Ismeretlen"
+
+#~ msgid "{0} and others"
+#~ msgstr "{0} és a többi"
+
+#~ msgid "{0} and {1}"
+#~ msgstr "{0} és {1}"
