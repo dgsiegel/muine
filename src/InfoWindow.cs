@@ -24,7 +24,7 @@ using System.Text;
 using Gtk;
 using GLib;
 
-public class InfoWindow
+public class InfoWindow : Window
 {
 	[Glade.Widget]
 	Window window;
@@ -50,6 +50,8 @@ public class InfoWindow
 	{
 		Glade.XML gxml = new Glade.XML (null, "InfoWindow.glade", "window", null);
 		gxml.Autoconnect (this);
+
+		Raw = window.Handle;
 
 		window.Title = title;
 
@@ -93,13 +95,8 @@ public class InfoWindow
 		Muine.GConfClient.Set ("/apps/muine/information_window/height", height);
 	}
 
-	public void Run (PlaylistWindow parent)
+	public void Run ()
 	{
-		if (parent.WindowVisible)
-			window.TransientFor = parent;
-		else
-			window.TransientFor = null;
-
 		window.ShowAll ();
 
 		window.Present ();

@@ -104,7 +104,8 @@ public class CoverDatabase
 	{
 		Pixbuf border;
 
-		int target_size = 64; /* if this is changed, the glade file needs to be updated, too */
+		/* 1px border, so -2 .. */
+		int target_size = StockIcons.RawAlbumCoverSize - 2;
 
 		/* scale the cover image if necessary */
 		if (cover.Height > target_size || cover.Width > target_size) {

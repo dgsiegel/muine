@@ -1,3 +1,41 @@
+2004-02-27  Jorn Baayen  <jbaayen@gnome.org>
+
+	* NEWS:
+	* README:
+	* configure.in:
+	* src/About.cs:
+
+	Gtk# 0.17 has been released, release 0.5.0.
+	
+	* data/glade/SkipToWindow.glade:
+
+	Pressing Escape will close the window.
+	
+	* libmuine/metadata.c: (metadata_load):
+
+	Escape filename before handing it over to vfs, based on a patch
+	by Jeremy Jay <Jeremy_Jay@baylor.edu>
+
+	* po/POTFILES.in:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/InfoWindow.cs:
+	* src/PlaylistWindow.cs:
+
+	Add missing strings for translation, work around a Gtk# bug
+	with window parenting.
+
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/StockIcons.cs:
+
+	Store cover image dimensions in one place.
+	
+	* data/glade/PlaylistWindow.glade:
+	* src/NotificationAreaIcon.cs:
+	
+	Disable information window for the release.
+
 2004-02-27  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jbaayen@gnome.org>
 

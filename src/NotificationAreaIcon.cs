@@ -101,12 +101,14 @@ public class NotificationAreaIcon : Plug
 		play_album_menu_item.Image = new Gtk.Image ("muine-add-album", IconSize.Menu);
 		menu.Append (play_album_menu_item);
 
+/* FIXME
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 
 		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Song _Information"));
 		information_menu_item.Image = new Gtk.Image (Stock.DialogInfo, IconSize.Menu);
 		menu.Append (information_menu_item);
+		*/
 
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);

@@ -15,6 +15,7 @@ libmuine/egg/eggtrayicon.c
 libmuine/egg/eggtraymanager.c
 src/About.cs
 src/AddAlbumWindow.cs
+src/AddSongWindow.cs
 src/Album.cs
 src/CoverDatabase.cs
 src/Metadata.cs

@@ -23,7 +23,7 @@ using System.Collections;
 using Gtk;
 using GLib;
 
-public class AddSongWindow
+public class AddSongWindow : Window
 {
 	[Glade.Widget]
 	Window window;
@@ -49,7 +49,9 @@ public class AddSongWindow
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);
 
-		window.Title = "Add Song";
+		Raw = window.Handle;
+
+		window.Title = Muine.Catalog.GetString ("Play Song");
 
 		int width;
 		try {
@@ -102,16 +104,11 @@ public class AddSongWindow
 		}
 	}
 
-	public void Run (PlaylistWindow parent)
+	public void Run ()
 	{
 		search_entry.GrabFocus ();
 
 		view.SelectFirst ();
-
-		if (parent.WindowVisible)
-			window.TransientFor = parent;
-		else
-			window.TransientFor = null;
 
 		window.Present ();
 	}

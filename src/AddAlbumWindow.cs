@@ -23,7 +23,7 @@ using System.Collections;
 using Gtk;
 using GLib;
 
-public class AddAlbumWindow
+public class AddAlbumWindow : Window
 {
 	[Glade.Widget]
 	Window window;
@@ -49,7 +49,9 @@ public class AddAlbumWindow
 		Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
 		gxml.Autoconnect (this);
 
-		window.Title = "Add Album";
+		Raw = window.Handle;
+
+		window.Title = Muine.Catalog.GetString ("Play Album");
 
 		int width;
 		try {
@@ -101,16 +103,11 @@ public class AddAlbumWindow
 		view.SelectFirst ();
 	}
 
-	public void Run (PlaylistWindow parent)
+	public void Run ()
 	{
 		search_entry.GrabFocus ();
 
 		view.SelectFirst ();
-
-		if (parent.WindowVisible)
-			window.TransientFor = parent;
-		else
-			window.TransientFor = null;
 
 		window.Present ();
 	}
@@ -142,8 +139,8 @@ public class AddAlbumWindow
 		else
 			r.Pixbuf = nothing_pixbuf;
 
-		r.Height = 64 + 5 * 2;
-		r.Width = 64 + 5 * 2;
+		r.Height = StockIcons.RawAlbumCoverSize + 5 * 2;
+		r.Width = StockIcons.RawAlbumCoverSize + 5 * 2;
 	}
 
 	private void TextCellDataFunc (HandleView view,

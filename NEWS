@@ -1,3 +1,26 @@
+0.5.0
+=====
+
+- Fully translatable [Jorn Baayen]
+
+  The following translations are available:
+  
+  Catalan [Aleix Badia i Bosch <abadia@ica.es>]
+  Croatian [Robert Sedak <robert.sedak@sk.tel.hr>]
+  Czech [Miloslav Trmac <mitr@volny.cz>]
+  Dutch [Tino Meinen <a.t.meinen@chello.nl>]
+  German [Matthias Debus <psic4t@netbands.de>]
+  French [Vincent Carriere <carriere_vincent@yahoo.fr>]
+  Portuguese [Duarte Loreto <happyguy_pt@hotmail.com>]
+  Spanish [Francisco Javier F. Serrador <serrador@cvs.gnome.org>]
+  Serbian [Данило Шеган <dsegan@gmx.net>]
+  Swedish [Christian Rose <menthos@menthos.com>]
+
+- The tray menu now features a popdown menu
+- Support for setting custom cover images through Drag'n'Drop
+- Multiple selection is now possible in the playlist window
+- Various major bugfixes
+
 0.4.0
 =====
 

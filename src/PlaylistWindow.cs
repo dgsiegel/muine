@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices; //FIXME
 
 using Gtk;
 using GLib;
@@ -328,7 +329,7 @@ public class PlaylistWindow : Window
 		icon.play_pause_menu_item.Activated += new EventHandler (HandlePlayPauseCommand);
 		icon.previous_song_menu_item.Activated += new EventHandler (HandlePreviousCommand);
 		icon.next_song_menu_item.Activated += new EventHandler (HandleNextCommand);
-		icon.information_menu_item.Activated += new EventHandler (HandleInformationCommand);
+//FIXME		icon.information_menu_item.Activated += new EventHandler (HandleInformationCommand);
 		icon.play_song_menu_item.Activated += new EventHandler (HandleAddSongCommand);
 		icon.play_album_menu_item.Activated += new EventHandler (HandleAddAlbumCommand);
 		icon.show_window_menu_item.Activated += new EventHandler (HandleToggleWindowVisibilityCommand);
@@ -560,8 +561,10 @@ public class PlaylistWindow : Window
 		skip_backwards_menu_item.Sensitive = has_first;
 		skip_forward_menu_item.Sensitive = has_first;
 
+/* FIXME
 		information_menu_item.Sensitive = has_first;
 		icon.information_menu_item.Sensitive = has_first;
+		*/
 
 		UpdateTimeLabels (player.Position);
 
@@ -1097,17 +1100,23 @@ public class PlaylistWindow : Window
 		InfoWindow id = new InfoWindow ("Information for " + song.Title);
 		id.Load (album);
 		
-		id.Run (this);
+		id.Run ();
+		
+		AddChildWindowIfVisible (id);
 	}
 
 	private void HandleAddSongCommand (object o, EventArgs args)
 	{
-		add_song_window.Run (this);
+		add_song_window.Run ();
+		
+		AddChildWindowIfVisible (add_song_window);
 	}
 
 	private void HandleAddAlbumCommand (object o, EventArgs args)
 	{
-		add_album_window.Run (this);
+		add_album_window.Run ();
+
+		AddChildWindowIfVisible (add_album_window);
 	}
 
 	private bool HandleDirectory (DirectoryInfo info,
@@ -1389,5 +1398,19 @@ public class PlaylistWindow : Window
 		
 		if (n_songs_changed)
 			NSongsChanged ();
+	}
+
+	[DllImport ("libgtk-win32-2.0-0.dll")]
+	private static extern void gtk_window_set_transient_for (IntPtr window, IntPtr parent);
+
+	public void AddChildWindowIfVisible (Window window)
+	{
+		if (WindowVisible)
+			window.TransientFor = this;
+		else {
+			/* FIXME this works around a Gtk# bug.. */
+			gtk_window_set_transient_for (window.Handle, IntPtr.Zero);
+			//window.TransientFor = null;
+		}
 	}
 }

@@ -659,22 +659,25 @@ metadata_load (const char *filename,
 {
 	Metadata *m = NULL;
 	GnomeVFSFileInfo *info;
+	char *escaped;
 
 	g_return_val_if_fail (filename != NULL, NULL);
 
+	escaped = gnome_vfs_escape_path_string (filename);
+
 	info = gnome_vfs_file_info_new ();
-	gnome_vfs_get_file_info (filename, info,
+	gnome_vfs_get_file_info (escaped, info,
 				 GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
 	if (!strcmp (info->mime_type, "audio/x-mp3") ||
 	    !strcmp (info->mime_type, "audio/mpeg"))
-		m = assign_metadata_mp3 (filename, info, error_message_return);
+		m = assign_metadata_mp3 (escaped, info, error_message_return);
 	else if (!strcmp (info->mime_type, "application/x-ogg") ||
 		 !strcmp (info->mime_type, "application/ogg"))
-		m = assign_metadata_ogg (filename, error_message_return);
+		m = assign_metadata_ogg (escaped, error_message_return);
 	else if (!strcmp (info->mime_type, "application/x-flac") ||
 		 !strcmp (info->mime_type, "audio/x-flac"))
-		m = assign_metadata_flac (filename, error_message_return);
+		m = assign_metadata_flac (escaped, error_message_return);
 	else
 		*error_message_return = g_strdup ("Unknown format");
 
@@ -684,6 +687,8 @@ metadata_load (const char *filename,
 	}
 
 	gnome_vfs_file_info_unref (info);
+
+	g_free (escaped);
 
 	return m;
 }
