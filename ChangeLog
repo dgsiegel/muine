@@ -1,5 +1,12 @@
 2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/ProgressWindow.glade:
+	* src/ProgressWindow.cs:
+
+	Progress window polish.
+
+2004-01-22  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/SearchMusicWindow.glade:
 	* data/muine.schemas.in:
 	* src/FileSelector.cs:

@@ -30,7 +30,8 @@ public class ProgressWindow
 	[Glade.Widget]
 	Label loading_label;
 	[Glade.Widget]
-	Label file_label;
+	Container file_label_container;
+	private EllipsizingLabel file_label;
 
 	bool canceled;
 	
@@ -42,21 +43,25 @@ public class ProgressWindow
 		window.TransientFor = parent;
 		window.Title = "Importing " + folder + "...";
 
+		window.SetDefaultSize (300, -1);
+
+		file_label = new EllipsizingLabel ("");
+		file_label.Xalign = 0.0f;
+		file_label.Visible = true;
+		file_label_container.Add (file_label);
+
 		MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
 					    false, true, false);
 
-		window.Visible = true;
-
 		canceled = false;
-
-		while (Global.EventsPending () == 1)
-			Main.Iteration ();
 	}
 
 	public bool ReportFile (string file)
 	{
 		if (canceled)
 			return false;
+
+		window.Visible = true;
 
 		file_label.Text = file;
 
