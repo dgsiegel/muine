@@ -1,3 +1,12 @@
+2005-02-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* PluginLib/IPlayer.cs:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+	* src/PlaylistWindow.cs:
+
+	Allow plugins to pack widgets into the playlistwindow's main
+	vbox. 
+
 2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:

@@ -269,6 +269,21 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
         </remarks>
       </Docs>
     </Member>
+    <Member MemberName="PackWidget">
+      <MemberSignature Language="C#" Value="public virtual void PackWidget (Gtk.Widget widget);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="widget" Type="Gtk.Widget" />
+      </Parameters>
+      <Docs>
+        <summary>Packs a widget into the playlist window</summary>
+        <param name="widget">a <see cref="T:Gtk.Widget" /></param>
+        <remarks>Use this to pack a widget into the end of the playlist window's main vbox</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="Window">
       <MemberSignature Language="C#" Value="public virtual Gtk.Window Window { get; };" />
       <MemberType>Property</MemberType>

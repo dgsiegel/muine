@@ -432,6 +432,12 @@ namespace Muine
 			Global.Exit ();
 		}
 
+		// Methods :: Public :: PackWidget (IPlayer)
+		public void PackWidget (Widget widget)
+		{
+			main_vbox.PackEnd (widget);
+		}
+
 		// Methods :: Public :: UpdateWindowVisibilityUI
 		public void UpdateWindowVisibilityUI ()
 		{

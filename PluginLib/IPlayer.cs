@@ -80,6 +80,8 @@ namespace Muine.PluginLib
 			get;
 		}
 
+		void PackWidget (Gtk.Widget widget);
+
 		Gtk.Window Window {
 			get;
 		}
