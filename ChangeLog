@@ -1,5 +1,42 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* libmuine/metadata.c: (parse_raw_track_number),
+	(assign_metadata_mp3), (assign_metadata_vorbiscomment),
+	(metadata_get_track_number), (metadata_get_total_tracks):
+	* libmuine/metadata.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/Album.cs:
+	* src/Global.cs:
+	* src/Item.cs:
+	* src/Metadata.cs:
+	* src/Song.cs:
+
+	Only list complete albums in albums list. An album is complete
+	if the number of tracks equals the "total number of tracks" tag.
+	(We are "mild"- 3 more or less will be fine too)
+
+	The "total number of tracks" tag is the second half of the
+	"track number" tag (N/TOTAL) in ID3, or the "tracktotal" tag
+	in vorbiscomment.
+
+	Use easytag 1.99.x to tag your albums like this if they aren't
+	already. You can do them all at once by clicking one button.
+	
+	* src/ProgressWindow.cs:
+
+	Remove "..." from window title.
+
+	* src/CoverGetter.cs:
+	* src/Global.cs:
+	* src/ThreadBase.cs:
+
+	Set "IsBackground" on all threads to true, and use Application.Quit.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/ErrorDialog.cs:
 	* src/Global.cs:
 	* src/OverwriteDialog.cs:

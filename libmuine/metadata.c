@@ -43,6 +43,7 @@ struct _Metadata {
 	char *album;
 
 	int track_number;
+	int total_tracks;
 	int disc_number;
 
 	char *year;
@@ -58,6 +59,29 @@ struct _Metadata {
 
 	GdkPixbuf *album_art;
 };
+
+static void
+parse_raw_track_number (Metadata *metadata,
+			const char *raw)
+{
+	char *part2;
+
+	if (raw == NULL) {
+		metadata->track_number = -1;
+		metadata->total_tracks = -1;
+
+		return;
+	}
+
+	part2 = strstr (raw, "/");
+
+	if (part2 != NULL)
+		metadata->total_tracks = atoi (part2 + 1);
+	else
+		metadata->total_tracks = -1;
+
+	metadata->track_number = atoi (raw);
+}
 
 static int
 get_mp3_duration (struct id3_tag *tag)
@@ -347,10 +371,7 @@ assign_metadata_mp3 (const char *filename,
 	metadata->album = get_mp3_comment_value (tag, ID3_FRAME_ALBUM, 0);
 
 	track_number_raw = get_mp3_comment_value (tag, ID3_FRAME_TRACK, 0);
-	if (track_number_raw != NULL)
-		metadata->track_number = atoi (track_number_raw);
-	else
-		metadata->track_number = -1;
+	parse_raw_track_number (metadata, track_number_raw);
 	g_free (track_number_raw);
 
         disc_number_raw = get_mp3_comment_value (tag, "TPOS", 0);
@@ -440,10 +461,13 @@ assign_metadata_vorbiscomment (Metadata *metadata,
 	metadata->album = get_vorbis_comment_value (comment, "album", 0);
 
 	raw = vorbis_comment_query (comment, "tracknumber", 0);
-	if (raw != NULL)
-		metadata->track_number = atoi (raw);
-	else
-		metadata->track_number = -1;
+	parse_raw_track_number (metadata, raw);
+
+	if (metadata->total_tracks < 0) {
+		raw = vorbis_comment_query (comment, "tracktotal", 0);
+		if (raw != NULL)
+			metadata->total_tracks = atoi (raw);
+	}
 
 	raw = vorbis_comment_query (comment, "discnumber", 0);
 	if (raw != NULL)
@@ -791,6 +815,14 @@ metadata_get_track_number (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, -1);
 
 	return metadata->track_number;
+}
+
+int
+metadata_get_total_tracks (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->total_tracks;
 }
 
 int

@@ -77,17 +77,7 @@ namespace Muine
 			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnChanged);
 			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnRemoved);
 
-			lock (Global.DB) {
-				int i = 0;
-
-				foreach (Song s in Global.DB.Songs.Values) {
-					base.List.Append (s.Handle);
-
-					i++;
-					if (i >= List.FakeLength)
-						break;
-				}
-			}
+			base.Search ();
 		}
 
 		// Handlers

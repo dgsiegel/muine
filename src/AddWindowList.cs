@@ -91,6 +91,7 @@ namespace Muine
 		public void HandleRemoved (IntPtr ptr)
 		{
 			base.Remove (ptr);
+
 			SelectFirstIfNeeded ();	
 		}
 
@@ -105,7 +106,7 @@ namespace Muine
 		// Methods :: Private :: SelectFirstIfNeeded
 		private void SelectFirstIfNeeded ()
 		{
-			if (!this.HasSelection)
+			if (!this.HasSelection && this.Length > 0)
 				SelectFirst ();
 		}
 	}

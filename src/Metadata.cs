@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -36,21 +36,6 @@ namespace Muine
 		// Objects
 		private IntPtr raw = IntPtr.Zero;
 
-		// Variables
-		private string title;
-		private string [] artists;
-		private string [] performers;
-		private string album;
-		private Pixbuf album_art;
-		private int track_number;
-		private int disc_number;
-		private string year;
-		private int duration;
-		private string mime_type;
-		private int mtime;
-		private double gain;
-		private double peak;
-
 		// Constructor
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_load (string filename,
@@ -74,15 +59,11 @@ namespace Muine
 
 		public string Title {
 			get {
-				if (title == null) {
-					IntPtr p = metadata_get_title (raw);
-					if (p == IntPtr.Zero)
-						title = "";
-					else
-						title = Marshal.PtrToStringAnsi (p);
-				}
-				
-				return title;
+				IntPtr p = metadata_get_title (raw);
+				if (p == IntPtr.Zero)
+					return "";
+				else
+					return Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -95,20 +76,16 @@ namespace Muine
 
 		public string [] Artists {
 			get {
-				if (artists == null) {
-					ArrayList strings = new ArrayList ();
+				ArrayList strings = new ArrayList ();
 
-					int count = metadata_get_artist_count (raw);
-					for (int i = 0; i < count; i++) {
-						string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
-						if (tmp.Length > 0)
-							strings.Add (tmp);
-					}
-
-					artists = (string []) strings.ToArray (typeof (string));
+				int count = metadata_get_artist_count (raw);
+				for (int i = 0; i < count; i++) {
+					string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
+					if (tmp.Length > 0)
+						strings.Add (tmp);
 				}
 
-				return artists;
+				return (string []) strings.ToArray (typeof (string));
 			}
 		}
 
@@ -121,20 +98,16 @@ namespace Muine
 
 		public string [] Performers {
 			get {
-				if (performers == null) {
-					ArrayList strings = new ArrayList ();
+				ArrayList strings = new ArrayList ();
 
-					int count = metadata_get_performer_count (raw);
-					for (int i = 0; i < count; i++) {
-						string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
-						if (tmp.Length > 0)
-							strings.Add (tmp);
-					}
-
-					performers = (string []) strings.ToArray (typeof (string));
+				int count = metadata_get_performer_count (raw);
+				for (int i = 0; i < count; i++) {
+					string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
+					if (tmp.Length > 0)
+						strings.Add (tmp);
 				}
-				
-				return performers;
+
+				return (string []) strings.ToArray (typeof (string));
 			}			
 		}
 
@@ -144,15 +117,11 @@ namespace Muine
 
 		public string Album {
 			get { 
-				if (album == null) {
-					IntPtr p = metadata_get_album (raw);
-					if (p == IntPtr.Zero)
-						album = "";
-					else
-						album = Marshal.PtrToStringAnsi (p);
-				}
-				
-				return album;
+				IntPtr p = metadata_get_album (raw);
+				if (p == IntPtr.Zero)
+					return "";
+				else
+					return Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -162,15 +131,11 @@ namespace Muine
 
 		public Pixbuf AlbumArt {
 			get { 
-				if (album_art == null) {
-					IntPtr p = metadata_get_album_art (raw);
-					if (p == IntPtr.Zero)
-						album_art = null;
-					else
-						album_art = new Pixbuf (p);
-				}
-				
-				return album_art;
+				IntPtr p = metadata_get_album_art (raw);
+				if (p == IntPtr.Zero)
+					return null;
+				else
+					return new Pixbuf (p);
 			}
 		}
 
@@ -180,9 +145,17 @@ namespace Muine
 		
 		public int TrackNumber {
 			get { 
-				if (track_number == 0)
-					track_number = metadata_get_track_number (raw);
-				return track_number;
+				return metadata_get_track_number (raw);
+			}
+		}
+
+		// Properties :: TotalTracks (get;)
+		[DllImport ("libmuine")]
+		private static extern int metadata_get_total_tracks (IntPtr metadata);
+		
+		public int TotalTracks {
+			get { 
+				return metadata_get_total_tracks (raw);
 			}
 		}
 
@@ -192,9 +165,7 @@ namespace Muine
 
 		public int DiscNumber {
 			get { 
-				if (disc_number == 0)
-					disc_number = metadata_get_disc_number (raw);
-				return disc_number;
+				return metadata_get_disc_number (raw);
 			}
 		}
 
@@ -204,15 +175,11 @@ namespace Muine
 
 		public string Year {
 			get {
-				if (year == null) {
-					IntPtr p = metadata_get_year (raw);
-					if (p == IntPtr.Zero)
-						year = "";
-					else
-						year = Marshal.PtrToStringAnsi (p);
-				}
-				
-				return year;
+				IntPtr p = metadata_get_year (raw);
+				if (p == IntPtr.Zero)
+					return "";
+				else
+					return Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -222,9 +189,7 @@ namespace Muine
 
 		public int Duration {
 			get { 
-				if (duration == 0)
-					duration = metadata_get_duration (raw);
-				return duration;
+				return metadata_get_duration (raw);
 			}
 		}
 
@@ -234,15 +199,11 @@ namespace Muine
 
 		public string MimeType {
 			get {
-				if (mime_type == null) {
-					IntPtr p = metadata_get_mime_type (raw);
-					if (p == IntPtr.Zero)
-						mime_type = "";
-					else
-						mime_type = Marshal.PtrToStringAnsi (p);
-				}
-				
-				return mime_type;
+				IntPtr p = metadata_get_mime_type (raw);
+				if (p == IntPtr.Zero)
+					return "";
+				else
+					return Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -252,10 +213,7 @@ namespace Muine
 
 		public int MTime {
 			get {
-				if (mtime == 0)
-					mtime = metadata_get_mtime (raw);
-					
-				return mtime; 
+				return metadata_get_mtime (raw);
 			}
 		}
 
@@ -265,9 +223,7 @@ namespace Muine
 
 		public double Gain {
 			get { 
-				if (gain == 0)
-					gain = metadata_get_gain (raw);
-				return gain; 
+				return metadata_get_gain (raw);
 			}
 		}
 
@@ -277,10 +233,7 @@ namespace Muine
 		
 		public double Peak {
 			get { 
-				if (peak == 0)
-					peak = metadata_get_peak (raw);
-
-				return peak; 
+				return metadata_get_peak (raw);
 			}
 		}
 	}

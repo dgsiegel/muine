@@ -30,7 +30,7 @@ namespace Muine
 	{
 		// Strings
 		private static readonly string string_title =
-			Catalog.GetString ("Importing {0}...");
+			Catalog.GetString ("Importing {0}");
 		private static readonly string string_loading =
 			Catalog.GetString ("Loading:");
 

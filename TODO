@@ -11,7 +11,6 @@ o A song information dialog (Jorn is on this)
 o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
-o "Only single songs" folder stuff: checkbox in filesel??
 o Split out PlaylistWindow
 o Experiment a bit with cover images: See how it works if we'd load them
   from the gdbm file on demand, instead of keeping them all in memory.

@@ -217,8 +217,8 @@ namespace Muine
 			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
 		}
 
-		// Methods :: Private :: Search
-		private bool Search ()
+		// Methods :: Protected :: Search
+		protected bool Search ()
 		{
 			AssertHasItems ();
 		
@@ -246,6 +246,9 @@ namespace Muine
 					}
 				} else {
 					foreach (Item item in items) {
+						if (!item.Public)
+							continue;
+
 						l.Append (item.Handle);
 					
 						i++;

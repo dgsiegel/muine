@@ -41,6 +41,7 @@ namespace Muine
 			GLib.Idle.Add (idle);
 
 			thread = new Thread (new ThreadStart (ThreadFunc));
+			thread.IsBackground = true;
 			thread.Priority = ThreadPriority.BelowNormal;
 		}
 

@@ -51,6 +51,7 @@ namespace Muine
 		private string [] performers;
 		private string album;
 		private int track_number;
+		private int n_album_tracks;
 		private int disc_number;
 		private string year;
 		private int duration;
@@ -92,17 +93,18 @@ namespace Muine
 			filename = fn;
 
 			// Tags
-			p = Database.UnpackString      (p, out title       );
-			p = Database.UnpackStringArray (p, out artists     );
-			p = Database.UnpackStringArray (p, out performers  );
-			p = Database.UnpackString      (p, out album       );
-			p = Database.UnpackInt         (p, out track_number);
-			p = Database.UnpackInt         (p, out disc_number );
-			p = Database.UnpackString      (p, out year        );
-			p = Database.UnpackInt         (p, out duration    );
-			p = Database.UnpackInt         (p, out mtime       );
-			p = Database.UnpackDouble      (p, out gain        );
-			p = Database.UnpackDouble      (p, out peak        );
+			p = Database.UnpackString      (p, out title         );
+			p = Database.UnpackStringArray (p, out artists       );
+			p = Database.UnpackStringArray (p, out performers    );
+			p = Database.UnpackString      (p, out album         );
+			p = Database.UnpackInt         (p, out track_number  );
+			p = Database.UnpackInt         (p, out n_album_tracks);
+			p = Database.UnpackInt         (p, out disc_number   );
+			p = Database.UnpackString      (p, out year          );
+			p = Database.UnpackInt         (p, out duration      );
+			p = Database.UnpackInt         (p, out mtime         );
+			p = Database.UnpackDouble      (p, out gain          );
+			p = Database.UnpackDouble      (p, out peak          );
 
 			// cover image is loaded later
 
@@ -120,6 +122,11 @@ namespace Muine
 		// Properties :: Folder (get;)
 		public string Folder {
 			get { return Path.GetDirectoryName (filename); }
+		}
+
+		// Properties :: Public (get;)
+		public override bool Public {
+			get { return true; }
 		}
 		
 		// Properties :: Title (get;)
@@ -150,6 +157,11 @@ namespace Muine
 		// Properties :: TrackNumber (get;)
 		public int TrackNumber {
 			get { return track_number; }
+		}
+
+		// Properties :: NAlbumTracks (get;)
+		public int NAlbumTracks {
+			get { return n_album_tracks; }
 		}
 
 		// Properties :: DiscNumber (get;)
@@ -285,16 +297,17 @@ namespace Muine
 			else
 				title = Path.GetFileNameWithoutExtension (filename);
 			
-			artists      = metadata.Artists;
-			performers   = metadata.Performers;
-			album        = metadata.Album;
-			track_number = metadata.TrackNumber;
-			disc_number  = metadata.DiscNumber;
-			year         = metadata.Year;
-			duration     = metadata.Duration;
-			mtime        = metadata.MTime;
-			gain         = metadata.Gain;
-			peak         = metadata.Peak;
+			artists        = metadata.Artists;
+			performers     = metadata.Performers;
+			album          = metadata.Album;
+			track_number   = metadata.TrackNumber;
+			n_album_tracks = metadata.TotalTracks;
+			disc_number    = metadata.DiscNumber;
+			year           = metadata.Year;
+			duration       = metadata.Duration;
+			mtime          = metadata.MTime;
+			gain           = metadata.Gain;
+			peak           = metadata.Peak;
 
 			// We really need to do this here. It is ugly, we would
 			// like to keep all album cover stuff to the album class,
@@ -367,6 +380,7 @@ namespace Muine
 			
 			Database.PackString (p, album);
 			Database.PackInt    (p, track_number);
+			Database.PackInt    (p, n_album_tracks);
 			Database.PackInt    (p, disc_number);
 			Database.PackString (p, year);
 			Database.PackInt    (p, duration);

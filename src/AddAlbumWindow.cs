@@ -89,13 +89,10 @@ namespace Muine
 
 			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
-			lock (Global.DB) {
-				foreach (Album a in Global.DB.Albums.Values) 
-					base.List.Append (a.Handle);
-			}
-
 			if (!Global.CoverDB.Loading)
 				EnableDragDest ();
+
+			base.Search ();
 		}
 
 		// Methods

@@ -73,6 +73,12 @@ namespace Muine
 		private ArrayList performers;
 		private string year;
 		private string folder;
+		private int n_tracks;
+		private int total_n_tracks;
+		private bool complete = false;
+
+		// This fuzziness is for listing almost-complete albums
+		private static readonly int max_track_number_difference = 3;
 
 		private static Hashtable pointers = new Hashtable ();
 		private static IntPtr cur_ptr = IntPtr.Zero;
@@ -93,6 +99,11 @@ namespace Muine
 			year = initial_song.Year;
 
 			folder = initial_song.Folder;
+
+			n_tracks = 1;
+			total_n_tracks = initial_song.NAlbumTracks;
+
+			CheckCompleteness ();
 
 			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 			pointers [cur_ptr] = this;
@@ -157,6 +168,11 @@ namespace Muine
 			get { return cover_image; }
 		}
 
+		// Properties :: Public (get;)
+		public override bool Public {
+			get { return complete; }
+		}
+
 		// Properties :: Key (get;)
 		public string Key {
 			get { return Global.DB.MakeAlbumKey (folder, name); }
@@ -197,18 +213,41 @@ namespace Muine
 
 				songs.Add (song);
 				songs.Sort (song_comparer);
+
+				if (total_n_tracks != song.NAlbumTracks &&
+				    song.NAlbumTracks > 0) {
+					total_n_tracks = song.NAlbumTracks;
+
+					changed = true;
+				}
+
+				n_tracks ++;
+
+				bool complete_changed = CheckCompleteness ();
+				if (complete_changed)
+					changed = true;
 			}
 		}
 
 		// Methods :: Public :: Remove
 		public void Remove (Song song, out bool changed, out bool empty)
 		{
+			changed = false;
+
 			lock (this) {
+				n_tracks --;
+
+				bool complete_changed = CheckCompleteness ();
+				if (complete_changed)
+					changed = true;
+
 				songs.Remove (song);
 
-				changed = RemoveArtistsAndPerformers (song);
+				bool artists_changed = RemoveArtistsAndPerformers (song);
+				if (artists_changed)
+					changed = true;
 
-				empty = (songs.Count == 0);
+				empty = (n_tracks == 0);
 				if (empty) {
 					pointers.Remove (base.handle);
 
@@ -238,7 +277,7 @@ namespace Muine
 			string [] prefixes = string_prefixes.Split (' ');
 
 			string [] p_artists = new string [artists.Count];
-			for (int i = 0; i < artists.Count; i++) {
+			for (int i = 0; i < artists.Count; i ++) {
 				p_artists [i] = ((string) artists [i]).ToLower ();
 				
 				foreach (string prefix in prefixes) {
@@ -251,7 +290,7 @@ namespace Muine
 			}
 
 			string [] p_performers = new string [performers.Count];
-			for (int i = 0; i < performers.Count; i++) {
+			for (int i = 0; i < performers.Count; i ++) {
 				p_performers [i] = ((string) performers [i]).ToLower ();
 				
 				foreach (string prefix in prefixes) {
@@ -405,6 +444,21 @@ namespace Muine
 				return pixbuf;
 
 			return Global.CoverDB.Getter.GetAmazon (this);
+		}
+
+		// Methods :: Private :: CheckCompleteness
+		//	Returns true if completeness changed
+		private bool CheckCompleteness ()
+		{
+			int diff = Math.Abs (total_n_tracks - n_tracks);
+			bool new_complete = (total_n_tracks > 0 &&
+			                     diff <= max_track_number_difference);
+
+			bool ret = (new_complete != complete);
+			
+			complete = new_complete;
+			
+			return ret;
 		}
 
 		// Handlers

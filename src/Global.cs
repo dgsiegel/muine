@@ -138,7 +138,7 @@ namespace Muine
 
 			// Load song database
 			try {
-				db = new SongDatabase (5);
+				db = new SongDatabase (6);
 			} catch (Exception e) {
 				Error (String.Format (string_songdb_failed, e.Message));
 			}
@@ -204,7 +204,7 @@ namespace Muine
 		// Methods :: Public :: Exit
 		public static void Exit ()
 		{
-			Environment.Exit (0);
+			Application.Quit ();
 		}
 
 		// Methods :: Private

@@ -42,6 +42,11 @@ namespace Muine
 			get { return handle; }
 		}
 
+		// Properties :: Public (get;)
+		public abstract bool Public {
+			get;
+		}
+
 		// Properties :: SortKey (get;)
 		public string SortKey {
 			get {
@@ -85,6 +90,9 @@ namespace Muine
 		// Methods :: Public :: FitsCriteria
 		public bool FitsCriteria (string [] search_bits)
 		{
+			if (!Public)
+				return false;
+
 			int n_matches = 0;
 				
 			foreach (string search_bit in search_bits) {

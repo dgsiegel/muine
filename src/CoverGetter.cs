@@ -64,6 +64,7 @@ namespace Muine
 				this.done_func = done_func;
 
 				Thread thread = new Thread (new ThreadStart (ThreadFunc));
+				thread.IsBackground = true;
 				thread.Priority = ThreadPriority.BelowNormal;
 				thread.Start ();
 			}
@@ -154,6 +155,7 @@ namespace Muine
 				queue = Queue.Synchronized (new Queue ());
 
 				Thread thread = new Thread (new ThreadStart (ThreadFunc));
+				thread.IsBackground = true;
 				thread.Priority = ThreadPriority.BelowNormal;
 				thread.Start ();
 			}
