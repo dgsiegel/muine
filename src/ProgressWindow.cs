@@ -111,8 +111,8 @@ namespace Muine
 			canceled = true;
 		}
 
-		// Handlers :: OnSizeRequested
-		private void OnSizeRequested (object o, SizeRequestedArgs args)
+		// Handlers :: OnWindowSizeRequested
+		private void OnWindowSizeRequested (object o, SizeRequestedArgs args)
 		{
 			if (geo_no_resize_height.MaxHeight == args.Requisition.Height)
 				return;

@@ -1,5 +1,12 @@
 2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/SkipToWindow.glade:
+	* src/SkipToWindow.cs:
+
+	Only allow horizontal resizing in "skip to" dialog.
+
+2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/ProgressWindow.glade:
 	* src/ProgressWindow.cs:
 

@@ -40,6 +40,7 @@ namespace Muine
 		private bool from_tick;
 		private const uint set_position_timeout = 100;
 		private uint set_position_timeout_id;
+		private Gdk.Geometry geo_no_resize_height;
 		
 		// Constructor
 		public SkipToWindow (IPlayer p)
@@ -48,6 +49,9 @@ namespace Muine
 			gxml.Autoconnect (this);
 
 			window.TransientFor = p.Window;
+
+			geo_no_resize_height = new Gdk.Geometry ();
+			geo_no_resize_height.MaxWidth = Int32.MaxValue;
 
 			player = p;
 			player.TickEvent += new TickEventHandler (OnTickEvent);
@@ -121,6 +125,16 @@ namespace Muine
 			
 			DeleteEventArgs args = (DeleteEventArgs) a;
 			args.RetVal = true;
+		}
+
+		// Handlers :: OnWindowSizeRequested
+		private void OnWindowSizeRequested (object o, SizeRequestedArgs args)
+		{
+			if (geo_no_resize_height.MaxHeight == args.Requisition.Height)
+				return;
+
+			geo_no_resize_height.MaxHeight = args.Requisition.Height;
+			window.SetGeometryHints (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
 		}
 
 		// Handlers :: OnCloseButtonClicked

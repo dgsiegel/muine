@@ -20,7 +20,7 @@
   <property name="has_separator">False</property>
   <signal name="response" handler="OnWindowResponse" last_modification_time="Tue, 04 Jan 2005 17:58:01 GMT"/>
   <signal name="delete_event" handler="OnWindowDeleteEvent" last_modification_time="Tue, 04 Jan 2005 17:58:06 GMT"/>
-  <signal name="size_request" handler="OnSizeRequested" last_modification_time="Sun, 20 Feb 2005 15:33:23 GMT"/>
+  <signal name="size_request" handler="OnWindowSizeRequested" last_modification_time="Sun, 20 Feb 2005 15:41:31 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="vbox1">
