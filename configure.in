@@ -22,7 +22,7 @@ dnl Version dependencies
 LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.8.0
 MONO_REQUIRED=0.95
-GTKSHARP_REQUIRED=0.93
+GTKSHARP_REQUIRED=1.9.0
 
 dnl Audio backend stuff
 
@@ -57,10 +57,10 @@ PKG_CHECK_MODULES(MONO,
 		  mono >= $MONO_REQUIRED)
 
 PKG_CHECK_MODULES(GTKSHARP,
-		  gtk-sharp >= $GTKSHARP_REQUIRED \
-		  gnome-sharp >= $GTKSHARP_REQUIRED \
-		  glade-sharp >= $GTKSHARP_REQUIRED \
-		  gconf-sharp >= $GTKSHARP_REQUIRED)
+		  gtk-sharp-2.0 >= $GTKSHARP_REQUIRED \
+		  gnome-sharp-2.0 >= $GTKSHARP_REQUIRED \
+		  glade-sharp-2.0 >= $GTKSHARP_REQUIRED \
+		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED)
 
 dnl Handle GConf
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)

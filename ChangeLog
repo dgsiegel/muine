@@ -1,5 +1,13 @@
 2004-11-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/FileSelector.cs:
+	* src/PlaylistWindow.cs:
+
+	Depend on gtksharp2 and use gtk 2.4 filesels.
+
+2004-11-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* data/images/Makefile.am:
 	* data/images/muine-shuffle-16.png:

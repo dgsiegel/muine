@@ -23,12 +23,21 @@ using System.IO;
 using Gtk;
 using GLib;
 
-public class FileSelector : FileSelection
+public class FileSelector : FileChooserDialog
 {
 	private string gconf_path;
 
-	public FileSelector (string title, string gcp) : base (title)
+	public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action)
 	{
+		TransientFor = parent;
+		LocalOnly = true;
+		AddButton (Stock.Cancel, ResponseType.Cancel);
+		if (action == FileChooserAction.Open)
+	                AddButton (Stock.Open, ResponseType.Ok);
+		else if (action == FileChooserAction.Save)
+	                AddButton (Stock.Save, ResponseType.Ok);
+                DefaultResponse = ResponseType.Ok;
+
 		gconf_path = gcp;
 
 		string start_dir;
@@ -43,7 +52,7 @@ public class FileSelector : FileSelection
 		if (start_dir.EndsWith ("/") == false)
 			start_dir += "/";
 
-		Filename = start_dir;
+		SetCurrentFolderUri (start_dir);
 	}
 
 	public string GetFile ()
@@ -53,11 +62,11 @@ public class FileSelector : FileSelection
 
 			return "";
 		}
+
+		string ret = StringUtils.LocalPathFromUri (Uri);
 		
 		Muine.GConfClient.Set (gconf_path,
-		                       System.IO.Path.GetDirectoryName (Filename) + "/");
-
-		string ret = Filename;
+		                       System.IO.Path.GetDirectoryName (ret) + "/");
 
 		Destroy ();
 

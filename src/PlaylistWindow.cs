@@ -1344,14 +1344,15 @@ public class PlaylistWindow : Window
 
 	private void HandleImportFolderCommand (object o, EventArgs args) 
 	{
-		FileSelection fs;
-		
-		fs = new FileSelection (Muine.Catalog.GetString ("Import Folder"));
-		fs.HideFileopButtons ();
-		fs.HistoryPulldown.Visible = false;
-		fs.FileList.Parent.Visible = false;
-		fs.SetDefaultSize (350, 250);
+		FileChooserDialog fc;
 
+		fc = new FileChooserDialog (Muine.Catalog.GetString ("Import Folder"), this,
+					    FileChooserAction.SelectFolder);
+		fc.LocalOnly = true;
+		fc.AddButton (Stock.Cancel, ResponseType.Cancel);
+		fc.AddButton (Muine.Catalog.GetString ("_Import"), ResponseType.Ok);
+		fc.DefaultResponse = ResponseType.Ok;
+		
 		string start_dir;
 		try {
 			start_dir = (string) Muine.GConfClient.Get ("/apps/muine/default_import_folder");
@@ -1364,19 +1365,21 @@ public class PlaylistWindow : Window
 		if (start_dir.EndsWith ("/") == false)
 			start_dir += "/";
 
-		fs.Filename = start_dir;
+		fc.SetCurrentFolderUri (start_dir);
 
-		if (fs.Run () != (int) ResponseType.Ok) {
-			fs.Destroy ();
+		if (fc.Run () != (int) ResponseType.Ok) {
+			fc.Destroy ();
 
 			return;
 		}
 
-		fs.Visible = false;
+		fc.Visible = false;
 
-		Muine.GConfClient.Set ("/apps/muine/default_import_folder", fs.Filename);
+		string res = StringUtils.LocalPathFromUri (fc.Uri);
 
-		DirectoryInfo dinfo = new DirectoryInfo (fs.Filename);
+		Muine.GConfClient.Set ("/apps/muine/default_import_folder", res);
+
+		DirectoryInfo dinfo = new DirectoryInfo (res);
 			
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
@@ -1387,13 +1390,19 @@ public class PlaylistWindow : Window
 			pw.Done ();
 		}
 
-		fs.Destroy ();
+		fc.Destroy ();
 	}
 
 	private void HandleOpenPlaylistCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Open Playlist"),
+						     this, FileChooserAction.Open,
 						     "/apps/muine/default_playlist_folder");
+
+		FileFilter filter = new FileFilter ();
+		filter.Name = Muine.Catalog.GetString ("Playlist files");
+		filter.AddMimeType ("audio/x-mpegurl");
+		sel.AddFilter (filter);
 
 		string fn = sel.GetFile ();
 
@@ -1409,7 +1418,9 @@ public class PlaylistWindow : Window
 	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector (Muine.Catalog.GetString ("Save Playlist"),
+						     this, FileChooserAction.Save,
 						     "/apps/muine/default_playlist_folder");
+		sel.CurrentName = Muine.Catalog.GetString ("Untitled");
 
 		string fn = sel.GetFile ();
 
