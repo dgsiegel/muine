@@ -1,5 +1,11 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Song.cs:
+
+	Do some AlbumKey caching.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/GnomeProxy.cs:
 
 	Better error handling.

@@ -280,9 +280,11 @@ public class Song
 			return;
 		}
 
+		string key = AlbumKey;
+
 		/* Check the cache first */
-		if (Muine.CoverDB.Covers.ContainsKey (AlbumKey)) {
-			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
+		if (Muine.CoverDB.Covers.ContainsKey (key)) {
+			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [key];
 			return;
 		}
 
@@ -293,7 +295,7 @@ public class Song
 			FileInfo cover = new FileInfo (info.DirectoryName + "/" + fn);
 			
 			if (cover.Exists) {
-				cover_image = Muine.CoverDB.AddCoverLocal (AlbumKey, cover.ToString ());
+				cover_image = Muine.CoverDB.AddCoverLocal (key, cover.ToString ());
 
 				if (cover_image != null)
 					return;
@@ -302,7 +304,7 @@ public class Song
 
 		/* Check for an embedded image in the ID3 tag */
 		if (metadata != null && metadata.AlbumArt != null) {
-			cover_image = Muine.CoverDB.AddCoverEmbedded (AlbumKey, metadata.AlbumArt);
+			cover_image = Muine.CoverDB.AddCoverEmbedded (key, metadata.AlbumArt);
 
 			if (cover_image != null)
 				return;
@@ -313,7 +315,7 @@ public class Song
 			return;
 		}
 
-		cover_image = Muine.CoverDB.AddCoverDownloading (AlbumKey);
+		cover_image = Muine.CoverDB.AddCoverDownloading (key);
 
 		checked_cover_image = false;
 
