@@ -64,7 +64,6 @@ struct _PlayerPriv {
   char          *current_file;
   
   guint          tick_timeout_id;
-  guint64        pause_offset;
 
   int		 cur_volume;
 
@@ -127,8 +126,8 @@ player_class_init (PlayerClass *klass)
 		  G_SIGNAL_RUN_LAST,
 		  0,
 		  NULL, NULL,
-		  g_cclosure_marshal_VOID__LONG,
-		  G_TYPE_NONE, 1, G_TYPE_LONG);
+		  g_cclosure_marshal_VOID__INT,
+		  G_TYPE_NONE, 1, G_TYPE_INT);
 
   signals[STATE_CHANGED] =
     g_signal_new ("state_changed",
@@ -343,9 +342,6 @@ player_get_state (Player *player)
 
   priv = player->priv;
 
-  if (priv->pause_offset > 0)
-    return PLAYER_STATE_PAUSED;
-
   return gst_state_to_player_state (gst_element_get_state (priv->thread));
 }
 
@@ -406,7 +402,7 @@ tick_timeout_cb (Player *player)
 {
   PlayerPriv *priv;
   GstClock *clock;
-  long secs;
+  int secs;
 
   priv = player->priv;
 
@@ -417,7 +413,7 @@ tick_timeout_cb (Player *player)
     }
   
   clock = gst_bin_get_clock (GST_BIN (priv->thread));
-  secs = gst_clock_get_time (clock) / GST_MSECOND;
+  secs = gst_clock_get_time (clock) / GST_SECOND;
   
   g_signal_emit (player, signals[TICK], 0, secs);
 
@@ -632,13 +628,13 @@ player_set_replaygain (Player *player, double gain, double peak)
 }
 
 void
-player_seek (Player *player, guint64 t)
+player_seek (Player *player, int t)
 {
   PlayerPriv *priv;
   GstElementState state;
   GstEvent *event;
   GstClock *clock;
-  long secs;
+  int secs;
   
   g_return_if_fail (IS_PLAYER (player));
 
@@ -651,13 +647,13 @@ player_seek (Player *player, guint64 t)
 
   gst_element_set_state (priv->thread, GST_STATE_PAUSED);
 
-  event = gst_event_new_seek (GST_FORMAT_TIME | GST_SEEK_METHOD_SET | GST_SEEK_FLAG_FLUSH, t * GST_MSECOND);
+  event = gst_event_new_seek (GST_FORMAT_TIME | GST_SEEK_METHOD_SET | GST_SEEK_FLAG_FLUSH, (guint64) t * GST_SECOND);
   if (gst_element_send_event (priv->sink, event))
     {
       clock = gst_bin_get_clock (GST_BIN (priv->thread));
       
       t = gst_clock_get_time (clock);
-      secs = gst_clock_get_time (clock) / GST_MSECOND;
+      secs = gst_clock_get_time (clock) / GST_SECOND;
   
       g_signal_emit (player, signals [TICK], 0, secs);
     }
@@ -665,7 +661,7 @@ player_seek (Player *player, guint64 t)
   gst_element_set_state (priv->thread, state);
 }
 
-guint64 
+int
 player_tell (Player *player)
 {
   PlayerPriv *priv;
@@ -683,7 +679,7 @@ player_tell (Player *player)
 
   clock = gst_bin_get_clock (GST_BIN (priv->thread));
  
-  return gst_clock_get_time (clock) / GST_MSECOND;
+  return (int) floor (gst_clock_get_time (clock) / GST_SECOND + 0.5);
 }
 
 gboolean

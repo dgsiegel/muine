@@ -46,11 +46,11 @@ struct _Metadata {
 
 	char *year;
 
-	long duration;
+	int duration;
 
 	char *mime_type;
 
-	long mtime;
+	int mtime;
 
 	double gain;
 	double peak;
@@ -58,14 +58,14 @@ struct _Metadata {
 	GdkPixbuf *album_art;
 };
 
-static long
+static int
 get_mp3_duration (struct id3_tag *tag)
 {
 	struct id3_frame const *frame;
 	union id3_field const *field;
 	unsigned int nstrings;
 	id3_latin1_t *latin1;
-	long time;
+	int time;
 
 	/* The following is based on information from the
 	 * ID3 tag version 2.4.0 Native Frames informal standard.
@@ -91,7 +91,7 @@ get_mp3_duration (struct id3_tag *tag)
 	g_free (latin1);
 
 	if (time > 0)
-		return time;
+		return (int) floor (time / 1000 + 0.5);
 
 	return -1;
 }
@@ -283,7 +283,7 @@ assign_metadata_mp3 (const char *filename,
 	struct id3_vfs_file *file;
 	struct id3_tag *tag;
 	int bitrate, samplerate, channels, version, vbr, count, i;
-	long time, tag_time;
+	int time, tag_time;
 	char *track_number_raw;
 
 	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
@@ -317,10 +317,10 @@ assign_metadata_mp3 (const char *filename,
 		metadata->duration = time;
 	else {
 		if (bitrate > 0) {
-			metadata->duration = ((double) info->size) / ((double) bitrate / 8000.0f);
+			metadata->duration = ((double) info->size) / ((double) bitrate / 8.0f);
 		} else {
 			/* very rough guess */
-			metadata->duration = ((double) info->size) / ((double) 128 / 8.0f);
+			metadata->duration = ((double) info->size) / ((double) 128000 / 8.0f);
 		}
 	}
 
@@ -503,7 +503,7 @@ assign_metadata_ogg (const char *filename,
 
 	assign_metadata_vorbiscomment (metadata, comment);
 
-	metadata->duration = (long) ov_time_total (&vf, -1) * 1000;
+	metadata->duration = ov_time_total (&vf, -1);
 
 	*error_message_return = NULL;
 
@@ -518,7 +518,7 @@ typedef struct {
 	GnomeVFSHandle *handle;
 
 	vorbis_comment *comment;
-	long duration;
+	int duration;
 } CallbackData;
 
 static FLAC__StreamDecoderReadStatus
@@ -555,8 +555,7 @@ FLAC_metadata_callback (const FLAC__StreamDecoder *decoder, const FLAC__StreamMe
 	CallbackData *data = (CallbackData *) client_data;
 
 	if (metadata->type == FLAC__METADATA_TYPE_STREAMINFO) {
-		long seconds = metadata->data.stream_info.total_samples / metadata->data.stream_info.sample_rate;
-		data->duration = seconds * 1000;
+		data->duration = metadata->data.stream_info.total_samples / metadata->data.stream_info.sample_rate;
 	} else if (metadata->type == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
 		const FLAC__StreamMetadata_VorbisComment *vc_block = &metadata->data.vorbis_comment;
 		vorbis_comment *comment = data->comment;
@@ -782,7 +781,7 @@ metadata_get_year (Metadata *metadata)
 	return (const char *) metadata->year;
 }
 
-long
+int
 metadata_get_duration (Metadata *metadata)
 {
 	g_return_val_if_fail (metadata != NULL, -1);
@@ -798,7 +797,7 @@ metadata_get_mime_type (Metadata *metadata)
 	return (const char *) metadata->mime_type;
 }
 
-long
+int
 metadata_get_mtime (Metadata *metadata)
 {
 	g_return_val_if_fail (metadata != NULL, -1);

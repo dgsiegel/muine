@@ -1,5 +1,34 @@
 2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* README:
+	* TODO:
+	* configure.in:
+	* libmuine/db.c:
+	* libmuine/db.h:
+	* libmuine/id3-vfs/id3-vfs.c: (id3_vfs_bitrate):
+	* libmuine/id3-vfs/id3-vfs.h:
+	* libmuine/id3-vfs/mp3bitrate.c: (mpg123_parse_xing_header),
+	(mp3_bitrate_parse_header):
+	* libmuine/id3-vfs/mp3bitrate.h:
+	* libmuine/metadata.c: (get_mp3_duration), (assign_metadata_mp3),
+	(assign_metadata_ogg), (FLAC_metadata_callback):
+	* libmuine/metadata.h:
+	* libmuine/player.c: (player_class_init), (player_get_state),
+	(tick_timeout_cb), (player_seek), (player_tell):
+	* libmuine/player.h:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Cleanups to mtime handling, store duration in seconds instead of
+	milliseconds.
+
+2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/NotificationAreaIcon.cs:
 	* src/PlaylistWindow.cs:

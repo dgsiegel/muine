@@ -470,7 +470,7 @@ public class PlaylistWindow : Window
 
 	private long remaining_songs_time;
 
-	private void UpdateTimeLabels (long time)
+	private void UpdateTimeLabels (int time)
 	{
 		if (playlist.Playing == IntPtr.Zero) {
 			time_label.Text = "";
@@ -481,13 +481,13 @@ public class PlaylistWindow : Window
 		
 		Song song = Song.FromHandle (playlist.Playing);
 
-		String pos = StringUtils.SecondsToString (time / 1000);
-		String total = StringUtils.SecondsToString (song.Duration / 1000);
+		String pos = StringUtils.SecondsToString (time);
+		String total = StringUtils.SecondsToString (song.Duration);
 
 		time_label.Text = pos + " / " + total;
 
 		if (repeat_menu_item.Active) {
-			long r_seconds = remaining_songs_time / 1000;
+			long r_seconds = remaining_songs_time;
 
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
@@ -501,7 +501,7 @@ public class PlaylistWindow : Window
 				playlist_label.Text = "Playlist";
 			}
 		} else {
-			long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
+			long r_seconds = remaining_songs_time + song.Duration - time;
 			
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
@@ -668,7 +668,7 @@ public class PlaylistWindow : Window
 		had_last_eos = false;
 	}
 
-	private void SeekTo (long seconds)
+	private void SeekTo (int seconds)
 	{
 		Song song = Song.FromHandle (playlist.Playing);
 
@@ -980,7 +980,7 @@ public class PlaylistWindow : Window
 		NSongsChanged ();
 	}
 
-	private void HandleTickEvent (long pos)
+	private void HandleTickEvent (int pos)
 	{
 		UpdateTimeLabels (pos);
 	}
@@ -1084,12 +1084,12 @@ public class PlaylistWindow : Window
 
 	private void HandleSkipBackwardsCommand (object o, EventArgs args)
 	{
-		SeekTo (player.Position - 5000);
+		SeekTo (player.Position - 5);
 	}
 
 	private void HandleSkipForwardCommand (object o, EventArgs args)
 	{
-		SeekTo (player.Position + 5000);
+		SeekTo (player.Position + 5);
 	}
 
 	private void HandleAddSongCommand (object o, EventArgs args)

@@ -69,7 +69,7 @@ static int is_xhead(unsigned char *buf)
 static int mpg123_parse_xing_header(MP3Frame *frame,
 		int samplerate,
 		guint8 *buf, int bufsize, int *bitrate,
-		long *time)
+		int *time)
 {
   int i;
   guint8 *ptr = buf;
@@ -173,7 +173,7 @@ static int mpg123_parse_xing_header(MP3Frame *frame,
  * vbr: whether it is a variable bitrate stream
  */
 int
-mp3_bitrate_parse_header (guchar *buffer, guint length_read, int *bitrate, int *samplerate, long *time, int *version, int *vbr, int *channels)
+mp3_bitrate_parse_header (guchar *buffer, guint length_read, int *bitrate, int *samplerate, int *time, int *version, int *vbr, int *channels)
 {
     guint32 head;
     int i = 0;

@@ -233,19 +233,6 @@ db_unpack_int (gpointer p, int *val)
 }
 
 gpointer
-db_unpack_long (gpointer p, long *val)
-{
-	p = _ALIGN_ADDRESS (p, 4);
-
-	if (val)
-		*val = *(long *) p;
-
-	(unsigned long) p += 4;
-
-	return p;
-}
-
-gpointer
 db_unpack_bool (gpointer p, gboolean *val)
 {
 	return db_unpack_int (p, (int *) val);
@@ -329,16 +316,6 @@ db_pack_string (gpointer p, const char *str)
 
 void
 db_pack_int (gpointer p, int val)
-{
-	GString *string = (GString *) p;
-
-	string_align (string, 4);
-
-	g_string_append_len (string, (char *) &val, 4);
-}
-
-void
-db_pack_long (gpointer p, long val)
 {
 	GString *string = (GString *) p;
 

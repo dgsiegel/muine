@@ -71,8 +71,8 @@ void         player_set_replaygain (Player     *player,
 void         player_toggle_mute    (Player     *player);
 PlayerState  player_get_state      (Player     *player);
 void         player_seek           (Player     *player,
-				    guint64     t);
-guint64      player_tell           (Player     *player);
+				    int         t);
+int          player_tell           (Player     *player);
 gboolean     player_is_playing     (Player     *player,
 				    const char *filename);
 

@@ -101,22 +101,22 @@ public class Player : GLib.Object
 		}
 	}
 
-	public delegate void TickEventHandler (long pos);
+	public delegate void TickEventHandler (int pos);
 	public event TickEventHandler TickEvent;
 
 	[DllImport ("libmuine")]
 	private static extern void player_seek (IntPtr player,
-	                                        UInt64 t);
+	                                        int t);
 	[DllImport ("libmuine")]
-	private static extern UInt64 player_tell (IntPtr player);
+	private static extern int player_tell (IntPtr player);
 
-	public long Position {
+	public int Position {
 		get {
-			return (long) player_tell (Raw);
+			return player_tell (Raw);
 		}
 
 		set {
-			player_seek (Raw, (UInt64) value);
+			player_seek (Raw, value);
 
 			if (TickEvent != null)
 				TickEvent (value);
@@ -169,9 +169,9 @@ public class Player : GLib.Object
 		Dispose ();
 	}
 
-	private delegate void SignalDelegate (IntPtr obj, long data);
+	private delegate void SignalDelegate (IntPtr obj, int data);
 
-	private static void TickCallback (IntPtr obj, long pos)
+	private static void TickCallback (IntPtr obj, int pos)
 	{	
 		Player player = GLib.Object.GetObject (obj, false) as Player;
 
@@ -182,7 +182,7 @@ public class Player : GLib.Object
 	public delegate void EndOfStreamEventHandler ();
 	public event EndOfStreamEventHandler EndOfStreamEvent;
 
-	private static void EosCallback (IntPtr obj, long data)
+	private static void EosCallback (IntPtr obj, int data)
 	{
 		Player player = GLib.Object.GetObject (obj, false) as Player;
 

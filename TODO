@@ -1,27 +1,21 @@
 Easy:
 =====
-o Use the GTK+ 2.3 fileselector, if it is available.
-o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?)
-  The 0.6 backend should stay supported because 0.7 is not very solid yet.
-o Support OGM files
-  This will work once we use GStreamer 0.7
-o Use Gst 0.7 tag reading
-o Enable fixed height mode for the GTK 2.3 treeview when it is available.
-o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
-  we use GTK 2.3
 o A song information dialog (both in tray menu and song menu)
-o D-BUS service (Sergio Rubio is on this)
-o Nicer application icon
-  A harp would be cool ..
-o Nicer default cover image
 o Shift+Arrow keys selects in add windows
   Depends on Gnome Bugzilla #133143
   Proxying events to treeview doesn't work, we manually need to mimic
   the multiple selection keybindings.
-o Improve first time dialog once again ..
-  Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
-  music, and muine monitors it .. 
 o Globally consume ACME keys
+o Drag images from Nautilus or Epiphany to the album cover area in
+  the PlaylistWindow to change the cover image.
+  (This one is half implemented)
+o Add DnD from Nautilus to the playlist window, adding to a) the library
+  and b) the playlist.
+o DnD m3u files to the playlist window should load them
+o Clicking an ogg/flac/mp3 in Nautilus should append it to the Muine queue
+  and play it. We can create a Song node for the file that is not in the DB.
+o D-BUS service (Sergio Rubio is on this)
+o Make drop-at-end work in the PlaylistWindow.
 
 Tough:
 ======
@@ -49,9 +43,18 @@ o Gapless transition/crossfading
   it's a tough one. Well, we could emit EOS a bit earlier than usual
   and have a fancy adder somewhere in the pipeline that does the mixing
   when a new song comes in ..
-o Make drop-at-end work in the PlaylistWindow.
 o Figure out how to get the peak value from the ID3 RVA2 tag.
 o Handle non-UTF8 filenames and dirnames decently
+o Improve first time dialog once again ..
+  Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
+  music, and muine monitors it .. 
+
+Graphic artists needed:
+=======================
+
+o Nicer application icon
+  A harp would be cool ..
+o Nicer default cover image
 
 Depends on other components:
 ============================
@@ -61,20 +64,19 @@ o Translation
   Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
   Depends on Mono, Ximian Bugzilla #53807
-o Add DnD from Nautilus to the playlist window, adding to a) the library
-  and b) the playlist.
-  Will be possible when gtk-sharp 0.16 is released
-o DnD m3u files to the playlist window should load them
-  Will be possible when gtk-sharp 0.16 is released
-o Drag images from Nautilus or Epiphany to the album cover area in
-  the PlaylistWindow to change the cover image.
-  Will be possible when gtk-sharp 0.16 is released
-  (This one is half implemented)
-o Use time_t marshaller from gtk-sharp
-  Will be possible when gtk-sharp 0.16 is released
 o Make title and artist label one for easier selection.
   We need a proper Gtk ellipsizing widget for this.
 o Use storage
+o Support OGM files
+  These will work once GStreamer supports them
+o Use Gstreamer 0.7 for both playback and tag reading once it is solid enough
+o Enable fixed height mode for the GTK 2.3 treeview.
+  Depends on Gtk# supporting Gtk 2.3
+o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
+  we use GTK 2.3
+  Depends on Gtk# supporting Gtk 2.3
+o Use the GTK+ 2.3 fileselector, if it is available.
+  Depends on Gtk# supporting Gtk 2.3
 
 We won't have:
 ==============

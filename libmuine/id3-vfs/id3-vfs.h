@@ -38,7 +38,7 @@ struct id3_tag *id3_vfs_tag(struct id3_vfs_file const *);
 int id3_vfs_update(struct id3_vfs_file *);
 
 int id3_vfs_bitrate (struct id3_vfs_file *file, int *bitrate, int *samplerate,
-		long *time, int *version, int *vbr, int *channels);
+		int *time, int *version, int *vbr, int *channels);
 
 #endif /* _ID3_VFS_H_ */
 

@@ -403,6 +403,11 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 	}
 
+	private long MTimeToTicks (int mtime)
+	{
+		return (long) mtime * (long) Math.Pow (10, 7) + 621356040000000000;
+	}
+
 	private void CheckChangesThread ()
 	{
 		Changing = true;
@@ -419,10 +424,7 @@ public class SongDatabase
 			if (!finfo.Exists)
 				removed_songs.Enqueue (song);
 			else {
-				/* mtime is in seconds (Pow (10, (9 - 2)) 100-nanosecond units) */
-				long jorns_constant = 621356040000000000; /* mtime starts at 1970, Ticks at 0001 */
-				long mtime_ticks = song.MTime * (long) Math.Pow (10, 7) + jorns_constant;
-				if (mtime_ticks < finfo.LastWriteTime.Ticks) {
+				if (MTimeToTicks (song.MTime) < finfo.LastWriteTime.Ticks) {
 					Metadata metadata;
 
 					try {

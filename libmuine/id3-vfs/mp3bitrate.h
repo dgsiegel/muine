@@ -14,6 +14,6 @@
  */
 
 int mp3_bitrate_parse_header (guchar *buffer, guint length_read, int *bitrate,
-		int *samplerate, long *time, int *version, int *vbr,
+		int *samplerate, int *time, int *version, int *vbr,
 		int *channels);
 

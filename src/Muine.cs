@@ -82,7 +82,7 @@ public class Muine : Gnome.Program
 
 		/* Load song database */
 		try {
-			DB = new SongDatabase (1);
+			DB = new SongDatabase (2);
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the song database: " + e.ToString () + "\nExiting...");
 

@@ -78,8 +78,8 @@ public class Song
 		}
 	}
 
-	private long duration;
-	public long Duration {
+	private int duration;
+	public int Duration {
 		/* we have a setter too, because sometimes we want
 		 * to correct the duration. */
 		set {
@@ -112,8 +112,8 @@ public class Song
 		}
 	}
 
-	private long mtime;
-	public long MTime {
+	private int mtime;
+	public int MTime {
 		get {
 			return mtime;
 		}
@@ -399,8 +399,6 @@ public class Song
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_int (IntPtr p, out int i);
         [DllImport ("libmuine")]
-        private static extern IntPtr db_unpack_long (IntPtr p, out long l);
-        [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_double (IntPtr p, out double d);
@@ -442,9 +440,9 @@ public class Song
 		p = UnpackString (p, out album);
 		p = db_unpack_int (p, out track_number);
 		p = UnpackString (p, out year);
-		p = db_unpack_long (p, out duration);
+		p = db_unpack_int (p, out duration);
 		p = UnpackString (p, out mime_type);
-		p = db_unpack_long (p, out mtime);
+		p = db_unpack_int (p, out mtime);
 		p = db_unpack_bool (p, out checked_cover_image);
 		p = db_unpack_double (p, out gain);
 		p = db_unpack_double (p, out peak);
@@ -478,8 +476,6 @@ public class Song
 	[DllImport ("libmuine")]
 	private static extern void db_pack_int (IntPtr p, int i);
 	[DllImport ("libmuine")]
-	private static extern void db_pack_long (IntPtr p, long l);
-	[DllImport ("libmuine")]
 	private static extern void db_pack_bool (IntPtr p, bool b);
 	[DllImport ("libmuine")]
 	private static extern void db_pack_double (IntPtr p, double d);
@@ -507,9 +503,9 @@ public class Song
 		db_pack_string (p, album);
 		db_pack_int (p, track_number);
 		db_pack_string (p, year);
-		db_pack_long (p, duration);
+		db_pack_int (p, duration);
 		db_pack_string (p, mime_type);
-		db_pack_long (p, mtime);
+		db_pack_int (p, mtime);
 		db_pack_bool (p, checked_cover_image);
 		db_pack_double (p, gain);
 		db_pack_double (p, peak);

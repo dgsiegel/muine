@@ -72,8 +72,8 @@ public class Metadata
 		}
 	}
 
-	private long duration;
-	public long Duration {
+	private int duration;
+	public int Duration {
 		get {
 			return duration;
 		}
@@ -86,8 +86,8 @@ public class Metadata
 		}
 	}
 
-	private long mtime;
-	public long MTime {
+	private int mtime;
+	public int MTime {
 		get {
 			return mtime;
 		}
@@ -148,14 +148,14 @@ public class Metadata
 	private static extern string metadata_get_mime_type (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern long metadata_get_mtime (IntPtr metadata);
+	private static extern int metadata_get_mtime (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern double metadata_get_gain (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern double metadata_get_peak (IntPtr metadata);
-
+	
 	public Metadata (string filename)
 	{
 		string error = null, s;

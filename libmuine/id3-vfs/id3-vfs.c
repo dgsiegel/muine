@@ -475,7 +475,7 @@ id3_vfs_is_wave (guchar *buffer)
 
 int
 id3_vfs_bitrate (struct id3_vfs_file *file, int *bitrate, int *samplerate,
-		long *time, int *version, int *vbr, int *channels)
+		 int *time, int *version, int *vbr, int *channels)
 {
   GnomeVFSFileSize save_position, length_read;
   GnomeVFSHandle *iofile = file->iofile;

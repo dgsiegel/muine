@@ -59,11 +59,11 @@ public class SkipToWindow
 		window.Visible = false;
 	}
 
-	private void HandleTickEvent (long pos) 
+	private void HandleTickEvent (int pos) 
 	{
 		/* update label */
-		String position = StringUtils.SecondsToString (pos / 1000);
-		String total_time = StringUtils.SecondsToString (player.Song.Duration / 1000);
+		String position = StringUtils.SecondsToString (pos);
+		String total_time = StringUtils.SecondsToString (player.Song.Duration);
 		song_position.Text = position + " / " + total_time;
 
 		/* update slider */
@@ -88,7 +88,7 @@ public class SkipToWindow
 		if (!from_tick) {
 			player.Seeking = true;
 
-			player.Position = (long) song_slider.Value;
+			player.Position = (int) song_slider.Value;
 
 			if (timeout_id != 0)
 				Gtk.Timeout.Remove (timeout_id);
