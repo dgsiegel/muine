@@ -1,5 +1,14 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/SongDatabase.cs:
+	* src/ThreadBase.cs:
+
+	Port the CoverDatabase thread over to ThreadBase as well.
+	Also fix a silly bug when importing.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Small cleanup.

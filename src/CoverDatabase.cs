@@ -20,7 +20,6 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Threading;
 
 using Gdk;
 
@@ -49,14 +48,13 @@ namespace Muine
 		
 		private Database db;
 
-		/*** constructor ***/
+		// Constructor
 		public CoverDatabase (int version)
 		{
 			db = new Database (FileUtils.CoversDBFile, version);
-			db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 			db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 
-			covers = Hashtable.Synchronized (new Hashtable ());
+			covers = new Hashtable ();
 
 			/* Hack to get the GtkStyle .. */
 			Gtk.Label label = new Gtk.Label ("");
@@ -68,164 +66,7 @@ namespace Muine
 			getter = new CoverGetter (this);
 		}
 
-		/*** loading ***/
-		private void DecodeFunction (string key, IntPtr data)
-		{
-			IntPtr p = data;
-
-			bool being_checked;
-			p = Database.UnpackBool (p, out being_checked);
-		
-			LoadedCover lc;
-			if (being_checked) {
-				lc = new LoadedCover (key);
-			} else {
-				IntPtr pix_handle;
-				p = Database.UnpackPixbuf (p, out pix_handle);
-
-				lc = new LoadedCover (key, pix_handle);
-			}
-
-			loaded_covers.Enqueue (lc);
-		}
-
-		private bool thread_done;
-
-		private Queue loaded_covers;
-
-		private bool loading = true;
-		public bool Loading {
-			get { return loading; }
-		}
-
-		public delegate void DoneLoadingHandler ();
-		public event DoneLoadingHandler DoneLoading;
-
-		public void Load ()
-		{
-			thread_done = false;
-
-			loaded_covers = Queue.Synchronized (new Queue ());
-
-			GLib.Idle.Add (new GLib.IdleHandler (ProcessActionsFromThread));
-			
-			Thread thread = new Thread (new ThreadStart (LoadThread));
-			thread.Priority = ThreadPriority.BelowNormal;
-			thread.Start ();
-		}
-
-		private struct LoadedCover {
-			private string key;
-			public string Key {
-				get { return key; }
-			}
-			
-			private Pixbuf pixbuf;
-			public Pixbuf Pixbuf {
-				get { return pixbuf; }
-			} 
-
-			private bool being_checked;
-			public bool BeingChecked {
-				get { return being_checked; }
-			}
-
-			public LoadedCover (string key, IntPtr pixbuf_ptr) {
-				this.key = key;
-				pixbuf = new Pixbuf (pixbuf_ptr);
-				being_checked = false;
-			}
-
-			public LoadedCover (string key) {
-				this.key = key;
-				pixbuf = null;
-				being_checked = true;
-			}
-		}
-
-		private bool ProcessActionsFromThread ()
-		{
-			int counter = 0;
-			
-			if (loaded_covers.Count > 0) {
-				while (loaded_covers.Count > 0 && counter < 10) {
-					counter++;
-
-					LoadedCover lc = (LoadedCover) loaded_covers.Dequeue ();
-		
-					if (lc.BeingChecked) {
-						Album ab = Muine.DB.GetAlbum (lc.Key);
-
-						if (ab != null)
-							ab.SetCoverAmazon ();
-							
-						continue;
-					}
-
-					if (!Covers.ContainsKey (lc.Key))
-						Covers.Add (lc.Key, lc.Pixbuf);
-
-					Album a = Muine.DB.GetAlbum (lc.Key);
-					if (a != null)
-						a.CoverImage = lc.Pixbuf;
-					else {
-						Song s = Muine.DB.GetSong (lc.Key);
-
-						if (s != null)
-							s.CoverImage = lc.Pixbuf;
-					}
-				}
-
-				return true;
-			} else if (thread_done) {
-				loading = false;
-
-				if (DoneLoading != null)
-					DoneLoading ();
-			}
-			
-			return !thread_done;
-		}
-
-		private void LoadThread ()
-		{
-			lock (db)
-				db.Load ();
-
-			thread_done = true;
-		}
-
-		/*** storing ***/
-		public void SetCover (string key, Pixbuf pix)
-		{
-			bool replace = Covers.ContainsKey (key);
-
-			if (replace)
-				Covers.Remove (key);
-
-			Covers.Add (key, pix);
-
-			lock (db)
-				db.Store (key, pix != null ?
-					       pix.Handle : IntPtr.Zero, replace);
-		}
-
-		public void RemoveCover (string key)
-		{
-			if (!Covers.ContainsKey (key))
-				return;
-
-			lock (db)
-				db.Delete (key);
-
-			Covers.Remove (key);
-		}
-
-		public void MarkAsBeingChecked (string key)
-		{
-			SetCover (key, null);
-		}
-
+		// Database interaction
 		private IntPtr EncodeFunction (IntPtr handle, out int length)
 		{
 			IntPtr p = Database.PackStart ();
@@ -238,6 +79,171 @@ namespace Muine
 				Database.PackPixbuf (p, handle);
 
 			return Database.PackEnd (p, out length);
+		}
+
+		// Loading
+		private bool loading = true;
+		public bool Loading {
+			get { return loading; }
+		}
+
+		public delegate void DoneLoadingHandler ();
+		public event DoneLoadingHandler DoneLoading;
+
+		private void EmitDoneLoading ()
+		{
+			loading = false;
+
+			if (DoneLoading != null)
+				DoneLoading ();
+		}
+
+		public void Load ()
+		{
+			LoadThread l = new LoadThread (db);
+		}
+
+		private class LoadThread : ThreadBase
+		{
+			private Database db;
+
+			private struct LoadedCover {
+				private string key;
+				public string Key {
+					get { return key; }
+				}
+				
+				private Pixbuf pixbuf;
+				public Pixbuf Pixbuf {
+					get { return pixbuf; }
+				} 
+
+				private bool being_checked;
+				public bool BeingChecked {
+					get { return being_checked; }
+				}
+
+				public LoadedCover (string key, IntPtr pixbuf_ptr) {
+					this.key = key;
+					pixbuf = new Pixbuf (pixbuf_ptr);
+					being_checked = false;
+				}
+
+				public LoadedCover (string key) {
+					this.key = key;
+					pixbuf = null;
+					being_checked = true;
+				}
+			}
+
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0) {
+					if (thread_done) {
+						Muine.CoverDB.EmitDoneLoading ();
+						
+						return false;
+					} else
+						return true;
+				}
+
+				LoadedCover lc = (LoadedCover) queue.Dequeue ();
+			
+				if (lc.BeingChecked) {
+					Album ab = Muine.DB.GetAlbum (lc.Key);
+
+					if (ab != null)
+						ab.SetCoverAmazon ();
+							
+					return true;
+				}
+
+				lock (Muine.CoverDB)
+					if (!Muine.CoverDB.Covers.ContainsKey (lc.Key))
+						Muine.CoverDB.Covers.Add (lc.Key, lc.Pixbuf);
+
+				Album a = Muine.DB.GetAlbum (lc.Key);
+				if (a != null)
+					a.CoverImage = lc.Pixbuf;
+				else {
+					Song s = Muine.DB.GetSong (lc.Key);
+
+					if (s != null)
+						s.CoverImage = lc.Pixbuf;
+				}
+
+				return true;
+			}
+
+			protected override void ThreadFunc ()
+			{
+				lock (Muine.CoverDB) {
+					db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
+					db.Load ();
+				}
+
+				thread_done = true;
+			}
+
+			private void DecodeFunction (string key, IntPtr data)
+			{
+				IntPtr p = data;
+
+				bool being_checked;
+				p = Database.UnpackBool (p, out being_checked);
+		
+				LoadedCover lc;
+				if (being_checked) {
+					lc = new LoadedCover (key);
+				} else {
+					IntPtr pix_handle;
+					p = Database.UnpackPixbuf (p, out pix_handle);
+
+					lc = new LoadedCover (key, pix_handle);
+				}
+	
+				queue.Enqueue (lc);
+			}
+
+			public LoadThread (Database db)
+			{
+				this.db = db;
+
+				thread.Start ();
+			}
+		}
+
+		// Cover management
+		public void SetCover (string key, Pixbuf pix)
+		{
+			lock (this) {
+				bool replace = Covers.ContainsKey (key);
+
+				if (replace)
+					Covers.Remove (key);
+
+				Covers.Add (key, pix);
+
+				db.Store (key, pix != null ?
+					       pix.Handle : IntPtr.Zero, replace);
+			}
+		}
+
+		public void RemoveCover (string key)
+		{
+			lock (this) {
+				if (!Covers.ContainsKey (key))
+					return;
+
+				db.Delete (key);
+
+				Covers.Remove (key);
+			}
+		}
+
+		public void MarkAsBeingChecked (string key)
+		{
+			SetCover (key, null);
 		}
 	}
 }

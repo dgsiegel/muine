@@ -370,6 +370,8 @@ namespace Muine
 			{
 				this.dinfo = dinfo;
 				this.pw = pw;
+
+				thread.Start ();
 			}
 		}
 
@@ -427,7 +429,7 @@ namespace Muine
 			protected override void ThreadFunc ()
 			{
 				Hashtable snapshot;
-				lock (this)
+				lock (Muine.DB)
 					snapshot = (Hashtable) Muine.DB.Songs.Clone ();
 
 				/* check for removed songs and changes */
@@ -464,6 +466,11 @@ namespace Muine
 				}
 
 				thread_done = true;
+			}
+
+			public CheckChangesThread ()
+			{
+				thread.Start ();
 			}
 		}
 

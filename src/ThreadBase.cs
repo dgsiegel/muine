@@ -41,7 +41,6 @@ namespace Muine
 
 			thread = new Thread (new ThreadStart (ThreadFunc));
 			thread.Priority = ThreadPriority.BelowNormal;
-			thread.Start ();
 		}
 	}
 }
