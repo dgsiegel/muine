@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-22 15:31+0100\n"
-"PO-Revision-Date: 2004-02-22 17:02+0100\n"
+"POT-Creation-Date: 2004-02-25 04:23+0100\n"
+"PO-Revision-Date: 2004-02-25 07:31+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "_Nic, budu svou hudbu spravovat sám"
 msgid "Play _Album"
 msgstr "Přehávat _album"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/NotificationAreaIcon.cs:108
+#: data/glade/PlaylistWindow.glade.h:2 src/NotificationAreaIcon.cs:100
 msgid "Play _Album..."
 msgstr "Přehrávat _album..."
 
@@ -104,7 +104,7 @@ msgstr "Přehrávat _album..."
 msgid "Play _Song"
 msgstr "Přehrávat _skladbu"
 
-#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:105
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:97
 msgid "Play _Song..."
 msgstr "Přehrávat _skladbu..."
 
@@ -140,7 +140,7 @@ msgstr "_Skrýt okno"
 msgid "_Import Folder..."
 msgstr "_Importovat adresář..."
 
-#: data/glade/PlaylistWindow.glade.h:13 src/NotificationAreaIcon.cs:98
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Information"
 msgstr "_Informace"
 
@@ -192,7 +192,7 @@ msgstr "Otázka"
 msgid "Listen to your music"
 msgstr "Poslouchejte vaši hudbu"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:644
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:643
 msgid "Muine Music Player"
 msgstr "Přehrávač hudby Muine"
 
@@ -301,7 +301,7 @@ msgstr "Přehrávač hudby"
 msgid "Thanks to Amazon.com for providing album cover images!"
 msgstr "Děkujeme Amazon.com za poskytnutí obrázků obálek alb!"
 
-#: src/AddAlbumWindow.cs:159 src/PlaylistWindow.cs:609
+#: src/AddAlbumWindow.cs:158 src/PlaylistWindow.cs:608
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Hraje {0}"
@@ -324,7 +324,7 @@ msgstr "Nemohu otevřít databázi: {0}"
 msgid "Failed to load metadata: {0}"
 msgstr "Nemohu načíst metadata: {0}"
 
-#: src/Muine.cs:89
+#: src/Muine.cs:88
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
@@ -333,7 +333,7 @@ msgstr ""
 "Nemohu načíst databázi obálek: {0}\n"
 "Končím..."
 
-#: src/Muine.cs:100
+#: src/Muine.cs:99
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
@@ -342,19 +342,23 @@ msgstr ""
 "Nemohu načíst databázi skladeb: {0}\n"
 "Končím..."
 
-#: src/NotificationAreaIcon.cs:55
+#: src/NotificationAreaIcon.cs:54
 msgid "Muine music player"
 msgstr "Přehrávač hudby Muine"
 
-#: src/NotificationAreaIcon.cs:88
+#: src/NotificationAreaIcon.cs:87
 msgid "_Previous Song"
 msgstr "_Předchozí skladba"
 
-#: src/NotificationAreaIcon.cs:91
+#: src/NotificationAreaIcon.cs:90
 msgid "_Next Song"
 msgstr "_Následující skladba"
 
-#: src/NotificationAreaIcon.cs:115 src/PlaylistWindow.cs:250
+#: src/NotificationAreaIcon.cs:107
+msgid "Song _Information"
+msgstr "_Informace o skladbě"
+
+#: src/NotificationAreaIcon.cs:114 src/PlaylistWindow.cs:249
 msgid "Show _Window"
 msgstr "Zobrazit _okno"
 
@@ -362,31 +366,31 @@ msgstr "Zobrazit _okno"
 msgid "Failed to create Player object"
 msgstr "Nemohu vytvořit objekt přehrávače"
 
-#: src/PlaylistWindow.cs:248
+#: src/PlaylistWindow.cs:247
 msgid "Hide _Window"
 msgstr "Skrýt _okno"
 
-#: src/PlaylistWindow.cs:269
+#: src/PlaylistWindow.cs:268
 msgid "Play the previous song"
 msgstr "Přehrávat předchozí skladbu"
 
-#: src/PlaylistWindow.cs:271
+#: src/PlaylistWindow.cs:270
 msgid "Play the next song"
 msgstr "Přehrávat následující skladbu"
 
-#: src/PlaylistWindow.cs:273
+#: src/PlaylistWindow.cs:272
 msgid "Add an album to the playlist"
 msgstr "Přidat album do seznamu skladeb"
 
-#: src/PlaylistWindow.cs:275
+#: src/PlaylistWindow.cs:274
 msgid "Add a song to the playlist"
 msgstr "Přidat skladbu do seznamu skladeb"
 
-#: src/PlaylistWindow.cs:283
+#: src/PlaylistWindow.cs:282
 msgid "Change the volume level"
 msgstr "Změnit úroveň hlasitosti"
 
-#: src/PlaylistWindow.cs:419
+#: src/PlaylistWindow.cs:418
 msgid ""
 "Failed to create the required GStreamer elements.\n"
 "Exiting..."
@@ -394,97 +398,97 @@ msgstr ""
 "Nemohu vytvořit požadavané elementy GStreamer.\n"
 "Končím..."
 
-#: src/PlaylistWindow.cs:501 src/PlaylistWindow.cs:525
-#: src/PlaylistWindow.cs:539
+#: src/PlaylistWindow.cs:500 src/PlaylistWindow.cs:524
+#: src/PlaylistWindow.cs:538
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: src/PlaylistWindow.cs:518
+#: src/PlaylistWindow.cs:517
 #, csharp-format
 msgid "Playlist (Repeating {0} hours)"
 msgstr "Seznam skladeb (opakuji {0} hodin)"
 
-#: src/PlaylistWindow.cs:521
+#: src/PlaylistWindow.cs:520
 #, csharp-format
 msgid "Playlist (Repeating {0} minutes)"
 msgstr "Seznam skladeb (opakuji {0} minut)"
 
-#: src/PlaylistWindow.cs:523
+#: src/PlaylistWindow.cs:522
 msgid "Playlist (Repeating)"
 msgstr "Seznam skladeb (opakuji)"
 
-#: src/PlaylistWindow.cs:532
+#: src/PlaylistWindow.cs:531
 #, csharp-format
 msgid "Playlist ({0} hours remaining)"
 msgstr "Seznam skladeb (zbývá {0} hodin)"
 
-#: src/PlaylistWindow.cs:535
+#: src/PlaylistWindow.cs:534
 #, csharp-format
 msgid "Playlist ({0} minutes remaining)"
 msgstr "Seznam skladeb (zbývá {0} minut)"
 
-#: src/PlaylistWindow.cs:537
+#: src/PlaylistWindow.cs:536
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Seznam skladeb (zbývá méně než minuta)"
 
-#: src/PlaylistWindow.cs:605
+#: src/PlaylistWindow.cs:604
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Od \"{0}\""
 
-#: src/PlaylistWindow.cs:607
+#: src/PlaylistWindow.cs:606
 msgid "Album unknown"
 msgstr "Neznámé album"
 
-#: src/PlaylistWindow.cs:619
+#: src/PlaylistWindow.cs:618
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Přehrávač hudby Muine"
 
-#: src/PlaylistWindow.cs:666
+#: src/PlaylistWindow.cs:665
 msgid "Pause music playback"
 msgstr "Pozastavit přehrávání hudby"
 
-#: src/PlaylistWindow.cs:670 src/PlaylistWindow.cs:673
+#: src/PlaylistWindow.cs:669 src/PlaylistWindow.cs:672
 msgid "P_ause"
 msgstr "Po_zastavit"
 
-#: src/PlaylistWindow.cs:679
+#: src/PlaylistWindow.cs:678
 msgid "Resume music playback"
 msgstr "Obnovit přehrávání hudby"
 
-#: src/PlaylistWindow.cs:683 src/PlaylistWindow.cs:686
-#: src/PlaylistWindow.cs:694 src/PlaylistWindow.cs:697
+#: src/PlaylistWindow.cs:682 src/PlaylistWindow.cs:685
+#: src/PlaylistWindow.cs:693 src/PlaylistWindow.cs:696
 msgid "Pl_ay"
 msgstr "_Přehrávat"
 
-#: src/PlaylistWindow.cs:690
+#: src/PlaylistWindow.cs:689
 msgid "Start music playback"
 msgstr "Začít přehrávat hudbu"
 
-#: src/PlaylistWindow.cs:761
+#: src/PlaylistWindow.cs:760
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Nemohu otevřít {0} pro čtení"
 
-#: src/PlaylistWindow.cs:835
+#: src/PlaylistWindow.cs:834
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Nemohu otevřít {0} pro zápis"
 
-#: src/PlaylistWindow.cs:1198
+#: src/PlaylistWindow.cs:1184
 msgid "Import Folder"
 msgstr "Importovat adresář"
 
-#: src/PlaylistWindow.cs:1248
+#: src/PlaylistWindow.cs:1234
 msgid "Open Playlist"
 msgstr "Otevřít seznam skladeb"
 
-#: src/PlaylistWindow.cs:1263
+#: src/PlaylistWindow.cs:1249
 msgid "Save Playlist"
 msgstr "Uložit seznam skladeb"
 
-#: src/PlaylistWindow.cs:1273
+#: src/PlaylistWindow.cs:1259
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
@@ -497,7 +501,7 @@ msgstr ""
 "\n"
 "Chcete pokračovat?"
 
-#: src/ProgressWindow.cs:44
+#: src/ProgressWindow.cs:43
 #, csharp-format
 msgid "Importing {0}..."
 msgstr "Importuji {0}..."
