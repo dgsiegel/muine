@@ -1,5 +1,14 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* configure.in:
+	* po/LINGUAS:
+	* po/Makefile.in:
+
+	Install C# translation catalogs ..
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/NoMusicFoundWindow.glade:
 
 	Therefor -> Therefore
