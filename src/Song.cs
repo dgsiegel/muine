@@ -261,13 +261,6 @@ public class Song
 			return;
 		}
 
-		/* Check for an embedded image in the ID3 tag */
-		if (metadata != null && metadata.AlbumArt != null) {
-			cover_image = Muine.CoverDB.AddCoverEmbedded (AlbumKey, metadata.AlbumArt);
-			if (cover_image != null)
-				return;
-		}
-
 		/* Search for popular image names */
 		FileInfo info = new FileInfo (filename);
 
@@ -279,6 +272,13 @@ public class Song
 				if (cover_image != null)
 					return;
 			}
+		}
+
+		/* Check for an embedded image in the ID3 tag */
+		if (metadata != null && metadata.AlbumArt != null) {
+			cover_image = Muine.CoverDB.AddCoverEmbedded (AlbumKey, metadata.AlbumArt);
+			if (cover_image != null)
+				return;
 		}
 
 		if (artists.Length == 0) {

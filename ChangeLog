@@ -1,5 +1,15 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/metadata.c: (metadata_free):
+
+	Add a comment about not unreffing the album art pixbuf.
+	
+	* src/Song.cs:
+
+	Give cover.jpg priority over the ID3 image.
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/ActionThread.cs:
 	* src/PlaylistWindow.cs:
 	* src/ProgressWindow.cs:

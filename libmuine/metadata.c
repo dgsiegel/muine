@@ -698,6 +698,9 @@ metadata_free (Metadata *metadata)
 	g_free (metadata->year);
 	g_free (metadata->mime_type);
 
+	/* do not unref the album_art pixbuf, as it becomes managed
+	 * in Metadata.cs */
+
 	g_free (metadata);
 }
 
