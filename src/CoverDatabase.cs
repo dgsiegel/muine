@@ -352,6 +352,8 @@ public class CoverDatabase
 		AmazonSearchService search_service = new AmazonSearchService ();
 
 		string sane_album_title = SanitizeString (song.Album);
+		/* remove "disc 1" and family */
+		sane_album_title =  Regex.Replace (sane_album_title, @"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
 
 		string [] album_title_array = sane_album_title.Split (' ');
 		Array.Sort (album_title_array);

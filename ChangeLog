@@ -1,3 +1,10 @@
+2004-11-12  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
+
+	Cut of "disc 1" and friends from album name before amazoning.
+	Inspired by a patch from Peter Oliver <p.d.oliver@mavit.freeserve.co.uk>.
+
 2004-11-12  Ross Girshick  <ross.girshick@gmail.com>
 
 	* src/MessageConnection.cs:
