@@ -1,0 +1,319 @@
+# English/Canada translation of muine.
+# Copyright (C) 2004 THE muine'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the muine package.
+# Adam Weinberger <adamw@gnome.org>, 2004.
+# , fuzzy
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: muine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-01 13:43-0400\n"
+"PO-Revision-Date: 2004-05-01 13:44-0400\n"
+"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
+"Language-Team: English/Canada <adamw@FreeBSD.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2
+msgid "_Play"
+msgstr "_Play"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Queue"
+msgstr "_Queue"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Search:"
+msgstr "_Search:"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "Error"
+msgstr "Error"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+"Muine was unable to find your music collection. What would you like me to do?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "No Music Found"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+msgstr ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefore not generally recommended."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "_Create an empty music collection "
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "_Nothing, I will manage my music myself"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "P_roperties"
+msgstr "P_roperties"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Play Album"
+msgstr "Play Album"
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Play Song"
+msgstr "Play Song"
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Play _Album..."
+msgstr "Play _Album..."
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "Play _Song..."
+msgstr "Play _Song..."
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "R_epeat"
+msgstr "R_epeat"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Remove _Played Songs"
+msgstr "Remove _Played Songs"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "Skip _Backwards"
+msgstr "Skip _Backwards"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "Skip _Forward"
+msgstr "Skip _Forward"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Clear"
+msgstr "_Clear"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Hide Window"
+msgstr "_Hide Window"
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Import Folder..."
+msgstr "_Import Folder..."
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Next"
+msgstr "_Next"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "_Open Playlist..."
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Playlist"
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Previous"
+msgstr "_Previous"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Remove Song"
+msgstr "_Remove Song"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "_Save Playlist As..."
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Skip to..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Song"
+msgstr "_Song"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Loading:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Skip to"
+
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr "Question"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Listen to your music"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine Music Player"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Add album window height."
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Add album window width."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Add song window height."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Add song window width."
+
+#: data/muine.schemas.in.h:5
+msgid "Amazon site to use for album images."
+msgstr "Amazon site to use for album images."
+
+#: data/muine.schemas.in.h:6
+msgid "Default import folder."
+msgstr "Default import folder."
+
+#: data/muine.schemas.in.h:7
+msgid "Default playlist folder."
+msgstr "Default playlist folder."
+
+#: data/muine.schemas.in.h:8
+msgid "First start."
+msgstr "First start."
+
+#: data/muine.schemas.in.h:9
+msgid "Folders that are monitored for changes."
+msgstr "Folders that are monitored for changes."
+
+#: data/muine.schemas.in.h:10
+msgid "Information window height."
+msgstr "Information window height."
+
+#: data/muine.schemas.in.h:11
+msgid "Information window width."
+msgstr "Information window width."
+
+#: data/muine.schemas.in.h:12
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Last used folder from \"Import folder\" dialog."
+
+#: data/muine.schemas.in.h:13
+msgid "Last used folder from the playlist file selectors."
+msgstr "Last used folder from the playlist file selectors."
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window height."
+msgstr "Playlist window height."
+
+#: data/muine.schemas.in.h:15
+msgid "Playlist window width."
+msgstr "Playlist window width."
+
+#: data/muine.schemas.in.h:16
+msgid "Repeat mode."
+msgstr "Repeat mode."
+
+#: data/muine.schemas.in.h:17
+msgid "Volume level."
+msgstr "Volume level."
+
+#: data/muine.schemas.in.h:18
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Volume level. 0 = lowest, 100 = highest."
+
+#: data/muine.schemas.in.h:19
+msgid "Watched folders."
+msgstr "Watched folders."
+
+#: data/muine.schemas.in.h:20
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Whether or not to enable repeat playlist mode."
+
+#: data/muine.schemas.in.h:21
+msgid ""
+"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
+"or \"jp\"."
+msgstr ""
+"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
+"or \"jp\"."
+
+#: data/muine.schemas.in.h:22
+msgid "false if Muine has been started before."
+msgstr "false if Muine has been started before."
+
+#: libmuine/player-gst.c:157
+msgid "Failed to create GstPlay object"
+msgstr "Failed to create GstPlay object"
+
+#: libmuine/player-gst.c:164
+msgid "Failed to create the required gnomevfssrc GStreamer element"
+msgstr "Failed to create the required gnomevfssrc GStreamer element"
+
+#: libmuine/player-gst.c:173
+msgid "Could not render default GStreamer audio output sink"
+msgstr "Could not render default GStreamer audio output sink"
+
+#: libmuine/player-gst.c:182
+msgid "Could not find the volume element in the GstPlay pipeline"
+msgstr "Could not find the volume element in the GstPlay pipeline"
+
+#: libmuine/player-xine.c:283
+#, c-format
+msgid ""
+"Couldn't load the '%s' audio driver\n"
+"Check that the device is not busy."
+msgstr ""
+"Couldn't load the '%s' audio driver\n"
+"Check that the device is not busy."
+
+#: libmuine/player-xine.c:378 libmuine/player-xine.c:383
+#, c-format
+msgid "No plugin available for \"%s\""
+msgstr "No plugin available for \"%s\""
+
+#: libmuine/player-xine.c:388
+#, c-format
+msgid "Failed playing \"%s\""
+msgstr "Failed playing \"%s\""
+
+#: libmuine/player-xine.c:392
+msgid "Internal error"
+msgstr "Internal error"
+
+#: libmuine/player-xine.c:401
+#, c-format
+msgid "Could not play \"%s\""
+msgstr "Could not play \"%s\""
+
