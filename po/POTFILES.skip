@@ -1,0 +1,3 @@
+data/glade/GroupsWindow.glade
+libmuine/egg/eggtrayicon.c
+libmuine/egg/eggtraymanager.c
