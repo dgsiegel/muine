@@ -44,7 +44,7 @@
 		      <signal name="activate" handler="HandleImportFolderCommand" last_modification_time="Sat, 17 Jan 2004 19:23:29 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image550">
+			<widget class="GtkImage" id="image920">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-execute</property>
 			  <property name="icon_size">1</property>
@@ -72,7 +72,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image551">
+			<widget class="GtkImage" id="image921">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -94,7 +94,7 @@
 		      <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image552">
+			<widget class="GtkImage" id="image922">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save-as</property>
 			  <property name="icon_size">1</property>
@@ -159,7 +159,7 @@
 		      <accelerator key="space" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image553">
+			<widget class="GtkImage" id="image923">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -187,7 +187,7 @@
 		      <accelerator key="P" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image554">
+			<widget class="GtkImage" id="image924">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -209,7 +209,7 @@
 		      <accelerator key="N" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image555">
+			<widget class="GtkImage" id="image925">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -237,7 +237,7 @@
 		      <accelerator key="T" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image556">
+			<widget class="GtkImage" id="image926">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -259,7 +259,7 @@
 		      <accelerator key="Left" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image557">
+			<widget class="GtkImage" id="image927">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -281,7 +281,7 @@
 		      <accelerator key="Right" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image558">
+			<widget class="GtkImage" id="image928">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -303,15 +303,15 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="information_menu_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Information</property>
+		      <property name="label" translatable="yes">P_roperties</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="HandleInformationCommand" last_modification_time="Fri, 27 Feb 2004 21:36:20 GMT"/>
 		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image559">
+			<widget class="GtkImage" id="image929">
 			  <property name="visible">True</property>
-			  <property name="stock">gtk-dialog-info</property>
+			  <property name="stock">gtk-properties</property>
 			  <property name="icon_size">1</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
@@ -344,7 +344,7 @@
 		      <accelerator key="S" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image560">
+			<widget class="GtkImage" id="image930">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -366,7 +366,7 @@
 		      <accelerator key="A" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image561">
+			<widget class="GtkImage" id="image931">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -394,7 +394,7 @@
 		      <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image562">
+			<widget class="GtkImage" id="image932">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-remove</property>
 			  <property name="icon_size">1</property>
@@ -420,14 +420,14 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="clear_playlist_menu_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Clear Playlist</property>
+		      <property name="label" translatable="yes">_Clear</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="HandleClearPlaylistCommand" last_modification_time="Sun, 11 Jan 2004 21:49:02 GMT"/>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separator9">
+		    <widget class="GtkMenuItem" id="separator10">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>

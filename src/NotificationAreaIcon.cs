@@ -104,8 +104,8 @@ public class NotificationAreaIcon : Plug
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);
 
-		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Song _Information"));
-		information_menu_item.Image = new Gtk.Image (Stock.DialogInfo, IconSize.Menu);
+		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("Song P_roperties"));
+		information_menu_item.Image = new Gtk.Image (Stock.Properties, IconSize.Menu);
 		menu.Append (information_menu_item);
 
 		sep = new SeparatorMenuItem ();

@@ -33,7 +33,6 @@ public class StockIcons
 		"muine-rewind",
 		"muine-forward",
 		"muine-add-album",
-		"muine-groups",
 		"muine-volume-zero",
 		"muine-volume-min",
 		"muine-volume-medium",

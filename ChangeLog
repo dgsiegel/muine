@@ -1,5 +1,16 @@
 2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* data/images/Makefile.am:
+	R data/images/muine-groups.png:
+	* src/Makefile.am:
+	* src/NotificationAreaIcon.cs:
+	* src/StockIcons.cs:
+
+	UI cleanups.
+
+2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SkipToWindow.cs:
 
 	Play after seek.
