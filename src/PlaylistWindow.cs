@@ -42,10 +42,10 @@ namespace Muine
 		
 		// GConf
 		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
-		private const int GConfDefaultWidth = 450; 
+		private const int GConfDefaultWidth = -1; 
 
 		private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
-		private const int GConfDefaultHeight = 475;
+		private const int GConfDefaultHeight = 450;
 
 		private const string GConfKeyVolume = "/apps/muine/volume";
 		private const int GConfDefaultVolume = 50;

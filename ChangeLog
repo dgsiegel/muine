@@ -1,5 +1,12 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/muine.schemas.in:
+	* src/PlaylistWindow.cs:
+
+	Default pls window width to -1 for best default looks ;)
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/PlaylistWindow.cs:
 
