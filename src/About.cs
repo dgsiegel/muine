@@ -30,7 +30,9 @@ public class About
 	}
 
 	private static string [] authors = {
-		"Jorn Baayen (jbaayen@gnome.org)"
+		"Jorn Baayen (jbaayen@gnome.org)",
+		"Lee Willis (lee@leewillis.co.uk)",
+		"Viet Yen Nguyen (nguyen@cs.utwente.nl)"
 	};
 	public static string [] Authors {
 		get {

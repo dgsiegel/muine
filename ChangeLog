@@ -1,5 +1,16 @@
 2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/metadata.c: (get_mp3_picture_data):
+
+	Only use the cover image if its width & height are >= 64.
+	
+	* AUTHORS:
+	* src/About.cs:
+
+	Added Lee & Viet Yen.
+
+2004-02-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/SongDatabase.cs:
 
 	Do actually start the thread :P

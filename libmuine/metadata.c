@@ -140,7 +140,13 @@ get_mp3_picture_data (struct id3_tag *tag, const char *field_name)
 	if (!gdk_pixbuf_loader_close (pb_loader, NULL))
 		return NULL;
 
-	ret = g_object_ref (gdk_pixbuf_loader_get_pixbuf (pb_loader));
+	ret = gdk_pixbuf_loader_get_pixbuf (pb_loader);
+	if (ret != NULL &&
+	    gdk_pixbuf_get_width (ret) >= 64 &&
+	    gdk_pixbuf_get_height (ret) >= 64)
+		ret = g_object_ref (ret);
+	else
+		ret = NULL;
 
 	g_object_unref (pb_loader);
 
