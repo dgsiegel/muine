@@ -342,6 +342,7 @@ public class CoverDatabase
 		s = Regex.Replace (s, "\\[.*\\]", "");
 		s = s.Replace ("-", " ");
 		s = s.Replace ("_", " ");
+		s = Regex.Replace (s, " +", " ");
 
 		return s;
 	}
@@ -459,6 +460,12 @@ public class CoverDatabase
 							
 							try {
 								pix = DownloadCoverPixbuf (url);
+								if (pix == null && amazon_locale != "us") {
+									// Manipulate the image URL since Amazon sometimes return it wrong :(
+									// http://www.amazon.com/gp/browse.html/103-1953981-2427826?node=3434651#misc-image
+									url = Regex.Replace (url, "[.]0[0-9][.]", ".01.");
+									pix = DownloadCoverPixbuf (url);
+								}
 							} catch (WebException e) {
 								throw e;
 							} catch (Exception e) {

@@ -1,3 +1,9 @@
+2004-07-03  Lee Willis <lee@leewillis.co.uk>
+
+	* src/CoverDatabase.cs:
+	Don't compare excess spaces when searching for covers, and work around
+	an Amazon bug where the wrong image URL is returned
+
 2004-06-30  Alastair Porter  <alastair@linuxexperience.com>
 
 	* muine.spec.in: Update.
