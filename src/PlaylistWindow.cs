@@ -59,7 +59,6 @@ namespace Muine
 		private Action window_visibility_action;
 		private ToggleAction play_pause_action;
 		private ToggleAction repeat_action;
-		private bool block_repeat_action = false;
 		private bool block_play_pause_action = false;
 
 		/* toolbar widgets */
@@ -147,13 +146,23 @@ namespace Muine
 			get { return player.Playing; }
 		}
 
+		private bool setting_volume = false;
 		public int Volume {
 			set {
-				if (value <= 100 && value >= 0)
-					volume_button.Volume = value;
+				if (value > 100 || value < 0)
+					value = GConfDefaultVolume;
+
+				setting_volume = true;
+
+				volume_button.Volume = value;
+				player.Volume = value;
+
+				Config.Set (GConfKeyVolume, value);
+				
+				setting_volume = false;
 			}
 			
-			get { return volume_button.Volume; }
+			get { return player.Volume; }
 		}
 
 		public int Position {
@@ -235,7 +244,6 @@ namespace Muine
 			AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
 			/* set up various other UI bits */
-			SetupWindowSize ();
 			SetupPlayer (glade_xml); /* Has to be before the others,
 						    they need the Player object */
 			SetupMenus (glade_xml);
@@ -261,11 +269,10 @@ namespace Muine
 
 		public void Run ()
 		{
-			if (!playlist.HasFirst) {
+			if (!playlist.HasFirst)
 				SongChanged (true); /* make sure the UI is up to date */
 
-				PlaylistChanged ();
-			}
+			RestoreState ();
 
 			WindowVisible = true;
 		}
@@ -325,14 +332,25 @@ namespace Muine
 			Drag.Finish (args.Context, true, false, args.Time);
 		}
 
-		private void SetupWindowSize ()
+		private void RestoreState ()
 		{
+			// Window size
 			int width = (int) Config.Get (GConfKeyWidth, GConfDefaultWidth);
 			int height = (int) Config.Get (GConfKeyHeight, GConfDefaultHeight);
 
 			SetDefaultSize (width, height);
 
 			SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);
+
+			// Volume
+			Volume = (int) Config.Get (GConfKeyVolume, GConfDefaultVolume);
+			Config.AddNotify (GConfKeyVolume,
+					  new GConf.NotifyEventHandler (OnConfigVolumeChanged));
+
+			// Repeat
+			Repeat = (bool) Config.Get (GConfKeyRepeat, GConfDefaultRepeat);
+			Config.AddNotify (GConfKeyRepeat,
+					  new GConf.NotifyEventHandler (OnConfigRepeatChanged));
 		}
 
 		private int last_x = -1;
@@ -467,10 +485,6 @@ namespace Muine
 			AddAccelGroup (ui_manager.AccelGroup);
 			
 			((Box) glade_xml ["menu_bar_box"]).Add (ui_manager.GetWidget ("/MenuBar"));
-
-			block_repeat_action = true;
-			repeat_action.Active = (bool) Config.Get (GConfKeyRepeat, GConfDefaultRepeat);
-			block_repeat_action = false;
 		}
 
 		private void SetupButtons (Glade.XML glade_xml)
@@ -507,11 +521,6 @@ namespace Muine
 
 			tooltips.SetTip (volume_button,
 					 Catalog.GetString ("Change the volume level"), null);
-
-			int vol = (int) Config.Get (GConfKeyVolume, GConfDefaultVolume);
-
-			volume_button.Volume = vol;
-			player.Volume = vol;
 		}
 
 		private Gdk.Pixbuf empty_pixbuf;
@@ -703,7 +712,7 @@ namespace Muine
 
 			time_label.Text = pos + " / " + total;
 
-			if (repeat_action.Active) {
+			if (Repeat) {
 				long r_seconds = remaining_songs_time;
 
 				if (r_seconds > 6000) { /* 100 minutes */
@@ -739,7 +748,7 @@ namespace Muine
 			bool start_counting;
 			remaining_songs_time = 0;
 
-			if (repeat_action.Active)
+			if (Repeat)
 				start_counting = true;
 			else
 				start_counting = false;
@@ -761,7 +770,7 @@ namespace Muine
 			previous_button.Sensitive = has_first;
 			play_pause_button.Sensitive = has_first;
 			next_button.Sensitive = playlist.HasNext ||
-						(repeat_action.Active && has_first);
+						(Repeat && has_first);
 
 			play_pause_action.Sensitive = previous_button.Sensitive;
 			previous_action.Sensitive = play_pause_button.Sensitive;
@@ -775,7 +784,7 @@ namespace Muine
 
 			UpdateTimeLabels (player.Position);
 
-			SavePlaylist (FileUtils.PlaylistFile, !repeat_action.Active, true);
+			SavePlaylist (FileUtils.PlaylistFile, !Repeat, true);
 
 			if (PlaylistChangedEvent != null)
 				PlaylistChangedEvent ();
@@ -905,7 +914,7 @@ namespace Muine
 
 			if (seconds >= song.Duration) {
 				if (playlist.HasNext ||
-				    (repeat_action.Active && playlist.HasFirst))
+				    (Repeat && playlist.HasFirst))
 					Next ();
 				else {
 					player.Position = song.Duration;
@@ -929,6 +938,8 @@ namespace Muine
 		public void OpenPlaylist (string fn)
 		{
 			OpenPlaylistInternal (fn);
+
+			PlaylistChanged ();
 
 			Playing = true;
 		}
@@ -1011,8 +1022,6 @@ namespace Muine
 			}
 
 			EnsurePlaying ();
-
-			PlaylistChanged ();
 		}
 
 		private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
@@ -1110,9 +1119,18 @@ namespace Muine
 
 		private void OnVolumeChanged (int vol)
 		{
-			player.Volume = vol;
+			if (setting_volume)
+				return;
 
-			Config.Set (GConfKeyVolume, vol);
+			Volume = vol;
+		}
+
+		private void OnConfigVolumeChanged (object o, GConf.NotifyEventArgs args)
+		{
+			int vol = (int) args.Value;
+
+			if (vol != Volume)
+				Volume = (int) args.Value;
 		}
 
 		private void OnToggleWindowVisibility (object o, EventArgs args)
@@ -1268,7 +1286,7 @@ namespace Muine
 			if (playlist.HasNext)
 				playlist.Next ();
 			else
-				if (repeat_action.Active)
+				if (Repeat)
 					playlist.First ();
 				else
 					HadLastEos ();
@@ -1289,7 +1307,7 @@ namespace Muine
 				PlaylistChanged ();
 			} else if (player.Position < 3 &&
 				   !playlist.HasPrevious &&
-				   repeat_action.Active) {
+				   Repeat) {
 				playlist.Last ();
 
 				PlaylistChanged ();
@@ -1319,7 +1337,7 @@ namespace Muine
 		{
 			if (playlist.HasNext)
 				playlist.Next ();
-			else if (repeat_action.Active && playlist.HasFirst)
+			else if (Repeat && playlist.HasFirst)
 				playlist.First ();
 			else
 				return;
@@ -1547,14 +1565,37 @@ namespace Muine
 			PlaylistChanged ();
 		}
 
+		private bool setting_repeat = false;
+		private bool Repeat {
+			set {
+				setting_repeat = true;
+				
+				repeat_action.Active = value;
+
+				Config.Set (GConfKeyRepeat, value);
+				
+				PlaylistChanged ();
+
+				setting_repeat = false;
+			}
+
+			get { return repeat_action.Active; }
+		}
+
 		private void OnRepeat (object o, EventArgs args)
 		{
-			if (block_repeat_action)
+			if (setting_repeat)
 				return;
 
-			Config.Set (GConfKeyRepeat, repeat_action.Active);
+			Repeat = repeat_action.Active;
+		}
 
-			PlaylistChanged ();
+		private void OnConfigRepeatChanged (object o, GConf.NotifyEventArgs args)
+		{
+			bool val = (bool) args.Value;
+
+			if (val != Repeat)
+				Repeat = val;
 		}
 
 		private Hashtable random_sort_keys;

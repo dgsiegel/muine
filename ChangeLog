@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Now volume and repeat react to GConf changes too.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Config.cs:
 	* src/CoverGetter.cs:
 	* src/Global.cs:
