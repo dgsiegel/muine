@@ -459,9 +459,21 @@ public class PlaylistWindow : Window
 
 		time_label.Text = pos + " / " + total;
 
-		if (remaining_songs_time >= 0) {
-			long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
+		long r_seconds = (remaining_songs_time + song.Duration - (int) player.Position) / 1000;
 
+		if (repeat_menu_item.Active) {
+			if (r_seconds > 6000) { /* 100 minutes */
+				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
+				playlist_label.Text = "Playlist (Repeating " + hours + " hours)";
+			} else if (r_seconds > 60) {
+				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
+				playlist_label.Text = "Playlist (Repeating " + minutes + " minutes)";
+			} else if (r_seconds > 0) {
+				playlist_label.Text = "Playlist (Repeating)";
+			} else {
+				playlist_label.Text = "Playlist";
+			}
+		} else {
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
 				playlist_label.Text = "Playlist (" + hours + " hours remaining)";
@@ -473,29 +485,29 @@ public class PlaylistWindow : Window
 			} else {
 				playlist_label.Text = "Playlist";
 			}
-		} else
-			playlist_label.Text = "Playlist (Repeating)";
+		} 
 	}
 
 	private void NSongsChanged ()
 	{
-		bool start_counting = false;
+		bool start_counting;
 		remaining_songs_time = 0;
 
-		if (repeat_menu_item.Active && playlist.HasFirst)
-			remaining_songs_time = -1; /* we keep playing forever */
-		else {
-			foreach (int i in playlist.Contents) {
-				IntPtr current = new IntPtr (i);
+		if (repeat_menu_item.Active)
+			start_counting = true;
+		else
+			start_counting = false;
 
-				if (start_counting == true) {
-					Song song = Song.FromHandle (current);
-					remaining_songs_time += song.Duration;
-				}
-				
-				if (current == playlist.Playing)
-					start_counting = true;
+		foreach (int i in playlist.Contents) {
+			IntPtr current = new IntPtr (i);
+
+			if (start_counting == true) {
+				Song song = Song.FromHandle (current);
+				remaining_songs_time += song.Duration;
 			}
+				
+			if (current == playlist.Playing)
+				start_counting = true;
 		}
 
 		bool has_first = playlist.HasFirst;
