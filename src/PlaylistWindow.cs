@@ -73,9 +73,11 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private EventBox cover_ebox;
 	[Glade.Widget]
-	private Label title_label;
+	private Container title_label_container;
+	private EllipsizingLabel title_label;
 	[Glade.Widget]
-	private Label artist_label;
+	private Container artist_label_container;
+	private EllipsizingLabel artist_label;
 	[Glade.Widget]
 	private Label time_label;
 	[Glade.Widget]
@@ -311,6 +313,16 @@ public class PlaylistWindow : Window
 		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (HandleEndOfStreamEvent);
 		player.TickEvent += new Player.TickEventHandler (HandleTickEvent);
 		player.StateChanged += new Player.StateChangedHandler (HandleStateChanged);
+
+		title_label = new EllipsizingLabel ("");
+		title_label.Visible = true;
+		title_label.Xalign = 0.0f;
+		title_label_container.Add (title_label);
+
+		artist_label = new EllipsizingLabel ("");
+		artist_label.Visible = true;
+		artist_label.Xalign = 0.0f;
+		artist_label_container.Add (artist_label);
 	}
 
 	private void AddSong (Song song)
@@ -338,6 +350,8 @@ public class PlaylistWindow : Window
 
 	private void RemoveSong (IntPtr p)
 	{
+		playlist.Remove (p);
+
 		Song song = Song.FromHandle (p);
 
 		if (song.IsExtraHandle (p))

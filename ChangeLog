@@ -1,6 +1,35 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* data/glade/PlaylistWindow.glade:
+	* libmuine/Makefile.am:
+	* libmuine/pointer-list-view.c: (scroll_to_path):
+	* libmuine/rb-ellipsizing-label.c: (rb_strcmp), (rb_str_is_equal),
+	(measure_string_width), (compute_character_widths),
+	(start_element_handler), (end_element_handler),
+	(append_ellipsized_text), (text_handler), (ellipsize_string),
+	(rb_string_ellipsize_start), (rb_string_ellipsize_end),
+	(rb_string_ellipsize_middle), (set_text_ellipsized),
+	(rb_ellipsizing_label_get_type), (rb_ellipsizing_label_init),
+	(rb_ellipsizing_label_finalize), (rb_ellipsizing_label_new),
+	(rb_ellipsizing_label_set_text), (rb_ellipsizing_label_set_markup),
+	(rb_ellipsizing_label_set_mode), (rb_ellipsizing_label_get_width),
+	(real_size_request), (real_size_allocate), (real_expose_event),
+	(rb_ellipsizing_label_class_init),
+	(rb_ellipsizing_label_get_ellipsized),
+	(rb_ellipsizing_label_get_full_text_size), (entry_changed_cb),
+	(main):
+	* libmuine/rb-ellipsizing-label.h:
+	* src/EllipsizingLabel.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+
+	Make artist and title labels ellipsizing labels. Fix removing
+	songs from the playlist.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* libmuine/pointer-list-view.c: (pointer_list_view_scroll_to):
 	* libmuine/pointer-list-view.h:
 	* src/HandleView.cs:

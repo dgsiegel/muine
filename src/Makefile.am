@@ -22,6 +22,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/HandleView.cs			\
 	$(srcdir)/StockIcons.cs			\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
+	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/CoverDatabase.cs
 

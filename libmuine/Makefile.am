@@ -36,6 +36,8 @@ libmuine_la_SOURCES =			\
 	markup-utils.h			\
 	rb-cell-renderer-pixbuf.c	\
 	rb-cell-renderer-pixbuf.h	\
+	rb-ellipsizing-label.c		\
+	rb-ellipsizing-label.h		\
 	volume-button.c			\
 	volume-button.h			\
 	db.c				\

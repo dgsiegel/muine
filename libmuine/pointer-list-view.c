@@ -380,7 +380,7 @@ scroll_to_path (PointerListView *view, GtkTreePath *path)
 {
 	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path,
 				      gtk_tree_view_get_column (GTK_TREE_VIEW (view), 0),
-				      FALSE, 0.5, 0.0);
+				      FALSE, 0.0, 0.0);
 }
 
 void
