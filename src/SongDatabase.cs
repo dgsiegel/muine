@@ -414,15 +414,14 @@ namespace Muine
 		{
 			protected override bool MainLoopIdle ()
 			{
-				if (queue.Count > 0) {
-					SignalRequest rq = (SignalRequest) queue.Dequeue ();
+				if (queue.Count == 0)
+					return !thread_done;
 
-					Muine.DB.HandleSignalRequest (rq);
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-					return true;
-				}
+				Muine.DB.HandleSignalRequest (rq);
 
-				return !thread_done;
+				return true;
 			}
 
 			protected override void ThreadFunc ()

@@ -1,3 +1,9 @@
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SongDatabase.cs:
+
+	Small cleanup.
+
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
 	* NEWS:
