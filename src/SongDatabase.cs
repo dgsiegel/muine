@@ -88,7 +88,7 @@ public class SongDatabase
 	{
 		Song song = new Song (key, data);
 
-		Muine.DB.Songs.Add (String.Copy (key), song);
+		Muine.DB.Songs.Add (key, song);
 
 		Muine.DB.DoAlbum (song, false);
 	}

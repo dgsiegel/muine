@@ -83,16 +83,6 @@ public class Song
 		}
 	}
 
-	private string lower_album = null;
-	public string LowerAlbum {
-		get {
-			if (lower_album == null)
-				lower_album = album.ToLower ();
-
-			return lower_album;
-		}
-	}
-
 	private int track_number;
 	public int TrackNumber {
 		get {

@@ -1,5 +1,15 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/Song.cs:
+
+	Remove obsolete code.
+	
+	* src/SongDatabase.cs:
+
+	Small memory optimization.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/metadata.c: (assign_metadata_mp3), (metadata_free):
 
 	Plug leaks.
