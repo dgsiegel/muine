@@ -1,5 +1,11 @@
 2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/ui/PlaylistWindow.xml:
+
+	Added ExtraFileActions placeholder.
+
+2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* data/Makefile.am:
 	* data/ui/.cvsignore:
