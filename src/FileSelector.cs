@@ -63,13 +63,8 @@ public class FileSelector : FileChooserDialog
 			return "";
 		}
 
-		string ret;
+		string ret = Uri;
 
-		if (Uri.StartsWith ("file://") == true)
-			ret = Uri.Substring ("file://".Length);
-		else
-			ret = Uri;
-		
 		Muine.GConfClient.Set (gconf_path,
 		                       System.IO.Path.GetDirectoryName (ret) + "/");
 

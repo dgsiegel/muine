@@ -1,5 +1,13 @@
 2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/PlaylistWindow.cs:
+
+	Better error messages.
+
+2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 	* src/FileSelector.cs:
 	* src/FileUtils.cs:

@@ -44,4 +44,16 @@ public class FileUtils
 
 		return u.Exists;
 	}
+
+	public static string HumanReadable (string fn)
+	{
+		System.Uri u = new System.Uri (fn);
+
+		string ret = u.ToString ();
+
+		if (ret.StartsWith ("file://") == true)
+			ret = ret.Substring ("file://".Length);
+
+		return ret;
+	}
 }

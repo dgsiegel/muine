@@ -809,7 +809,7 @@ public class PlaylistWindow : Window
 			stream = new VfsStream (fn, FileMode.Open);
 			reader = new StreamReader (stream);
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), fn), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), FileUtils.HumanReadable (fn)), this);
 			return;
 		}
 
@@ -882,7 +882,7 @@ public class PlaylistWindow : Window
 		try {
 			reader.Close ();
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), fn), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.HumanReadable (fn)), this);
 			return;
 		}
 
@@ -900,7 +900,7 @@ public class PlaylistWindow : Window
 			stream = new VfsStream (fn, FileMode.Create);
 			writer = new StreamWriter (stream);
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), fn), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), FileUtils.HumanReadable (fn)), this);
 			return;
 		}
 
@@ -933,7 +933,7 @@ public class PlaylistWindow : Window
 		try {
 			writer.Close ();
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), fn), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.HumanReadable (fn)), this);
 			return;
 		}
 	}
@@ -1447,7 +1447,7 @@ public class PlaylistWindow : Window
 			fn += ".m3u";
 
 		if (FileUtils.Exists (fn)) {
-			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), fn), this);
+			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), FileUtils.HumanReadable (fn)), this);
 			if (d.GetAnswer () == true)
 				SavePlaylist (fn, false, false);
 		} else
