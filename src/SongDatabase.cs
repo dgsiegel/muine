@@ -119,11 +119,13 @@ namespace Muine
 					return null;
 				}
 
+				StartAddToAlbum (rq);
+
+				// Store after the album cover has been stored,
+				// in case of unexpected exit
 				db.Store (song.Filename, song.Handle);
 
 				rq.SongAdded = true;
-
-				StartAddToAlbum (rq);
 
 				return rq;
 			}
