@@ -12,6 +12,13 @@ o Proper RTL support
 o "Only single songs" folder stuff: checkbox in filesel??
 o "Append" button in Open Playlist dialog,
   and DnD insert playlists into position
+o Split out PlaylistWindow
+o Remove MarkupUtils in favour of <b> style markup, escaping all bad chars,
+  if this is not slower.
+o Experiment a bit with cover images: See how it works if we'd load them
+  from the gdbm file on demand, instead of keeping them all in memory.
+  Would need to be done in a thread of course, notifying the UI of their
+  availability through an idle.
 
 Tough:
 ======

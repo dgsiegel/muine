@@ -45,8 +45,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/ThreadBase.cs
 
 MUINE_GENERATED_CSFILES =			\
-	$(srcdir)/AmazonSearchService.cs	\
-	$(srcdir)/Defines.cs
+	AmazonSearchService.cs			\
+	Defines.cs
 
 MUINE_ASSEMBLIES =					\
 	-r:$(top_builddir)/PluginLib/muine-plugin.dll	\

@@ -1,5 +1,16 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+
+	Release 0.8.0pre4.
+	
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	
+	Fix 'make distcheck'.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverGetter.cs:
 
 	Move more things out of idles into threads. This should be it.
