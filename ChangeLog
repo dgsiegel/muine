@@ -1,3 +1,9 @@
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/EllipsizingLabel.cs:
+
+	Fix GtkLabel warning on startup.
+
 2004-06-05  Peter Johanson  <latexer@gentoo.org>
             fer
             Jorn Baayen  <jbaayen@gnome.org>

@@ -28,7 +28,7 @@ public class EllipsizingLabel : Label
 	[DllImport ("libmuine")]
 	private static extern IntPtr rb_ellipsizing_label_new (string text);
 	
-	public EllipsizingLabel (string text)
+	public EllipsizingLabel (string text) : base (text)
 	{
 		Raw = rb_ellipsizing_label_new (text);
 	}
