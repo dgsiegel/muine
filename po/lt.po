@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 00:18+0200\n"
-"PO-Revision-Date: 2004-11-30 00:38+0200\n"
+"POT-Creation-Date: 2004-12-11 19:54+0200\n"
+"PO-Revision-Date: 2004-12-11 19:55+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -310,21 +310,13 @@ msgstr "Grojaraščio lango plotis."
 msgid "false if Muine has been started before."
 msgstr "neigiama reikšmė, jeigu Muine jau buvo anksčiau paleistas."
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
-msgstr "Nepavyko sukurti GstPlay objekto"
+#: libmuine/player-gst.c:154
+msgid "Failed to create a GStreamer play object"
+msgstr "Nepavyko sukurti GStreamer grojimo objekto"
 
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr "Nepavyko sukurti reikalingo gnomevfssrc GStreamer elemento"
-
-#: libmuine/player-gst.c:173
+#: libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Nepavyko perteikti įprastos GStreamer audio išvesties kriauklės"
-
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr "Nepavyko GstPlay konvejeryje rasti garsumo elemento"
 
 #: libmuine/player-xine.c:283
 #, c-format
@@ -398,6 +390,10 @@ msgstr "Atlikta {0}"
 #: src/Album.cs:83
 msgid "the dj"
 msgstr "the dj"
+
+#: src/ErrorDialog.cs:37
+msgid "An error occurred:"
+msgstr "Įvyko klaida:"
 
 #: src/Metadata.cs:167
 #, csharp-format
@@ -642,3 +638,9 @@ msgstr "{0} ir kiti"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} ir {1}"
+
+#~ msgid "Failed to create the required gnomevfssrc GStreamer element"
+#~ msgstr "Nepavyko sukurti reikalingo gnomevfssrc GStreamer elemento"
+
+#~ msgid "Could not find the volume element in the GstPlay pipeline"
+#~ msgstr "Nepavyko GstPlay konvejeryje rasti garsumo elemento"
