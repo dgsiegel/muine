@@ -5,8 +5,6 @@
 
 - listen to multimedia keys
 
-- library + add songs window
-
 - playlist manager/import:
    - Playlists >
       New...
@@ -24,9 +22,7 @@
 import/list/direct edit
 
 --------------
-- import songs:
-   dir/loose file + 'add to playlist' checkbutton
-
 - panel crash
 
-- serialize cover images to strings and put them in the db
+- serialize cover images to (png?) strings and put them in covers.db
+- songs op tracknr volgorde binnen albums, artists alfabetisch?

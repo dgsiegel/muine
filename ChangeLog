@@ -1,6 +1,12 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/AddAlbumWindow.cs:
+
+	Handle albums with a lot of artists in a nicer way.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
+	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 
 	Speed tweaks, select first row when opening row.

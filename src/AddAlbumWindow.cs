@@ -151,7 +151,11 @@ public class AddAlbumWindow
 		CellRendererText r = (CellRendererText) cell;
 		Album album = Album.FromHandle (handle);
 
-		r.Text = album.Name + "\n" + String.Join (", ", album.Artists);
+		r.Text = album.Name + "\n";
+		if (album.Artists.Length > 3)
+			r.Text = r.Text + String.Join (", ", album.Artists, 0, 3) + ", and others";
+		else
+			r.Text = r.Text + String.Join (", ", album.Artists);
 		r.Yalign = 0.25f;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
