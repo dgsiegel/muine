@@ -1,3 +1,17 @@
+0.2.1
+=====
+
+- UI improvements [Jorn Baayen]
+- Restore playlist on startup [Jorn Baayen]
+- Bugfixes [Jorn Baayen]
+- RPM spec file [Link Dupont]
+
+- Translations (partial):
+   Dutch [Tino Meinen]
+   Czech [Miloslav Trmac]
+   Serbian [Danilo Šegan]
+   Swedish [Christian Rose]
+
 0.2
 ===
 

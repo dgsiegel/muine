@@ -1,5 +1,13 @@
 2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.2.1.
+
+2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/muine.schemas.in:
 	* src/PlaylistWindow.cs:
 
