@@ -696,7 +696,7 @@ public class PlaylistWindow : Window
 
 		int i = 0;
 		foreach (string s in folders) {
-			if (folder == s)
+			if (folder.IndexOf (s) == 0)
 				return;
 			new_folders [i] = folders [i];
 			i++;

@@ -1,5 +1,11 @@
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Don't watch foo/bar/ if foo/ is already being watched.
+
+2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/CoverDatabase.cs:
 
 	Set KeepAlive to false when fetching cover images.
