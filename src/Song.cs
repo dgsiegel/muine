@@ -398,17 +398,21 @@ namespace Muine
 		{
 			string a = String.Join (" ", artists).ToLower ();
 			string p = String.Join (" ", performers).ToLower ();
+
+			string key = String.Format ("{0} {1} {2}", title.ToLower (), a, p);
 				
-			return StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
+			return StringUtils.CollateKey (key);
 		}
 
 		// Methods :: Protected :: GenerateSearchKey
 		protected override string GenerateSearchKey ()
 		{
-			string a = String.Join (" ", artists).ToLower ();
-			string p = String.Join (" ", performers).ToLower ();
+			string a = String.Join (" ", artists);
+			string p = String.Join (" ", performers);
 				
-			return title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
+			string key = String.Format ("{0} {1} {2} {3}", title, a, p, album);
+
+			return StringUtils.SearchKey (key);
 		}
 		
 		// Handlers

@@ -280,10 +280,12 @@ namespace Muine
 		// Methods :: Protected :: GenerateSearchKey
 		protected override string GenerateSearchKey ()
 		{
-			string a = String.Join (" ", Artists).ToLower ();
-			string p = String.Join (" ", Performers).ToLower ();
+			string a = String.Join (" ", Artists);
+			string p = String.Join (" ", Performers);
 
-			return String.Format ("{0} {1} {2}", name.ToLower (), a, p);
+			string key = String.Format ("{0} {1} {2}", name, a, p);
+
+			return StringUtils.SearchKey (key);
 		}
 
 		// Methods :: Private

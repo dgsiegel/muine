@@ -120,5 +120,23 @@ namespace Muine
 			
 			return GLib.Marshaller.PtrToStringGFree (str_ptr);
 		}
+
+		// Methods :: Public :: SearchKey
+		[DllImport ("libmuine")]
+		private static extern IntPtr string_utils_strip_non_alnum (string str);
+
+		public static string SearchKey (string key)
+		{
+			string lower = key.ToLower ();
+			IntPtr str_ptr = string_utils_strip_non_alnum (lower);
+			string stripped = GLib.Marshaller.PtrToStringGFree (str_ptr);
+
+			// Both, so that "R.E.M." will yield only "R.E.M.", but "rem"
+			// both "remix and "R.E.M.".
+			if (stripped != lower)
+				return String.Format ("{0} {1}", stripped, lower);
+			else
+				return stripped;
+		}
 	}
 }

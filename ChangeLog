@@ -1,5 +1,17 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/Makefile.am:
+	* libmuine/string-utils.c: (string_utils_strip_non_alnum):
+	* libmuine/string-utils.h:
+	* src/Album.cs:
+	* src/Song.cs:
+	* src/StringUtils.cs:
+
+	Strip non alphanumeric chars (and non-spaces) from the SearchKey,
+	so that "rem" also yiels "R.E.M.".
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/SongDatabase.cs:
 

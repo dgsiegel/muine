@@ -43,6 +43,8 @@ libmuine_la_SOURCES =			\
 	pointer-list-view.h		\
 	markup-utils.c			\
 	markup-utils.h			\
+	string-utils.c			\
+	string-utils.h			\
 	rb-cell-renderer-pixbuf.c	\
 	rb-cell-renderer-pixbuf.h	\
 	rb-ellipsizing-label.c		\
