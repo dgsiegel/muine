@@ -150,19 +150,16 @@ selection_changed_cb (GtkTreeSelection *sel,
 static void
 pointer_list_view_init (PointerListView *view)
 {
-	GtkTreeSelection *sel;
+	GtkTreeView *tree_view = GTK_TREE_VIEW (view);
 
 	view->model = (PointerListModel *) pointer_list_model_new ();
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view), (GtkTreeModel *) view->model);
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
-	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (view), FALSE);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view), FALSE);
+	gtk_tree_view_set_model (tree_view, (GtkTreeModel *) view->model);
+	gtk_tree_view_set_rules_hint (tree_view, TRUE);
+	gtk_tree_view_set_enable_search (tree_view, FALSE);
+	gtk_tree_view_set_headers_visible (tree_view, FALSE);
 
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-	gtk_tree_selection_set_mode (sel, GTK_SELECTION_SINGLE);
-
-	g_signal_connect (G_OBJECT (sel),
+	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (tree_view)),
 			  "changed",
 			  G_CALLBACK (selection_changed_cb),
 			  view);

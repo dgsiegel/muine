@@ -1,5 +1,13 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_init):
+	* src/InfoWindow.cs:
+	* src/PlaylistWindow.cs:
+
+	Various cleanups, and make the playlist multiselection.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/InfoWindow.glade:
 	* data/glade/PlaylistWindow.glade:
 	* src/AddAlbumWindow.cs:

@@ -353,7 +353,7 @@ public class PlaylistWindow : Window
 		playlist = new HandleView ();
 
 		playlist.Reorderable = true; 
-		playlist.Selection.Mode = SelectionMode.Single;
+		playlist.Selection.Mode = SelectionMode.Multiple;
 
 		pixbuf_renderer = new ColoredCellRendererPixbuf ();
 		playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
@@ -476,9 +476,6 @@ public class PlaylistWindow : Window
 
 	private void RemoveSong (IntPtr p)
 	{
-		if (!playlist.SelectNext (false, false))
-			playlist.SelectPrevious (false, false);
-
 		playlist.Remove (p);
 
 		Song song = Song.FromHandle (p);
@@ -1245,7 +1242,11 @@ public class PlaylistWindow : Window
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)
 	{
-		foreach (int i in playlist.SelectedPointers) {
+		List selected_pointers = playlist.SelectedPointers;
+
+		bool have_only_one = (selected_pointers.Count == 1);
+		
+		foreach (int i in selected_pointers) {
 			IntPtr sel = new IntPtr (i);
 
 			if (sel == playlist.Playing) {
@@ -1264,6 +1265,11 @@ public class PlaylistWindow : Window
 				SongChanged (true);
 			}
 			
+			if (have_only_one) {
+				if (!playlist.SelectNext (false, false))
+					playlist.SelectPrevious (false, false);
+			}
+
 			RemoveSong (sel);
 		}
 

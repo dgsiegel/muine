@@ -44,6 +44,7 @@ public class InfoWindow
 
 	/* FIXME albumchanged signal? */
 	/* FIXME accessible from add album window? */
+	/* FIXME songinfo on selection in playlist */
 
 	public InfoWindow (string title)
 	{
