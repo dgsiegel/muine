@@ -31,9 +31,9 @@ namespace Muine
 	{
 		// Constants
 		private const string playlist_filename = "playlist.m3u";
-		private const string songsdb_filename = "songs.db";
-		private const string coversdb_filename = "covers.db";
-		private const string plugin_dirname = "plugins";
+		private const string songsdb_filename  = "songs.db"    ;
+		private const string coversdb_filename = "covers.db"   ;
+		private const string plugin_dirname    = "plugins"     ;
 
 		private readonly static DateTime date_time_1970 = 
 			new DateTime (1970, 1, 1, 0, 0, 0, 0);
@@ -41,6 +41,7 @@ namespace Muine
 		// Strings
 		private static readonly string string_init_config_failed = 
 			Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting...");
+
 		private static readonly string string_init_temp_failed =
 			Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting...");
 

@@ -56,8 +56,8 @@ namespace Muine
 		{
 			Setup ();
 
-			Config.AddNotify (GConfProxyPath,
-					  new GConf.NotifyEventHandler (OnConfigChanged));
+			Config.AddNotify (GConfProxyPath, 
+				new GConf.NotifyEventHandler (OnConfigChanged));
 		}
 
 		// Properties
@@ -90,6 +90,7 @@ namespace Muine
 			
 			try {
 				proxy = new WebProxy (host, port);
+
 			} catch {
 				use = false;
 				return;
@@ -101,12 +102,12 @@ namespace Muine
 			if (!use_auth)
 				return;
 
-			string user = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
-
+			string user   = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
 			string passwd = (string) Config.Get (GConfKeyPass, GConfDefaultPass);
 					
 			try {
 				proxy.Credentials = new NetworkCredential (user, passwd);
+
 			} catch {
 				use_auth = false;
 			}

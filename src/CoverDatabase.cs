@@ -37,110 +37,6 @@ namespace Muine
 		public delegate void DoneLoadingHandler ();
 		public event         DoneLoadingHandler DoneLoading;
 
-		// Internal Classes
-		// Internal Classes :: LoadThread
-		// 	XXX: Split off? This is big.
-		private class LoadThread : ThreadBase
-		{
-			// Structs
-			private struct LoadedCover {
-				public Pixbuf Pixbuf;
-				public Item Item;
-
-				public LoadedCover (Item item, Pixbuf pixbuf) {
-					Item   = item;
-					Pixbuf = pixbuf;
-				}
-			}
-
-			// Variables
-			private Database db;			
-
-			// Methods
-			// Methods :: Public
-			// Methods :: Public :: LoadThread
-			public LoadThread (Database db)
-			{
-				this.db = db;
-				thread.Start ();
-			}
-
-			// Methods :: Protected
-			// Methods :: Protected :: MainLoopIdle
-			protected override bool MainLoopIdle ()
-			{
-				if (queue.Count == 0) {
-					if (thread_done) {
-						Global.CoverDB.EmitDoneLoading ();
-						
-						return false;
-					} else
-						return true;
-				}
-
-				LoadedCover lc = (LoadedCover) queue.Dequeue ();
-			
-				lc.Item.CoverImage = lc.Pixbuf;
-
-				return true;
-			}
-
-			// Methods :: Private
-			// Methods :: Private :: DecodeFunction
-			private void DecodeFunction (string key, IntPtr data)
-			{
-				IntPtr p = data;
-
-				bool being_checked;
-				p = Database.UnpackBool (p, out being_checked);
-		
-				Pixbuf pixbuf = null;
-				if (!being_checked) {
-					IntPtr pix_handle;
-					p = Database.UnpackPixbuf (p, out pix_handle);
-					pixbuf = new Pixbuf (pix_handle);
-				}
-
-				if (Global.CoverDB.Covers.Contains (key)) {
-					if (being_checked)
-						return;
-					else // stored covers take priority
-						Global.CoverDB.Covers.Remove (key);
-				}
-				
-				// Add independent of whether item is null or not,
-				// this way manually set covers will stay for
-				// removable devices.
-				if (!being_checked) 
-					Global.CoverDB.Covers.Add (key, pixbuf);
-
-				Item item = Global.DB.GetAlbum (key);
-				if (item == null)
-					item = Global.DB.GetSong (key);
-				if (item != null) {
-					if (being_checked) {
-						// false, as we don't want to write to the db
-						// while we're loading
-						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item, false);
-						Global.CoverDB.Covers.Add (key, null);
-					}
-					
-					LoadedCover lc = new LoadedCover (item, pixbuf);
-					queue.Enqueue (lc);
-				}
-			}
-
-			// Delegate Functions 
-			// Delegate Functions :: ThreadFunc
-			protected override void ThreadFunc ()
-			{
-				lock (Global.CoverDB)
-					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
-
-				thread_done = true;
-			}
-		}
-
 		// Objects
 		private Hashtable covers;
 		private Pixbuf downloading_pixbuf;
@@ -220,7 +116,6 @@ namespace Muine
 					return;
 
 				db.Delete (key);
-
 				Covers.Remove (key);
 			}
 		}
@@ -261,6 +156,112 @@ namespace Muine
 
 			if (DoneLoading != null)
 				DoneLoading ();
+		}
+
+		// Internal Classes
+		// Internal Classes :: LoadThread
+		// 	FIXME: Split off? This is big.
+		private class LoadThread : ThreadBase
+		{
+			// Structs
+			private struct LoadedCover {
+				public Pixbuf Pixbuf;
+				public Item Item;
+
+				public LoadedCover (Item item, Pixbuf pixbuf)
+				{
+					Item   = item;
+					Pixbuf = pixbuf;
+				}
+			}
+
+			// Variables
+			private Database db;			
+
+			// Methods
+			// Methods :: Public
+			// Methods :: Public :: LoadThread
+			public LoadThread (Database db)
+			{
+				this.db = db;
+				thread.Start ();
+			}
+
+			// Methods :: Protected
+			// Methods :: Protected :: MainLoopIdle
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0) {
+					if (thread_done) {
+						Global.CoverDB.EmitDoneLoading ();						
+						return false;
+					}
+
+					return true;
+				}
+
+				LoadedCover lc = (LoadedCover) queue.Dequeue ();
+			
+				lc.Item.CoverImage = lc.Pixbuf;
+
+				return true;
+			}
+
+			// Delegate Functions 
+			// Delegate Functions :: DecodeFunction
+			private void DecodeFunction (string key, IntPtr data)
+			{
+				IntPtr p = data;
+
+				bool being_checked;
+				p = Database.UnpackBool (p, out being_checked);
+		
+				Pixbuf pixbuf = null;
+				if (!being_checked) {
+					IntPtr pix_handle;
+					p = Database.UnpackPixbuf (p, out pix_handle);
+					pixbuf = new Pixbuf (pix_handle);
+				}
+
+				if (Global.CoverDB.Covers.Contains (key)) {
+					if (being_checked)
+						return;
+					
+					// stored covers take priority
+					Global.CoverDB.Covers.Remove (key);
+				}
+				
+				// Add independent of whether item is null or not,
+				// this way manually set covers will stay for
+				// removable devices.
+				if (!being_checked) 
+					Global.CoverDB.Covers.Add (key, pixbuf);
+
+				Item item = Global.DB.GetAlbum (key);
+				if (item == null)
+					item = Global.DB.GetSong (key);
+
+				if (item != null) {
+					if (being_checked) {
+						// false, as we don't want to write to the db
+						// while we're loading
+						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item, false);
+						Global.CoverDB.Covers.Add (key, null);
+					}
+					
+					LoadedCover lc = new LoadedCover (item, pixbuf);
+					queue.Enqueue (lc);
+				}
+			}
+
+			// Delegate Functions :: ThreadFunc (ThreadBase)
+			protected override void ThreadFunc ()
+			{
+				lock (Global.CoverDB)
+					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
+
+				thread_done = true;
+			}
 		}
 	}
 }

@@ -40,19 +40,21 @@ namespace Muine
 		private static readonly string string_title = 
 			Catalog.GetString ("Play Song");
 
-		// DnD targets	
-		private static TargetEntry [] source_entries = new TargetEntry [] {
+		// Static
+		// Static :: Objects
+		// Static :: Objects :: DnD targets
+		private static TargetEntry [] source_entries = {
 			DndUtils.TargetMuineSongList,
 			DndUtils.TargetUriList
 		};
 
-		// Constructor	
+		// Constructor
 		public AddSongWindow ()
 		{
 			base.Title = string_title;
 
 			base.SetGConfSize (GConfKeyWidth , GConfDefaultWidth, 
-					   GConfKeyHeight, GConfDefaultHeight);
+				GConfKeyHeight, GConfDefaultHeight);
 
 			base.Items = Global.DB.Songs.Values;
 						
@@ -67,7 +69,7 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			// Requires Mono 1.1+:
+			// FIXME: Requires Mono 1.1+:
 			// Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
 			// Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
 			// Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
@@ -93,7 +95,7 @@ namespace Muine
 				}
 		
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-							8, System.Text.Encoding.UTF8.GetBytes (files));
+					8, System.Text.Encoding.UTF8.GetBytes (files));
 							
 				break;	
 				
@@ -106,7 +108,7 @@ namespace Muine
 				}
 				
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineSongList.Target, false),
-						        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+					8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 
 				break;
 
@@ -116,23 +118,23 @@ namespace Muine
 		}
 
 		// Handlers :: OnAdded
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnAdded (Song Song)
 		{
 			base.List.HandleAdded (Song.Handle, 
-					       Song.FitsCriteria (base.Entry.SearchBits));
+				Song.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnSongChanged
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnChanged (Song Song)
 		{
 			base.List.HandleChanged (Song.Handle, 
-						 Song.FitsCriteria (base.Entry.SearchBits));
+				Song.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnSongRemoved
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnRemoved (Song Song)
 		{
 			base.List.HandleRemoved (Song.Handle);
@@ -156,8 +158,8 @@ namespace Muine
 			Song song = Song.FromHandle (base.List.Model.HandleFromIter (iter));
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",
-			                          StringUtils.EscapeForPango (song.Title),
-						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
+				StringUtils.EscapeForPango (song.Title),
+				StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}
 	}
 }

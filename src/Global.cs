@@ -35,22 +35,25 @@ namespace Muine
 		// Strings
 		private static readonly string string_dbus_failed =
 			Catalog.GetString ("Failed to export D-Bus object: {0}");		
+
 		private static readonly string string_coverdb_failed =
 			Catalog.GetString ("Failed to load the cover database: {0}");
+
 		private static readonly string string_songdb_failed =
 			Catalog.GetString ("Failed to load the song database: {0}");
+
 		private static readonly string string_error_initializing =
 			Catalog.GetString ("Error initializing Muine.");
 	
 		// Variables
-		private static SongDatabase db;
-		private static CoverDatabase cover_db;
+		private static SongDatabase   db;
+		private static CoverDatabase  cover_db;
 		private static PlaylistWindow playlist;
-		private static Actions actions;
+		private static Actions        actions;
 
-		private static DBusLib.Player dbus_object = null;
+		private static DBusLib.Player       dbus_object = null;
 		private static NotificationAreaIcon icon;
-		private static Gnome.Client session_client;
+		private static Gnome.Client         session_client;
 		
 		// Properties
 		// Properties :: DB (get;)
@@ -78,8 +81,7 @@ namespace Muine
 		{
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-			new Gnome.Program ("muine", Defines.VERSION,
-					   Gnome.Modules.UI, args);
+			new Gnome.Program ("muine", Defines.VERSION, Gnome.Modules.UI, args);
 
 			// Try to find a running Muine
 			try {
@@ -87,29 +89,30 @@ namespace Muine
 			} catch {
 			}
 
+			// Check if an instance of Muine is already running
 			if (dbus_object != null) {
-				// An instance already exists. Handle command line args and exit.
+
+				// Handle command line args and exit.
 				if (args.Length > 0)
 					ProcessCommandLine (args);
 				else
 					dbus_object.SetWindowVisible (true);
 				
 				Gdk.Global.NotifyStartupComplete ();
-				
-				Environment.Exit (0);
-			} else {
-				/* Register with D-Bus ASAP.
-				   Actual hooking up to IPlayer happens later,
-				   but this is safe, as D-Bus communication happens
-				   through the main thread anyway. For now it is
-				   just important to have the thing registered. */
-				try {
-					dbus_object = new DBusLib.Player ();
-					DBusService.Instance.RegisterObject (dbus_object, "/org/gnome/Muine/Player");
 
-				} catch (Exception e) {
-					Console.WriteLine (string_dbus_failed, e.Message);
-				}
+				return;
+			}
+
+			// Initialize D-Bus
+			//	We initialize here but don't connect to it until later.
+			try {
+				dbus_object = new DBusLib.Player ();
+
+				DBusService.Instance.RegisterObject (dbus_object, 
+					"/org/gnome/Muine/Player");
+
+			} catch (Exception e) {
+				Console.WriteLine (string_dbus_failed, e.Message);
 			}
 
 			// Init GConf
@@ -118,6 +121,7 @@ namespace Muine
 			// Init files
 			try {
 				FileUtils.Init ();
+
 			} catch (Exception e) {
 				Error (e.Message);
 			}
@@ -131,13 +135,17 @@ namespace Muine
 			// Open cover database
 			try {
 				cover_db = new CoverDatabase (3);
+
 			} catch (Exception e) {
 				Error (String.Format (string_coverdb_failed, e.Message));
 			}
 
+			cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+
 			// Load song database
 			try {
 				db = new SongDatabase (6);
+
 			} catch (Exception e) {
 				Error (String.Format (string_songdb_failed, e.Message));
 			}
@@ -154,14 +162,15 @@ namespace Muine
 				Error (e.Message);
 			}
 
-			/* Hook up D-Bus object before loading any songs into the
-			   playlist, to make sure that the song change gets emitted
-			   to the bus */
+			// D-Bus
+			// 	Hook up D-Bus object before loading any songs into the
+			//	playlist, to make sure that the song change gets emitted
+			//	to the bus 
 			dbus_object.HookUp (playlist);
-
-			/* Initialize plug-ins (also before loading any songs, to make
-			   sure that the song change gets through to all the
-			   plug-ins) */
+		
+			// PluginManager
+			//	Initialize plug-ins (also before loading any songs, to make
+			//	sure that the song change gets through to all the plug-ins)
 			new PluginManager (playlist);
 
 			// Hook up multimedia keys
@@ -179,15 +188,12 @@ namespace Muine
 
 			// Show UI
 			playlist.Run ();
-
 			icon.Run ();
 
-			// put on the screen immediately
 			while (MainContext.Pending ())
 				Gtk.Main.Iteration ();
 
-			// Now we load the album covers, and after that start the changes thread
-			cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			// Load Covers
 			cover_db.Load ();
 
 			// Hook up to the session manager
@@ -195,7 +201,7 @@ namespace Muine
 			session_client.Die          += new EventHandler              (OnDieEvent         );
 			session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
 
-			// And run
+			// Run!
 			Application.Run ();
 		}
 
@@ -212,33 +218,40 @@ namespace Muine
 		{
 			bool opened_file = false;
 
-			for (int i = 0; i < args.Length; i++) {
-				System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
-			
+			foreach (string arg in args) {
+				System.IO.FileInfo finfo = new System.IO.FileInfo (arg);
+				
 				if (!finfo.Exists)
 					continue;
 
-				if (FileUtils.IsPlaylist (args [i])) { // load as playlist
-					dbus_object.OpenPlaylist (finfo.FullName);
-
-				} else { // load as music file
-					if (i == 0)
-						dbus_object.PlayFile (finfo.FullName);
-					else
-						dbus_object.QueueFile (finfo.FullName);
-				}
-
 				opened_file = true;
+
+				// See the file is a Playlist
+				if (FileUtils.IsPlaylist (arg)) { // load as playlist
+					dbus_object.OpenPlaylist (finfo.FullName);
+					continue;
+				}
+				
+				// Must be a music file
+				//	TODO: Run a filetype check
+				
+				// If it's the first song, start playing it
+				if (arg == args [0]) {
+					dbus_object.PlayFile (finfo.FullName);
+					continue;
+				}
+				
+				// Queue the song
+				dbus_object.QueueFile (finfo.FullName);
 			}
 
 			return opened_file;
 		}
 
-		// Methods :: Private :: SetDefaultWindowIcon		
+		// Methods :: Private :: SetDefaultWindowIcon
 		private static void SetDefaultWindowIcon ()
 		{
-			Pixbuf [] default_icon_list = new Pixbuf [1];
-			default_icon_list [0] = new Pixbuf (null, "muine.png");
+			Pixbuf [] default_icon_list = { new Pixbuf (null, "muine.png") };
 			Gtk.Window.DefaultIconList = default_icon_list;
 		}
 

@@ -29,11 +29,13 @@ namespace Muine
 	public class SaveDialog : FileSelector
 	{	
 		// GConf
-		private const string GConfKeyDefaultPlaylistFolder = "/apps/muine/default_playlist_folder";
+		private const string GConfKeyDefaultPlaylistFolder = 
+			"/apps/muine/default_playlist_folder";
 		
 		// Strings
 		private static readonly string string_title =
 			Catalog.GetString ("Save Playlist");
+
 		private static readonly string string_save_default =
 			Catalog.GetString ("Untitled");
 
@@ -42,9 +44,7 @@ namespace Muine
 		: base (string_title, FileChooserAction.Save, GConfKeyDefaultPlaylistFolder)
 		{
 			base.CurrentName = string_save_default;
-
 			base.Response += new ResponseHandler (OnResponse);
-
 			base.Visible = true;
 		}
 
@@ -54,7 +54,6 @@ namespace Muine
 		{
 			if (args.ResponseId != ResponseType.Ok) {
 				base.Destroy ();
-
 				return;
 			}
 

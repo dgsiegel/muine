@@ -33,7 +33,7 @@ namespace Muine
 		//	let Gtk+ handle the key
 		public static bool HaveModifier (Gdk.EventKey e) {
 			return (e.State != 0 && 
-			        (((e.State & Gdk.ModifierType.ControlMask) != 0) ||
+				(((e.State & Gdk.ModifierType.ControlMask) != 0) ||
 			         ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0) ||
 			         ((e.State & Gdk.ModifierType.Mod3Mask   ) != 0) ||
 			         ((e.State & Gdk.ModifierType.Mod4Mask   ) != 0) ||
@@ -42,8 +42,6 @@ namespace Muine
 
 		// Methods :: Public :: IsModifier
 		public static bool IsModifier (Gdk.EventKey e) {
-			bool ret = false;
-			
 			switch (e.Key) {
 			case Key.Shift_L:
 			case Key.Shift_R:
@@ -61,14 +59,11 @@ namespace Muine
 			case Key.Hyper_R:
 			case Key.Mode_switch:
 			case Key.ISO_Level3_Shift:
-				ret = true;
-				break;
-			default:
-				ret = false;
-				break;
-			}
+				return true;
 
-			return ret;
+			default:
+				return false;
+			}
 		}
 	}
 }

@@ -34,28 +34,29 @@ namespace Muine
 		private string gconf_path;
 
 		// Constructor
-		public FileSelector (string title, FileChooserAction action, string gcp) : base (title, Global.Playlist, action, "gnome-vfs")
+		public FileSelector (string title, FileChooserAction action, string gconf_path) 
+		: base (title, Global.Playlist, action, "gnome-vfs")
 		{
-			LocalOnly = false;
+			this.gconf_path = gconf_path;
 
-			AddButton (Stock.Cancel, ResponseType.Cancel);
+			base.LocalOnly = false;
+
+			base.AddButton (Stock.Cancel, ResponseType.Cancel);
 
 			switch (action) {
 			case FileChooserAction.Open:
-				AddButton (Stock.Open, ResponseType.Ok);
+				base.AddButton (Stock.Open, ResponseType.Ok);
 				break;
 			
 			case FileChooserAction.Save:
-				AddButton (Stock.Save, ResponseType.Ok);
+				base.AddButton (Stock.Save, ResponseType.Ok);
 				break;
 			
 			default:
 				break;
 			}
 			
-			DefaultResponse = ResponseType.Ok;
-
-			gconf_path = gcp;
+			base.DefaultResponse = ResponseType.Ok;
 
 			string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
@@ -71,8 +72,10 @@ namespace Muine
 		// Handlers :: OnResponse
 		private void OnResponse (object o, ResponseArgs args)
 		{
-			if (args.ResponseId == ResponseType.Ok)
-				Config.Set (gconf_path, CurrentFolderUri);
+			if (args.ResponseId != ResponseType.Ok)
+				return;
+
+			Config.Set (gconf_path, CurrentFolderUri);
 		}
 	}
 }

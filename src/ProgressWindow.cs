@@ -31,6 +31,7 @@ namespace Muine
 		// Strings
 		private static readonly string string_title =
 			Catalog.GetString ("Importing \"{0}\"");
+
 		private static readonly string string_loading =
 			Catalog.GetString ("Loading:");
 
@@ -63,7 +64,7 @@ namespace Muine
 			file_label_container.Add (file_label);
 
 			loading_label.Markup = String.Format ("<b>{0}</b>",
-							      StringUtils.EscapeForPango (string_loading));
+				StringUtils.EscapeForPango (string_loading));
 
 			title_format = string_title;
 

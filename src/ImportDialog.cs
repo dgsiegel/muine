@@ -29,33 +29,37 @@ namespace Muine
 	public class ImportDialog : FileChooserDialog
 	{	
 		// GConf
-		private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
+		private const string GConfKeyImportFolder     = "/apps/muine/default_import_folder";
 		private const string GConfDefaultImportFolder = "~";
 
 		// Strings		
 		private static readonly string string_title =
 			Catalog.GetString ("Import Folder");
+
 		private static readonly string string_button =
 			Catalog.GetString ("_Import");
 
 		// Constructor
-		public ImportDialog () 
-		: base (string_title, Global.Playlist, FileChooserAction.SelectFolder)
+		public ImportDialog () : base (string_title, Global.Playlist, FileChooserAction.SelectFolder)
 		{
-			base.LocalOnly = true;
+			base.LocalOnly      = true;
 			base.SelectMultiple = true;
-			base.AddButton (Stock.Cancel, ResponseType.Cancel);
-			base.AddButton (string_button, ResponseType.Ok);
+
+			base.AddButton (Stock.Cancel , ResponseType.Cancel);
+			base.AddButton (string_button, ResponseType.Ok    );
+
 			base.DefaultResponse = ResponseType.Ok;
-			
-			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
-
-			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
-
-			base.SetCurrentFolder (start_dir);
 
 			base.Response += new ResponseHandler (OnResponse);
 
+			// Load Start Directory
+			string start_dir = (string) Config.Get (GConfKeyImportFolder, 
+				GConfDefaultImportFolder);
+
+			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
+			base.SetCurrentFolder (start_dir);
+
+			// Show
 			base.Visible = true;
 		}
 
@@ -63,14 +67,19 @@ namespace Muine
 		// Handlers :: OnResponse
 		private void OnResponse (object o, ResponseArgs args)
 		{
-			if (args.ResponseId != ResponseType.Ok) {
-				base.Destroy ();
-				return;
-			}
+			// Close Dialog
+			base.Destroy ();
 
+			// If response wasn't "Ok", do nothing
+			if (args.ResponseId != ResponseType.Ok)
+				return;
+
+			// Save Start Directory
 			Config.Set (GConfKeyImportFolder, base.CurrentFolder);
 
+			// Check that Directories exist
 			ArrayList new_dinfos = new ArrayList ();
+
 			foreach (string dir in base.Filenames) {
 				DirectoryInfo dinfo = new DirectoryInfo (dir);
 				
@@ -80,10 +89,12 @@ namespace Muine
 				new_dinfos.Add (dinfo);
 			}
 
-			if (new_dinfos.Count > 0)
-				Global.DB.AddFolders (new_dinfos);
-
-			base.Destroy ();
+			// Check if we have any Directories to add
+			if (new_dinfos.Count < 1)
+				return;
+			
+			// Add Directories
+			Global.DB.AddFolders (new_dinfos);
 		}
 	}
 }

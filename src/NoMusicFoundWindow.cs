@@ -29,6 +29,7 @@ namespace Muine
 {
 	public class NoMusicFoundWindow
 	{
+		// Objects
 		[Glade.Widget] private Window      window;
 		[Glade.Widget] private RadioButton empty_radiobutton;
 
@@ -53,7 +54,7 @@ namespace Muine
 				homeDirectory += "/";
 			
 			// retrieve information about $HOME/Music and $HOME/Music/Playlists
-			DirectoryInfo musicdir = new DirectoryInfo (homeDirectory + "Music/");
+			DirectoryInfo musicdir     = new DirectoryInfo (homeDirectory + "Music/"          );
 			DirectoryInfo playlistsdir = new DirectoryInfo (homeDirectory + "Music/Playlists/");
 
 			if (!musicdir.Exists) 
@@ -71,8 +72,10 @@ namespace Muine
 		{
 			window.Destroy ();
 
-			if (empty_radiobutton.Active) 
-				CreateEmptyMusicCollection ();
+			if (!empty_radiobutton.Active) 
+				return;
+
+			CreateEmptyMusicCollection ();
 		}
 	}
 }

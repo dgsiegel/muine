@@ -29,8 +29,10 @@ namespace Muine
 		// Strings
 		private static readonly string string_unknown =
 			Catalog.GetString ("Unknown");
+
 		private static readonly string string_many =
 			Catalog.GetString ("{0} and others");
+
 		private static readonly string string_several =
 			Catalog.GetString ("{0} and {1}");
 		
@@ -45,28 +47,32 @@ namespace Muine
 			m = ((time % 3600) / 60);
 			s = ((time % 3600) % 60);
 
-			return (h > 0)
-  			       ? String.Format ("{0}:{1}:{2}", h, m.ToString ("d2"), s.ToString ("d2"))
-			       : String.Format (    "{0}:{1}",    m                , s.ToString ("d2"));
+			if (h > 0)
+				return String.Format ("{0}:{1}:{2}", h, m.ToString ("d2"), 
+					s.ToString ("d2"));
+			
+			return String.Format ("{0}:{1}", m, s.ToString ("d2"));
 		}
 
 		// Methods :: Public :: CleanStringList
 		public static string [] CleanStringList (string [] orig_strings)
 		{
 			ArrayList strings = new ArrayList ();
+
 			foreach (string s in orig_strings) {
 				string s2 = s.Trim ();
-				if (s2.Length == 0)
+
+				if (s2 == String.Empty)
 					continue;
+
 				strings.Add (s2);
 			}
-			
-			string [] array = new string [strings.Count];
-			strings.CopyTo (array);
-			return array;
+
+			return (string []) strings.ToArray (typeof (string));
 		}
 
 		// Methods :: Public :: JoinHumanReadable
+		//	TODO: Make I18N (don't hardcode English commas)
 		public static string JoinHumanReadable (string [] strings)
 		{
 			return JoinHumanReadable (strings, -1);
@@ -77,27 +83,25 @@ namespace Muine
 		
 			string [] strings = CleanStringList (orig_strings);
 		
-			return (strings.Length == 0)
-			       ? string_unknown
-			       :
-			       (strings.Length == 1)
-			       ? strings [0]
-			       :
-			       (max > 1 && strings.Length > max)
-			       ? String.Format (string_many   , String.Join (", ", strings, 0, max               ))
-			       : String.Format (string_several, String.Join (", ", strings, 0, strings.Length - 1), 
-			       						     strings [strings.Length - 1]);
+			if (strings.Length == 0)
+				return string_unknown;
+			
+			if (strings.Length == 1)
+				return strings [0];
+			
+			if (strings.Length > max && max > 1)
+				return String.Format (string_many, 
+					String.Join (", ", strings, 0, max));
+
+			return String.Format (string_several, 
+				String.Join (", ", strings, 0, strings.Length - 1),
+				strings [strings.Length - 1]);
 		}
 
 		// Methods :: Public :: PrefixToSuffix
 		public static string PrefixToSuffix (string str, string prefix)
 		{
-			string ret;
-
-			ret = str.Remove (0, prefix.Length + 1);
-			ret = ret + " " + prefix;
-
-			return ret;
+			return String.Format ("{0} {1}", str.Remove (0, prefix.Length + 1), prefix);
 		}
 
 		// Methods :: Public :: SearchKey
@@ -107,30 +111,32 @@ namespace Muine
 
 			bool different = false;
 			string stripped = "";
+
 			foreach (char c in lower) {
-				if (Char.IsLetterOrDigit (c) ||
-				    Char.IsWhiteSpace    (c) ||
-				    Char.IsSurrogate     (c))
+				if (Char.IsLetterOrDigit (c) || Char.IsWhiteSpace (c) ||
+				    Char.IsSurrogate (c)) {
 					stripped += c;
-				else
-					different = true;
+					continue;
+				}
+
+				different = true;
 			}
 
 			// Both, so that "R.E.M." will yield only "R.E.M.", but "rem"
 			// both "remix and "R.E.M.".
 			if (different)
 				return String.Format ("{0} {1}", stripped, lower);
-			else
-				return stripped;
+
+			return stripped;
 		}
 
 		// Methods :: Public :: EscapeForPango
-		public static string EscapeForPango (string original)
+		public static string EscapeForPango (string s)
 		{
-			string str = original;
-                        str = str.Replace ("&", "&amp;");
-                        str = str.Replace ("<", "&lt;");
-			return str;
+                        s = s.Replace ("&", "&amp;");
+                        s = s.Replace ("<", "&lt;");
+
+			return s;
 		}
 	}
 }

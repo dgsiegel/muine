@@ -55,6 +55,9 @@ namespace Muine
 		private AddWindowList  list          = new AddWindowList          ();
 		private CellRenderer   text_renderer = new Muine.CellRendererText ();
 
+		// Constants
+		private const uint search_timeout = 100;
+
 		// Objects
 		private ICollection items;
 
@@ -63,7 +66,6 @@ namespace Muine
 		private int gconf_default_width, gconf_default_height;
 		
 		private uint search_timeout_id = 0;
-		private const uint search_timeout = 100;
 		private bool first_time = true;
 		private bool ignore_change = false;
 
@@ -136,8 +138,10 @@ namespace Muine
 				GLib.Idle.Add (new GLib.IdleHandler (Reset));
 
 				first_time = false;
-			} else
+
+			} else {
 				list.SelectFirst ();
+			}
 
 			entry.GrabFocus ();
 
@@ -167,44 +171,6 @@ namespace Muine
 			SetDefaultSize (width, height);
 			
 			AddOnSizeAllocated ();
-		}
-
-		// Methods :: Private
-		// Methods :: Private :: Assertions
-		// Methods :: Private :: Assertions :: HasGConfSize
-		private bool HasGConfSize ()
-		{
-			return (gconf_key_width  != String.Empty && gconf_default_width  > 0 &&
-				gconf_key_height != String.Empty && gconf_default_height > 0);
-		}
-
-		// Methods :: Private :: Assertions :: AssertHasGConfSize
-		private void AssertHasGConfSize ()
-		{
-			if (!HasGConfSize ())
-			    	throw new InvalidOperationException ();		
-		}
-
-		
-		// Methods :: Private :: Assertions :: HasItems
-		private bool HasItems ()
-		{
-			return (items != null);
-		}
-
-		// Methods :: Private :: Assertions :: AssertHasItems
-		private void AssertHasItems ()
-		{
-			if (!HasItems ())
-				throw new InvalidOperationException ();
-		}
-
-		// Methods :: Private :: AddOnSizeAllocated
-		private void AddOnSizeAllocated ()
-		{
-			AssertHasGConfSize ();
-			
-			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
 		}
 
 		// Methods :: Protected :: Search
@@ -242,6 +208,44 @@ namespace Muine
 			list.SelectFirst ();
 
 			return false;
+		}
+
+		// Methods :: Private
+		// Methods :: Private :: Assertions
+		// Methods :: Private :: Assertions :: HasGConfSize
+		private bool HasGConfSize ()
+		{
+			return (gconf_key_width  != String.Empty && gconf_default_width  > 0 &&
+				gconf_key_height != String.Empty && gconf_default_height > 0);
+		}
+
+		// Methods :: Private :: Assertions :: AssertHasGConfSize
+		private void AssertHasGConfSize ()
+		{
+			if (!HasGConfSize ())
+				throw new InvalidOperationException ();		
+		}
+
+		
+		// Methods :: Private :: Assertions :: HasItems
+		private bool HasItems ()
+		{
+			return (items != null);
+		}
+
+		// Methods :: Private :: Assertions :: AssertHasItems
+		private void AssertHasItems ()
+		{
+			if (!HasItems ())
+				throw new InvalidOperationException ();
+		}
+
+		// Methods :: Private :: AddOnSizeAllocated
+		private void AddOnSizeAllocated ()
+		{
+			AssertHasGConfSize ();
+			
+			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
 		}
 
 		// Methods :: Private :: Reset
@@ -326,7 +330,6 @@ namespace Muine
 					QueueEvent (list.Selected);
 					
 				entry.GrabFocus ();
-
 				list.SelectNext ();
 
 				break;
@@ -345,25 +348,26 @@ namespace Muine
 			if (search_timeout_id > 0)
 				GLib.Source.Remove (search_timeout_id);
 
-			search_timeout_id = GLib.Timeout.Add (search_timeout, new GLib.TimeoutHandler (Search));
+			search_timeout_id = GLib.Timeout.Add (search_timeout, 
+				new GLib.TimeoutHandler (Search));
 		}
 		
 		// Handlers :: OnAdded
-		// 	UNUSED: Requires Mono 1.1+
+		// 	FIXME, UNUSED: Requires Mono 1.1+
 		protected void OnAdded (Item item)
 		{
 			list.HandleAdded (item.Handle, item.FitsCriteria (entry.SearchBits));
 		}
 
 		// Handlers :: OnChanged
-		// 	UNUSED: Requires Mono 1.1+
+		// 	FIXME, UNUSED: Requires Mono 1.1+
 		protected void OnChanged (Item item)
 		{
 			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits));
 		}
 
 		// Handlers :: OnRemoved
-		// 	UNUSED: Requires Mono 1.1+
+		// 	FIXME, UNUSED: Requires Mono 1.1+
 		protected void OnRemoved (Item item)
 		{
 			list.HandleRemoved (item.Handle);

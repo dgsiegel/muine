@@ -30,18 +30,21 @@ namespace Muine
 		// Static
 		// Static :: Variables
 		// Static :: Variables :: Drag-and-Drop
-		private static TargetEntry [] drag_entries = new TargetEntry [] {
+		private static TargetEntry [] drag_entries = {
 			DndUtils.TargetUriList,
 			DndUtils.TargetGnomeIconList,
 			DndUtils.TargetNetscapeUrl
 		};
 
+		// Static :: Properties
+		// Static :: Properties :: DragEntries
 		public static TargetEntry [] DragEntries {
 			get { return drag_entries; }
 		}
 
 		// Static :: Methods
 		// Static :: Methods :: HandleDrop
+		//	TODO: Refactor
 		public static void HandleDrop (Song song, DragDataReceivedArgs args)
 		{
 			string data = DndUtils.SelectionDataToString (args.SelectionData);
@@ -63,10 +66,11 @@ namespace Muine
 
 				if (song.HasAlbum) {
 					Album a = Global.DB.GetAlbum (song);
-
 					a.SetCoverWeb (uri.AbsoluteUri);
-				} else
+
+				} else {
 					song.SetCoverWeb (uri.AbsoluteUri);
+				}
 
 				success = true;
 
@@ -82,12 +86,14 @@ namespace Muine
 				try {
 					if (song.HasAlbum) {
 						Album a = Global.DB.GetAlbum (song);
-
 						a.SetCoverLocal (fn);
-					} else
+
+					} else {
 						song.SetCoverLocal (fn);
+					}
 						
 					success = true;
+
 				} catch {
 					success = false;
 				}
@@ -139,6 +145,7 @@ namespace Muine
 		// Methods :: Private :: Sync
 		private void Sync ()
 		{
+			// Image
 			if (song != null && song.CoverImage != null) {
 				image.FromPixbuf = song.CoverImage;
 
@@ -146,14 +153,18 @@ namespace Muine
 				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
 
 			} else {
-				image.SetFromStock ("muine-default-cover",
-						    StockIcons.CoverSize);
+				image.SetFromStock ("muine-default-cover", StockIcons.CoverSize);
 			}
-		
-			TargetEntry [] entries = (song != null && !Global.CoverDB.Loading)
-						 ? drag_entries
-						 : null;
-						 
+
+			// DnD Entries
+			TargetEntry [] entries;
+			
+			if (song != null && !Global.CoverDB.Loading)
+				entries = drag_entries;
+			else
+				entries = null;
+
+			// DnD Destination
 			Gtk.Drag.DestSet (this, DestDefaults.All, entries, Gdk.DragAction.Copy);
 		}
 

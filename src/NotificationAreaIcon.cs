@@ -37,8 +37,10 @@ namespace Muine
 		private static readonly string string_program =
 			Catalog.GetString ("Muine music player");
 
-		// song artists - song title
-		private static readonly string string_tooltip_format = Catalog.GetString ("{0} - {1}");
+		// Strings :: Tooltip Format
+		//	song artists - song title
+		private static readonly string string_tooltip_format = 
+			Catalog.GetString ("{0} - {1}");
 
 		// Widgets
 		private EventBox ebox;
@@ -111,8 +113,10 @@ namespace Muine
 			UpdateImage ();
 			UpdateTooltip ();
 
-			if (visible)
-				ShowAll ();
+			if (!visible)
+				return;
+
+			ShowAll ();
 		}
 
 		// Methods :: Public :: Run
@@ -139,13 +143,9 @@ namespace Muine
 		// Methods :: Private :: Clamp
 		private int Clamp (int x, int low, int high)
 		{
-			return (x > high) 
-			       ? high 
-			       : 
-			       (x < low) 
-			       ? low 
-			       : 
-			       x;
+			if      (x > high) return high;
+			else if (x < low ) return low ;
+			else               return x   ;
 		}
 
 		// Methods :: Private :: PositionMenu
@@ -154,8 +154,8 @@ namespace Muine
 			x = menu_x;
 			y = menu_y;
 
-			int monitor = ((Widget) menu).Screen.GetMonitorAtPoint (x, y);
-			Gdk.Rectangle rect = ((Widget) menu).Screen.GetMonitorGeometry (monitor);
+			int           monitor = ((Widget) menu).Screen.GetMonitorAtPoint  (x, y   );
+			Gdk.Rectangle rect    = ((Widget) menu).Screen.GetMonitorGeometry (monitor);
 
 			int space_above = y - rect.Y;
 			int space_below = rect.Y + rect.Height - y;
@@ -164,15 +164,20 @@ namespace Muine
 
 			if (requisition.Height <= space_above ||
 			    requisition.Height <= space_below) {
+
 				if (requisition.Height <= space_below)
-					y = y + ebox.Allocation.Height;
+					y += ebox.Allocation.Height;
 				else
-					y = y - requisition.Height;
-			} else if (requisition.Height > space_below && requisition.Height > space_above) {
+					y -= requisition.Height;
+
+			} else if (requisition.Height > space_below && 
+				   requisition.Height > space_above) {
+
 				if (space_below >= space_above)
 					y = rect.Y + rect.Height - requisition.Height;
 				else
 					y = rect.Y;
+
 			} else {
 				y = rect.Y;
 			}
@@ -184,8 +189,7 @@ namespace Muine
 		private string CreateTooltip (ISong song)
 		{
 			return String.Format (string_tooltip_format,
-					      StringUtils.JoinHumanReadable (song.Artists),
-					      song.Title);
+				StringUtils.JoinHumanReadable (song.Artists), song.Title);
 		}
 
 		// Handlers
@@ -239,9 +243,7 @@ namespace Muine
 		// Handlers :: OnSongChangedEvent
 		private void OnSongChangedEvent (ISong song)
 		{
-			tooltip = (song == null)
-				  ? null
-				  : CreateTooltip (song);
+			tooltip = (song == null) ? null : CreateTooltip (song);
 
 			UpdateTooltip ();
 		}

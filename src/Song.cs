@@ -43,39 +43,34 @@ namespace Muine
 			return (Song) pointers [handle];
 		}
 
+		// Objects
+		private Gdk.Pixbuf cover_image;
+		private ArrayList handles;
+
 		// Variables
-		private string filename;
-		private string title;
+		private string    filename;
+		private string    title;
 		private string [] artists;
 		private string [] performers;
-		private string album;
-		private int track_number;
-		private int n_album_tracks;
-		private int disc_number;
-		private string year;
-		private int duration;
-		private double gain;
-		private double peak;
+		private string    album;
+		private int       track_number;
+		private int       n_album_tracks;
+		private int       disc_number;
+		private string    year;
+		private int       duration;
+		private double    gain;
+		private double    peak;
 
-		private Gdk.Pixbuf cover_image;
 		private int mtime;
 
 		private bool dead = false;
-
-		private ArrayList handles;
 	
 		// Constructor
 		public Song (string fn)
 		{
 			filename = fn;
 
-			Metadata metadata;
-				
-			try {
-				metadata = new Metadata (filename);
-			} catch (Exception e) {
-				throw e;
-			}
+			Metadata metadata = new Metadata (filename);
 
 			Sync (metadata);
 
@@ -142,12 +137,12 @@ namespace Muine
 			get { return performers; }
 		}
 
-		// Properties :: Album (get;)
-		//	the setter is only for simple memory usage optimization,
+		// Properties :: Album (set; get;)
+		//	The setter is only for simple memory usage optimization,
 		//	therefore we don't emit a changed signal
 		public string Album {
 			set { album = value; }
-			get { return album; }
+			get { return album;  }
 		}
 
 		// Properties :: HasAlbum (get;)
@@ -171,15 +166,15 @@ namespace Muine
 		}
 
 		// Properties :: Year (get;)
-		//	the setter is only for simple memory usage optimization,
+		//	The setter is only for simple memory usage optimization,
 		//	therefore we don't emit a changed signal
 		public string Year {
 			set { year = value; }
-			get { return year; }
+			get { return year;  }
 		}
 
 		// Properties :: Duration (set; get;)
-		// 	we have a setter too, because sometimes we want to 
+		// 	We have a setter too, because sometimes we want to 
 		//	correct the duration.
 		public int Duration {
 			set {
@@ -287,8 +282,7 @@ namespace Muine
 		// Methods :: Public :: IsExtraHandle
 		public bool IsExtraHandle (IntPtr h)
 		{
-			return ((pointers [h] == this) &&
-				(Handle != h));
+			return ((pointers [h] == this) && (Handle != h));
 		}
 
 		// Methods :: Public :: Sync
@@ -319,7 +313,7 @@ namespace Muine
 			// in the song file itself.
 			GetCover (metadata, had_album);
 
-			sort_key = null;
+			sort_key   = null;
 			search_key = null;
 		}
 
@@ -337,8 +331,9 @@ namespace Muine
 			// Also, this is safe here as Sync () is only called for new or 
 			// actually changed songs. Never from db.Load.
 			if (!had_album && HasAlbum && cover_image != null) {
+
 				// This used to be a single song, but not anymore, and it does
-				// have a cover- migrate the cover to the album, if there is
+				// have a cover - migrate the cover to the album, if there is
 				// none there yet
 				Global.CoverDB.RemoveCover (filename);
 
@@ -372,18 +367,18 @@ namespace Muine
 			
 			p = Database.PackStart ();
 
-			Database.PackString      (p, title);
-			Database.PackStringArray (p, artists);
-			Database.PackStringArray (p, performers);
-			Database.PackString      (p, album);
-			Database.PackInt         (p, track_number);
+			Database.PackString      (p, title         );
+			Database.PackStringArray (p, artists       );
+			Database.PackStringArray (p, performers    );
+			Database.PackString      (p, album         );
+			Database.PackInt         (p, track_number  );
 			Database.PackInt         (p, n_album_tracks);
-			Database.PackInt         (p, disc_number);
-			Database.PackString      (p, year);
-			Database.PackInt         (p, duration);
-			Database.PackInt         (p, mtime);
-			Database.PackDouble      (p, gain);
-			Database.PackDouble      (p, peak);
+			Database.PackInt         (p, disc_number   );
+			Database.PackString      (p, year          );
+			Database.PackInt         (p, duration      );
+			Database.PackInt         (p, mtime         );
+			Database.PackDouble      (p, gain          );
+			Database.PackDouble      (p, peak          );
 
 			return Database.PackEnd (p, out length);
 		}
@@ -404,7 +399,7 @@ namespace Muine
 		}
 
 		// Methods :: Protected
-		// Methods :: Protected :: GenerateSortKey
+		// Methods :: Protected :: GenerateSortKey (Item)
 		protected override SortKey GenerateSortKey ()
 		{
 			string a = String.Join (" ", artists);
@@ -415,7 +410,7 @@ namespace Muine
 			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, CompareOptions.IgnoreCase);
 		}
 
-		// Methods :: Protected :: GenerateSearchKey
+		// Methods :: Protected :: GenerateSearchKey (Item)
 		protected override string GenerateSearchKey ()
 		{
 			string a = String.Join (" ", artists);

@@ -29,7 +29,7 @@ namespace Muine
 	{
 		// Events
 		public delegate void PlayingChangedHandler (IntPtr handle);
-		public event PlayingChangedHandler PlayingChanged;
+		public event         PlayingChangedHandler PlayingChanged;
 
 		// Delegates
 		// Delegates :: Public
@@ -56,11 +56,7 @@ namespace Muine
 		private static extern IntPtr pointer_list_model_get_type ();
 
 		public static new GLib.GType GType { 
-			get {
-				IntPtr raw_ret = pointer_list_model_get_type ();
-				GLib.GType ret = new GLib.GType (raw_ret);
-				return ret;
-			}
+			get { return new GLib.GType (pointer_list_model_get_type ()); }
 		}
 
 		// Properties :: SortFunc (set;)
@@ -85,8 +81,10 @@ namespace Muine
 			set {
 				pointer_list_model_set_current (Raw, value);
 
-				if (PlayingChanged != null)
-					PlayingChanged (value);
+				if (PlayingChanged == null)
+					return;
+
+				PlayingChanged (value);
 			}
 
 			get { return pointer_list_model_get_current (Raw); }
@@ -98,17 +96,42 @@ namespace Muine
 
 		public GLib.List Contents {
 			get {
-				GLib.List ret = new GLib.List (pointer_list_model_get_pointers (Raw), typeof (int));
+				GLib.List ret = new GLib.List (pointer_list_model_get_pointers (Raw), 
+					typeof (int));
+
 				ret.Managed = true;
+
 				return ret;
 			}
 		}
 
 		// Properties :: Length (get;)
 		public int Length {
-			get {
-				return IterNChildren ();
-			}
+			get { return IterNChildren (); }
+		}
+
+		// Properties :: HasFirst (get;)
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_first (IntPtr raw);
+
+		public bool HasFirst {
+			get { return pointer_list_model_has_first (Raw); }
+		}
+
+		// Properties :: HasPrevious (get;)
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_prev (IntPtr raw);
+
+		public bool HasPrevious {
+			get { return pointer_list_model_has_prev (Raw); }
+		}
+
+		// Properties :: HasNext (get;)
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_next (IntPtr raw);
+
+		public bool HasNext {
+			get { return pointer_list_model_has_next (Raw); }
 		}
 
 		// Methods
@@ -116,7 +139,7 @@ namespace Muine
 		// Methods :: Public :: Append
 		[DllImport("libmuine")]
 		private static extern void pointer_list_model_add (IntPtr raw, IntPtr pointer);
-								     
+
 		public void Append (IntPtr handle)
 		{
 			pointer_list_model_add (Raw, handle);
@@ -124,7 +147,8 @@ namespace Muine
 
 		// Methods :: Public :: Insert
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_insert (IntPtr raw, IntPtr pointer, IntPtr ins, uint pos);
+		private static extern void pointer_list_model_insert (IntPtr raw, IntPtr pointer, 
+								      IntPtr ins, uint pos);
 
 		public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
 		{
@@ -175,13 +199,16 @@ namespace Muine
 			
 			pointer_list_model_clear (Raw);
 
-			if (playing_changed && PlayingChanged != null)
-				PlayingChanged (IntPtr.Zero);
+			if (playing_changed || PlayingChanged == null)
+				return;
+
+			PlayingChanged (IntPtr.Zero);
 		}
 
 		// Methods :: Public :: HandleFromIter
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_iter_get_pointer (IntPtr raw, ref TreeIter iter);
+		private static extern IntPtr pointer_list_model_iter_get_pointer (IntPtr raw, 
+										  ref TreeIter iter);
 
 		public IntPtr HandleFromIter (TreeIter iter)
 		{
@@ -198,7 +225,9 @@ namespace Muine
 
 		// Methods :: Public :: IterFromHandle
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_pointer_get_iter (IntPtr raw, IntPtr pointer, out TreeIter iter);
+		private static extern IntPtr pointer_list_model_pointer_get_iter (IntPtr raw, 
+										  IntPtr pointer, 
+										  out TreeIter iter);
 
 		public TreeIter IterFromHandle (IntPtr handle)
 		{
@@ -215,36 +244,13 @@ namespace Muine
 
 		// Methods :: Public :: Sort
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_sort (IntPtr raw, CompareFuncNative sort_func);
+		private static extern void pointer_list_model_sort (IntPtr raw, 
+								    CompareFuncNative sort_func);
 
 		public void Sort (CompareFunc func)
 		{
 			CompareFuncWrapper wrapper = new CompareFuncWrapper (func, this);
 	                pointer_list_model_sort (Raw, wrapper.NativeDelegate);
-		}
-
-		// Methods :: Public :: HasFirst
-		[DllImport("libmuine")]
-		private static extern bool pointer_list_model_has_first (IntPtr raw);
-
-		public bool HasFirst {
-			get { return pointer_list_model_has_first (Raw); }
-		}
-
-		// Methods :: Public :: HasPrevious
-		[DllImport("libmuine")]
-		private static extern bool pointer_list_model_has_prev (IntPtr raw);
-
-		public bool HasPrevious {
-			get { return pointer_list_model_has_prev (Raw); }
-		}
-
-		// Methods :: Public :: HasNext
-		[DllImport("libmuine")]
-		private static extern bool pointer_list_model_has_next (IntPtr raw);
-
-		public bool HasNext {
-			get { return pointer_list_model_has_next (Raw); }
 		}
 
 		// Methods :: Public :: First
@@ -303,7 +309,27 @@ namespace Muine
 			return ret;
 		}
 
-		// Internal fluff taken from gtk-sharp
+		// Internal Classes
+		// Internal Classes :: CompareFuncWrapper
+		internal class CompareFuncWrapper : GLib.DelegateWrapper
+		{
+			protected CompareFunc _managed;
+			internal CompareFuncNative NativeDelegate;
+
+			public int NativeCallback (IntPtr a, IntPtr b)
+			{
+				return (int) _managed (a, b);
+			}
+
+			public CompareFuncWrapper (CompareFunc managed, object o) : base (o)
+			{
+				NativeDelegate = new CompareFuncNative (NativeCallback);
+				_managed = managed;
+			}
+		}
+
+///////////////////////////// Internal fluff taken from gtk-sharp ////////////////////////////////
+
 		public void SetValue (Gtk.TreeIter iter, int column, GLib.Value value) {}
 
 		[DllImport("libgtk-2.0-0.dll")]
@@ -946,25 +972,6 @@ namespace Muine
 			object ret = val.Val;
 			val.Dispose ();
 			return ret;
-		}
-
-		// Internal Classes
-		// Internal Classes :: CompareFuncWrapper
-		internal class CompareFuncWrapper : GLib.DelegateWrapper
-		{
-			protected CompareFunc _managed;
-			internal CompareFuncNative NativeDelegate;
-
-			public int NativeCallback (IntPtr a, IntPtr b)
-			{
-				return (int) _managed (a, b);
-			}
-
-			public CompareFuncWrapper (CompareFunc managed, object o) : base (o)
-			{
-				NativeDelegate = new CompareFuncNative (NativeCallback);
-				_managed = managed;
-			}
 		}
 	}
 }

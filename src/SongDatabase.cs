@@ -28,197 +28,34 @@ namespace Muine
 	public class SongDatabase 
 	{
 		// GConf
-		// 	MCS doesn't support array constants yet (as of 1.0)
-		private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
+		// 	TODO: MCS doesn't support array constants yet (as of 1.0)
+		private const    string    GConfKeyWatchedFolders     = "/apps/muine/watched_folders";
 		private readonly string [] GConfDefaultWatchedFolders = new string [0];
 
 		// Events
+		// Events :: SongAdded
 		public delegate void SongAddedHandler (Song song);
-		public event SongAddedHandler SongAdded;
+		public event         SongAddedHandler  SongAdded ;
 
-		public delegate void SongChangedHandler (Song song);
-		public event SongChangedHandler SongChanged;
+		// Events :: SongChanged
+		public delegate void SongChangedHandler (Song song) ;
+		public event         SongChangedHandler  SongChanged;
 
-		public delegate void SongRemovedHandler (Song song);
-		public event SongRemovedHandler SongRemoved;
+		// Events :: SongRemoved
+		public delegate void SongRemovedHandler (Song song) ;
+		public event         SongRemovedHandler  SongRemoved;
 
+		// Events :: AlbumAdded
 		public delegate void AlbumAddedHandler (Album album);
-		public event AlbumAddedHandler AlbumAdded;
+		public event         AlbumAddedHandler  AlbumAdded  ;
 
+		// Events :: AlbumChanged
 		public delegate void AlbumChangedHandler (Album album);
-		public event AlbumChangedHandler AlbumChanged;
-		
+		public event         AlbumChangedHandler  AlbumChanged;
+
+		// Events :: AlbumRemoved
 		public delegate void AlbumRemovedHandler (Album album);
-		public event AlbumRemovedHandler AlbumRemoved;
-
-		// Internal Classes
-		// Internal Classes :: BooleanBox
-		private class BooleanBox {
-			// Fields
-			public bool Value;
-
-			// Constructor
-			public BooleanBox (bool val)
-			{
-				Value = val;
-			}
-		}
-
-		// Internal Classes :: SignalRequest
-		private class SignalRequest {
-			// Fields
-			public Song Song;
-
-			public bool SongAdded   = false;
-			public bool SongChanged = false;
-			public bool SongRemoved = false;
-
-			public Album AddedAlbum   = null;
-			public Album RemovedAlbum = null;
-
-			public Album AddChangedAlbum    = null;
-			public Album RemoveChangedAlbum = null;
-
-			public bool AlbumSongsChanged;
-
-			// Constructor
-			public SignalRequest (Song song)
-			{
-				Song = song;
-			}
-		}
-
-		// Internal Classes :: AddFoldersThread
-		//	TODO: Split off?
-		private class AddFoldersThread : ThreadBase
-		{
-			// Objects
-			private ProgressWindow pw;
-			private BooleanBox canceled_box = new BooleanBox (false);
-			
-			// Variables
-			private ArrayList folders;
-			private DirectoryInfo current_folder;
-			
-			// Constructor
-			public AddFoldersThread (ArrayList folders)
-			{
-				this.folders = folders;
-
-				pw = new ProgressWindow (Global.Playlist);
-
-				current_folder = (DirectoryInfo) folders [0];
-				pw.Report (current_folder.Name, current_folder.Name);
-
-				thread.Start ();
-			}
-
-			// Delegate Functions
-			// Delegate Functions :: ThreadFunc
-			protected override void ThreadFunc ()
-			{
-				foreach (DirectoryInfo dinfo in folders) {
-					current_folder = dinfo;
-
-					Global.DB.HandleDirectory (dinfo, queue, canceled_box);
-				}
-
-				thread_done = true;
-			}
-			
-			// Delegate Functions :: MainLoopIdle
-			protected override bool MainLoopIdle ()
-			{
-				if (queue.Count == 0) {
-					if (thread_done) {
-						pw.Done ();
-						return false;
-					} else {
-						return true;
-					}
-				}
-
-				SignalRequest rq = (SignalRequest) queue.Dequeue ();
-
-				canceled_box.Value = pw.Report (current_folder.Name,
-				                                Path.GetFileName (rq.Song.Filename));
-
-				Global.DB.HandleSignalRequest (rq);
-	
-				return true;
-			}
-		}
-
-		// Internal Classes :: CheckChangesThread
-		//	TODO: Split off?
-		private class CheckChangesThread : ThreadBase
-		{
-			// Constructor
-			public CheckChangesThread ()
-			{
-				thread.Start ();
-			}
-
-			// Delegate Functions
-			// Delegate Functions :: MainLoopIdle
-			protected override bool MainLoopIdle ()
-			{
-				if (queue.Count == 0)
-					return !thread_done;
-
-				SignalRequest rq = (SignalRequest) queue.Dequeue ();
-
-				Global.DB.HandleSignalRequest (rq);
-
-				return true;
-			}
-
-			// Delegate Functions :: ThreadFunc
-			protected override void ThreadFunc ()
-			{
-				Hashtable snapshot;
-				lock (Global.DB)
-					snapshot = (Hashtable) Global.DB.Songs.Clone ();
-
-				// check for removed songs and changes
-				foreach (string file in snapshot.Keys) {
-					FileInfo finfo = new FileInfo (file);
-					Song song = (Song) snapshot [file];
-
-					SignalRequest rq = null;
-
-					if (!finfo.Exists) {
-						rq = Global.DB.StartRemoveSong (song);
-
-					} else if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
-						try {
-							Metadata metadata = new Metadata (song.Filename);
-							rq = Global.DB.StartSyncSong (song, metadata);
-
-						} catch {
-							try {
-								rq = Global.DB.StartRemoveSong (song);
-							} catch (InvalidOperationException e) {}
-						}
-					}
-
-					if (rq != null)
-						queue.Enqueue (rq);
-				}
-
-				// check for new songs
-				foreach (string folder in Global.DB.WatchedFolders) {
-					DirectoryInfo dinfo = new DirectoryInfo (folder);
-					if (!dinfo.Exists)
-						continue;
-
-					BooleanBox canceled = new BooleanBox (false);
-					Global.DB.HandleDirectory (dinfo, queue, canceled);
-				}
-
-				thread_done = true;
-			}
-		}
+		public event         AlbumRemovedHandler  AlbumRemoved;
 
 		// Objects
 		private Database db;
@@ -252,12 +89,14 @@ namespace Muine
 		{
 			db = new Database (FileUtils.SongsDBFile, version);
 			
-			songs = new Hashtable ();
+			songs  = new Hashtable ();
 			albums = new Hashtable ();
 
-			watched_folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
+			watched_folders = (string []) Config.Get (GConfKeyWatchedFolders, 
+				GConfDefaultWatchedFolders);
+
 			Config.AddNotify (GConfKeyWatchedFolders,
-					  new GConf.NotifyEventHandler (OnWatchedFoldersChanged));
+				new GConf.NotifyEventHandler (OnWatchedFoldersChanged));
 		}
 
 		// Methods
@@ -307,6 +146,7 @@ namespace Muine
 		{
 			foreach (DirectoryInfo dinfo in folders)
 				AddToWatchedFolders (dinfo.FullName);
+
 			Config.Set (GConfKeyWatchedFolders, watched_folders);
 
 			new AddFoldersThread (folders);
@@ -318,6 +158,7 @@ namespace Muine
 			new CheckChangesThread ();
 		}
 
+		// Methods :: Public :: MakeAlbumKey
 		/*
 		The album key is "folder:album name" because of the following
 		reasons:
@@ -372,6 +213,7 @@ namespace Muine
 			
 				try {
 					Songs.Add (song.Filename, song);
+
 				} catch (ArgumentException e) { // already exists
 					throw new InvalidOperationException ();
 				}
@@ -427,11 +269,8 @@ namespace Muine
 				SignalRequest rq = new SignalRequest (song);
 
 				db.Delete (song.Filename);
-
 				Songs.Remove (rq.Song.Filename);
-
 				StartRemoveFromAlbum (rq);
-
 				rq.SongRemoved = true;
 
 				return rq;
@@ -462,9 +301,7 @@ namespace Muine
 		{
 			bool from_db = (s != null);
 			
-			Song song = (from_db)
-				     ? s
-				     : rq.Song;
+			Song song = (from_db) ? s : rq.Song;
 			
 			if (!song.HasAlbum)
 				return;
@@ -473,30 +310,29 @@ namespace Muine
 
 			Album album = (Album) Albums [key];
 			
-			bool changed = false;
-			bool added = false;
+			bool changed       = false;
+			bool added         = false;
 			bool songs_changed = false;
 
 			if (album == null) {
 				album = new Album (song, !from_db);
 				Albums.Add (key, album);
-
 				added = true;
+
 			} else {
-				album.Add (song,
-					   !from_db,
-				           out changed,
-					   out songs_changed);
+				album.Add (song, !from_db, out changed, out songs_changed);
 			}
 
-			if (!from_db) {
-				if (added)
-					rq.AddedAlbum = album;
-				else if (changed)
-					rq.AddChangedAlbum = album;
+			if (from_db)
+				return;
+
+			if (added)
+				rq.AddedAlbum = album;
+
+			else if (changed)
+				rq.AddChangedAlbum = album;
 					
-				rq.AlbumSongsChanged = songs_changed;
-			}
+			rq.AlbumSongsChanged = songs_changed;
 		}
 
 		// Methods :: Private :: StartRemoveFromAlbum
@@ -508,6 +344,7 @@ namespace Muine
 			string key = rq.Song.AlbumKey;
 
 			Album album = (Album) Albums [key];
+
 			if (album == null)
 				return;
 				
@@ -516,11 +353,14 @@ namespace Muine
 
 			if (empty) {
 				Albums.Remove (key);
-
 				rq.RemovedAlbum = album;
-			} else if (changed) {
-				rq.RemoveChangedAlbum = album;
+				return;
 			}
+
+			if (!changed)
+				return;
+			
+			rq.RemoveChangedAlbum = album;
 		}
 
 		// Methods :: Private :: AddToWatchedFolders
@@ -529,19 +369,18 @@ namespace Muine
 			ArrayList new_folders = new ArrayList ();
 
 			foreach (string cur in watched_folders) {
-				if (folder.IndexOf (cur) == 0 &&
-				    folder.Length >= cur.Length) {
-					// folder is already monitored at a
-					// higher or same level, don't add
-					return;
-				} else if (cur.IndexOf (folder) == 0 &&
-				           folder.Length < cur.Length) {
-				        // we are now adding a lower level
-					// than 'cur', so don't add 'cur' to the
-					// new array.
-					continue;
-				}
 
+				// If folder is already monitored at a higher
+				// or same level, don't add
+				if (folder.IndexOf (cur) == 0 && folder.Length >= cur.Length)
+					return;
+
+				// If we are now adding a lower level than 
+				// 'cur', don't add 'cur' to the new array
+				if (cur.IndexOf (folder) == 0 && folder.Length < cur.Length)
+					continue;
+
+				// Add 'cur' to the new array
 				new_folders.Add (cur);
 			}
 
@@ -554,38 +393,45 @@ namespace Muine
 		// 	Directory walking
 		private bool HandleDirectory (DirectoryInfo info, Queue queue, BooleanBox canceled_box)
 		{
-			FileInfo [] finfos;
-			
+			// Files
+			FileInfo [] finfos;		
 			try {
 				finfos = info.GetFiles ();
 			} catch {
 				return true;
 			}
 
+			// Find Songs
 			foreach (FileInfo finfo in finfos) {
+				// If cancelled, get out of this mess...
 				if (canceled_box.Value)
 					return false;
 
-				if (Songs [finfo.FullName] == null) {
-					Song song;
+				// If we already have the song, don't add it again
+				if (this.Songs.ContainsKey (finfo.FullName))
+					continue;
 
-					try {
-						song = new Song (finfo.FullName);
-					} catch {
-						continue;
-					}
-	
-					SignalRequest rq;				
-					try {
-						rq = StartAddSong (song);
-					} catch (InvalidOperationException e) {
-						continue;
-					}
-
-					queue.Enqueue (rq);
+				// Get Song
+				Song song;
+				try {
+					song = new Song (finfo.FullName);
+				} catch {
+					continue;
 				}
+	
+				// Add Song
+				SignalRequest rq;				
+				try {
+					rq = StartAddSong (song);
+				} catch (InvalidOperationException e) {
+					continue;
+				}
+
+				// Queue Song
+				queue.Enqueue (rq);
 			}
 
+			// Directories
 			DirectoryInfo [] dinfos;
 			
 			try {
@@ -594,10 +440,12 @@ namespace Muine
 				return true;
 			}
 
+			// Recurse Directories
 			foreach (DirectoryInfo dinfo in dinfos) {
-				bool ret = HandleDirectory (dinfo, queue, canceled_box);
-				if (!ret)
-					return false;
+				if (HandleDirectory (dinfo, queue, canceled_box))
+					continue;
+				
+				return false;
 			}
 
 			return true;
@@ -651,43 +499,55 @@ namespace Muine
 		// Methods :: Private :: Signal Emitters :: EmitSongAdded
 		private void EmitSongAdded (Song song)
 		{
-			if (SongAdded != null)
-				SongAdded (song);
+			if (SongAdded == null)
+				return;
+
+			SongAdded (song);
 		}
 
 		// Methods :: Private :: Signal Emitters :: EmitSongChanged
 		public void EmitSongChanged (Song song)
 		{
-			if (SongChanged != null)
-				SongChanged (song);
+			if (SongChanged == null)
+				return;
+
+			SongChanged (song);
 		}
 
 		// Methods :: Private :: Signal Emitters :: EmitSongRemoved
 		private void EmitSongRemoved (Song song)
 		{
-			if (SongRemoved != null)
-				SongRemoved (song);
+			if (SongRemoved == null)
+				return;
+
+			SongRemoved (song);
 		}
 
 		// Methods :: Private :: Signal Emitters :: EmitAlbumAdded
 		private void EmitAlbumAdded (Album album)
 		{
-			if (AlbumAdded != null)
-				AlbumAdded (album);
+			if (AlbumAdded == null)
+				return;
+
+			AlbumAdded (album);
 		}
 
 		// Methods :: Private :: Signal Emitters :: EmitAlbumChanged
 		public void EmitAlbumChanged (Album album)
 		{
-			if (AlbumChanged != null)
-				AlbumChanged (album);
+			if (AlbumChanged == null)
+				return;
+
+			AlbumChanged (album);
 		}
 
 		// Methods :: Private :: Signal Emitters :: EmitAlbumRemoved
 		private void EmitAlbumRemoved (Album album)
 		{
-			if (AlbumRemoved != null)
-				AlbumRemoved (album);
+			if (AlbumRemoved == null)
+				return;
+
+			AlbumRemoved (album);
 		}
 
 		// Handlers
@@ -702,17 +562,21 @@ namespace Muine
 			Array.Sort (old_watched_folders); // Needed for the binary search
 
 			foreach (string s in watched_folders) {
-				if (Array.BinarySearch (old_watched_folders, s) < 0) {
-					DirectoryInfo dinfo = new DirectoryInfo (s);
-					if (!dinfo.Exists)
-						continue;
+				if (Array.BinarySearch (old_watched_folders, s) >= 0)
+					continue;
 
-					new_dinfos.Add (dinfo);
-				}
+				DirectoryInfo dinfo = new DirectoryInfo (s);
+
+				if (!dinfo.Exists)
+					continue;
+
+				new_dinfos.Add (dinfo);
 			}
 
-			if (new_dinfos.Count > 0)
-				new AddFoldersThread (new_dinfos);
+			if (new_dinfos.Count <= 0)
+				return;
+
+			new AddFoldersThread (new_dinfos);
 		}
 
 		// Delegate Functions
@@ -723,9 +587,183 @@ namespace Muine
 
 			Songs.Add (key, song);
 			
-			// we don't "Finish", as we do this before the UI is there,
+			// We don't "Finish", as we do this before the UI is there,
 			// we don't need to emit signals
 			StartAddToAlbum (song);
+		}
+
+		// Internal Classes
+		// Internal Classes :: BooleanBox
+		//	FIXME: Jorn says this needs to be a class, not a struct
+		//	I'm still not understanding quite why...
+		private class BooleanBox {
+			public bool Value;
+
+			// Constructor
+			public BooleanBox (bool val)
+			{
+				Value = val;
+			}
+		}
+
+		// Internal Classes :: SignalRequest
+		//	FIXME: Jorn says this needs to be a class, not a struct
+		//	I'm still not understanding quite why...
+		private class SignalRequest {
+			public Song Song;
+
+			public bool SongAdded   = false;
+			public bool SongChanged = false;
+			public bool SongRemoved = false;
+
+			public Album AddedAlbum   = null;
+			public Album RemovedAlbum = null;
+
+			public Album AddChangedAlbum    = null;
+			public Album RemoveChangedAlbum = null;
+
+			public bool AlbumSongsChanged;
+
+			// Constructor
+			public SignalRequest (Song song)
+			{
+				Song = song;
+			}
+		}
+
+		// Internal Classes :: AddFoldersThread
+		//	TODO: Split off?
+		private class AddFoldersThread : ThreadBase
+		{
+			// Objects
+			private ProgressWindow pw;
+			private BooleanBox canceled_box = new BooleanBox (false);
+			
+			// Variables
+			private ArrayList folders;
+			private DirectoryInfo current_folder;
+			
+			// Constructor
+			public AddFoldersThread (ArrayList folders)
+			{
+				this.folders = folders;
+
+				pw = new ProgressWindow (Global.Playlist);
+
+				current_folder = (DirectoryInfo) folders [0];
+				pw.Report (current_folder.Name, current_folder.Name);
+
+				thread.Start ();
+			}
+
+			// Delegate Functions
+			// Delegate Functions :: ThreadFunc
+			protected override void ThreadFunc ()
+			{
+				foreach (DirectoryInfo dinfo in folders) {
+					current_folder = dinfo;
+					Global.DB.HandleDirectory (dinfo, queue, canceled_box);
+				}
+
+				thread_done = true;
+			}
+			
+			// Delegate Functions :: MainLoopIdle
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0) {
+					if (thread_done) {
+						pw.Done ();
+						return false;
+					}
+					
+					return true;
+				}
+
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
+
+				canceled_box.Value = pw.Report (current_folder.Name,
+					Path.GetFileName (rq.Song.Filename));
+
+				Global.DB.HandleSignalRequest (rq);
+	
+				return true;
+			}
+		}
+
+		// Internal Classes :: CheckChangesThread
+		//	TODO: Split off?
+		private class CheckChangesThread : ThreadBase
+		{
+			// Constructor
+			public CheckChangesThread ()
+			{
+				thread.Start ();
+			}
+
+			// Delegate Functions
+			// Delegate Functions :: MainLoopIdle (ThreadBase)
+			protected override bool MainLoopIdle ()
+			{
+				if (queue.Count == 0)
+					return !thread_done;
+
+				SignalRequest rq = (SignalRequest) queue.Dequeue ();
+
+				Global.DB.HandleSignalRequest (rq);
+
+				return true;
+			}
+
+			// Delegate Functions :: ThreadFunc (ThreadBase)
+			protected override void ThreadFunc ()
+			{
+				Hashtable snapshot;
+				lock (Global.DB)
+					snapshot = (Hashtable) Global.DB.Songs.Clone ();
+
+				// Check for removed songs and changes
+				foreach (string file in snapshot.Keys) {
+					FileInfo finfo = new FileInfo (file);
+					Song song = (Song) snapshot [file];
+
+					SignalRequest rq = null;
+
+					if (!finfo.Exists) {
+						rq = Global.DB.StartRemoveSong (song);
+
+					} else if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
+						try {
+							Metadata metadata = new Metadata (song.Filename);
+							rq = Global.DB.StartSyncSong (song, metadata);
+
+						} catch {
+							try {
+								rq = Global.DB.StartRemoveSong (song);
+
+							} catch (InvalidOperationException e) {
+							}
+						}
+					}
+
+					if (rq == null)
+						continue;
+
+					queue.Enqueue (rq);
+				}
+
+				// Check for new songs
+				foreach (string folder in Global.DB.WatchedFolders) {
+					DirectoryInfo dinfo = new DirectoryInfo (folder);
+					if (!dinfo.Exists)
+						continue;
+
+					BooleanBox canceled = new BooleanBox (false);
+					Global.DB.HandleDirectory (dinfo, queue, canceled);
+				}
+
+				thread_done = true;
+			}
 		}
 	}
 }

@@ -79,7 +79,6 @@ namespace Muine
 		private bool SetPositionTimeoutFunc ()
 		{
 			set_position_timeout_id = 0;
-
 			player.Position = (int) song_slider.Value;
 			
 			return false;
@@ -106,30 +105,33 @@ namespace Muine
 			from_tick = true;
 			song_slider.SetRange (0, player.PlayingSong.Duration);
 
-			if (pos <= player.PlayingSong.Duration)
-				song_slider.Value = pos; 
+			if (pos > player.PlayingSong.Duration)
+				return;
+
+			song_slider.Value = pos; 
 		}
 
-		// Handlers :: OnSongSliderValueChanged
+		// Handlers :: OnSongSliderValueChanged (Glade)
 		private void OnSongSliderValueChanged (object o, EventArgs a) 
 		{
-			if (!from_tick) {
-				if (set_position_timeout_id > 0)
-					GLib.Source.Remove (set_position_timeout_id);
-
-				set_position_timeout_id = GLib.Timeout.Add (set_position_timeout,
-									    new GLib.TimeoutHandler (SetPositionTimeoutFunc));
-
-				UpdateLabel ((int) song_slider.Value);
-			} else
+			if (from_tick) {
 				from_tick = false;
+				return;
+			}
+
+			if (set_position_timeout_id > 0)
+				GLib.Source.Remove (set_position_timeout_id);
+
+			set_position_timeout_id = GLib.Timeout.Add (set_position_timeout,
+				new GLib.TimeoutHandler (SetPositionTimeoutFunc));
+
+			UpdateLabel ((int) song_slider.Value);
 		}
 
 		// Handlers :: OnWindowDeleteEvent
 		private void OnWindowDeleteEvent (object o, EventArgs a)
 		{
-			window.Visible = false;
-			
+			window.Visible = false;			
 			DeleteEventArgs args = (DeleteEventArgs) a;
 			args.RetVal = true;
 		}

@@ -35,6 +35,7 @@ namespace Muine
 
 		// Objects
 		private IntPtr raw = IntPtr.Zero;
+		private Pixbuf album_art = null;
 
 		// Constructor
 		[DllImport ("libmuine")]
@@ -46,6 +47,7 @@ namespace Muine
 			IntPtr error_ptr;
 			
 			raw = metadata_load (filename, out error_ptr);
+
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 				throw new Exception (String.Format (string_error_load, error));
@@ -60,14 +62,13 @@ namespace Muine
 		public string Title {
 			get {
 				IntPtr p = metadata_get_title (raw);
-				if (p == IntPtr.Zero)
-					return "";
-				else
-					return Marshal.PtrToStringAnsi (p);
+
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
 			}
 		}
 
 		// Properties :: Artists (get;)
+		//	FIXME: Refactor Artists and Performers properties
 		[DllImport ("libmuine")]
 		private static extern int metadata_get_artist_count (IntPtr metadata);
 
@@ -79,10 +80,14 @@ namespace Muine
 				ArrayList strings = new ArrayList ();
 
 				int count = metadata_get_artist_count (raw);
+
 				for (int i = 0; i < count; i++) {
 					string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
-					if (tmp.Length > 0)
-						strings.Add (tmp);
+
+					if (tmp.Length <= 0)
+						continue;
+
+					strings.Add (tmp);
 				}
 
 				return (string []) strings.ToArray (typeof (string));
@@ -90,6 +95,7 @@ namespace Muine
 		}
 
 		// Properties :: Performers (get;)
+		//	FIXME: Refactor Artists and Performers properties
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_get_performer (IntPtr metadata, int index);
 
@@ -101,10 +107,14 @@ namespace Muine
 				ArrayList strings = new ArrayList ();
 
 				int count = metadata_get_performer_count (raw);
+
 				for (int i = 0; i < count; i++) {
 					string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
-					if (tmp.Length > 0)
-						strings.Add (tmp);
+
+					if (tmp.Length <= 0)
+						continue;
+
+					strings.Add (tmp);
 				}
 
 				return (string []) strings.ToArray (typeof (string));
@@ -118,10 +128,8 @@ namespace Muine
 		public string Album {
 			get { 
 				IntPtr p = metadata_get_album (raw);
-				if (p == IntPtr.Zero)
-					return "";
-				else
-					return Marshal.PtrToStringAnsi (p);
+				
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -129,13 +137,13 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_get_album_art (IntPtr metadata);
 
-		private Pixbuf album_art = null;
 		public Pixbuf AlbumArt {
 			get { 
 				if (album_art != null)
 					return album_art;
 					
 				IntPtr p = metadata_get_album_art (raw);
+
 				if (p != IntPtr.Zero)
 					album_art = new Pixbuf (p);
 
@@ -148,9 +156,7 @@ namespace Muine
 		private static extern int metadata_get_track_number (IntPtr metadata);
 		
 		public int TrackNumber {
-			get { 
-				return metadata_get_track_number (raw);
-			}
+			get { return metadata_get_track_number (raw); }
 		}
 
 		// Properties :: TotalTracks (get;)
@@ -158,9 +164,7 @@ namespace Muine
 		private static extern int metadata_get_total_tracks (IntPtr metadata);
 		
 		public int TotalTracks {
-			get { 
-				return metadata_get_total_tracks (raw);
-			}
+			get { return metadata_get_total_tracks (raw); }
 		}
 
 		// Properties :: DiscNumber (get;)
@@ -168,9 +172,7 @@ namespace Muine
 		private static extern int metadata_get_disc_number (IntPtr metadata);
 
 		public int DiscNumber {
-			get { 
-				return metadata_get_disc_number (raw);
-			}
+			get { return metadata_get_disc_number (raw); }
 		}
 
 		// Properties :: Year (get;)
@@ -180,10 +182,8 @@ namespace Muine
 		public string Year {
 			get {
 				IntPtr p = metadata_get_year (raw);
-				if (p == IntPtr.Zero)
-					return "";
-				else
-					return Marshal.PtrToStringAnsi (p);
+				
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -192,9 +192,7 @@ namespace Muine
 		private static extern int metadata_get_duration (IntPtr metadata);
 
 		public int Duration {
-			get { 
-				return metadata_get_duration (raw);
-			}
+			get { return metadata_get_duration (raw); }
 		}
 
 		// Properties :: MimeType (get;)
@@ -204,10 +202,8 @@ namespace Muine
 		public string MimeType {
 			get {
 				IntPtr p = metadata_get_mime_type (raw);
-				if (p == IntPtr.Zero)
-					return "";
-				else
-					return Marshal.PtrToStringAnsi (p);
+				
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
 			}
 		}
 
@@ -216,9 +212,7 @@ namespace Muine
 		private static extern int metadata_get_mtime (IntPtr metadata);
 
 		public int MTime {
-			get {
-				return metadata_get_mtime (raw);
-			}
+			get { return metadata_get_mtime (raw); }
 		}
 
 		// Properties :: Gain (get;)
@@ -226,9 +220,7 @@ namespace Muine
 		private static extern double metadata_get_gain (IntPtr metadata);
 
 		public double Gain {
-			get { 
-				return metadata_get_gain (raw);
-			}
+			get { return metadata_get_gain (raw); }
 		}
 
 		// Properties :: Peak (get;)
@@ -236,9 +228,7 @@ namespace Muine
 		private static extern double metadata_get_peak (IntPtr metadata);
 		
 		public double Peak {
-			get { 
-				return metadata_get_peak (raw);
-			}
+			get { return metadata_get_peak (raw); }
 		}
 	}
 }

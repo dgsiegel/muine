@@ -33,22 +33,19 @@ namespace Muine
 		[Glade.Widget] private Label  label;
 
 		// Constructor
-		public ErrorDialog (PlaylistWindow playlist,
-				    string primary_text,
-				    string secondary_text)
-		: this (primary_text, secondary_text)
+		public ErrorDialog (PlaylistWindow playlist, string s1, string s2) : this (s1, s2)
 		{
 			window.TransientFor = playlist;
 		}
 
-		public ErrorDialog (string primary_text, string secondary_text)
+		public ErrorDialog (string s1, string s2)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 			gxml.Autoconnect (this);
 
 			string full_text = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-			                                  StringUtils.EscapeForPango (primary_text),
-							  StringUtils.EscapeForPango (secondary_text));
+				StringUtils.EscapeForPango (s1),
+				StringUtils.EscapeForPango (s2));
 
 			label.Markup = full_text;
 

@@ -52,8 +52,8 @@ namespace Muine
 		public event         InvalidSongHandler InvalidSong;
 
 		// Callbacks
-		private SignalUtils.SignalDelegateInt tick_cb;
-		private SignalUtils.SignalDelegate    eos_cb;
+		private SignalUtils.SignalDelegateInt tick_cb ;
+		private SignalUtils.SignalDelegate    eos_cb  ;
 		private SignalUtils.SignalDelegateStr error_cb;
 
 		// Objects
@@ -73,6 +73,7 @@ namespace Muine
 			IntPtr error_ptr;
 			
 			Raw = player_new (out error_ptr);
+
 			if (error_ptr != IntPtr.Zero)
 				throw new PlayerException (error_ptr);
 			
@@ -99,6 +100,7 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern bool player_set_file (IntPtr player, string filename,
 							    out IntPtr error_ptr);
+
 		[DllImport ("libmuine")]
 		private static extern void player_set_replaygain (IntPtr player, double gain, double peak);
 
@@ -130,8 +132,8 @@ namespace Muine
 
 		// Properties :: Position (set; get;)
 		[DllImport ("libmuine")]
-		private static extern void player_seek (IntPtr player,
-		                                        int t);
+		private static extern void player_seek (IntPtr player, int t);
+
 		[DllImport ("libmuine")]
 		private static extern int player_tell (IntPtr player);
 
@@ -143,12 +145,7 @@ namespace Muine
 					TickEvent (value);
 			}
 
-			get {
-				if (set_file_idle_id > 0)
-					return 0;
-				else
-					return player_tell (Raw);
-			}
+			get { return (set_file_idle_id > 0) ? 0 : player_tell (Raw); }
 		}
 
 		// Properties :: Volume (set; get;)
@@ -166,6 +163,7 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Play
+		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_play (IntPtr player);
 
@@ -184,6 +182,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Pause
+		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_pause (IntPtr player);
 
@@ -201,6 +200,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Stop
+		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_stop (IntPtr player);
 
@@ -230,6 +230,7 @@ namespace Muine
 			IntPtr error_ptr;
 
 			player_set_file (Raw, song.Filename, out error_ptr);
+
 			if (error_ptr != IntPtr.Zero) {
 				if (InvalidSong != null)
 					InvalidSong (song);
@@ -263,8 +264,7 @@ namespace Muine
 		// Handlers :: OnError
 		private void OnError (IntPtr obj, string error)
 		{
-			new ErrorDialog (Global.Playlist,
-					 string_audio_error, error);
+			new ErrorDialog (Global.Playlist, string_audio_error, error);
 		}
 	}
 }

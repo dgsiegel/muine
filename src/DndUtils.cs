@@ -32,7 +32,7 @@ namespace Muine
 			Uri,
 			SongList,
 			AlbumList,
-			ModelRow
+			ModelRow,
 		};
 
 		// Drag-and-Drop Targets
@@ -65,8 +65,8 @@ namespace Muine
 		// Methods :: Public :: SplitSelectionData
 		public static string [] SplitSelectionData (Gtk.SelectionData data)
 		{
-			string str = SelectionDataToString (data);
-			return SplitSelectionData (str);
+			string s = SelectionDataToString (data);
+			return SplitSelectionData (s);
 		}
 
 		public static string [] SplitSelectionData (string data)

@@ -54,10 +54,9 @@ namespace Muine
 		// Methods
 		// Methods :: Private
 		// Methods :: Private :: ScanAssemblyForPlugins
-		//	TODO: is "assembly" a reserved word? it's highlighted in GtkSourceView...
-		private void ScanAssemblyForPlugins (Assembly assembly)
+		private void ScanAssemblyForPlugins (Assembly a)
 		{
-			foreach (Type t in assembly.GetTypes ()) {
+			foreach (Type t in a.GetTypes ()) {
 				if (!t.IsSubclassOf (typeof (Plugin)) || t.IsAbstract)
 					continue;
 
@@ -77,14 +76,15 @@ namespace Muine
 				return;
 
 			foreach (FileInfo file in info.GetFiles ()) {
-				if (file.Extension == ".dll") {
-					try {
-						Assembly a = Assembly.LoadFrom (file.FullName);
-						ScanAssemblyForPlugins (a);
+				if (file.Extension != ".dll")
+					continue;
 
-					} catch (Exception e) {
-						Console.WriteLine (string_error_load, file.Name, e.Message);
-					}
+				try {
+					Assembly a = Assembly.LoadFrom (file.FullName);
+					ScanAssemblyForPlugins (a);
+
+				} catch (Exception e) {
+					Console.WriteLine (string_error_load, file.Name, e.Message);
 				}
 			}
 		}

@@ -21,13 +21,11 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-using Gtk;
-
-// FIXME ditch this whole thing once we use gtk 2.6 stuff
+// FIXME: Ditch this whole thing once we use Gtk+ 2.6
 
 namespace Muine
 {
-	public class EllipsizingLabel : Label
+	public class EllipsizingLabel : Gtk.Label
 	{
 		// Constructor
 		[DllImport ("libmuine")]
@@ -45,7 +43,7 @@ namespace Muine
 		}
 
 		// Properties
-		// Properties :: Text (set; get;)
+		// Properties :: Text (set; get;) (Gtk.Label)
 		[DllImport ("libmuine")]
 		private static extern void rb_ellipsizing_label_set_text (IntPtr label, string text);
 
@@ -54,7 +52,7 @@ namespace Muine
 			get { return base.Text; }
 		}
 
-		// Properties :: Markup (set; get;)
+		// Properties :: Markup (set; get;) (Gtk.Label)
 		[DllImport ("libmuine")]
 		private static extern void rb_ellipsizing_label_set_markup (IntPtr label, string markup);
 

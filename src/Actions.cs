@@ -31,127 +31,155 @@ namespace Muine
 	public class Actions : ActionGroup
 	{
 		// Strings
+		// Strings :: Menu
 		private static readonly string string_file_menu =
 			Catalog.GetString ("_File");
+
 		private static readonly string string_song_menu =
 			Catalog.GetString ("_Song");
+
 		private static readonly string string_playlist_menu =
 			Catalog.GetString ("_Playlist");
+
 		private static readonly string string_help_menu =
 			Catalog.GetString ("_Help");
 
+		// Strings :: Menu :: File
 		private static readonly string string_import =
 			Catalog.GetString ("_Import Folder...");
+
 		private static readonly string string_open =
 			Catalog.GetString ("_Open Playlist...");
+
 		private static readonly string string_save =
 			Catalog.GetString ("_Save Playlist As...");
+
 		private static readonly string string_toggle_visible_hide =
 			Catalog.GetString ("Hide _Window");
+
 		private static readonly string string_toggle_visible_show =
 			Catalog.GetString ("Show _Window");
-		private static readonly string string_previous =
-			Catalog.GetString ("_Previous");
-		private static readonly string string_next =
-			Catalog.GetString ("_Next");
-		private static readonly string string_skip_to =
-			Catalog.GetString ("_Skip to...");
-		private static readonly string string_skip_backwards =
-			Catalog.GetString ("Skip _Backwards");
-		private static readonly string string_skip_forward =
-			Catalog.GetString ("Skip _Forward");
-		private static readonly string string_play_song =
-			Catalog.GetString ("Play _Song...");
-		private static readonly string string_play_album =
-			Catalog.GetString ("Play _Album...");
-		private static readonly string string_remove =
-			Catalog.GetString ("_Remove Song");
-		private static readonly string string_remove_played =
-			Catalog.GetString ("Remove _Played Songs");
-		private static readonly string string_clear =
-			Catalog.GetString ("_Clear");
-		private static readonly string string_shuffle =
-			Catalog.GetString ("Shu_ffle");
-		private static readonly string string_about =
-			Catalog.GetString ("_About");
+
+		// Strings :: Menu :: Song
 		private static readonly string string_toggle_play =
 			Catalog.GetString ("_Play");
+
+		private static readonly string string_previous =
+			Catalog.GetString ("_Previous");
+
+		private static readonly string string_next =
+			Catalog.GetString ("_Next");
+
+		private static readonly string string_skip_to =
+			Catalog.GetString ("_Skip to...");
+
+		private static readonly string string_skip_backwards =
+			Catalog.GetString ("Skip _Backwards");
+
+		private static readonly string string_skip_forward =
+			Catalog.GetString ("Skip _Forward");
+
+		// Strings :: Menu :: Playlist
+		private static readonly string string_play_song =
+			Catalog.GetString ("Play _Song...");
+
+		private static readonly string string_play_album =
+			Catalog.GetString ("Play _Album...");
+
+		private static readonly string string_remove =
+			Catalog.GetString ("_Remove Song");
+
+		private static readonly string string_remove_played =
+			Catalog.GetString ("Remove _Played Songs");
+
+		private static readonly string string_clear =
+			Catalog.GetString ("_Clear");
+
 		private static readonly string string_toggle_repeat =
 			Catalog.GetString ("R_epeat");
 
-		// Entries
-		private static ActionEntry [] entries = new ActionEntry [] {
+		private static readonly string string_shuffle =
+			Catalog.GetString ("Shu_ffle");
+
+		// Strings :: Menu :: Help
+		private static readonly string string_about =
+			Catalog.GetString ("_About");
+
+		// Static
+		// Static :: Objects
+		// Static :: Objects :: Entries
+		private static ActionEntry [] entries = {
 			new ActionEntry ("FileMenu", null, string_file_menu,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("SongMenu", null, string_song_menu,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("PlaylistMenu", null, string_playlist_menu,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("HelpMenu", null, string_help_menu,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("Import", Stock.Execute, string_import,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("Open", Stock.Open, string_open,
-					 "<control>O", null, null),
+				"<control>O", null, null),
 
 			new ActionEntry ("Save", Stock.SaveAs, string_save,
-					 "<shift><control>S", null, null),
+				"<shift><control>S", null, null),
 
 			new ActionEntry ("ToggleVisible", null, "", // string set dynamically
-					 "Escape", null, null),
+				"Escape", null, null),
 
 			new ActionEntry ("Quit", Stock.Quit, null,
-					 "<control>Q", null, null),
+				"<control>Q", null, null),
 			
 			new ActionEntry ("Previous", "stock_media-prev", string_previous,
-					 "B", null, null),
+				"B", null, null),
 
 			new ActionEntry ("Next", "stock_media-next", string_next,
-					 "N", null, null),
+				"N", null, null),
 
 			new ActionEntry ("SkipTo", Stock.JumpTo, string_skip_to,
-					 "T", null, null),
+				"T", null, null),
 
 			new ActionEntry ("SkipBackwards", "stock_media-rew", string_skip_backwards,
-					 "<control>Left", null, null),
+				"<control>Left", null, null),
 
 			new ActionEntry ("SkipForward", "stock_media-fwd", string_skip_forward,
-					 "<control>Right", null, null),
+				"<control>Right", null, null),
 
 			new ActionEntry ("PlaySong", Stock.Add, string_play_song,
-					 "S", null, null),
+				"S", null, null),
 
 			new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", string_play_album,
-					 "A", null, null),
+				"A", null, null),
 
 			new ActionEntry ("Remove", Stock.Remove, string_remove,
-					 "Delete", null, null),
+				"Delete", null, null),
 
 			new ActionEntry ("RemovePlayed", null, string_remove_played,
-					 "<control>Delete", null, null),
+				"<control>Delete", null, null),
 
 			new ActionEntry ("Clear", Stock.Clear, string_clear,
-					 null, null, null),
+				null, null, null),
 
 			new ActionEntry ("Shuffle", "stock_shuffle", string_shuffle,
-					 "<control>S", null, null),
+				"<control>S", null, null),
 
 			new ActionEntry ("About", Gnome.Stock.About, string_about,
-					 null, null, null)
+				null, null, null)
 		};
 
-		// Toggle Entries
-		private static ToggleActionEntry [] toggle_entries = new ToggleActionEntry [] {
+		// Static :: Objects :: Toggle Entries
+		private static ToggleActionEntry [] toggle_entries = {
 			new ToggleActionEntry ("TogglePlay", "stock_media-play", string_toggle_play,
-					       "P", null, null, false),
+			       "P", null, null, false),
 
 			new ToggleActionEntry ("ToggleRepeat", null, string_toggle_repeat,
-					       "<control>R", null, null, false),
+			       "<control>R", null, null, false),
 		};
 
 		// Static :: Properties
@@ -327,16 +355,22 @@ namespace Muine
 		private void OnTogglePlay (object o, EventArgs args)
 		{
 			ToggleAction a = (ToggleAction) o;
-			if (a.Active != Global.Playlist.Playing)
-				Global.Playlist.Playing = a.Active;
+
+			if (a.Active == Global.Playlist.Playing)
+				return;
+
+			Global.Playlist.Playing = a.Active;
 		}
 
 		// Handlers :: OnToggleRepeat
 		private void OnToggleRepeat (object o, EventArgs args)
 		{
 			ToggleAction a = (ToggleAction) o;
-			if (a.Active != Global.Playlist.Repeat)
-				Global.Playlist.Repeat = a.Active;
+
+			if (a.Active == Global.Playlist.Repeat)
+				return;
+
+			Global.Playlist.Repeat = a.Active;
 		}
 	}
 }

@@ -27,8 +27,8 @@ namespace Muine
 		// Variables
 		protected IntPtr handle;
 
-		protected SortKey sort_key  = null;
-		protected string search_key = null;
+		protected SortKey sort_key   = null;
+		protected string  search_key = null;
 	
 		// Properties
 		// Properties :: Abstract
@@ -38,14 +38,15 @@ namespace Muine
 			get;
 		}
 
-		// Properties :: Handle (get;)
-		public virtual IntPtr Handle {
-			get { return handle; }
-		}
-
-		// Properties :: Public (get;)
+		// Properties :: Abstract :: Public (get;)
 		public abstract bool Public {
 			get;
+		}
+
+		// Properties :: Virtual
+		// Properties :: Virtual :: Handle (get;)
+		public virtual IntPtr Handle {
+			get { return handle; }
 		}
 
 		// Properties :: SortKey (get;)
@@ -70,16 +71,20 @@ namespace Muine
 
 		// Methods
 		// Methods :: Abstract
-		protected abstract SortKey GenerateSortKey ();
-		protected abstract string GenerateSearchKey ();
 		public abstract void Deregister ();
+
+		protected abstract SortKey GenerateSortKey ();
+
+		protected abstract string GenerateSearchKey ();
+
 
 		// Methods :: Public		
 		// Methods :: Public :: CompareTo (IComparable)
 		public int CompareTo (object o)
 		{
+			// Check if we're trying to compare to nothing
 			if (o == null)
-				return 1; // always greater than nothing
+				return 1;
 			
 			Item other = (Item) o;
 					

@@ -31,36 +31,23 @@ namespace Muine
 	{
 		// Strings
 		// Strings :: Prefixes
-
 		//      Space-separated list of prefixes that will be taken off the front
 		// 	when sorting. For example, "The Beatles" will be sorted as "Beatles",
 		// 	if "the" is included in this list. Also include the English "the"
 		// 	if English is generally spoken in your country.
-		private static readonly string string_prefixes = Catalog.GetString ("the dj");
+		private static readonly string string_prefixes = 
+			Catalog.GetString ("the dj");
 
 		// Static
+		// Static :: Variables
+		private static Hashtable pointers = new Hashtable ();
+		private static IntPtr cur_ptr = IntPtr.Zero;
+
 		// Static :: Methods
 		// Static :: Methods :: FromHandle
 		public static Album FromHandle (IntPtr handle)
 		{
 			return (Album) pointers [handle];
-		}
-
-		// Internal Classes
-		// Internal Classes :: SongComparer
-		private class SongComparer : IComparer {
-			int IComparer.Compare (object a, object b)
-			{
-				Song song_a = (Song) a;
-				Song song_b = (Song) b;
-
-				int ret = song_a.DiscNumber.CompareTo (song_b.DiscNumber);
-				
-				if (ret == 0)
-					ret = song_a.TrackNumber.CompareTo (song_b.TrackNumber);
-				
-				return ret;
-			}
 		}
 
 		// Objects
@@ -69,27 +56,19 @@ namespace Muine
 
 		// Variables
 		private string name;
-		private ArrayList songs;
-		private ArrayList artists;
-		private ArrayList performers;
+		private ArrayList songs      = new ArrayList ();
+		private ArrayList artists    = new ArrayList ();
+		private ArrayList performers = new ArrayList ();
 		private string year;
 		private string folder;
 		private int n_tracks;
 		private int total_n_tracks;
 		private bool complete = false;
-
-		private static Hashtable pointers = new Hashtable ();
-		private static IntPtr cur_ptr = IntPtr.Zero;
 		
 		// Constructor
 		public Album (Song initial_song, bool check_cover)
 		{
-			songs = new ArrayList ();
-
 			songs.Add (initial_song);
-
-			artists = new ArrayList ();
-			performers = new ArrayList ();
 
 			AddArtistsAndPerformers (initial_song);
 
@@ -109,7 +88,6 @@ namespace Muine
 
 			if (check_cover) {
 				cover_image = GetCover (initial_song);
-
 				initial_song.SetCoverImageQuiet (cover_image);
 			}
 		}
@@ -123,27 +101,24 @@ namespace Muine
 		// Properties :: Songs (get;)
 		public ArrayList Songs {
 			get {
-				lock (this) {
+				lock (this)
 					return (ArrayList) songs.Clone ();
-				}
 			}
 		}
 
 		// Properties :: Artists (get;)
 		public string [] Artists {
 			get {
-				lock (this) {
+				lock (this)
 					return (string []) artists.ToArray (typeof (string));
-				}
 			}
 		}
 
 		// Properties :: Performers (get;)
 		public string [] Performers {
 			get {
-				lock (this) {
+				lock (this)
 					return (string []) performers.ToArray (typeof (string));
-				}
 			}
 		}
 
@@ -180,14 +155,17 @@ namespace Muine
 		// Methods :: Public
 		// Methods :: Public :: Add
 		public void Add (Song song, bool check_cover,
-		                 out bool changed, out bool songs_changed)
+				 out bool changed, out bool songs_changed)
 		{
 			changed = false;
 			songs_changed = false;
 
 			lock (this) {
+			
+				// Cover
 				if (check_cover) {
 					if (cover_image == null && song.CoverImage != null) {
+
 						// This is to pick up any embedded album covers
 						changed = true;
 						songs_changed = true;
@@ -195,24 +173,31 @@ namespace Muine
 						cover_image = song.CoverImage;
 						foreach (Song s in Songs)
 							s.SetCoverImageQuiet (cover_image);
-					} else
+
+					} else {
 						song.SetCoverImageQuiet (cover_image);
+					}
 				}
 
+				// Year
 				if (year.Length == 0 && song.Year.Length > 0) {
 					year = song.Year;
-
 					changed = true;
-				} else
-					song.Year = year;
 
+				} else {
+					song.Year = year;
+				}
+
+				// Name
 				if (name != song.Album) {
 					name = song.Album;
-
 					changed = true;
-				} else
-					song.Album = name;
 
+				} else {
+					song.Album = name;
+				}
+
+				// Artists / Performers
 				bool artists_changed = AddArtistsAndPerformers (song);
 				if (artists_changed)
 					changed = true;
@@ -220,6 +205,7 @@ namespace Muine
 				songs.Add (song);
 				songs.Sort (song_comparer);
 
+				// Tracks
 				if (total_n_tracks != song.NAlbumTracks &&
 				    song.NAlbumTracks > 0) {
 					total_n_tracks = song.NAlbumTracks;
@@ -229,6 +215,7 @@ namespace Muine
 
 				n_tracks ++;
 
+				// Complete?
 				bool complete_changed = CheckCompleteness ();
 				if (complete_changed)
 					changed = true;
@@ -243,33 +230,37 @@ namespace Muine
 			lock (this) {
 				n_tracks --;
 
+				// Complete?
 				bool complete_changed = CheckCompleteness ();
 				if (complete_changed)
 					changed = true;
 
+				// Remove Song
 				songs.Remove (song);
 
+				// Artists
 				bool artists_changed = RemoveArtistsAndPerformers (song);
 				if (artists_changed)
 					changed = true;
 
+				// Remove if empty
 				empty = (n_tracks == 0);
 				if (empty && !FileUtils.IsFromRemovableMedia (folder))
-					Global.CoverDB.RemoveCover (Key);
+					Global.CoverDB.RemoveCover (this.Key);
 			}
 		}
 
 		// Methods :: Public :: SetCoverLocal
 		public void SetCoverLocal (string file)
 		{
-			CoverImage = Global.CoverDB.Getter.GetLocal (Key, file);
+			CoverImage = Global.CoverDB.Getter.GetLocal (this.Key, file);
 		}
 
 		// Methods :: Public :: SetCoverWeb
 		public void SetCoverWeb (string url)
 		{
-			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
-					new CoverGetter.GotCoverDelegate (OnGotCover));
+			CoverImage = Global.CoverDB.Getter.GetWeb (this.Key, url,
+				new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 
 		// Methods :: Public :: Deregister
@@ -279,12 +270,17 @@ namespace Muine
 		}
 
 		// Methods :: Protected
-		// Methods :: Protected :: GenerateSortKey
+		// Methods :: Protected :: GenerateSortKey (Item)
 		protected override SortKey GenerateSortKey ()
 		{
+			// Prefixes
 			string [] prefixes = string_prefixes.Split (' ');
 
+			// FIXME: Refactor Artists and Performers function
+
+			// Artists
 			string [] p_artists = new string [artists.Count];
+
 			for (int i = 0; i < artists.Count; i ++) {
 				p_artists [i] = ((string) artists [i]).ToLower ();
 				
@@ -297,7 +293,11 @@ namespace Muine
 				}
 			}
 
+			string a = String.Join (" ", p_artists);
+
+			// Performers
 			string [] p_performers = new string [performers.Count];
+
 			for (int i = 0; i < performers.Count; i ++) {
 				p_performers [i] = ((string) performers [i]).ToLower ();
 				
@@ -310,25 +310,27 @@ namespace Muine
 				}
 			}
 
-			string a = String.Join (" ", p_artists);
 			string p = String.Join (" ", p_performers);
 
-			// more than three artists, sort by album name
-			// three or less artists, sort by artist
+			// Key
+			// 	more than three artists, sort by album name
+			// 	three or less artists, sort by artist
 			string key;
+
 			if (artists.Count > 3)
 				key = String.Format ("{0} {1} {2} {3}", name, year, a, p);
 			else
 				key = String.Format ("{0} {1} {2} {3}", a, p, year, name);
 
-			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, CompareOptions.IgnoreCase);
+			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, 
+				CompareOptions.IgnoreCase);
 		}
 
-		// Methods :: Protected :: GenerateSearchKey
+		// Methods :: Protected :: GenerateSearchKey (Item)
 		protected override string GenerateSearchKey ()
 		{
-			string a = String.Join (" ", Artists);
-			string p = String.Join (" ", Performers);
+			string a = String.Join (" ", this.Artists   );
+			string p = String.Join (" ", this.Performers);
 
 			string key = String.Format ("{0} {1} {2}", name, a, p);
 
@@ -339,36 +341,42 @@ namespace Muine
 		// Methods :: Private :: AddArtistsAndPerformers
 		private bool AddArtistsAndPerformers (Song song)
 		{
-			bool artists_changed = false;
-			bool performers_changed = false;
-			
-			foreach (string artist in song.Artists) {
-				if (!artists.Contains (artist)) {
-					artists.Add (artist);
+			// FIXME: Refactor Artists and Performers function
 
-					artists_changed = true;
-				}
+			// Artists			
+			bool artists_changed = false;
+
+			foreach (string artist in song.Artists) {
+				if (artists.Contains (artist))
+					continue;
+				
+				artists.Add (artist);
+				artists_changed = true;
 			}
 
 			if (artists_changed)
 				artists.Sort ();
 
-			foreach (string performer in song.Performers) {
-				if (!performers.Contains (performer)) {
-					performers.Add (performer);
+			// Performers
+			bool performers_changed = false;
 
-					performers_changed = true;
-				}
+			foreach (string performer in song.Performers) {
+				if (performers.Contains (performer))
+					continue;
+
+				performers.Add (performer);
+				performers_changed = true;
 			}
 
 			if (performers_changed)
 				performers.Sort ();
 
+			// If changed, clear keys
 			bool changed = (artists_changed || performers_changed);
 
 			if (changed) {
 				search_key = null;
-				sort_key = null;
+				sort_key   = null;
 			}
 
 			return changed;
@@ -377,18 +385,21 @@ namespace Muine
 		// Methods :: Private :: RemoveArtistsAndPerformers
 		private bool RemoveArtistsAndPerformers (Song song)
 		{
-			bool artists_changed = false;
-			bool performers_changed = false;
+			// FIXME: Refactor Artists and Performers function
 
+			// Artists
+			bool artists_changed = false;
+			
 			foreach (string artist in song.Artists) {
 				bool found = false;
 
 				foreach (Song s in songs) {
 					foreach (string s_artist in s.Artists) {
-						if (artist == s_artist) {
-							found = true;
-							break;
-						}
+						if (artist != s_artist)
+							continue;
+
+						found = true;
+						break;
 					}
 
 					if (found)
@@ -397,20 +408,23 @@ namespace Muine
 
 				if (!found) {
 					artists.Remove (artist);
-
 					artists_changed = true;
 				}
 			}
+
+			// Performers
+			bool performers_changed = false;
 
 			foreach (string performer in song.Performers) {
 				bool found = false;
 
 				foreach (Song s in songs) {
 					foreach (string s_performer in s.Performers) {
-						if (performer == s_performer) {
-							found = true;
-							break;
-						}
+						if (performer != s_performer)
+							continue;
+
+						found = true;
+						break;
 					}
 
 					if (found)
@@ -419,16 +433,16 @@ namespace Muine
 
 				if (!found) {
 					performers.Remove (performer);
-
 					performers_changed = true;
 				}
 			}
 
+			// If changed, reset keys
 			bool changed = (artists_changed || performers_changed);
 
 			if (changed) {
 				search_key = null;
-				sort_key = null;
+				sort_key   = null;
 			}
 
 			return changed;
@@ -437,44 +451,49 @@ namespace Muine
 		// Methods :: Private :: GetCover
 		private Pixbuf GetCover (Song initial_song)
 		{
-			string key = Key;
-
-			Pixbuf pixbuf = (Pixbuf) Global.CoverDB.Covers [key];
+			string key = this.Key;
+			Gdk.Pixbuf pixbuf;
+			
+			// Database
+			pixbuf = (Pixbuf) Global.CoverDB.Covers [key];
 			if (pixbuf != null)
 				return pixbuf;
 
+			// Embedded
 			pixbuf = initial_song.CoverImage;
 			if (pixbuf != null)
-				return pixbuf; // embedded cover image
+				return pixbuf;
 
+			// Folder
 			pixbuf = Global.CoverDB.Getter.GetFolderImage (key, folder);
 			if (pixbuf != null)
 				return pixbuf;
 
+			// Amazon
 			return Global.CoverDB.Getter.GetAmazon (this);
 		}
 
 		// Methods :: Private :: HaveHalfAlbum
-		private bool HaveHalfAlbum (int total_n_tracks, int n_tracks)
+		private bool HaveHalfAlbum ()
 		{
-			int min_n_tracks = (int) Math.Ceiling (total_n_tracks / 2);
-			
-			return (n_tracks >= min_n_tracks);
+			return HaveHalfAlbum (total_n_tracks, n_tracks);
+		}
+		
+		private bool HaveHalfAlbum (int total, int have)
+		{
+			return (have >= total / 2);
 		}
 
 		// Methods :: Private :: CheckCompleteness
-		//	Returns true if completeness changed
+		//	Returns: true if completeness changed
 		private bool CheckCompleteness ()
 		{
 			bool new_complete = false;
 
 			if (total_n_tracks > 0) {
 				int delta = total_n_tracks - n_tracks;
-			
-				if (delta <= 0)
-					new_complete = true;
-				else
-					new_complete = HaveHalfAlbum (total_n_tracks, n_tracks);
+				new_complete = (delta <= 0) ? true : HaveHalfAlbum ();
+
 			} else {
 				// Take track number of last song
 				Song last_song = (Song) songs [songs.Count - 1];
@@ -487,11 +506,13 @@ namespace Muine
 					// song with track number '1' would be seen as an album.
 					if (n_tracks == 1 && last_song.Duration >= 600)
 						new_complete = true;
+
 				} else if (last_track > 1) {
 					int delta = last_track - n_tracks;
 					
 					if (delta <= 0)
 						new_complete = true;
+
 					else if (last_track >= 8) {
 						// Only do the half album checking if we have at least
 						// 8 tracks. Otherwise too much rubbish falls through.
@@ -500,8 +521,8 @@ namespace Muine
 				}
 			}
 
-			bool changed = (new_complete != complete);
-			
+			// Changed?
+			bool changed = (new_complete != complete);			
 			complete = new_complete;
 			
 			return changed;
@@ -512,6 +533,26 @@ namespace Muine
 		private void OnGotCover (Pixbuf pixbuf)
 		{
 			CoverImage = pixbuf;
+		}
+
+		// Internal Classes
+		// Internal Classes :: SongComparer
+		private class SongComparer : IComparer {
+		
+			// Methods
+			// Methods :: Compare (IComparer)
+			int IComparer.Compare (object a, object b)
+			{
+				Song song_a = (Song) a;
+				Song song_b = (Song) b;
+
+				int ret = song_a.DiscNumber.CompareTo (song_b.DiscNumber);
+				
+				if (ret == 0)
+					ret = song_a.TrackNumber.CompareTo (song_b.TrackNumber);
+				
+				return ret;
+			}
 		}
 	}
 }

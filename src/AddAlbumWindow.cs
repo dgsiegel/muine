@@ -39,11 +39,14 @@ namespace Muine
 		// Strings
 		private static readonly string string_title = 
 			Catalog.GetString ("Play Album");
+
 		private static readonly string string_artists = 
 			Catalog.GetString ("Performed by {0}");
 
-		// DnD Targets	
-		private static TargetEntry [] source_entries = new TargetEntry [] {
+		// Static
+		// Static :: Objects
+		// Static :: Objects :: DnD Targets
+		private static TargetEntry [] source_entries = {
 			DndUtils.TargetMuineAlbumList,
 			DndUtils.TargetUriList
 		};
@@ -71,10 +74,10 @@ namespace Muine
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
 			col.Spacing = 4;
-			col.PackStart (pixbuf_renderer, false);
-			col.PackStart (base.TextRenderer, true);
-			col.SetCellDataFunc (pixbuf_renderer, new TreeCellDataFunc (PixbufCellDataFunc));
-			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (TextCellDataFunc));
+			col.PackStart (pixbuf_renderer  , false);
+			col.PackStart (base.TextRenderer, true );
+			col.SetCellDataFunc (pixbuf_renderer  , new TreeCellDataFunc (PixbufCellDataFunc));
+			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (TextCellDataFunc  ));
 			base.List.AppendColumn (col);
 
 			base.List.DragSource = source_entries;
@@ -105,7 +108,7 @@ namespace Muine
 
 			base.List.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
 			Gtk.Drag.DestSet (base.List, DestDefaults.All,
-					  CoverImage.DragEntries, Gdk.DragAction.Copy);
+				CoverImage.DragEntries, Gdk.DragAction.Copy);
 
 			drag_dest_enabled = true;
 		}
@@ -123,7 +126,6 @@ namespace Muine
 		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			TreePath path;
-
 			if (!base.List.GetPathAtPos (args.X, args.Y, out path))
 				return;
 
@@ -151,7 +153,7 @@ namespace Muine
 				}
 		
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-							8, System.Text.Encoding.UTF8.GetBytes (files));
+					8, System.Text.Encoding.UTF8.GetBytes (files));
 							
 				break;
 
@@ -164,7 +166,7 @@ namespace Muine
 				}
 				
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
-							8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+					8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 							
 				break;
 
@@ -174,23 +176,23 @@ namespace Muine
 		}
 
 		// Handlers :: OnAdded
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnAdded (Album album)
 		{
 			base.List.HandleAdded (album.Handle, 
-					       album.FitsCriteria (base.Entry.SearchBits));
+				album.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnChanged
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnChanged (Album album)
 		{
 			base.List.HandleChanged (album.Handle, 
-						 album.FitsCriteria (base.Entry.SearchBits));
+				album.FitsCriteria (base.Entry.SearchBits));
 		}
 
 		// Handlers :: OnRemoved
-		// 	Remove if we depend on Mono 1.1+
+		// 	FIXME: Remove if we depend on Mono 1.1+
 		protected void OnRemoved (Album album)
 		{
 			base.List.HandleRemoved (album.Handle);
@@ -208,16 +210,19 @@ namespace Muine
 
 		// Delegate Functions :: PixbufCellDataFunc
 		private void PixbufCellDataFunc (TreeViewColumn col, CellRenderer cell,
-					         TreeModel model, TreeIter iter)
+						 TreeModel model, TreeIter iter)
 		{
 			CellRendererPixbuf r = (CellRendererPixbuf) cell;
 			Album album = Album.FromHandle (base.List.Model.HandleFromIter (iter));
 
-			r.Pixbuf = (album.CoverImage != null)
-				? album.CoverImage
-				: (Global.CoverDB.Loading)
-					? Global.CoverDB.DownloadingPixbuf
-					: nothing_pixbuf;
+			if (album.CoverImage != null)
+				r.Pixbuf = album.CoverImage;
+
+			else if (Global.CoverDB.Loading)
+				r.Pixbuf = Global.CoverDB.DownloadingPixbuf;
+
+			else
+				r.Pixbuf = nothing_pixbuf;
 
 			r.Width = r.Height = pixbuf_column_width;
 		}
@@ -231,12 +236,13 @@ namespace Muine
 
 			string performers = "";
 			if (album.Performers.Length > 0)
-				performers = StringUtils.EscapeForPango (String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2)));
+				performers = StringUtils.EscapeForPango (String.Format (string_artists, 
+					StringUtils.JoinHumanReadable (album.Performers, 2)));
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}\n\n{2}",
-						  StringUtils.EscapeForPango (album.Name),
-						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (album.Artists, 3)),
-						  performers);
+				StringUtils.EscapeForPango (album.Name),
+				StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (album.Artists, 3)),
+				performers);
 		}
 	}
 }

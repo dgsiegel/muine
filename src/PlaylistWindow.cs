@@ -34,40 +34,57 @@ namespace Muine
 	public class PlaylistWindow : Window, IPlayer
 	{
 		// Constants
-		private const int Step = 5; // # seconds to skip back and forth
-		private const int MinRestartTime = 3; // seconds after which song will restart on "previous"
+		// Constants :: Step
+		//	Number of seconds to skip back and forth
+		private const int Step = 5;
+		
+		// Constants :: MinRestartTime
+		//	Seconds after which song will restart on "previous"
+		private const int MinRestartTime = 3; 
 
-		private const int MinShowHours = 6000; // seconds over which to show remaining time in hours
-		private const int MinShowMinutes = 60; // seconds over which to show remaining time in minutes
+		// Constants :: MinShowHours
+		//	Seconds over which to show remaining time in hours
+		private const int MinShowHours = 6000; 
+
+		// Constnats :: MinShowMinutes
+		//	Seconds over which to show remaining time in minutes
+		private const int MinShowMinutes = 60;
 		
 		// GConf
 		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
-		private const int GConfDefaultWidth = -1; 
+		private const int    GConfDefaultWidth = -1; 
 
 		private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
-		private const int GConfDefaultHeight = 450;
+		private const int    GConfDefaultHeight = 450;
 
 		private const string GConfKeyVolume = "/apps/muine/volume";
-		private const int GConfDefaultVolume = 50;
+		private const int    GConfDefaultVolume = 50;
 
 		private const string GConfKeyRepeat = "/apps/muine/repeat";
-		private const bool GConfDefaultRepeat = false;
+		private const bool   GConfDefaultRepeat = false;
 
 		// Strings
 		private static readonly string string_program = 
 			Catalog.GetString ("Muine Music Player");
+
 		private static readonly string string_playlist_filename =
 			Catalog.GetString ("Playlist.m3u");
+
 		private static readonly string string_playlist = 
 			Catalog.GetString ("<b>Playlist</b>");
+
 		private static readonly string string_playlist_repeating =
 			Catalog.GetString ("<b>Playlist</b> (Repeating)");
+
 		private static readonly string string_playlist_under_minute =
 			Catalog.GetString ("<b>Playlist</b> (Less than one minute remaining)");
+
 		private static readonly string string_from_album =
 			Catalog.GetString ("From \"{0}\"");
+
 		private static readonly string string_album_unknown =
 			Catalog.GetString ("Album unknown");
+
 		private static readonly string string_performers =
 			Catalog.GetString ("Performed by {0}");
 
@@ -78,26 +95,35 @@ namespace Muine
 		// Strings :: Tooltips
 		private static readonly string string_tooltip_toggle_play =
 			Catalog.GetString ("Switch music playback on or off");
+
 		private static readonly string string_tooltip_previous =
 			Catalog.GetString ("Play the previous song");
+
 		private static readonly string string_tooltip_next =
 			Catalog.GetString ("Play the next song");
+
 		private static readonly string string_tooltip_add_album =
 			Catalog.GetString ("Add an album to the playlist");
+
 		private static readonly string string_tooltip_add_song =
 			Catalog.GetString ("Add a song to the playlist");
+
 		private static readonly string string_tooltip_volume =
 			Catalog.GetString ("Change the volume level");
+
 		private static readonly string string_tooltip_cover =
 			Catalog.GetString ("Drop an image here to use it as album cover");
 
 		// Strings :: Errors
 		private static readonly string string_error_audio =
 			Catalog.GetString ("Failed to initialize the audio backend:\n{0}");
+
 		private static readonly string string_error_read =
 			Catalog.GetString ("Failed to read {0}:");
+
 		private static readonly string string_error_close =
 			Catalog.GetString ("Failed to close {0}:");
+
 		private static readonly string string_error_write =
 			Catalog.GetString ("Failed to write {0}:");
 
@@ -117,54 +143,52 @@ namespace Muine
 		// Events :: SelectionChangedEvent (IPlayer)
 		public event GenericEventHandler SelectionChangedEvent;
 
-		// Internal Classes
-		// Internal Classes :: DragAddSongPosition
-		private class DragAddSongPosition {
-			public IntPtr               Pointer;
-			public TreeViewDropPosition Position;
-			public bool                 First;
-		}
+		// Delegates
+		private delegate void PlaylistForeachFunc (Song song, bool playing, object user_data);
 
 		// Widgets
-		private Tooltips tooltips;
-		private Gdk.Pixbuf empty_pixbuf;
-		private CellRenderer pixbuf_renderer;
-		private CellRenderer text_renderer;
-
-		[Glade.Widget] private VBox           main_vbox;
-		[Glade.Widget] private Box            menu_bar_box;
+		[Glade.Widget] private VBox           main_vbox     ;
+		[Glade.Widget] private Box            menu_bar_box  ;
 		[Glade.Widget] private ScrolledWindow scrolledwindow;
+
+		private Tooltips     tooltips       ;
+		private Gdk.Pixbuf   empty_pixbuf   ;
+		private CellRenderer pixbuf_renderer;
+		private CellRenderer text_renderer  ;
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
-		[Glade.Widget] private Container title_label_container;
-		[Glade.Widget] private Container artist_label_container;
-		[Glade.Widget] private Container cover_image_container;
+		[Glade.Widget] private Container title_label_container  ;
+		[Glade.Widget] private Container artist_label_container ;
+		[Glade.Widget] private Container cover_image_container  ;
 
 		// Widgets :: Images
 		[Glade.Widget] private Image toggle_play_image;
-		[Glade.Widget] private Image previous_image;
-		[Glade.Widget] private Image next_image;
-		[Glade.Widget] private Image add_song_image;
-		[Glade.Widget] private Image add_album_image;
+		[Glade.Widget] private Image previous_image   ;
+		[Glade.Widget] private Image next_image       ;
+		[Glade.Widget] private Image add_song_image   ;
+		[Glade.Widget] private Image add_album_image  ;
 
 		// Widgets :: Toolbar
 		[Glade.Widget] private ToggleButton toggle_play_button;
-		[Glade.Widget] private Button       previous_button;
-		[Glade.Widget] private Button       next_button;
-		[Glade.Widget] private Button       add_song_button;
-		[Glade.Widget] private Button       add_album_button;		
+		[Glade.Widget] private Button       previous_button   ;
+		[Glade.Widget] private Button       next_button       ;
+		[Glade.Widget] private Button       add_song_button   ;
+		[Glade.Widget] private Button       add_album_button  ;		
+
 		private VolumeButton volume_button;
 
 		// Widgets :: Player
-		private CoverImage cover_image;
-		private EllipsizingLabel title_label;
-		private EllipsizingLabel artist_label;
 		[Glade.Widget] private Label time_label;
 
+		private CoverImage       cover_image ;
+		private EllipsizingLabel title_label ;
+		private EllipsizingLabel artist_label;
+
 		// Widgets :: Playlist
-		[Glade.Widget] private Label    playlist_label;
+		[Glade.Widget] private Label    playlist_label          ;
 		[Glade.Widget] private EventBox playlist_label_event_box;
+
 		private HandleView playlist;
 
 		// Windows
@@ -179,16 +203,16 @@ namespace Muine
 		private bool ignore_song_change;
 
 		// Drag-and-Drop
-		private static TargetEntry [] drag_entries = new TargetEntry [] {
+		private static TargetEntry [] drag_entries = {
 			DndUtils.TargetUriList
 		};
 
-		private static TargetEntry [] playlist_source_entries = new TargetEntry [] {
+		private static TargetEntry [] playlist_source_entries = {
 			DndUtils.TargetMuineTreeModelRow,
 			DndUtils.TargetUriList
 		};
 			
-		private static TargetEntry [] playlist_dest_entries = new TargetEntry [] {
+		private static TargetEntry [] playlist_dest_entries = {
 			DndUtils.TargetMuineTreeModelRow,
 			DndUtils.TargetMuineSongList,
 			DndUtils.TargetMuineAlbumList,
@@ -206,12 +230,13 @@ namespace Muine
 
 		private Hashtable random_sort_keys;
 
+		private bool repeat;
+
 		// Constructor
 		public PlaylistWindow () : base (WindowType.Toplevel)
 		{
 			// Build the interface
-			Glade.XML glade_xml = 
-				new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
+			Glade.XML glade_xml = new Glade.XML (null, "PlaylistWindow.glade", "main_vbox", null);
 			glade_xml.Autoconnect (this);	
 			base.Add (main_vbox);
 
@@ -227,7 +252,8 @@ namespace Muine
 			AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
 			// Set up various other UI bits
-			SetupPlayer (); // Has to be before the others, they need the Player object
+			// Player has to be first, others need the Player object
+			SetupPlayer (); 
 						    
 			// Setup Menus
 			base.AddAccelGroup (Global.Actions.UIManager.AccelGroup);
@@ -250,9 +276,10 @@ namespace Muine
 		// Properties :: PlayingSong (get;) (IPlayer)
 		public ISong PlayingSong {
 			get {
-				return (playlist.Model.Playing == IntPtr.Zero)
-				       ? null
-				       : Song.FromHandle (playlist.Model.Playing);
+				if (playlist.Model.Playing == IntPtr.Zero)
+					return null;
+
+				return Song.FromHandle (playlist.Model.Playing);
 			}
 		}
 
@@ -269,9 +296,11 @@ namespace Muine
 					}
 
 					player.Play ();
-				} else {
-					player.Pause ();
+					
+					return;
 				}
+
+				player.Pause ();
 			}
 
 			get { return player.Playing; }
@@ -369,7 +398,6 @@ namespace Muine
 		}
 
 		// Properties :: Repeat (set; get;)
-		private bool repeat;
 		public bool Repeat {
 			set {
 				repeat = value;
@@ -394,8 +422,8 @@ namespace Muine
 				return;
 
 			OpenPlaylistInternal (FileUtils.PlaylistFile,
-					      new PlaylistForeachFunc (RestorePlaylistForeachFunc),
-					      null);
+				new PlaylistForeachFunc (RestorePlaylistForeachFunc), null);
+
 			EnsurePlaying ();
 		}
 
@@ -427,9 +455,10 @@ namespace Muine
 			if (WindowVisible && playlist.Model.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Model.Playing);
 
-			Global.Actions ["ToggleVisible"].Label = (WindowVisible)
-							     ? Actions.StringToggleVisibleHide
-							     : Actions.StringToggleVisibleShow;
+			if (WindowVisible)
+				Global.Actions ["ToggleVisible"].Label = Actions.StringToggleVisibleHide;
+			else
+				Global.Actions ["ToggleVisible"].Label = Actions.StringToggleVisibleShow;
 		}
 
 		// Methods :: Public :: PlayFile (IPlayer)
@@ -466,8 +495,8 @@ namespace Muine
 
 			ClearPlaylist ();
 			OpenPlaylistInternal (fn,
-					      new PlaylistForeachFunc (RegularPlaylistForeachFunc),
-					      null);
+				new PlaylistForeachFunc (RegularPlaylistForeachFunc), null);
+
 			EnsurePlaying ();
 			PlaylistChanged ();
 			Playing = true;
@@ -507,8 +536,10 @@ namespace Muine
 		{
 			if (playlist.Model.HasNext)
 				playlist.Model.Next ();
+
 			else if (repeat && playlist.Model.HasFirst)
 				playlist.Model.First ();
+
 			else
 				return;
 
@@ -599,10 +630,8 @@ namespace Muine
 					song_changed = true;
 				}
 				
-				if (counter == selected_pointers_count - 1 &&
-				    !playlist.SelectNext ()) {
+				if (counter == selected_pointers_count - 1 && !playlist.SelectNext ())
 					playlist.SelectPrevious ();
-				}
 
 				RemoveSong (sel);
 
@@ -667,8 +696,10 @@ namespace Muine
 
 			PlaylistChanged ();
 
-			if (playlist.Model.Playing != IntPtr.Zero)
-				playlist.Select (playlist.Model.Playing);
+			if (playlist.Model.Playing == IntPtr.Zero)
+				return;
+
+			playlist.Select (playlist.Model.Playing);
 		}
 		
 		// Methods :: Public :: SavePlaylist
@@ -676,15 +707,18 @@ namespace Muine
 		{
 			bool remote = FileUtils.IsRemote (fn);
 
+			// Increase BusyLevel
 			if (remote)
 				BusyLevel ++;
 
+			// Open
 			VfsStream stream;
 			StreamWriter writer;
 			
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Create);
 				writer = new StreamWriter (stream);
+
 			} catch (Exception e) {
 				string msg = String.Format (string_error_write, FileUtils.MakeHumanReadable (fn));
 				new ErrorDialog (this, msg, e.Message);
@@ -693,6 +727,7 @@ namespace Muine
 				return;
 			}
 
+			// Write
 			if (!(exclude_played && had_last_eos)) {
 				bool had_playing_song = false;
 				foreach (int i in playlist.Model.Contents) {
@@ -706,24 +741,27 @@ namespace Muine
 							continue;
 					}
 				
-					if (store_playing &&
-					    ptr == playlist.Model.Playing) {
+					if (store_playing && ptr == playlist.Model.Playing)
 						writer.WriteLine ("# PLAYING");
-					}
-				
+
 					Song song = Song.FromHandle (ptr);
 
 					writer.WriteLine (song.Filename);
 				}
 			}
 
+			// Close
 			try {
 				writer.Close ();
+
 			} catch (Exception e) {
-				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
+				string msg = String.Format (string_error_close, 
+					FileUtils.MakeHumanReadable (fn));
+
 				new ErrorDialog (this, msg, e.Message);
 			}
 
+			// Decrease BusyLevel
 			if (remote)
 				BusyLevel --;
 		}
@@ -776,9 +814,9 @@ namespace Muine
 			col.Sizing = TreeViewColumnSizing.Fixed;
 			col.Spacing = 4;
 			col.PackStart (pixbuf_renderer, false);
-			col.PackStart (text_renderer, true);
+			col.PackStart (text_renderer  , true );
 			col.SetCellDataFunc (pixbuf_renderer, new TreeCellDataFunc (PixbufCellDataFunc));
-			col.SetCellDataFunc (text_renderer, new TreeCellDataFunc (TextCellDataFunc));
+			col.SetCellDataFunc (text_renderer  , new TreeCellDataFunc (TextCellDataFunc  ));
 			playlist.AppendColumn (col);
 			
 			playlist.RowActivated         += new RowActivatedHandler               (OnPlaylistRowActivated    );
@@ -786,9 +824,10 @@ namespace Muine
 			playlist.Model.PlayingChanged += new HandleModel.PlayingChangedHandler (OnPlaylistPlayingChanged  );
 
 			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask, playlist_source_entries,
-							Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
-			playlist.EnableModelDragDest   (playlist_dest_entries,
-						        Gdk.DragAction.Copy);
+				Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
+
+			playlist.EnableModelDragDest (playlist_dest_entries,
+				Gdk.DragAction.Copy);
 
 			playlist.DragDataGet      += new DragDataGetHandler      (OnPlaylistDragDataGet     );
 			playlist.DragDataReceived += new DragDataReceivedHandler (OnPlaylistDragDataReceived);
@@ -803,42 +842,50 @@ namespace Muine
 		// Methods :: Private :: SetupPlayer
 		private void SetupPlayer ()
 		{
+			// Create Player
 			try {
 				player = new Player ();
+
 			} catch (Exception e) {
-				throw new Exception (String.Format (string_error_audio, e.Message));
+				string msg = String.Format (string_error_audio, e.Message);
+				throw new Exception (msg);
 			}
 
+			// Setup Player
 			player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
 			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
 			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
 			player.InvalidSong      += new Player.InvalidSongHandler      (OnInvalidSong     );
 
+			// Title
 			title_label = new EllipsizingLabel ();
-			title_label.Visible = true;
 			title_label.Xalign = 0.0f;
+			title_label.Visible    = true;
 			title_label.Selectable = true;
 			title_label_container.Add (title_label);
 
+			// Artist
 			artist_label = new EllipsizingLabel ();
-			artist_label.Visible = true;
 			artist_label.Xalign = 0.0f;
+			artist_label.Visible    = true;
 			artist_label.Selectable = true;
 			artist_label_container.Add (artist_label);
 
+			// Cover Image
 			cover_image = new CoverImage ();
 			cover_image_container.Add (cover_image);
 			cover_image.ShowAll ();
 
-			// playlist label dnd
+			// Playlist Label DnD
 			playlist_label_event_box.DragDataGet +=	new DragDataGetHandler (OnPlaylistLabelDragDataGet);
 				
 			Gtk.Drag.SourceSet (playlist_label_event_box, Gdk.ModifierType.Button1Mask,
-					    drag_entries, Gdk.DragAction.Move);
+				drag_entries, Gdk.DragAction.Move);
 
-			// FIXME depends on Ximian Bugzilla #71060
-			// string icon = Gnome.Icon.Lookup (IconTheme.GetForScreen (this.Screen), null, null, null, null, 
-			//				    "audio/x-mpegurl", Gnome.IconLookupFlags.None, null);
+			// FIXME: Depends on Ximian Bugzilla #71060
+			// string icon = Gnome.Icon.Lookup (IconTheme.GetForScreen (this.Screen), 
+			//	null, null, null, null, 
+			//	"audio/x-mpegurl", Gnome.IconLookupFlags.None, null);
 
 			Gtk.Drag.SourceSetIconStock (playlist_label_event_box, "gnome-mime-audio");
 		}
@@ -860,8 +907,10 @@ namespace Muine
 		// Methods :: Private :: EnsurePlaying
 		private void EnsurePlaying ()
 		{
-			if (playlist.Model.Playing == IntPtr.Zero && playlist.Model.HasFirst)
-				PlayFirstAndSelect ();
+			if (playlist.Model.Playing != IntPtr.Zero || !playlist.Model.HasFirst)
+				return;
+
+			PlayFirstAndSelect ();
 		}
 
 		// Methods :: Private :: AddSong
@@ -881,8 +930,7 @@ namespace Muine
 		}
 
 		// Methods :: Private :: AddSongAtPos
-		private IntPtr AddSongAtPos (IntPtr p, IntPtr pos,
-					     TreeViewDropPosition dp)
+		private IntPtr AddSongAtPos (IntPtr p, IntPtr pos, TreeViewDropPosition dp)
 		{
 			IntPtr new_p = p;
 
@@ -921,64 +969,60 @@ namespace Muine
 			
 			Song song = Song.FromHandle (playlist.Model.Playing);
 
-			String pos   = StringUtils.SecondsToString (time);
+			String pos   = StringUtils.SecondsToString (time         );
 			String total = StringUtils.SecondsToString (song.Duration);
 
 			time_label.Text = String.Format ("{0} / {1}", pos, total);
 
 			// Calculate remaining time
-			long r_seconds = (this.repeat)
-					 ? remaining_songs_time
-					 : remaining_songs_time + song.Duration - time;
+			long r_seconds;
+
+			if (this.repeat)
+				r_seconds = remaining_songs_time;
+			else
+				r_seconds = remaining_songs_time + song.Duration - time;
 
 			int hours   = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
 			int minutes = (int) Math.Floor ((double) r_seconds /   60.0 + 0.5);
 
 			// Possible strings
-			string string_repeat_hour = 
-				Catalog.GetPluralString ("<b>Playlist</b> (Repeating {0} hour)", 
-							 "<b>Playlist</b> (Repeating {0} hours)", 
-							 hours);
+			string string_repeat_hour = Catalog.GetPluralString (
+				"<b>Playlist</b> (Repeating {0} hour)", 
+				"<b>Playlist</b> (Repeating {0} hours)", 
+				hours);
 
-			string string_repeat_minute =
-				Catalog.GetPluralString ("<b>Playlist</b> (Repeating {0} minute)", 
-							 "<b>Playlist</b> (Repeating {0} minutes)", 
-							 minutes);
+			string string_repeat_minute = Catalog.GetPluralString (
+				"<b>Playlist</b> (Repeating {0} minute)", 
+				"<b>Playlist</b> (Repeating {0} minutes)", 
+				minutes);
 
-			string string_normal_hour =
-				Catalog.GetPluralString ("<b>Playlist</b> ({0} hour remaining)", 
-							 "<b>Playlist</b> ({0} hours remaining)", 
-							 hours);
+			string string_normal_hour = Catalog.GetPluralString (
+				"<b>Playlist</b> ({0} hour remaining)", 
+				"<b>Playlist</b> ({0} hours remaining)", 
+				hours);
 							 
-			string string_normal_minute =
-				Catalog.GetPluralString ("<b>Playlist</b> ({0} minute remaining)", 
-							 "<b>Playlist</b> ({0} minutes remaining)", 
-							 minutes);
+			string string_normal_minute = Catalog.GetPluralString (
+				"<b>Playlist</b> ({0} minute remaining)", 
+				"<b>Playlist</b> ({0} minutes remaining)", 
+				minutes);
 
 			// Choose string for each scenario based on whether we are repeating or not
-			string string_hour = (repeat)
-			                     ? string_repeat_hour 
-			                     : string_normal_hour;
-			
-			string string_minute = (repeat)
-			                       ? string_repeat_minute
-			                       : string_normal_minute;
-			
-			string string_second = (repeat)
-					       ? string_playlist_repeating
-					       : string_playlist_under_minute;
+			string string_hour   = (repeat) ? string_repeat_hour        : string_normal_hour;
+			string string_minute = (repeat) ? string_repeat_minute      : string_normal_minute;
+			string string_second = (repeat) ? string_playlist_repeating : string_playlist_under_minute;
 			
 			// Set the label
-			playlist_label.Markup = (r_seconds > MinShowHours)
-					        ? String.Format (string_hour, hours)
-					        : 
-					        (r_seconds > MinShowMinutes)
-					        ? String.Format (string_minute, minutes)
-				                : 
-				                (r_seconds > 0)
-					        ? string_second
-					        : 
-					        string_playlist;
+			if (r_seconds > MinShowHours)
+				playlist_label.Markup = String.Format (string_hour, hours);
+
+			else if (r_seconds > MinShowMinutes)
+				playlist_label.Markup = String.Format (string_minute, minutes);
+
+			else if (r_seconds > 0)
+				playlist_label.Markup = string_second;
+
+			else
+				playlist_label.Markup = string_playlist;
 		}
 
 		// Methods :: Private :: PlaylistChanged
@@ -996,8 +1040,10 @@ namespace Muine
 					remaining_songs_time += song.Duration;
 				}
 					
-				if (current == playlist.Model.Playing)
-					start_counting = true;
+				if (current != playlist.Model.Playing)
+					continue;
+
+				start_counting = true;
 			}
 
 			bool has_first = playlist.Model.HasFirst;
@@ -1034,20 +1080,25 @@ namespace Muine
 
 				cover_image.Song = song;
 
-				string tip = (song.Album.Length > 0)
-				             ? String.Format (string_from_album, song.Album)
-				             : string_album_unknown;
+				string tip;
+
+				if (song.Album.Length > 0)
+					tip = String.Format (string_from_album, song.Album);
+				else
+					tip = string_album_unknown;
 
 				if (song.Performers.Length > 0)
-					tip += "\n\n" + String.Format (string_performers, StringUtils.JoinHumanReadable (song.Performers));
+					tip += "\n\n" + String.Format (string_performers, 
+						StringUtils.JoinHumanReadable (song.Performers));
 					
 				if (song.CoverImage == null && !Global.CoverDB.Loading)
 					tip += "\n\n" + string_tooltip_cover;
 				
 				tooltips.SetTip (cover_image, tip, null);
 
-				title_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>",
-								    StringUtils.EscapeForPango (song.Title));
+				title_label.Markup = String.Format (
+					"<span size=\"large\" weight=\"bold\">{0}</span>",
+					StringUtils.EscapeForPango (song.Title));
 
 				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
@@ -1129,11 +1180,7 @@ namespace Muine
 		}
 
 		// Methods :: Private :: OpenPlaylistInternal
-		private delegate void PlaylistForeachFunc (Song song, bool playing, object user_data);
-
-		private void OpenPlaylistInternal (string              fn,
-						   PlaylistForeachFunc func,
-						   object              user_data)
+		private void OpenPlaylistInternal (string fn, PlaylistForeachFunc func, object user_data)
 		{
 			VfsStream stream;
 			StreamReader reader;
@@ -1141,6 +1188,7 @@ namespace Muine
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Open);
 				reader = new StreamReader (stream);
+
 			} catch (Exception e) {
 				string msg = String.Format (string_error_read, FileUtils.MakeHumanReadable (fn));
 				new ErrorDialog (this, msg, e.Message);
@@ -1155,7 +1203,7 @@ namespace Muine
 				if (line.Length == 0)
 					continue;
 
-				if (line[0] == '#') {
+				if (line.StartsWith ("#")) {
 					if (line == "# PLAYING")
 						playing_song = true;
 
@@ -1169,6 +1217,7 @@ namespace Muine
 
 				try {
 					basename = System.IO.Path.GetFileName (line);
+
 				} catch {
 					continue;
 				}
@@ -1207,6 +1256,7 @@ namespace Muine
 			// Close File
 			try {
 				reader.Close ();
+
 			} catch (Exception e) {
 				string msg = String.Format (string_error_close, FileUtils.MakeHumanReadable (fn));
 				new ErrorDialog (this, msg, e.Message);
@@ -1217,19 +1267,23 @@ namespace Muine
 		// Methods :: Private :: AddSongToDB
 		private Song AddSongToDB (string file)
 		{
-			Song song;
-
+			// Increase BusyLevel
 			BusyLevel ++;
 			
+			// Song
+			Song song;
 			try {
 				song = new Song (file);
+
 			} catch {
 				BusyLevel --;
 				return null;
 			}
 
+			// Add Song
 			Global.DB.AddSong (song);
 
+			// Decrease BusyLevel
 			BusyLevel --;
 
 			return song;
@@ -1277,9 +1331,10 @@ namespace Muine
 		// Methods :: Private :: DragAddSong
 		private IntPtr DragAddSong (Song song, DragAddSongPosition pos)
 		{
-			pos.Pointer = (pos.Pointer == IntPtr.Zero)
-				      ? AddSong      (song.Handle)
-				      : AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
+			if (pos.Pointer == IntPtr.Zero)
+				pos.Pointer = AddSong (song.Handle);
+			else
+				pos.Pointer = AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
 
 			pos.Position = TreeViewDropPosition.After;
 				
@@ -1296,10 +1351,10 @@ namespace Muine
 		{
 			ISong [] array = new ISong [list.Count];
 
-			int i = 0;
-			foreach (int p in list) {
-				array [i] = Song.FromHandle (new IntPtr (p));
-				i ++;
+			for (int i = 0; i < list.Count; i++) {
+				int p = (int) list [i];
+				IntPtr ptr = new IntPtr (p);
+				array [i] = Song.FromHandle (ptr);
 			}
 
 			return array;
@@ -1318,13 +1373,15 @@ namespace Muine
 
 			// Volume
 			Volume = (int) Config.Get (GConfKeyVolume, GConfDefaultVolume);
+
 			Config.AddNotify (GConfKeyVolume,
-					  new GConf.NotifyEventHandler (OnConfigVolumeChanged));
+				new GConf.NotifyEventHandler (OnConfigVolumeChanged));
 
 			// Repeat
 			Repeat = (bool) Config.Get (GConfKeyRepeat, GConfDefaultRepeat);
+
 			Config.AddNotify (GConfKeyRepeat,
-					  new GConf.NotifyEventHandler (OnConfigRepeatChanged));
+				new GConf.NotifyEventHandler (OnConfigRepeatChanged));
 		}
 
 		// Handlers
@@ -1364,7 +1421,7 @@ namespace Muine
 			if (!Visible ||
 			    GdkWindow.State == Gdk.WindowState.Iconified ||
 			    GdkWindow.State == Gdk.WindowState.Withdrawn)
-			    return;
+				return;
 
 			// See if we became visible (not FullyObscured)
 			bool old_window_visible = window_visible;
@@ -1398,9 +1455,11 @@ namespace Muine
 		// Handlers :: OnVolumeChanged
 		private void OnVolumeChanged (int vol)
 		{
-			// Update volume
-			if (vol != this.Volume)
-				this.Volume = vol;
+			// Update volume if changed
+			if (vol == this.Volume)
+				return;
+
+			this.Volume = vol;
 		}
 
 		// Handlers :: OnConfigVolumeChanged
@@ -1409,9 +1468,11 @@ namespace Muine
 			// Get new volume from GConf
 			int vol = (int) args.Value;
 
-			// If we changed, update
-			if (vol != this.Volume)
-				this.Volume = (int) args.Value;
+			// Updated volume if changed
+			if (vol == this.Volume)
+				return;
+
+			this.Volume = (int) args.Value;
 		}
 
 		// Handlers :: OnQueueSongsEvent
@@ -1430,8 +1491,10 @@ namespace Muine
 			PlaylistChanged ();
 
 			// Start playing if necessary
-			if (start_playing)
-				player.Play ();
+			if (!start_playing)
+				return;
+
+			player.Play ();
 		}
 
 		// Handlers :: OnPlaySongsEvent		
@@ -1479,8 +1542,10 @@ namespace Muine
 			PlaylistChanged ();
 
 			// Start playing if necessary
-			if (start_playing)
-				player.Play ();
+			if (!start_playing)
+				return;
+
+			player.Play ();
 		}
 
 		// Handlers :: OnPlayAlbumsEvent
@@ -1548,8 +1613,10 @@ namespace Muine
 			bool val = (bool) args.Value;
 
 			// If it changed, update.
-			if (val != this.repeat)
-				this.Repeat = val;
+			if (val == this.repeat)
+				return;
+
+			this.Repeat = val;
 		}
 
 		// Handlers :: OnPlaylistRowActivated
@@ -1572,8 +1639,10 @@ namespace Muine
 		// Handlers :: OnPlaylistPlayingChanged
 		private void OnPlaylistPlayingChanged (IntPtr playing)
 		{
-			if (!ignore_song_change)
-				SongChanged (true);
+			if (ignore_song_change)
+				return;
+
+			SongChanged (true);
 		}
 
 		// Handlers :: OnSongChanged
@@ -1592,23 +1661,30 @@ namespace Muine
 				playlist.Model.Changed (h);
 			}
 			
-			if (song_changed)
-				PlaylistChanged ();
+			if (!song_changed)
+				return;
+
+			PlaylistChanged ();
 		}
 
 		// Handlers :: OnPlayingSongRemoved
 		private void OnPlayingSongRemoved ()
 		{
+			// Try going forward
 			if (playlist.Model.HasNext) {
 				playlist.Model.Next ();
-
-			} else if (playlist.Model.HasPrevious) {
-				playlist.Model.Previous ();
-
-			} else { // playlist is empty now
-				playlist.Model.Playing = IntPtr.Zero;
-				player.Stop ();
+				return;
 			}
+
+			// Try going backwards
+			if (playlist.Model.HasPrevious) {
+				playlist.Model.Previous ();
+				return;
+			}
+
+			// Playlist must be empty
+			playlist.Model.Playing = IntPtr.Zero;
+			player.Stop ();
 		}
 
 		// Handlers :: OnSongRemoved
@@ -1626,16 +1702,17 @@ namespace Muine
 					OnPlayingSongRemoved ();
 
 				if ((playlist.Selection.CountSelectedRows () == 1) &&
-				    ((int) playlist.SelectedHandles [0] == (int) h)) {
-					if (!playlist.SelectNext ())
-						playlist.SelectPrevious ();
-				}
+				    ((int) playlist.SelectedHandles [0] == (int) h &&
+				    !playlist.SelectNext ()))
+					playlist.SelectPrevious ();
 
 				playlist.Model.Remove (h);
 			}
 			
-			if (n_songs_changed)
-				PlaylistChanged ();
+			if (!n_songs_changed)
+				return;
+
+			PlaylistChanged ();
 		}
 
 		// Handlers :: OnPlaylistDragDataGet
@@ -1653,7 +1730,7 @@ namespace Muine
 				}
 		
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-							8, System.Text.Encoding.UTF8.GetBytes (files));
+					8, System.Text.Encoding.UTF8.GetBytes (files));
 							
 				break;
 
@@ -1666,7 +1743,7 @@ namespace Muine
 				}
 				
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineTreeModelRow.Target, false),
-							8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+					8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 						
 				break;
 
@@ -1679,21 +1756,22 @@ namespace Muine
 		private void OnPlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 		{
 			string data = DndUtils.SelectionDataToString (args.SelectionData);
-			TreePath path;
-			TreeViewDropPosition tmp_pos;
+
 			bool success = true;
 
 			DragAddSongPosition pos = new DragAddSongPosition ();
 			pos.First = true;
+
+			// Get path and position
+			TreePath path;
+			TreeViewDropPosition tmp_pos;
 
 			if (playlist.GetDestRowAtPos (args.X, args.Y, out path, out tmp_pos)) {
 				pos.Pointer = playlist.Model.HandleFromPath (path);
 				pos.Position = tmp_pos;
 			}
 
-			uint type = (uint) DndUtils.TargetType.UriList;
-
-			// Work around gtk bug #164085
+			// Work around Gtk bug #164085
 			string tree_model_row = String.Format ("\t{0}\t", DndUtils.TargetMuineTreeModelRow.Target);
 			string song_list      = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList    .Target);
 			string album_list     = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList   .Target);
@@ -1701,34 +1779,32 @@ namespace Muine
 			bool is_tree_model = data.StartsWith (tree_model_row);
 			bool is_song_list  = data.StartsWith (song_list     );
 			bool is_album_list = data.StartsWith (album_list    );
-			
-			type = (is_tree_model)
-			       ? (uint) DndUtils.TargetType.ModelRow
-			       :
-			       (is_song_list)
-	                       ? (uint) DndUtils.TargetType.SongList
-	                       :
-	                       (is_album_list)
-			       ? (uint) DndUtils.TargetType.AlbumList
-			       :
-			       type;
 
-			string head = (is_tree_model)
-				      ? tree_model_row
-			              :
-			              (is_song_list)
-				      ? song_list
-				      :
-				      (is_album_list)
-				      ? album_list
-				      :
-				      "";
+			// Type			
+			uint type;
+			
+			if      (is_tree_model) type = (uint) DndUtils.TargetType.ModelRow ;
+			else if (is_song_list ) type = (uint) DndUtils.TargetType.SongList ;
+			else if (is_album_list) type = (uint) DndUtils.TargetType.AlbumList;
+			else                    type = (uint) DndUtils.TargetType.UriList  ;
+
+			// Head
+			string head;
+			
+			if      (is_tree_model) head = tree_model_row;
+			else if (is_song_list ) head = song_list     ;
+			else if (is_album_list) head = album_list    ;
+			else                    head = ""            ;
 
 			data = data.Substring (head.Length);
 
+			// Type
+			//	TODO: Refactor these
 			string [] bits = DndUtils.SplitSelectionData (data);
 
 			switch (type) {
+			
+			// Song or Row
 			case (uint) DndUtils.TargetType.SongList:
 			case (uint) DndUtils.TargetType.ModelRow:
 				foreach (string s in bits) {
@@ -1760,22 +1836,26 @@ namespace Muine
 					ptr = DragAddSong (song, pos);
 
 					// Reorder part 2: if the row was playing, keep it playing
-					if (play) {
-						playlist.Model.Playing = ptr;
-						ignore_song_change = false;
-					}
+					if (!play)
+						continue;
+					
+					playlist.Model.Playing = ptr;
+					ignore_song_change = false;
 				}
 
 				EnsurePlaying ();
 				PlaylistChanged ();
+
 				break;
-				
+
+			// Album
 			case (uint) DndUtils.TargetType.AlbumList:
 				foreach (string s in bits) {
 					IntPtr ptr;
 					
 					try {
 						ptr = new IntPtr (Int64.Parse (s));
+
 					} catch {
 						continue;
 					}
@@ -1788,8 +1868,10 @@ namespace Muine
 				
 				EnsurePlaying ();
 				PlaylistChanged ();
+
 				break;
 
+			// Uri
 			case (uint) DndUtils.TargetType.UriList:
 				success = false;
 
@@ -1807,30 +1889,33 @@ namespace Muine
 					
 					if (dinfo.Exists) {
 						new_dinfos.Add (dinfo);
+						continue;
+					}
 
-					} else {
-						System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
+					System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 						
-						if (!finfo.Exists)
-							continue;
+					if (!finfo.Exists)
+						continue;
 						
-						if (FileUtils.IsPlaylist (fn)) {
-							BusyLevel ++;
-							OpenPlaylistInternal (fn,
-									      new PlaylistForeachFunc (DragPlaylistForeachFunc),
-									      pos);
-							BusyLevel --;
+					if (FileUtils.IsPlaylist (fn)) {
+						BusyLevel ++;
 
-							added_files = true;
+						OpenPlaylistInternal (fn,
+							new PlaylistForeachFunc (DragPlaylistForeachFunc),
+							pos);
 
-						} else {
-							Song song = GetSingleSong (finfo.FullName);
+						BusyLevel --;
+
+						added_files = true;
 						
-							if (song != null) {
-								DragAddSong (song, pos);
-								added_files = true;
-							}
-						}
+						continue;
+					}
+
+					Song song = GetSingleSong (finfo.FullName);
+						
+					if (song != null) {
+						DragAddSong (song, pos);
+						added_files = true;
 					}
 				}
 
@@ -1847,6 +1932,7 @@ namespace Muine
 
 				break;
 
+			// Default
 			default:
 				break;
 			}
@@ -1857,8 +1943,10 @@ namespace Muine
 		// Handlers :: OnTogglePlayButtonClicked
 		private void OnTogglePlayButtonClicked (object o, EventArgs args)
 		{
-			if (toggle_play_button.Active != Playing)
-				Playing = toggle_play_button.Active;
+			if (toggle_play_button.Active == Playing)
+				return;
+
+			Playing = toggle_play_button.Active;
 		}
 		
 		// Handlers :: OnPreviousButtonClicked
@@ -1897,7 +1985,7 @@ namespace Muine
 				string uri = FileUtils.UriFromLocalPath (file);
 
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-							8, System.Text.Encoding.UTF8.GetBytes (uri));
+					8, System.Text.Encoding.UTF8.GetBytes (uri));
 							
 				break;
 
@@ -1928,26 +2016,26 @@ namespace Muine
 		
 				DirectoryInfo dinfo = new DirectoryInfo (fn);
 					
-				if (dinfo.Exists)
+				if (dinfo.Exists) {
 					new_dinfos.Add (dinfo);
-				else {
-					System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
-						
-					if (!finfo.Exists)
-						continue;
-						
-					if (!FileUtils.IsPlaylist (fn))
-						continue;
-
-					OpenPlaylist (fn);
-
-					success = true;
+					continue;
 				}
+
+				System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
+						
+				if (!finfo.Exists)
+					continue;
+						
+				if (!FileUtils.IsPlaylist (fn))
+					continue;
+
+				OpenPlaylist (fn);
+
+				success = true;
 			}
 
 			if (new_dinfos.Count > 0) {
 				Global.DB.AddFolders (new_dinfos);
-
 				success = true;
 			}
 
@@ -1962,11 +2050,15 @@ namespace Muine
 			ColoredCellRendererPixbuf r = (ColoredCellRendererPixbuf) cell;
 			IntPtr handle = playlist.Model.HandleFromIter (iter);
 
-			r.Pixbuf = (handle == playlist.Model.Playing)
-				   ? (player.Playing)
-				     ? playlist.RenderIcon ("muine-playing", IconSize.Menu, null)
-				     : playlist.RenderIcon ("muine-paused" , IconSize.Menu, null)
-				   : empty_pixbuf;
+			if (handle == playlist.Model.Playing) {
+				if (player.Playing)
+					r.Pixbuf = playlist.RenderIcon ("muine-playing", IconSize.Menu, null);
+				else
+ 					r.Pixbuf = playlist.RenderIcon ("muine-paused" , IconSize.Menu, null);
+
+			} else {
+				r.Pixbuf = empty_pixbuf;
+			}
 		}
 
 		// Delegate Functions :: TextCellDataFunc
@@ -1977,8 +2069,8 @@ namespace Muine
 			CellRendererText r = (CellRendererText) cell;
 
 			r.Markup = String.Format ("<b>{0}</b>\n{1}",
-			                          StringUtils.EscapeForPango (song.Title),
-						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
+				StringUtils.EscapeForPango (song.Title),
+				StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}
 
 		// Delegate Functions :: ShuffleFunc		
@@ -1990,27 +2082,39 @@ namespace Muine
 			return a.CompareTo (b);
 		}		
 
-		// Delegate functions: DragPlaylistForeachFunc
+		// Delegate Functions :: DragPlaylistForeachFunc
 		private void DragPlaylistForeachFunc (Song song, bool playing, object user_data)
 		{
 			DragAddSongPosition pos = (DragAddSongPosition) user_data;
-
 			DragAddSong (song, pos);
 		}
 
-		// Delegate functions: RestorePlaylistForeachFunc
+		// Delegate Functions :: RestorePlaylistForeachFunc
 		private void RestorePlaylistForeachFunc (Song song, bool playing, object user_data)
 		{
 			IntPtr p = AddSong (song);
 
-			if (playing)
-				PlayAndSelect (p);
+			if (!playing)
+				return;
+
+			PlayAndSelect (p);
 		}
 		
-		// Delegate functions: RegularPlaylistForeachFunc
+		// Delegate Functions :: RegularPlaylistForeachFunc
 		private void RegularPlaylistForeachFunc (Song song, bool playing, object user_data)
 		{
 			AddSong (song);
+		}
+
+		// Internal Classes
+		// Internal Classes :: DragAddSongPosition
+		//	FIXME: Jorn says this needs to be a class, not a struct
+		//	I'm still not understanding quite why...
+		private class DragAddSongPosition 
+		{
+			public IntPtr               Pointer ;
+			public TreeViewDropPosition Position;
+			public bool                 First   ;
 		}
 	}
 }

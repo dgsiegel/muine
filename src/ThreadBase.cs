@@ -47,7 +47,10 @@ namespace Muine
 
 		// Methods
 		// Methods :: Abstract
+		// Methods :: Abstract :: ThreadFunc
 		protected abstract void ThreadFunc ();
+
+		// Methods :: Abstract :: MainLoopIdle
 		protected abstract bool MainLoopIdle ();
 	}
 }

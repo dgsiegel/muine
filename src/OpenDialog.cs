@@ -29,11 +29,13 @@ namespace Muine
 	public class OpenDialog : FileSelector
 	{	
 		// GConf
-		private const string GConfKeyDefaultPlaylistFolder = "/apps/muine/default_playlist_folder";
+		private const string GConfKeyDefaultPlaylistFolder = 
+			"/apps/muine/default_playlist_folder";
 		
 		// Strings
 		private static readonly string string_title =
 			Catalog.GetString ("Open Playlist");
+
 		private static readonly string string_filter =
 			Catalog.GetString ("Playlist files");
 
@@ -56,21 +58,20 @@ namespace Muine
 		// Handlers :: OnResponse
 		private void OnResponse (object o, ResponseArgs args)
 		{
-			if (args.ResponseId != ResponseType.Ok) {
-				base.Destroy ();
-
-				return;
-			}
-
-			string fn = Uri;
-
 			base.Destroy ();
+
+			if (args.ResponseId != ResponseType.Ok)
+				return;
+
+			string fn = base.Uri;
 
 			if (!FileUtils.IsPlaylist (fn))
 				return;
 
-			if (FileUtils.Exists (fn))
-				Global.Playlist.OpenPlaylist (fn);
+			if (!FileUtils.Exists (fn))
+				return;
+
+			Global.Playlist.OpenPlaylist (fn);
 		}
 	}
 }

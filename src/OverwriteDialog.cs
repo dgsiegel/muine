@@ -32,12 +32,14 @@ namespace Muine
 		// Strings
 		private static readonly string string_primary_text =
 			Catalog.GetString ("Overwrite \"{0}\"?");
+
 		private static readonly string string_secondary_text =
-			Catalog.GetString ("A file with this name already exists. If you choose to overwrite this file, the contents will be lost.");
+			Catalog.GetString ("A file with this name already exists. " +
+			"If you choose to overwrite this file, the contents will be lost.");
 
 		// Widgets
-		[Glade.Widget] private Window window;
-		[Glade.Widget] private Label label;
+		[Glade.Widget] private Dialog window;
+		[Glade.Widget] private Label  label;
 
 		// Constructor
 		public OverwriteDialog (Window parent, string fn)
@@ -46,11 +48,11 @@ namespace Muine
 			gxml.Autoconnect (this);
 
 			string primary_text = String.Format (string_primary_text,
-						             FileUtils.MakeHumanReadable (fn));
+				FileUtils.MakeHumanReadable (fn));
 
 			label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-						      StringUtils.EscapeForPango (primary_text),
-						      StringUtils.EscapeForPango (string_secondary_text));
+				StringUtils.EscapeForPango (primary_text),
+				StringUtils.EscapeForPango (string_secondary_text));
 
 			window.TransientFor = parent;
 		}
@@ -60,9 +62,10 @@ namespace Muine
 		// Methods :: Public :: GetAnswer
 		public bool GetAnswer ()
 		{
-			bool ret = (((Dialog) window).Run () == (int) ResponseType.Yes);
+			int response = window.Run ();
 			window.Destroy ();
-			return ret;
+
+			return (response == (int) ResponseType.Yes);
 		}
 	}
 }

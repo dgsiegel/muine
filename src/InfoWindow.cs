@@ -17,9 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// FIXME: albumchanged signal?
-// FIXME: accessible from add album window? 
-// FIXME: songinfo on selection in playlist
+// TODO: albumchanged signal?
+// TODO: accessible from add album window? 
+// TODO: songinfo on selection in playlist
 
 using System;
 using System.IO;
@@ -94,12 +94,14 @@ namespace Muine
 			cover_image.Song = (Song) album.Songs [0];
 
 			name_label.Text = album.Name;
-			MarkupUtils.LabelSetMarkup (name_label, 0, StringUtils.GetByteLength (album.Name),
-			                            true, true, false);
+
+			MarkupUtils.LabelSetMarkup (name_label, 0, 
+				StringUtils.GetByteLength (album.Name),
+				true, true, false);
 
 			year_label.Text = album.Year;
 			
-			// insert tracks
+			// Insert tracks
 			foreach (Song song in album.Songs)
 				InsertTrack (song);
 		}
@@ -110,25 +112,27 @@ namespace Muine
 		{
 			tracks_table.NRows ++;
 
+			// Number
 			Label number = new Label ("" + song.TrackNumber);
 			number.Selectable = true;
 			number.Xalign = 0.5F;
 			number.Show ();
-			tracks_table.Attach (number, 0, 1,
-			                     tracks_table.NRows - 1,
-					     tracks_table.NRows,
-					     AttachOptions.Fill,
-					     0, 0, 0);
 
+			tracks_table.Attach (number, 0, 1,
+				tracks_table.NRows - 1, tracks_table.NRows,
+				AttachOptions.Fill, 
+				0, 0, 0);
+
+			// Track
 			Label track = new Label (song.Title);
 			track.Selectable = true;
 			track.Xalign = 0.0F;
 			track.Show ();
+
 			tracks_table.Attach (track, 1, 2,
-			                     tracks_table.NRows - 1,
-					     tracks_table.NRows,
-					     AttachOptions.Expand | AttachOptions.Shrink | AttachOptions.Fill,
-					     0, 0, 0);
+				tracks_table.NRows - 1, tracks_table.NRows,
+				AttachOptions.Expand | AttachOptions.Shrink | AttachOptions.Fill,
+				0, 0, 0);
 		}
 
 
@@ -137,10 +141,9 @@ namespace Muine
 		private void OnSizeAllocated (object o, SizeAllocatedArgs args)
 		{
 			int width, height;
-
 			window.GetSize (out width, out height);
 
-			Muine.SetGConfValue (GConfKeyWidth, width);
+			Muine.SetGConfValue (GConfKeyWidth , width );
 			Muine.SetGConfValue (GConfKeyHeight, height);
 		}
 

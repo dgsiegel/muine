@@ -29,15 +29,18 @@ namespace Muine
 		// Strings
 		private static readonly string string_translators = 
 			Catalog.GetString ("translator-credits");
+
 		private static readonly string string_muine =
 			Catalog.GetString ("Muine");
+
 		private static readonly string string_copyright =
 			Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen");
+
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
 		
 		// Authors
-		private static readonly string [] authors = new string [] {
+		private static readonly string [] authors = {
 			Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>"),
 			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
@@ -47,7 +50,7 @@ namespace Muine
 		};
 		
 		// Documenters
-		private static readonly string [] documenters = new string [] {
+		private static readonly string [] documenters = {
 		};
 
 		// Icon
@@ -60,17 +63,17 @@ namespace Muine
 		// Static Constructor
 		static About ()
 		{
-			translators = (string_translators == "translator-credits") 
-		                      ? null 
-		                      : string_translators;
+			// Translators
+			if (string_translators == "translator-credits")
+				translators = null;
+			else
+				translators = string_translators;
 		}
 
 		// Constructor 
-		public About (Gtk.Window parent) : base (string_muine, Defines.VERSION,
-							 string_copyright,
-							 string_description,
-							 authors, documenters, translators,
-							 pixbuf)
+		public About (Gtk.Window parent) 
+		: base (string_muine, Defines.VERSION, string_copyright, string_description,
+			authors, documenters, translators, pixbuf)
 		{
 			TransientFor = parent;
 

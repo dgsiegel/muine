@@ -17,7 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// FIXME ditch this whole thing once Gtk# gets 2.6 support
+// FIXME: ditch this whole thing once Gtk# gets 2.6 support
 
 namespace Muine
 {

@@ -34,17 +34,18 @@ namespace Muine
 		public HandleView ()
 		{
 			model = new HandleModel ();
-			((TreeView) this).Model = model;
+			this.Model = model;
 
 			RulesHint      = true;
 			EnableSearch   = false;
 			HeadersVisible = false;
 
-			// Re-enable when Gnome Bugzilla #165017, #165034 are fixed
-			//SetProperty ("fixed_height_mode", new GLib.Value (true));
+			// FIXME: Re-enable when Gnome Bugzilla #165017, #165034 are fixed
+			// SetProperty ("fixed_height_mode", new GLib.Value (true));
 		}
 
-		// Properties :: Model (get;)
+		// Properties
+		// Properties :: Model (get;) (TreeView)
 		public new HandleModel Model {
 			get { return model; }
 		}
@@ -80,8 +81,9 @@ namespace Muine
 			if (model.GetIter (out iter, last)) {
 				SetCursor (last, Columns [0], false);
 				return true;
-			} else
-				return false;
+			}
+
+			return false;
 		}
 
 		// Methods :: Public :: SelectPrevious
@@ -96,8 +98,9 @@ namespace Muine
 			if (first.Prev ()) {
 				SetCursor (first, Columns [0], false);
 				return true;
-			} else
-				return false;
+			}
+			
+			return false;
 		}
 
 		// Methods :: Public :: Select
@@ -120,9 +123,7 @@ namespace Muine
 		// 	Hack to forward key press events to the treeview
 		public bool ForwardKeyPress (Widget orig_widget, Gdk.EventKey e)
 		{
-			bool go  = false;
-			bool ret = false;
-			
+			bool go  = false;		
 			Gdk.ModifierType mod = 0;
 
 			if        ((e.State != 0) && ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
@@ -142,18 +143,18 @@ namespace Muine
 				mod = 0;
 			}
 
-			if (go) {
-				Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
-				Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
+			if (!go)
+				return false;
 
-				GrabFocus ();
+			Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
+			Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
 
-				ret = Gtk.Global.BindingsActivate (this, (uint) e.Key, mod);
+			GrabFocus ();
 
-				Style.SetBaseGC (StateType.Selected, saved_gc);
+			bool ret = Gtk.Global.BindingsActivate (this, (uint) e.Key, mod);
 
-				orig_widget.GrabFocus ();
-			}
+			Style.SetBaseGC (StateType.Selected, saved_gc);
+			orig_widget.GrabFocus ();
 
 			return ret;
 		}
@@ -162,12 +163,19 @@ namespace Muine
 		// Internal Classes :: GetSelectionData
 		private class GetSelectionData
 		{
-			// We use a GLib.List here for consistency with HandleModel.Contents
+			// Objects
+			// Objects :: Selected
+			// 	We use a GLib.List here for consistency with HandleModel.Contents
 			private List selected = new List (typeof (int));
+
+			// Properties
+			// Properties :: Selected (get;)
 			public List Selected {
 				get { return selected; }
 			}
 
+			// Delegate Functions
+			// Delegate Functions :: Func
 			public void Func (TreeModel model, TreePath path, TreeIter iter)
 			{
 				HandleModel m = (HandleModel) model;
