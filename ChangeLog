@@ -1,5 +1,11 @@
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
+	* src/PlaylistWindow.cs:
+
+	Nicer album tooltip.
+
+2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* libmuine/db.c: (db_open), (db_get_version), (db_set_version),
 	(db_foreach), (db_unpack_double), (db_pack_double):

@@ -484,13 +484,11 @@ public class PlaylistWindow : Window
 
 			string tip;
 			if (song.Album.Length > 0)
-				tip = "\"" + song.Album + "\"";
+				tip = "From \"" + song.Album + "\"";
 			else
 				tip = "Album unknown";
 			if (song.Performers.Length > 0)
-				tip += "\n" + "Performed by " + StringUtils.JoinHumanReadable (song.Performers);
-			if (song.Year.Length > 0)
-				tip += "\n" + "Released in " + song.Year;
+				tip += "\n\n" + "Performed by " + StringUtils.JoinHumanReadable (song.Performers);
 			tooltips.SetTip (cover_ebox, tip, null);
 
 			title_label.Text = song.Title;
