@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-06 13:33+0900\n"
+"POT-Creation-Date: 2004-06-06 13:32+0900\n"
 "PO-Revision-Date: 2004-06-06 13:28+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -370,7 +370,8 @@ msgstr "アルバムのジャケットは amazon.com の提供です。"
 #: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
-"相花 毅 <aihana@gnome.gr.jp>日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
+"相花 毅 <aihana@gnome.gr.jp>\n"
+"日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
 
 #: src/About.cs:57
 msgid "Muine"
@@ -529,8 +530,8 @@ msgstr[1] "演奏一覧 (残り {0} 時間)"
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "演奏一覧·(残り {0} 分)"
-msgstr[1] "演奏一覧·(残り {0} 分)"
+msgstr[0] "演奏一覧 (残り {0} 分)"
+msgstr[1] "演奏一覧 (残り {0} 分)"
 
 #: src/PlaylistWindow.cs:580
 msgid "Playlist (Less than one minute remaining)"
