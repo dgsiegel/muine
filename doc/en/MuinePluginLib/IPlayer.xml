@@ -259,9 +259,27 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added</summary>
+        <summary>Returns Muine's <see cref="T:Gtk.UIManager" /></summary>
         <returns>a <see cref="T:Gtk.UIManager" /></returns>
-        <remarks>To be added</remarks>
+        <remarks>
+	  <example>
+	    <code lang="C#">
+ActionEntry [] action_entries = new ActionEntry [] {
+	new ActionEntry ("PoofAction", Stock.Execute, "Poof!", 
+		"&lt;control&gt;&lt;shift&gt;P", null, new EventHandler (OnPoof))
+};
+
+action_group = new ActionGroup ("PoofPluginActionGroup");
+action_group.Add (action_entries);
+
+player.UIManager.InsertActionGroup (action_group, -1);
+
+player.UIManager.AddUI (UIManager.NewMergeId (), 
+	"/MenuBar/FileMenu/ExtraFileActions", "PoofMenuItem",
+	"PoofAction", UIManagerItemType.MenuItem, false);
+	    </code>
+	  </example>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SongChangedEvent">

@@ -10,7 +10,34 @@
   <ThreadSafetyStatement>Gtk# is thread aware, but not thread safe; See the <link location="node:gtk-sharp/programming/threads">Gtk# Thread Programming</link> for details.</ThreadSafetyStatement>
   <Docs>
     <summary>Player control object</summary>
-    <remarks>This object is exported by Muine over D-Bus and allows for remote control of the application.</remarks>
+    <remarks>
+      <para>This object is exported by Muine over D-Bus and allows for remote control of the application.</para>
+      <example>
+        <code lang="C#">
+using System;
+using System.IO;
+
+using MuineDBusLib;
+
+public class Example
+{
+	public static void Main (string [] args)
+	{
+		Player player = null;
+
+		// Try to find a running Muine
+		try {
+			player = Player.FindInstance ();
+		} catch {
+			Environment.Exit (0);
+		}
+
+		Console.WriteLine (player.GetCurrentSong ());
+	}
+}
+        </code>
+      </example>
+    </remarks>
   </Docs>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>

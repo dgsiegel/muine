@@ -1,5 +1,18 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
+	* ClientLib/Makefile.am:
+	* PluginLib/Makefile.am:
+
+	Please 'make distcheck'.
+
+	* doc/en/MuineDBusLib/Player.xml:
+	* doc/en/MuinePluginLib/IPlayer.xml:
+	* doc/en/MuinePluginLib/Plugin.xml:
+
+	Add examples.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
 	* Makefile.am:
 	* PluginLib/Plugin.cs:
 	* TODO:

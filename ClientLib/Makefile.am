@@ -1,4 +1,5 @@
-ASSEMBLY = muine-dbus.dll
+ASSEMBLY_NAME = muine-dbus
+ASSEMBLY = $(ASSEMBLY_NAME).dll
 TARGET = $(ASSEMBLY)
 
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)

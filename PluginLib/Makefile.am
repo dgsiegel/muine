@@ -1,4 +1,5 @@
-ASSEMBLY = muine-plugin.dll
+ASSEMBLY_NAME = muine-plugin
+ASSEMBLY = $(ASSEMBLY_NAME).dll
 TARGET = $(ASSEMBLY)
 
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
