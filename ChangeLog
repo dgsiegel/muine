@@ -1,5 +1,13 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	A data/glade/GroupEditor.glade:
+	* data/glade/Makefile.am:
+	A data/glade/PlaylistFilling.glade:
+
+	Commit glade files for the groups stuff.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	R src/GroupWindow.cs:
 	* src/Makefile.am:
 

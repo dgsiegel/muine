@@ -6,6 +6,8 @@ noinst_DATA =					\
 	ErrorDialog.glade			\
 	YesNoDialog.glade			\
 	ProgressWindow.glade			\
-	InfoWindow.glade
+	InfoWindow.glade			\
+	PlaylistFilling.glade			\
+	GroupEditor.glade
 
 EXTRA_DIST = $(noinst_DATA)
