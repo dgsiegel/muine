@@ -20,8 +20,6 @@
 using System;
 using System.Runtime.InteropServices;
 
-using GLibSharp;
-
 public class StringUtils
 {
 	public static string SecondsToString (long time)
@@ -93,7 +91,7 @@ public class StringUtils
 	{
 		IntPtr str_ptr = g_utf8_collate_key (key, -1);
 		
-		return Marshaller.PtrToStringGFree (str_ptr);
+		return GLib.Marshaller.PtrToStringGFree (str_ptr);
 	}
 
 	public static string SelectionDataToString (Gtk.SelectionData data)

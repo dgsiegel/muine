@@ -184,7 +184,7 @@ public class AddAlbumWindow : Window
 	{
 		ResponseArgs args = (ResponseArgs) a;
 
-		switch (args.ResponseId) {
+		switch ((int) args.ResponseId) {
 		case 1: /* Play */
 			window.Visible = false;
 
@@ -351,7 +351,7 @@ public class AddAlbumWindow : Window
 	{
 		TreePath path;
 
-		if (!view.GetPathAtPos (args.X, args.Y, out path, null))
+		if (!view.GetPathAtPos (args.X, args.Y, out path))
 			return;
 
 		IntPtr album_ptr = view.GetHandleFromPath (path);
@@ -364,7 +364,7 @@ public class AddAlbumWindow : Window
 	{
 		TreePath path;
 
-		if (!view.GetPathAtPos (args.X, args.Y, out path, null))
+		if (!view.GetPathAtPos (args.X, args.Y, out path))
 			return;
 
 		if (Muine.CoverDB.Loading)

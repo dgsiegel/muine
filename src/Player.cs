@@ -20,8 +20,6 @@
 using System;
 using System.Runtime.InteropServices;
 
-using GLibSharp;
-
 public class Player : GLib.Object
 {
 	[DllImport ("libmuine")]
@@ -50,7 +48,7 @@ public class Player : GLib.Object
 
 			player_set_file (Raw, song.Filename, out error_ptr);
 			if (error_ptr != IntPtr.Zero) {
-				string error = Marshaller.PtrToStringGFree (error_ptr);
+				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
 				new ErrorDialog (String.Format (Muine.Catalog.GetString ("Error opening {0}:\n{1}"),
 				                                                         song.Filename, error));
@@ -190,7 +188,7 @@ public class Player : GLib.Object
 		
 		Raw = player_new (out error_ptr);
 		if (error_ptr != IntPtr.Zero) {
-			string error = Marshaller.PtrToStringGFree (error_ptr);
+			string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
 			throw new Exception (error);
 		}

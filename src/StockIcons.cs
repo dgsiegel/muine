@@ -21,6 +21,7 @@ using Gtk;
 using Gdk;
 
 using System;
+using System.IO;
 
 public class StockIcons 
 {
@@ -57,7 +58,7 @@ public class StockIcons
 			IconSet iconset = new IconSet (pixbuf);
 
 			/* add menu variant if we have it */
-			IO.Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
+			Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
 			if (menu_stream != null) {
 				IconSource source = new IconSource ();
 				source.Pixbuf = new Pixbuf (menu_stream);

@@ -24,7 +24,6 @@ using System.Net;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-using GLibSharp;
 using Gdk;
 
 public class Song
@@ -424,7 +423,7 @@ public class Song
 		IntPtr ret, str_ptr;
 
 		ret = db_unpack_string (p, out str_ptr);
-		str = Marshaller.PtrToStringGFree (str_ptr);
+		str = GLib.Marshaller.PtrToStringGFree (str_ptr);
 
 		return ret;
 	}

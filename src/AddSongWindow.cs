@@ -145,7 +145,7 @@ public class AddSongWindow : Window
 	{
 		ResponseArgs args = (ResponseArgs) a;
 
-		switch (args.ResponseId) {
+		switch ((int) args.ResponseId) {
 		case 1: /* Play */
 			window.Visible = false;
 			
