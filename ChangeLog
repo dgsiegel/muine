@@ -1,3 +1,10 @@
+2004-04-04  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+	* src/About.cs:
+
+	Bump version number to 0.5.2.99.
+
 2004-04-04  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jbaayen@gnome.org>
 
