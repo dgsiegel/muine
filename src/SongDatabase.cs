@@ -59,7 +59,7 @@ public class SongDatabase
 	public event AlbumRemovedHandler AlbumRemoved;
 
 	/*** constructor ***/
-	private IntPtr dbf;
+	private Database db;
 
 	public SongDatabase (int version)
 	{
@@ -74,28 +74,28 @@ public class SongDatabase
 		
 		string filename = dinfo.FullName + "/songs.db";
 
-		dbf = DatabaseUtils.Open (filename, version);
-
+		db = new Database (filename, version);
+		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
+		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
+		
 		songs = new Hashtable ();
 		albums = new Hashtable ();
 	}
 
 	/*** loading ***/
-	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
+	private void DecodeFunction (string key, IntPtr data)
 	{
 		Song song = new Song (key, data);
 
 		Songs.Add (key, song);
-
+		
 		AddToAlbum (song, false);
 	}
 
-	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
-
 	public void Load ()
 	{
-		DatabaseUtils.Foreach (dbf, new DatabaseUtils.DecodeFuncDelegate (DecodeFunc));
-
+		db.Load ();
+		
 		/* add file monitors */
 		string [] folders = (string []) Muine.GetGConfValue ("/apps/muine/watched_folders", new string [0]);
 
@@ -104,20 +104,16 @@ public class SongDatabase
 	}
 
 	/*** storing ***/
-	private IntPtr EncodeFunc (IntPtr handle, out int length)
+	private IntPtr EncodeFunction (IntPtr handle, out int length)
 	{
 		Song song = Song.FromHandle (handle);
 
 		return song.Pack (out length);
 	}
 
-	private delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
-
 	public void AddSong (Song song)
 	{
-		DatabaseUtils.Store (dbf, song.Filename, false, 
-				     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
-				     song.Handle);
+		db.Store (song.Filename, song.Handle);
 
 		Songs.Add (song.Filename, song);
 
@@ -129,7 +125,7 @@ public class SongDatabase
 
 	public void RemoveSong (Song song)
 	{
-		DatabaseUtils.Delete (dbf, song.Filename);
+		db.Delete (song.Filename);
 
 		if (SongRemoved != null)
 			SongRemoved (song);
@@ -155,9 +151,7 @@ public class SongDatabase
 	public void UpdateSong (Song song)
 	{
 		if (!song.Orphan)
-			DatabaseUtils.Store (dbf, song.Filename, true,
-				  	     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
-				  	     song.Handle);
+			db.Store (song.Filename, song.Handle, true);
 	
 		if (SongChanged != null)
 			SongChanged (song);

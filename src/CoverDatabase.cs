@@ -49,8 +49,7 @@ public class CoverDatabase
 	private string amazon_locale;
 
 	/*** constructor ***/
-	private IntPtr dbf;
-	private object dbf_box;
+	private Database db;
 
 	private GnomeProxy proxy;
 
@@ -70,8 +69,9 @@ public class CoverDatabase
 		string filename = dinfo.FullName + "/covers.db";
 
 
-		dbf = DatabaseUtils.Open (filename, version);
-		dbf_box = dbf;
+		db = new Database (filename, version);
+		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
+		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 
 		covers = new Hashtable ();
 
@@ -87,11 +87,11 @@ public class CoverDatabase
 
 	/*** loading ***/
 
-	private void DecodeFunc (string key, IntPtr data, IntPtr user_data)
+	private void DecodeFunction (string key, IntPtr data)
 	{
 		IntPtr pix_handle;
 		
-		DatabaseUtils.UnpackPixbuf (data, out pix_handle);
+		Database.UnpackPixbuf (data, out pix_handle);
 
 		LoadedCover lc = new LoadedCover (key, pix_handle);
 
@@ -180,9 +180,8 @@ public class CoverDatabase
 
 	private void LoadThread ()
 	{
-		lock (dbf_box) {
-			DatabaseUtils.Foreach (dbf, new DatabaseUtils.DecodeFuncDelegate (DecodeFunc));
-		}
+		lock (db)
+			db.Load ();
 
 		thread_done = true;
 	}
@@ -292,11 +291,8 @@ public class CoverDatabase
 
 		Covers.Add (key, pix);
 
-		lock (dbf_box) {
-			DatabaseUtils.Store (dbf, key, false,
-			          	     new DatabaseUtils.EncodeFuncDelegate (EncodeFunc), 
-			          	     pix.Handle);
-		}
+		lock (db)
+			db.Store (key, pix.Handle);
 	}
 
 	public void ReplaceCover (string key, Pixbuf pix)
@@ -308,18 +304,17 @@ public class CoverDatabase
 
 	public void RemoveCover (string key)
 	{
-		lock (dbf_box) {
-			DatabaseUtils.Delete (dbf, key);
-		}
+		lock (db)
+			db.Delete (key);
 
 		Covers.Remove (key);
 	}
 
-	private IntPtr EncodeFunc (IntPtr handle, out int length)
+	private IntPtr EncodeFunction (IntPtr handle, out int length)
 	{
-		IntPtr p = DatabaseUtils.PackStart ();
-		DatabaseUtils.PackPixbuf (p, handle);
-		return DatabaseUtils.PackEnd (p, out length);
+		IntPtr p = Database.PackStart ();
+		Database.PackPixbuf (p, handle);
+		return Database.PackEnd (p, out length);
 	}
 
 	private string SanitizeString (string s)

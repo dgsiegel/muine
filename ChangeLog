@@ -1,3 +1,25 @@
+2004-12-29  Tamara Roberson  <foxxygirltamara@gmail.com>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Makefile.am:
+	* src/Database.cs:
+	R src/DatabaseUtils.cs:
+	
+	Replaced DatabaseUtils with Database -- a more OO approach.
+	
+	* CoverDatabase.cs:
+	* SongDatabase.cs:
+		
+	Renamed EncodeFunc to EncodeFunction.
+	Renamed DecodeFunc to DecodeFunction.
+	Removed 'user_data' parameter from DecodeFunction.
+	
+	* CoverDatabase.cs:
+	* Song.cs:
+	* SongDatabase.cs:
+	
+	Updated to reflect move to Database.
+
 2004-12-29  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

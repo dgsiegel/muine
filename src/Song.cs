@@ -452,27 +452,27 @@ public class Song
 
 		filename = fn;
 
-		p = DatabaseUtils.UnpackString (p, out title);
+		p = Database.UnpackString (p, out title);
 
-		p = DatabaseUtils.UnpackInt (p, out len);
+		p = Database.UnpackInt (p, out len);
 		artists = new string [len];
 		for (int i = 0; i < len; i++)
-			p = DatabaseUtils.UnpackString (p, out artists [i]);
+			p = Database.UnpackString (p, out artists [i]);
 
-		p = DatabaseUtils.UnpackInt (p, out len);
+		p = Database.UnpackInt (p, out len);
 		performers = new string [len];
 		for (int i = 0; i < len; i++)
-			p = DatabaseUtils.UnpackString (p, out performers [i]);
+			p = Database.UnpackString (p, out performers [i]);
 
-		p = DatabaseUtils.UnpackString (p, out album);
-		p = DatabaseUtils.UnpackInt (p, out track_number);
-		p = DatabaseUtils.UnpackInt (p, out disc_number);
-		p = DatabaseUtils.UnpackString (p, out year);
-		p = DatabaseUtils.UnpackInt (p, out duration);
-		p = DatabaseUtils.UnpackInt (p, out mtime);
-		p = DatabaseUtils.UnpackBool (p, out checked_cover_image);
-		p = DatabaseUtils.UnpackDouble (p, out gain);
-		p = DatabaseUtils.UnpackDouble (p, out peak);
+		p = Database.UnpackString (p, out album);
+		p = Database.UnpackInt (p, out track_number);
+		p = Database.UnpackInt (p, out disc_number);
+		p = Database.UnpackString (p, out year);
+		p = Database.UnpackInt (p, out duration);
+		p = Database.UnpackInt (p, out mtime);
+		p = Database.UnpackBool (p, out checked_cover_image);
+		p = Database.UnpackDouble (p, out gain);
+		p = Database.UnpackDouble (p, out peak);
 
 		/* cover image is added later, when the covers are being loaded */
 
@@ -491,29 +491,29 @@ public class Song
 	{
 		IntPtr p;
 		
-		p = DatabaseUtils.PackStart ();
+		p = Database.PackStart ();
 
-		DatabaseUtils.PackString (p, title);
+		Database.PackString (p, title);
 
-		DatabaseUtils.PackInt (p, artists.Length);
+		Database.PackInt (p, artists.Length);
 		foreach (string artist in artists)
-			DatabaseUtils.PackString (p, artist);
+			Database.PackString (p, artist);
 
-		DatabaseUtils.PackInt (p, performers.Length);
+		Database.PackInt (p, performers.Length);
 		foreach (string performer in performers)
-			DatabaseUtils.PackString (p, performer);
+			Database.PackString (p, performer);
 		
-		DatabaseUtils.PackString (p, album);
-		DatabaseUtils.PackInt (p, track_number);
-		DatabaseUtils.PackInt (p, disc_number);
-		DatabaseUtils.PackString (p, year);
-		DatabaseUtils.PackInt (p, duration);
-		DatabaseUtils.PackInt (p, mtime);
-		DatabaseUtils.PackBool (p, checked_cover_image);
-		DatabaseUtils.PackDouble (p, gain);
-		DatabaseUtils.PackDouble (p, peak);
+		Database.PackString (p, album);
+		Database.PackInt (p, track_number);
+		Database.PackInt (p, disc_number);
+		Database.PackString (p, year);
+		Database.PackInt (p, duration);
+		Database.PackInt (p, mtime);
+		Database.PackBool (p, checked_cover_image);
+		Database.PackDouble (p, gain);
+		Database.PackDouble (p, peak);
 
-		return DatabaseUtils.PackEnd (p, out length);
+		return Database.PackEnd (p, out length);
 	}
 
 	public static Song FromHandle (IntPtr handle)

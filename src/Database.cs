@@ -16,70 +16,87 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-
-
+ 
 using System;
 using System.Runtime.InteropServices;
 
-public class DatabaseUtils 
+public class Database
 {
-	public delegate IntPtr EncodeFuncDelegate (IntPtr handle, out int length);
-	public delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
+	public delegate IntPtr EncodeFunctionDelegate (IntPtr handle, out int length);
+	public delegate void   DecodeFunctionDelegate (string key, IntPtr data);
 
-	// Open
-	public static IntPtr Open (string filename, int version)
+	private IntPtr db_ptr;
+	private EncodeFunctionDelegate encode_function;
+	private DecodeFunctionDelegate decode_function;
+
+	// Constructor
+	public Database (string filename, int version)
 	{
 		IntPtr error_ptr;
 
-		IntPtr dbf = db_open (filename, version, out error_ptr); 
+		db_ptr = db_open (filename, version, out error_ptr); 
 
-		if (dbf == IntPtr.Zero)
+		if (db_ptr == IntPtr.Zero)
 			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
-
-		return dbf;
 	}
 
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_open (string filename, int version,
 	                                      out IntPtr error);
 
-	// Foreach
-	public static void Foreach (IntPtr dbf, DecodeFuncDelegate decode_func)
-	{
-		Foreach (dbf, decode_func, IntPtr.Zero);
+	// Handle
+	public IntPtr Handle {
+		get { return db_ptr; }
+	}
+
+	// EncodeFunction
+	public EncodeFunctionDelegate EncodeFunction {
+		get { return encode_function; }
+		set { encode_function = value; }
 	}
 	
-	public static void Foreach (IntPtr dbf, DecodeFuncDelegate decode_func, 
-				    IntPtr user_data)
+	// DecodeFunction
+	public DecodeFunctionDelegate DecodeFunction {
+		get { return decode_function; }
+		
+		set { decode_function = value; }
+	}
+		
+	// Load
+	public void Load ()
 	{
-		db_foreach (dbf, decode_func, user_data);
+		db_foreach (db_ptr, decode_function, IntPtr.Zero);
 	}
 		
 	[DllImport ("libmuine")]
-	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
-					       IntPtr user_data);
-
+	private static extern void db_foreach (IntPtr db_ptr, 
+					       DecodeFunctionDelegate decode_function, 
+					       IntPtr data);
 
 	// Store
-	public static void Store (IntPtr dbf, string key, bool overwrite, 
-			          EncodeFuncDelegate encode_func, IntPtr user_data)
+	public void Store (string key, IntPtr val)
 	{
-		db_store (dbf, key, overwrite, encode_func, user_data);
+		Store (key, val, false);
+	}
+	
+	public void Store (string key, IntPtr val, bool overwrite)
+	{
+		db_store (db_ptr, key, overwrite, encode_function, val);
 	} 
 
 	[DllImport ("libmuine")]
-	private static extern void db_store (IntPtr dbf, string key, bool overwrite,
-					     EncodeFuncDelegate encode_func,
-					     IntPtr user_data);
+	private static extern void db_store (IntPtr db_ptr, string key, bool overwrite,
+					     EncodeFunctionDelegate encode_function,
+					     IntPtr val);
 
 	// Delete
-	public static void Delete (IntPtr dbf, string key)
+	public void Delete (string key)
 	{
-		db_delete (dbf, key);
+		db_delete (db_ptr, key);
 	}
 	
 	[DllImport ("libmuine")]
-	private static extern void db_delete (IntPtr dbf, string key);
+	private static extern void db_delete (IntPtr db_ptr, string key);
 
 // ---------- Unpack ----------
 	// UnpackBool
@@ -199,4 +216,4 @@ public class DatabaseUtils
 	
 	[DllImport ("libmuine")]
 	private static extern void db_pack_double (IntPtr p, double d);
-}
+} 
