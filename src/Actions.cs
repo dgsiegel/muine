@@ -232,7 +232,7 @@ namespace Muine
 		}
 
 		public Action Remove {
-			get { return action_group.GetAction ("Remove"); }
+			get { return action_group.GetAction ("RemoveSong"); }
 		}
 		
 		public Action RemovePlayed {
