@@ -1,3 +1,9 @@
+2004-06-29  Brian K Nickel  <kerrick@cox.net>
+
+	* libmuine/player-gst.c: (player_stop), (player_pause):
+
+	Unlock audio device when paused.
+
 2004-06-19  Fernando Herrera  <fherrera@onirica.com>
 2004-06-20  Jorn Baayen  <jbaayen@gnome.org>
 

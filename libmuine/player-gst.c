@@ -350,6 +350,7 @@ player_stop (Player *player)
 	player->priv->pos = 0;
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_READY);
+	gst_element_set_state (GST_ELEMENT (player->priv->sink), GST_STATE_NULL);
 }
 
 void
@@ -358,6 +359,7 @@ player_pause (Player *player)
 	g_return_if_fail (IS_PLAYER (player));
 
 	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_PAUSED);
+	gst_element_set_state (GST_ELEMENT (player->priv->sink), GST_STATE_NULL);
 }
 
 static void
