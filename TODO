@@ -7,6 +7,8 @@
 - gapless transition
 - volume normalization
 - songinfo + tagging
+- replaygain support
+- enable fixed height mode for gtk 2.3 treeview
 - add wma, mp4 and flac support
 - musicbrainz support
 - clicking an m3u should load it in muine, mp3/ogg add to collection, etc
@@ -15,7 +17,7 @@
  - audio cd
  - mp3 cd:
    - create folders for different albums (Artist - Album)
-   - create a "Playlist" folder with symlinks to the mp3s, using filenames
+   - create a playlist.m3u keeping the playlist order
    with numbers prepended so that the original playlist order is maintained.
 - drag album covers from nautilus to the gnome foot icon
 - dnd from album/song/group windows to playlist
