@@ -1,5 +1,12 @@
 2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Tiny cleanup.
+
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 
 	Added info about visualization.

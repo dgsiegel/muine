@@ -164,7 +164,6 @@ public class AddSongWindow
 				QueueSongsEvent (view.SelectedPointers);
 				
 			search_entry.GrabFocus ();
-			search_entry.SelectRegion (0, -1);
 
 			view.SelectNext (true, true);
 
