@@ -1,5 +1,16 @@
 2005-01-05  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	0.8.0pre3.
+	
+	* doc/en/MuinePluginLib/IPlayer.xml:
+
+	Small clean up in the UIManager example.
+
+2005-01-05  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/Makefile.am:
 	* doc/Makefile.am:
 
