@@ -1,3 +1,17 @@
+2004-09-28  Ross Girshick  <ross.girshick@gmail.com>
+
+	* libmuine/Makefile.am:
+	R libmuine/bacon-message-connection.c:
+	R libmuine/bacon-message-connection.h:
+	R libmuine/volume-button.c:
+	R libmuine/volume-button.h:
+	* src/Makefile.am:
+	* src/MessageConnection.cs:
+	* src/Muine.cs:
+	* src/VolumeButton.cs:
+
+	Re-implement MessageConnection and VolumeButton in C#.
+
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/HandleView.cs:

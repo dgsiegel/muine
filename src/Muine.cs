@@ -57,7 +57,18 @@ public class Muine : Gnome.Program
 	{
 		/* Create message connection */
 		conn = new MessageConnection ();
-		if (!conn.IsServer) {
+		while (conn.Status == MessageConnection.StatusCode.Retry) {
+			conn = new MessageConnection ();
+		}
+
+		if (conn.Status != MessageConnection.StatusCode.OK) {
+			Console.WriteLine ("Error creating MessageConnection: " + conn.Status);
+			Environment.Exit (1);
+		}
+		
+		/* An instance already exists. Handle command line args and exit. */
+		if (conn.Role == MessageConnection.ConnectionType.Client)
+		{
 			ProcessCommandLine (args, true);
 			conn.Close ();
 			Gdk.Global.NotifyStartupComplete ();
@@ -100,8 +111,9 @@ public class Muine : Gnome.Program
 		playlist = new PlaylistWindow ();
 
 		/* Hook up connection callback */
-		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
+		conn.MessageReceivedHandler = new MessageConnection.MessageReceivedDelegate (HandleMessageReceived);
 		ProcessCommandLine (args, false);
+
 
 		/* Load playlist */
 		if (!opened_playlist)
@@ -167,8 +179,7 @@ public class Muine : Gnome.Program
 		Gtk.Window.DefaultIconList = default_icon_list;
 	}
 
-	private void HandleMessageReceived (string message,
-					    IntPtr user_data)
+	private void HandleMessageReceived (string message)
 	{
 		if (message == "ShowWindow")
 			playlist.WindowVisible = true;

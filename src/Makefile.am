@@ -38,8 +38,10 @@ MUINE_CSFILES =					\
 	$(srcdir)/FileUtils.cs
 
 ASSEMBLIES =					\
-	/r:AmazonSearchService.dll		\
-	/r:System.Web.Services
+	-r:AmazonSearchService.dll		\
+	-r:System.Web.Services			\
+	-r:Mono.Posix
+	
 
 RESOURCES =												\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade			\

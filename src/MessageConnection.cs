@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2004 Ross Girshick <ross.girshick@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,55 +18,153 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
+using System.Net;
+using System.Net.Sockets;
+using Mono.Posix;
+using System.Text;
+using System.IO;
 
 public class MessageConnection
 {
-	private IntPtr conn;
+	public enum StatusCode { 
+		OK, 
+		Retry, 
+		SocketCreateFailure, 
+		SocketDeleteFailure 
+	};
 	
-	[DllImport ("libmuine")]
-	private static extern IntPtr bacon_message_connection_new (string name);
+	public enum ConnectionType { 
+		Server, 
+		Client 
+	};
 
-	public MessageConnection ()
-	{
-		conn = bacon_message_connection_new ("Muine");
-	}
-
-	[DllImport ("libmuine")]
-	private static extern bool bacon_message_connection_get_is_server (IntPtr conn);
-
-	public bool IsServer {
+	private Socket socket;
+	
+	private string socket_filename;
+	public string SocketFilename {
 		get {
-			return bacon_message_connection_get_is_server (conn);
+			return socket_filename;
 		}
 	}
 
-	public delegate void MessageReceivedHandler (string message,
-						     IntPtr user_data);
-
-	[DllImport ("libmuine")]
-	private static extern void bacon_message_connection_set_callback (IntPtr conn,
-									  MessageReceivedHandler callback,
-									  IntPtr user_data);
-
-	public void SetCallback (MessageReceivedHandler handler)
-	{
-		bacon_message_connection_set_callback (conn, handler, IntPtr.Zero);
+	private ConnectionType role;
+	public ConnectionType Role {
+		get {
+			return role;
+		}
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void bacon_message_connection_send (IntPtr conn, string command);
-
-	public void Send (string command)
-	{
-		bacon_message_connection_send (conn, command);
+	private StatusCode status;
+	public StatusCode Status {
+		get {
+			return status;
+		}
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void bacon_message_connection_free (IntPtr conn);
+	public delegate void MessageReceivedDelegate (string Message);
+
+	private MessageReceivedDelegate message_received_handler;
+	public MessageReceivedDelegate MessageReceivedHandler {
+		set {
+			message_received_handler = value;
+		}
+	}
+
+
+	public MessageConnection ()
+	{
+		string socket_path;
+		
+		try {
+			socket_path = System.IO.Path.GetTempPath ();
+		} catch {
+			socket_path = "/tmp";
+		}
+
+		status = StatusCode.OK;
+		
+		socket_filename = System.IO.Path.Combine (socket_path, "muine-" + Environment.GetEnvironmentVariable ("USER") + ".socket");
+				
+		socket = new Socket (AddressFamily.Unix, SocketType.Stream, ProtocolType.IP);
+		EndPoint socket_end_point = new UnixEndPoint (socket_filename);
+
+		if (File.Exists (socket_filename)) {
+			role = ConnectionType.Client;
+			try {
+				socket.Connect (socket_end_point);
+			} catch {
+				try {
+					File.Delete (socket_filename);
+					status = StatusCode.Retry;
+				} catch	{
+					status = StatusCode.SocketDeleteFailure;
+				}
+			}
+		} else {
+			role = ConnectionType.Server;
+
+			try {
+				socket.Bind (socket_end_point);
+				socket.Listen (5);
+				socket.BeginAccept (new AsyncCallback (ListenCallback), socket);
+			}
+			catch
+			{
+				status = StatusCode.SocketCreateFailure;
+			}
+		}
+	}
+	
+	~MessageConnection ()
+	{
+		Close ();
+	}
+
+	public int Send (string Message)
+	{
+		return socket.Send (Encoding.ASCII.GetBytes (Message));
+	}
 
 	public void Close ()
 	{
-		bacon_message_connection_free (conn);
+		if (role == ConnectionType.Server) {
+			File.Delete (socket_filename);
+		}
+	}
+
+	private void ListenCallback (IAsyncResult state)
+	{
+		Socket Client = ((Socket) state.AsyncState).EndAccept (state);
+		((Socket) state.AsyncState).BeginAccept (new AsyncCallback (ListenCallback), state.AsyncState);
+		byte[] buf = new byte [1024];
+		Client.Receive (buf);
+
+		string raw_message = Encoding.ASCII.GetString (buf);
+		string message = "";
+		foreach (char c in raw_message) {
+			if (c == 0x0000)
+				break;
+			message += c;
+		}
+
+		GLib.Idle.Add (new GLib.IdleHandler (new IdleWork (message_received_handler, message).Run));
+	}
+
+	internal class IdleWork
+	{
+		private string message;
+		private MessageReceivedDelegate callback;
+
+		public IdleWork (MessageReceivedDelegate cb, string msg)
+		{
+			message = msg;
+			callback = cb;
+		}
+
+		public bool Run ()
+		{
+			callback (message);
+			return false;
+		}
 	}
 }

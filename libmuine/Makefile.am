@@ -48,12 +48,8 @@ libmuine_la_SOURCES =			\
 	rb-cell-renderer-pixbuf.h	\
 	rb-ellipsizing-label.c		\
 	rb-ellipsizing-label.h		\
-	volume-button.c			\
-	volume-button.h			\
 	db.c				\
 	db.h				\
-	bacon-message-connection.c	\
-	bacon-message-connection.h	\
 	gettext-utils.c			\
 	gettext-utils.h			\
 	mm-keys.c			\
