@@ -241,23 +241,7 @@ public class AddSongWindow
 	{
 		KeyPressEventArgs args = (KeyPressEventArgs) a;
 
-		args.RetVal = false;
-		
-		if (KeyUtils.HaveModifier (args.Event.state))
-			return;
-
-		switch (args.Event.keyval) {
-		case 0xFF52: /* up */
-			view.SelectPrevious (false, true);
-			args.RetVal = true;
-			break;
-		case 0xFF54: /* down */
-			view.SelectNext (false, true);
-			args.RetVal = true;
-			break;
-		default:
-			break;
-		}
+		args.RetVal = view.ForwardKeyPress (search_entry, args.Event);
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)

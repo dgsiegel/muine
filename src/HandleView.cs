@@ -315,6 +315,52 @@ public class HandleView : TreeView
 		return pointer_list_view_next (Raw);
 	}
 
+	public bool ForwardKeyPress (Widget orig_widget,
+	                             Gdk.EventKey e)
+	{
+		bool go = false;
+		bool ret = false;
+		
+		Gdk.ModifierType mod = 0;
+
+		if ((e.state != 0) &&
+		    ((e.state & (uint) Gdk.ModifierType.ControlMask) != 0)) {
+		    	go = true;
+
+			mod = Gdk.ModifierType.ControlMask;
+		} else if ((e.state != 0) &&
+		           ((e.state & (uint) Gdk.ModifierType.Mod1Mask) != 0)) {
+			go = true;
+
+			mod = Gdk.ModifierType.Mod1Mask;
+		} else if ((e.state != 0) &&
+		           ((e.state & (uint) Gdk.ModifierType.ShiftMask) != 0)) {
+			go = true;
+
+			mod = Gdk.ModifierType.ShiftMask;
+		} else if (!KeyUtils.HaveModifier (e)) {
+			go = true;
+			
+			mod = 0;
+		}
+
+		if (go) {
+			/* big-ass hack to forward key press events to the treeview */
+			Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
+			Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
+
+			GrabFocus ();
+
+			ret = Global.BindingsActivate (this, e.keyval, mod);
+
+			Style.SetBaseGC (StateType.Selected, saved_gc);
+
+			orig_widget.GrabFocus ();
+		}
+
+		return ret;
+	}
+
 	private delegate void SignalDelegate (IntPtr obj, IntPtr ptr);
 
 	private static void PointerActivatedCallback (IntPtr obj, IntPtr ptr)

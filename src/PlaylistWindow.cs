@@ -591,7 +591,8 @@ public class PlaylistWindow : Window
 
 			Title = song.Title + " - Muine Music Player";
 
-			icon.Tooltip = artist_label.Text + " - " + song.Title;
+			if (player.Playing)
+				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 
 			if (restart)
 				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
@@ -607,7 +608,7 @@ public class PlaylistWindow : Window
 
 			Title = "Muine Music Player";
 
-			icon.Tooltip = "Not playing";
+			icon.Tooltip = null;
 
 			skip_to_window.Hide ();
 		}
@@ -632,6 +633,8 @@ public class PlaylistWindow : Window
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-pause", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = "P_ause";
+
+			icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 		} else if (playlist.Playing != IntPtr.Zero &&
 		           player.Position > 0 &&
 			   !had_last_eos) {
@@ -643,6 +646,8 @@ public class PlaylistWindow : Window
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
+			
+			icon.Tooltip = null;
 		} else {
 			tooltips.SetTip (play_pause_button, "Start music playback", null);
 			play_pause_image.SetFromStock ("muine-play", IconSize.LargeToolbar);
@@ -652,6 +657,8 @@ public class PlaylistWindow : Window
 
 			icon.play_pause_menu_item_image.SetFromStock ("muine-play", IconSize.Menu);
 			((Label) icon.play_pause_menu_item.Child).LabelProp = "Pl_ay";
+
+			icon.Tooltip = null;
 		}
 
 		icon.Playing = playing;
@@ -827,7 +834,7 @@ public class PlaylistWindow : Window
 
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
 	{
-		if (KeyUtils.HaveModifier (args.Event.state)) {
+		if (KeyUtils.HaveModifier (args.Event)) {
 			args.RetVal = false;
 			return;
 		}

@@ -25,13 +25,13 @@ public class KeyUtils
 	 * of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
 	 * let Gtk+ handle the key */
 
-	public static bool HaveModifier (uint state) {
-		if (state != 0
-		 	&& (((state & (uint) Gdk.ModifierType.ControlMask) != 0)
-			 || ((state & (uint) Gdk.ModifierType.Mod1Mask) != 0)
-			 || ((state & (uint) Gdk.ModifierType.Mod3Mask) != 0)
-			 || ((state & (uint) Gdk.ModifierType.Mod4Mask) != 0)
-			 || ((state & (uint) Gdk.ModifierType.Mod5Mask) != 0))) {
+	public static bool HaveModifier (Gdk.EventKey e) {
+		if (e.state != 0
+		 	&& (((e.state & (uint) Gdk.ModifierType.ControlMask) != 0)
+			 || ((e.state & (uint) Gdk.ModifierType.Mod1Mask) != 0)
+			 || ((e.state & (uint) Gdk.ModifierType.Mod3Mask) != 0)
+			 || ((e.state & (uint) Gdk.ModifierType.Mod4Mask) != 0)
+			 || ((e.state & (uint) Gdk.ModifierType.Mod5Mask) != 0))) {
 			return true;
 		}
 
