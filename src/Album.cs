@@ -134,6 +134,7 @@ public class Album
 				artists.Add (artist);
 				changed = true;
 				all_lower_artists = null;
+				sort_key = null;
 			}
 		}
 
