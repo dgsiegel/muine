@@ -1,5 +1,11 @@
 2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+
+	Initialize nothing_pixbuf before connecting to the database signals.
+
+2004-02-03  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* configure.in:
 	* src/About.cs:

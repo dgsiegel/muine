@@ -93,11 +93,11 @@ public class AddAlbumWindow
 		view.Realize ();
 		view.Show ();
 
+		nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
+
 		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
 		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (HandleAlbumChanged);
 		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
-
-		nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 
 		foreach (Album a in Muine.DB.Albums.Values) 
 			view.Append (a.Handle);
