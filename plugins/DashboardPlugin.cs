@@ -34,10 +34,10 @@ public class DashboardPlugin : Plugin
 	{
 		this.player = player;
 		
-		player.PlayingSongChanged += new Plugin.SongEventHandler (HandleSongChanged);
+		player.SongChangedEvent += new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
 	}
 	
-	private void HandleSongChanged (SongInterface song)
+	private void HandleSongChangedEvent (SongInterface song)
 	{
 		if (song == null)
 			return;

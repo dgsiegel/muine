@@ -61,6 +61,8 @@ namespace MuinePluginLib
 		void PlayFile (string uri);
 		void QueueFile (string uri);
 
+		void Quit ();
+
 		bool WindowVisible {
 			get;
 			set;
@@ -70,8 +72,12 @@ namespace MuinePluginLib
 			get;
 		}
 
-		event Plugin.SongEventHandler PlayingSongChanged;
+		Gtk.ActionGroup ActionGroup {
+			get;
+		}
 
-		void Quit ();
+		event Plugin.SongChangedEventHandler SongChangedEvent;
+		
+		event Plugin.StateChangedEventHandler StateChangedEvent;
 	}
 }

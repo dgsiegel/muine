@@ -1,6 +1,31 @@
 2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
 
 	* PluginLib/PlayerInterface.cs:
+	* PluginLib/Plugin.cs:
+	* TODO:
+	* plugins/DashboardPlugin.cs:
+	* src/About.cs:
+	* src/MmKeys.cs:
+	* src/Muine.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/PlayerDBusObject.cs:
+	* src/PlaylistWindow.cs:
+
+	Major cleanup:
+	- Moved the tray icon management code into itself, make it use
+	  the PlayerInterface class, and instantiate from Muine.
+	- Same treatment for the multimedia key code
+	
+	Furthermore: Added StateChanged signal to PlayerInterface, and
+	an ActionGroup property giving PlaylistWindow's Gtk.ActionGroup.
+	
+	* src/PluginManager.cs:
+
+	Don't bork on broken plug-ins.
+
+2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
+
+	* PluginLib/PlayerInterface.cs:
 	* src/PlayerDBusObject.cs:
 	* src/PlaylistWindow.cs:
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn@nl.linux.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -50,7 +50,7 @@ public class About
 
 		Gnome.About about;
 		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), Version,
-					 Muine.Catalog.GetString ("Copyright © 2003, 2004 Jorn Baayen"),
+					 Muine.Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen"),
 					 Muine.Catalog.GetString ("A music player"),
 					 Authors, documenters,
 					 (translator_credits == "translator-credits") ? null : translator_credits,

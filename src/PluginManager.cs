@@ -30,10 +30,14 @@ public class PluginManager
 	private void ScanAssemblyForPlugins (Assembly assembly)
 	{
 		foreach (Type t in assembly.GetTypes ()) {
-			if (t.IsSubclassOf (typeof (Plugin)) && ! t.IsAbstract) {
+			if (t.IsSubclassOf (typeof (Plugin)) && !t.IsAbstract) {
 				Plugin plugin = (Plugin) Activator.CreateInstance (t);
 
-				plugin.Initialize (player);
+				try {
+					plugin.Initialize (player);
+				} catch (Exception e) {
+					Console.WriteLine (Muine.Catalog.GetString ("Error loading plug-in {0}: {1}"), assembly.FullName, e.Message);
+				}
 			}
 		}
 	}

@@ -23,6 +23,7 @@ namespace MuinePluginLib
 	{
 		public abstract void Initialize (PlayerInterface playlist);
 
-		public delegate void SongEventHandler (SongInterface song);
+		public delegate void SongChangedEventHandler (SongInterface song);
+		public delegate void StateChangedEventHandler (bool playing);
 	}
 }

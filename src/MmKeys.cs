@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004 Lee Willis <lee@leewillis.co.uk>
+ *           (C) 2004 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -24,6 +25,8 @@ using System.Runtime.InteropServices;
 using Gtk;
 using GLib;
 
+using MuinePluginLib;
+
 public class MmKeys : GLib.Object
 {
 	[DllImport ("libmuine")]
@@ -34,9 +37,13 @@ public class MmKeys : GLib.Object
 	private SignalUtils.SignalDelegate mm_next_cb;
 	private SignalUtils.SignalDelegate mm_stop_cb;
 
-	public MmKeys () : base (IntPtr.Zero)
+	PlayerInterface player;
+
+	public MmKeys (PlayerInterface player) : base (IntPtr.Zero)
 	{
 		Raw = mmkeys_new ();
+
+		this.player = player;
 
 		mm_playpause_cb = new SignalUtils.SignalDelegate (MmPlayPauseCallback);
 		mm_prev_cb      = new SignalUtils.SignalDelegate (MmPrevCallback);
@@ -54,28 +61,23 @@ public class MmKeys : GLib.Object
 		Dispose ();
 	}
 
-	public event EventHandler PlayPause;
-	public event EventHandler Previous;
-	public event EventHandler Next;
-	public event EventHandler Stop;
-
 	private void MmPlayPauseCallback (IntPtr obj)
 	{
-		PlayPause (null, null);
+		player.Playing = !player.Playing;
 	}
 
 	private void MmNextCallback (IntPtr obj)
 	{
-		Next (null, null);
+		player.Next ();
 	}
 
 	private void MmPrevCallback (IntPtr obj)
 	{
-		Previous (null, null);
+		player.Previous ();
 	}
 
 	private void MmStopCallback (IntPtr obj)
 	{
-		Stop (null, null);
+		player.Playing = false;
 	}
 }

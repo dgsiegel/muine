@@ -33,8 +33,11 @@ public class PlayerDBusObject
 	public PlayerDBusObject (PlayerInterface player)
 	{
 		this.player = player;
-		this.player.PlayingSongChanged +=
-			new Plugin.SongEventHandler (HandleSongChanged);
+		
+		player.SongChangedEvent +=
+			new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+		player.StateChangedEvent +=
+			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
 	}
 
 	[Method]
@@ -176,7 +179,7 @@ public class PlayerDBusObject
 	[Signal] public event SongChangedHandler SongChanged;
 	public delegate void SongChangedHandler (string song_data);
 
-	private void HandleSongChanged (SongInterface song)
+	private void HandleSongChangedEvent (SongInterface song)
 	{
 		string value = "";
 		
@@ -185,6 +188,14 @@ public class PlayerDBusObject
 
 		if (SongChanged != null)
 			SongChanged (value);
+	}
+
+	[Signal] public event StateChangedHandler StateChanged;
+	public delegate void StateChangedHandler (bool playing);
+
+	private void HandleStateChangedEvent (bool playing)
+	{
+		StateChanged (playing);
 	}
 
 	private string SongToString (SongInterface song)

@@ -23,6 +23,8 @@ using System.Runtime.InteropServices;
 using Gtk;
 using Gdk;
 
+using MuinePluginLib;
+
 public class NotificationAreaIcon : Plug
 {
 	[DllImport ("libmuine")]
@@ -32,12 +34,12 @@ public class NotificationAreaIcon : Plug
 	private Gtk.Image image;
 	private Tooltips tooltips;
 
+	private PlayerInterface player;
+
 	private int menu_x;
 	private int menu_y;
 	
 	private Menu menu;
-
-	private Action window_visibility_action;
 
 	private bool button_down = false;
 
@@ -64,15 +66,42 @@ public class NotificationAreaIcon : Plug
 			ShowAll ();
 	}
 
-	public NotificationAreaIcon (Menu m, Action a) : base (IntPtr.Zero)
+	private const string ui_info =
+		"<popup name=\"Menu\">\n" +
+		"  <menuitem action=\"PlayPause\" />\n" +
+		"  <separator />\n" +
+		"  <menuitem action=\"PreviousSong\" />\n" +
+		"  <menuitem action=\"NextSong\" />\n" +
+		"  <separator />\n" +
+		"  <menuitem action=\"PlaySong\" />\n" +
+		"  <menuitem action=\"PlayAlbum\" />\n" +
+		"  <separator />\n" +
+		"  <menuitem action=\"ShowHideWindow\" />\n" +
+		"</popup>\n";
+
+	public NotificationAreaIcon (PlayerInterface player) : base (IntPtr.Zero)
 	{
-		menu = m;
+		/* connect to player */
+		this.player = player;
+		
+		player.SongChangedEvent +=
+			new Plugin.SongChangedEventHandler (HandleSongChangedEvent);
+		player.StateChangedEvent +=
+			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
+		
+		/* build menu */
+		UIManager uim = new UIManager ();
+		uim.InsertActionGroup (player.ActionGroup, 0);
+		uim.AddUiFromString (ui_info);
+		
+		menu = (Menu) uim.GetWidget ("/Menu");
 		menu.Deactivated += new EventHandler (HandleMenuDeactivated);
 
-		window_visibility_action = a;
-		
+		/* init tooltips */
 		tooltips = new Tooltips ();
+		tooltips.Disable ();
 
+		/* not visible yet */
 		visible = false;
 
 		/* init icon */
@@ -98,36 +127,12 @@ public class NotificationAreaIcon : Plug
 		tooltips.SetTip (this, tooltip, null);
 	}
 
-	public string Tooltip {
-		set {
-			tooltip = value;
-
-			UpdateTooltip ();
-		}
-
-		get {
-			return tooltip;
-		}
-	}
-
 	private bool playing = false;
 
 	private void UpdateImage ()
 	{
 		string icon = (playing) ? "muine-tray-playing" : "muine-tray-paused";
 		image.SetFromStock (icon, IconSize.Menu);
-	}
-
-	public bool Playing {
-		set {
-			playing = value;
-
-			UpdateImage ();
-		}
-
-		get {
-			return playing;
-		}
 	}
 
 	private void HandleSelectionDone (object o, EventArgs args)
@@ -188,7 +193,7 @@ public class NotificationAreaIcon : Plug
 			break;
 
 		case 2:
-			window_visibility_action.Activate ();
+			player.WindowVisible = !player.WindowVisible;
 
 			break;
 
@@ -207,5 +212,35 @@ public class NotificationAreaIcon : Plug
 	private void HandleDestroyEvent (object o, DestroyEventArgs args)
 	{
 		Init ();
+	}
+
+	private string CreateTooltip (SongInterface song)
+	{
+		/* song artists - song title */
+		return String.Format (Muine.Catalog.GetString ("{0} - {1}"),
+				      StringUtils.JoinHumanReadable (song.Artists),
+				      song.Title);
+	}
+
+	private void HandleSongChangedEvent (SongInterface song)
+	{
+		if (song != null)
+			tooltip = CreateTooltip (song);
+		else
+			tooltip = null;
+
+		UpdateTooltip ();
+	}
+
+	private void HandleStateChangedEvent (bool playing)
+	{
+		if (playing)
+			tooltips.Enable ();
+		else
+			tooltips.Disable ();
+
+		this.playing = playing;
+
+		UpdateImage ();
 	}
 }

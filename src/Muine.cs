@@ -124,6 +124,10 @@ public class Muine : Gnome.Program
 	// objects
 	private static PlaylistWindow playlist;
 
+	private static NotificationAreaIcon icon;
+
+	private static MmKeys mmkeys;
+
 	private static GConf.Client gconf_client;
 
 	private static SongDatabase db;
@@ -211,7 +215,7 @@ public class Muine : Gnome.Program
 		/* Start the action thread */
 		action_thread = new ActionThread ();
 
-		/* Load cover database */
+		/* Open cover database */
 		try {
 			cover_db = new CoverDatabase (2);
 		} catch (Exception e) {
@@ -220,7 +224,7 @@ public class Muine : Gnome.Program
 			Exit ();
 		}
 
-		/* Load song database */
+		/* Open song database */
 		try {
 			db = new SongDatabase (4);
 		} catch (Exception e) {
@@ -229,10 +233,33 @@ public class Muine : Gnome.Program
 			Exit ();
 		}
 
-		DB.Load ();
-
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
+
+		/* Export D-Bus object (also before playlist restoration for
+		   the same reason as below) */
+		try {
+			dbo = new PlayerDBusObject (playlist);
+			
+			MuineDBusService.Instance.RegisterObject (dbo, "/org/gnome/Muine/Player");
+		} catch (Exception e) {
+			Console.WriteLine (Muine.Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
+		}
+
+		/* Initialize plug-ins (before playlist restoration,
+		   to be sure that the song change gets through to all the
+		   plug-ins) */
+		PluginManager pm = new PluginManager (playlist);
+
+		/* Hook up multimedia keys */
+		mmkeys = new MmKeys (playlist);
+
+		/* Create tray icon */
+		icon = new NotificationAreaIcon (playlist);
+
+		/* Load songs -- after D-Bus export to make sure we register
+		   with D-Bus ASAP */
+		DB.Load ();
 
 		/* Process command line options */
 		ProcessCommandLine (args, null);
@@ -241,8 +268,8 @@ public class Muine : Gnome.Program
 		if (!opened_playlist)
 			playlist.RestorePlaylist ();
 
-		/* Show playlist window */
-		playlist.Run ();
+		/* Show UI */
+		Run ();
 
 		/* Now we load the album covers, and after that start the changes thread */
 		CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleCoversDoneLoading);
@@ -258,6 +285,17 @@ public class Muine : Gnome.Program
 
 		client.Die += new EventHandler (HandleDieEvent);
 		client.SaveYourself += new Gnome.SaveYourselfHandler (HandleSaveYourselfEvent);
+	}
+
+	private new void Run ()
+	{
+		playlist.Run ();
+
+		icon.Run ();
+
+		/* put on the screen immediately */
+		while (MainContext.Pending ())
+			Gtk.Main.Iteration ();
 	}
 
 	private void ProcessCommandLine (string [] args, PlayerDBusObject dbo)
