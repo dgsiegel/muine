@@ -129,13 +129,17 @@ namespace Muine
 		[DllImport ("libmuine")]
 		private static extern IntPtr metadata_get_album_art (IntPtr metadata);
 
+		private Pixbuf album_art = null;
 		public Pixbuf AlbumArt {
 			get { 
+				if (album_art != null)
+					return album_art;
+					
 				IntPtr p = metadata_get_album_art (raw);
-				if (p == IntPtr.Zero)
-					return null;
-				else
-					return new Pixbuf (p);
+				if (p != IntPtr.Zero)
+					album_art = new Pixbuf (p);
+
+				return album_art;
 			}
 		}
 

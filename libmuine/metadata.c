@@ -917,8 +917,7 @@ metadata_free (Metadata *metadata)
 	g_free (metadata->year);
 	g_free (metadata->mime_type);
 
-	/* do not unref the album_art pixbuf, as it becomes managed
-	 * in Metadata.cs */
+	g_object_unref (metadata->album_art);
 
 	g_free (metadata);
 }
@@ -976,7 +975,10 @@ metadata_get_album_art (Metadata *metadata)
 {
 	g_return_val_if_fail (metadata != NULL, NULL);
 
-	return metadata->album_art;
+	if (metadata->album_art != NULL)
+		return g_object_ref (metadata->album_art);
+	else
+		return NULL;
 }
 
 int

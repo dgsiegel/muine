@@ -1,5 +1,17 @@
 2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/metadata.c: (metadata_free), (metadata_get_album_art):
+
+	Ref album art in get_album_art () and unref in metadata_free ()
+	
+	* src/Metadata.cs:
+
+	Cache album art pixbuf.
+
+	This fixes the g_object_unref warnings and crashes. Yay.
+
+2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/metadata.c: (get_mp3_picture_data),
 	(get_mp3_comment_value):
 
