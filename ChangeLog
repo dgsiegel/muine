@@ -1,3 +1,9 @@
+2004-01-25  Lee Willis  <lee@leewillis.co.uk>
+
+	* src/CoverDatabase.cs:
+
+	Fix SanitizeString.
+
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
 	* src/Album.cs:

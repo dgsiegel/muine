@@ -23,6 +23,7 @@ using System.IO;
 using System.Web;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 using Gnome;
@@ -215,8 +216,8 @@ public class CoverDatabase
 	private string SanitizeString (string s)
 	{
 		s = s.ToLower ();
-		s = s.Replace ("(.*)", " ");
-		s = s.Replace ("[.*]", " ");
+		s = Regex.Replace (s, "\\(.*\\)", "");
+		s = Regex.Replace (s, "\\[.*\\]", "");
 		s = s.Replace ("-", " ");
 		s = s.Replace ("_", " ");
 
