@@ -315,6 +315,15 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern int pointer_list_view_get_index_of (IntPtr view,
+							          IntPtr handle);
+
+	public int GetIndexOf (IntPtr handle)
+	{
+		return pointer_list_view_get_index_of (Raw, handle);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_state_changed (IntPtr view);
 
 	public new void StateChanged ()

@@ -91,6 +91,8 @@ gboolean         pointer_list_view_has_next      (PointerListView *view);
 gpointer         pointer_list_view_first         (PointerListView *view);
 gpointer         pointer_list_view_prev          (PointerListView *view);
 gpointer         pointer_list_view_next          (PointerListView *view);
+int              pointer_list_view_get_index_of  (PointerListView *view,
+						  gpointer pointer);
 void             pointer_list_view_state_changed (PointerListView *view);
 
 #endif /* __POINTER_LIST_VIEW_H__ */

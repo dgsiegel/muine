@@ -1,0 +1,267 @@
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Vincent Carriere<carriere_vincent@yahoo.fr>, 2004
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: muine VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-21 04:55+0100\n"
+"PO-Revision-Date: 2004-01-21 20:40+0100\n"
+"Last-Translator: Vincent Carriere <carriere_vincent@yahoo.fr>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/glade/AddWindow.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
+msgid "TITLE"
+msgstr "TITRE"
+
+#: data/glade/AddWindow.glade.h:3
+msgid "_Play"
+msgstr "_Lire"
+
+#: data/glade/AddWindow.glade.h:4
+msgid "_Queue"
+msgstr ""
+
+#: data/glade/AddWindow.glade.h:5
+msgid "_Search:"
+msgstr "_Chercher:"
+
+#: data/glade/ErrorDialog.glade.h:1
+msgid "ERROR MESSAGE"
+msgstr "MESSAGE D'ERREUR"
+
+#: data/glade/ErrorDialog.glade.h:2
+msgid "Error"
+msgstr "Erreur"
+
+#: data/glade/PlaylistWindow.glade.h:1
+msgid "Add _Album"
+msgstr "Ajouter un _Album"
+
+#: data/glade/PlaylistWindow.glade.h:2
+msgid "Add _Album..."
+msgstr "Ajouter un _Album..."
+
+#: data/glade/PlaylistWindow.glade.h:3
+msgid "Add _Song"
+msgstr "Ajouter une _Chanson"
+
+#: data/glade/PlaylistWindow.glade.h:4
+msgid "Add _Song..."
+msgstr "Ajouter une _Chanson"
+
+#: data/glade/PlaylistWindow.glade.h:5
+msgid "Remove _Played Songs"
+msgstr "_Enlever les Chansons jouées"
+
+#: data/glade/PlaylistWindow.glade.h:6
+msgid "Skip _Backwards"
+msgstr "_Avance"
+
+#: data/glade/PlaylistWindow.glade.h:7
+msgid "Skip _Forward"
+msgstr "_Retour"
+
+#: data/glade/PlaylistWindow.glade.h:8
+msgid "TMP"
+msgstr "TMP"
+
+#: data/glade/PlaylistWindow.glade.h:9
+msgid "Volume _Down"
+msgstr "_Baisser le volume"
+
+#: data/glade/PlaylistWindow.glade.h:10
+msgid "Volume _Up"
+msgstr "_Augmenter le volume"
+
+#: data/glade/PlaylistWindow.glade.h:11
+msgid "_Actions"
+msgstr "_Actions"
+
+#: data/glade/PlaylistWindow.glade.h:12
+msgid "_Clear Playlist"
+msgstr "_Nettoyer la liste de lecture"
+
+#: data/glade/PlaylistWindow.glade.h:13
+msgid "_Fill queue with random songs from selected groups"
+msgstr "_Remplir la liste avec des chansons aléatoires des groupes sélectionnés"
+
+#: data/glade/PlaylistWindow.glade.h:14
+msgid "_Groups"
+msgstr "_Groupes"
+
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Hide Window"
+msgstr "_Cacher la fenêtre"
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Import Folder..."
+msgstr "_Ajouter le dossier..."
+
+#: data/glade/PlaylistWindow.glade.h:17
+msgid "_Next"
+msgstr "_Suivant"
+
+#: data/glade/PlaylistWindow.glade.h:18
+msgid "_Previous"
+msgstr "_Précédent"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Remove Song"
+msgstr "_Retirer la chanson"
+
+#: data/glade/PlaylistWindow.glade.h:20
+msgid "_Skip to..."
+msgstr "_Aller à..."
+
+#: data/glade/PlaylistWindow.glade.h:21
+msgid "_Volume"
+msgstr "_Volume"
+
+#: data/glade/ProgressWindow.glade.h:1
+msgid "Loading:"
+msgstr "Charge:"
+
+#: data/glade/SkipToWindow.glade.h:1
+msgid "0 seconds"
+msgstr "0 secondes"
+
+#: data/glade/SkipToWindow.glade.h:2
+msgid "Skip to"
+msgstr "Aller à"
+
+#: data/glade/SkipToWindow.glade.h:3
+msgid "_Skip to:"
+msgstr "_Aller à:"
+
+#: data/glade/SkipToWindow.glade.h:4
+msgid "seconds"
+msgstr "secondes"
+
+#: data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Ecouter votre musique"
+
+#: data/muine.desktop.in.h:2
+msgid "Muine Music Player"
+msgstr "Muine Lecteur de Musique"
+
+#: data/muine.schemas.in.h:1
+msgid "Add album window height."
+msgstr "Ajouter la hauteur de la fenêtre de l'album"
+
+#: data/muine.schemas.in.h:2
+msgid "Add album window width."
+msgstr "Ajouter la largeur de la fenêtre de l'album."
+
+#: data/muine.schemas.in.h:3
+msgid "Add song window height."
+msgstr "Ajouter la hauteur de la fenêtre de la chanson."
+
+#: data/muine.schemas.in.h:4
+msgid "Add song window width."
+msgstr "Ajouter la largeur de la fenêtre de la chanson."
+
+#: data/muine.schemas.in.h:5
+msgid "Default import folder."
+msgstr "Dossier d'ajout par défaut."
+
+#: data/muine.schemas.in.h:6
+msgid "Last used folder from \"Import folder...\" dialog."
+msgstr "Dossier dernièrement utilisé pour la boite de dialogue \"Importer le dossier...\"."
+
+#: data/muine.schemas.in.h:7
+msgid "Playlist window height."
+msgstr "Hauteur de la fenêtre de la liste de lecture."
+
+#: data/muine.schemas.in.h:8
+msgid "Playlist window visibility."
+msgstr "Visibilité de la fenêtre de la liste de lecture."
+
+#: data/muine.schemas.in.h:9
+msgid "Playlist window visible (true) or not (false)."
+msgstr "Fenêtre de la liste de lecture visible (true) ou non (false)."
+
+#: data/muine.schemas.in.h:10
+msgid "Playlist window width."
+msgstr "Largeur de la fenêtre de la liste de lecture."
+
+#: data/muine.schemas.in.h:11
+msgid "Volume level."
+msgstr "Niveau du volume."
+
+#: data/muine.schemas.in.h:12
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Niveau du volume. 0 = minimum, 100 = maximum."
+
+#: libmuine/egg/eggstatusicon.c:154
+msgid "Pixbuf"
+msgstr "Image"
+
+#: libmuine/egg/eggstatusicon.c:155
+msgid "A GdkPixbuf to display"
+msgstr "Le GdkPixbuf à afficher"
+
+#: libmuine/egg/eggstatusicon.c:162
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#: libmuine/egg/eggstatusicon.c:163
+msgid "Filename to load and display"
+msgstr "Nom du fichier à charger et afficher"
+
+#: libmuine/egg/eggstatusicon.c:170
+msgid "Stock ID"
+msgstr "Stock ID"
+
+#: libmuine/egg/eggstatusicon.c:171
+msgid "Stock ID for a stock image to display"
+msgstr "Stock ID de l'image à afficher"
+
+#: libmuine/egg/eggstatusicon.c:178
+msgid "Animation"
+msgstr "Animation"
+
+#: libmuine/egg/eggstatusicon.c:179
+msgid "GdkPixbufAnimation to display"
+msgstr "GdkPixbufAnimation à afficher"
+
+#: libmuine/egg/eggstatusicon.c:186
+msgid "Image type"
+msgstr "Type d'image"
+
+#: libmuine/egg/eggstatusicon.c:187
+msgid "The representation being used for image data"
+msgstr "La représentation à utiliser pour les données de l'image"
+
+#: libmuine/egg/eggstatusicon.c:195
+msgid "Size"
+msgstr "Taille"
+
+#: libmuine/egg/eggstatusicon.c:196
+msgid "The size of the icon"
+msgstr "Taille de l'icône"
+
+#: libmuine/egg/eggstatusicon.c:205
+msgid "Blinking"
+msgstr "Clignotement"
+
+#: libmuine/egg/eggstatusicon.c:206
+msgid "Whether or not the status icon is blinking"
+msgstr "Si l'icône d'êtat clignote ou pas"
+
+#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
+msgid "Orientation"
+msgstr "Orientation"
+
+#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
+msgid "The orientation of the tray."
+msgstr "L'orientation dans la zone de notification."

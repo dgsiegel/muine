@@ -1,5 +1,21 @@
 2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
 
+	* configure.in:
+	* po/ChangeLog:
+	* po/fr.po:
+
+	Added a French translation by Vincent Carriere.
+	
+	* libmuine/pointer-list-model.c: (pointer_list_model_get_index_of):
+	* libmuine/pointer-list-model.h:
+	* libmuine/pointer-list-view.c: (pointer_list_view_get_index_of):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+
+	Add GetIndexOf.
+
+2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* src/PlaylistWindow.cs:
 

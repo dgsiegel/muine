@@ -90,6 +90,8 @@ gboolean      pointer_list_model_has_first      (PointerListModel *model);
 void          pointer_list_model_state_changed  (PointerListModel *model);
 void          pointer_list_model_get_moved_iter (PointerListModel *model,
 						 GtkTreeIter      *iter);
+int           pointer_list_model_get_index_of   (PointerListModel *model,
+				                 gpointer pointer);
 
 #endif /* __POINTER_LIST_MODEL_H__ */
 
