@@ -19,54 +19,57 @@
 
 using System;
 
-public interface PlayerInterface
+namespace MuinePluginLib
 {
-	SongInterface PlayingSong {
-		get;
-	}
+	public interface PlayerInterface
+	{
+		SongInterface PlayingSong {
+			get;
+		}
 
-	bool Playing {
-		get;
-		set;
-	}
+		bool Playing {
+			get;
+			set;
+		}
 
-	int Volume {
-		get;
-		set;
-	}
+		int Volume {
+			get;
+			set;
+		}
 	
-	int Position {
-		get;
-		set;
-	}
+		int Position {
+			get;
+			set;
+		}
 	
-	bool HasNext {
-		get;
-	}
+		bool HasNext {
+			get;
+		}
 	
-	bool HasPrevious {
-		get;
-	}
+		bool HasPrevious {
+			get;
+		}
 	
-	void Next ();
-	void Previous ();
+		void Next ();
+		void Previous ();
 
-	void PlaySong ();
-	void PlayAlbum ();
+		void PlaySong ();
+		void PlayAlbum ();
 
-	void OpenPlaylist (string uri);
+		void OpenPlaylist (string uri);
 
-	void PlayFile (string uri);
-	void QueueFile (string uri);
+		void PlayFile (string uri);
+		void QueueFile (string uri);
 
-	bool WindowVisible {
-		get;
-		set;
-	}
+		bool WindowVisible {
+			get;
+			set;
+		}
 	
-	bool WindowFocused {
-		get;
-	}
+		bool WindowFocused {
+			get;
+		}
 
-	event Plugin.SongEventHandler PlayingSongChanged;
+		event Plugin.SongEventHandler PlayingSongChanged;
+	}
 }

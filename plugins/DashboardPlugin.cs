@@ -24,6 +24,8 @@ using System.Net.Sockets;
 using System.Xml;
 using System.Text;
 
+using MuinePluginLib;
+
 public class DashboardPlugin : Plugin
 {
 	private PlayerInterface player;

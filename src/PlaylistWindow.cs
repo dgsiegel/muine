@@ -25,6 +25,8 @@ using Gtk;
 using GLib;
 using Gnome.Vfs;
 
+using MuinePluginLib;
+
 public class PlaylistWindow : Window, PlayerInterface
 {
 	/* menu widgets */

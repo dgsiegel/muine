@@ -23,6 +23,8 @@ using System.Collections;
 
 using DBus;
 
+using MuinePluginLib;
+
 [Interface ("org.gnome.Muine.Player")]
 public class PlayerDBusObject
 {

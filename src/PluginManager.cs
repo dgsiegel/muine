@@ -21,6 +21,8 @@ using System;
 using System.Reflection;
 using System.IO;
 
+using MuinePluginLib;
+
 public class PluginManager
 {
 	private PlayerInterface player;

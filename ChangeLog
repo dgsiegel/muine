@@ -1,5 +1,18 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* PluginLib/PlayerInterface.cs:
+	* PluginLib/Plugin.cs:
+	* PluginLib/SongInterface.cs:
+	* plugins/DashboardPlugin.cs:
+	* src/PlayerDBusObject.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/Song.cs:
+
+	Own namespace for PluginLib.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* Makefile.am:
 	* PluginLib/Makefile.am:
 	* PluginLib/PlayerInterface.cs:

@@ -25,6 +25,8 @@ using System.Threading;
 
 using Gdk;
 
+using MuinePluginLib;
+
 public class Song : SongInterface
 {
 	private string filename;

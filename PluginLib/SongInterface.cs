@@ -21,45 +21,48 @@ using System;
 
 using Gdk;
 
-public interface SongInterface
+namespace MuinePluginLib
 {
-	string Filename {
-		get;
-	}
+	public interface SongInterface
+	{
+		string Filename {
+			get;
+		}
 	
-	string Title {
-		get;
-	}
+		string Title {
+			get;
+		}
 	
-	string [] Artists {
-		get;
-	}
+		string [] Artists {
+			get;
+		}
 	
-	string [] Performers {
-		get;
-	}
+		string [] Performers {
+			get;
+		}
 	
-	string Album {
-		get;
-	}
+		string Album {
+			get;
+		}
 	
-	string Year {
-		get;
-	}
+		string Year {
+			get;
+		}
 	
-	int TrackNumber {
-		get;
-	}
+		int TrackNumber {
+			get;
+		}
 	
-	int DiscNumber {
-		get;
-	}
+		int DiscNumber {
+			get;
+		}
 	
-	int Duration {
-		get;
-	}
+		int Duration {
+			get;
+		}
 
-	Pixbuf CoverImage {
-		get;
+		Pixbuf CoverImage {
+			get;
+		}
 	}
 }

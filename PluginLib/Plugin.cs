@@ -17,9 +17,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-public abstract class Plugin
+namespace MuinePluginLib
 {
-	public abstract void Initialize (PlayerInterface playlist);
+	public abstract class Plugin
+	{
+		public abstract void Initialize (PlayerInterface playlist);
 
-	public delegate void SongEventHandler (SongInterface song);
+		public delegate void SongEventHandler (SongInterface song);
+	}
 }
