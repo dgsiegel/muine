@@ -1,5 +1,43 @@
 2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/About.cs:
+	* src/ActionThread.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/ColoredCellRendererPixbuf.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/DashboardFrontend.cs:
+	* src/EllipsizingLabel.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/GnomeProxy.cs:
+	* src/GroupWindow.cs:
+	* src/HandleView.cs:
+	* src/InfoWindow.cs:
+	* src/KeyUtils.cs:
+	* src/MarkupUtils.cs:
+	* src/MessageConnection.cs:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+	* src/StringUtils.cs:
+	* src/VolumeButton.cs:
+	* src/YesNoDialog.cs:
+
+	Remove all UTF-8 copyright symbols to please xgettext.
+
+2004-02-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* autogen.sh:
 	* configure.in:
 	R po/Makefile.in:
