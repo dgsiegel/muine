@@ -24,6 +24,7 @@ Gtk+ >= 2.6
 libid3tag >= 0.15.0b
 vorbis >= 1.0
 FLAC >= 1.1.0
+GUnicode# from http://www.jbaayen.dds.nl/gunicode-sharp.html
 gdbm
 
 And for playback either:

@@ -310,7 +310,7 @@ namespace Muine
 			else
 				key = String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
 
-			return StringUtils.CollateKey (key);
+			return GUnicode.Unistring.GetCollateKey (key);
 		}				
 
 		// Methods :: Protected :: GenerateSearchKey

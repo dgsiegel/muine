@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -19,9 +19,10 @@
 
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
 
 using Mono.Posix;
+
+using GUnicode;
 
 namespace Muine
 {
@@ -101,29 +102,19 @@ namespace Muine
 			return ret;
 		}
 
-		// Methods :: Public :: CollateKey		
-		[DllImport ("libglib-2.0-0.dll")]
-		private static extern IntPtr g_utf8_collate_key (string str, int len);
-
-		public static string CollateKey (string key)
-		{
-			IntPtr str_ptr = g_utf8_collate_key (key, -1);
-			
-			return GLib.Marshaller.PtrToStringGFree (str_ptr);
-		}
-
 		// Methods :: Public :: SearchKey
-		[DllImport ("libmuine")]
-		private static extern IntPtr string_utils_strip_non_alnum (string str,
-									   out bool different);
-
 		public static string SearchKey (string key)
 		{
 			string lower = key.ToLower ();
 
-			bool different;
-			IntPtr str_ptr = string_utils_strip_non_alnum (lower, out different);
-			string stripped = GLib.Marshaller.PtrToStringGFree (str_ptr);
+			bool different = false;
+			string stripped = "";
+			foreach (Unichar c in Unistring.GetUnichars (lower)) {
+				if (c.IsAlphaNumeric || c.IsSpace)
+					stripped += c;
+				else
+					different = true;
+			}
 
 			// Both, so that "R.E.M." will yield only "R.E.M.", but "rem"
 			// both "remix and "R.E.M.".

@@ -62,7 +62,8 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  gnome-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  glade-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED \
-		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED)
+		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED \
+		  gunicode-sharp)
 
 PKG_CHECK_MODULES(DBUSSHARP,
                   dbus-sharp >= $DBUSSHARP_REQUIRED)

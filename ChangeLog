@@ -1,5 +1,19 @@
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
+	* README:
+	* configure.in:
+	* libmuine/Makefile.am:
+	R libmuine/string-utils.c:
+	R libmuine/string-utils.h:
+	* src/Album.cs:
+	* src/Song.cs:
+	* src/StringUtils.cs:
+
+	Depend on new born GUnicode#:
+	http://www.jbaayen.dds.nl/gunicode-sharp.html
+
+2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* configure.in:
 

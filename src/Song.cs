@@ -415,7 +415,7 @@ namespace Muine
 
 			string key = String.Format ("{0} {1} {2}", title.ToLower (), a, p);
 				
-			return StringUtils.CollateKey (key);
+			return GUnicode.Unistring.GetCollateKey (key);
 		}
 
 		// Methods :: Protected :: GenerateSearchKey
