@@ -109,6 +109,8 @@ public class AddAlbumWindow : Window
 		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (HandleAlbumChanged);
 		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
 
+		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleDoneLoading);
+
 		foreach (Album a in Muine.DB.Albums.Values) 
 			view.Append (a.Handle);
 		view.SelectFirst ();
@@ -152,6 +154,8 @@ public class AddAlbumWindow : Window
 
 		if (album.CoverImage != null)
 			r.Pixbuf = album.CoverImage;
+		else if (Muine.CoverDB.Loading)
+			r.Pixbuf = Muine.CoverDB.DownloadingPixbuf;
 		else
 			r.Pixbuf = nothing_pixbuf;
 
@@ -341,5 +345,10 @@ public class AddAlbumWindow : Window
 			return;
 		
 		view.SetDragDestRow (path, Gtk.TreeViewDropPosition.IntoOrAfter);
+	}
+
+	private void HandleDoneLoading ()
+	{
+		view.QueueDraw ();
 	}
 }

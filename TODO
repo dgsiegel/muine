@@ -31,7 +31,6 @@ o Handle non-UTF8 filenames and dirnames decently
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 
-o Speedier startup
 o Automatic replaygain calculation?
   Need to discuss UI (if any?) for this first.
 

@@ -1,5 +1,18 @@
 2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/AddAlbumWindow.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/Muine.cs:
+	* src/SongDatabase.cs:
+
+	Read album covers in a thread on startup. This greatly improves
+	startup speed.
+
+2004-04-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 	* src/SkipToWindow.cs:
 

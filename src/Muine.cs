@@ -81,8 +81,6 @@ public class Muine : Gnome.Program
 			Exit ();
 		}
 
-		CoverDB.Load ();
-
 		/* Load song database */
 		try {
 			DB = new SongDatabase (3);
@@ -102,7 +100,9 @@ public class Muine : Gnome.Program
 		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
 		ProcessCommandLine (args, false);
 
-		/* Now start the changes thread */
+		/* Now we load the album covers, and start the changes thread */
+		CoverDB.Load ();
+
 		DB.CheckChanges ();
 
 		/* And finally, check if this is the first start */

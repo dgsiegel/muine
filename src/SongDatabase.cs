@@ -186,8 +186,13 @@ public class SongDatabase
 		if (album == null)
 			return;
 
-		album.SyncCoverImageWith (song);
+		album.CoverImage = song.CoverImage;
 
+		EmitAlbumChanged (album);
+	}
+
+	public void EmitAlbumChanged (Album album)
+	{
 		if (AlbumChanged != null)
 			AlbumChanged (album);
 	}
@@ -305,9 +310,11 @@ public class SongDatabase
 
 	/*** the thread that checks for changes on startup ***/
 
-	private uint timeout_id;
-
 	private bool thread_done;
+
+	private Queue removed_songs;
+	private Queue changed_songs;
+	private Queue new_songs;
 
 	public void CheckChanges ()
 	{
@@ -317,17 +324,13 @@ public class SongDatabase
 		changed_songs = Queue.Synchronized (new Queue ());
 		new_songs = Queue.Synchronized (new Queue ());
 
-		timeout_id = GLib.Timeout.Add (10, new GLib.TimeoutHandler (ProcessActionsFromThread));
+		GLib.Idle.Add (new GLib.IdleHandler (ProcessActionsFromThread));
 
 		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
-
+		thread.Priority = ThreadPriority.BelowNormal;
 		thread.Start ();
 	}
 	
-	private Queue removed_songs;
-	private Queue changed_songs;
-	private Queue new_songs;
-
 	private class ChangedSong {
 		public Metadata Metadata;
 		public Song Song;
@@ -341,35 +344,49 @@ public class SongDatabase
 	/* this is run from the main thread */
 	private bool ProcessActionsFromThread ()
 	{
+		int counter = 0;
+		
 		if (removed_songs.Count > 0) {
-			Song song = (Song) removed_songs.Dequeue ();
+			while (removed_songs.Count > 0 && counter < 10) {
+				counter++;
+				
+				Song song = (Song) removed_songs.Dequeue ();
 
-			if (song.Dead)
-				return true;
+				if (song.Dead)
+					continue;
 
-			RemoveSong (song);
+				RemoveSong (song);
+			}
 
 			return true;
 		}
 
 		if (changed_songs.Count > 0) {
-			ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
+			while (changed_songs.Count > 0 && counter < 10) {
+				counter++;
+				
+				ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
 
-			if (cs.Song.Dead)
-				return true;
+				if (cs.Song.Dead)
+					continue;
 
-			SyncSongWithMetadata (cs.Song, cs.Metadata);
+				SyncSongWithMetadata (cs.Song, cs.Metadata);
+			}
 
 			return true;
 		}
 
 		if (new_songs.Count > 0) {
-			Song song = (Song) new_songs.Dequeue ();
+			while (new_songs.Count > 0 && counter < 10) {
+				counter++;
+				
+				Song song = (Song) new_songs.Dequeue ();
 
-			if (Songs.ContainsKey (song.Filename))
-				return true;
+				if (Songs.ContainsKey (song.Filename))
+					continue;
 
-			AddSong (song);
+				AddSong (song);
+			}
 
 			return true;
 		}

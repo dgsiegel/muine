@@ -35,6 +35,8 @@ public class CoverImage : EventBox
 		Add (image);
 
 		DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
+
+		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (HandleDoneLoading);
 	}
 
 	~CoverImage ()
@@ -53,17 +55,24 @@ public class CoverImage : EventBox
 		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
 	};
 
+	private void Sync ()
+	{
+		if (song != null && song.CoverImage != null)
+			image.FromPixbuf = song.CoverImage;
+		else if (Muine.CoverDB.Loading)
+			image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
+		else {
+			image.SetFromStock ("muine-default-cover",
+				            StockIcons.AlbumCoverSize);
+		}
+	}
+
 	private Song song;
 	public Song Song {
 		set {
 			song = value;
 
-			if (song != null && song.CoverImage != null)
-				image.FromPixbuf = song.CoverImage;
-			else {
-				image.SetFromStock ("muine-default-cover",
-					            StockIcons.AlbumCoverSize);
-			}
+			Sync ();
 			
 			if (song != null && song.Album.Length > 0) {
 				Gtk.Drag.DestSet (this, DestDefaults.All,
@@ -146,5 +155,10 @@ public class CoverImage : EventBox
 	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		HandleDrop (song, args);
+	}
+
+	private void HandleDoneLoading ()
+	{
+		Sync ();
 	}
 }

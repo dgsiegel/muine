@@ -39,6 +39,7 @@ public class CoverDatabase
 	
 	/*** constructor ***/
 	private IntPtr dbf;
+	private object dbf_box;
 
 	private GnomeProxy proxy;
 
@@ -65,6 +66,8 @@ public class CoverDatabase
 		if (dbf == IntPtr.Zero)
 			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to open database: {0}"), error));
 
+		dbf_box = dbf;
+
 		Covers = new Hashtable ();
 
 		proxy = new GnomeProxy ();
@@ -87,7 +90,9 @@ public class CoverDatabase
 		
 		db_unpack_pixbuf (data, out pix_handle);
 
-		Muine.CoverDB.Covers.Add (key, new Pixbuf (pix_handle));
+		LoadedCover lc = new LoadedCover (key, pix_handle);
+
+		loaded_covers.Enqueue (lc);
 	}
 
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
@@ -96,9 +101,78 @@ public class CoverDatabase
 	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
 					       IntPtr user_data);
 
+	private bool thread_done;
+
+	private Queue loaded_covers;
+
+	public bool Loading = true;
+
+	public delegate void DoneLoadingHandler ();
+	public event DoneLoadingHandler DoneLoading;
+
 	public void Load ()
 	{
-		db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+		thread_done = false;
+
+		loaded_covers = Queue.Synchronized (new Queue ());
+
+		GLib.Idle.Add (new GLib.IdleHandler (ProcessActionsFromThread));
+		
+		Thread thread = new Thread (new ThreadStart (LoadThread));
+		thread.Priority = ThreadPriority.BelowNormal;
+		thread.Start ();
+	}
+
+	private class LoadedCover {
+		public string Key;
+		public Pixbuf Pixbuf;
+
+		public LoadedCover (string key, IntPtr pixbuf_ptr) {
+			Key = key;
+
+			Pixbuf = new Pixbuf (pixbuf_ptr);
+		}
+	}
+
+	private bool ProcessActionsFromThread ()
+	{
+		int counter = 0;
+		
+		if (loaded_covers.Count > 0) {
+			while (loaded_covers.Count > 0 && counter < 10) {
+				LoadedCover lc = (LoadedCover) loaded_covers.Dequeue ();
+	
+				if (!Covers.ContainsKey (lc.Key))
+					Covers.Add (lc.Key, lc.Pixbuf);
+
+				Album a = (Album) Muine.DB.Albums [lc.Key];
+				if (a != null) {
+					a.CoverImage = lc.Pixbuf;
+
+					Muine.DB.EmitAlbumChanged (a);
+				}
+
+				counter++;
+			}
+
+			return true;
+		} else if (thread_done) {
+			Loading = false;
+
+			if (DoneLoading != null)
+				DoneLoading ();
+		}
+		
+		return !thread_done;
+	}
+
+	private void LoadThread ()
+	{
+		lock (dbf_box) {
+			db_foreach (dbf, new DecodeFuncDelegate (DecodeFunc), IntPtr.Zero);
+		}
+
+		thread_done = true;
 	}
 
 	/*** storing ***/
@@ -207,8 +281,10 @@ public class CoverDatabase
 
 		Covers.Add (key, pix);
 
-		db_store (dbf, key, false,
-		          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+		lock (dbf_box) {
+			db_store (dbf, key, false,
+			          new EncodeFuncDelegate (EncodeFunc), pix.Handle);
+		}
 	}
 
 	public void ReplaceCover (string key, Pixbuf pix)
@@ -223,7 +299,9 @@ public class CoverDatabase
 
 	public void RemoveCover (string key)
 	{
-		db_delete (dbf, key);
+		lock (dbf_box) {
+			db_delete (dbf, key);
+		}
 
 		Covers.Remove (key);
 	}

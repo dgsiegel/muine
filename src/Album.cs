@@ -52,7 +52,22 @@ public class Album
 		}
 	}
 
-	public Gdk.Pixbuf CoverImage;
+	public Gdk.Pixbuf cover_image;
+	public Gdk.Pixbuf CoverImage {
+		set {
+			cover_image = value;
+
+			foreach (Song s in Songs) {
+				s.CoverImage = CoverImage;
+
+				Muine.DB.UpdateSong (s);
+			}
+		}
+
+		get {
+			return cover_image;
+		}
+	}
 
 	private string sort_key = null;
 	public string SortKey {
@@ -122,7 +137,7 @@ public class Album
 		AddArtistsAndPerformers (initial_song);
 
 		name = initial_song.Album;
-		CoverImage = initial_song.CoverImage;
+		cover_image = initial_song.CoverImage;
 		year = initial_song.Year;
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
@@ -186,17 +201,6 @@ public class Album
 
 	private static IComparer song_comparer = new SongComparer ();
 
-	public void SyncCoverImageWith (Song song)
-	{
-		CoverImage = song.CoverImage;
-
-		foreach (Song s in Songs) {
-			s.CoverImage = CoverImage;
-
-			Muine.DB.UpdateSong (s);
-		}
-	}
-
 	public void AddSong (Song song, out bool album_changed)
 	{
 		Songs.Add (song);
@@ -204,7 +208,7 @@ public class Album
 
 		bool cover_changed = false;
 		if (CoverImage == null && song.CoverImage != null) {
-			SyncCoverImageWith (song);
+			CoverImage = song.CoverImage;
 
 			cover_changed = true;
 		} else
