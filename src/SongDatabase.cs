@@ -269,7 +269,7 @@ public class SongDatabase
 		if (SongRemoved != null)
 			SongRemoved (song);
 
-		Songs.Remove (song);
+		Songs.Remove (song.Filename);
 
 		RemoveFromAlbum (song);
 	}

@@ -1,3 +1,9 @@
+2004-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SongDatabase.cs:
+
+	Correctly remove songs from Songs hashtable.
+
 2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:
