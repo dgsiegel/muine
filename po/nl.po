@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-23 04:13+0200\n"
-"PO-Revision-Date: 2004-04-23 13:38+0200\n"
+"POT-Creation-Date: 2004-04-27 20:17+0200\n"
+"PO-Revision-Date: 2004-04-27 22:47+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,7 @@ msgstr "Vraag"
 msgid "Listen to your music"
 msgstr "Naar uw muziek luisteren"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:616
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:617
 msgid "Muine Music Player"
 msgstr "Muine muziekspeler"
 
@@ -202,67 +202,77 @@ msgid "Add song window width."
 msgstr "Nummer toevoegen vensterbreedte."
 
 #: data/muine.schemas.in.h:5
+msgid "Amazon site to use for album images."
+msgstr "Te gebruiken site van Amazon voor albumhoezen."
+
+#: data/muine.schemas.in.h:6
 msgid "Default import folder."
 msgstr "Standaard importmap."
 
-#: data/muine.schemas.in.h:6
+#: data/muine.schemas.in.h:7
 msgid "Default playlist folder."
 msgstr "Standaard speellijstmap."
 
-#: data/muine.schemas.in.h:7
+#: data/muine.schemas.in.h:8
 msgid "First start."
 msgstr "Eerste begin."
 
-#: data/muine.schemas.in.h:8
+#: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Mappen die bijgehouden worden voor veranderingen."
 
-#: data/muine.schemas.in.h:9
+#: data/muine.schemas.in.h:10
 msgid "Information window height."
 msgstr "Informatievenster hoogte."
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:11
 msgid "Information window width."
 msgstr "Informatievenster breedte."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Laatst gebruikte map bij selectie van speellijstbestanden."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:14
 msgid "Playlist window height."
 msgstr "Speellijst vensterhoogte."
 
-#: data/muine.schemas.in.h:14
+#: data/muine.schemas.in.h:15
 msgid "Playlist window width."
 msgstr "Speellijst vensterbreedte."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:16
 msgid "Repeat mode."
 msgstr "Herhaalstand."
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:17
 msgid "Volume level."
 msgstr "Geluidsvolume."
 
 # highest volume level = maximaal geluidsvolume
-#: data/muine.schemas.in.h:17
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:19
 msgid "Watched folders."
 msgstr "Bijgehouden mappen."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Of 'speellijst herhalen' wordt gebruikt of niet. "
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:21
+msgid ""
+"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
+"or \"jp\"."
+msgstr "Welke site van Amazon wordt gebruikt voor het ophalen van albumhoezen: \"us\" \"uk\" \"de\" of \"jp\"."
+
+#: data/muine.schemas.in.h:22
 msgid "false if Muine has been started before."
 msgstr "onwaar indien Muine al eerder is gestart."
 
@@ -283,25 +293,30 @@ msgstr "Kon de standaard GStreamer audiouitvoer niet gebruiken"
 msgid "Could not find the volume element in the GstPlay pipeline"
 msgstr "Kon het volume-element in de GstPlay pijplijn niet vinden"
 
-#: libmuine/player-xine.c:289
-msgid "Failed to set up an audio driver"
-msgstr "Instellen van geluidsstuurprogramma mislukt"
+#: libmuine/player-xine.c:283
+#, c-format
+msgid ""
+"Couldn't load the '%s' audio driver\n"
+"Check that the device is not busy."
+msgstr ""
+"Kon het audio-stuurprogramma '%s' niet laden\n"
+"Controleer of het apparaat niet bezig is."
 
-#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#: libmuine/player-xine.c:378 libmuine/player-xine.c:383
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "Geen plugin beschikbaar voor \"%s\""
 
-#: libmuine/player-xine.c:368
+#: libmuine/player-xine.c:388
 #, c-format
 msgid "Failed playing \"%s\""
 msgstr "Afspelen \"%s\" is mislukt"
 
-#: libmuine/player-xine.c:372
+#: libmuine/player-xine.c:392
 msgid "Internal error"
 msgstr "Interne fout"
 
-#: libmuine/player-xine.c:381
+#: libmuine/player-xine.c:401
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "Kon \"%s\" niet afspelen"
@@ -343,7 +358,7 @@ msgstr "Copyright © 2003, 2004 Jorn Baayen"
 msgid "A music player"
 msgstr "Een muziekspeler"
 
-#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:586
+#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:587
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Uitgevoerd door {0}"
@@ -395,11 +410,11 @@ msgstr "V_orige nummer"
 msgid "_Next Song"
 msgstr "_Volgende nummer"
 
-#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:249
+#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:250
 msgid "Show _Window"
 msgstr "_Venster tonen"
 
-#: src/Player.cs:51
+#: src/Player.cs:55
 #, csharp-format
 msgid ""
 "Error opening {0}:\n"
@@ -408,7 +423,7 @@ msgstr ""
 "Fout bij openen van {0}:\n"
 "{1}"
 
-#: src/Player.cs:232
+#: src/Player.cs:239
 #, csharp-format
 msgid ""
 "Audio backend error:\n"
@@ -417,36 +432,36 @@ msgstr ""
 "Audiobackend fout:\n"
 "{0}"
 
-#: src/PlaylistWindow.cs:247
+#: src/PlaylistWindow.cs:248
 msgid "Hide _Window"
 msgstr "_Venster verbergen"
 
-#: src/PlaylistWindow.cs:268
+#: src/PlaylistWindow.cs:269
 msgid "Play the previous song"
 msgstr "Het vorige nummer afspelen"
 
-#: src/PlaylistWindow.cs:270
+#: src/PlaylistWindow.cs:271
 msgid "Play the next song"
 msgstr "Het volgende nummer afspelen"
 
-#: src/PlaylistWindow.cs:272
+#: src/PlaylistWindow.cs:273
 msgid "Add an album to the playlist"
 msgstr "Album toevoegen aan de speellijst"
 
-#: src/PlaylistWindow.cs:274
+#: src/PlaylistWindow.cs:275
 msgid "Add a song to the playlist"
 msgstr "Nummer toevoegen aan de speellijst"
 
-#: src/PlaylistWindow.cs:282
+#: src/PlaylistWindow.cs:283
 msgid "Change the volume level"
 msgstr "Geluidsvolume aanpassen"
 
-#: src/PlaylistWindow.cs:365 src/PlaylistWindow.cs:483
-#: src/PlaylistWindow.cs:507 src/PlaylistWindow.cs:521
+#: src/PlaylistWindow.cs:366 src/PlaylistWindow.cs:484
+#: src/PlaylistWindow.cs:508 src/PlaylistWindow.cs:522
 msgid "Playlist"
 msgstr "Speellijst"
 
-#: src/PlaylistWindow.cs:401
+#: src/PlaylistWindow.cs:402
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -460,106 +475,106 @@ msgstr ""
 "Bezig met afsluiten..."
 
 # meervoud van uur is hier uur en niet uren
-#: src/PlaylistWindow.cs:500
+#: src/PlaylistWindow.cs:501
 #, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
 msgstr[0] "Speellijst (gedurende {0} uur herhalen)"
 msgstr[1] "Speellijst (gedurende {0} uur herhalen)"
 
-#: src/PlaylistWindow.cs:503
+#: src/PlaylistWindow.cs:504
 #, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
 msgstr[0] "Speellijst (gedurende {0} minuut herhalen)"
 msgstr[1] "Speellijst (gedurende {0} minuten herhalen)"
 
-#: src/PlaylistWindow.cs:505
+#: src/PlaylistWindow.cs:506
 msgid "Playlist (Repeating)"
 msgstr "Speellijst (herhalen)"
 
-#: src/PlaylistWindow.cs:514
+#: src/PlaylistWindow.cs:515
 #, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
 msgstr[0] "Speellijst ({0} uur resterend)"
 msgstr[1] "Speellijst ({0} uur resterend)"
 
-#: src/PlaylistWindow.cs:517
+#: src/PlaylistWindow.cs:518
 #, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
 msgstr[0] "Speellijst ({0} minuut resterend)"
 msgstr[1] "Speellijst ({0} minuten resterend)"
 
-#: src/PlaylistWindow.cs:519
+#: src/PlaylistWindow.cs:520
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Speellijst (minder dan 1 minuut resterend)"
 
 # uit ipv van?
-#: src/PlaylistWindow.cs:582
+#: src/PlaylistWindow.cs:583
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Van \"{0}\""
 
-#: src/PlaylistWindow.cs:584
+#: src/PlaylistWindow.cs:585
 msgid "Album unknown"
 msgstr "Onbekend album"
 
-#: src/PlaylistWindow.cs:589
+#: src/PlaylistWindow.cs:590
 msgid "Drop an image here to use it as album cover"
 msgstr "Sleep een afbeelding hiernaartoe om het als hoes te gebruiken"
 
-#: src/PlaylistWindow.cs:600
+#: src/PlaylistWindow.cs:601
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine muziekspeler"
 
-#: src/PlaylistWindow.cs:636
+#: src/PlaylistWindow.cs:637
 msgid "Pause music playback"
 msgstr "Afspelen pauzeren"
 
-#: src/PlaylistWindow.cs:640 src/PlaylistWindow.cs:643
+#: src/PlaylistWindow.cs:641 src/PlaylistWindow.cs:644
 msgid "P_ause"
 msgstr "P_auzeren"
 
-#: src/PlaylistWindow.cs:649
+#: src/PlaylistWindow.cs:650
 msgid "Resume music playback"
 msgstr "Afspelen hervatten"
 
 # Afspelen?
-#: src/PlaylistWindow.cs:653 src/PlaylistWindow.cs:656
-#: src/PlaylistWindow.cs:664 src/PlaylistWindow.cs:667
+#: src/PlaylistWindow.cs:654 src/PlaylistWindow.cs:657
+#: src/PlaylistWindow.cs:665 src/PlaylistWindow.cs:668
 msgid "Pl_ay"
 msgstr "_Afspelen"
 
-#: src/PlaylistWindow.cs:660
+#: src/PlaylistWindow.cs:661
 msgid "Start music playback"
 msgstr "Afspelen starten"
 
-#: src/PlaylistWindow.cs:722
+#: src/PlaylistWindow.cs:723
 #, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Openen van {0} voor lezen is mislukt"
 
-#: src/PlaylistWindow.cs:791
+#: src/PlaylistWindow.cs:792
 #, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Openen van {0} voor schrijven is mislukt"
 
-#: src/PlaylistWindow.cs:1169
+#: src/PlaylistWindow.cs:1178
 msgid "Import Folder"
 msgstr "Map importeren"
 
-#: src/PlaylistWindow.cs:1215
+#: src/PlaylistWindow.cs:1224
 msgid "Open Playlist"
 msgstr "Speellijst openen"
 
-#: src/PlaylistWindow.cs:1236
+#: src/PlaylistWindow.cs:1245
 msgid "Save Playlist"
 msgstr "Speellijst opslaan"
 
-#: src/PlaylistWindow.cs:1251
+#: src/PlaylistWindow.cs:1260
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
@@ -590,6 +605,9 @@ msgstr "{0} en anderen"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} en {1}"
+
+#~ msgid "Failed to set up an audio driver"
+#~ msgstr "Instellen van geluidsstuurprogramma mislukt"
 
 #~ msgid "Thanks to Amazon.com for providing album cover images!"
 #~ msgstr "Dank aan Amazon.com voor de afbeeldingen van de hoezen!"
