@@ -10,7 +10,7 @@
 
 	Add a comment explaining the AlbumKey stuff.
 
-2004-06-05  Edd Dumbill <edd@usefulinc.com>
+2004-06-05  Edd Dumbill  <edd@usefulinc.com>
 
 	* src/DashboardFrontend.cs:
 	* src/PlaylistWindow.cs:
