@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/muine/playlist_window/width</key>
+      <applyto>/apps/muine/playlist_window/width</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>500</default>
+      <locale name="C">
+        <short>Playlist window width.</short>
+        <long>Playlist window width.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/playlist_window/height</key>
+      <applyto>/apps/muine/playlist_window/height</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>400</default>
+      <locale name="C">
+        <short>Playlist window height.</short>
+        <long>Playlist window height.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/playlist_window/visible</key>
+      <applyto>/apps/muine/playlist_window/visible</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>1</default>
+      <locale name="C">
+        <short>Playlist window visibility.</short>
+        <long>Playlist window visible (true) or not (false).</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_song_window/width</key>
+      <applyto>/apps/muine/add_song_window/width</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>350</default>
+      <locale name="C">
+        <short>Add song window width.</short>
+        <long>Add song window width.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_song_window/height</key>
+      <applyto>/apps/muine/add_song_window/height</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>300</default>
+      <locale name="C">
+        <short>Add song window height.</short>
+        <long>Add song window height.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_album_window/width</key>
+      <applyto>/apps/muine/add_album_window/width</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>350</default>
+      <locale name="C">
+        <short>Add album window width.</short>
+        <long>Add album window width.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/add_album_window/height</key>
+      <applyto>/apps/muine/add_album_window/height</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>300</default>
+      <locale name="C">
+        <short>Add album window height.</short>
+        <long>Add album window height.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/volume</key>
+      <applyto>/apps/muine/volume</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>50</default>
+      <locale name="C">
+        <short>Volume level.</short>
+        <long>Volume level. 0 = lowest, 100 = highest.</long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>

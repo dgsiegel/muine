@@ -1,0 +1,89 @@
+AC_INIT(src/Muine.cs)
+
+AM_CONFIG_HEADER(config.h)
+
+AM_INIT_AUTOMAKE(muine, 0.0.3)
+
+AM_MAINTAINER_MODE
+
+AC_PROG_INTLTOOL([0.21])
+
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
+AM_PROG_LIBTOOL
+
+GNOME_DEBUG_CHECK
+GNOME_COMPILE_WARNINGS(error)
+AM_PATH_GLIB_2_0
+
+GSTREAMER_REQUIRED=0.6.0
+MONO_REQUIRED=0.29
+GTKSHARP_REQUIRED=0.15
+
+PKG_CHECK_MODULES(MUINE,
+		  gstreamer-0.6 >= $GSTREAMER_REQUIRED \
+		  gstreamer-gconf-0.6 >= $GSTREAMER_REQUIRED \
+		  gconf-2.0 \
+		  gnome-vfs-2.0 \
+		  gtk+-2.0 \
+		  id3tag)
+AC_SUBST(MUINE_CFLAGS)
+AC_SUBST(MUINE_LIBS)
+
+PKG_CHECK_MODULES(GTKSHARP,
+		  mono >= $MONO_REQUIRED \
+		  gtk-sharp >= $GTKSHARP_REQUIRED)
+
+dnl Handle GConf
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+AM_GCONF_SOURCE_2
+
+dnl Check for GDBM
+AC_CHECK_HEADER(gdbm.h,,AC_MSG_ERROR(you need gdbm))
+GDBM_LIBS="-lgdbm"
+AC_SUBST(GDBM_LIBS)
+
+dnl Check for Ogg Vorbis
+MM_PATH_OGG(, AC_MSG_ERROR(You need Ogg))
+AC_SUBST(OGG_CFLAGS)
+AC_SUBST(OGG_LIBS)
+
+MM_PATH_VORBIS(, AC_MSG_ERROR(You need Vorbis))
+AC_SUBST(VORBIS_CFLAGS)
+AC_SUBST(VORBIS_LIBS)
+AC_SUBST(VORBISFILE_CFLAGS)
+AC_SUBST(VORBISFILE_LIBS)
+
+dnl Check for Mono
+AC_PATH_PROG(MCS, mcs)
+AC_PATH_PROG(MONO, mono)
+
+MCS_FLAGS=
+MONO_FLAGS=
+if test $USE_MAINTAINER_MODE = yes; then
+	MCS_FLAGS="-g"
+	MONO_FLAGS="--debug"
+fi
+AC_SUBST(MCS_FLAGS)
+AC_SUBST(MONO_FLAGS)
+
+dnl Intl
+ALL_LINGUAS=""
+GETTEXT_PACKAGE=muine
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
+AM_GLIB_GNU_GETTEXT
+
+AC_OUTPUT([
+Makefile
+data/Makefile
+data/glade/Makefile
+data/images/Makefile
+libmuine/Makefile
+libmuine/id3-vfs/Makefile
+libmuine/egg/Makefile
+src/Makefile
+src/muine
+m4/Makefile
+])

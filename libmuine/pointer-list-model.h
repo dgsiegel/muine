@@ -1,0 +1,95 @@
+/* -*- mode: C; c-file-style: "gnu" -*- */
+/*
+ * Copyright (C) 2003 Richard Hult <richard@imendio.com>
+ * Copyright (C) 2004 Jorn Baayen <jorn@nl.linux.org>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#ifndef __POINTER_LIST_MODEL_H__
+#define __POINTER_LIST_MODEL_H__
+
+#include <gtk/gtktreemodel.h>
+#include "gsequence.h"
+
+#define TYPE_POINTER_LIST_MODEL		 (pointer_list_model_get_type ())
+#define POINTER_LIST_MODEL(obj)		 (GTK_CHECK_CAST ((obj), TYPE_POINTER_LIST_MODEL, PointerListModel))
+#define POINTER_LIST_MODEL_CLASS(klass)	 (GTK_CHECK_CLASS_CAST ((klass), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
+#define IS_POINTER_LIST_MODEL(obj)	  (GTK_CHECK_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
+#define IS_POINTER_LIST_MODEL_CLASS(klass)  (GTK_CHECK_CLASS_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
+#define POINTER_LIST_MODEL_GET_CLASS(obj)   (GTK_CHECK_GET_CLASS ((obj), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
+
+typedef struct _PointerListModel PointerListModel;
+typedef struct _PointerListModelClass PointerListModelClass;
+
+struct _PointerListModel {
+  GObject          parent_instance;
+  
+  int              stamp;
+
+  GCompareFunc     sort_func;
+  GtkSortType      sort_type;
+
+  GSequencePtr     current_pointer;
+
+  GSequencePtr     moved_pointer;
+  
+  GSequence       *pointers;
+  GHashTable      *reverse_map;
+};
+
+struct _PointerListModelClass {
+  GObjectClass parent_class;
+};
+
+
+GType         pointer_list_model_get_type       (void);
+GtkTreeModel *pointer_list_model_new            (void);
+gboolean      pointer_list_model_add            (PointerListModel *model,
+					         gpointer          pointer);
+void          pointer_list_model_remove         (PointerListModel *model,
+					         gpointer          pointer);
+void          pointer_list_model_remove_iter    (PointerListModel *model,
+					         GtkTreeIter      *iter);
+void          pointer_list_model_clear          (PointerListModel *model);
+void          pointer_list_model_set_sorting    (PointerListModel *model,
+					         GCompareFunc      func,
+					         GtkSortType       type);
+gboolean      pointer_list_model_pointer_get_iter (PointerListModel *model,
+					         gpointer          pointer,
+					         GtkTreeIter      *iter);
+gpointer      pointer_list_model_get_pointer    (PointerListModel *model,
+					         GtkTreeIter      *iter);
+GList *       pointer_list_model_get_pointers   (PointerListModel *model);
+gboolean      pointer_list_model_contains       (PointerListModel *model,
+						 gpointer          pointer);
+void          pointer_list_model_remove_delta   (PointerListModel *model,
+					         GList            *pointers);
+gpointer      pointer_list_model_get_current    (PointerListModel *model);
+gboolean      pointer_list_model_set_current    (PointerListModel *model,
+					         gpointer          pointer);
+gpointer      pointer_list_model_next           (PointerListModel *model);
+gpointer      pointer_list_model_prev           (PointerListModel *model);
+gpointer      pointer_list_model_first          (PointerListModel *model);
+gboolean      pointer_list_model_has_next       (PointerListModel *model);
+gboolean      pointer_list_model_has_prev       (PointerListModel *model);
+gboolean      pointer_list_model_has_first      (PointerListModel *model);
+void          pointer_list_model_state_changed  (PointerListModel *model);
+void          pointer_list_model_get_moved_iter (PointerListModel *model,
+						 GtkTreeIter      *iter);
+
+#endif /* __POINTER_LIST_MODEL_H__ */
+

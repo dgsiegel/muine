@@ -1,0 +1,48 @@
+0.0.2.5
+=======
+
+- Notification area icon
+
+0.0.2.4
+=======
+
+- Bugfixes
+
+0.0.2.3
+=======
+
+- Code cleanups
+- "Clear Played Songs" menu item
+
+0.0.2.2
+=======
+
+- Fix getting the duration of mp3 files for many cases.
+
+0.0.2.1
+=======
+
+- Major bugfixes
+
+0.0.2
+=====
+
+- Menu items for playing controls
+- Add seeking
+- Add volume control
+- Tooltip on album cover
+- Nicer album cover scaling
+- Support for removing songs from the playlist
+- Major bugfixes
+
+0.0.1.1
+=======
+
+- Add playlist reordering
+- Set window title
+- Minor bugfixes
+
+0.0.1
+=====
+
+- First release

@@ -1,0 +1,30 @@
+- album cover klikken laat je een cover kiezen
+- fix drop at end
+- impl rest of ui
+- pango stuff directly in C# with Gtk# CVS
+
+- listen to multimedia keys
+
+- library + add songs window
+
+- playlist manager/import:
+   - Playlists >
+      New...
+      Rename...
+      Delete
+      ---
+      Import from file...
+      Export to file...
+      ---
+      Forget All
+      Playlist 1
+      Playlist 2
+      Playlist 3
+
+import/list/direct edit
+
+--------------
+- import songs:
+   dir/loose file + 'add to playlist' checkbutton
+
+- panel crash
