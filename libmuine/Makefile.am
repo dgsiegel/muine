@@ -8,6 +8,7 @@ INCLUDES =							\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"		\
 	$(MUINE_CFLAGS)						\
 	$(OGG_CFLAGS)						\
+	$(ID3TAG_CFLAGS)					\
 	$(VORBIS_CFLAGS)					\
 	$(VORBISFILE_CFLAGS)					\
 	$(WARN_CFLAGS)						\

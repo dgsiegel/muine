@@ -1,5 +1,11 @@
 2004-11-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/Makefile.am:
+
+	Include ID3TAG_CFLAGS in CFLAGS. Pointed out by Mike Kestner.
+
+2004-11-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/muine.in:
 
 	Have the wrapper exec mono instead of forking. Patch by Peter Oliver.
