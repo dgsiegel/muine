@@ -2,4 +2,4 @@
 
 export MONO_GAC_PREFIX=$MONO_GAC_PREFIX:@prefix@
 
-exec @MONO@ @MONO_FLAGS@ @prefix@/lib/muine/muine.exe "$@"
+exec @mono@ @mono_flags@ @pkglibdir@/@target@ "$@"

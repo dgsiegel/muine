@@ -146,8 +146,6 @@ libmuine/egg/Makefile
 PluginLib/Makefile
 DBusLib/Makefile
 src/Makefile
-src/muine
-src/muine.exe.config
 plugins/Makefile
 doc/Makefile
 m4/Makefile

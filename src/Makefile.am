@@ -1,5 +1,8 @@
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)
 
+TARGET = muine.exe
+WRAPPER = muine
+
 MUINE_CSFILES =					\
 	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
@@ -72,34 +75,45 @@ MUINE_RESOURCES =												\
 AmazonSearchService.cs: AmazonSearchService.wsdl
 	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
 
+$(WRAPPER): $(srcdir)/$(WRAPPER).in
+	sed -e "s|\@prefix\@|$(prefix)|g" 		\
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
+	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@mono\@|$(MONO)|g"			\
+	    -e "s|\@mono_flags\@|$(MONO_FLAGS)|g"	\
+	    < $^ > $@
+	chmod +x $(WRAPPER)
+
+$(TARGET).config: $(srcdir)/$(TARGET).config.in
+	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
+	    < $^ > $@
+
 Defines.cs: $(srcdir)/Defines.cs.in
 	sed -e "s|\@version\@|$(VERSION)|"     \
 	    -e "s|\@datadir\@|$(datadir)|"     \
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $^ > $@
 
-muine.exe: $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll Defines.cs
+$(TARGET): $(MUINE_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll Defines.cs
 	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
 
-all: muine.exe
+all: $(TARGET)
 
 muinelibdir = $(pkglibdir)
-muinelib_DATA = muine.exe muine.exe.config
+muinelib_DATA = $(TARGET) $(TARGET).config
 
-bin_SCRIPTS = muine
+bin_SCRIPTS = $(WRAPPER)
 
 EXTRA_DIST =					\
 	$(MUINE_CSFILES)			\
 	AmazonSearchService.wsdl		\
-	muine.in				\
-	muine.exe.config.in			\
+	$(WRAPPER).in				\
+	$(TARGET).config.in			\
 	Defines.cs.in
 
 CLEANFILES =					\
 	AmazonSearchService.cs			\
-	muine.exe
-
-DISTCLEANFILES =				\
-	muine					\
-	muine.exe.config			\
-	Defines.cs
+	Defines.cs				\
+	$(TARGET)				\
+	$(TARGET).config			\
+	$(WRAPPER)
