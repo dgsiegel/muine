@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-27 20:17+0200\n"
-"PO-Revision-Date: 2004-04-27 18:36-0400\n"
+"POT-Creation-Date: 2004-05-19 20:41+0200\n"
+"PO-Revision-Date: 2004-05-19 20:43-0400\n"
 "Last-Translator: Jorn Baayen <jbaayen@gnome.org>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,8 +70,8 @@ msgstr ""
 "only and therefore not generally recommended."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
-msgstr "_Create an empty music collection "
+msgid "_Create an empty music collection"
+msgstr "_Create an empty music collection"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
@@ -182,86 +182,102 @@ msgid "Muine Music Player"
 msgstr "Muine Music Player"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr "Add album window height."
+msgid "\"Add album\" window height"
+msgstr "\"Add album\" window height"
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr "Add album window width."
+msgid "\"Add album\" window width"
+msgstr "\"Add album\" window width"
 
 #: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr "Add song window height."
+msgid "\"Add song\" window height"
+msgstr "\"Add song\" window height"
 
 #: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr "Add song window width."
+msgid "\"Add song\" window width"
+msgstr "\"Add song\" window width"
 
 #: data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images."
-msgstr "Amazon site to use for album images."
+msgid "Amazon site to use for album images"
+msgstr "Amazon site to use for album images"
 
 #: data/muine.schemas.in.h:6
-msgid "Default import folder."
-msgstr "Default import folder."
+msgid "Default import folder"
+msgstr "Default import folder"
 
 #: data/muine.schemas.in.h:7
-msgid "Default playlist folder."
-msgstr "Default playlist folder."
+msgid "Default playlist folder"
+msgstr "Default playlist folder"
 
 #: data/muine.schemas.in.h:8
-msgid "First start."
-msgstr "First start."
+msgid "First start"
+msgstr "First start"
 
 #: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Folders that are monitored for changes."
 
 #: data/muine.schemas.in.h:10
-msgid "Information window height."
-msgstr "Information window height."
+msgid "Height of the \"Add album\" window."
+msgstr "Height of the \"Add album\" window."
 
 #: data/muine.schemas.in.h:11
-msgid "Information window width."
-msgstr "Information window width."
+msgid "Height of the \"Add song\" window."
+msgstr "Height of the \"Add song\" window."
 
 #: data/muine.schemas.in.h:12
+msgid "Height of the information window."
+msgstr "Height of the information window."
+
+#: data/muine.schemas.in.h:13
+msgid "Height of the playlist window."
+msgstr "Height of the playlist window."
+
+#: data/muine.schemas.in.h:14
+msgid "Information window height"
+msgstr "Information window height"
+
+#: data/muine.schemas.in.h:15
+msgid "Information window width"
+msgstr "Information window width"
+
+#: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Last used folder from \"Import folder\" dialogue."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:17
 msgid "Last used folder from the playlist file selectors."
 msgstr "Last used folder from the playlist file selectors."
 
-#: data/muine.schemas.in.h:14
-msgid "Playlist window height."
-msgstr "Playlist window height."
-
-#: data/muine.schemas.in.h:15
-msgid "Playlist window width."
-msgstr "Playlist window width."
-
-#: data/muine.schemas.in.h:16
-msgid "Repeat mode."
-msgstr "Repeat mode."
-
-#: data/muine.schemas.in.h:17
-msgid "Volume level."
-msgstr "Volume level."
-
 #: data/muine.schemas.in.h:18
+msgid "Playlist window height"
+msgstr "Playlist window height"
+
+#: data/muine.schemas.in.h:19
+msgid "Playlist window width"
+msgstr "Playlist window width"
+
+#: data/muine.schemas.in.h:20
+msgid "Repeat mode"
+msgstr "Repeat mode"
+
+#: data/muine.schemas.in.h:21
+msgid "Volume level"
+msgstr "Volume level"
+
+#: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Volume level. 0 = lowest, 100 = highest."
 
-#: data/muine.schemas.in.h:19
-msgid "Watched folders."
-msgstr "Watched folders."
+#: data/muine.schemas.in.h:23
+msgid "Watched folders"
+msgstr "Watched folders"
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Whether or not to enable repeat playlist mode."
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:25
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -269,7 +285,23 @@ msgstr ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:26
+msgid "Width of the \"Add album\" window."
+msgstr "Width of the \"Add album\" window."
+
+#: data/muine.schemas.in.h:27
+msgid "Width of the \"Add song\" window."
+msgstr "Width of the \"Add song\" window."
+
+#: data/muine.schemas.in.h:28
+msgid "Width of the information window."
+msgstr "Width of the information window."
+
+#: data/muine.schemas.in.h:29
+msgid "Width of the playlist window."
+msgstr "Width of the playlist window."
+
+#: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
 msgstr "false if Muine has been started before."
 
@@ -325,32 +357,32 @@ msgstr "Jorn Baayen (jbaayen@gnome.org)"
 msgid "Lee Willis (lee@leewillis.co.uk)"
 msgstr "Lee Willis (lee@leewillis.co.uk)"
 
-#. please use Vietnamese spelling, if the relevant characters occur in
-#. * your language.
-#: src/About.cs:42
-msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#: src/About.cs:40
+#, fuzzy
+msgid "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
 msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
 
-#: src/About.cs:44
+#: src/About.cs:42
 msgid "Album covers are provided by amazon.com."
 msgstr "Album covers are provided by amazon.com."
 
-#: src/About.cs:54
+#: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
 "David Lodge (dave@cirt.net)\n"
-"Jorn Baayen (jbaayen@gnome.org)"
+"Jorn Baayen (jbaayen@gnome.org)\n"
+"Gareth Owen (gowen72@yahoo.com)"
 
-#: src/About.cs:59
+#: src/About.cs:57
 msgid "Muine"
 msgstr "Muine"
 
-#. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:61
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#: src/About.cs:58
+#, fuzzy
+msgid "Copyright © 2003, 2004 Jorn Baayen"
 msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
-#: src/About.cs:62
+#: src/About.cs:59
 msgid "A music player"
 msgstr "A music player"
 
@@ -363,7 +395,7 @@ msgstr "Performed by {0}"
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. * if "the" is included in this list. Also include the English "the"
 #. * if English is generally spoken in your country.
-#: src/Album.cs:93
+#: src/Album.cs:83
 msgid "the dj"
 msgstr "the dj"
 
@@ -419,7 +451,7 @@ msgstr ""
 "Error opening {0}:\n"
 "{1}"
 
-#: src/Player.cs:239
+#: src/Player.cs:235
 #, csharp-format
 msgid ""
 "Audio backend error:\n"
@@ -555,19 +587,19 @@ msgstr "Failed to open {0} for reading"
 msgid "Failed to open {0} for writing"
 msgstr "Failed to open {0} for writing"
 
-#: src/PlaylistWindow.cs:1178
+#: src/PlaylistWindow.cs:1192
 msgid "Import Folder"
 msgstr "Import Folder"
 
-#: src/PlaylistWindow.cs:1224
+#: src/PlaylistWindow.cs:1238
 msgid "Open Playlist"
 msgstr "Open Playlist"
 
-#: src/PlaylistWindow.cs:1245
+#: src/PlaylistWindow.cs:1259
 msgid "Save Playlist"
 msgstr "Save Playlist"
 
-#: src/PlaylistWindow.cs:1260
+#: src/PlaylistWindow.cs:1274
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
