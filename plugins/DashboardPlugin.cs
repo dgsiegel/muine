@@ -24,7 +24,7 @@ using System.Net.Sockets;
 using System.Xml;
 using System.Text;
 
-public class DashboardFrontend : Plugin
+public class DashboardPlugin : Plugin
 {
 	private PlayerInterface player;
 
