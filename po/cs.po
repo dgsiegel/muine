@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-21 04:55+0100\n"
-"PO-Revision-Date: 2004-01-21 20:40+0100\n"
+"POT-Creation-Date: 2004-01-23 05:00+0100\n"
+"PO-Revision-Date: 2004-01-23 17:36+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,76 +77,64 @@ msgid "TMP"
 msgstr "TMP"
 
 #: data/glade/PlaylistWindow.glade.h:9
-msgid "Volume _Down"
-msgstr "S_nížit hlasitost"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "Volume _Up"
-msgstr "Z_výšit hlasitost"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Actions"
-msgstr "_Akce"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Clear Playlist"
 msgstr "_Vymazat seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "_Fill queue with random songs from selected groups"
 msgstr "_Naplnit frontu náhodnými skladbami z vybraných skupin"
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:11
 msgid "_Groups"
 msgstr "_Skupiny"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Skrýt okno"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Import Folder..."
 msgstr "_Importovat adresář..."
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
 msgstr "_Následující"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:15
+msgid "_Open Playlist..."
+msgstr "_Otevřít seznam skladeb"
+
+#: data/glade/PlaylistWindow.glade.h:16
+msgid "_Playlist"
+msgstr "_Seznam skladeb"
+
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
 msgstr "_Předchozí"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Remove Song"
 msgstr "_Odstranit skladbu"
+
+#: data/glade/PlaylistWindow.glade.h:19
+msgid "_Save Playlist As..."
+msgstr "_Uložit seznam skladeb jako..."
 
 #: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "_Přeskočit na ..."
 
 #: data/glade/PlaylistWindow.glade.h:21
-msgid "_Volume"
-msgstr "_Hlasitost"
+msgid "_Song"
+msgstr "_Skladba"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
 msgstr "Načítám:"
 
 #: data/glade/SkipToWindow.glade.h:1
-msgid "0 seconds"
-msgstr "0 sekund"
-
-#: data/glade/SkipToWindow.glade.h:2
 msgid "Skip to"
 msgstr "Přeskočit na"
-
-#: data/glade/SkipToWindow.glade.h:3
-msgid "_Skip to:"
-msgstr "_Přeskočit na:"
-
-#: data/glade/SkipToWindow.glade.h:4
-msgid "seconds"
-msgstr "sekund"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -173,34 +161,50 @@ msgid "Add song window width."
 msgstr "Šířka okna přidání skladby."
 
 #: data/muine.schemas.in.h:5
+msgid "Default \"Open Playlist\" folder."
+msgstr "Implicitní adresář \"Otevřít seznam skladeb\"."
+
+#: data/muine.schemas.in.h:6
+msgid "Default \"Save Playlist As\" folder."
+msgstr "Implicitní adresář \"Uložit seznam skladeb jako\"."
+
+#: data/muine.schemas.in.h:7
 msgid "Default import folder."
 msgstr "Implicitní adresář importu."
 
-#: data/muine.schemas.in.h:6
-msgid "Last used folder from \"Import folder...\" dialog."
-msgstr "Poslední používaný adrseář z dialogu \"Importovat adresář...\""
+#: data/muine.schemas.in.h:8
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Poslední používaný adresář z dialogu \"Importovat adresář\""
 
-#: data/muine.schemas.in.h:7
+#: data/muine.schemas.in.h:9
+msgid "Last used folder from \"Open Playlist\" dialog."
+msgstr "Poslední používaný adresář z dialogu \"Otevřít seznam skladeb\"."
+
+#: data/muine.schemas.in.h:10
+msgid "Last used folder from \"Save Playlist As\" dialog."
+msgstr "Poslední používaný adresář z dialogu \"Uložit seznam skladeb jako\"."
+
+#: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Výška okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:8
+#: data/muine.schemas.in.h:12
 msgid "Playlist window visibility."
 msgstr "Viditelnost okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:9
+#: data/muine.schemas.in.h:13
 msgid "Playlist window visible (true) or not (false)."
 msgstr "Okno seznamu skladeb je (true) nebo není (false) viditelné."
 
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Šířka okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:15
 msgid "Volume level."
 msgstr "Úroveň hlasitosti."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:16
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Úroveň hlasitosti. 0 = nejnižší, 100 = nejvyšší.."
 
@@ -267,3 +271,24 @@ msgstr "Orientace"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Orientace oznamovací oblasti."
+
+#~ msgid "Volume _Down"
+#~ msgstr "S_nížit hlasitost"
+
+#~ msgid "Volume _Up"
+#~ msgstr "Z_výšit hlasitost"
+
+#~ msgid "_Actions"
+#~ msgstr "_Akce"
+
+#~ msgid "_Volume"
+#~ msgstr "_Hlasitost"
+
+#~ msgid "0 seconds"
+#~ msgstr "0 sekund"
+
+#~ msgid "_Skip to:"
+#~ msgstr "_Přeskočit na:"
+
+#~ msgid "seconds"
+#~ msgstr "sekund"
