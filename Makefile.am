@@ -2,7 +2,8 @@ SUBDIRS = 		\
 	data		\
 	libmuine	\
 	src		\
-	m4
+	m4		\
+	po
 
 EXTRA_DIST =			\
 	TODO			\

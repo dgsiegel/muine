@@ -1,11 +1,11 @@
-
 # Translation of muine to Croatiann
 # Copyright (C) Croatiann team
 # Translators: Automatski Prijevod <>,
 msgid ""
 msgstr ""
 "Project-Id-Version: muine \n"
-"POT-Creation-Date: 2004-02-09 15:48+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-02-09 16:01+CET\n"
 "Last-Translator: Robert Sedak <robert.sedak@sk.tel.hr>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -18,27 +18,19 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
-msgid "TITLE"
-msgstr "NASLOV"
-
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Sviraj"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Red"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "Traži :"
 
-#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr ""
-
-#: data/glade/ErrorDialog.glade.h:2
+#: data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Greška"
 
@@ -63,7 +55,8 @@ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 msgstr ""
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
-msgid "Muine was unable to find your music collection. What would you like me to do?"
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
 msgstr ""
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
@@ -179,7 +172,7 @@ msgstr ""
 msgid "Skip to"
 msgstr ""
 
-#: data/glade/YesNoDialog.glade.h:2
+#: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
 msgstr "Pitanje"
 
@@ -271,3 +264,31 @@ msgstr "Orijentacija"
 msgid "The orientation of the tray."
 msgstr "Usmjerenje trake."
 
+#: src/About.cs:52
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr ""
+
+#: src/About.cs:53
+msgid "A music player"
+msgstr ""
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "NASLOV"

@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
-"POT-Creation-Date: 2004-01-18 03:40+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-01-18 03:41+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -20,137 +21,175 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:3
-msgid "TITLE"
-msgstr "TITEL"
-
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Spela"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Kölägg"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "_Sök:"
 
 #: data/glade/ErrorDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr "FELMEDDELANDE"
-
-#: data/glade/ErrorDialog.glade.h:2
 msgid "Error"
 msgstr "Fel"
 
+#: data/glade/GroupsWindow.glade.h:1
+#, fuzzy
+msgid "<b>Groups</b>"
+msgstr "<b>Allmänt</b>"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr ""
+
+#: data/glade/GroupsWindow.glade.h:3
+#, fuzzy
+msgid "Groups"
+msgstr "_Grupper"
+
+#: data/glade/GroupsWindow.glade.h:4
+#, fuzzy
+msgid "_Add song"
+msgstr "Lägg till _låt"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr ""
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
+#, fuzzy
+msgid "Play _Album"
 msgstr "Lägg till _album"
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
+#, fuzzy
+msgid "Play _Album..."
 msgstr "Lägg till _album..."
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
-msgstr "Lägg till _låt"
+#, fuzzy
+msgid "Play _Song"
+msgstr "Spelar"
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
+#, fuzzy
+msgid "Play _Song..."
 msgstr "Lägg till _låt..."
 
 #: data/glade/PlaylistWindow.glade.h:5
+#, fuzzy
+msgid "R_epeat"
+msgstr "Upprepningsläge"
+
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
 msgstr "Ta bort _spelade låtar"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
 msgstr "Hoppa över _baklänges"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
 msgstr "Hoppa över _framlänges"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Volume _Down"
-msgstr "Volym _ned"
-
 #: data/glade/PlaylistWindow.glade.h:10
-msgid "Volume _Up"
-msgstr "Volym _upp"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Actions"
-msgstr "_Åtgärder"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Clear Playlist"
 msgstr "_Töm spellista"
 
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Fill queue with random songs from selected groups"
-msgstr "_Fyll kö med slumpmässiga låtar från markerade grupper"
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Groups"
-msgstr "_Grupper"
-
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:11
 msgid "_Hide Window"
 msgstr "_Dölj fönster"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr "_Importera mapp..."
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "_Nästa"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:14
+#, fuzzy
+msgid "_Open Playlist..."
+msgstr "_Töm spellista"
+
+#: data/glade/PlaylistWindow.glade.h:15
+#, fuzzy
+msgid "_Playlist"
+msgstr "Spellista"
+
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "_Ta bort låt"
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:18
+#, fuzzy
+msgid "_Save Playlist As..."
+msgstr "Spara spellista"
+
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr "_Hoppa till..."
 
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Volume"
-msgstr "_Volym"
+#: data/glade/PlaylistWindow.glade.h:20
+#, fuzzy
+msgid "_Song"
+msgstr "_Ljud"
 
 #: data/glade/ProgressWindow.glade.h:1
-msgid "FILENAME"
-msgstr "FILNAMN"
-
-#: data/glade/ProgressWindow.glade.h:2
 msgid "Loading:"
 msgstr "Läser in:"
 
 #: data/glade/SkipToWindow.glade.h:1
-msgid "0 seconds"
-msgstr "0 sekunder"
-
-#: data/glade/SkipToWindow.glade.h:2
 msgid "Skip to"
 msgstr "Hoppa till"
 
-#: data/glade/SkipToWindow.glade.h:3
-msgid "_Skip to:"
-msgstr "_Hoppa till:"
-
-#: data/glade/SkipToWindow.glade.h:4
-msgid "seconds"
-msgstr "sekunder"
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr ""
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -182,95 +221,58 @@ msgid "Default import folder."
 msgstr "_Importera mapp..."
 
 #: data/muine.schemas.in.h:6
-msgid "Last used folder from \"Import folder...\" dialog."
-msgstr ""
+#, fuzzy
+msgid "Default playlist folder."
+msgstr "_Importera mapp..."
 
 #: data/muine.schemas.in.h:7
-msgid "Playlist window height."
+msgid "First start."
 msgstr ""
 
 #: data/muine.schemas.in.h:8
-msgid "Playlist window visibility."
+msgid "Folders that are monitored for changes."
 msgstr ""
 
 #: data/muine.schemas.in.h:9
-msgid "Playlist window visible (true) or not (false)."
+msgid "Last used folder from \"Import folder\" dialog."
 msgstr ""
 
 #: data/muine.schemas.in.h:10
-msgid "Playlist window width."
+msgid "Last used folder from the playlist file selectors."
 msgstr ""
 
 #: data/muine.schemas.in.h:11
+msgid "Playlist window height."
+msgstr ""
+
+#: data/muine.schemas.in.h:12
+msgid "Playlist window width."
+msgstr ""
+
+#: data/muine.schemas.in.h:13
+msgid "Repeat mode."
+msgstr "Upprepningsläge."
+
+#: data/muine.schemas.in.h:14
 #, fuzzy
 msgid "Volume level."
 msgstr "Volym upp"
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:15
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:154
-#, fuzzy
-msgid "Pixbuf"
-msgstr "Pixbuf-objekt"
-
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
+#: data/muine.schemas.in.h:16
+msgid "Watched folders."
 msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Filnamn"
-
-#: libmuine/egg/eggstatusicon.c:163
-#, fuzzy
-msgid "Filename to load and display"
-msgstr "Misslyckades med att läsa in biblioteket!"
-
-#: libmuine/egg/eggstatusicon.c:170
-#, fuzzy
-msgid "Stock ID"
-msgstr "Standardikon"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
 msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:178
-#, fuzzy
-msgid "Animation"
-msgstr "Ytterligare"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
 msgstr ""
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
-msgstr ""
-
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr ""
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Storlek"
-
-#: libmuine/egg/eggstatusicon.c:196
-#, fuzzy
-msgid "The size of the icon"
-msgstr "Ljusstyrkan för videon"
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Blinkar"
-
-#: libmuine/egg/eggstatusicon.c:206
-#, fuzzy
-msgid "Whether or not the status icon is blinking"
-msgstr "Huruvida åtgärden är aktiverad."
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -279,6 +281,100 @@ msgstr "Orientering"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Orienteringen på lådan."
+
+#: src/About.cs:52
+#, fuzzy
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr "Copyright © 2002 Bastien Nocera"
+
+#: src/About.cs:53
+#, fuzzy
+msgid "A music player"
+msgstr "Musikspelare"
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "TITEL"
+
+#~ msgid "ERROR MESSAGE"
+#~ msgstr "FELMEDDELANDE"
+
+#~ msgid "Volume _Down"
+#~ msgstr "Volym _ned"
+
+#~ msgid "Volume _Up"
+#~ msgstr "Volym _upp"
+
+#~ msgid "_Actions"
+#~ msgstr "_Åtgärder"
+
+#~ msgid "_Fill queue with random songs from selected groups"
+#~ msgstr "_Fyll kö med slumpmässiga låtar från markerade grupper"
+
+#~ msgid "_Volume"
+#~ msgstr "_Volym"
+
+#~ msgid "FILENAME"
+#~ msgstr "FILNAMN"
+
+#~ msgid "0 seconds"
+#~ msgstr "0 sekunder"
+
+#~ msgid "_Skip to:"
+#~ msgstr "_Hoppa till:"
+
+#~ msgid "seconds"
+#~ msgstr "sekunder"
+
+#, fuzzy
+#~ msgid "Pixbuf"
+#~ msgstr "Pixbuf-objekt"
+
+#~ msgid "Filename"
+#~ msgstr "Filnamn"
+
+#, fuzzy
+#~ msgid "Filename to load and display"
+#~ msgstr "Misslyckades med att läsa in biblioteket!"
+
+#, fuzzy
+#~ msgid "Stock ID"
+#~ msgstr "Standardikon"
+
+#, fuzzy
+#~ msgid "Animation"
+#~ msgstr "Ytterligare"
+
+#~ msgid "Size"
+#~ msgstr "Storlek"
+
+#, fuzzy
+#~ msgid "The size of the icon"
+#~ msgstr "Ljusstyrkan för videon"
+
+#~ msgid "Blinking"
+#~ msgstr "Blinkar"
+
+#, fuzzy
+#~ msgid "Whether or not the status icon is blinking"
+#~ msgstr "Huruvida åtgärden är aktiverad."
 
 #~ msgid "Queue"
 #~ msgstr "Kölägg"
@@ -297,12 +393,6 @@ msgstr "Orienteringen på lådan."
 
 #~ msgid "Loading..."
 #~ msgstr "Läser in..."
-
-#~ msgid "Music Player"
-#~ msgstr "Musikspelare"
-
-#~ msgid "Playlist"
-#~ msgstr "Spellista"
 
 #~ msgid "Repeat _mode"
 #~ msgstr "Upprepnings_läge"
@@ -330,9 +420,6 @@ msgstr "Orienteringen på lådan."
 
 #~ msgid "<b>Audio</b>"
 #~ msgstr "<b>Ljud</b>"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Allmänt</b>"
 
 #~ msgid "<b>Video</b>"
 #~ msgstr "<b>Video</b>"
@@ -741,9 +828,6 @@ msgstr "Orienteringen på lådan."
 #~ msgid "_Show/Hide Playlist"
 #~ msgstr "_Visa/Dölj spellista"
 
-#~ msgid "_Sound"
-#~ msgstr "_Ljud"
-
 #~ msgid "_TV-out mode"
 #~ msgstr "_TV-ut-läge"
 
@@ -781,9 +865,6 @@ msgstr "Orienteringen på lådan."
 
 #~ msgid "Repeat mode"
 #~ msgstr "Upprepningsläge"
-
-#~ msgid "Repeat mode."
-#~ msgstr "Upprepningsläge."
 
 #~ msgid "Resize the canvas automatically on file load"
 #~ msgstr "Ändra storleken automatiskt vid filinläsning"
@@ -1045,9 +1126,6 @@ msgstr "Orienteringen på lådan."
 #~ msgid "Select files"
 #~ msgstr "Välj filer"
 
-#~ msgid "Save playlist"
-#~ msgstr "Spara spellista"
-
 #~ msgid ""
 #~ "A file named '%s' already exists.\n"
 #~ "Are you sure you want to overwrite it?"
@@ -1140,9 +1218,6 @@ msgstr "Orienteringen på lådan."
 
 #~ msgid "Download"
 #~ msgstr "Hämta"
-
-#~ msgid "Playing"
-#~ msgstr "Spelar"
 
 #~ msgid "Paused"
 #~ msgstr "Gör paus"
@@ -1507,9 +1582,6 @@ msgstr "Orienteringen på lådan."
 #~ msgid "Type of visualisation:"
 #~ msgstr "Typ av visualisering:"
 
-#~ msgid "Repeat Mode"
-#~ msgstr "Upprepningsläge"
-
 #~ msgid "Brightness: "
 #~ msgstr "Ljusstyrka: "
 
@@ -1745,9 +1817,6 @@ msgstr "Orienteringen på lådan."
 #~ msgstr "Orsak: Videotypen \"%s\" stöds inte."
 
 #~ msgid "Copyright  2002 Bastien Nocera"
-#~ msgstr "Copyright © 2002 Bastien Nocera"
-
-#~ msgid "Copyright (C) 2002 Bastien Nocera"
 #~ msgstr "Copyright © 2002 Bastien Nocera"
 
 #~ msgid "Time: %s"

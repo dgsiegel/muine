@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-12 16:53+0100\n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-02-12 18:57+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
@@ -19,28 +19,20 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
-msgid "TITLE"
-msgstr "TITLE"
-
 # Afspelen?
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Afspelen"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Wachtrij"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "_Zoeken:"
 
-#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr "ERROR MESSAGE"
-
-#: data/glade/ErrorDialog.glade.h:2
+#: data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Fout"
 
@@ -74,7 +66,10 @@ msgid ""
 "Muine will create the folders Music and Music/Playlists in your home folder "
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
-msgstr "Muine zal de mappen Music en Music/Playlists in uw persoonlijke map aanmaken om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U kunt altijd handmatig andere mappen importeren."
+msgstr ""
+"Muine zal de mappen Music en Music/Playlists in uw persoonlijke map aanmaken "
+"om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U kunt altijd "
+"handmatig andere mappen importeren."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
@@ -84,7 +79,9 @@ msgstr "Geen muziek gevonden"
 msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefor not generally recommended."
-msgstr "U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren gebruikers en wordt daarom gewoonlijk afgeraden."
+msgstr ""
+"U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren "
+"gebruikers en wordt daarom gewoonlijk afgeraden."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
 msgid "_Create an empty music collection "
@@ -184,7 +181,7 @@ msgstr "Laden:"
 msgid "Skip to"
 msgstr "Vooruit naar"
 
-#: data/glade/YesNoDialog.glade.h:2
+#: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
 msgstr "Vragen"
 
@@ -277,6 +274,38 @@ msgstr "Oriëntatie"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "De oriëntatie van het blad."
+
+#: src/About.cs:52
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr ""
+
+#: src/About.cs:53
+msgid "A music player"
+msgstr "Een muziekspeler"
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "TITLE"
+
+#~ msgid "ERROR MESSAGE"
+#~ msgstr "ERROR MESSAGE"
 
 #~ msgid "Add _Song"
 #~ msgstr "_Nummer toevoegen"

@@ -42,9 +42,10 @@ ASSEMBLIES =					\
 	/r:glib-sharp				\
 	/r:gnome-sharp				\
 	/r:gtk-sharp				\
+	/r:pango-sharp				\
+	/r:GNU.Gettext.dll			\
 	/r:AmazonSearchService.dll		\
-	/r:System.Web.Services			\
-	/r:pango-sharp
+	/r:System.Web.Services
 
 RESOURCES =											\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade		\

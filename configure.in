@@ -98,4 +98,6 @@ libmuine/egg/Makefile
 src/Makefile
 src/muine
 m4/Makefile
+po/Makefile.in
+po/Makefile
 ])

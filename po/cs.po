@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-10 15:43+0100\n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-02-10 20:19+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -20,27 +20,19 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
-msgid "TITLE"
-msgstr "NÁZEV"
-
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Přehrávat"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Fronta"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "_Hledat:"
 
-#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr "ZPRÁVA O CHYBĚ"
-
-#: data/glade/ErrorDialog.glade.h:2
+#: data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Chyba"
 
@@ -62,7 +54,8 @@ msgstr "_Přidat skladbu"
 
 #: data/glade/NoMusicFoundWindow.glade.h:1
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Nebyla nalezena žádná hudba</span>"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Nebyla nalezena žádná hudba</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
 msgid ""
@@ -74,7 +67,10 @@ msgid ""
 "Muine will create the folders Music and Music/Playlists in your home folder "
 "to store your music files. This option is highly recommended. You can always "
 "import other folders manually."
-msgstr "Muine vytvoří adresáře Music a Music/Playlists ve vašem domovském adresáři pro ukládání vašich souborů hudby. Tato možnost se velice doporučuje. Jiné adresáře můžete kdykoli importovat ručně."
+msgstr ""
+"Muine vytvoří adresáře Music a Music/Playlists ve vašem domovském adresáři "
+"pro ukládání vašich souborů hudby. Tato možnost se velice doporučuje. Jiné "
+"adresáře můžete kdykoli importovat ručně."
 
 #: data/glade/NoMusicFoundWindow.glade.h:4
 msgid "No Music Found"
@@ -84,7 +80,9 @@ msgstr "Nenalezena žádná hudba"
 msgid ""
 "You will have to import your music manually. This is for experienced users "
 "only and therefor not generally recommended."
-msgstr "Budete muset svou hudbu importovat ručně. Toto je jen pro zkušené uživatele a proto se obecně nedoporučuje."
+msgstr ""
+"Budete muset svou hudbu importovat ručně. Toto je jen pro zkušené uživatele "
+"a proto se obecně nedoporučuje."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
 msgid "_Create an empty music collection "
@@ -182,7 +180,7 @@ msgstr "Načítám:"
 msgid "Skip to"
 msgstr "Přeskočit na"
 
-#: data/glade/YesNoDialog.glade.h:2
+#: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
 msgstr "Otázka"
 
@@ -273,6 +271,39 @@ msgstr "Orientace"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Orientace oznamovací oblasti."
+
+#: src/About.cs:52
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr ""
+
+#: src/About.cs:53
+#, fuzzy
+msgid "A music player"
+msgstr "Přehrávač hudby Muine"
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "NÁZEV"
+
+#~ msgid "ERROR MESSAGE"
+#~ msgstr "ZPRÁVA O CHYBĚ"
 
 #~ msgid "_Fill queue with random songs from selected groups"
 #~ msgstr "_Naplnit frontu náhodnými skladbami z vybraných skupin"

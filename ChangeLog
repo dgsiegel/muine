@@ -1,5 +1,32 @@
 2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* Makefile.am:
+	* README:
+	* TODO:
+	* configure.in:
+	* data/glade/AddWindow.glade:
+	* data/glade/ErrorDialog.glade:
+	* data/glade/ProgressWindow.glade:
+	* data/glade/YesNoDialog.glade:
+	* po/POTFILES.in:
+	* po/cs.po:
+	* po/de.po:
+	* po/es.po:
+	* po/fr.po:
+	* po/hr.po:
+	* po/nl.po:
+	* po/sr.po:
+	* po/sr@Latn.po:
+	* po/sv.po:
+	* src/About.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+
+	First stab at proper translation support. This needs gettext 0.14
+	or higher. Will finish tomorrow.
+
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/pointer-list-view.c: (pointer_list_view_select_first),
 	(pointer_list_view_select_next), (pointer_list_view_select_prev),
 	(pointer_list_view_select):

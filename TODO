@@ -9,6 +9,7 @@ o Add folder DnD from Nautilus to the playlist window, adding to a) the library
   and b) the playlist.
 o DnD m3u files to the playlist window should load them
 o D-BUS service (Sergio Rubio is on this)
+o Finish marking strings for translation
 
 Tough:
 ======
@@ -53,8 +54,6 @@ Depends on other components:
 ============================
 o Directly use Pango# instead of using pango-utils.c
   Depends on Gtk#, Ximian Bugzilla #52575
-o Translation
-  Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
   Depends on Mono, Ximian Bugzilla #53807
 o Make title and artist label one for easier selection.

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-21 04:55+0100\n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-01-21 20:40+0100\n"
 "Last-Translator: Sergio Rubio <sergio.rubio@hispalinux.es>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -20,133 +20,174 @@ msgstr ""
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
-msgid "TITLE"
-msgstr "TÍTULO"
-
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Tocar"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Encolar"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "_Buscar:"
 
 #: data/glade/ErrorDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr "MENSAJE DE ERROR"
-
-#: data/glade/ErrorDialog.glade.h:2
 msgid "Error"
 msgstr "Error"
 
+#: data/glade/GroupsWindow.glade.h:1
+#, fuzzy
+msgid "<b>Groups</b>"
+msgstr "_Grupos"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr ""
+
+#: data/glade/GroupsWindow.glade.h:3
+#, fuzzy
+msgid "Groups"
+msgstr "_Grupos"
+
+#: data/glade/GroupsWindow.glade.h:4
+#, fuzzy
+msgid "_Add song"
+msgstr "Añadir _Canción"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr ""
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
+#, fuzzy
+msgid "Play _Album"
 msgstr "Añadir _Album"
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
+#, fuzzy
+msgid "Play _Album..."
 msgstr "Añadir _Album"
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
+#, fuzzy
+msgid "Play _Song"
 msgstr "Añadir _Canción"
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
+#, fuzzy
+msgid "Play _Song..."
 msgstr "Añadir _Canción"
 
 #: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr ""
+
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
 msgstr "Eliminar _Canciones Escuchadas"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
 msgstr "Saltar _Atrás"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
 msgstr "Saltar A_delante"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Volume _Down"
-msgstr "_Bajar Volumen"
-
 #: data/glade/PlaylistWindow.glade.h:10
-msgid "Volume _Up"
-msgstr "_Subir Volumen"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Actions"
-msgstr "_Acciones"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Clear Playlist"
 msgstr "_Limpiar Lista de reproducción"
 
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Fill queue with random songs from selected groups"
-msgstr "_Llenar la cola con canciones aleatorias de los grupos seleccionados"
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Groups"
-msgstr "_Grupos"
-
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:11
 msgid "_Hide Window"
 msgstr "_Ocultar Ventana"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr "_Importar Carpeta..."
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:14
+#, fuzzy
+msgid "_Open Playlist..."
+msgstr "_Limpiar Lista de reproducción"
+
+#: data/glade/PlaylistWindow.glade.h:15
+#, fuzzy
+msgid "_Playlist"
+msgstr "_Limpiar Lista de reproducción"
+
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "_Eliminar Canción"
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:18
+#, fuzzy
+msgid "_Save Playlist As..."
+msgstr "_Limpiar Lista de reproducción"
+
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr "_Saltar a..."
 
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Volume"
-msgstr "_Volumen"
+#: data/glade/PlaylistWindow.glade.h:20
+#, fuzzy
+msgid "_Song"
+msgstr "Añadir _Canción"
 
 #: data/glade/ProgressWindow.glade.h:1
 msgid "Loading:"
 msgstr "Cargando:"
 
 #: data/glade/SkipToWindow.glade.h:1
-msgid "0 seconds"
-msgstr "0 segundos"
-
-#: data/glade/SkipToWindow.glade.h:2
 msgid "Skip to"
 msgstr "Saltar a"
 
-#: data/glade/SkipToWindow.glade.h:3
-msgid "_Skip to:"
-msgstr "_Saltar a:"
-
-#: data/glade/SkipToWindow.glade.h:4
-msgid "seconds"
-msgstr "segundos"
+#: data/glade/YesNoDialog.glade.h:1
+msgid "Question"
+msgstr ""
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -177,88 +218,59 @@ msgid "Default import folder."
 msgstr "Carpeta para importar por defecto."
 
 #: data/muine.schemas.in.h:6
-msgid "Last used folder from \"Import folder...\" dialog."
-msgstr "Última carpeta usada desde el diálogo \"Importar carpeta...\""
+#, fuzzy
+msgid "Default playlist folder."
+msgstr "Carpeta para importar por defecto."
 
 #: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr ""
+
+#: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr ""
+
+#: data/muine.schemas.in.h:9
+#, fuzzy
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Última carpeta usada desde el diálogo \"Importar carpeta...\""
+
+#: data/muine.schemas.in.h:10
+#, fuzzy
+msgid "Last used folder from the playlist file selectors."
+msgstr "Última carpeta usada desde el diálogo \"Importar carpeta...\""
+
+#: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Altura de la ventana de lista de reproducción."
 
-#: data/muine.schemas.in.h:8
-msgid "Playlist window visibility."
-msgstr "Visibilidad de la ventana de lista de reproducción."
-
-#: data/muine.schemas.in.h:9
-msgid "Playlist window visible (true) or not (false)."
-msgstr "Ventana de lista de reproducción visible (true) o no (false)."
-
-#: data/muine.schemas.in.h:10
+#: data/muine.schemas.in.h:12
 msgid "Playlist window width."
 msgstr "Anchura de la ventana de lista de reproducción."
 
-#: data/muine.schemas.in.h:11
+#: data/muine.schemas.in.h:13
+msgid "Repeat mode."
+msgstr ""
+
+#: data/muine.schemas.in.h:14
 msgid "Volume level."
 msgstr "Nivel de volumen."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:15
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Nivel de volumen. 0 = el más bajo, 100 = el más alto."
 
-#: libmuine/egg/eggstatusicon.c:154
-msgid "Pixbuf"
-msgstr "Imagen"
+#: data/muine.schemas.in.h:16
+msgid "Watched folders."
+msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
-msgstr "El GdkPixbuf a mostrar"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
+msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Nombre del archivo"
-
-#: libmuine/egg/eggstatusicon.c:163
-msgid "Filename to load and display"
-msgstr "Nombre del archivo para cargar y mostrar"
-
-#: libmuine/egg/eggstatusicon.c:170
-msgid "Stock ID"
-msgstr "Stock ID"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
-msgstr "Stock ID de la imagen a mostrar"
-
-#: libmuine/egg/eggstatusicon.c:178
-msgid "Animation"
-msgstr "Animación"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
-msgstr "GdkPixbufAnimation a mostrar"
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
-msgstr "Tipo de la imagen"
-
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr "La representación usada para los datos de la imagen"
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Tamaño"
-
-#: libmuine/egg/eggstatusicon.c:196
-msgid "The size of the icon"
-msgstr "El tamaño del icono"
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Parpadeante"
-
-#: libmuine/egg/eggstatusicon.c:206
-msgid "Whether or not the status icon is blinking"
-msgstr "Si el icono de estado es parpadeante"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
+msgstr ""
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -267,3 +279,109 @@ msgstr "Orientación"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "La orientación de la bandeja."
+
+#: src/About.cs:52
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr ""
+
+#: src/About.cs:53
+#, fuzzy
+msgid "A music player"
+msgstr "Reproductor de Música Muine"
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "TÍTULO"
+
+#~ msgid "ERROR MESSAGE"
+#~ msgstr "MENSAJE DE ERROR"
+
+#~ msgid "Volume _Down"
+#~ msgstr "_Bajar Volumen"
+
+#~ msgid "Volume _Up"
+#~ msgstr "_Subir Volumen"
+
+#~ msgid "_Actions"
+#~ msgstr "_Acciones"
+
+#~ msgid "_Fill queue with random songs from selected groups"
+#~ msgstr ""
+#~ "_Llenar la cola con canciones aleatorias de los grupos seleccionados"
+
+#~ msgid "_Volume"
+#~ msgstr "_Volumen"
+
+#~ msgid "0 seconds"
+#~ msgstr "0 segundos"
+
+#~ msgid "_Skip to:"
+#~ msgstr "_Saltar a:"
+
+#~ msgid "seconds"
+#~ msgstr "segundos"
+
+#~ msgid "Playlist window visibility."
+#~ msgstr "Visibilidad de la ventana de lista de reproducción."
+
+#~ msgid "Playlist window visible (true) or not (false)."
+#~ msgstr "Ventana de lista de reproducción visible (true) o no (false)."
+
+#~ msgid "Pixbuf"
+#~ msgstr "Imagen"
+
+#~ msgid "A GdkPixbuf to display"
+#~ msgstr "El GdkPixbuf a mostrar"
+
+#~ msgid "Filename"
+#~ msgstr "Nombre del archivo"
+
+#~ msgid "Filename to load and display"
+#~ msgstr "Nombre del archivo para cargar y mostrar"
+
+#~ msgid "Stock ID"
+#~ msgstr "Stock ID"
+
+#~ msgid "Stock ID for a stock image to display"
+#~ msgstr "Stock ID de la imagen a mostrar"
+
+#~ msgid "Animation"
+#~ msgstr "Animación"
+
+#~ msgid "GdkPixbufAnimation to display"
+#~ msgstr "GdkPixbufAnimation a mostrar"
+
+#~ msgid "Image type"
+#~ msgstr "Tipo de la imagen"
+
+#~ msgid "The representation being used for image data"
+#~ msgstr "La representación usada para los datos de la imagen"
+
+#~ msgid "Size"
+#~ msgstr "Tamaño"
+
+#~ msgid "The size of the icon"
+#~ msgstr "El tamaño del icono"
+
+#~ msgid "Blinking"
+#~ msgstr "Parpadeante"
+
+#~ msgid "Whether or not the status icon is blinking"
+#~ msgstr "Si el icono de estado es parpadeante"

@@ -8,40 +8,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-23 12:36+0100\n"
+"POT-Creation-Date: 2004-02-15 01:10+0100\n"
 "PO-Revision-Date: 2004-01-23 12:44+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: data/glade/AddWindow.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: data/glade/AddWindow.glade.h:2 data/glade/ProgressWindow.glade.h:2
-msgid "TITLE"
-msgstr "NASLOV"
-
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Play"
 msgstr "_Pusti"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Queue"
 msgstr "_Zakaži"
 
-#: data/glade/AddWindow.glade.h:5
+#: data/glade/AddWindow.glade.h:4
 msgid "_Search:"
 msgstr "_Traži:"
 
-#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
-msgid "ERROR MESSAGE"
-msgstr "PORUKA O GREŠCI"
-
-#: data/glade/ErrorDialog.glade.h:2
+#: data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Greška"
 
@@ -61,87 +54,124 @@ msgstr "Grupe"
 msgid "_Add song"
 msgstr "_Dodaj pesmu"
 
+#: data/glade/NoMusicFoundWindow.glade.h:1
+#, fuzzy
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\">Broj pesme: </span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr ""
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+#, fuzzy
+msgid "_Create an empty music collection "
+msgstr "Organizuj i izvodi svoju muzičku zbirku"
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr ""
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
-msgstr "Dodaj _album"
+#, fuzzy
+msgid "Play _Album"
+msgstr "Izve_di album"
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
-msgstr "Dodaj _album..."
+#, fuzzy
+msgid "Play _Album..."
+msgstr "Izve_di album"
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
-msgstr "_Dodaj pesmu"
+#, fuzzy
+msgid "Play _Song"
+msgstr "Izvedi pesmu kasnije"
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
+#, fuzzy
+msgid "Play _Song..."
 msgstr "_Dodaj pesmu..."
 
 #: data/glade/PlaylistWindow.glade.h:5
+#, fuzzy
+msgid "R_epeat"
+msgstr "_Ponavljaj"
+
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
 msgstr "Ukloni _puštenu pesmu"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
 msgstr "Preskoči u_nazad"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
 msgstr "Preskoči unap_red"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
 msgstr "PRIV"
 
-#: data/glade/PlaylistWindow.glade.h:9
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "_Clear Playlist"
 msgstr "_Očisti spisak pesama"
 
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "_Fill queue with random songs from selected groups"
-msgstr "_Zakaži slučajno izabrane pesme iz izabranih grupa"
-
 #: data/glade/PlaylistWindow.glade.h:11
-msgid "_Groups"
-msgstr "_Grupe"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Sakrij prozor"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr "U_vezi direktorijum..."
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "Sle_deća"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Open Playlist..."
 msgstr "_Otvori spisak pesama..."
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Playlist"
 msgstr "S_pisak pesama"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "_Prethodna"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "U_kloni pesmu"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Save Playlist As..."
 msgstr "_Sačuvaj spisak pesama kao..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr "Preskoči _na..."
 
-#: data/glade/PlaylistWindow.glade.h:21
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Song"
 msgstr "_Pesma"
 
@@ -149,23 +179,11 @@ msgstr "_Pesma"
 msgid "Loading:"
 msgstr "Učitavam:"
 
-#: data/glade/SearchMusicWindow.glade.h:1
-msgid "Search for Music"
-msgstr "Traži pesme"
-
-#: data/glade/SearchMusicWindow.glade.h:2
-msgid "Welcome to Muine"
-msgstr "Dobrodošli u Mujnu"
-
-#: data/glade/SearchMusicWindow.glade.h:3
-msgid "_Search"
-msgstr "_Traži"
-
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Preskoči na"
 
-#: data/glade/YesNoDialog.glade.h:2
+#: data/glade/YesNoDialog.glade.h:1
 msgid "Question"
 msgstr "Pitanje"
 
@@ -194,109 +212,63 @@ msgid "Add song window width."
 msgstr "Širina prozora za dodavanje pesme."
 
 #: data/muine.schemas.in.h:5
-msgid "Default \"Open Playlist\" folder."
-msgstr "Podrazumevani direktorijum za „Otvori spisak pesama“."
-
-#: data/muine.schemas.in.h:6
-msgid "Default \"Save Playlist As\" folder."
-msgstr "Podrazumevani direktorijum za „Sačuvaj spisak pesama kao“."
-
-#: data/muine.schemas.in.h:7
 msgid "Default import folder."
 msgstr "Podrazumevani direktorijum za uvoz."
 
+#: data/muine.schemas.in.h:6
+#, fuzzy
+msgid "Default playlist folder."
+msgstr "Podrazumevani direktorijum za „Otvori spisak pesama“."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr ""
+
 #: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr ""
+
+#: data/muine.schemas.in.h:9
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Poslednje korišćeni direktorijum iz prozorčeta „Uvezi direktorijum“."
 
-#: data/muine.schemas.in.h:9
-msgid "Last used folder from \"Open Playlist\" dialog."
-msgstr "Poslednje korišćeni direktorijum iz prozorčeta „Otvori spisak pesama“."
-
 #: data/muine.schemas.in.h:10
-msgid "Last used folder from \"Save Playlist As\" dialog."
-msgstr "Poslednje korišćeni direktorijum iz prozorčeta „Sačuvaj spisak pesama kao“."
+#, fuzzy
+msgid "Last used folder from the playlist file selectors."
+msgstr "Poslednje korišćeni direktorijum iz prozorčeta „Otvori spisak pesama“."
 
 #: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Visina prozora spiska pesama."
 
 #: data/muine.schemas.in.h:12
-msgid "Playlist window visibility."
-msgstr "Vidljivost prozora spiska pesama."
-
-# bug: true, false in quotes
-#: data/muine.schemas.in.h:13
-msgid "Playlist window visible (true) or not (false)."
-msgstr "Prozor spiska pesama je vidljiv (true) ili ne (false)."
-
-#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Širina prozora spiska pesama."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:13
+#, fuzzy
+msgid "Repeat mode."
+msgstr "Izaberi režim ponavljanja"
+
+#: data/muine.schemas.in.h:14
 msgid "Volume level."
 msgstr "Jačina zvuka."
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:15
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Jačina zvuka. 0 = najmanja, 100 = najveća."
 
-#: libmuine/egg/eggstatusicon.c:154
-msgid "Pixbuf"
-msgstr "Pixbuf"
+#: data/muine.schemas.in.h:16
+msgid "Watched folders."
+msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
-msgstr "GdkPixbuf za prikaz"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
+msgstr ""
 
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Ime datoteke"
-
-#: libmuine/egg/eggstatusicon.c:163
-msgid "Filename to load and display"
-msgstr "Ime datoteke za učitavanje i prikaz"
-
-#: libmuine/egg/eggstatusicon.c:170
-msgid "Stock ID"
-msgstr "IB isporučene"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
-msgstr "IB isporučene slike za prikaz"
-
-#: libmuine/egg/eggstatusicon.c:178
-msgid "Animation"
-msgstr "Animacija"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
-msgstr "GdkPixbufAnimation za prikaz"
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
-msgstr "Vrsta slike"
-
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr "Način predstavljanja podataka slike"
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Veličina"
-
-#: libmuine/egg/eggstatusicon.c:196
-msgid "The size of the icon"
-msgstr "Veličina ikone"
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Treperenje"
-
-#: libmuine/egg/eggstatusicon.c:206
-msgid "Whether or not the status icon is blinking"
-msgstr "Da li ikona stanja treperi"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
+msgstr ""
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -305,6 +277,121 @@ msgstr "Usmerenje"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Usmerenje fioke."
+
+#: src/About.cs:52
+#, fuzzy
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr "Autorska prava %s 2002, 2003 Jorn Baayen. Sva prava zadržana."
+
+#: src/About.cs:53
+#, fuzzy
+msgid "A music player"
+msgstr "Zatvori muzički program"
+
+#: src/About.cs:62
+msgid "Thanks to Amazon.com for providing album cover images!"
+msgstr ""
+
+#: src/Muine.cs:83
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:94
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"Exiting..."
+msgstr ""
+
+#~ msgid "TITLE"
+#~ msgstr "NASLOV"
+
+#~ msgid "ERROR MESSAGE"
+#~ msgstr "PORUKA O GREŠCI"
+
+#~ msgid "Add _Album"
+#~ msgstr "Dodaj _album"
+
+#~ msgid "Add _Album..."
+#~ msgstr "Dodaj _album..."
+
+#~ msgid "Add _Song"
+#~ msgstr "_Dodaj pesmu"
+
+#~ msgid "_Fill queue with random songs from selected groups"
+#~ msgstr "_Zakaži slučajno izabrane pesme iz izabranih grupa"
+
+#~ msgid "_Groups"
+#~ msgstr "_Grupe"
+
+#~ msgid "Search for Music"
+#~ msgstr "Traži pesme"
+
+#~ msgid "Welcome to Muine"
+#~ msgstr "Dobrodošli u Mujnu"
+
+#~ msgid "_Search"
+#~ msgstr "_Traži"
+
+#~ msgid "Default \"Save Playlist As\" folder."
+#~ msgstr "Podrazumevani direktorijum za „Sačuvaj spisak pesama kao“."
+
+#~ msgid "Last used folder from \"Save Playlist As\" dialog."
+#~ msgstr ""
+#~ "Poslednje korišćeni direktorijum iz prozorčeta „Sačuvaj spisak pesama "
+#~ "kao“."
+
+#~ msgid "Playlist window visibility."
+#~ msgstr "Vidljivost prozora spiska pesama."
+
+# bug: true, false in quotes
+#~ msgid "Playlist window visible (true) or not (false)."
+#~ msgstr "Prozor spiska pesama je vidljiv (true) ili ne (false)."
+
+#~ msgid "Pixbuf"
+#~ msgstr "Pixbuf"
+
+#~ msgid "A GdkPixbuf to display"
+#~ msgstr "GdkPixbuf za prikaz"
+
+#~ msgid "Filename"
+#~ msgstr "Ime datoteke"
+
+#~ msgid "Filename to load and display"
+#~ msgstr "Ime datoteke za učitavanje i prikaz"
+
+#~ msgid "Stock ID"
+#~ msgstr "IB isporučene"
+
+#~ msgid "Stock ID for a stock image to display"
+#~ msgstr "IB isporučene slike za prikaz"
+
+#~ msgid "Animation"
+#~ msgstr "Animacija"
+
+#~ msgid "GdkPixbufAnimation to display"
+#~ msgstr "GdkPixbufAnimation za prikaz"
+
+#~ msgid "Image type"
+#~ msgstr "Vrsta slike"
+
+#~ msgid "The representation being used for image data"
+#~ msgstr "Način predstavljanja podataka slike"
+
+#~ msgid "Size"
+#~ msgstr "Veličina"
+
+#~ msgid "The size of the icon"
+#~ msgstr "Veličina ikone"
+
+#~ msgid "Blinking"
+#~ msgstr "Treperenje"
+
+#~ msgid "Whether or not the status icon is blinking"
+#~ msgstr "Da li ikona stanja treperi"
 
 #~ msgid "Add to Music Library"
 #~ msgstr "Dodaj u muzičku biblioteku"
@@ -480,9 +567,6 @@ msgstr "Usmerenje fioke."
 #~ msgid "Open from URI"
 #~ msgstr "Otvori sa adrese"
 
-#~ msgid "Play and organize your music collection"
-#~ msgstr "Organizuj i izvodi svoju muzičku zbirku"
-
 #~ msgid "Rhythmbox"
 #~ msgstr "Ritam mašina"
 
@@ -595,9 +679,6 @@ msgstr "Usmerenje fioke."
 #~ msgid "Prefere_nces"
 #~ msgstr "_Postavke"
 
-#~ msgid "Quit the music player"
-#~ msgstr "Zatvori muzički program"
-
 #~ msgid "Repea_t"
 #~ msgstr "Pono_vi"
 
@@ -630,9 +711,6 @@ msgstr "Usmerenje fioke."
 
 #~ msgid "Toggle random playing order"
 #~ msgstr "Izaberi slučajan redosled izvođenja"
-
-#~ msgid "Toggle repeat mode"
-#~ msgstr "Izaberi režim ponavljanja"
 
 #~ msgid "_About"
 #~ msgstr "_O programu"
@@ -799,7 +877,8 @@ msgstr "Usmerenje fioke."
 
 #~ msgid "Failed to create thread element; check your GStreamer installation"
 #~ msgstr ""
-#~ "Neuspeh pri obrazovanju elementa niti; proverite vašu instalaciju GStrimera"
+#~ "Neuspeh pri obrazovanju elementa niti; proverite vašu instalaciju "
+#~ "GStrimera"
 
 #~ msgid "Failed to create %s input element; check your installation"
 #~ msgstr ""
@@ -812,7 +891,8 @@ msgstr "Usmerenje fioke."
 #~ msgstr "Neuspeh pri kreiranju elementa ozvučenja; proveriti instalaciju"
 
 #~ msgid "Could not create audio output element; check your settings"
-#~ msgstr "Nisam mogao da kreiram izlazni zvučni element; proveriti podešavanja"
+#~ msgstr ""
+#~ "Nisam mogao da kreiram izlazni zvučni element; proveriti podešavanja"
 
 #~ msgid "Could not pause playback"
 #~ msgstr "Ne mogu da pauziram"
@@ -824,7 +904,8 @@ msgstr "Usmerenje fioke."
 #~ msgstr "Ne postoji podrška za Audio CD; proveriti podešavanja"
 
 #~ msgid "Failed to set up an audio driver; check your installation"
-#~ msgstr "Neuspeh pri podešavanju drajvera za zvuk; proverite vašu instalaciju"
+#~ msgstr ""
+#~ "Neuspeh pri podešavanju drajvera za zvuk; proverite vašu instalaciju"
 
 #~ msgid "No input plugin available for %s; check your installation."
 #~ msgstr "Nije dostupan dodatak za %s; proveriti instalaciju."
@@ -1076,9 +1157,6 @@ msgstr "Usmerenje fioke."
 
 #~ msgid "Play songs in a random order"
 #~ msgstr "Pusti pesme u proizvoljnom redosledu"
-
-#~ msgid "_Repeat"
-#~ msgstr "_Ponavljaj"
 
 #~ msgid "Play first song again after all songs are played"
 #~ msgstr "Pusti ponovo prvu pesmu kada se odslušaju sve pesme"
@@ -1458,7 +1536,8 @@ msgstr "Usmerenje fioke."
 
 #~ msgid "The virtual root (relative to the child model) for this filtermodel"
 #~ msgstr ""
-#~ "Virtuelni početak (u odnosu na način sadržavanja) za ovaj način filtriranja"
+#~ "Virtuelni početak (u odnosu na način sadržavanja) za ovaj način "
+#~ "filtriranja"
 
 #~ msgid "TreeModelSort Model"
 #~ msgstr "TreeModelSort model"
@@ -1689,9 +1768,6 @@ msgstr "Usmerenje fioke."
 #~ msgid "<span weight=\"bold\">Name:</span>"
 #~ msgstr "<span weight=\"bold\">Ime:</span>"
 
-#~ msgid "<span weight=\"bold\">Play count: </span>"
-#~ msgstr "<span weight=\"bold\">Broj pesme: </span>"
-
 #~ msgid "<span weight=\"bold\">Quality:</span>"
 #~ msgstr "<span weight=\"bold\">Kvalitet:</span>"
 
@@ -1766,9 +1842,6 @@ msgstr "Usmerenje fioke."
 #~ msgid "Total %ld:%.2ld (%ld:%.2ld remaining)"
 #~ msgstr "Ukupno %ld:%.2ld (%ld:%.2ld preostalo)"
 
-#~ msgid "Copyright %s 2002, 2003 Jorn Baayen. All rights reserved."
-#~ msgstr "Autorska prava %s 2002, 2003 Jorn Baayen. Sva prava zadržana."
-
 #~ msgid ""
 #~ "Failed to create stream for %s, error was:\n"
 #~ "%s"
@@ -1783,9 +1856,6 @@ msgstr "Usmerenje fioke."
 #~ "Internet\n"
 #~ "Radio"
 
-#~ msgid "_Play Album"
-#~ msgstr "Izve_di album"
-
 #~ msgid "Start playing this album"
 #~ msgstr "Počni izvođenje ovog albuma"
 
@@ -1794,6 +1864,3 @@ msgstr "Usmerenje fioke."
 
 #~ msgid "Enqueue this album for later playback"
 #~ msgstr "Uvrsti ovaj album za kasnije izvođenje"
-
-#~ msgid "Play Song Later"
-#~ msgstr "Izvedi pesmu kasnije"

@@ -49,8 +49,8 @@ public class About
 
 		Gnome.About about;
 		about = new Gnome.About ("Muine", version,
-					 "Copyright \xa9 2003, 2004 Jorn Baayen",
-					 "A music player",
+					 Muine.Catalog.GetString ("Copyright (C) 2003, 2004 Jorn Baayen"),
+					 Muine.Catalog.GetString ("A music player"),
 					 authors, documenters, translators,
 					 pixbuf);
 
@@ -59,7 +59,7 @@ public class About
 		href.Visible = true;
 
 		Tooltips tooltips = new Tooltips ();
-		tooltips.SetTip (href, "Thanks to Amazon.com for providing album cover images!", null);
+		tooltips.SetTip (href, Muine.Catalog.GetString ("Thanks to Amazon.com for providing album cover images!"), null);
 					 
 		about.TransientFor = parent;
 		about.Show ();

@@ -1,5 +1,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+[encoding: UTF-8]
 data/glade/AddWindow.glade
 data/glade/ErrorDialog.glade
 data/glade/GroupsWindow.glade
@@ -12,3 +13,5 @@ data/muine.desktop.in
 data/muine.schemas.in
 libmuine/egg/eggtrayicon.c
 libmuine/egg/eggtraymanager.c
+src/About.cs
+src/Muine.cs

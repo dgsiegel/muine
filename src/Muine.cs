@@ -25,6 +25,8 @@ using GtkSharp;
 using GLib;
 using Gdk;
 
+using GNU.Gettext;
+
 public class Muine : Gnome.Program
 {
 	private static PlaylistWindow playlist;
@@ -36,6 +38,8 @@ public class Muine : Gnome.Program
 	public static CoverDatabase CoverDB;
 
 	public static ActionThread ActionThread;
+
+	public static GettextResourceManager Catalog;
 
 	private static MessageConnection conn;
 
@@ -57,6 +61,9 @@ public class Muine : Gnome.Program
 			Environment.Exit (0);
 		}
 
+		/* Init Gettext */
+		Catalog = new GettextResourceManager ("muine");
+
 		/* Init GConf */
 		GConfClient = new GConf.Client ();
 
@@ -73,7 +80,7 @@ public class Muine : Gnome.Program
 		try {
 			CoverDB = new CoverDatabase (2);
 		} catch (Exception e) {
-			new ErrorDialog ("Failed to load the cover database: " + e.ToString () + "\nExiting...");
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\nExiting..."), e.ToString ()));
 
 			Exit ();
 		}
@@ -84,7 +91,7 @@ public class Muine : Gnome.Program
 		try {
 			DB = new SongDatabase (2);
 		} catch (Exception e) {
-			new ErrorDialog ("Failed to load the song database: " + e.ToString () + "\nExiting...");
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to load the song database: {0}\nExiting..."), e.ToString ()));
 
 			Exit ();
 		}
