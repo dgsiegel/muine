@@ -1417,6 +1417,8 @@ namespace Muine
 		// Handlers :: OnQueueSongsEvent
 		private void OnQueueSongsEvent (List songs)
 		{
+			bool start_playing = (had_last_eos || !playlist.Model.HasFirst);
+			
 			// Add Songs
 			foreach (int i in songs)
 				AddSong (new IntPtr (i));
@@ -1426,6 +1428,10 @@ namespace Muine
 			
 			// Update
 			PlaylistChanged ();
+
+			// Start playing if necessary
+			if (start_playing)
+				player.Play ();
 		}
 
 		// Handlers :: OnPlaySongsEvent		
@@ -1456,6 +1462,8 @@ namespace Muine
 		// Handlers :: OnQueueAlbumsEvent
 		private void OnQueueAlbumsEvent (List albums)
 		{
+			bool start_playing = (had_last_eos || !playlist.Model.HasFirst);
+
 			// Add songs from albums
 			foreach (int i in albums) {
 				Album a = Album.FromHandle (new IntPtr (i));
@@ -1469,6 +1477,10 @@ namespace Muine
 			
 			// Update
 			PlaylistChanged ();
+
+			// Start playing if necessary
+			if (start_playing)
+				player.Play ();
 		}
 
 		// Handlers :: OnPlayAlbumsEvent

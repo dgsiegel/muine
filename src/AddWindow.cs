@@ -314,12 +314,10 @@ namespace Muine
 				break;
 				
 			case (int) ResponseType.Play:
+				window.Visible = false;
+
 				if (PlayEvent != null)
 					PlayEvent (list.Selected);
-
-				entry.GrabFocus ();
-
-				list.SelectNext ();
 
 				break;
 				

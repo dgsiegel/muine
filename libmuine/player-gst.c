@@ -200,6 +200,13 @@ player_finalize (GObject *object)
 
 	g_timer_destroy (player->priv->timer);
 
+	if (player->priv->iterate_idle_id > 0)
+		g_source_remove (player->priv->iterate_idle_id);
+	if (player->priv->tick_timeout_id > 0)
+		g_source_remove (player->priv->tick_timeout_id);
+
+	g_object_unref (player->priv->play);
+
 	g_free (player->priv);
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)

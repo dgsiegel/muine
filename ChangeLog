@@ -1,5 +1,18 @@
 2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-gst.c: (player_finalize):
+
+	Remove some idles and timeouts.
+
+	* src/AddWindow.cs:
+	* src/PlaylistWindow.cs:
+
+	Pressing "Play" closes the window again. Pressing "queue",
+	if the playlist is empty, or the playlist has ended, will
+	start playing.
+
+2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/SkipToWindow.glade:
 	* src/SkipToWindow.cs:
 
