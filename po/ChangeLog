@@ -1,3 +1,8 @@
+2004-02-26  Jorn Baayen  <jorn@nl.linux.org>
+
+	* sv.po: Helped the Swedish translators a little by translating
+	the author string with the right author ;)
+
 2004-02-25  Jordi Mallach  <jordi@sindominio.net>
 
 	* ca.po: Added Catalan translation by

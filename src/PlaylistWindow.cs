@@ -494,10 +494,10 @@ public class PlaylistWindow : Window
 
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist (Repeating {0} hours)"), hours);
+				playlist_label.Text = String.Format (Muine.Catalog.GetPluralString ("Playlist (Repeating {0} hour)", "Playlist (Repeating {0} hours)", hours), hours);
 			} else if (r_seconds > 60) {
 				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist (Repeating {0} minutes)"), minutes);
+				playlist_label.Text = String.Format (Muine.Catalog.GetPluralString ("Playlist (Repeating {0} minute)", "Playlist (Repeating {0} minutes)", minutes), minutes);
 			} else if (r_seconds > 0) {
 				playlist_label.Text = Muine.Catalog.GetString ("Playlist (Repeating)");
 			} else {
@@ -508,10 +508,10 @@ public class PlaylistWindow : Window
 			
 			if (r_seconds > 6000) { /* 100 minutes */
 				int hours = (int) Math.Floor ((double) r_seconds / 3600.0 + 0.5);
-				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist ({0} hours remaining)"), hours);
+				playlist_label.Text = String.Format (Muine.Catalog.GetPluralString ("Playlist ({0} hour remaining)", "Playlist ({0} hours remaining)", hours), hours);
 			} else if (r_seconds > 60) {
 				int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
-				playlist_label.Text = String.Format (Muine.Catalog.GetString ("Playlist ({0} minutes remaining)"), minutes);
+				playlist_label.Text = String.Format (Muine.Catalog.GetPluralString ("Playlist ({0} minute remaining)", "Playlist ({0} minutes remaining)", minutes), minutes);
 			} else if (r_seconds > 0) {
 				playlist_label.Text = Muine.Catalog.GetString ("Playlist (Less than one minute remaining)");
 			} else {

@@ -283,9 +283,8 @@ msgid "The orientation of the tray."
 msgstr "Orienteringen på lådan."
 
 #: src/About.cs:52
-#, fuzzy
 msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr "Copyright © 2002 Bastien Nocera"
+msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
 #: src/About.cs:53
 #, fuzzy
