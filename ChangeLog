@@ -2,6 +2,12 @@
 
 	* src/PlaylistWindow.cs:
 	
+	A couple more cleanups first...
+
+2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/PlaylistWindow.cs:
+	
 	Code cleanup. Getting ready for the great divide...
 
 2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>

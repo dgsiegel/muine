@@ -33,7 +33,10 @@ namespace Muine
 {
 	public class PlaylistWindow : Window, IPlayer
 	{
-		// GConf
+		// Constants
+		private const int STEP = 5; // # seconds to skip back and forth
+	
+		// Constants :: GConf
 		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
 		private const int GConfDefaultWidth = 450; 
 
@@ -77,6 +80,7 @@ namespace Muine
 					   "If you choose yes, the contents will be lost.\n\n" +
 					   "Do you want to continue?");
 
+		// Strings :: Window Titles
 		private static readonly string string_title_main =
 			Catalog.GetString ("{0} - Muine Music Player");
 		private static readonly string string_title_import =
@@ -86,9 +90,11 @@ namespace Muine
 		private static readonly string string_title_save =
 			Catalog.GetString ("Save Playlist");
 
+		// Strings :: Buttons
 		private static readonly string string_button_import =
 			Catalog.GetString ("_Import");
 
+		// Strings :: Tooltips
 		private static readonly string string_tooltip_play_pause =
 			Catalog.GetString ("Switch music playback on or off");
 		private static readonly string string_tooltip_previous =
@@ -104,6 +110,7 @@ namespace Muine
 		private static readonly string string_tooltip_cover =
 			Catalog.GetString ("Drop an image here to use it as album cover");
 
+		// Strings :: Errors
 		private static readonly string string_error_audio =
 			Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting...");
 		private static readonly string string_error_read =
@@ -114,10 +121,17 @@ namespace Muine
 			Catalog.GetString ("Failed to open {0} for writing");
 
 		// Events
-		public event SongChangedEventHandler  SongChangedEvent;
+		// Events :: SongChangedEvent (IPlayer)
+		public event SongChangedEventHandler SongChangedEvent;
+		
+		// Events :: StateChangedEvent (IPlayer)
 		public event StateChangedEventHandler StateChangedEvent;
-		public event GenericEventHandler      PlaylistChangedEvent;
-		public event GenericEventHandler      SelectionChangedEvent;
+		
+		// Events :: PlaylistChangedEvent (IPlayer)
+		public event GenericEventHandler PlaylistChangedEvent;
+		
+		// Events :: SelectionChangedEvent (IPlayer)
+		public event GenericEventHandler SelectionChangedEvent;
 
 		// Structs
 		// Structs :: DragAddSongPosition
@@ -258,7 +272,7 @@ namespace Muine
 
 		// Properties
 		// 	Useful for Plug-Ins and DBus
-		// Properties :: PlayingSong (get;)
+		// Properties :: PlayingSong (get;) (IPlayer)
 		public ISong PlayingSong {
 			get {
 				return (playlist.Playing == IntPtr.Zero)
@@ -267,7 +281,7 @@ namespace Muine
 			}
 		}
 
-		// Properties :: Playing (set; get;)
+		// Properties :: Playing (set; get;) (IPlayer)
 		public bool Playing {
 			set {
 				if (!playlist.HasFirst)
@@ -288,7 +302,7 @@ namespace Muine
 			get { return player.Playing; }
 		}
 
-		// Properties :: Volume (set; get;)
+		// Properties :: Volume (set; get;) (IPlayer)
 		public int Volume {
 			set {
 				if (value > 100 || value < 0)
@@ -307,44 +321,43 @@ namespace Muine
 			get { return player.Volume; }
 		}
 
-		// Properties :: Position (set; get;)
+		// Properties :: Position (set; get;) (IPlayer)
 		public int Position {
 			set { SeekTo (value); }
 			get { return player.Position; }
 		}
 
-		// Properties :: HasNext (get;)
+		// Properties :: HasNext (get;) (IPlayer)
 		public bool HasNext {
 			get { return playlist.HasNext; }
 		}
 
-		// Properties :: HasPrevious (get;)
+		// Properties :: HasPrevious (get;) (IPlayer)
 		public bool HasPrevious {
 			get { return playlist.HasPrevious; }
 		}
 
-		// Properties :: Playlist (get;)
+		// Properties :: Playlist (get;) (IPlayer)
 		public ISong [] Playlist {
 			get { return ArrayFromList (playlist.Contents); }
 		}
 
-		// Properties :: Selection (get;)
+		// Properties :: Selection (get;) (IPlayer)
 		public ISong [] Selection {
 			get { return ArrayFromList (playlist.SelectedPointers); }
 		}
 
-		// Properties :: UIManager (get;)
+		// Properties :: UIManager (get;) (IPlayer)
 		public UIManager UIManager {
 			get { return Global.Actions.UIManager; }
 		}
 
-		// Properties :: Window (get;)
-		// 	XXX: is this really necessary?
+		// Properties :: Window (get;) (IPlayer)
 		public Window Window {
 			get { return this; }
 		}
 
-		// Properties :: BusyLevel (set; get;)
+		// Properties :: BusyLevel (set; get;) (IPlayer)
 		public uint BusyLevel {
 			set {
 				if (busy_level == 0 && value > 0) {
@@ -361,7 +374,7 @@ namespace Muine
 			get { return busy_level; }
 		}
 
-		// Properties :: WindowVisible (set; get;)
+		// Properties :: WindowVisible (set; get;) (IPlayer)
 		public bool WindowVisible {
 			set {
 				window_visible = value;
@@ -383,6 +396,7 @@ namespace Muine
 			get { return window_visible; }
 		}
 
+		// Properties :: Repeat (set; get;)
 		private bool Repeat {
 			set {
 				setting_repeat = true;
@@ -422,7 +436,7 @@ namespace Muine
 			WindowVisible = true;
 		}
 
-		// Methods :: Public :: Quit
+		// Methods :: Public :: Quit (IPlayer)
 		public void Quit ()
 		{
 			Global.Exit ();
@@ -439,7 +453,7 @@ namespace Muine
 							  : Actions.StringShowWindow;
 		}
 
-		// Methods :: Public :: PlayFile
+		// Methods :: Public :: PlayFile (IPlayer)
 		public void PlayFile (string file)
 		{
 			Song song = GetSingleSong (file);
@@ -456,7 +470,7 @@ namespace Muine
 			PlaylistChanged ();
 		}
 
-		// Methods :: Public :: QueueFile
+		// Methods :: Public :: QueueFile (IPlayer)
 		public void QueueFile (string file)
 		{
 			Song song = GetSingleSong (file);
@@ -471,7 +485,7 @@ namespace Muine
 			PlaylistChanged ();
 		}
 
-		// Methods :: Public :: OpenPlaylist
+		// Methods :: Public :: OpenPlaylist (IPlayer)
 		public void OpenPlaylist (string fn)
 		{
 			BusyLevel ++;
@@ -481,7 +495,7 @@ namespace Muine
 			BusyLevel --;
 		}
 
-		// Methods :: Public :: Previous
+		// Methods :: Public :: Previous (IPlayer)
 		public void Previous ()
 		{
 			if (!playlist.HasFirst)
@@ -509,7 +523,7 @@ namespace Muine
 			player.Play ();
 		}
 
-		// Methods :: Public :: Next
+		// Methods :: Public :: Next (IPlayer)
 		public void Next ()
 		{
 			if (playlist.HasNext)
@@ -524,7 +538,7 @@ namespace Muine
 			player.Play ();
 		}
 
-		// Methods :: Public :: PlaySong
+		// Methods :: Public :: PlaySong (IPlayer)
 		public void PlaySong ()
 		{
 			if (add_song_window == null) {
@@ -539,7 +553,7 @@ namespace Muine
 			AddChildWindowIfVisible (add_song_window);
 		}
 
-		// Methods :: Public :: PlayAlbum
+		// Methods :: Public :: PlayAlbum (IPlayer)
 		public void PlayAlbum ()
 		{
 			if (add_album_window == null) {
@@ -643,11 +657,11 @@ namespace Muine
 
 			if (FileUtils.Exists (fn)) {
 				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), this);
-				if (d.GetAnswer ())
-					SavePlaylist (fn, false, false);
-			} else {
-				SavePlaylist (fn, false, false);
+				if (!d.GetAnswer ()) // user said don't overwrite
+					return;
 			}
+			
+			SavePlaylist (fn, false, false);
 		}
 
 		// Methods :: Public :: RunSkipToDialog
@@ -670,13 +684,13 @@ namespace Muine
 		// Methods :: Public :: SkipBackwards		
 		public void SkipBackwards ()
 		{				
-			SeekTo (player.Position - 5);
+			SeekTo (player.Position - STEP);
 		}
 
-		// Methods :: Public :: SkipForward		
+		// Methods :: Public :: SkipForward	
 		public void SkipForward ()
 		{
-			SeekTo (player.Position + 5);
+			SeekTo (player.Position + STEP);
 		}
 
 		// Methods :: Public :: RemoveSelectedSong		
