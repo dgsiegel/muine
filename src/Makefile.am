@@ -35,7 +35,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/FileUtils.cs			\
 	$(srcdir)/SignalUtils.cs		\
 	$(srcdir)/Database.cs			\
-	$(srcdir)/MuineDBusService.cs		\
+	$(srcdir)/DBusService.cs		\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/AddWindow.cs			\
 	$(srcdir)/Config.cs			\

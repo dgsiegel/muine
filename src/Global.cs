@@ -104,7 +104,7 @@ namespace Muine
 				   just important to have the thing registered. */
 				try {
 					dbus_object = new DBusLib.Player ();
-					MuineDBusService.Instance.RegisterObject (dbus_object, "/org/gnome/Muine/Player");
+					DBusService.Instance.RegisterObject (dbus_object, "/org/gnome/Muine/Player");
 
 				} catch (Exception e) {
 					Console.WriteLine (string_dbus_failed, e.Message);

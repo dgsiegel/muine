@@ -1,6 +1,17 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
+	R src/DBusService.cs:
+	* src/Global.cs:
+	* src/Makefile.am:
+	* src/MuineDBusService.cs:
+
+	Renamed MuineDBusService to DBusService, now that we have the
+	Muine namespace.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
 	* data/glade/ProgressWindow.glade:
 	* libmuine/Makefile.am:
 	R libmuine/markup-utils.c:
