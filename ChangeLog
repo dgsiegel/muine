@@ -1,5 +1,18 @@
 2004-02-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/StringUtils.cs:
+
+	Album cover DnD, and DnD'ing m3u files to the playlist will load
+	them.
+
+	This needs an uncommited fix to Gtk# before it will work without
+	crashing, though ..
+
+2004-02-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Album.cs:
 	* src/Song.cs:
 	* src/SongDatabase.cs:

@@ -264,6 +264,29 @@ public class Song
 		GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
 	}
 
+	private string new_cover_url;
+
+	private void DownloadAlbumCoverInThreadFromURL (ActionThread.Action action)
+	{
+		try {
+			tmp_cover_image = Muine.CoverDB.DownloadCoverPixbuf (new_cover_url);
+		} catch {
+			tmp_cover_image = null;
+		}
+
+		checked_cover_image = false;
+
+		GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
+	}
+
+	public void DownloadNewCoverImage (string url)
+	{
+		new_cover_url = url;
+
+		ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThreadFromURL);
+		Muine.ActionThread.QueueAction (action);
+	}
+
 	private void GetCoverImage (Metadata metadata)
 	{
 		checked_cover_image = true;

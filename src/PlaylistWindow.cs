@@ -336,6 +336,11 @@ public class PlaylistWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private CellRenderer text_renderer;
 
+	private static TargetEntry [] playlist_drag_entries = new TargetEntry [] {
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
+	};
+
 	private void SetupPlaylist (Glade.XML glade_xml)
 	{
 		playlist = new HandleView ();
@@ -352,6 +357,10 @@ public class PlaylistWindow : Window
 		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
 		playlist.RowsReordered += new HandleView.RowsReorderedHandler (HandlePlaylistRowsReordered);
 		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (HandlePlaylistSelectionChanged);
+		playlist.DragDataReceived += new DragDataReceivedHandler (HandlePlaylistDragDataReceived);
+
+		Gtk.Drag.DestSet (playlist, DestDefaults.All,
+				  playlist_drag_entries, Gdk.DragAction.Copy);
 
 		playlist.Show ();
 
@@ -425,11 +434,7 @@ public class PlaylistWindow : Window
 		artist_label.Selectable = true;
 		((Container) glade_xml ["artist_label_container"]).Add (artist_label);
 
-		/* FIXME 
-		Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
-				  cover_drag_entries, Gdk.DragAction.Copy);
 		cover_ebox.DragDataReceived += new DragDataReceivedHandler (HandleCoverImageDragDataReceived);
-		*/
 	}
 
 	private void EnsurePlaying ()
@@ -610,6 +615,14 @@ public class PlaylistWindow : Window
 			if (player.Playing)
 				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 
+			if (song.Album.Length > 0) {
+				Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
+						  cover_drag_entries, Gdk.DragAction.Copy);
+			} else {
+				Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
+						  null, Gdk.DragAction.Copy);
+			}
+
 			if (restart)
 				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
 		} else {
@@ -627,6 +640,9 @@ public class PlaylistWindow : Window
 			icon.Tooltip = null;
 
 			skip_to_window.Hide ();
+
+			Gtk.Drag.DestSet (cover_ebox, DestDefaults.All,
+					  null, Gdk.DragAction.Copy);
 		}
 
 		MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
@@ -1398,44 +1414,68 @@ public class PlaylistWindow : Window
 
 	private void HandleCoverImageDragDataReceived (object o, DragDataReceivedArgs args)
 	{
-		/* FIXME niet altijd draggable, geen album of ditte */
-		if (playlist.Playing == IntPtr.Zero)
-			return;
+		/* FIXME ...
+		GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
+		while (Global.EventsPending () == 1)
+			Main.Iteration ();*/
+
+		string data = StringUtils.SelectionDataToString (args.SelectionData);
+
+		bool success = false;
 
 		Song song = Song.FromHandle (playlist.Playing);
 
-//		string data = new string (args.SelectionData.Data);
-		string data = "";
+		Uri uri;
+		string [] uri_list;
+		string fn;
 		
-		Console.WriteLine ("Received!");
 		switch (args.Info) {
 		case (uint) TargetType.Uri:
-			if (!data.StartsWith ("http://"))
-				break;
+			uri_list = Regex.Split (data, "\n");
+			fn = uri_list [0];
 			
+			uri = new Uri (fn);
+
+			if (!(uri.Scheme == "http"))
+				break;
+
+			success = true;
+
 			try {
-				/* FIXME should be threaded, also.. do exception handling */
-				Gdk.Pixbuf pix = Muine.CoverDB.DownloadCoverPixbuf (data);
-				Muine.CoverDB.ReplaceCover (song.AlbumKey, pix);
+				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+					Muine.CoverDB.RemoveCover (song.AlbumKey);
+				song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
 				Muine.DB.SyncAlbumCoverImageWithSong (song);
-			} catch {
+				
+				song.DownloadNewCoverImage (uri.AbsoluteUri);
+
+				success = true;
+			} catch (Exception e) {
+				success = false;
+				
 				break;
 			}
 
 			break;
 		case (uint) TargetType.UriList:
-			string [] uris = Regex.Split (data, "\r\n");
-			if (uris.Length != 1)
-				break;
+			uri_list = Regex.Split (data, "\r\n");
+			fn = uri_list [0];
+			
+			uri = new Uri (fn);
 
-			if (!uris [0].StartsWith ("file://") && !uris [0].StartsWith ("/"))
+			if (!(uri.Scheme == "file"))
 				break;
 
 			try {
-//				Gdk.Pixbuf pix = Muine.CoverDB.CoverPixbufFromFile (uris [0]);
-//				Muine.CoverDB.ReplaceCover (song.AlbumKey, pix);
-//				Muine.DB.SyncAlbumCoverImageWithSong (song);
+				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+					Muine.CoverDB.RemoveCover (song.AlbumKey);
+				song.CoverImage = Muine.CoverDB.AddCoverLocal (song.AlbumKey, uri.LocalPath);
+				Muine.DB.SyncAlbumCoverImageWithSong (song);
+
+				success = true;
 			} catch {
+				success = false;
+				
 				break;
 			}
 			
@@ -1443,6 +1483,41 @@ public class PlaylistWindow : Window
 		default:
 			break;
 		}
-		/* FIXME finish drag */
+
+		Gtk.Drag.Finish (args.Context, success, false, args.Time);
+
+		//GdkWindow.Cursor = null;
+	}
+
+	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		string data = StringUtils.SelectionDataToString (args.SelectionData);
+
+		bool success = false;
+
+		Uri uri;
+		string [] uri_list;
+		string fn;
+		
+		switch (args.Info) {
+		case (uint) TargetType.UriList:
+			uri_list = Regex.Split (data, "\r\n");
+			fn = uri_list [0];
+			
+			uri = new Uri (fn);
+
+			if (!(uri.Scheme == "file"))
+				break;
+
+			OpenPlaylist (uri.LocalPath);
+
+			success = true;
+			
+			break;
+		default:
+			break;
+		}
+
+		Gtk.Drag.Finish (args.Context, success, false, args.Time);
 	}
 }

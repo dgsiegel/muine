@@ -2,16 +2,11 @@ Easy:
 =====
 o A song information dialog (both in tray menu and song menu)
 o Globally consume ACME keys
-o Drag images from Nautilus or Epiphany to the album cover area in
-  the PlaylistWindow to change the cover image.
-  (This one is half implemented)
-o Add folder DnD from Nautilus to the playlist window, adding to a) the library
-  and b) the playlist.
-o DnD m3u files to the playlist window should load them
 o D-BUS service (Sergio Rubio is on this)
 
 Tough:
 ======
+o Install C# translation catalogs (Kenneth is helping out with this ..)
 o Portable player integration
   Need to discuss the UI first
 o Implement music groups (Jorn is working on this)
