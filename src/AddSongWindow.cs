@@ -25,174 +25,177 @@ using GLib;
 
 using Mono.Posix;
 
-public class AddSongWindow : AddWindow
+namespace Muine
 {
-	private const int FakeLength = 150;
-	private const int MinQueryLength = 3;
-
-        private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
-        private const int GConfDefaultWidth = 500;
-        
-        private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
-        private const int GConfDefaultHeight = 475;  
-
-	// DnD targets	
-	private static TargetEntry [] source_entries = new TargetEntry [] {
-		DndUtils.TargetMuineSongList,
-		DndUtils.TargetUriList
-	};
-
-	// Constructor	
-	public AddSongWindow ()
+	public class AddSongWindow : AddWindow
 	{
-		window.Title = Catalog.GetString ("Play Song");
+		private const int FakeLength = 150;
+		private const int MinQueryLength = 3;
 
-		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+	        private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
+	        private const int GConfDefaultWidth = 500;
+	        
+	        private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
+	        private const int GConfDefaultHeight = 475;  
+
+		// DnD targets	
+		private static TargetEntry [] source_entries = new TargetEntry [] {
+			DndUtils.TargetMuineSongList,
+			DndUtils.TargetUriList
+		};
+
+		// Constructor	
+		public AddSongWindow ()
+		{
+			window.Title = Catalog.GetString ("Play Song");
+
+			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+			
+			view.SortFunc = new HandleView.CompareFunc (SortFunc);
+			
+			view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
+
+			view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
+			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 		
-		view.SortFunc = new HandleView.CompareFunc (SortFunc);
+			Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
+			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
+			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+
+			int i = 0;
+			foreach (Song s in Muine.DB.Songs.Values) {
+				view.Append (s.Handle);
+
+				i++;
+				if (i >= FakeLength)
+					break;
+			}
+		}
+
+		private int SortFunc (IntPtr a_ptr,
+				      IntPtr b_ptr)
+		{
+			Song a = Song.FromHandle (a_ptr);
+			Song b = Song.FromHandle (b_ptr);
+
+			return String.CompareOrdinal (a.SortKey, b.SortKey);
+		}
+
+		private void CellDataFunc (HandleView view,
+					   CellRenderer cell,
+					   IntPtr handle)
+		{
+			CellRendererText r = (CellRendererText) cell;
+			Song song = Song.FromHandle (handle);
+
+			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
+
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
+						   false, true, false);
+		}
+
+		protected override bool Search ()
+		{
+			List l = new List (IntPtr.Zero, typeof (int));
+
+			int max_len = -1;
+
+			/* show max. FakeLength songs if < MinQueryLength chars are entered. this is to fake speed. */
+			if (search_entry.Text.Length < MinQueryLength)
+				max_len = FakeLength;
+
+			int i = 0;
+			if (search_entry.Text.Length > 0) {
+				foreach (Song s in Muine.DB.Songs.Values) {
+					if (!s.FitsCriteria (SearchBits))
+						continue;
+
+					l.Append (s.Handle);
+					
+					i++;
+					if (max_len > 0 && i >= max_len)
+						break;
+				}
+			} else {
+				foreach (Song s in Muine.DB.Songs.Values) {
+					l.Append (s.Handle);
+					
+					i++;
+					if (max_len > 0 && i >= max_len)
+						break;
+				}
+			}
+
+			view.RemoveDelta (l);
+
+			foreach (int p in l) {
+				IntPtr ptr = new IntPtr (p);
+
+				view.Append (ptr);
+			}
+
+			SelectFirst ();
+
+			return false;
+		}
+
+		private void OnSongAdded (Song song)
+		{
+			if (search_entry.Text.Length < MinQueryLength &&
+			    view.Length >= FakeLength)
+				return;
+
+			base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
+		}
+
+		private void OnSongChanged (Song song)
+		{
+			bool may_append = (search_entry.Text.Length >= MinQueryLength ||
+			                   view.Length < FakeLength);
+			
+			base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits),
+			                    may_append);
+		}
+
+		private void OnSongRemoved (Song song)
+		{
+			base.HandleRemoved (song.Handle);
+		}
+
+		private void OnDragDataGet (object o, DragDataGetArgs args)
+		{
+			List songs = view.SelectedPointers;
+
+			switch (args.Info) {
+			case (uint) DndUtils.TargetType.UriList:
+				string files = "";
+
+				foreach (int p in songs) {
+					IntPtr s = new IntPtr (p);
+					files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+				}
 		
-		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
+				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
+							8, System.Text.Encoding.UTF8.GetBytes (files));
+							
+				break;	
+				
+			case (uint) DndUtils.TargetType.SongList:
+				string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
+				
+				foreach (int p in songs) {
+					IntPtr s = new IntPtr (p);
+					ptrs += s.ToString () + "\r\n";
+				}
+				
+				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineSongList.Target, false),
+						        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 
-		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, source_entries, Gdk.DragAction.Copy);
-		view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
-	
-		Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnSongAdded);
-		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
-		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
-
-		int i = 0;
-		foreach (Song s in Muine.DB.Songs.Values) {
-			view.Append (s.Handle);
-
-			i++;
-			if (i >= FakeLength)
 				break;
-		}
-	}
 
-	private int SortFunc (IntPtr a_ptr,
-			      IntPtr b_ptr)
-	{
-		Song a = Song.FromHandle (a_ptr);
-		Song b = Song.FromHandle (b_ptr);
-
-		return String.CompareOrdinal (a.SortKey, b.SortKey);
-	}
-
-	private void CellDataFunc (HandleView view,
-				   CellRenderer cell,
-				   IntPtr handle)
-	{
-		CellRendererText r = (CellRendererText) cell;
-		Song song = Song.FromHandle (handle);
-
-		r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
-
-		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
-					   false, true, false);
-	}
-
-	protected override bool Search ()
-	{
-		List l = new List (IntPtr.Zero, typeof (int));
-
-		int max_len = -1;
-
-		/* show max. FakeLength songs if < MinQueryLength chars are entered. this is to fake speed. */
-		if (search_entry.Text.Length < MinQueryLength)
-			max_len = FakeLength;
-
-		int i = 0;
-		if (search_entry.Text.Length > 0) {
-			foreach (Song s in Muine.DB.Songs.Values) {
-				if (!s.FitsCriteria (SearchBits))
-					continue;
-
-				l.Append (s.Handle);
-				
-				i++;
-				if (max_len > 0 && i >= max_len)
-					break;
+			default:
+				break;	
 			}
-		} else {
-			foreach (Song s in Muine.DB.Songs.Values) {
-				l.Append (s.Handle);
-				
-				i++;
-				if (max_len > 0 && i >= max_len)
-					break;
-			}
-		}
-
-		view.RemoveDelta (l);
-
-		foreach (int p in l) {
-			IntPtr ptr = new IntPtr (p);
-
-			view.Append (ptr);
-		}
-
-		SelectFirst ();
-
-		return false;
-	}
-
-	private void OnSongAdded (Song song)
-	{
-		if (search_entry.Text.Length < MinQueryLength &&
-		    view.Length >= FakeLength)
-			return;
-
-		base.HandleAdded (song.Handle, song.FitsCriteria (SearchBits));
-	}
-
-	private void OnSongChanged (Song song)
-	{
-		bool may_append = (search_entry.Text.Length >= MinQueryLength ||
-		                   view.Length < FakeLength);
-		
-		base.HandleChanged (song.Handle, song.FitsCriteria (SearchBits),
-		                    may_append);
-	}
-
-	private void OnSongRemoved (Song song)
-	{
-		base.HandleRemoved (song.Handle);
-	}
-
-	private void OnDragDataGet (object o, DragDataGetArgs args)
-	{
-		List songs = view.SelectedPointers;
-
-		switch (args.Info) {
-		case (uint) DndUtils.TargetType.UriList:
-			string files = "";
-
-			foreach (int p in songs) {
-				IntPtr s = new IntPtr (p);
-				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
-			}
-	
-			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-						8, System.Text.Encoding.UTF8.GetBytes (files));
-						
-			break;	
-			
-		case (uint) DndUtils.TargetType.SongList:
-			string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
-			
-			foreach (int p in songs) {
-				IntPtr s = new IntPtr (p);
-				ptrs += s.ToString () + "\r\n";
-			}
-			
-			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineSongList.Target, false),
-					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
-
-			break;
-
-		default:
-			break;	
 		}
 	}
 }

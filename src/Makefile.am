@@ -77,7 +77,7 @@ MUINE_RESOURCES =												\
 
 # FIXME MONO_XMLSERIALIZER_THS=no works around Ximian Bugzilla #58194
 AmazonSearchService.cs: AmazonSearchService.wsdl
-	MONO_XMLSERIALIZER_THS=no wsdl $(srcdir)/AmazonSearchService.wsdl
+	MONO_XMLSERIALIZER_THS=no wsdl -namespace:Amazon $(srcdir)/AmazonSearchService.wsdl
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\

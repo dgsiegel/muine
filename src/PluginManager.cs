@@ -25,54 +25,57 @@ using Mono.Posix;
 
 using MuinePluginLib;
 
-public class PluginManager
+namespace Muine
 {
-	private IPlayer player;
-	
-	private void ScanAssemblyForPlugins (Assembly assembly)
+	public class PluginManager
 	{
-		foreach (Type t in assembly.GetTypes ()) {
-			if (t.IsSubclassOf (typeof (Plugin)) && !t.IsAbstract) {
-				Plugin plugin = (Plugin) Activator.CreateInstance (t);
+		private IPlayer player;
+		
+		private void ScanAssemblyForPlugins (Assembly assembly)
+		{
+			foreach (Type t in assembly.GetTypes ()) {
+				if (t.IsSubclassOf (typeof (Plugin)) && !t.IsAbstract) {
+					Plugin plugin = (Plugin) Activator.CreateInstance (t);
 
-				plugin.Initialize (player);
-			}
-		}
-	}
-
-	private void FindAssemblies (string dir)
-	{
-		if (dir == null || dir == "")
-			return;
-
-		DirectoryInfo info = new DirectoryInfo (dir);
-		if (!info.Exists)
-			return;
-
-		foreach (FileInfo file in info.GetFiles ()) {
-			if (file.Extension == ".dll") {
-				try {
-					Assembly a = Assembly.LoadFrom (file.FullName);
-
-					ScanAssemblyForPlugins (a);
-				} catch (Exception e) {
-					Console.WriteLine (Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
+					plugin.Initialize (player);
 				}
 			}
 		}
-	}
 
-	public PluginManager (IPlayer player)
-	{
-		this.player = player;
+		private void FindAssemblies (string dir)
+		{
+			if (dir == null || dir == "")
+				return;
 
-		string path = Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
+			DirectoryInfo info = new DirectoryInfo (dir);
+			if (!info.Exists)
+				return;
 
-		if (path != null)
-			foreach (string dir in path.Split (':'))
-				FindAssemblies (dir);
+			foreach (FileInfo file in info.GetFiles ()) {
+				if (file.Extension == ".dll") {
+					try {
+						Assembly a = Assembly.LoadFrom (file.FullName);
 
-		FindAssemblies (FileUtils.SystemPluginDirectory);
-		FindAssemblies (FileUtils.UserPluginDirectory);
+						ScanAssemblyForPlugins (a);
+					} catch (Exception e) {
+						Console.WriteLine (Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
+					}
+				}
+			}
+		}
+
+		public PluginManager (IPlayer player)
+		{
+			this.player = player;
+
+			string path = Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
+
+			if (path != null)
+				foreach (string dir in path.Split (':'))
+					FindAssemblies (dir);
+
+			FindAssemblies (FileUtils.SystemPluginDirectory);
+			FindAssemblies (FileUtils.UserPluginDirectory);
+		}
 	}
 }

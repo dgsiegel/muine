@@ -21,50 +21,53 @@ using System.Text.RegularExpressions;
 
 using Gtk;
 
-public class DndUtils 
+namespace Muine
 {
-	// DnD targets
-	public enum TargetType {
-		UriList,
-		Uri,
-		SongList,
-		AlbumList,
-		ModelRow
-	};
-
-	public static readonly TargetEntry TargetUriList = 
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
-		
-	public static readonly TargetEntry TargetGnomeIconList = 
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList);
-		
-	public static readonly TargetEntry TargetNetscapeUrl = 
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri);
-		
-	public static readonly TargetEntry TargetMuineAlbumList = 
-		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList);
-
-	public static readonly TargetEntry TargetMuineSongList = 
-		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList);
-		
-	public static readonly TargetEntry TargetMuineTreeModelRow = 
-		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
-
-	// Methods
-	public static string SelectionDataToString (Gtk.SelectionData data)
+	public class DndUtils 
 	{
-		return System.Text.Encoding.UTF8.GetString (data.Data);
-	}
+		// DnD targets
+		public enum TargetType {
+			UriList,
+			Uri,
+			SongList,
+			AlbumList,
+			ModelRow
+		};
 
-	public static string [] SplitSelectionData (Gtk.SelectionData data)
-	{
-		string str = SelectionDataToString (data);
+		public static readonly TargetEntry TargetUriList = 
+			new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
+			
+		public static readonly TargetEntry TargetGnomeIconList = 
+			new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList);
+			
+		public static readonly TargetEntry TargetNetscapeUrl = 
+			new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri);
+			
+		public static readonly TargetEntry TargetMuineAlbumList = 
+			new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList);
 
-		return SplitSelectionData (str);
-	}
+		public static readonly TargetEntry TargetMuineSongList = 
+			new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList);
+			
+		public static readonly TargetEntry TargetMuineTreeModelRow = 
+			new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
 
-	public static string [] SplitSelectionData (string data)
-	{
-		return Regex.Split (data, "\r\n");
+		// Methods
+		public static string SelectionDataToString (Gtk.SelectionData data)
+		{
+			return System.Text.Encoding.UTF8.GetString (data.Data);
+		}
+
+		public static string [] SplitSelectionData (Gtk.SelectionData data)
+		{
+			string str = SelectionDataToString (data);
+
+			return SplitSelectionData (str);
+		}
+
+		public static string [] SplitSelectionData (string data)
+		{
+			return Regex.Split (data, "\r\n");
+		}
 	}
 }

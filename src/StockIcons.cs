@@ -23,77 +23,80 @@ using Gdk;
 using System;
 using System.IO;
 
-public class StockIcons 
+namespace Muine
 {
-	private static string [] stock_icons = {
-		"muine-tray-playing",
-		"muine-tray-paused",
-		"muine-default-cover",
-		"muine-cover-downloading",
-		"muine-playing",
-		"muine-paused",
-		"muine-volume-zero",
-		"muine-volume-min",
-		"muine-volume-medium",
-		"muine-volume-max"
-	};
-
-	private static string [] icon_theme_icons = {
-		"stock_media-fwd",
-		"stock_media-next",
-		"stock_media-play",
-		"stock_media-prev",
-		"stock_media-rew",
-		"stock_shuffle",
-		"stock_timer",
-		"gnome-dev-cdrom-audio",
-		"gnome-mime-audio"
-	};
-
-	private static IconSize album_cover_size;
-	public static IconSize AlbumCoverSize {
-		get {
-			return album_cover_size;
-		}
-	}
-
-	public static void Initialize ()
+	public class StockIcons 
 	{
-		IconFactory factory = new IconFactory ();
-		factory.AddDefault ();
+		private static string [] stock_icons = {
+			"muine-tray-playing",
+			"muine-tray-paused",
+			"muine-default-cover",
+			"muine-cover-downloading",
+			"muine-playing",
+			"muine-paused",
+			"muine-volume-zero",
+			"muine-volume-min",
+			"muine-volume-medium",
+			"muine-volume-max"
+		};
 
-		foreach (string name in stock_icons) {
-			Pixbuf pixbuf = new Pixbuf (null, name + ".png");
-			IconSet iconset = new IconSet (pixbuf);
+		private static string [] icon_theme_icons = {
+			"stock_media-fwd",
+			"stock_media-next",
+			"stock_media-play",
+			"stock_media-prev",
+			"stock_media-rew",
+			"stock_shuffle",
+			"stock_timer",
+			"gnome-dev-cdrom-audio",
+			"gnome-mime-audio"
+		};
 
-			/* add menu variant if we have it */
-			Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
-			if (menu_stream != null) {
-				IconSource source = new IconSource ();
-				source.Pixbuf = new Pixbuf (menu_stream);
-				source.Size = IconSize.Menu;
-				source.SizeWildcarded = false;
-
-				iconset.AddSource (source);
+		private static IconSize album_cover_size;
+		public static IconSize AlbumCoverSize {
+			get {
+				return album_cover_size;
 			}
-			
-			factory.Add (name, iconset);
 		}
 
-		foreach (string name in icon_theme_icons) {
-			IconSet iconset = new IconSet ();
-			IconSource iconsource = new IconSource ();
+		public static void Initialize ()
+		{
+			IconFactory factory = new IconFactory ();
+			factory.AddDefault ();
 
-			iconsource.IconName = name;
+			foreach (string name in stock_icons) {
+				Pixbuf pixbuf = new Pixbuf (null, name + ".png");
+				IconSet iconset = new IconSet (pixbuf);
 
-			iconset.AddSource (iconsource);
+				/* add menu variant if we have it */
+				Stream menu_stream = System.Reflection.Assembly.GetCallingAssembly ().GetManifestResourceStream (name + "-16.png");
+				if (menu_stream != null) {
+					IconSource source = new IconSource ();
+					source.Pixbuf = new Pixbuf (menu_stream);
+					source.Size = IconSize.Menu;
+					source.SizeWildcarded = false;
 
-			factory.Add (name, iconset);
+					iconset.AddSource (source);
+				}
+				
+				factory.Add (name, iconset);
+			}
+
+			foreach (string name in icon_theme_icons) {
+				IconSet iconset = new IconSet ();
+				IconSource iconsource = new IconSource ();
+
+				iconsource.IconName = name;
+
+				iconset.AddSource (iconsource);
+
+				factory.Add (name, iconset);
+			}
+
+			/* register cover image icon size */
+			album_cover_size = Icon.SizeRegister ("muine-album-cover-size",
+							      CoverDatabase.AlbumCoverSize,
+							      CoverDatabase.AlbumCoverSize);
 		}
-
-		/* register cover image icon size */
-		album_cover_size = Icon.SizeRegister ("muine-album-cover-size",
-						      CoverDatabase.AlbumCoverSize,
-						      CoverDatabase.AlbumCoverSize);
 	}
 }

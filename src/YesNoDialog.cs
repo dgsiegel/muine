@@ -22,29 +22,32 @@ using System;
 using Gtk;
 using GLib;
 
-public class YesNoDialog
+namespace Muine
 {
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	Label label;
-
-	public YesNoDialog (string text, Window parent)
+	public class YesNoDialog
 	{
-		Glade.XML gxml = new Glade.XML (null, "YesNoDialog.glade", "window", null);
-		gxml.Autoconnect (this);
+		[Glade.Widget]
+		Window window;
+		[Glade.Widget]
+		Label label;
 
-		label.Text = text;
+		public YesNoDialog (string text, Window parent)
+		{
+			Glade.XML gxml = new Glade.XML (null, "YesNoDialog.glade", "window", null);
+			gxml.Autoconnect (this);
 
-		window.TransientFor = parent;
-	}
+			label.Text = text;
 
-	public bool GetAnswer ()
-	{
-		bool ret = (((Dialog) window).Run () == (int) ResponseType.Yes);
+			window.TransientFor = parent;
+		}
 
-		window.Destroy ();
+		public bool GetAnswer ()
+		{
+			bool ret = (((Dialog) window).Run () == (int) ResponseType.Yes);
 
-		return ret;
+			window.Destroy ();
+
+			return ret;
+		}
 	}
 }

@@ -17,35 +17,38 @@
  * Boston, MA 02111-1307, USA.
  */
 
-public class Config 
+namespace Muine
 {
-	private static GConf.Client gconf_client;
-	
-	public static void Init ()
+	public class Config 
 	{
-		gconf_client = new GConf.Client ();
-	}
-	
-	public static object Get (string key)
-	{
-	       return gconf_client.Get (key);
-	}
-	
-	public static object Get (string key, object default_val)
-        {
-                object val;
+		private static GConf.Client gconf_client;
+		
+		public static void Init ()
+		{
+			gconf_client = new GConf.Client ();
+		}
+		
+		public static object Get (string key)
+		{
+		       return gconf_client.Get (key);
+		}
+		
+		public static object Get (string key, object default_val)
+	        {
+	                object val;
 
-                try {
-                        val = Get (key);
-                } catch {
-                        val = default_val;
-                }
+	                try {
+	                        val = Get (key);
+	                } catch {
+	                        val = default_val;
+	                }
 
-                return val;
-        }
-        
-        public static void Set (string key, object val)
-        {
-        	gconf_client.Set (key, val);        	
-        }
+	                return val;
+	        }
+	        
+	        public static void Set (string key, object val)
+	        {
+	        	gconf_client.Set (key, val);        	
+	        }
+	}
 }

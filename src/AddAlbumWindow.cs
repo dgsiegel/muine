@@ -25,193 +25,196 @@ using GLib;
 
 using Mono.Posix;
 
-public class AddAlbumWindow : AddWindow
+namespace Muine
 {
-        private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
-        private const int GConfDefaultWidth = 500;
-
-        private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
-        private const int GConfDefaultHeight = 475; 
-
-	// Widgets
-	private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
-	private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
-
-	// DnD Targets	
-	private static TargetEntry [] source_entries = new TargetEntry [] {
-		DndUtils.TargetMuineAlbumList,
-		DndUtils.TargetUriList
-	};
-
-	// Constructor
-	public AddAlbumWindow ()
+	public class AddAlbumWindow : AddWindow
 	{
-		window.Title = Catalog.GetString ("Play Album");
+	        private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
+	        private const int GConfDefaultWidth = 500;
 
-		SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
-		
-		view.SortFunc = new HandleView.CompareFunc (SortFunc);
+	        private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
+	        private const int GConfDefaultHeight = 475; 
 
-		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
-		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
+		// Widgets
+		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
+		private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 
-		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
-					    source_entries, Gdk.DragAction.Copy);
-		view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
+		// DnD Targets	
+		private static TargetEntry [] source_entries = new TargetEntry [] {
+			DndUtils.TargetMuineAlbumList,
+			DndUtils.TargetUriList
+		};
 
-		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
-		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
-		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
+		// Constructor
+		public AddAlbumWindow ()
+		{
+			window.Title = Catalog.GetString ("Play Album");
 
-		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
+			
+			view.SortFunc = new HandleView.CompareFunc (SortFunc);
 
-		foreach (Album a in Muine.DB.Albums.Values) 
-			view.Append (a.Handle);
-		SelectFirst ();
+			view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
+			view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
-		view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-		Gtk.Drag.DestSet (view, DestDefaults.All,
-				  CoverImage.DragEntries, Gdk.DragAction.Copy);
-	}
+			view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
+						    source_entries, Gdk.DragAction.Copy);
+			view.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-	private int SortFunc (IntPtr a_ptr,
-			      IntPtr b_ptr)
-	{
-		Album a = Album.FromHandle (a_ptr);
-		Album b = Album.FromHandle (b_ptr);
+			Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (OnAlbumAdded);
+			Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnAlbumChanged);
+			Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnAlbumRemoved);
 
-		return String.CompareOrdinal (a.SortKey, b.SortKey);
-	}
+			Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
-	private void PixbufCellDataFunc (HandleView view,
-					 CellRenderer cell,
-					 IntPtr album_ptr)
-	{
-		CellRendererPixbuf r = (CellRendererPixbuf) cell;
-		Album album = Album.FromHandle (album_ptr);
+			foreach (Album a in Muine.DB.Albums.Values) 
+				view.Append (a.Handle);
+			SelectFirst ();
 
-		r.Pixbuf = (album.CoverImage != null)
-			? album.CoverImage
-			: (Muine.CoverDB.Loading)
-				? Muine.CoverDB.DownloadingPixbuf
-				: nothing_pixbuf;
+			view.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			Gtk.Drag.DestSet (view, DestDefaults.All,
+					  CoverImage.DragEntries, Gdk.DragAction.Copy);
+		}
 
-		r.Width = r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
-	}
+		private int SortFunc (IntPtr a_ptr,
+				      IntPtr b_ptr)
+		{
+			Album a = Album.FromHandle (a_ptr);
+			Album b = Album.FromHandle (b_ptr);
 
-	private void TextCellDataFunc (HandleView view,
-				       CellRenderer cell,
-				       IntPtr album_ptr)
-	{
-		CellRendererText r = (CellRendererText) cell;
-		Album album = Album.FromHandle (album_ptr);
+			return String.CompareOrdinal (a.SortKey, b.SortKey);
+		}
 
-		string performers = "";
-		if (album.Performers.Length > 0)
-			performers = String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
+		private void PixbufCellDataFunc (HandleView view,
+						 CellRenderer cell,
+						 IntPtr album_ptr)
+		{
+			CellRendererPixbuf r = (CellRendererPixbuf) cell;
+			Album album = Album.FromHandle (album_ptr);
 
-		r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
+			r.Pixbuf = (album.CoverImage != null)
+				? album.CoverImage
+				: (Muine.CoverDB.Loading)
+					? Muine.CoverDB.DownloadingPixbuf
+					: nothing_pixbuf;
 
-		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
-					   false, true, false);
-	}
+			r.Width = r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
+		}
 
-	protected override bool Search ()
-	{
-		List l = new List (IntPtr.Zero, typeof (int));
+		private void TextCellDataFunc (HandleView view,
+					       CellRenderer cell,
+					       IntPtr album_ptr)
+		{
+			CellRendererText r = (CellRendererText) cell;
+			Album album = Album.FromHandle (album_ptr);
 
-		if (search_entry.Text.Length > 0) {
-			foreach (Album a in Muine.DB.Albums.Values) {
-				if (a.FitsCriteria (SearchBits))
+			string performers = "";
+			if (album.Performers.Length > 0)
+				performers = String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
+
+			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
+
+			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
+						   false, true, false);
+		}
+
+		protected override bool Search ()
+		{
+			List l = new List (IntPtr.Zero, typeof (int));
+
+			if (search_entry.Text.Length > 0) {
+				foreach (Album a in Muine.DB.Albums.Values) {
+					if (a.FitsCriteria (SearchBits))
+						l.Append (a.Handle);
+				}
+			} else {
+				foreach (Album a in Muine.DB.Albums.Values)
 					l.Append (a.Handle);
 			}
-		} else {
-			foreach (Album a in Muine.DB.Albums.Values)
-				l.Append (a.Handle);
+
+			view.RemoveDelta (l);
+
+			foreach (int i in l) {
+				IntPtr ptr = new IntPtr (i);
+
+				view.Append (ptr);
+			}
+
+			SelectFirst ();
+
+			return false;
+		}
+		
+		private void OnAlbumAdded (Album album)
+		{
+			base.HandleAdded (album.Handle, album.FitsCriteria (SearchBits));
 		}
 
-		view.RemoveDelta (l);
-
-		foreach (int i in l) {
-			IntPtr ptr = new IntPtr (i);
-
-			view.Append (ptr);
+		private void OnAlbumChanged (Album album)
+		{
+			base.HandleChanged (album.Handle, album.FitsCriteria (SearchBits));
 		}
 
-		SelectFirst ();
+		private void OnAlbumRemoved (Album album)
+		{
+			base.HandleRemoved (album.Handle);
+		}
 
-		return false;
-	}
-	
-	private void OnAlbumAdded (Album album)
-	{
-		base.HandleAdded (album.Handle, album.FitsCriteria (SearchBits));
-	}
+		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
+		{
+			TreePath path;
 
-	private void OnAlbumChanged (Album album)
-	{
-		base.HandleChanged (album.Handle, album.FitsCriteria (SearchBits));
-	}
+			if (!view.GetPathAtPos (args.X, args.Y, out path))
+				return;
 
-	private void OnAlbumRemoved (Album album)
-	{
-		base.HandleRemoved (album.Handle);
-	}
+			IntPtr album_ptr = view.GetHandleFromPath (path);
+			Album album = Album.FromHandle (album_ptr);
 
-	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
-	{
-		TreePath path;
+			CoverImage.HandleDrop ((Song) album.Songs [0], args);
+		}
 
-		if (!view.GetPathAtPos (args.X, args.Y, out path))
-			return;
+		private void OnCoversDoneLoading ()
+		{
+			view.QueueDraw ();
+		}
 
-		IntPtr album_ptr = view.GetHandleFromPath (path);
-		Album album = Album.FromHandle (album_ptr);
+		private void OnDragDataGet (object o, DragDataGetArgs args)
+		{
+			List albums = view.SelectedPointers;
 
-		CoverImage.HandleDrop ((Song) album.Songs [0], args);
-	}
+			switch (args.Info) {
+			case (uint) DndUtils.TargetType.UriList:
+				string files = "";
 
-	private void OnCoversDoneLoading ()
-	{
-		view.QueueDraw ();
-	}
+				foreach (int i in albums) {
+					IntPtr p = new IntPtr (i);
+					Album a = Album.FromHandle (p);
 
-	private void OnDragDataGet (object o, DragDataGetArgs args)
-	{
-		List albums = view.SelectedPointers;
+					foreach (Song s in a.Songs)
+						files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
+				}
+		
+				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
+							8, System.Text.Encoding.UTF8.GetBytes (files));
+							
+				break;
 
-		switch (args.Info) {
-		case (uint) DndUtils.TargetType.UriList:
-			string files = "";
+			case (uint) DndUtils.TargetType.AlbumList:
+				string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
+				
+				foreach (int p in albums) {
+					IntPtr s = new IntPtr (p);
+					ptrs += s.ToString () + "\r\n";
+				}
+				
+				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
+						        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+							
+				break;
 
-			foreach (int i in albums) {
-				IntPtr p = new IntPtr (i);
-				Album a = Album.FromHandle (p);
-
-				foreach (Song s in a.Songs)
-					files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
+			default:
+				break;	
 			}
-	
-			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-						8, System.Text.Encoding.UTF8.GetBytes (files));
-						
-			break;
-
-		case (uint) DndUtils.TargetType.AlbumList:
-			string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
-			
-			foreach (int p in albums) {
-				IntPtr s = new IntPtr (p);
-				ptrs += s.ToString () + "\r\n";
-			}
-			
-			args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
-					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
-						
-			break;
-
-		default:
-			break;	
 		}
 	}
 }

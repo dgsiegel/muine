@@ -22,69 +22,72 @@ using System.Runtime.InteropServices;
 
 using Mono.Posix;
 
-public class StringUtils
+namespace Muine
 {
-	public static string SecondsToString (long time)
+	public class StringUtils
 	{
-		long h, m, s;
+		public static string SecondsToString (long time)
+		{
+			long h, m, s;
 
-		h = (time / 3600);
-		m = ((time % 3600) / 60);
-		s = ((time % 3600) % 60);
+			h = (time / 3600);
+			m = ((time % 3600) / 60);
+			s = ((time % 3600) % 60);
 
-		if (h > 0) {
-			return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
-		} else {
-			return m + ":" + s.ToString ("d2");
+			if (h > 0) {
+				return h + ":" + m.ToString ("d2") + ":" + s.ToString ("d2");
+			} else {
+				return m + ":" + s.ToString ("d2");
+			}
 		}
-	}
 
-	public static string JoinHumanReadable (string [] strings, int max)
-	{
-		string ret;
+		public static string JoinHumanReadable (string [] strings, int max)
+		{
+			string ret;
 
-		if (strings.Length == 0)
-			ret = Catalog.GetString ("Unknown");
-		else if (strings.Length == 1) 
-			ret = strings [0];
-		else if (max > 1 && strings.Length > max)
-			ret = String.Format (Catalog.GetString ("{0} and others"), String.Join (", ", strings, 0, max));
-		else
-			ret = String.Format (Catalog.GetString ("{0} and {1}"), String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
+			if (strings.Length == 0)
+				ret = Catalog.GetString ("Unknown");
+			else if (strings.Length == 1) 
+				ret = strings [0];
+			else if (max > 1 && strings.Length > max)
+				ret = String.Format (Catalog.GetString ("{0} and others"), String.Join (", ", strings, 0, max));
+			else
+				ret = String.Format (Catalog.GetString ("{0} and {1}"), String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
 
-		return ret;
-	}
+			return ret;
+		}
 
-	public static string JoinHumanReadable (string [] strings)
-	{
-		return JoinHumanReadable (strings, -1);
-	}
+		public static string JoinHumanReadable (string [] strings)
+		{
+			return JoinHumanReadable (strings, -1);
+		}
 
-	public static string PrefixToSuffix (string str, string prefix)
-	{
-		string ret;
+		public static string PrefixToSuffix (string str, string prefix)
+		{
+			string ret;
 
-		ret = str.Remove (0, prefix.Length + 1);
-		ret = ret + " " + prefix;
+			ret = str.Remove (0, prefix.Length + 1);
+			ret = ret + " " + prefix;
 
-		return ret;
-	}
+			return ret;
+		}
 
-	[DllImport ("libc")]
-	private static extern int strlen (string str);
+		[DllImport ("libc")]
+		private static extern int strlen (string str);
 
-	public static uint GetByteLength (string str)
-	{
-		return (uint) strlen (str);
-	}
-	
-	[DllImport ("libglib-2.0-0.dll")]
-	private static extern IntPtr g_utf8_collate_key (string str, int len);
-
-	public static string CollateKey (string key)
-	{
-		IntPtr str_ptr = g_utf8_collate_key (key, -1);
+		public static uint GetByteLength (string str)
+		{
+			return (uint) strlen (str);
+		}
 		
-		return GLib.Marshaller.PtrToStringGFree (str_ptr);
+		[DllImport ("libglib-2.0-0.dll")]
+		private static extern IntPtr g_utf8_collate_key (string str, int len);
+
+		public static string CollateKey (string key)
+		{
+			IntPtr str_ptr = g_utf8_collate_key (key, -1);
+			
+			return GLib.Marshaller.PtrToStringGFree (str_ptr);
+		}
 	}
 }

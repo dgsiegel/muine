@@ -23,32 +23,35 @@ using System.Runtime.InteropServices;
 
 using Gtk;
 
-public class EllipsizingLabel : Label
+namespace Muine
 {
-	[DllImport ("libmuine")]
-	private static extern IntPtr rb_ellipsizing_label_new (string text);
-	
-	public EllipsizingLabel (string text) : base (text)
+	public class EllipsizingLabel : Label
 	{
-		Raw = rb_ellipsizing_label_new (text);
-	}
-
-	~EllipsizingLabel ()
-	{
-		Dispose ();
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void rb_ellipsizing_label_set_text (IntPtr label,
-								  string text);
-
-	public new string Text {
-		set {
-			rb_ellipsizing_label_set_text (Raw, value);
-		}
+		[DllImport ("libmuine")]
+		private static extern IntPtr rb_ellipsizing_label_new (string text);
 		
-		get {
-			return ((Label) this).Text;
+		public EllipsizingLabel (string text) : base (text)
+		{
+			Raw = rb_ellipsizing_label_new (text);
+		}
+
+		~EllipsizingLabel ()
+		{
+			Dispose ();
+		}
+
+		[DllImport ("libmuine")]
+		private static extern void rb_ellipsizing_label_set_text (IntPtr label,
+									  string text);
+
+		public new string Text {
+			set {
+				rb_ellipsizing_label_set_text (Raw, value);
+			}
+			
+			get {
+				return ((Label) this).Text;
+			}
 		}
 	}
 }

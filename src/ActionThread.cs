@@ -21,36 +21,39 @@ using System;
 using System.Threading;
 using System.Collections;
 
-public class ActionThread
+namespace Muine
 {
-	private Thread thread;
-	private Queue queue;
-
-	public delegate void Action (Action action);
-	
-	public ActionThread ()
+	public class ActionThread
 	{
-		queue = Queue.Synchronized (new Queue ());
-		thread = new Thread (new ThreadStart (RunThread));
+		private Thread thread;
+		private Queue queue;
 
-		thread.Start ();
-	}
+		public delegate void Action (Action action);
+		
+		public ActionThread ()
+		{
+			queue = Queue.Synchronized (new Queue ());
+			thread = new Thread (new ThreadStart (RunThread));
 
-	private void RunThread ()
-	{
-		while (true) {
-			while (queue.Count > 0) {
-				Action action = (Action) queue.Dequeue ();
-
-				action (action);
-			}
-
-			Thread.Sleep (1000);
+			thread.Start ();
 		}
-	}
 
-	public void QueueAction (Action action)
-	{
-		queue.Enqueue (action);
+		private void RunThread ()
+		{
+			while (true) {
+				while (queue.Count > 0) {
+					Action action = (Action) queue.Dequeue ();
+
+					action (action);
+				}
+
+				Thread.Sleep (1000);
+			}
+		}
+
+		public void QueueAction (Action action)
+		{
+			queue.Enqueue (action);
+		}
 	}
 }

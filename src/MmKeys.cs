@@ -27,57 +27,60 @@ using GLib;
 
 using MuinePluginLib;
 
-public class MmKeys : GLib.Object
+namespace Muine
 {
-	[DllImport ("libmuine")]
-	private static extern IntPtr mmkeys_new ();
-
-	private SignalUtils.SignalDelegate playpause_cb;
-	private SignalUtils.SignalDelegate prev_cb;
-	private SignalUtils.SignalDelegate next_cb;
-	private SignalUtils.SignalDelegate stop_cb;
-
-	IPlayer player;
-
-	public MmKeys (IPlayer player) : base (IntPtr.Zero)
+	public class MmKeys : GLib.Object
 	{
-		Raw = mmkeys_new ();
+		[DllImport ("libmuine")]
+		private static extern IntPtr mmkeys_new ();
 
-		this.player = player;
+		private SignalUtils.SignalDelegate playpause_cb;
+		private SignalUtils.SignalDelegate prev_cb;
+		private SignalUtils.SignalDelegate next_cb;
+		private SignalUtils.SignalDelegate stop_cb;
 
-		playpause_cb = new SignalUtils.SignalDelegate (OnPlayPause);
-		prev_cb      = new SignalUtils.SignalDelegate (OnPrev);
-		next_cb      = new SignalUtils.SignalDelegate (OnNext);
-		stop_cb      = new SignalUtils.SignalDelegate (OnStop);
+		IPlayer player;
 
-		SignalUtils.SignalConnect (Raw, "mm_playpause", playpause_cb);
-		SignalUtils.SignalConnect (Raw, "mm_prev", prev_cb);
-		SignalUtils.SignalConnect (Raw, "mm_next", next_cb);
-		SignalUtils.SignalConnect (Raw, "mm_stop", stop_cb);
-	}
+		public MmKeys (IPlayer player) : base (IntPtr.Zero)
+		{
+			Raw = mmkeys_new ();
 
-	~MmKeys ()
-	{
-		Dispose ();
-	}
+			this.player = player;
 
-	private void OnPlayPause (IntPtr obj)
-	{
-		player.Playing = !player.Playing;
-	}
+			playpause_cb = new SignalUtils.SignalDelegate (OnPlayPause);
+			prev_cb      = new SignalUtils.SignalDelegate (OnPrev);
+			next_cb      = new SignalUtils.SignalDelegate (OnNext);
+			stop_cb      = new SignalUtils.SignalDelegate (OnStop);
 
-	private void OnNext (IntPtr obj)
-	{
-		player.Next ();
-	}
+			SignalUtils.SignalConnect (Raw, "mm_playpause", playpause_cb);
+			SignalUtils.SignalConnect (Raw, "mm_prev", prev_cb);
+			SignalUtils.SignalConnect (Raw, "mm_next", next_cb);
+			SignalUtils.SignalConnect (Raw, "mm_stop", stop_cb);
+		}
 
-	private void OnPrev (IntPtr obj)
-	{
-		player.Previous ();
-	}
+		~MmKeys ()
+		{
+			Dispose ();
+		}
 
-	private void OnStop (IntPtr obj)
-	{
-		player.Playing = false;
+		private void OnPlayPause (IntPtr obj)
+		{
+			player.Playing = !player.Playing;
+		}
+
+		private void OnNext (IntPtr obj)
+		{
+			player.Next ();
+		}
+
+		private void OnPrev (IntPtr obj)
+		{
+			player.Previous ();
+		}
+
+		private void OnStop (IntPtr obj)
+		{
+			player.Playing = false;
+		}
 	}
 }

@@ -23,47 +23,50 @@ using System.IO;
 using Gtk;
 using GLib;
 
-public class NoMusicFoundWindow
+namespace Muine
 {
-	[Glade.Widget]
-	private Window window;
-	[Glade.Widget]
-	private RadioButton empty_radiobutton;
-
-	public NoMusicFoundWindow (Window parent)
+	public class NoMusicFoundWindow
 	{
-		Glade.XML gxml = new Glade.XML (null, "NoMusicFoundWindow.glade", "window", null);
-		gxml.Autoconnect (this);
+		[Glade.Widget]
+		private Window window;
+		[Glade.Widget]
+		private RadioButton empty_radiobutton;
 
-		window.TransientFor = parent;
-		window.Visible = true;
-	}
+		public NoMusicFoundWindow (Window parent)
+		{
+			Glade.XML gxml = new Glade.XML (null, "NoMusicFoundWindow.glade", "window", null);
+			gxml.Autoconnect (this);
 
-	private void OnOkClicked (object o, EventArgs a) 
-	{
-		window.Destroy ();
+			window.TransientFor = parent;
+			window.Visible = true;
+		}
 
-		if (empty_radiobutton.Active) 
-			CreateEmptyMusicCollection ();
-	}
+		private void OnOkClicked (object o, EventArgs a) 
+		{
+			window.Destroy ();
 
-	private void CreateEmptyMusicCollection ()
-	{
-		// get $HOME from environment
-		string homeDirectory = Environment.GetEnvironmentVariable ("HOME");
-		if (!homeDirectory.EndsWith ("/"))
-			homeDirectory += "/";
-		
-		// retrieve information about $HOME/Music and $HOME/Music/Playlists
-		DirectoryInfo musicdir = new DirectoryInfo (homeDirectory + "Music/");
-		DirectoryInfo playlistsdir = new DirectoryInfo (homeDirectory + "Music/Playlists/");
+			if (empty_radiobutton.Active) 
+				CreateEmptyMusicCollection ();
+		}
 
-		if (!musicdir.Exists) 
-			musicdir.Create ();
+		private void CreateEmptyMusicCollection ()
+		{
+			// get $HOME from environment
+			string homeDirectory = Environment.GetEnvironmentVariable ("HOME");
+			if (!homeDirectory.EndsWith ("/"))
+				homeDirectory += "/";
+			
+			// retrieve information about $HOME/Music and $HOME/Music/Playlists
+			DirectoryInfo musicdir = new DirectoryInfo (homeDirectory + "Music/");
+			DirectoryInfo playlistsdir = new DirectoryInfo (homeDirectory + "Music/Playlists/");
 
-		if (!playlistsdir.Exists) 
-			playlistsdir.Create ();
+			if (!musicdir.Exists) 
+				musicdir.Create ();
 
-		Muine.DB.AddWatchedFolder (musicdir.FullName);
+			if (!playlistsdir.Exists) 
+				playlistsdir.Create ();
+
+			Muine.DB.AddWatchedFolder (musicdir.FullName);
+		}
 	}
 }

@@ -20,75 +20,78 @@
 using System;
 using System.Net;
 
-public class GnomeProxy
+namespace Muine
 {
-	private const string GConfKeyUse = "/system/http_proxy/use_http_proxy";
-	private const bool GConfDefaultUse = false;
-
-	private const string GConfKeyHost = "/system/http_proxy/host";
-	private const string GConfDefaultHost = "";
-
-	private const string GConfKeyPort = "/system/http_proxy/port";
-	private const int GConfDefaultPort = 8080;
-
-	private const string GConfKeyUseAuth = "/system/http_proxy/use_authentication";
-	private const bool GConfDefaultUseAuth = false;
-
-	private const string GConfKeyUser = "/system/http_proxy/authentication_user";
-	private const string GConfDefaultUser = "";
-
-	private const string GConfKeyPass = "/system/http_proxy/authentication_password";
-	private const string GConfDefaultPass = "";
-
-	private bool use;
-
-	private WebProxy proxy;
-	
-	public GnomeProxy ()
+	public class GnomeProxy
 	{
-		use = (bool) Config.Get (GConfKeyUse, GConfDefaultUse);
+		private const string GConfKeyUse = "/system/http_proxy/use_http_proxy";
+		private const bool GConfDefaultUse = false;
 
-		if (!use)
-			return;
+		private const string GConfKeyHost = "/system/http_proxy/host";
+		private const string GConfDefaultHost = "";
 
-		// Host / Proxy
-		string host = (string) Config.Get (GConfKeyHost, GConfDefaultHost);
+		private const string GConfKeyPort = "/system/http_proxy/port";
+		private const int GConfDefaultPort = 8080;
 
-		int port = (int) Config.Get (GConfKeyPort, GConfDefaultPort);
+		private const string GConfKeyUseAuth = "/system/http_proxy/use_authentication";
+		private const bool GConfDefaultUseAuth = false;
+
+		private const string GConfKeyUser = "/system/http_proxy/authentication_user";
+		private const string GConfDefaultUser = "";
+
+		private const string GConfKeyPass = "/system/http_proxy/authentication_password";
+		private const string GConfDefaultPass = "";
+
+		private bool use;
+
+		private WebProxy proxy;
 		
-		try {
-			proxy = new WebProxy (host, port);
-		} catch {
-			use = false;
-			return;
+		public GnomeProxy ()
+		{
+			use = (bool) Config.Get (GConfKeyUse, GConfDefaultUse);
+
+			if (!use)
+				return;
+
+			// Host / Proxy
+			string host = (string) Config.Get (GConfKeyHost, GConfDefaultHost);
+
+			int port = (int) Config.Get (GConfKeyPort, GConfDefaultPort);
+			
+			try {
+				proxy = new WebProxy (host, port);
+			} catch {
+				use = false;
+				return;
+			}
+
+			// Authentication
+			bool use_auth = (bool) Config.Get (GConfKeyUseAuth, GConfDefaultUseAuth);
+
+			if (!use_auth)
+				return;
+
+			string user = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
+
+			string passwd = (string) Config.Get (GConfKeyPass, GConfDefaultPass);
+					
+			try {
+				proxy.Credentials = new NetworkCredential (user, passwd);
+			} catch {
+				use_auth = false;
+			}
 		}
 
-		// Authentication
-		bool use_auth = (bool) Config.Get (GConfKeyUseAuth, GConfDefaultUseAuth);
-
-		if (!use_auth)
-			return;
-
-		string user = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
-
-		string passwd = (string) Config.Get (GConfKeyPass, GConfDefaultPass);
-				
-		try {
-			proxy.Credentials = new NetworkCredential (user, passwd);
-		} catch {
-			use_auth = false;
+		public bool Use {
+			get {
+				return use;
+			}
 		}
-	}
 
-	public bool Use {
-		get {
-			return use;
-		}
-	}
-
-	public WebProxy Proxy {
-		get {
-			return proxy;
+		public WebProxy Proxy {
+			get {
+				return proxy;
+			}
 		}
 	}
 }

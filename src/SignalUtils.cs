@@ -20,81 +20,84 @@
 using System;
 using System.Runtime.InteropServices;
 
-public class SignalUtils 
+namespace Muine
 {
-        // SignalConnect
-        public delegate void SignalDelegate (IntPtr obj);
+	public class SignalUtils 
+	{
+	        // SignalConnect
+	        public delegate void SignalDelegate (IntPtr obj);
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegate cb, IntPtr data,
-							  IntPtr p, int flags);
-							  
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb)
-        {
-                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
-        }
-        
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb, 
-                                          IntPtr data, IntPtr p, int flags)
-        {
-                return g_signal_connect_data (obj, name, cb, data, p, flags);
-        }
-        
-        // SignalConnect (Ptr)
-        public delegate void SignalDelegatePtr (IntPtr obj, IntPtr arg);
+		[DllImport ("libgobject-2.0-0.dll")]
+		private static extern uint g_signal_connect_data (IntPtr obj, string name,
+								  SignalDelegate cb, IntPtr data,
+								  IntPtr p, int flags);
+								  
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb)
+	        {
+	                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
+	        }
+	        
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb, 
+	                                          IntPtr data, IntPtr p, int flags)
+	        {
+	                return g_signal_connect_data (obj, name, cb, data, p, flags);
+	        }
+	        
+	        // SignalConnect (Ptr)
+	        public delegate void SignalDelegatePtr (IntPtr obj, IntPtr arg);
 
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegatePtr cb, IntPtr data,
-							  IntPtr p, int flags);
-							  
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb)
-        {
-                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
-        }
-        
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb, 
-                                          IntPtr data, IntPtr p, int flags)
-        {
-                return g_signal_connect_data (obj, name, cb, data, p, flags);
-        }
+		[DllImport ("libgobject-2.0-0.dll")]
+		private static extern uint g_signal_connect_data (IntPtr obj, string name,
+								  SignalDelegatePtr cb, IntPtr data,
+								  IntPtr p, int flags);
+								  
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb)
+	        {
+	                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
+	        }
+	        
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb, 
+	                                          IntPtr data, IntPtr p, int flags)
+	        {
+	                return g_signal_connect_data (obj, name, cb, data, p, flags);
+	        }
 
-        // SignalConnect (Int)
-        public delegate void SignalDelegateInt (IntPtr obj, int arg);
-        
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegateInt cb, IntPtr data,
-							  IntPtr p, int flags);
-							  
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb)
-        {
-                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
-        }
-        
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb, 
-                                          IntPtr data, IntPtr p, int flags)
-        {
-                return g_signal_connect_data (obj, name, cb, data, p, flags);
-        }
-        
-        // SignalConnect (Str)
-        public delegate void SignalDelegateStr (IntPtr obj, string arg);
-        
-	[DllImport ("libgobject-2.0-0.dll")]
-	private static extern uint g_signal_connect_data (IntPtr obj, string name,
-							  SignalDelegateStr cb, IntPtr data,
-							  IntPtr p, int flags);
-							  
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb)
-        {
-                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
-        }
-        
-        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb, 
-                                          IntPtr data, IntPtr p, int flags)
-        {
-                return g_signal_connect_data (obj, name, cb, data, p, flags);
-        }
+	        // SignalConnect (Int)
+	        public delegate void SignalDelegateInt (IntPtr obj, int arg);
+	        
+		[DllImport ("libgobject-2.0-0.dll")]
+		private static extern uint g_signal_connect_data (IntPtr obj, string name,
+								  SignalDelegateInt cb, IntPtr data,
+								  IntPtr p, int flags);
+								  
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb)
+	        {
+	                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
+	        }
+	        
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb, 
+	                                          IntPtr data, IntPtr p, int flags)
+	        {
+	                return g_signal_connect_data (obj, name, cb, data, p, flags);
+	        }
+	        
+	        // SignalConnect (Str)
+	        public delegate void SignalDelegateStr (IntPtr obj, string arg);
+	        
+		[DllImport ("libgobject-2.0-0.dll")]
+		private static extern uint g_signal_connect_data (IntPtr obj, string name,
+								  SignalDelegateStr cb, IntPtr data,
+								  IntPtr p, int flags);
+								  
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb)
+	        {
+	                return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
+	        }
+	        
+	        public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb, 
+	                                          IntPtr data, IntPtr p, int flags)
+	        {
+	                return g_signal_connect_data (obj, name, cb, data, p, flags);
+	        }
+	}
 }

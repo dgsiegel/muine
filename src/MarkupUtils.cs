@@ -21,43 +21,46 @@ using Gtk;
 using System;
 using System.Runtime.InteropServices;
 
-public class MarkupUtils 
+namespace Muine
 {
-	[DllImport ("libmuine")]
-	private static extern void label_set_markup (IntPtr label,
-						     uint start_index,
-						     uint end_index,
-						     bool large,
-						     bool bold,
-						     bool italic);
-
-	public static void LabelSetMarkup (Label label,
-					   uint start_index,
-					   uint end_index,
-					   bool large,
-					   bool bold,
-					   bool italic)
+	public class MarkupUtils 
 	{
-		label_set_markup (label.Handle, start_index, end_index,
-				  large, bold, italic);
-	}
+		[DllImport ("libmuine")]
+		private static extern void label_set_markup (IntPtr label,
+							     uint start_index,
+							     uint end_index,
+							     bool large,
+							     bool bold,
+							     bool italic);
 
-	[DllImport ("libmuine")]
-	private static extern void cell_set_markup (IntPtr label,
-						    uint start_index,
-						    uint end_index,
-						    bool large,
-						    bool bold,
-						    bool italic);
+		public static void LabelSetMarkup (Label label,
+						   uint start_index,
+						   uint end_index,
+						   bool large,
+						   bool bold,
+						   bool italic)
+		{
+			label_set_markup (label.Handle, start_index, end_index,
+					  large, bold, italic);
+		}
 
-	public static void CellSetMarkup (CellRendererText cell,
-					  uint start_index,
-					  uint end_index,
-					  bool large,
-					  bool bold,
-					  bool italic)
-	{
-		cell_set_markup (cell.Handle, start_index, end_index,
-				 large, bold, italic);
+		[DllImport ("libmuine")]
+		private static extern void cell_set_markup (IntPtr label,
+							    uint start_index,
+							    uint end_index,
+							    bool large,
+							    bool bold,
+							    bool italic);
+
+		public static void CellSetMarkup (CellRendererText cell,
+						  uint start_index,
+						  uint end_index,
+						  bool large,
+						  bool bold,
+						  bool italic)
+		{
+			cell_set_markup (cell.Handle, start_index, end_index,
+					 large, bold, italic);
+		}
 	}
 }

@@ -21,52 +21,55 @@ using System;
 
 using Gdk;
 
-public class KeyUtils
+namespace Muine
 {
-	/* If we have modifiers, and either Ctrl, Mod1 (Alt), or any
-	 * of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
-	 * let Gtk+ handle the key */
+	public class KeyUtils
+	{
+		/* If we have modifiers, and either Ctrl, Mod1 (Alt), or any
+		 * of Mod3 to Mod5 (Mod2 is num-lock...) are pressed, we
+		 * let Gtk+ handle the key */
 
-	public static bool HaveModifier (Gdk.EventKey e) {
-		if (e.State != 0
-		 	&& (((e.State & Gdk.ModifierType.ControlMask) != 0)
-			 || ((e.State & Gdk.ModifierType.Mod1Mask) != 0)
-			 || ((e.State & Gdk.ModifierType.Mod3Mask) != 0)
-			 || ((e.State & Gdk.ModifierType.Mod4Mask) != 0)
-			 || ((e.State & Gdk.ModifierType.Mod5Mask) != 0))) {
-			return true;
+		public static bool HaveModifier (Gdk.EventKey e) {
+			if (e.State != 0
+			 	&& (((e.State & Gdk.ModifierType.ControlMask) != 0)
+				 || ((e.State & Gdk.ModifierType.Mod1Mask) != 0)
+				 || ((e.State & Gdk.ModifierType.Mod3Mask) != 0)
+				 || ((e.State & Gdk.ModifierType.Mod4Mask) != 0)
+				 || ((e.State & Gdk.ModifierType.Mod5Mask) != 0))) {
+				return true;
+			}
+
+			return false;
 		}
 
-		return false;
-	}
+		public static bool IsModifier (Gdk.EventKey e) {
+			bool ret = false;
+			
+			switch (e.Key) {
+			case Key.Shift_L:
+			case Key.Shift_R:
+			case Key.Caps_Lock:
+			case Key.Shift_Lock:
+			case Key.Control_L:
+			case Key.Control_R:
+			case Key.Meta_L:
+			case Key.Meta_R:
+			case Key.Alt_L:
+			case Key.Alt_R:
+			case Key.Super_L:
+			case Key.Super_R:
+			case Key.Hyper_L:
+			case Key.Hyper_R:
+			case Key.Mode_switch:
+			case Key.ISO_Level3_Shift:
+				ret = true;
+				break;
+			default:
+				ret = false;
+				break;
+			}
 
-	public static bool IsModifier (Gdk.EventKey e) {
-		bool ret = false;
-		
-		switch (e.Key) {
-		case Key.Shift_L:
-		case Key.Shift_R:
-		case Key.Caps_Lock:
-		case Key.Shift_Lock:
-		case Key.Control_L:
-		case Key.Control_R:
-		case Key.Meta_L:
-		case Key.Meta_R:
-		case Key.Alt_L:
-		case Key.Alt_R:
-		case Key.Super_L:
-		case Key.Super_R:
-		case Key.Hyper_L:
-		case Key.Hyper_R:
-		case Key.Mode_switch:
-		case Key.ISO_Level3_Shift:
-			ret = true;
-			break;
-		default:
-			ret = false;
-			break;
+			return ret;
 		}
-
-		return ret;
 	}
 }

@@ -25,154 +25,157 @@ using Gnome.Vfs;
 
 using Mono.Posix;
 
-public class FileUtils
+namespace Muine
 {
-	// Filenames
-	public static void Init ()
+	public class FileUtils
 	{
-		home_directory = Environment.GetEnvironmentVariable ("HOME");
+		// Filenames
+		public static void Init ()
+		{
+			home_directory = Environment.GetEnvironmentVariable ("HOME");
+			
+			try {
+				config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
+
+				CreateDirectory (config_directory);
+			} catch (Exception e) {
+				throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+			}
+
+			playlist_file = Path.Combine (config_directory, playlist_filename);
+			songsdb_file = Path.Combine (config_directory, songsdb_filename);
+			coversdb_file = Path.Combine (config_directory, coversdb_filename);
+			user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
+			
+			try {
+				temp_directory = Path.Combine (System.IO.Path.GetTempPath (),
+								"muine-" + Environment.UserName);
+				CreateDirectory (temp_directory);
+			} catch (Exception e) {
+				throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting..."), e.Message));
+			}
+		}
 		
-		try {
-			config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
-
-			CreateDirectory (config_directory);
-		} catch (Exception e) {
-			throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+		private static string home_directory;
+		public static string HomeDirectory {
+			get {
+				return home_directory;
+			}
 		}
-
-		playlist_file = Path.Combine (config_directory, playlist_filename);
-		songsdb_file = Path.Combine (config_directory, songsdb_filename);
-		coversdb_file = Path.Combine (config_directory, coversdb_filename);
-		user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
 		
-		try {
-			temp_directory = Path.Combine (System.IO.Path.GetTempPath (),
-							"muine-" + Environment.UserName);
-			CreateDirectory (temp_directory);
-		} catch (Exception e) {
-			throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting..."), e.Message));
+		private static string config_directory;
+		public static string ConfigDirectory {
+			get {
+				return config_directory;
+			}
 		}
-	}
-	
-	private static string home_directory;
-	public static string HomeDirectory {
-		get {
-			return home_directory;
+		
+		private static string playlist_file;
+		private const string playlist_filename = "playlist.m3u";
+		public static string PlaylistFile {
+			get {
+				return playlist_file;
+			}
 		}
-	}
-	
-	private static string config_directory;
-	public static string ConfigDirectory {
-		get {
-			return config_directory;
+
+		private static string songsdb_file;
+		private const string songsdb_filename = "songs.db";
+		public static string SongsDBFile {
+			get {
+				return songsdb_file;
+			}
 		}
-	}
-	
-	private static string playlist_file;
-	private const string playlist_filename = "playlist.m3u";
-	public static string PlaylistFile {
-		get {
-			return playlist_file;
+
+		private static string coversdb_file;
+		private const string coversdb_filename = "covers.db";
+		public static string CoversDBFile {
+			get {
+				return coversdb_file;
+			}
 		}
-	}
 
-	private static string songsdb_file;
-	private const string songsdb_filename = "songs.db";
-	public static string SongsDBFile {
-		get {
-			return songsdb_file;
+		public static string SystemPluginDirectory {
+			get {
+				return Defines.PLUGIN_DIR;
+			}
 		}
-	}
 
-	private static string coversdb_file;
-	private const string coversdb_filename = "covers.db";
-	public static string CoversDBFile {
-		get {
-			return coversdb_file;
+		private const string plugin_dirname = "plugins";
+		private static string user_plugin_directory;
+		public static string UserPluginDirectory {
+			get {
+				return user_plugin_directory;
+			}
 		}
-	}
 
-	public static string SystemPluginDirectory {
-		get {
-			return Defines.PLUGIN_DIR;
+		private static string temp_directory;
+		public static string TempDirectory {
+			get {
+				return temp_directory;
+			}
 		}
-	}
-
-	private const string plugin_dirname = "plugins";
-	private static string user_plugin_directory;
-	public static string UserPluginDirectory {
-		get {
-			return user_plugin_directory;
+		
+		// Methods
+		public static bool IsFromRemovableMedia (string fn)
+		{
+			return (fn.StartsWith ("/mnt/") ||
+				fn.StartsWith ("file:///mnt/") ||
+				fn.StartsWith ("/media/") ||
+				fn.StartsWith ("file:///media/"));
 		}
-	}
 
-	private static string temp_directory;
-	public static string TempDirectory {
-		get {
-			return temp_directory;
+		public static bool IsPlaylist (string fn)
+		{
+			string ext = Path.GetExtension (fn).ToLower ();
+
+			return (ext == ".m3u");
 		}
-	}
-	
-	// Methods
-	public static bool IsFromRemovableMedia (string fn)
-	{
-		return (fn.StartsWith ("/mnt/") ||
-			fn.StartsWith ("file:///mnt/") ||
-			fn.StartsWith ("/media/") ||
-			fn.StartsWith ("file:///media/"));
-	}
 
-	public static bool IsPlaylist (string fn)
-	{
-		string ext = Path.GetExtension (fn).ToLower ();
+		public static bool Exists (string fn)
+		{
+			Gnome.Vfs.Uri u = new Gnome.Vfs.Uri (fn);
 
-		return (ext == ".m3u");
-	}
+			return u.Exists;
+		}
 
-	public static bool Exists (string fn)
-	{
-		Gnome.Vfs.Uri u = new Gnome.Vfs.Uri (fn);
+		public static string MakeHumanReadable (string fn)
+		{
+			System.Uri u = new System.Uri (fn);
 
-		return u.Exists;
-	}
+			string ret = u.ToString ();
 
-	public static string MakeHumanReadable (string fn)
-	{
-		System.Uri u = new System.Uri (fn);
+			if (ret.StartsWith ("file://"))
+				ret = ret.Substring ("file://".Length);
 
-		string ret = u.ToString ();
+			return ret;
+		}
 
-		if (ret.StartsWith ("file://"))
-			ret = ret.Substring ("file://".Length);
+		private static void CreateDirectory (string dir)
+		{
+			DirectoryInfo dinfo = new DirectoryInfo (dir);
+			if (dinfo.Exists)
+				return;
+					
+			dinfo.Create ();
+		}
 
-		return ret;
-	}
+		/* these two go away once we have vfs support everywhere */
+		[DllImport ("libgnomevfs-2-0.dll")]
+		private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
 
-	private static void CreateDirectory (string dir)
-	{
-		DirectoryInfo dinfo = new DirectoryInfo (dir);
-		if (dinfo.Exists)
-			return;
-				
-		dinfo.Create ();
-	}
+		public static string LocalPathFromUri (string uri)
+		{
+			IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
 
-	/* these two go away once we have vfs support everywhere */
-	[DllImport ("libgnomevfs-2-0.dll")]
-	private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
+			if (p == IntPtr.Zero)
+				return null;
+			else
+				return GLib.Marshaller.PtrToStringGFree (p);
+		}
 
-	public static string LocalPathFromUri (string uri)
-	{
-		IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
-
-		if (p == IntPtr.Zero)
-			return null;
-		else
-			return GLib.Marshaller.PtrToStringGFree (p);
-	}
-
-	public static string UriFromLocalPath (string uri)
-	{
-		return "file://" + uri;
+		public static string UriFromLocalPath (string uri)
+		{
+			return "file://" + uri;
+		}
 	}
 }

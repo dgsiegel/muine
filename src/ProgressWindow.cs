@@ -24,79 +24,82 @@ using GLib;
 
 using Mono.Posix;
 
-public class ProgressWindow
+namespace Muine
 {
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	Label loading_label;
-	[Glade.Widget]
-	Container file_label_container;
-	private EllipsizingLabel file_label;
-
-	bool canceled;
-	
-	public ProgressWindow (Window parent, string folder)
+	public class ProgressWindow
 	{
-		Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
-		gxml.Autoconnect (this);
+		[Glade.Widget]
+		Window window;
+		[Glade.Widget]
+		Label loading_label;
+		[Glade.Widget]
+		Container file_label_container;
+		private EllipsizingLabel file_label;
 
-		window.TransientFor = parent;
-		window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
+		bool canceled;
+		
+		public ProgressWindow (Window parent, string folder)
+		{
+			Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
+			gxml.Autoconnect (this);
 
-		window.SetDefaultSize (300, -1);
+			window.TransientFor = parent;
+			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
 
-		file_label = new EllipsizingLabel ("");
-		file_label.Xalign = 0.0f;
-		file_label.Visible = true;
-		file_label_container.Add (file_label);
+			window.SetDefaultSize (300, -1);
 
-		MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
-					    false, true, false);
+			file_label = new EllipsizingLabel ("");
+			file_label.Xalign = 0.0f;
+			file_label.Visible = true;
+			file_label_container.Add (file_label);
 
-		canceled = false;
+			MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
+						    false, true, false);
 
-		file_label.Text = "...";
+			canceled = false;
 
-		while (MainContext.Pending ())
-			Main.Iteration ();
-	}
+			file_label.Text = "...";
 
-	public bool ReportFile (string file)
-	{
-		if (canceled)
-			return false;
+			while (MainContext.Pending ())
+				Main.Iteration ();
+		}
 
-		window.Visible = true;
+		public bool ReportFile (string file)
+		{
+			if (canceled)
+				return false;
 
-		file_label.Text = file;
+			window.Visible = true;
 
-		while (MainContext.Pending ())
-			Main.Iteration ();
+			file_label.Text = file;
 
-		return true;
-	}
+			while (MainContext.Pending ())
+				Main.Iteration ();
 
-	public void Done ()
-	{
-		window.Destroy ();
-	}
+			return true;
+		}
 
-	private void OnWindowResponse (object o, EventArgs a)
-	{
-		window.Visible = false;
+		public void Done ()
+		{
+			window.Destroy ();
+		}
 
-		canceled = true;
-	}
+		private void OnWindowResponse (object o, EventArgs a)
+		{
+			window.Visible = false;
 
-	private void OnWindowDeleteEvent (object o, EventArgs a)
-	{
-		window.Visible = false;
+			canceled = true;
+		}
 
-		DeleteEventArgs args = (DeleteEventArgs) a;
+		private void OnWindowDeleteEvent (object o, EventArgs a)
+		{
+			window.Visible = false;
 
-		args.RetVal = true;
+			DeleteEventArgs args = (DeleteEventArgs) a;
 
-		canceled = true;
+			args.RetVal = true;
+
+			canceled = true;
+		}
 	}
 }

@@ -22,77 +22,80 @@ using System;
 using Gtk;
 using GLib;
 
-public class SkipToWindow
+namespace Muine
 {
-	[Glade.Widget]
-	Window window;
-	[Glade.Widget]
-	HScale song_slider;
-	[Glade.Widget]
-	Label song_position;
-
-	Player player;
-
-	bool from_tick;
-	
-	public SkipToWindow (Window parent, Player p)
+	public class SkipToWindow
 	{
-		Glade.XML gxml = new Glade.XML (null, "SkipToWindow.glade", "window", null);
-		gxml.Autoconnect (this);
+		[Glade.Widget]
+		Window window;
+		[Glade.Widget]
+		HScale song_slider;
+		[Glade.Widget]
+		Label song_position;
 
-		window.TransientFor = parent;
+		Player player;
 
-		player = p;
-		player.TickEvent += new Player.TickEventHandler (OnTickEvent);
-
-		OnTickEvent (player.Position);
-	}
-
-	public void Run ()
-	{
-		window.Visible = true;
-
-		song_slider.GrabFocus ();
-	}
-
-	public void Hide ()
-	{
-		window.Visible = false;
-	}
-
-	private void OnTickEvent (int pos) 
-	{
-		/* update label */
-		String position = StringUtils.SecondsToString (pos);
-		String total_time = StringUtils.SecondsToString (player.Song.Duration);
-		song_position.Text = position + " / " + total_time;
-
-		/* update slider */
-		from_tick = true;
-		song_slider.Value = pos; 
-		song_slider.SetRange (0, player.Song.Duration);
-	}
-
-	private void OnSongSliderValueChanged (object o, EventArgs a) 
-	{
-		if (!from_tick) {
-			player.Position = (int) song_slider.Value;
-
-			player.Play ();
-		} else
-			from_tick = false;
-	}
-
-	private void OnWindowDeleteEvent (object o, EventArgs a)
-	{
-		window.Visible = false;
+		bool from_tick;
 		
-		DeleteEventArgs args = (DeleteEventArgs) a;
-		args.RetVal = true;
-	}
+		public SkipToWindow (Window parent, Player p)
+		{
+			Glade.XML gxml = new Glade.XML (null, "SkipToWindow.glade", "window", null);
+			gxml.Autoconnect (this);
 
-	private void OnCloseButtonClicked (object o, EventArgs a)
-	{
-		window.Visible = false;
+			window.TransientFor = parent;
+
+			player = p;
+			player.TickEvent += new Player.TickEventHandler (OnTickEvent);
+
+			OnTickEvent (player.Position);
+		}
+
+		public void Run ()
+		{
+			window.Visible = true;
+
+			song_slider.GrabFocus ();
+		}
+
+		public void Hide ()
+		{
+			window.Visible = false;
+		}
+
+		private void OnTickEvent (int pos) 
+		{
+			/* update label */
+			String position = StringUtils.SecondsToString (pos);
+			String total_time = StringUtils.SecondsToString (player.Song.Duration);
+			song_position.Text = position + " / " + total_time;
+
+			/* update slider */
+			from_tick = true;
+			song_slider.Value = pos; 
+			song_slider.SetRange (0, player.Song.Duration);
+		}
+
+		private void OnSongSliderValueChanged (object o, EventArgs a) 
+		{
+			if (!from_tick) {
+				player.Position = (int) song_slider.Value;
+
+				player.Play ();
+			} else
+				from_tick = false;
+		}
+
+		private void OnWindowDeleteEvent (object o, EventArgs a)
+		{
+			window.Visible = false;
+			
+			DeleteEventArgs args = (DeleteEventArgs) a;
+			args.RetVal = true;
+		}
+
+		private void OnCloseButtonClicked (object o, EventArgs a)
+		{
+			window.Visible = false;
+		}
 	}
 }

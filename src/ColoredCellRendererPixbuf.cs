@@ -20,24 +20,27 @@
 using System;
 using System.Runtime.InteropServices;
 
-public class ColoredCellRendererPixbuf : Gtk.CellRenderer 
+namespace Muine
 {
-	~ColoredCellRendererPixbuf ()
+	public class ColoredCellRendererPixbuf : Gtk.CellRenderer 
 	{
-		Dispose ();
-	}
+		~ColoredCellRendererPixbuf ()
+		{
+			Dispose ();
+		}
 
-	[DllImport ("libmuine")]
-	static extern IntPtr rb_cell_renderer_pixbuf_new ();
+		[DllImport ("libmuine")]
+		static extern IntPtr rb_cell_renderer_pixbuf_new ();
 
-	public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
-	{
-		Raw = rb_cell_renderer_pixbuf_new ();
-	}
+		public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
+		{
+			Raw = rb_cell_renderer_pixbuf_new ();
+		}
 
-	public Gdk.Pixbuf Pixbuf {
-		set {
-			SetProperty ("pixbuf", new GLib.Value (value));
+		public Gdk.Pixbuf Pixbuf {
+			set {
+				SetProperty ("pixbuf", new GLib.Value (value));
+			}
 		}
 	}
 }

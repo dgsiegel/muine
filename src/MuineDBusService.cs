@@ -21,33 +21,37 @@ using System;
 
 using DBus;
 
-public sealed class MuineDBusService
+
+namespace Muine
 {
-	private Service service;
-	private Connection conn;
-	
-	private MuineDBusService ()
+	public sealed class MuineDBusService
 	{
-		Init ();
-	}
-
-	private static MuineDBusService instance;
-	public static MuineDBusService Instance {
-		get {
-			if (instance == null)
-				instance = new MuineDBusService ();
-			return instance;
+		private Service service;
+		private Connection conn;
+		
+		private MuineDBusService ()
+		{
+			Init ();
 		}
-	}
 
-	private void Init ()
-	{
-		conn = Bus.GetSessionBus ();
-		service = new Service (conn, "org.gnome.Muine");
-	}
+		private static MuineDBusService instance;
+		public static MuineDBusService Instance {
+			get {
+				if (instance == null)
+					instance = new MuineDBusService ();
+				return instance;
+			}
+		}
 
-	public void RegisterObject (object obj, string path)
-	{
-		service.RegisterObject (obj, path);
+		private void Init ()
+		{
+			conn = Bus.GetSessionBus ();
+			service = new Service (conn, "org.gnome.Muine");
+		}
+
+		public void RegisterObject (object obj, string path)
+		{
+			service.RegisterObject (obj, path);
+		}
 	}
 }

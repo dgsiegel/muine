@@ -24,40 +24,43 @@ using GLib;
 
 using Mono.Posix;
 
-public class ErrorDialog
+namespace Muine
 {
-	[Glade.Widget]
-	Dialog window;
-	[Glade.Widget]
-	Label label;
-
-	public void Setup (string text)
+	public class ErrorDialog
 	{
-		Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
-		gxml.Autoconnect (this);
+		[Glade.Widget]
+		Dialog window;
+		[Glade.Widget]
+		Label label;
 
-		string heading = Catalog.GetString ("An error occurred:");
-		string full_text = heading + "\n\n" + text;
+		public void Setup (string text)
+		{
+			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
+			gxml.Autoconnect (this);
 
-		MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (heading),
-					    true, true, false);
+			string heading = Catalog.GetString ("An error occurred:");
+			string full_text = heading + "\n\n" + text;
 
-		label.Text = full_text;
+			MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (heading),
+						    true, true, false);
 
-		window.Run ();
+			label.Text = full_text;
 
-		window.Destroy ();
-	}
-	
-	public ErrorDialog (string text)
-	{
-		Setup (text);
-	}
+			window.Run ();
 
-	public ErrorDialog (string text, Window parent)
-	{
-		Setup (text);
+			window.Destroy ();
+		}
+		
+		public ErrorDialog (string text)
+		{
+			Setup (text);
+		}
 
-		window.TransientFor = parent;
+		public ErrorDialog (string text, Window parent)
+		{
+			Setup (text);
+
+			window.TransientFor = parent;
+		}
 	}
 }

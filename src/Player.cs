@@ -22,204 +22,207 @@ using System.Runtime.InteropServices;
 
 using Mono.Posix;
 
-public class Player : GLib.Object
+namespace Muine
 {
-	[DllImport ("libmuine")]
-	private static extern bool player_set_file (IntPtr player,
-	                                            string filename,
-						    out IntPtr error_ptr);
-	[DllImport ("libmuine")]
-	private static extern void player_set_replaygain (IntPtr player,
-							  double gain,
-							  double peak);
+	public class Player : GLib.Object
+	{
+		[DllImport ("libmuine")]
+		private static extern bool player_set_file (IntPtr player,
+		                                            string filename,
+							    out IntPtr error_ptr);
+		[DllImport ("libmuine")]
+		private static extern void player_set_replaygain (IntPtr player,
+								  double gain,
+								  double peak);
 
-	private bool stopped = true;
+		private bool stopped = true;
 
-	private Song song = null;
-	public Song Song {
-		get {
-			return song;
+		private Song song = null;
+		public Song Song {
+			get {
+				return song;
+			}
+
+			set {
+				stopped = false;
+				
+				song = value;
+
+				IntPtr error_ptr;
+
+				player_set_file (Raw, song.Filename, out error_ptr);
+				if (error_ptr != IntPtr.Zero) {
+					string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+
+					throw new Exception (error);
+				}
+				
+				player_set_replaygain (Raw, song.Gain, song.Peak);
+
+				if (TickEvent != null)
+					TickEvent (0);
+
+				if (playing)
+					player_play (Raw);
+			}
 		}
 
-		set {
-			stopped = false;
+		private bool playing;
+		public bool Playing {
+			get {
+				return playing;
+			}
+		}
+
+		public delegate void StateChangedHandler (bool playing);
+		public event StateChangedHandler StateChanged;
 			
-			song = value;
+		[DllImport ("libmuine")]
+		private static extern void player_play (IntPtr player);
 
+		public void Play ()
+		{
+			if (playing)
+				return;
+					
+			playing = true;
+
+			player_play (Raw);
+
+			if (StateChanged != null)
+				StateChanged (playing);
+		}
+
+		[DllImport ("libmuine")]
+		private static extern void player_pause (IntPtr player);
+
+		public void Pause ()
+		{
+			if (!playing)
+				return;
+				
+			playing = false;
+			
+			player_pause (Raw);
+
+			if (StateChanged != null)
+				StateChanged (playing);
+		}
+
+		[DllImport ("libmuine")]
+		private static extern void player_stop (IntPtr player);
+
+		public void Stop ()
+		{
+			if (stopped)
+				return;
+				
+			player_stop (Raw);
+			stopped = true;
+
+			if (!playing)
+				return;
+
+			playing = false;
+
+			if (StateChanged != null)
+				StateChanged (playing);
+		}
+
+		public delegate void TickEventHandler (int pos);
+		public event TickEventHandler TickEvent;
+
+		[DllImport ("libmuine")]
+		private static extern void player_seek (IntPtr player,
+		                                        int t);
+		[DllImport ("libmuine")]
+		private static extern int player_tell (IntPtr player);
+
+		public int Position {
+			get {
+				return player_tell (Raw);
+			}
+
+			set {
+				if (stopped)
+					Song = song; // load song, then seek
+					
+				player_seek (Raw, value);
+
+				if (TickEvent != null)
+					TickEvent (value);
+			}
+		}
+
+		[DllImport ("libmuine")]
+		private static extern void player_set_volume (IntPtr player,
+							      int volume);
+		[DllImport ("libmuine")]
+		private static extern int player_get_volume (IntPtr player);
+
+		public int Volume {
+			get {
+				return player_get_volume (Raw);
+			}
+
+			set {
+				player_set_volume (Raw, value);
+			}
+		}
+
+		[DllImport ("libmuine")]
+		private static extern IntPtr player_new (out IntPtr error_ptr);
+
+		private SignalUtils.SignalDelegateInt tick_cb;
+		private SignalUtils.SignalDelegate eos_cb;
+		private SignalUtils.SignalDelegateStr error_cb;
+
+		public Player () : base (IntPtr.Zero)
+		{
 			IntPtr error_ptr;
-
-			player_set_file (Raw, song.Filename, out error_ptr);
+			
+			Raw = player_new (out error_ptr);
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
 				throw new Exception (error);
 			}
 			
-			player_set_replaygain (Raw, song.Gain, song.Peak);
+			tick_cb = new SignalUtils.SignalDelegateInt (OnTick);
+			eos_cb = new SignalUtils.SignalDelegate (OnEndOfStream);
+			error_cb = new SignalUtils.SignalDelegateStr (OnError);
 
+			SignalUtils.SignalConnect (Raw, "tick", tick_cb);
+			SignalUtils.SignalConnect (Raw, "end_of_stream", eos_cb);
+			SignalUtils.SignalConnect (Raw, "error", error_cb);
+
+			playing = false;
+			song = null;
+		}
+
+		~Player ()
+		{
+			Dispose ();
+		}
+
+		private void OnTick (IntPtr obj, int pos)
+		{	
 			if (TickEvent != null)
-				TickEvent (0);
-
-			if (playing)
-				player_play (Raw);
-		}
-	}
-
-	private bool playing;
-	public bool Playing {
-		get {
-			return playing;
-		}
-	}
-
-	public delegate void StateChangedHandler (bool playing);
-	public event StateChangedHandler StateChanged;
-		
-	[DllImport ("libmuine")]
-	private static extern void player_play (IntPtr player);
-
-	public void Play ()
-	{
-		if (playing)
-			return;
-				
-		playing = true;
-
-		player_play (Raw);
-
-		if (StateChanged != null)
-			StateChanged (playing);
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void player_pause (IntPtr player);
-
-	public void Pause ()
-	{
-		if (!playing)
-			return;
-			
-		playing = false;
-		
-		player_pause (Raw);
-
-		if (StateChanged != null)
-			StateChanged (playing);
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void player_stop (IntPtr player);
-
-	public void Stop ()
-	{
-		if (stopped)
-			return;
-			
-		player_stop (Raw);
-		stopped = true;
-
-		if (!playing)
-			return;
-
-		playing = false;
-
-		if (StateChanged != null)
-			StateChanged (playing);
-	}
-
-	public delegate void TickEventHandler (int pos);
-	public event TickEventHandler TickEvent;
-
-	[DllImport ("libmuine")]
-	private static extern void player_seek (IntPtr player,
-	                                        int t);
-	[DllImport ("libmuine")]
-	private static extern int player_tell (IntPtr player);
-
-	public int Position {
-		get {
-			return player_tell (Raw);
+				TickEvent (pos);
 		}
 
-		set {
-			if (stopped)
-				Song = song; // load song, then seek
-				
-			player_seek (Raw, value);
+		public delegate void EndOfStreamEventHandler ();
+		public event EndOfStreamEventHandler EndOfStreamEvent;
 
-			if (TickEvent != null)
-				TickEvent (value);
-		}
-	}
-
-	[DllImport ("libmuine")]
-	private static extern void player_set_volume (IntPtr player,
-						      int volume);
-	[DllImport ("libmuine")]
-	private static extern int player_get_volume (IntPtr player);
-
-	public int Volume {
-		get {
-			return player_get_volume (Raw);
+		private void OnEndOfStream (IntPtr obj)
+		{
+			if (EndOfStreamEvent != null)
+				EndOfStreamEvent ();
 		}
 
-		set {
-			player_set_volume (Raw, value);
+		private void OnError (IntPtr obj, string error)
+		{
+			new ErrorDialog (String.Format (Catalog.GetString ("Audio backend error:\n{0}"), error));
 		}
-	}
-
-	[DllImport ("libmuine")]
-	private static extern IntPtr player_new (out IntPtr error_ptr);
-
-	private SignalUtils.SignalDelegateInt tick_cb;
-	private SignalUtils.SignalDelegate eos_cb;
-	private SignalUtils.SignalDelegateStr error_cb;
-
-	public Player () : base (IntPtr.Zero)
-	{
-		IntPtr error_ptr;
-		
-		Raw = player_new (out error_ptr);
-		if (error_ptr != IntPtr.Zero) {
-			string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-
-			throw new Exception (error);
-		}
-		
-		tick_cb = new SignalUtils.SignalDelegateInt (OnTick);
-		eos_cb = new SignalUtils.SignalDelegate (OnEndOfStream);
-		error_cb = new SignalUtils.SignalDelegateStr (OnError);
-
-		SignalUtils.SignalConnect (Raw, "tick", tick_cb);
-		SignalUtils.SignalConnect (Raw, "end_of_stream", eos_cb);
-		SignalUtils.SignalConnect (Raw, "error", error_cb);
-
-		playing = false;
-		song = null;
-	}
-
-	~Player ()
-	{
-		Dispose ();
-	}
-
-	private void OnTick (IntPtr obj, int pos)
-	{	
-		if (TickEvent != null)
-			TickEvent (pos);
-	}
-
-	public delegate void EndOfStreamEventHandler ();
-	public event EndOfStreamEventHandler EndOfStreamEvent;
-
-	private void OnEndOfStream (IntPtr obj)
-	{
-		if (EndOfStreamEvent != null)
-			EndOfStreamEvent ();
-	}
-
-	private void OnError (IntPtr obj, string error)
-	{
-		new ErrorDialog (String.Format (Catalog.GetString ("Audio backend error:\n{0}"), error));
 	}
 }

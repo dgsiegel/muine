@@ -23,46 +23,49 @@ using System.IO;
 using Gtk;
 using GLib;
 
-public class FileSelector : FileChooserDialog
+namespace Muine
 {
-        private const string GConfDefaultStartDir = "~";
-        
-	private string gconf_path;
-
-	public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
+	public class FileSelector : FileChooserDialog
 	{
-		TransientFor = parent;
-		LocalOnly = false;
-		AddButton (Stock.Cancel, ResponseType.Cancel);
-		if (action == FileChooserAction.Open)
-	                AddButton (Stock.Open, ResponseType.Ok);
-		else if (action == FileChooserAction.Save)
-	                AddButton (Stock.Save, ResponseType.Ok);
-                DefaultResponse = ResponseType.Ok;
+	        private const string GConfDefaultStartDir = "~";
+	        
+		private string gconf_path;
 
-		gconf_path = gcp;
+		public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
+		{
+			TransientFor = parent;
+			LocalOnly = false;
+			AddButton (Stock.Cancel, ResponseType.Cancel);
+			if (action == FileChooserAction.Open)
+		                AddButton (Stock.Open, ResponseType.Ok);
+			else if (action == FileChooserAction.Save)
+		                AddButton (Stock.Save, ResponseType.Ok);
+	                DefaultResponse = ResponseType.Ok;
 
-		string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
+			gconf_path = gcp;
 
-		start_dir.Replace ("~", FileUtils.HomeDirectory);
+			string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
-		SetCurrentFolderUri (start_dir);
-	}
+			start_dir.Replace ("~", FileUtils.HomeDirectory);
 
-	public string GetFile ()
-	{
-		if (Run () != (int) ResponseType.Ok) {
-			Destroy ();
-
-			return "";
+			SetCurrentFolderUri (start_dir);
 		}
 
-		string ret = Uri;
+		public string GetFile ()
+		{
+			if (Run () != (int) ResponseType.Ok) {
+				Destroy ();
 
-		Config.Set (gconf_path, System.IO.Path.GetDirectoryName (ret));
+				return "";
+			}
 
-		Destroy ();
+			string ret = Uri;
 
-		return ret;
+			Config.Set (gconf_path, System.IO.Path.GetDirectoryName (ret));
+
+			Destroy ();
+
+			return ret;
+		}
 	}
 }

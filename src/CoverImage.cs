@@ -23,137 +23,140 @@ using System.Text.RegularExpressions;
 using Gtk;
 using Gdk;
 
-public class CoverImage : EventBox
+namespace Muine
 {
-	private Gtk.Image image;
-	
-	public CoverImage () : base ()
+	public class CoverImage : EventBox
 	{
-		image = new Gtk.Image ();	
-		image.SetSizeRequest (CoverDatabase.AlbumCoverSize, 
-				      CoverDatabase.AlbumCoverSize);
+		private Gtk.Image image;
 		
-		Add (image);
-
-		DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
-
-		Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
-	}
-
-	~CoverImage ()
-	{
-		Dispose ();
-	}
-
-	private static TargetEntry [] drag_entries = new TargetEntry [] {
-		DndUtils.TargetUriList,
-		DndUtils.TargetGnomeIconList,
-		DndUtils.TargetNetscapeUrl
-	};
-	public static TargetEntry [] DragEntries {
-		get { return drag_entries; }
-	}
-
-	private void Sync ()
-	{
-		if (song != null && song.CoverImage != null)
-			image.FromPixbuf = song.CoverImage;
-		else if (song != null && Muine.CoverDB.Loading)
-			image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
-		else {
-			image.SetFromStock ("muine-default-cover",
-				            StockIcons.AlbumCoverSize);
-		}
-	
-		if (song != null && song.Album.Length > 0 && !Muine.CoverDB.Loading) {
-			Gtk.Drag.DestSet (this, DestDefaults.All,
-					  drag_entries, Gdk.DragAction.Copy);
-		} else {
-			Gtk.Drag.DestSet (this, DestDefaults.All,
-					  null, Gdk.DragAction.Copy);
-		}
-	}
-
-	private Song song;
-	public Song Song {
-		set {
-			song = value;
-
-			Sync ();
-		}
-	}
-
-	public static void HandleDrop (Song song, DragDataReceivedArgs args)
-	{
-		string data = DndUtils.SelectionDataToString (args.SelectionData);
-
-		bool success = false;
-
-		string [] uri_list;
-		string fn;
-		
-		switch (args.Info) {
-		case (uint) DndUtils.TargetType.Uri:
-			uri_list = Regex.Split (data, "\n");
-			fn = uri_list [0];
+		public CoverImage () : base ()
+		{
+			image = new Gtk.Image ();	
+			image.SetSizeRequest (CoverDatabase.AlbumCoverSize, 
+					      CoverDatabase.AlbumCoverSize);
 			
-			Uri uri = new Uri (fn);
+			Add (image);
 
-			if (uri.Scheme != "http")
+			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+
+			Muine.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+		}
+
+		~CoverImage ()
+		{
+			Dispose ();
+		}
+
+		private static TargetEntry [] drag_entries = new TargetEntry [] {
+			DndUtils.TargetUriList,
+			DndUtils.TargetGnomeIconList,
+			DndUtils.TargetNetscapeUrl
+		};
+		public static TargetEntry [] DragEntries {
+			get { return drag_entries; }
+		}
+
+		private void Sync ()
+		{
+			if (song != null && song.CoverImage != null)
+				image.FromPixbuf = song.CoverImage;
+			else if (song != null && Muine.CoverDB.Loading)
+				image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
+			else {
+				image.SetFromStock ("muine-default-cover",
+					            StockIcons.AlbumCoverSize);
+			}
+		
+			if (song != null && song.Album.Length > 0 && !Muine.CoverDB.Loading) {
+				Gtk.Drag.DestSet (this, DestDefaults.All,
+						  drag_entries, Gdk.DragAction.Copy);
+			} else {
+				Gtk.Drag.DestSet (this, DestDefaults.All,
+						  null, Gdk.DragAction.Copy);
+			}
+		}
+
+		private Song song;
+		public Song Song {
+			set {
+				song = value;
+
+				Sync ();
+			}
+		}
+
+		public static void HandleDrop (Song song, DragDataReceivedArgs args)
+		{
+			string data = DndUtils.SelectionDataToString (args.SelectionData);
+
+			bool success = false;
+
+			string [] uri_list;
+			string fn;
+			
+			switch (args.Info) {
+			case (uint) DndUtils.TargetType.Uri:
+				uri_list = Regex.Split (data, "\n");
+				fn = uri_list [0];
+				
+				Uri uri = new Uri (fn);
+
+				if (uri.Scheme != "http")
+					break;
+
+				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+					Muine.CoverDB.RemoveCover (song.AlbumKey);
+
+				song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
+				Muine.DB.SyncAlbumCoverImageWithSong (song);
+					
+				song.DownloadNewCoverImage (uri.AbsoluteUri);
+
+				success = true;
+
+				break;
+				
+			case (uint) DndUtils.TargetType.UriList:
+				uri_list = DndUtils.SplitSelectionData (data);
+				fn = FileUtils.LocalPathFromUri (uri_list [0]);
+
+				if (fn == null)
+					break;
+
+				Pixbuf pixbuf;
+
+				try {
+					pixbuf = new Pixbuf (fn);
+				} catch {
+					success = false;
+					
+					break;
+				}
+
+				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
+					Muine.CoverDB.RemoveCover (song.AlbumKey);
+				song.CoverImage = Muine.CoverDB.AddCover (song.AlbumKey, pixbuf);
+				Muine.DB.SyncAlbumCoverImageWithSong (song);
+
+				success = true;
+				
 				break;
 
-			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-				Muine.CoverDB.RemoveCover (song.AlbumKey);
-
-			song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
-			Muine.DB.SyncAlbumCoverImageWithSong (song);
-				
-			song.DownloadNewCoverImage (uri.AbsoluteUri);
-
-			success = true;
-
-			break;
-			
-		case (uint) DndUtils.TargetType.UriList:
-			uri_list = DndUtils.SplitSelectionData (data);
-			fn = FileUtils.LocalPathFromUri (uri_list [0]);
-
-			if (fn == null)
-				break;
-
-			Pixbuf pixbuf;
-
-			try {
-				pixbuf = new Pixbuf (fn);
-			} catch {
-				success = false;
-				
+			default:
 				break;
 			}
 
-			if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-				Muine.CoverDB.RemoveCover (song.AlbumKey);
-			song.CoverImage = Muine.CoverDB.AddCover (song.AlbumKey, pixbuf);
-			Muine.DB.SyncAlbumCoverImageWithSong (song);
-
-			success = true;
-			
-			break;
-
-		default:
-			break;
+			Gtk.Drag.Finish (args.Context, success, false, args.Time);
 		}
 
-		Gtk.Drag.Finish (args.Context, success, false, args.Time);
-	}
+		private void OnDragDataReceived (object o, DragDataReceivedArgs args)
+		{
+			HandleDrop (song, args);
+		}
 
-	private void OnDragDataReceived (object o, DragDataReceivedArgs args)
-	{
-		HandleDrop (song, args);
-	}
-
-	private void OnCoversDoneLoading ()
-	{
-		Sync ();
+		private void OnCoversDoneLoading ()
+		{
+			Sync ();
+		}
 	}
 }
