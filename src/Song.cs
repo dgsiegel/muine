@@ -190,20 +190,19 @@ public class Song
 
 	private bool dead = false;
 	public bool Dead {
-		set {
-			dead = value;
-
-			if (dead) {
-				pointers.Remove (handle);
-
-				foreach (IntPtr extra_handle in handles)
-					pointers.Remove (extra_handle);
-			}
-		}
-
 		get {
 			return dead;
 		}
+	}
+
+	public void Kill ()
+	{
+		dead = true;
+
+		pointers.Remove (handle);
+
+		foreach (IntPtr extra_handle in handles)
+			pointers.Remove (extra_handle);
 	}
 
 	private bool orphan = false;

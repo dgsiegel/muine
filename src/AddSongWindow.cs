@@ -330,7 +330,7 @@ public class AddSongWindow : Window
 
 			foreach (int p in songs) {
 				IntPtr s = new IntPtr (p);
-				files += StringUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
 			}
 	
 			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),

@@ -344,7 +344,7 @@ public class PlaylistWindow : Window
 		switch (args.Info) {
 		case (uint) TargetType.UriList:
 			uri_list = StringUtils.SplitSelectionData (args.SelectionData);
-			fn = StringUtils.LocalPathFromUri (uri_list [0]);
+			fn = FileUtils.LocalPathFromUri (uri_list [0]);
 
 			if (fn == null) {
 				Drag.Finish (args.Context, false, false, args.Time);
@@ -902,7 +902,7 @@ public class PlaylistWindow : Window
 			stream = new VfsStream (fn, FileMode.Open);
 			reader = new StreamReader (stream);
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), FileUtils.HumanReadable (fn)), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), FileUtils.MakeHumanReadable (fn)), this);
 			return;
 		}
 
@@ -974,7 +974,7 @@ public class PlaylistWindow : Window
 		try {
 			reader.Close ();
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.HumanReadable (fn)), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.MakeHumanReadable (fn)), this);
 			return;
 		}
 
@@ -992,7 +992,7 @@ public class PlaylistWindow : Window
 			stream = new VfsStream (fn, FileMode.Create);
 			writer = new StreamWriter (stream);
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), FileUtils.HumanReadable (fn)), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), FileUtils.MakeHumanReadable (fn)), this);
 			return;
 		}
 
@@ -1022,7 +1022,7 @@ public class PlaylistWindow : Window
 		try {
 			writer.Close ();
 		} catch {
-			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.HumanReadable (fn)), this);
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), FileUtils.MakeHumanReadable (fn)), this);
 			return;
 		}
 	}
@@ -1461,7 +1461,7 @@ public class PlaylistWindow : Window
 
 		fc.Visible = false;
 
-		string res = StringUtils.LocalPathFromUri (fc.Uri);
+		string res = FileUtils.LocalPathFromUri (fc.Uri);
 
 		Muine.SetGConfValue ("/apps/muine/default_import_folder", res);
 
@@ -1517,7 +1517,7 @@ public class PlaylistWindow : Window
 			fn += ".m3u";
 
 		if (FileUtils.Exists (fn)) {
-			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), FileUtils.HumanReadable (fn)), this);
+			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), FileUtils.MakeHumanReadable (fn)), this);
 			if (d.GetAnswer () == true)
 				SavePlaylist (fn, false, false);
 		} else
@@ -1754,7 +1754,7 @@ public class PlaylistWindow : Window
 
 			foreach (int p in songs) {
 				IntPtr s = new IntPtr (p);
-				files += StringUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+				files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
 			}
 	
 			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
@@ -1920,7 +1920,7 @@ public class PlaylistWindow : Window
 			break;
 		case (uint) TargetType.UriList:
 			foreach (string s in bits) {
-				string fn = StringUtils.LocalPathFromUri (s);
+				string fn = FileUtils.LocalPathFromUri (s);
 
 				if (fn == null)
 					break;

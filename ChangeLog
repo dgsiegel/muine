@@ -1,3 +1,18 @@
+2004-12-29  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddSongWindow.cs:
+	* src/CoverImage.cs:
+	* src/FileUtils.cs:
+	* src/PlaylistWindow.cs:
+	* src/StringUtils.cs:
+
+	Move URI conversion functions from StringUtils to FileUtils.
+	
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Replace setting song.Dead to true with song.Kill ().
+
 2004-12-29  Tamara Roberson  <foxxygirltamara@gmail.com>
             Jorn Baayen  <jbaayen@gnome.org>
 

@@ -103,23 +103,4 @@ public class StringUtils
 	{
 		return Regex.Split (data, "\r\n");
 	}
-
-	/* these two go away once we have vfs support everywhere */
-	[DllImport ("libgnomevfs-2-0.dll")]
-	private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
-
-	public static string LocalPathFromUri (string uri)
-	{
-		IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
-
-		if (p == IntPtr.Zero)
-			return null;
-		else
-			return GLib.Marshaller.PtrToStringGFree (p);
-	}
-
-	public static string UriFromLocalPath (string uri)
-	{
-		return "file://" + uri;
-	}
 }

@@ -19,6 +19,8 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
+
 using Gnome.Vfs;
 
 public class FileUtils
@@ -45,7 +47,7 @@ public class FileUtils
 		return u.Exists;
 	}
 
-	public static string HumanReadable (string fn)
+	public static string MakeHumanReadable (string fn)
 	{
 		System.Uri u = new System.Uri (fn);
 
@@ -55,5 +57,24 @@ public class FileUtils
 			ret = ret.Substring ("file://".Length);
 
 		return ret;
+	}
+
+	/* these two go away once we have vfs support everywhere */
+	[DllImport ("libgnomevfs-2-0.dll")]
+	private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
+
+	public static string LocalPathFromUri (string uri)
+	{
+		IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
+
+		if (p == IntPtr.Zero)
+			return null;
+		else
+			return GLib.Marshaller.PtrToStringGFree (p);
+	}
+
+	public static string UriFromLocalPath (string uri)
+	{
+		return "file://" + uri;
 	}
 }

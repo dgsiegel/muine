@@ -134,7 +134,7 @@ public class SongDatabase
 
 		RemoveFromAlbum (song);
 
-		song.Dead = true;
+		song.Kill ();
 	}
 
 	private void SyncSongWithMetadata (Song song, Metadata metadata)
