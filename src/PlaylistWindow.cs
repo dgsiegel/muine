@@ -663,8 +663,16 @@ public class PlaylistWindow : Window
 
 			artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
-			if (player.Song != song || restart)
-				player.Song = song;
+			if (player.Song != song || restart) {
+				try {
+					player.Song = song;
+				} catch (Exception e) {
+					/* quietly remove the song */
+					Muine.DB.RemoveSong (song);
+
+					return;
+				}
+			}
 
 			Title = String.Format (Muine.Catalog.GetString ("{0} - Muine Music Player"), song.Title);
 
@@ -1574,6 +1582,12 @@ public class PlaylistWindow : Window
 				}
 
 				SongChanged (true);
+			}
+
+			if ((playlist.SelectedPointers.Count == 1) &&
+                            ((int) playlist.SelectedPointers [0] == (int) h)) {
+				if (!playlist.SelectNext (false, false))
+                        		playlist.SelectPrevious (false, false);
 			}
 
 			playlist.Remove (h);

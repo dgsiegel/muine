@@ -1,5 +1,12 @@
 2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+
+	Quietly remove invalid files from the lib when trying to play them.
+
+2004-09-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/StringUtils.cs:
 	* src/muine.exe.config.in:
 

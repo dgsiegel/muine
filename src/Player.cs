@@ -50,8 +50,7 @@ public class Player : GLib.Object
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
-				new ErrorDialog (String.Format (Muine.Catalog.GetString ("Error opening {0}:\n{1}"),
-				                                                         song.Filename, error));
+				throw new Exception (error);
 			}
 			
 			player_set_replaygain (Raw, song.Gain, song.Peak);
