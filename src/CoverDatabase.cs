@@ -184,6 +184,8 @@ namespace Muine
 					item = Global.DB.GetSong (key);
 				if (item != null) {
 					if (being_checked) {
+						// false, as we don't want to write to the db
+						// while we're loading
 						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item, false);
 						Global.CoverDB.Covers.Add (key, null);
 					}
