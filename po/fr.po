@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 20:20+0200\n"
+"POT-Creation-Date: 2004-04-23 13:51+0200\n"
 "PO-Revision-Date: 2004-04-20 20:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -350,6 +350,10 @@ msgstr "Exécuté par {0}"
 #  * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #  * if "the" is included in this list. Also include the English "the"
 #  * if English is generally spoken in your country.
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
 #: src/Album.cs:93
 msgid "the dj"
 msgstr "the dj la le les"

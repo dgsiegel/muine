@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-15 01:10+0100\n"
+"POT-Creation-Date: 2004-04-23 13:51+0200\n"
 "PO-Revision-Date: 2004-01-18 03:41+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -37,25 +37,6 @@ msgstr "_Sök:"
 msgid "Error"
 msgstr "Fel"
 
-#: data/glade/GroupsWindow.glade.h:1
-#, fuzzy
-msgid "<b>Groups</b>"
-msgstr "<b>Allmänt</b>"
-
-#: data/glade/GroupsWindow.glade.h:2
-msgid "<b>Songs</b> (30 minutes in total)"
-msgstr ""
-
-#: data/glade/GroupsWindow.glade.h:3
-#, fuzzy
-msgid "Groups"
-msgstr "_Grupper"
-
-#: data/glade/GroupsWindow.glade.h:4
-#, fuzzy
-msgid "_Add song"
-msgstr "Lägg till _låt"
-
 #: data/glade/NoMusicFoundWindow.glade.h:1
 msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 msgstr ""
@@ -79,7 +60,7 @@ msgstr ""
 #: data/glade/NoMusicFoundWindow.glade.h:5
 msgid ""
 "You will have to import your music manually. This is for experienced users "
-"only and therefor not generally recommended."
+"only and therefore not generally recommended."
 msgstr ""
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
@@ -92,89 +73,94 @@ msgstr ""
 
 #: data/glade/PlaylistWindow.glade.h:1
 #, fuzzy
-msgid "Play _Album"
+msgid "P_roperties"
+msgstr "Egenskaper"
+
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
+#, fuzzy
+msgid "Play Album"
 msgstr "Lägg till _album"
 
-#: data/glade/PlaylistWindow.glade.h:2
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
+#, fuzzy
+msgid "Play Song"
+msgstr "Spelar"
+
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
 #, fuzzy
 msgid "Play _Album..."
 msgstr "Lägg till _album..."
 
-#: data/glade/PlaylistWindow.glade.h:3
-#, fuzzy
-msgid "Play _Song"
-msgstr "Spelar"
-
-#: data/glade/PlaylistWindow.glade.h:4
+#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
 #, fuzzy
 msgid "Play _Song..."
 msgstr "Lägg till _låt..."
 
-#: data/glade/PlaylistWindow.glade.h:5
+#: data/glade/PlaylistWindow.glade.h:6
 #, fuzzy
 msgid "R_epeat"
 msgstr "Upprepningsläge"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Remove _Played Songs"
 msgstr "Ta bort _spelade låtar"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Backwards"
 msgstr "Hoppa över _baklänges"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "Skip _Forward"
 msgstr "Hoppa över _framlänges"
 
-#: data/glade/PlaylistWindow.glade.h:9
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "_Clear Playlist"
-msgstr "_Töm spellista"
-
 #: data/glade/PlaylistWindow.glade.h:11
+msgid "_Clear"
+msgstr ""
+
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Dölj fönster"
 
-#: data/glade/PlaylistWindow.glade.h:12
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Import Folder..."
 msgstr "_Importera mapp..."
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
 msgstr "_Nästa"
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:15
 #, fuzzy
 msgid "_Open Playlist..."
 msgstr "_Töm spellista"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:16
 #, fuzzy
 msgid "_Playlist"
 msgstr "Spellista"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Remove Song"
 msgstr "_Ta bort låt"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:19
 #, fuzzy
 msgid "_Save Playlist As..."
 msgstr "Spara spellista"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Skip to..."
 msgstr "_Hoppa till..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:21
 #, fuzzy
 msgid "_Song"
 msgstr "_Ljud"
@@ -195,7 +181,7 @@ msgstr ""
 msgid "Listen to your music"
 msgstr "Lyssna på din musik"
 
-#: data/muine.desktop.in.h:2
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:616
 msgid "Muine Music Player"
 msgstr "Musikspelaren Muine"
 
@@ -234,80 +220,403 @@ msgid "Folders that are monitored for changes."
 msgstr ""
 
 #: data/muine.schemas.in.h:9
-msgid "Last used folder from \"Import folder\" dialog."
+msgid "Information window height."
 msgstr ""
 
 #: data/muine.schemas.in.h:10
-msgid "Last used folder from the playlist file selectors."
+msgid "Information window width."
 msgstr ""
 
 #: data/muine.schemas.in.h:11
-msgid "Playlist window height."
+msgid "Last used folder from \"Import folder\" dialog."
 msgstr ""
 
 #: data/muine.schemas.in.h:12
-msgid "Playlist window width."
+msgid "Last used folder from the playlist file selectors."
 msgstr ""
 
 #: data/muine.schemas.in.h:13
+msgid "Playlist window height."
+msgstr ""
+
+#: data/muine.schemas.in.h:14
+msgid "Playlist window width."
+msgstr ""
+
+#: data/muine.schemas.in.h:15
 msgid "Repeat mode."
 msgstr "Upprepningsläge."
 
-#: data/muine.schemas.in.h:14
+#: data/muine.schemas.in.h:16
 #, fuzzy
 msgid "Volume level."
 msgstr "Volym upp"
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:17
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr ""
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:18
 msgid "Watched folders."
 msgstr ""
 
-#: data/muine.schemas.in.h:17
+#: data/muine.schemas.in.h:19
 msgid "Whether or not to enable repeat playlist mode."
 msgstr ""
 
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:20
 msgid "false if Muine has been started before."
 msgstr ""
 
-#: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
-msgid "Orientation"
-msgstr "Orientering"
+#: libmuine/player-gst.c:157
+msgid "Failed to create GstPlay object"
+msgstr ""
 
-#: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
-msgid "The orientation of the tray."
-msgstr "Orienteringen på lådan."
+#: libmuine/player-gst.c:164
+msgid "Failed to create the required gnomevfssrc GStreamer element"
+msgstr ""
 
-#: src/About.cs:52
+#: libmuine/player-gst.c:173
+#, fuzzy
+msgid "Could not render default GStreamer audio output sink"
+msgstr "Kunde inte hitta en lämplig videoutmatning."
+
+#: libmuine/player-gst.c:182
+msgid "Could not find the volume element in the GstPlay pipeline"
+msgstr ""
+
+#: libmuine/player-xine.c:289
+msgid "Failed to set up an audio driver"
+msgstr ""
+
+#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#, fuzzy, c-format
+msgid "No plugin available for \"%s\""
+msgstr "Ingen videoinsticksmodul tillgänglig för avkodning av \"%s\"."
+
+#: libmuine/player-xine.c:368
+#, c-format
+msgid "Failed playing \"%s\""
+msgstr ""
+
+#: libmuine/player-xine.c:372
+msgid "Internal error"
+msgstr ""
+
+#: libmuine/player-xine.c:381
+#, fuzzy, c-format
+msgid "Could not play \"%s\""
+msgstr "Totem kunde inte spela \"%s\"."
+
+#: src/About.cs:38
+msgid "Jorn Baayen (jbaayen@gnome.org)"
+msgstr ""
+
+#: src/About.cs:39
+msgid "Lee Willis (lee@leewillis.co.uk)"
+msgstr ""
+
+#. please use Vietnamese spelling, if the relevant characters occur in
+#. * your language.
+#: src/About.cs:42
+msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+msgstr ""
+
+#: src/About.cs:44
+msgid "Album covers are provided by amazon.com."
+msgstr ""
+
+#: src/About.cs:54
+#, fuzzy
+msgid "translator-credits"
+msgstr ""
+"Christian Rose\n"
+"Skicka synpunkter på översättningen till sv@li.org"
+
+# Använder samma konvention som i gnome-media, där jdahlin vill ha "tyst"
+# istället för "tysta"
+#: src/About.cs:59
+#, fuzzy
+msgid "Muine"
+msgstr "Tyst"
+
+#. please use the UTF-8 copyright symbol in your translation ..
+#: src/About.cs:61
 msgid "Copyright (C) 2003, 2004 Jorn Baayen"
 msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
-#: src/About.cs:53
+#: src/About.cs:62
 #, fuzzy
 msgid "A music player"
 msgstr "Musikspelare"
 
-#: src/About.cs:62
-msgid "Thanks to Amazon.com for providing album cover images!"
+#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:586
+#, csharp-format
+msgid "Performed by {0}"
 msgstr ""
 
-#: src/Muine.cs:83
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
+#: src/Album.cs:93
+msgid "the dj"
+msgstr ""
+
+#: src/Metadata.cs:165
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr ""
+
+#: src/Muine.cs:79
 #, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
 
-#: src/Muine.cs:94
+#: src/Muine.cs:88
 #, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
+"\n"
 "Exiting..."
 msgstr ""
+
+#: src/NotificationAreaIcon.cs:53
+#, fuzzy
+msgid "Muine music player"
+msgstr "Musikspelaren Muine"
+
+#: src/NotificationAreaIcon.cs:86
+#, fuzzy
+msgid "_Previous Song"
+msgstr "_Föregående"
+
+#: src/NotificationAreaIcon.cs:89
+#, fuzzy
+msgid "_Next Song"
+msgstr "_Ljud"
+
+#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:249
+#, fuzzy
+msgid "Show _Window"
+msgstr "Visa _kontroller"
+
+#: src/Player.cs:51
+#, csharp-format
+msgid ""
+"Error opening {0}:\n"
+"{1}"
+msgstr ""
+
+#: src/Player.cs:232
+#, fuzzy, csharp-format
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr "använder bakände:"
+
+#: src/PlaylistWindow.cs:247
+#, fuzzy
+msgid "Hide _Window"
+msgstr "_Dölj fönster"
+
+#: src/PlaylistWindow.cs:268
+#, fuzzy
+msgid "Play the previous song"
+msgstr "Spela filmer och låtar"
+
+#: src/PlaylistWindow.cs:270
+#, fuzzy
+msgid "Play the next song"
+msgstr "Spela filmer och låtar"
+
+#: src/PlaylistWindow.cs:272
+#, fuzzy
+msgid "Add an album to the playlist"
+msgstr "Kunde inte spara spellistan"
+
+#: src/PlaylistWindow.cs:274
+#, fuzzy
+msgid "Add a song to the playlist"
+msgstr "Kunde inte spara spellistan"
+
+#: src/PlaylistWindow.cs:282
+#, fuzzy
+msgid "Change the volume level"
+msgstr "Volym upp"
+
+#: src/PlaylistWindow.cs:365 src/PlaylistWindow.cs:483
+#: src/PlaylistWindow.cs:507 src/PlaylistWindow.cs:521
+#, fuzzy
+msgid "Playlist"
+msgstr "Spellista"
+
+#: src/PlaylistWindow.cs:401
+#, csharp-format
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+
+#: src/PlaylistWindow.cs:500
+#, csharp-format
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:503
+#, csharp-format
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:505
+msgid "Playlist (Repeating)"
+msgstr ""
+
+#: src/PlaylistWindow.cs:514
+#, csharp-format
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:517
+#, csharp-format
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:519
+msgid "Playlist (Less than one minute remaining)"
+msgstr ""
+
+#: src/PlaylistWindow.cs:582
+#, csharp-format
+msgid "From \"{0}\""
+msgstr ""
+
+#: src/PlaylistWindow.cs:584
+#, fuzzy
+msgid "Album unknown"
+msgstr "Okänd"
+
+#: src/PlaylistWindow.cs:589
+msgid "Drop an image here to use it as album cover"
+msgstr ""
+
+#: src/PlaylistWindow.cs:600
+#, fuzzy, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "Musikspelaren Muine"
+
+#: src/PlaylistWindow.cs:636
+#, fuzzy
+msgid "Pause music playback"
+msgstr "Musikspelare"
+
+#: src/PlaylistWindow.cs:640 src/PlaylistWindow.cs:643
+#, fuzzy
+msgid "P_ause"
+msgstr "Gör paus"
+
+#: src/PlaylistWindow.cs:649
+#, fuzzy
+msgid "Resume music playback"
+msgstr "Musikspelare"
+
+#: src/PlaylistWindow.cs:653 src/PlaylistWindow.cs:656
+#: src/PlaylistWindow.cs:664 src/PlaylistWindow.cs:667
+#, fuzzy
+msgid "Pl_ay"
+msgstr "_Spela"
+
+#: src/PlaylistWindow.cs:660
+#, fuzzy
+msgid "Start music playback"
+msgstr "Musikspelare"
+
+#: src/PlaylistWindow.cs:722
+#, csharp-format
+msgid "Failed to open {0} for reading"
+msgstr ""
+
+#: src/PlaylistWindow.cs:791
+#, csharp-format
+msgid "Failed to open {0} for writing"
+msgstr ""
+
+#: src/PlaylistWindow.cs:1169
+#, fuzzy
+msgid "Import Folder"
+msgstr "_Importera mapp..."
+
+#: src/PlaylistWindow.cs:1215
+#, fuzzy
+msgid "Open Playlist"
+msgstr "_Töm spellista"
+
+#: src/PlaylistWindow.cs:1236
+#, fuzzy
+msgid "Save Playlist"
+msgstr "Spara spellista"
+
+#: src/PlaylistWindow.cs:1251
+#, csharp-format
+msgid ""
+"File {0} will be overwritten.\n"
+"If you choose yes, the contents will be lost.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+
+#: src/ProgressWindow.cs:43
+#, fuzzy, csharp-format
+msgid "Importing {0}..."
+msgstr "_Importera mapp..."
+
+#: src/StringUtils.cs:47
+msgid "Unknown"
+msgstr "Okänd"
+
+#: src/StringUtils.cs:51
+#, csharp-format
+msgid "{0} and others"
+msgstr ""
+
+#: src/StringUtils.cs:53
+#, csharp-format
+msgid "{0} and {1}"
+msgstr ""
+
+#, fuzzy
+#~ msgid "<b>Groups</b>"
+#~ msgstr "<b>Allmänt</b>"
+
+#, fuzzy
+#~ msgid "Groups"
+#~ msgstr "_Grupper"
+
+#, fuzzy
+#~ msgid "_Add song"
+#~ msgstr "Lägg till _låt"
+
+#~ msgid "_Clear Playlist"
+#~ msgstr "_Töm spellista"
+
+#~ msgid "Orientation"
+#~ msgstr "Orientering"
+
+#~ msgid "The orientation of the tray."
+#~ msgstr "Orienteringen på lådan."
 
 #~ msgid "TITLE"
 #~ msgstr "TITEL"
@@ -444,14 +753,8 @@ msgstr ""
 #~ msgid "N/A"
 #~ msgstr "-"
 
-#~ msgid "Properties"
-#~ msgstr "Egenskaper"
-
 #~ msgid "Title:"
 #~ msgstr "Titel:"
-
-#~ msgid "Unknown"
-#~ msgstr "Okänd"
 
 #~ msgid "Year:"
 #~ msgstr "År:"
@@ -470,9 +773,6 @@ msgstr ""
 
 #~ msgid "Plug-ins Download"
 #~ msgstr "Hämtning av insticksmoduler"
-
-#~ msgid "Play movies and songs"
-#~ msgstr "Spela filmer och låtar"
 
 #~ msgid "Totem Movie Player"
 #~ msgstr "Filmspelaren Totem"
@@ -686,9 +986,6 @@ msgstr ""
 
 #~ msgid "Set the shuffle mode"
 #~ msgstr "Ställ in blandningsläget"
-
-#~ msgid "Show _Controls"
-#~ msgstr "Visa _kontroller"
 
 #~ msgid "Show _visual effects when an audio file is played"
 #~ msgstr "Visa _visuella effekter då en ljudfil spelas"
@@ -1119,9 +1416,6 @@ msgstr ""
 #~ msgid "Remember this password"
 #~ msgstr "Kom ihåg detta lösenord"
 
-#~ msgid "Could not save the playlist"
-#~ msgstr "Kunde inte spara spellistan"
-
 #~ msgid "Select files"
 #~ msgstr "Välj filer"
 
@@ -1218,17 +1512,11 @@ msgstr ""
 #~ msgid "Download"
 #~ msgstr "Hämta"
 
-#~ msgid "Paused"
-#~ msgstr "Gör paus"
-
 #~ msgid "Totem could not eject the optical media."
 #~ msgstr "Totem kunde inte mata ut det optiska mediumet."
 
 #~ msgid "No reason given"
 #~ msgstr "Ingen orsak angiven"
-
-#~ msgid "Totem could not play '%s'."
-#~ msgstr "Totem kunde inte spela \"%s\"."
 
 #~ msgid "DVD"
 #~ msgstr "DVD"
@@ -1287,11 +1575,6 @@ msgstr ""
 
 #~ msgid "Totem could not display the help contents."
 #~ msgstr "Totem kunde inte visa hjälpinnehållet."
-
-#~ msgid "translator_credits"
-#~ msgstr ""
-#~ "Christian Rose\n"
-#~ "Skicka synpunkter på översättningen till sv@li.org"
 
 #~ msgid "Screenshot%d.png"
 #~ msgstr "Skärmdump%d.png"
@@ -1495,11 +1778,6 @@ msgstr ""
 
 #~ msgid "The screenshot was not saved."
 #~ msgstr "Skärmdumpen sparades inte."
-
-# Använder samma konvention som i gnome-media, där jdahlin vill ha "tyst"
-# istället för "tysta"
-#~ msgid "Mute"
-#~ msgstr "Tyst"
 
 #~ msgid "Mute sound"
 #~ msgstr "Tysta ljudet"
@@ -1711,9 +1989,6 @@ msgstr ""
 #~ msgid "Movie Player"
 #~ msgstr "Filmspelare"
 
-#~ msgid "using backend :"
-#~ msgstr "använder bakände:"
-
 #~ msgid "using backend:"
 #~ msgstr "använder bakände:"
 
@@ -1764,9 +2039,6 @@ msgstr ""
 
 #~ msgid "Video type '%s' is not handled."
 #~ msgstr "Videotypen \"%s\" stöds inte."
-
-#~ msgid "Could not find a suitable video output."
-#~ msgstr "Kunde inte hitta en lämplig videoutmatning."
 
 #~ msgid ""
 #~ "There is no plugin for Totem to handle '%s'.\n"
@@ -1857,9 +2129,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Konfigurationssystemet är inte initierat.\n"
 #~ "Standardalternativen kommer att användas."
-
-#~ msgid "No video plugin available to decode '%s'."
-#~ msgstr "Ingen videoinsticksmodul tillgänglig för avkodning av \"%s\"."
 
 #~ msgid "<span size=\"medium\"><b>No file</b></span>"
 #~ msgstr "<span size=\"medium\"><b>Ingen fil</b></span>"

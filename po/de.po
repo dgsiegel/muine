@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-22 00:12+0200\n"
+"POT-Creation-Date: 2004-04-23 13:51+0200\n"
 "PO-Revision-Date: 2004-04-22 00:23+0200\n"
 "Last-Translator: Matthias Debus <psic4t@netbands.de>\n"
 "Language-Team: german <psic4t@netbands.de>\n"
@@ -43,7 +43,8 @@ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Keine Musik gefunden</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
-msgid "Muine was unable to find your music collection. What would you like me to do?"
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
 msgstr "Muine konnte keine Musiksamlung finden. Was möchten Sie jetzt tun?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
@@ -498,7 +499,8 @@ msgstr "Unbekanntes Album"
 
 #: src/PlaylistWindow.cs:589
 msgid "Drop an image here to use it as album cover"
-msgstr "Ziehen Sie ein Bild auf diese Fläche, um es als Albumcover zu verwenden"
+msgstr ""
+"Ziehen Sie ein Bild auf diese Fläche, um es als Albumcover zu verwenden"
 
 #: src/PlaylistWindow.cs:600
 #, csharp-format
@@ -579,4 +581,3 @@ msgstr "{0} und andere"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} und {1}"
-

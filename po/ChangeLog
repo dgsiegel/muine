@@ -1,3 +1,8 @@
+2004-04-23  Jorn Baayen  <jorn@nl.linux.org>
+
+	* *.po: ran update-po, ensuring all C# translations are actually
+	used.
+
 2004-04-22  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation

@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
-"POT-Creation-Date: 2004-03-16 23:05+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-04-23 13:51+0200\n"
 "PO-Revision-Date: 2004-03-16 23:07+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0.2\n"
 
 #: data/glade/AddWindow.glade.h:1
@@ -43,7 +43,8 @@ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Ez da musikarik aurkitu</span>"
 
 #: data/glade/NoMusicFoundWindow.glade.h:2
-msgid "Muine was unable to find your music collection. What would you like me to do?"
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
 msgstr "Muine-k ezin izan du musika kolekziorik aurkitu. Zer nahi duzu egitea?"
 
 #: data/glade/NoMusicFoundWindow.glade.h:3
@@ -77,56 +78,56 @@ msgid "_Nothing, I will manage my music myself"
 msgstr "_Ezer, nik kudeatuko dut nire musika"
 
 #: data/glade/PlaylistWindow.glade.h:1
+msgid "P_roperties"
+msgstr ""
+
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
 msgid "Play Album"
 msgstr "Erreproduzitu diska"
 
-#: data/glade/PlaylistWindow.glade.h:2
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
 msgid "Play Song"
 msgstr "Erreproduzitu kanta"
 
-#: data/glade/PlaylistWindow.glade.h:3
+#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
 msgid "Play _Album..."
 msgstr "Erreproduzitu _diska..."
 
-#: data/glade/PlaylistWindow.glade.h:4
+#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
 msgid "Play _Song..."
 msgstr "Erreproduzitu _kanta..."
 
-#: data/glade/PlaylistWindow.glade.h:5
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "R_epeat"
 msgstr "_Errepikatu"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Remove _Played Songs"
 msgstr "Ezabatu _erreproduzitutako kantak"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Backwards"
 msgstr "Saltatu _atzera"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "Skip _Forward"
 msgstr "Saltatu a_urrera"
 
-#: data/glade/PlaylistWindow.glade.h:9
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "_Clear Playlist"
-msgstr "_Garbitu kanta-zerrenda"
-
 #: data/glade/PlaylistWindow.glade.h:11
+msgid "_Clear"
+msgstr ""
+
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Ezkutatu leihoa"
 
-#: data/glade/PlaylistWindow.glade.h:12
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Import Folder..."
 msgstr "_Inportatu karpeta..."
-
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Information"
-msgstr "_Informazioa"
 
 #: data/glade/PlaylistWindow.glade.h:14
 msgid "_Next"
@@ -176,7 +177,7 @@ msgstr "Galdera"
 msgid "Listen to your music"
 msgstr "Entzun zure musika"
 
-#: data/muine.desktop.in.h:2
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:616
 msgid "Muine Music Player"
 msgstr "Muine Musika Erreproduzitzailea"
 
@@ -260,6 +261,326 @@ msgstr "Kanta-zerrenda errepikatuko duen ala ez adierazten du."
 msgid "false if Muine has been started before."
 msgstr "faltsua Muine lehenago abiarazia izan bada."
 
+#: libmuine/player-gst.c:157
+msgid "Failed to create GstPlay object"
+msgstr ""
+
+#: libmuine/player-gst.c:164
+msgid "Failed to create the required gnomevfssrc GStreamer element"
+msgstr ""
+
+#: libmuine/player-gst.c:173
+msgid "Could not render default GStreamer audio output sink"
+msgstr ""
+
+#: libmuine/player-gst.c:182
+msgid "Could not find the volume element in the GstPlay pipeline"
+msgstr ""
+
+#: libmuine/player-xine.c:289
+msgid "Failed to set up an audio driver"
+msgstr ""
+
+#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#, c-format
+msgid "No plugin available for \"%s\""
+msgstr ""
+
+#: libmuine/player-xine.c:368
+#, c-format
+msgid "Failed playing \"%s\""
+msgstr ""
+
+#: libmuine/player-xine.c:372
+msgid "Internal error"
+msgstr ""
+
+#: libmuine/player-xine.c:381
+#, c-format
+msgid "Could not play \"%s\""
+msgstr ""
+
+#: src/About.cs:38
+msgid "Jorn Baayen (jbaayen@gnome.org)"
+msgstr ""
+
+#: src/About.cs:39
+msgid "Lee Willis (lee@leewillis.co.uk)"
+msgstr ""
+
+#. please use Vietnamese spelling, if the relevant characters occur in
+#. * your language.
+#: src/About.cs:42
+msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+msgstr ""
+
+#: src/About.cs:44
+msgid "Album covers are provided by amazon.com."
+msgstr ""
+
+#: src/About.cs:54
+msgid "translator-credits"
+msgstr ""
+
+#: src/About.cs:59
+msgid "Muine"
+msgstr ""
+
+#. please use the UTF-8 copyright symbol in your translation ..
+#: src/About.cs:61
+msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+msgstr ""
+
+#: src/About.cs:62
+#, fuzzy
+msgid "A music player"
+msgstr "Muine Musika Erreproduzitzailea"
+
+#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:586
+#, csharp-format
+msgid "Performed by {0}"
+msgstr ""
+
+#. Space-separated list of prefixes that will be taken off the front
+#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+#. * if "the" is included in this list. Also include the English "the"
+#. * if English is generally spoken in your country.
+#: src/Album.cs:93
+msgid "the dj"
+msgstr ""
+
+#: src/Metadata.cs:165
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr ""
+
+#: src/Muine.cs:79
+#, csharp-format
+msgid ""
+"Failed to load the cover database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+
+#: src/Muine.cs:88
+#, csharp-format
+msgid ""
+"Failed to load the song database: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+
+#: src/NotificationAreaIcon.cs:53
+#, fuzzy
+msgid "Muine music player"
+msgstr "Muine Musika Erreproduzitzailea"
+
+#: src/NotificationAreaIcon.cs:86
+#, fuzzy
+msgid "_Previous Song"
+msgstr "_Aurrekoa"
+
+#: src/NotificationAreaIcon.cs:89
+#, fuzzy
+msgid "_Next Song"
+msgstr "_Kanta"
+
+#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:249
+msgid "Show _Window"
+msgstr ""
+
+#: src/Player.cs:51
+#, csharp-format
+msgid ""
+"Error opening {0}:\n"
+"{1}"
+msgstr ""
+
+#: src/Player.cs:232
+#, csharp-format
+msgid ""
+"Audio backend error:\n"
+"{0}"
+msgstr ""
+
+#: src/PlaylistWindow.cs:247
+#, fuzzy
+msgid "Hide _Window"
+msgstr "_Ezkutatu leihoa"
+
+#: src/PlaylistWindow.cs:268
+msgid "Play the previous song"
+msgstr ""
+
+#: src/PlaylistWindow.cs:270
+msgid "Play the next song"
+msgstr ""
+
+#: src/PlaylistWindow.cs:272
+#, fuzzy
+msgid "Add an album to the playlist"
+msgstr "Gehitu diska leihoaren altuera."
+
+#: src/PlaylistWindow.cs:274
+#, fuzzy
+msgid "Add a song to the playlist"
+msgstr "Gehitu kanta leihoaren altuera."
+
+#: src/PlaylistWindow.cs:282
+#, fuzzy
+msgid "Change the volume level"
+msgstr "Ozentasun maila."
+
+#: src/PlaylistWindow.cs:365 src/PlaylistWindow.cs:483
+#: src/PlaylistWindow.cs:507 src/PlaylistWindow.cs:521
+#, fuzzy
+msgid "Playlist"
+msgstr "_Kanta-zerrenda"
+
+#: src/PlaylistWindow.cs:401
+#, csharp-format
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+
+#: src/PlaylistWindow.cs:500
+#, csharp-format
+msgid "Playlist (Repeating {0} hour)"
+msgid_plural "Playlist (Repeating {0} hours)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:503
+#, csharp-format
+msgid "Playlist (Repeating {0} minute)"
+msgid_plural "Playlist (Repeating {0} minutes)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:505
+msgid "Playlist (Repeating)"
+msgstr ""
+
+#: src/PlaylistWindow.cs:514
+#, csharp-format
+msgid "Playlist ({0} hour remaining)"
+msgid_plural "Playlist ({0} hours remaining)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:517
+#, csharp-format
+msgid "Playlist ({0} minute remaining)"
+msgid_plural "Playlist ({0} minutes remaining)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/PlaylistWindow.cs:519
+msgid "Playlist (Less than one minute remaining)"
+msgstr ""
+
+#: src/PlaylistWindow.cs:582
+#, csharp-format
+msgid "From \"{0}\""
+msgstr ""
+
+#: src/PlaylistWindow.cs:584
+msgid "Album unknown"
+msgstr ""
+
+#: src/PlaylistWindow.cs:589
+msgid "Drop an image here to use it as album cover"
+msgstr ""
+
+#: src/PlaylistWindow.cs:600
+#, fuzzy, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "Muine Musika Erreproduzitzailea"
+
+#: src/PlaylistWindow.cs:636
+msgid "Pause music playback"
+msgstr ""
+
+#: src/PlaylistWindow.cs:640 src/PlaylistWindow.cs:643
+msgid "P_ause"
+msgstr ""
+
+#: src/PlaylistWindow.cs:649
+msgid "Resume music playback"
+msgstr ""
+
+#: src/PlaylistWindow.cs:653 src/PlaylistWindow.cs:656
+#: src/PlaylistWindow.cs:664 src/PlaylistWindow.cs:667
+#, fuzzy
+msgid "Pl_ay"
+msgstr "_Erreproduzitu"
+
+#: src/PlaylistWindow.cs:660
+msgid "Start music playback"
+msgstr ""
+
+#: src/PlaylistWindow.cs:722
+#, csharp-format
+msgid "Failed to open {0} for reading"
+msgstr ""
+
+#: src/PlaylistWindow.cs:791
+#, csharp-format
+msgid "Failed to open {0} for writing"
+msgstr ""
+
+#: src/PlaylistWindow.cs:1169
+#, fuzzy
+msgid "Import Folder"
+msgstr "_Inportatu karpeta..."
+
+#: src/PlaylistWindow.cs:1215
+#, fuzzy
+msgid "Open Playlist"
+msgstr "_Ireki kanta-zerrenda..."
+
+#: src/PlaylistWindow.cs:1236
+#, fuzzy
+msgid "Save Playlist"
+msgstr "_Gorde kanta-zerrenda honela..."
+
+#: src/PlaylistWindow.cs:1251
+#, csharp-format
+msgid ""
+"File {0} will be overwritten.\n"
+"If you choose yes, the contents will be lost.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+
+#: src/ProgressWindow.cs:43
+#, fuzzy, csharp-format
+msgid "Importing {0}..."
+msgstr "_Inportatu karpeta..."
+
+#: src/StringUtils.cs:47
+msgid "Unknown"
+msgstr ""
+
+#: src/StringUtils.cs:51
+#, csharp-format
+msgid "{0} and others"
+msgstr ""
+
+#: src/StringUtils.cs:53
+#, csharp-format
+msgid "{0} and {1}"
+msgstr ""
+
+#~ msgid "_Clear Playlist"
+#~ msgstr "_Garbitu kanta-zerrenda"
+
+#~ msgid "_Information"
+#~ msgstr "_Informazioa"
+
 #~ msgid "<b>Groups</b>"
 #~ msgstr "<b>Taldeak</b>"
 
@@ -277,4 +598,3 @@ msgstr "faltsua Muine lehenago abiarazia izan bada."
 
 #~ msgid "The orientation of the tray."
 #~ msgstr "Erretiluaren orientazioa."
-
