@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-17 16:00-0500\n"
-"PO-Revision-Date: 2005-01-17 10:13-0400\n"
+"POT-Creation-Date: 2005-01-23 20:03-0500\n"
+"PO-Revision-Date: 2005-01-23 10:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,49 +33,9 @@ msgstr "_Search:"
 msgid "Error"
 msgstr "Error"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
-"Muine was unable to find your music collection. What would you like me to do?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "No Music Found"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "_Create an empty music collection"
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Nothing, I will manage my music myself"
-
 #: data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File"
-msgstr "Overwrite File"
+msgid "Overwrite File?"
+msgstr "Overwrite File?"
 
 #: data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
@@ -85,11 +45,11 @@ msgstr "_Overwrite"
 msgid "Play"
 msgstr "Play"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Play Album"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Play Song"
 
@@ -134,86 +94,58 @@ msgid "Default playlist folder"
 msgstr "Default playlist folder"
 
 #: data/muine.schemas.in.h:8
-msgid "Enable speed hacks on the \"Add album\" list."
-msgstr "Enable speed hacks on the \"Add album\" list."
-
-#: data/muine.schemas.in.h:9
-msgid "Enable speed hacks on the \"Add song\" list."
-msgstr "Enable speed hacks on the \"Add song\" list."
-
-#: data/muine.schemas.in.h:10
-msgid "First start"
-msgstr "First start"
-
-#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Folders that are monitored for changes."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "Height of the \"Add album\" window."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "Height of the \"Add song\" window."
 
-#: data/muine.schemas.in.h:14
-msgid "Height of the information window."
-msgstr "Height of the information window."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "Height of the playlist window."
 
-#: data/muine.schemas.in.h:16
-msgid "Information window height"
-msgstr "Information window height"
-
-#: data/muine.schemas.in.h:17
-msgid "Information window width"
-msgstr "Information window width"
-
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Last used folder from \"Import folder\" dialog."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Last used folder from the playlist file selectors."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "Playlist window height"
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "Playlist window width"
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "Repeat mode"
 
-#: data/muine.schemas.in.h:23
-msgid "Speed hacks"
-msgstr "Speed hacks"
-
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "Volume level"
 
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Volume level. 0 = lowest, 100 = highest."
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "Watched folders"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Whether or not to enable repeat playlist mode."
 
-#: data/muine.schemas.in.h:28
+#: data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -221,25 +153,17 @@ msgstr ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 
-#: data/muine.schemas.in.h:29
+#: data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "Width of the \"Add album\" window."
 
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "Width of the \"Add song\" window."
 
-#: data/muine.schemas.in.h:31
-msgid "Width of the information window."
-msgstr "Width of the information window."
-
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "Width of the playlist window."
-
-#: data/muine.schemas.in.h:33
-msgid "false if Muine has been started before."
-msgstr "false if Muine has been started before."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
@@ -403,7 +327,7 @@ msgstr "_About"
 msgid "R_epeat"
 msgstr "R_epeat"
 
-#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Performed by {0}"
@@ -413,7 +337,7 @@ msgstr "Performed by {0}"
 #. Space-separated list of prefixes that will be taken off the front
 #. when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. if "the" is included in this list. Also include the English "the"
-#. if English is generally spoken in your country.*/
+#. if English is generally spoken in your country.
 #: src/Album.cs:38
 msgid "the dj"
 msgstr "the dj"
@@ -490,14 +414,18 @@ msgstr "Open Playlist"
 msgid "Playlist files"
 msgstr "Playlist files"
 
-#: src/OverwriteDialog.cs:33
+#: src/OverwriteDialog.cs:34
 #, csharp-format
-msgid "A file {0} already exists."
-msgstr "A file {0} already exists."
+msgid "Overwrite \"{0}\"?"
+msgstr "Overwrite \"{0}\"?"
 
-#: src/OverwriteDialog.cs:35
-msgid "If you choose to overwrite this file, the contents will be lost."
-msgstr "If you choose to overwrite this file, the contents will be lost."
+#: src/OverwriteDialog.cs:36
+msgid ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
+msgstr ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
 
 #: src/Player.cs:39
 msgid "Audio backend error:"
@@ -585,28 +513,28 @@ msgstr "Failed to close {0}:"
 msgid "Failed to write {0}:"
 msgstr "Failed to write {0}:"
 
-#: src/PlaylistWindow.cs:948
+#: src/PlaylistWindow.cs:942
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Playlist</b> (Repeating {0} hour)"
 msgstr[1] "<b>Playlist</b> (Repeating {0} hours)"
 
-#: src/PlaylistWindow.cs:953
+#: src/PlaylistWindow.cs:947
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Playlist</b> (Repeating {0} minute)"
 msgstr[1] "<b>Playlist</b> (Repeating {0} minutes)"
 
-#: src/PlaylistWindow.cs:958
+#: src/PlaylistWindow.cs:952
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Playlist</b> ({0} hour remaining)"
 msgstr[1] "<b>Playlist</b> ({0} hours remaining)"
 
-#: src/PlaylistWindow.cs:963
+#: src/PlaylistWindow.cs:957
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -620,8 +548,8 @@ msgstr "Error loading plug-in {0}: {1}"
 
 #: src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}"
-msgstr "Importing {0}"
+msgid "Importing \"{0}\""
+msgstr "Importing \"{0}\""
 
 #: src/ProgressWindow.cs:35
 msgid "Loading:"
