@@ -374,18 +374,6 @@ egg_tray_icon_realize (GtkWidget *widget)
 }
 
 EggTrayIcon *
-egg_tray_icon_new_for_xscreen (Screen *xscreen, const char *name)
-{
-  GdkDisplay *display;
-  GdkScreen *screen;
-
-  display = gdk_x11_lookup_xdisplay (DisplayOfScreen (xscreen));
-  screen = gdk_display_get_screen (display, XScreenNumberOfScreen (xscreen));
-
-  return egg_tray_icon_new_for_screen (screen, name);
-}
-
-EggTrayIcon *
 egg_tray_icon_new_for_screen (GdkScreen *screen, const char *name)
 {
   g_return_val_if_fail (GDK_IS_SCREEN (screen), NULL);

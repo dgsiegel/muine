@@ -141,7 +141,7 @@ get_mp3_duration (struct id3_tag *tag)
 	 * of the audio file in milliseconds,
 	 * represented as a numeric string."
 	 */
-	time = atol (latin1);
+	time = atol ((char *) latin1);
 	g_free (latin1);
 
 	if (time > 0)
@@ -322,10 +322,10 @@ get_mp3_comment_value (struct id3_tag *tag,
 	if (utf8 == NULL)
 		return NULL;
 
-	if (!g_utf8_validate (utf8, -1, NULL))
+	if (!g_utf8_validate ((char *) utf8, -1, NULL))
 		return NULL;
 
-	return utf8;
+	return (char *) utf8;
 }
 
 static Metadata *
@@ -455,7 +455,7 @@ assign_metadata_mp4 (const char *filename,
 	gchar *value;
 	gchar *item;
 	unsigned char *buff = NULL;
-        int buff_size = 0;
+        guint buff_size = 0;
 	int j, k;
 	mp4AudioSpecificConfig mp4ASC;
 	long samples;

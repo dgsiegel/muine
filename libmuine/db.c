@@ -340,13 +340,13 @@ db_pack_pixbuf (gpointer p, GdkPixbuf *pixbuf)
 {
 	GString *string = (GString *) p;
 	GdkPixdata *pixdata;
-	int len = 0;
+	guint len = 0;
 	char *str;
 
 	pixdata = g_new0 (GdkPixdata, 1);
 	gdk_pixdata_from_pixbuf (pixdata, pixbuf, FALSE);
 
-	str = gdk_pixdata_serialize (pixdata, &len);
+	str = (char *) gdk_pixdata_serialize (pixdata, &len);
 
 	db_pack_int (string, len);
 

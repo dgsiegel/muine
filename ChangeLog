@@ -1,3 +1,20 @@
+2005-02-06  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/db.c: (db_pack_pixbuf):
+	* libmuine/egg/Makefile.am:
+	R libmuine/egg/eggintl.h:
+	R libmuine/egg/eggmarshalers.c:
+	R libmuine/egg/eggmarshalers.h:
+	R libmuine/egg/eggmarshalers.list:
+	* libmuine/egg/eggtrayicon.c:
+	R libmuine/egg/eggtraymanager.c:
+	R libmuine/egg/eggtraymaneger.h:
+	R libmuine/egg/update-from-egg.sh:
+	* libmuine/metadata.c: (get_mp3_duration), (get_mp3_comment_value),
+	(assign_metadata_mp4):
+
+	Silence GCC 4.0 warnings, and remove some egg cruft.
+
 2005-02-05  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
