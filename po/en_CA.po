@@ -2,20 +2,19 @@
 # Copyright (C) 2004 THE muine'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the muine package.
 # Adam Weinberger <adamw@gnome.org>, 2004.
-# , fuzzy
-# 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-18 10:08-0400\n"
+"POT-Creation-Date: 2004-05-31 20:15+0200\n"
 "PO-Revision-Date: 2004-05-18 10:13-0400\n"
-"Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
+"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/glade/AddWindow.glade.h:1
 msgid "*"
@@ -368,7 +367,7 @@ msgstr "Album covers are provided by amazon.com."
 #: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
-"Adam Weinberger <adamw@gnome.org>\n"
+"Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
 
 #: src/About.cs:57
@@ -384,7 +383,6 @@ msgid "A music player"
 msgstr "A music player"
 
 #: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:587
-#, csharp-format
 msgid "Performed by {0}"
 msgstr "Performed by {0}"
 
@@ -397,12 +395,10 @@ msgid "the dj"
 msgstr "the dj"
 
 #: src/Metadata.cs:165
-#, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Failed to load metadata: {0}"
 
 #: src/Muine.cs:79
-#, csharp-format
 msgid ""
 "Failed to load the cover database: {0}\n"
 "\n"
@@ -413,7 +409,6 @@ msgstr ""
 "Exiting..."
 
 #: src/Muine.cs:88
-#, csharp-format
 msgid ""
 "Failed to load the song database: {0}\n"
 "\n"
@@ -440,7 +435,6 @@ msgid "Show _Window"
 msgstr "Show _Window"
 
 #: src/Player.cs:55
-#, csharp-format
 msgid ""
 "Error opening {0}:\n"
 "{1}"
@@ -449,7 +443,6 @@ msgstr ""
 "{1}"
 
 #: src/Player.cs:235
-#, csharp-format
 msgid ""
 "Audio backend error:\n"
 "{0}"
@@ -487,7 +480,6 @@ msgid "Playlist"
 msgstr "Playlist"
 
 #: src/PlaylistWindow.cs:402
-#, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
 "{0}\n"
@@ -500,43 +492,38 @@ msgstr ""
 "Exiting..."
 
 #: src/PlaylistWindow.cs:501
-#, csharp-format
 msgid "Playlist (Repeating {0} hour)"
 msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Playlist (Repeating {0} hour)"
+msgstr[1] "Playlist (Repeating {0} hours)"
 
 #: src/PlaylistWindow.cs:504
-#, csharp-format
 msgid "Playlist (Repeating {0} minute)"
 msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Playlist (Repeating {0} minute)"
+msgstr[1] "Playlist (Repeating {0} minutes)"
 
 #: src/PlaylistWindow.cs:506
 msgid "Playlist (Repeating)"
 msgstr "Playlist (Repeating)"
 
 #: src/PlaylistWindow.cs:515
-#, csharp-format
 msgid "Playlist ({0} hour remaining)"
 msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Playlist ({0} hour remaining)"
+msgstr[1] "Playlist ({0} hours remaining)"
 
 #: src/PlaylistWindow.cs:518
-#, csharp-format
 msgid "Playlist ({0} minute remaining)"
 msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Playlist ({0} minute remaining)"
+msgstr[1] "Playlist ({0} minutes remaining)"
 
 #: src/PlaylistWindow.cs:520
 msgid "Playlist (Less than one minute remaining)"
 msgstr "Playlist (Less than one minute remaining)"
 
 #: src/PlaylistWindow.cs:583
-#, csharp-format
 msgid "From \"{0}\""
 msgstr "From \"{0}\""
 
@@ -549,7 +536,6 @@ msgid "Drop an image here to use it as album cover"
 msgstr "Drop an image here to use it as album cover"
 
 #: src/PlaylistWindow.cs:601
-#, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine Music Player"
 
@@ -575,12 +561,10 @@ msgid "Start music playback"
 msgstr "Start music playback"
 
 #: src/PlaylistWindow.cs:723
-#, csharp-format
 msgid "Failed to open {0} for reading"
 msgstr "Failed to open {0} for reading"
 
 #: src/PlaylistWindow.cs:792
-#, csharp-format
 msgid "Failed to open {0} for writing"
 msgstr "Failed to open {0} for writing"
 
@@ -597,7 +581,6 @@ msgid "Save Playlist"
 msgstr "Save Playlist"
 
 #: src/PlaylistWindow.cs:1274
-#, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
 "If you choose yes, the contents will be lost.\n"
@@ -610,7 +593,6 @@ msgstr ""
 "Do you want to continue?"
 
 #: src/ProgressWindow.cs:43
-#, csharp-format
 msgid "Importing {0}..."
 msgstr "Importing {0}..."
 
@@ -619,11 +601,10 @@ msgid "Unknown"
 msgstr "Unknown"
 
 #: src/StringUtils.cs:51
-#, csharp-format
 msgid "{0} and others"
 msgstr "{0} and others"
 
 #: src/StringUtils.cs:53
-#, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} and {1}"
+
