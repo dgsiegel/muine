@@ -26,6 +26,10 @@ namespace Muine
 {
 	public class Player : GLib.Object
 	{
+		// Strings
+		private static readonly string string_audio_error =
+			Catalog.GetString ("Audio backend error:\n{0}");		
+	
 		[DllImport ("libmuine")]
 		private static extern bool player_set_file (IntPtr player,
 		                                            string filename,
@@ -216,7 +220,7 @@ namespace Muine
 
 		private void OnError (IntPtr obj, string error)
 		{
-			new ErrorDialog (String.Format (Catalog.GetString ("Audio backend error:\n{0}"), error));
+			new ErrorDialog (String.Format (string_audio_error, error));
 		}
 	}
 

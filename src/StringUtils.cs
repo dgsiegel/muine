@@ -26,6 +26,14 @@ namespace Muine
 {
 	public class StringUtils
 	{
+		// Strings
+		private static readonly string string_unknown =
+			Catalog.GetString ("Unknown");
+		private static readonly string string_many =
+			Catalog.GetString ("{0} and others");
+		private static readonly string string_several =
+			Catalog.GetString ("{0} and {1}");
+		
 		public static string SecondsToString (long time)
 		{
 			long h, m, s;
@@ -46,13 +54,13 @@ namespace Muine
 			string ret;
 
 			if (strings.Length == 0)
-				ret = Catalog.GetString ("Unknown");
+				ret = string_unknown;
 			else if (strings.Length == 1) 
 				ret = strings [0];
 			else if (max > 1 && strings.Length > max)
-				ret = String.Format (Catalog.GetString ("{0} and others"), String.Join (", ", strings, 0, max));
+				ret = String.Format (string_many, String.Join (", ", strings, 0, max));
 			else
-				ret = String.Format (Catalog.GetString ("{0} and {1}"), String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
+				ret = String.Format (string_several, String.Join (", ", strings, 0, strings.Length - 1), strings [strings.Length - 1]);
 
 			return ret;
 		}

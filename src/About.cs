@@ -26,38 +26,45 @@ namespace Muine
 {
 	public class About
 	{
-		private static string [] authors = null;
-		public static string [] Authors {
-			get {
-				if (authors == null) {
-					authors = new string [6];
+		// Static
+		// Static :: Variables :: Private
+		// Static :: Variables :: Private :: Strings
+		private static readonly string string_translators = 
+			Catalog.GetString ("translator-credits");
+		private static readonly string string_muine =
+			Catalog.GetString ("Muine");
+		private static readonly string string_copyright =
+			Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen");
+		private static readonly string string_description =
+			Catalog.GetString ("A music player");
+		
+		private static readonly string [] authors = new string [] {
+			Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>"),
+			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
+			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
+			Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>"),
+			"",
+			Catalog.GetString ("Album covers are provided by amazon.com."),
+		};
+		
+		private static readonly string [] documenters = new string [] {
+		};
 
-					authors [0] = Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>");
-					authors [1] = Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>");
-					authors [2] = Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>");
-					authors [3] = Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>");
-					authors [4] = "";
-					authors [5] = Catalog.GetString ("Album covers are provided by amazon.com.");
-				}
-				
-				return authors;
-			}
-		}
+		private static readonly Gdk.Pixbuf pixbuf = new Gdk.Pixbuf (null, "muine-about.png");
 
+		// Static :: Methods
+		// Static :: Methods :: ShowWindow
 		public static void ShowWindow (Gtk.Window parent)
 		{
-			string [] documenters = new string [] {};
-			string translator_credits = Catalog.GetString ("translator-credits");
-
-			Pixbuf pixbuf = new Pixbuf (null, "muine-about.png");
-
-			Gnome.About about;
-			about = new Gnome.About (Catalog.GetString ("Muine"), Defines.VERSION,
-						 Catalog.GetString ("Copyright © 2003, 2004, 2005 Jorn Baayen"),
-						 Catalog.GetString ("A music player"),
-						 Authors, documenters,
-						 (translator_credits == "translator-credits") ? null : translator_credits,
-						 pixbuf);
+			string translators = (string_translators == "translator-credits") 
+			                     ? null 
+			                     : string_translators;
+			
+			Gnome.About about = new Gnome.About (string_muine, Defines.VERSION,
+							     string_copyright,
+							     string_description,
+							     authors, documenters, translators,
+							     pixbuf);
 
 			about.TransientFor = parent;
 			about.Show ();

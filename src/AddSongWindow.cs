@@ -29,6 +29,7 @@ namespace Muine
 {
 	public class AddSongWindow : AddWindow
 	{
+		// Constants
 		private const int FakeLength = 150;
 		private const int MinQueryLength = 3;
 
@@ -37,6 +38,10 @@ namespace Muine
 	        
 	        private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
 	        private const int GConfDefaultHeight = 475;  
+
+		// Strings
+		private static readonly string string_play_song = 
+			Catalog.GetString ("Play Song");
 
 		// DnD targets	
 		private static TargetEntry [] source_entries = new TargetEntry [] {
@@ -47,7 +52,7 @@ namespace Muine
 		// Constructor	
 		public AddSongWindow ()
 		{
-			window.Title = Catalog.GetString ("Play Song");
+			window.Title = string_play_song;
 
 			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 			

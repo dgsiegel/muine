@@ -29,11 +29,18 @@ namespace Muine
 {
 	public class AddAlbumWindow : AddWindow
 	{
+		// Constants
 		private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
 		private const int GConfDefaultWidth = 500;
 
 		private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
 		private const int GConfDefaultHeight = 475; 
+
+		// Strings
+		private static readonly string string_play_album = 
+			Catalog.GetString ("Play Album");
+		private static readonly string string_performed_by = 
+			Catalog.GetString ("Performed by {0}");
 
 		// Widgets
 		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
@@ -48,7 +55,7 @@ namespace Muine
 		// Constructor
 		public AddAlbumWindow ()
 		{
-			window.Title = Catalog.GetString ("Play Album");
+			window.Title = string_play_album;
 
 			SetGConfSize (GConfKeyWidth, GConfKeyHeight, GConfDefaultWidth, GConfDefaultHeight);
 			
@@ -110,7 +117,7 @@ namespace Muine
 
 			string performers = "";
 			if (album.Performers.Length > 0)
-				performers = String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (album.Performers, 2));
+				performers = String.Format (string_performed_by, StringUtils.JoinHumanReadable (album.Performers, 2));
 
 			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
 

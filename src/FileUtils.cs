@@ -29,6 +29,12 @@ namespace Muine
 {
 	public class FileUtils
 	{
+		// Strings
+		private static readonly string string_init_config_failed = 
+			Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting...");
+		private static readonly string string_init_temp_failed =
+			Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting...");
+	
 		// Filenames
 		public static void Init ()
 		{
@@ -36,10 +42,10 @@ namespace Muine
 			
 			try {
 				config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
-
 				CreateDirectory (config_directory);
+
 			} catch (Exception e) {
-				throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+				throw new Exception (String.Format (string_init_config_failed, e.Message));
 			}
 
 			playlist_file = Path.Combine (config_directory, playlist_filename);
@@ -51,8 +57,9 @@ namespace Muine
 				temp_directory = Path.Combine (System.IO.Path.GetTempPath (),
 								"muine-" + Environment.UserName);
 				CreateDirectory (temp_directory);
+
 			} catch (Exception e) {
-				throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting..."), e.Message));
+				throw new Exception (String.Format (string_init_temp_failed, e.Message));
 			}
 		}
 		

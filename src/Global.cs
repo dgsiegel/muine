@@ -32,6 +32,15 @@ namespace Muine
 {
 	public class Global : Gnome.Program
 	{
+		// Strings
+		private static readonly string string_dbus_failed =
+			Catalog.GetString ("Failed to export D-Bus object: {0}");		
+		private static readonly string string_coverdb_failed =
+			Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting...");
+		private static readonly string string_songdb_failed =
+			Catalog.GetString ("Failed to load the song database: {0}\n\nExiting...");
+	
+		// Properties
 		private static SongDatabase db;
 		public static SongDatabase DB {
 			get { return db; }
@@ -84,12 +93,12 @@ namespace Muine
 				   through the main thread anyway. For now it is
 				   just important to have the thing registered. */
 				try {
-					dbus_object = new DBusLib.Player ();
-				
+					dbus_object = new DBusLib.Player ();				
 					MuineDBusService.Instance.RegisterObject
 						(dbus_object, "/org/gnome/Muine/Player");
+
 				} catch (Exception e) {
-					Console.WriteLine (Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
+					Console.WriteLine (string_dbus_failed, e.Message);
 				}
 			}
 
@@ -113,14 +122,14 @@ namespace Muine
 			try {
 				cover_db = new CoverDatabase (3);
 			} catch (Exception e) {
-				Error (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
+				Error (String.Format (string_coverdb_failed, e.Message));
 			}
 
 			/* Load song database */
 			try {
 				db = new SongDatabase (5);
 			} catch (Exception e) {
-				Error (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
+				Error (String.Format (string_songdb_failed, e.Message));
 			}
 
 			db.Load ();

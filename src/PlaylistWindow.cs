@@ -48,6 +48,115 @@ namespace Muine
 		private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
 		private const string GConfDefaultImportFolder = "~";
 
+		// Strings
+		private static readonly string string_playlist_filename =
+			Catalog.GetString ("Playlist.m3u");
+		private static readonly string string_playlist = 
+			Catalog.GetString ("Playlist");
+		private static readonly string string_playlist_repeating =
+			Catalog.GetString ("Playlist (Repeating)");
+		private static readonly string string_playlist_under_minute =
+			Catalog.GetString ("Playlist (Less than one minute remaining)");
+		private static readonly string string_artists =
+			Catalog.GetString ("From \"{0}\"");
+		private static readonly string string_album_unknown =
+			Catalog.GetString ("Album unknown");
+		private static readonly string string_performers =
+			Catalog.GetString ("Performed by {0}");
+		private static readonly string string_program = 
+			Catalog.GetString ("Muine Music Player");
+		private static readonly string string_open_filter =
+			Catalog.GetString ("Playlist files");
+		private static readonly string string_save_default =
+			Catalog.GetString ("Untitled");
+		private static readonly string string_overwrite =
+			Catalog.GetString ("File {0} will be overwritten.\n" +
+					   "If you choose yes, the contents will be lost.\n\n" +
+					   "Do you want to continue?");
+
+		private static readonly string string_title_main =
+			Catalog.GetString ("{0} - Muine Music Player");
+		private static readonly string string_title_import =
+			Catalog.GetString ("Import Folder");
+		private static readonly string string_title_open =
+			Catalog.GetString ("Open Playlist");
+		private static readonly string string_title_save =
+			Catalog.GetString ("Save Playlist");
+
+		private static readonly string string_button_import =
+			Catalog.GetString ("_Import");
+												
+		private static readonly string string_menu_hide_window =
+			Catalog.GetString ("Hide _Window");
+		private static readonly string string_menu_show_window =
+			Catalog.GetString ("Show _Window");
+		private static readonly string string_menu_file =
+			Catalog.GetString ("_File");
+		private static readonly string string_menu_song =
+			Catalog.GetString ("_Song");
+		private static readonly string string_menu_playlist =
+			Catalog.GetString ("_Playlist");
+		private static readonly string string_menu_help =
+			Catalog.GetString ("_Help");
+		private static readonly string string_menu_import =
+			Catalog.GetString ("_Import Folder...");
+		private static readonly string string_menu_open =
+			Catalog.GetString ("_Open Playlist...");
+		private static readonly string string_menu_save =
+			Catalog.GetString ("_Save Playlist As...");
+		private static readonly string string_menu_previous =
+			Catalog.GetString ("_Previous");
+		private static readonly string string_menu_next =
+			Catalog.GetString ("_Next");
+		private static readonly string string_menu_skip_to =
+			Catalog.GetString ("_Skip to...");
+		private static readonly string string_menu_skip_back =
+			Catalog.GetString ("Skip _Backwards");
+		private static readonly string string_menu_skip_forward =
+			Catalog.GetString ("Skip _Forward");
+		private static readonly string string_menu_play_song =
+			Catalog.GetString ("Play _Song...");
+		private static readonly string string_menu_play_album =
+			Catalog.GetString ("Play _Album...");
+		private static readonly string string_menu_remove =
+			Catalog.GetString ("_Remove Song");
+		private static readonly string string_menu_remove_played =
+			Catalog.GetString ("Remove _Played Songs");
+		private static readonly string string_menu_clear =
+			Catalog.GetString ("_Clear");
+		private static readonly string string_menu_shuffle =
+			Catalog.GetString ("Shu_ffle");
+		private static readonly string string_menu_about =
+			Catalog.GetString ("_About");
+		private static readonly string string_menu_play =
+			Catalog.GetString ("_Play");
+		private static readonly string string_menu_repeat =
+			Catalog.GetString ("R_epeat");
+
+		private static readonly string string_tooltip_play_pause =
+			Catalog.GetString ("Switch music playback on or off");
+		private static readonly string string_tooltip_previous =
+			Catalog.GetString ("Play the previous song");
+		private static readonly string string_tooltip_next =
+			Catalog.GetString ("Play the next song");
+		private static readonly string string_tooltip_add_album =
+			Catalog.GetString ("Add an album to the playlist");
+		private static readonly string string_tooltip_add_song =
+			Catalog.GetString ("Add a song to the playlist");
+		private static readonly string string_tooltip_volume =
+			Catalog.GetString ("Change the volume level");
+		private static readonly string string_tooltip_cover =
+			Catalog.GetString ("Drop an image here to use it as album cover");
+
+		private static readonly string string_error_audio =
+			Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting...");
+		private static readonly string string_error_read =
+			Catalog.GetString ("Failed to open {0} for reading");
+		private static readonly string string_error_close =
+			Catalog.GetString ("Failed to close {0}");
+		private static readonly string string_error_write =
+			Catalog.GetString ("Failed to open {0} for writing");
+
 		/* menu widgets */
 		private Action previous_action;
 		private Action next_action;
@@ -298,8 +407,7 @@ namespace Muine
 		{
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
-				string file = System.IO.Path.Combine (FileUtils.TempDirectory,
-							Catalog.GetString ("Playlist.m3u"));
+				string file = System.IO.Path.Combine (FileUtils.TempDirectory, string_playlist_filename);
 
 				SavePlaylist (file, false, false);
 				
@@ -413,30 +521,30 @@ namespace Muine
 				if (playlist.Playing != IntPtr.Zero)
 					playlist.Select (playlist.Playing);
 
-				window_visibility_action.Label = Catalog.GetString ("Hide _Window");
+				window_visibility_action.Label = string_menu_hide_window;
 			} else {
-				window_visibility_action.Label = Catalog.GetString ("Show _Window");
+				window_visibility_action.Label = string_menu_show_window;
 			}
 		}
 
 		private void SetupMenus (Glade.XML glade_xml)
 		{
 			ActionEntry [] action_entries = new ActionEntry [] {
-				new ActionEntry ("FileMenu", null, Catalog.GetString ("_File"),
+				new ActionEntry ("FileMenu", null, string_menu_file,
 						 null, null, null),
-				new ActionEntry ("SongMenu", null, Catalog.GetString ("_Song"),
+				new ActionEntry ("SongMenu", null, string_menu_song,
 						 null, null, null),
-				new ActionEntry ("PlaylistMenu", null, Catalog.GetString ("_Playlist"),
+				new ActionEntry ("PlaylistMenu", null, string_menu_playlist,
 						 null, null, null),
-				new ActionEntry ("HelpMenu", null, Catalog.GetString ("_Help"),
+				new ActionEntry ("HelpMenu", null, string_menu_help,
 						 null, null, null),
-				new ActionEntry ("ImportFolder", Stock.Execute, Catalog.GetString ("_Import Folder..."),
+				new ActionEntry ("ImportFolder", Stock.Execute, string_menu_import,
 						 null, null,
 						 new EventHandler (OnImportFolder)),
-				new ActionEntry ("OpenPlaylist", Stock.Open, Catalog.GetString ("_Open Playlist..."),
+				new ActionEntry ("OpenPlaylist", Stock.Open, string_menu_open,
 						 "<control>O", null,
 						 new EventHandler (OnOpenPlaylist)),
-				new ActionEntry ("SavePlaylistAs", Stock.SaveAs, Catalog.GetString ("_Save Playlist As..."),
+				new ActionEntry ("SavePlaylistAs", Stock.SaveAs, string_menu_save,
 						 "<shift><control>S", null,
 						 new EventHandler (OnSavePlaylistAs)),
 				new ActionEntry ("ShowHideWindow", null, "",
@@ -445,49 +553,49 @@ namespace Muine
 				new ActionEntry ("Quit", Stock.Quit, null,
 						 "<control>Q", null,
 						 new EventHandler (OnQuit)),
-				new ActionEntry ("PreviousSong", "stock_media-prev", Catalog.GetString ("_Previous"),
+				new ActionEntry ("PreviousSong", "stock_media-prev", string_menu_previous,
 						 "P", null,
 						 new EventHandler (OnPrevious)),
-				new ActionEntry ("NextSong", "stock_media-next", Catalog.GetString ("_Next"),
+				new ActionEntry ("NextSong", "stock_media-next", string_menu_next,
 						 "N", null,
 						 new EventHandler (OnNext)),
-				new ActionEntry ("SkipTo", Stock.JumpTo, Catalog.GetString ("_Skip to..."),
+				new ActionEntry ("SkipTo", Stock.JumpTo, string_menu_skip_to,
 						 "T", null,
 						 new EventHandler (OnSkipTo)),
-				new ActionEntry ("SkipBackwards", "stock_media-rew", Catalog.GetString ("Skip _Backwards"),
+				new ActionEntry ("SkipBackwards", "stock_media-rew", string_menu_skip_back,
 						 "<control>Left", null,
 						 new EventHandler (OnSkipBackwards)),
-				new ActionEntry ("SkipForward", "stock_media-fwd",
-						 Catalog.GetString ("Skip _Forward"), "<control>Right", null,
+				new ActionEntry ("SkipForward", "stock_media-fwd", string_menu_skip_forward,
+						 "<control>Right", null,
 						 new EventHandler (OnSkipForward)),
-				new ActionEntry ("PlaySong", Stock.Add, Catalog.GetString ("Play _Song..."),
+				new ActionEntry ("PlaySong", Stock.Add, string_menu_play_song,
 						 "S", null,
 						 new EventHandler (OnPlaySong)),
-				new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", Catalog.GetString ("Play _Album..."),
+				new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", string_menu_play_album,
 						 "A", null,
 						 new EventHandler (OnPlayAlbum)),
-				new ActionEntry ("RemoveSong", Stock.Remove, Catalog.GetString ("_Remove Song"),
+				new ActionEntry ("RemoveSong", Stock.Remove, string_menu_remove,
 						 "Delete", null,
 						 new EventHandler (OnRemoveSong)),
-				new ActionEntry ("RemovePlayedSongs", null, Catalog.GetString ("Remove _Played Songs"),
+				new ActionEntry ("RemovePlayedSongs", null, string_menu_remove_played,
 						 "<control>Delete", null,
 						 new EventHandler (OnRemovePlayedSongs)),
-				new ActionEntry ("ClearPlaylist", Stock.Clear, Catalog.GetString ("_Clear"),
+				new ActionEntry ("ClearPlaylist", Stock.Clear, string_menu_clear,
 						 null, null,
 						 new EventHandler (OnClearPlaylist)),
-				new ActionEntry ("Shuffle", "stock_shuffle", Catalog.GetString ("Shu_ffle"),
+				new ActionEntry ("Shuffle", "stock_shuffle", string_menu_shuffle,
 						 "<control>S", null,
 						 new EventHandler (OnShuffle)),
-				new ActionEntry ("About", Gnome.Stock.About, Catalog.GetString ("_About"),
+				new ActionEntry ("About", Gnome.Stock.About, string_menu_about,
 						 null, null,
 						 new EventHandler (OnAbout))
 			};
 
 			ToggleActionEntry [] toggle_action_entries = new ToggleActionEntry [] {
-				new ToggleActionEntry ("PlayPause", "stock_media-play", Catalog.GetString ("_Play"),
+				new ToggleActionEntry ("PlayPause", "stock_media-play", string_menu_play,
 						       "space", null,
 						       new EventHandler (OnPlayPause), false),
-				new ToggleActionEntry ("Repeat", null, Catalog.GetString ("R_epeat"),
+				new ToggleActionEntry ("Repeat", null, string_menu_repeat,
 						       "<control>R", null,
 						       new EventHandler (OnRepeat), false)
 			};
@@ -532,24 +640,18 @@ namespace Muine
 			image.SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
 
 			tooltips = new Tooltips ();
-			tooltips.SetTip (play_pause_button,
-					 Catalog.GetString ("Switch music playback on or off"), null);
-			tooltips.SetTip (previous_button,
-					 Catalog.GetString ("Play the previous song"), null);
-			tooltips.SetTip (next_button,
-					 Catalog.GetString ("Play the next song"), null);
-			tooltips.SetTip (glade_xml ["add_album_button"],
-					 Catalog.GetString ("Add an album to the playlist"), null);
-			tooltips.SetTip (glade_xml ["add_song_button"],
-					 Catalog.GetString ("Add a song to the playlist"), null);
+			tooltips.SetTip (play_pause_button, string_tooltip_play_pause, null);
+			tooltips.SetTip (previous_button  , string_tooltip_previous  , null);
+			tooltips.SetTip (next_button      , string_tooltip_next      , null);
+			tooltips.SetTip (glade_xml ["add_album_button"], string_tooltip_add_album, null);
+			tooltips.SetTip (glade_xml ["add_song_button"] , string_tooltip_add_song , null);
 
 			volume_button = new VolumeButton ();
 			((Container) glade_xml ["volume_button_container"]).Add (volume_button);
 			volume_button.Visible = true;
 			volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (OnVolumeChanged);
 
-			tooltips.SetTip (volume_button,
-					 Catalog.GetString ("Change the volume level"), null);
+			tooltips.SetTip (volume_button, string_tooltip_volume, null);
 		}
 
 		private Gdk.Pixbuf empty_pixbuf;
@@ -586,7 +688,7 @@ namespace Muine
 
 			((Container) glade_xml ["scrolledwindow"]).Add (playlist);
 			
-			MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (Catalog.GetString ("Playlist")),
+			MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (string_playlist),
 						    false, true, false);
 
 			empty_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
@@ -622,7 +724,7 @@ namespace Muine
 			try {
 				player = new Player ();
 			} catch (Exception e) {
-				throw new Exception (String.Format (Catalog.GetString ("Failed to initialize the audio backend:\n{0}\n\nExiting..."), e.Message));
+				throw new Exception (String.Format (string_error_audio, e.Message));
 			}
 
 			player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
@@ -729,7 +831,7 @@ namespace Muine
 		{
 			if (playlist.Playing == IntPtr.Zero) {
 				time_label.Text = "";
-				playlist_label.Text = Catalog.GetString ("Playlist");
+				playlist_label.Text = string_playlist;
 
 				return;
 			}
@@ -751,9 +853,9 @@ namespace Muine
 					int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
 					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist (Repeating {0} minute)", "Playlist (Repeating {0} minutes)", minutes), minutes);
 				} else if (r_seconds > 0) {
-					playlist_label.Text = Catalog.GetString ("Playlist (Repeating)");
+					playlist_label.Text = string_playlist_repeating;
 				} else {
-					playlist_label.Text = Catalog.GetString ("Playlist");
+					playlist_label.Text = string_playlist;
 				}
 			} else {
 				long r_seconds = remaining_songs_time + song.Duration - time;
@@ -765,9 +867,9 @@ namespace Muine
 					int minutes = (int) Math.Floor ((double) r_seconds / 60.0 + 0.5);
 					playlist_label.Text = String.Format (Catalog.GetPluralString ("Playlist ({0} minute remaining)", "Playlist ({0} minutes remaining)", minutes), minutes);
 				} else if (r_seconds > 0) {
-					playlist_label.Text = Catalog.GetString ("Playlist (Less than one minute remaining)");
+					playlist_label.Text = string_playlist_under_minute;
 				} else {
-					playlist_label.Text = Catalog.GetString ("Playlist");
+					playlist_label.Text = string_playlist;
 				}
 			} 
 		}
@@ -830,14 +932,15 @@ namespace Muine
 
 				string tip;
 				if (song.Album.Length > 0)
-					tip = String.Format (Catalog.GetString ("From \"{0}\""), song.Album);
+					tip = String.Format (string_artists, song.Album);
 				else
-					tip = Catalog.GetString ("Album unknown");
+					tip = string_album_unknown;
+
 				if (song.Performers.Length > 0)
-					tip += "\n\n" + String.Format (Catalog.GetString ("Performed by {0}"), StringUtils.JoinHumanReadable (song.Performers));
+					tip += "\n\n" + String.Format (string_performers, StringUtils.JoinHumanReadable (song.Performers));
 					
 				if (song.CoverImage == null && !Global.CoverDB.Loading)
-					tip += "\n\n" + Catalog.GetString ("Drop an image here to use it as album cover");
+					tip += "\n\n" + string_tooltip_cover;
 				
 				tooltips.SetTip (cover_image, tip, null);
 
@@ -858,7 +961,7 @@ namespace Muine
 					}
 				}
 
-				Title = String.Format (Catalog.GetString ("{0} - Muine Music Player"), song.Title);
+				Title = String.Format (string_title_main, song.Title);
 			} else {
 				cover_image.Song = null;
 
@@ -868,7 +971,7 @@ namespace Muine
 				artist_label.Text = "";
 				time_label.Text = "";
 
-				Title = Catalog.GetString ("Muine Music Player");
+				Title = string_program;
 
 				if (skip_to_window != null)
 					skip_to_window.Hide ();
@@ -977,7 +1080,7 @@ namespace Muine
 				stream = new VfsStream (fn, System.IO.FileMode.Open);
 				reader = new StreamReader (stream);
 			} catch {
-				new ErrorDialog (String.Format (Catalog.GetString ("Failed to open {0} for reading"), FileUtils.MakeHumanReadable (fn)), this);
+				new ErrorDialog (String.Format (string_error_read, FileUtils.MakeHumanReadable (fn)), this);
 				return;
 			}
 
@@ -1041,7 +1144,7 @@ namespace Muine
 			try {
 				reader.Close ();
 			} catch {
-				new ErrorDialog (String.Format (Catalog.GetString ("Failed to close {0}"), FileUtils.MakeHumanReadable (fn)), this);
+				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
 				return;
 			}
 
@@ -1062,7 +1165,7 @@ namespace Muine
 				stream = new VfsStream (fn, System.IO.FileMode.Create);
 				writer = new StreamWriter (stream);
 			} catch {
-				new ErrorDialog (String.Format (Catalog.GetString ("Failed to open {0} for writing"), FileUtils.MakeHumanReadable (fn)), this);
+				new ErrorDialog (String.Format (string_error_write, FileUtils.MakeHumanReadable (fn)), this);
 				if (remote)
 					BusyLevel --;
 				return;
@@ -1094,7 +1197,7 @@ namespace Muine
 			try {
 				writer.Close ();
 			} catch {
-				new ErrorDialog (String.Format (Catalog.GetString ("Failed to close {0}"), FileUtils.MakeHumanReadable (fn)), this);
+				new ErrorDialog (String.Format (string_error_close, FileUtils.MakeHumanReadable (fn)), this);
 			}
 
 			if (remote)
@@ -1460,12 +1563,12 @@ namespace Muine
 		{
 			FileChooserDialog fc;
 
-			fc = new FileChooserDialog (Catalog.GetString ("Import Folder"), this,
+			fc = new FileChooserDialog (string_title_import, this,
 						    FileChooserAction.SelectFolder);
 			fc.LocalOnly = true;
 			fc.SelectMultiple = true;
 			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
-			fc.AddButton (Catalog.GetString ("_Import"), ResponseType.Ok);
+			fc.AddButton (string_button_import, ResponseType.Ok);
 			fc.DefaultResponse = ResponseType.Ok;
 			
 			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
@@ -1500,12 +1603,11 @@ namespace Muine
 
 		private void OnOpenPlaylist (object o, EventArgs args)
 		{
-			FileSelector sel = new FileSelector (Catalog.GetString ("Open Playlist"),
-							     this, FileChooserAction.Open,
+			FileSelector sel = new FileSelector (string_title_open, this, FileChooserAction.Open,
 							     "/apps/muine/default_playlist_folder");
 
 			FileFilter filter = new FileFilter ();
-			filter.Name = Catalog.GetString ("Playlist files");
+			filter.Name = string_open_filter;
 			filter.AddMimeType ("audio/x-mpegurl");
 			filter.AddPattern ("*.m3u");
 			sel.AddFilter (filter);
@@ -1521,10 +1623,9 @@ namespace Muine
 
 		private void OnSavePlaylistAs (object o, EventArgs args)
 		{
-			FileSelector sel = new FileSelector (Catalog.GetString ("Save Playlist"),
-							     this, FileChooserAction.Save,
+			FileSelector sel = new FileSelector (string_title_save, this, FileChooserAction.Save,
 							     "/apps/muine/default_playlist_folder");
-			sel.CurrentName = Catalog.GetString ("Untitled");
+			sel.CurrentName = string_save_default;
 
 			string fn = sel.GetFile ();
 
@@ -1536,7 +1637,7 @@ namespace Muine
 				fn += ".m3u";
 
 			if (FileUtils.Exists (fn)) {
-				YesNoDialog d = new YesNoDialog (String.Format (Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), FileUtils.MakeHumanReadable (fn)), this);
+				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), this);
 				if (d.GetAnswer ())
 					SavePlaylist (fn, false, false);
 			} else

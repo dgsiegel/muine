@@ -1,3 +1,23 @@
+2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/About.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/ErrorDialog.cs:
+	* src/FileUtils.cs:
+	* src/Global.cs:
+	* src/Metadata.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/ProgressWindow.cs:
+	* src/StringUtils.cs:
+	
+	Make all translatable strings readonly variables.
+	Minor code cleanup.
+
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:

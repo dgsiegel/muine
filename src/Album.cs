@@ -28,6 +28,11 @@ namespace Muine
 {
 	public class Album : Item
 	{
+		// Strings
+		private static readonly string string_prefixes = 
+			Catalog.GetString ("the dj");
+
+		// Properties
 		private string name;
 		public string Name {
 			get { return name; }
@@ -292,7 +297,7 @@ namespace Muine
 				 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 				 * if "the" is included in this list. Also include the English "the"
 				 * if English is generally spoken in your country. */
-				prefixes = Catalog.GetString ("the dj").Split (' ');
+				prefixes = string_prefixes.Split (' ');
 			}
 					
 			string [] p_artists = new string [artists.Count];

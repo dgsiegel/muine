@@ -28,6 +28,11 @@ namespace Muine
 {
 	public class ErrorDialog
 	{
+		// Strings
+		private static readonly string string_heading = 
+			Catalog.GetString ("An error occurred:");
+	
+		// Widgets
 		[Glade.Widget]
 		Dialog window;
 		[Glade.Widget]
@@ -38,10 +43,9 @@ namespace Muine
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 			gxml.Autoconnect (this);
 
-			string heading = Catalog.GetString ("An error occurred:");
-			string full_text = heading + "\n\n" + text;
+			string full_text = string_heading + "\n\n" + text;
 
-			MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (heading),
+			MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (string_heading),
 						    true, true, false);
 
 			label.Text = full_text;

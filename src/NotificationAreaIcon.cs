@@ -31,6 +31,13 @@ namespace Muine
 {
 	public class NotificationAreaIcon : Plug
 	{
+		// Strings
+		private static readonly string string_program =
+			Catalog.GetString ("Muine music player");
+
+		private static readonly string string_tooltip_format =
+			Catalog.GetString ("{0} - {1}");
+		
 		[DllImport ("libmuine")]
 		private static extern IntPtr egg_tray_icon_new (string name);
 
@@ -51,7 +58,7 @@ namespace Muine
 
 		public void Init ()
 		{
-			Raw = egg_tray_icon_new (Catalog.GetString ("Muine music player"));
+			Raw = egg_tray_icon_new (string_program);
 
 			DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
 
@@ -203,7 +210,7 @@ namespace Muine
 		private string CreateTooltip (ISong song)
 		{
 			/* song artists - song title */
-			return String.Format (Catalog.GetString ("{0} - {1}"),
+			return String.Format (string_tooltip_format,
 					      StringUtils.JoinHumanReadable (song.Artists),
 					      song.Title);
 		}

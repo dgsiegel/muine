@@ -27,6 +27,11 @@ namespace Muine
 {
 	public class Metadata 
 	{
+		// Strings
+		private static readonly string string_load_failed =
+			Catalog.GetString ("Failed to load metadata: {0}");
+		
+		// Properties
 		private string title;
 		public string Title {
 			get { return title; }
@@ -152,7 +157,7 @@ namespace Muine
 			if (error_ptr != IntPtr.Zero) {
 				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
-				throw new Exception (String.Format (Catalog.GetString ("Failed to load metadata: {0}"), error));
+				throw new Exception (String.Format (string_load_failed, error));
 			}
 
 			p = metadata_get_title (md);

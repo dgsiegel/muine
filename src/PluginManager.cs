@@ -29,6 +29,10 @@ namespace Muine
 {
 	public class PluginManager
 	{
+		// Strings
+		private static readonly string string_error_load =
+			Catalog.GetString ("Error loading plug-in {0}: {1}");
+	
 		private IPlayer player;
 		
 		private void ScanAssemblyForPlugins (Assembly assembly)
@@ -55,10 +59,10 @@ namespace Muine
 				if (file.Extension == ".dll") {
 					try {
 						Assembly a = Assembly.LoadFrom (file.FullName);
-
 						ScanAssemblyForPlugins (a);
+
 					} catch (Exception e) {
-						Console.WriteLine (Catalog.GetString ("Error loading plug-in {0}: {1}"), file.Name, e.Message);
+						Console.WriteLine (string_error_load, file.Name, e.Message);
 					}
 				}
 			}

@@ -28,6 +28,11 @@ namespace Muine
 {
 	public class ProgressWindow
 	{
+		// Strings
+		private static readonly string string_title =
+			Catalog.GetString ("Importing {0}...");
+		
+		// Widgets
 		[Glade.Widget]
 		Window window;
 		[Glade.Widget]
@@ -57,7 +62,7 @@ namespace Muine
 			MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
 						    false, true, false);
 
-			title_format = Catalog.GetString ("Importing {0}...");
+			title_format = string_title;
 		}
 
 		public bool Report (string folder, string file)
