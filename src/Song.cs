@@ -152,13 +152,20 @@ public class Song
 		}
 	}
 
+	[DllImport ("libglib-2.0-0.dll")]
+	private static extern IntPtr g_path_get_dirname (string path);
+
 	public string AlbumKey {
 		get {
 			if (album.Length == 0)
 				return null;
 				
-			FileInfo finfo = new FileInfo (filename);
-			return finfo.DirectoryName + ":" + album;
+			/* we do not use FileInfo here, since it touches
+			   the hd which is the last thing we want on startup */
+			IntPtr dirname_ptr = g_path_get_dirname (filename);
+			string dirname = Marshaller.PtrToStringGFree (dirname_ptr);
+
+			return dirname + ":" + album;
 		}
 	}
 
@@ -457,11 +464,7 @@ public class Song
 		p = db_unpack_double (p, out gain);
 		p = db_unpack_double (p, out peak);
 
-		/* cover image */
-		if (album.Length == 0)
-			cover_image = null;
-		else
-			cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [AlbumKey];
+		/* cover image is added later, when the covers are being loaded */
 
 		cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 		pointers [cur_ptr] = this;

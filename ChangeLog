@@ -1,5 +1,14 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Dirty, but absolutely massive optimization using g_path_get_dirname
+	instead of FileInfo. This cuts down startup time to a sane 5 seconds
+	when not cached, or one second when cached (~20k songs).
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverImage.cs:
 
 	Only show "loading" image when an image is actually loading.

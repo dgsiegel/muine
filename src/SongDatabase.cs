@@ -202,7 +202,9 @@ public class SongDatabase
 		if (song.Album.Length == 0)
 			return;
 
-		Album album = (Album) Albums [song.AlbumKey];
+		string key = song.AlbumKey;
+
+		Album album = (Album) Albums [key];
 		if (album == null)
 			return;
 			
@@ -210,13 +212,13 @@ public class SongDatabase
 		album.RemoveSong (song, out album_empty);
 		
 		if (album_empty) {
-			Albums.Remove (song.AlbumKey);
+			Albums.Remove (key);
 
 			/* only remove the album cover if we are not dealing
 			 * with removable media */
 			if (!(song.Filename.StartsWith ("/mnt/") ||
 			      song.Filename.StartsWith ("file:///mnt/")))
-				Muine.CoverDB.RemoveCover (song.AlbumKey);
+				Muine.CoverDB.RemoveCover (key);
 
 			if (AlbumRemoved != null)
 				AlbumRemoved (album);
@@ -228,13 +230,15 @@ public class SongDatabase
 		if (song.Album.Length == 0)
 			return;
 
+		string key = song.AlbumKey;
+
 		bool changed = false;
 
-		Album album = (Album) Albums [song.AlbumKey];
+		Album album = (Album) Albums [key];
 		
 		if (album == null) {
 			album = new Album (song);
-			Albums.Add (song.AlbumKey, album);
+			Albums.Add (key, album);
 
 			changed = true;
 		} else
