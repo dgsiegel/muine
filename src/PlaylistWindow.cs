@@ -139,6 +139,13 @@ public class PlaylistWindow : Window
 		} catch {
 			Visible = true;
 		}
+
+		/* empty lib dialog */
+		if (Muine.DB.Empty) {
+			SearchMusicWindow w = new SearchMusicWindow (this);
+			w.ImportHomeFolderEvent += new SearchMusicWindow.ImportHomeFolderEventHandler (HandleImportHomeFolderEvent); 
+			w.Run ();
+		}
 	}
 	
 	private void SetupWindowSize ()
@@ -885,7 +892,7 @@ public class PlaylistWindow : Window
 		return true;
 	}
 
-	private void HandleImportFolderCommand (object o, EventArgs args)
+	private void HandleImportFolderCommand (object o, EventArgs args) 
 	{
 		FileSelection fs;
 		
@@ -965,6 +972,17 @@ public class PlaylistWindow : Window
 				SavePlaylist (fn);
 		} else
 			SavePlaylist (fn);
+	}
+
+	private void HandleImportHomeFolderEvent ()
+	{
+		string homedir = Environment.GetEnvironmentVariable ("HOME");
+	        if (homedir.EndsWith ("/") == false)
+			homedir += "/";
+		
+		DirectoryInfo dinfo = new DirectoryInfo (homedir);
+		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+		HandleDirectory (dinfo, pw);
 	}
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)

@@ -41,7 +41,7 @@ public class SongDatabase
 	[DllImport ("libmuine")]
 	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
 					       IntPtr user_data);
-						   
+
 	public SongDatabase ()
 	{
 		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
@@ -168,6 +168,12 @@ public class SongDatabase
 	public bool HaveFile (string filename)
 	{
 		return (Songs [filename] != null);
+	}
+
+	public bool Empty {
+		get {
+			return (Songs.Count == 0);
+		}
 	}
 
 	public Song SongFromFile (string filename)

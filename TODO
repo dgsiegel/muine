@@ -13,7 +13,7 @@
 - Do something special with performer tags, other than treat them as artists?
 
 - dnd from nautilus
-- songinfo
+- songinfo + tagging
 - wma
-- dialog met "you have an empty lib.. wanna import some stuf?"
-
+- musicbrainz support
+- clicking an m3u should load it in muine, mp3/ogg add to collection, etc

@@ -1,3 +1,15 @@
+2004-01-22  Viet Yen Nguyen  <nguyen@cs.utwente.nl>
+            Jorn Baayen  <jorn@nl.linux.org>
+
+	* data/glade/Makefile.am:
+	* data/glade/SearchMusicWindow.glade:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/SearchMusicWindow.cs:
+	* src/SongDatabase.cs:
+
+	First time "Search music" window.
+
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
 	* libmuine/rb-cell-renderer-pixbuf.c:
