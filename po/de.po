@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-15 16:25+0100\n"
-"PO-Revision-Date: 2005-01-14 22:37+0100\n"
+"POT-Creation-Date: 2005-01-17 14:54+0100\n"
+"PO-Revision-Date: 2005-01-17 14:53+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: data/glade/AddWindow.glade.h:1
+#: data/glade/AddWindow.glade.h:1 src/Actions.cs:78
 msgid "_Play"
 msgstr "_Wiedergeben"
 
@@ -71,6 +71,14 @@ msgstr "_Lege eine leere Musiksammlung an"
 msgid "_Nothing, I will manage my music myself"
 msgstr "_Nichts. Ich werde meine Musik selbst verwalten"
 
+#: data/glade/OverwriteDialog.glade.h:1
+msgid "Overwrite File"
+msgstr "Datei überschreiben"
+
+#: data/glade/OverwriteDialog.glade.h:2
+msgid "_Overwrite"
+msgstr "Ü_berschreiben"
+
 #: data/glade/PlaylistWindow.glade.h:1
 msgid "Play"
 msgstr "Wiedergeben"
@@ -86,10 +94,6 @@ msgstr "Titel wiedergeben"
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Springe zu"
-
-#: data/glade/YesNoDialog.glade.h:1
-msgid "Question"
-msgstr "Frage"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -245,7 +249,7 @@ msgstr ""
 "Auf der GStreamer Vorgabe Audio-Output-Sink konnte nichts wiedergegeben "
 "werden."
 
-#: libmuine/player-xine.c:284
+#: libmuine/player-xine.c:286
 #, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
@@ -254,21 +258,21 @@ msgstr ""
 "Konnte den »%s«-Audio-Treiber nicht laden.\n"
 "Überprüfen Sie, dass das Gerät nicht in Benutzung ist."
 
-#: libmuine/player-xine.c:378 libmuine/player-xine.c:383
+#: libmuine/player-xine.c:380 libmuine/player-xine.c:385
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "Kein Plugin für »%s« verfügbar"
 
-#: libmuine/player-xine.c:388
+#: libmuine/player-xine.c:390
 #, c-format
 msgid "Failed playing \"%s\""
 msgstr "Konnte »%s« nicht wiedergeben"
 
-#: libmuine/player-xine.c:392
+#: libmuine/player-xine.c:394
 msgid "Internal error"
 msgstr "Interner Fehler"
 
-#: libmuine/player-xine.c:401
+#: libmuine/player-xine.c:403
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "Konnte »%s« nicht wiedergeben"
@@ -309,6 +313,94 @@ msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgid "Album covers are provided by amazon.com."
 msgstr "Albumcover werden von amazon.com bereitgestellt."
 
+#: src/Actions.cs:35
+msgid "_File"
+msgstr "_Datei"
+
+#: src/Actions.cs:37
+msgid "_Song"
+msgstr "_Song"
+
+#: src/Actions.cs:39
+msgid "_Playlist"
+msgstr "_Wiedergabeliste"
+
+#: src/Actions.cs:41
+msgid "_Help"
+msgstr "_Hilfe"
+
+#: src/Actions.cs:44
+msgid "_Import Folder..."
+msgstr "Ordner _importieren..."
+
+#: src/Actions.cs:46
+msgid "_Open Playlist..."
+msgstr "Wiedergabeliste _öffnen..."
+
+#: src/Actions.cs:48
+msgid "_Save Playlist As..."
+msgstr "Wiedergabeliste speichern _als..."
+
+#: src/Actions.cs:50
+msgid "Hide _Window"
+msgstr "_Fenster verbergen"
+
+#: src/Actions.cs:52
+msgid "Show _Window"
+msgstr "_Fenster anzeigen"
+
+#: src/Actions.cs:54
+msgid "_Previous"
+msgstr "V_orheriger Song"
+
+#: src/Actions.cs:56
+msgid "_Next"
+msgstr "_Nächster Song"
+
+#: src/Actions.cs:58
+msgid "_Skip to..."
+msgstr "_Springe zu..."
+
+#: src/Actions.cs:60
+msgid "Skip _Backwards"
+msgstr "_Zurück"
+
+#: src/Actions.cs:62
+msgid "Skip _Forward"
+msgstr "_Vorwärts"
+
+#: src/Actions.cs:64
+msgid "Play _Song..."
+msgstr "_Song wiedergeben..."
+
+#: src/Actions.cs:66
+msgid "Play _Album..."
+msgstr "_Album wiedergeben..."
+
+#: src/Actions.cs:68
+msgid "_Remove Song"
+msgstr "Song _entfernen"
+
+#: src/Actions.cs:70
+msgid "Remove _Played Songs"
+msgstr "A_bgespielte Songs entfernen"
+
+#: src/Actions.cs:72
+msgid "_Clear"
+msgstr "_Löschen"
+
+#: src/Actions.cs:74
+msgid "Shu_ffle"
+msgstr "Zu_fallsreihenfolge"
+
+#: src/Actions.cs:76
+msgid "_About"
+msgstr "_Info"
+
+#: src/Actions.cs:80
+msgid "R_epeat"
+msgstr "_Wiederholen"
+
 #: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
@@ -323,10 +415,6 @@ msgstr "Interpret: {0}"
 #: src/Album.cs:38
 msgid "the dj"
 msgstr "the dj die"
-
-#: src/ErrorDialog.cs:33
-msgid "An error occurred:"
-msgstr "Ein Fehler ist aufgetreten:"
 
 #: src/FileUtils.cs:43
 #, csharp-format
@@ -358,25 +446,25 @@ msgstr "D-Bus-Objekt konnte nicht exportiert werden: {0}"
 
 #: src/Global.cs:39
 #, csharp-format
-msgid ""
-"Failed to load the cover database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Die Cover-Datenbank konnte nicht geladen werden: {0}\n"
-"\n"
-"Beende..."
+msgid "Failed to load the cover database: {0}"
+msgstr "Die Cover-Datenbank konnte nicht geladen werden: {0}"
 
 #: src/Global.cs:41
 #, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Konnte die Titeldatenbank: {0} nicht laden\n"
-"\n"
-"Beende..."
+msgid "Failed to load the song database: {0}"
+msgstr "Die Titeldatenbank konnte nicht geladen werden: {0}"
+
+#: src/Global.cs:43
+msgid "Error initializing Muine."
+msgstr "Fehler bei der Initialisierung von Muine."
+
+#: src/ImportDialog.cs:37
+msgid "Import Folder"
+msgstr "Ordner importieren"
+
+#: src/ImportDialog.cs:39
+msgid "_Import"
+msgstr "_Importieren"
 
 #: src/Metadata.cs:34
 #, csharp-format
@@ -393,32 +481,44 @@ msgstr "Muine Musik-Player"
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#: src/Player.cs:39
+#: src/OpenDialog.cs:36
+msgid "Open Playlist"
+msgstr "Wiedergabeliste öffnen"
+
+#: src/OpenDialog.cs:38
+msgid "Playlist files"
+msgstr "Wiedergabeliste-Dateien"
+
+#: src/OverwriteDialog.cs:33
 #, csharp-format
-msgid ""
-"Audio backend error:\n"
-"{0}"
+msgid "A file {0} already exists."
+msgstr "Eine Datei »{0}« ist bereits vorhanden."
+
+#: src/OverwriteDialog.cs:35
+msgid "If you choose to overwrite this file, the contents will be lost."
 msgstr ""
-"Fehler im Audio-Backend:\n"
-"{0}"
+"Beim Überschreiben der Datei gehen alle Inhalte der vorhergehenden Version "
+"verloren."
+
+#: src/Player.cs:39
+msgid "Audio backend error:"
+msgstr "Fehler des Audio-Backends:"
 
 #: src/PlaylistWindow.cs:60
 msgid "Playlist.m3u"
 msgstr "Playlist.m3u"
 
 #: src/PlaylistWindow.cs:62
-msgid "<span weight=\"bold\">Playlist</span>"
-msgstr "<span weight=\"bold\">Wiedergabeliste</span>"
+msgid "<b>Playlist</b>"
+msgstr "<b>Wiedergabeliste</b>"
 
 #: src/PlaylistWindow.cs:64
-msgid "<span weight=\"bold\">Playlist</span> (Repeating)"
-msgstr "<span weight=\"bold\">Wiedergabeliste</span> (wiederholend)"
+msgid "<b>Playlist</b> (Repeating)"
+msgstr "<b>Wiedergabeliste</b> (wiederholend)"
 
 #: src/PlaylistWindow.cs:66
-msgid "<span weight=\"bold\">Playlist</span> (Less than one minute remaining)"
-msgstr ""
-"<span weight=\"bold\">Wiedergabeliste</span> (weniger als eine Minute "
-"verbleibend)"
+msgid "<b>Playlist</b> (Less than one minute remaining)"
+msgstr "<b>Wiedergabeliste</b> (weniger als eine Minute verbleibend)"
 
 #: src/PlaylistWindow.cs:68
 #, csharp-format
@@ -467,65 +567,53 @@ msgstr ""
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
-"{0}\n"
-"\n"
-"Exiting..."
+"{0}"
 msgstr ""
-"Das Audio-Backend konnte nicht initialisiert werden.\n"
-"{0}\n"
-"\n"
-"Beende..."
+"Das Audio-Backend konnte nicht initialisiert werden:\n"
+"{0}"
 
 #: src/PlaylistWindow.cs:98
 #, csharp-format
-msgid "Failed to open {0} for reading"
-msgstr "Konnte {0} nicht zum Lesen öffnen"
+msgid "Failed to read {0}:"
+msgstr "{0} konnte nicht gelesen werden:"
 
 #: src/PlaylistWindow.cs:100
 #, csharp-format
-msgid "Failed to close {0}"
-msgstr "Konnte {0} nicht schließen"
+msgid "Failed to close {0}:"
+msgstr "{0} konnte nicht geschlossen werden:"
 
 #: src/PlaylistWindow.cs:102
 #, csharp-format
-msgid "Failed to open {0} for writing"
-msgstr "Konnte {0} nicht zum Schreiben öffnen"
+msgid "Failed to write {0}:"
+msgstr "{0} konnte nicht geschrieben werden:"
 
 #: src/PlaylistWindow.cs:948
 #, csharp-format
-msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} hour)"
-msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)"
-msgstr[0] ""
-"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Stunde)"
-msgstr[1] ""
-"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Stunden)"
+msgid "<b>Playlist</b> (Repeating {0} hour)"
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde wiederholend)"
+msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden wiederholend)"
 
 #: src/PlaylistWindow.cs:953
 #, csharp-format
-msgid "<span weight=\"bold\">Playlist</span> (Repeating {0} minute)"
-msgid_plural "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)"
-msgstr[0] ""
-"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Minute)"
-msgstr[1] ""
-"<span weight=\"bold\">Wiedergabeliste</span> (wiederhole {0} Minuten)"
+msgid "<b>Playlist</b> (Repeating {0} minute)"
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] "<b>Wiedergabeliste</b> ({0} Minute wiederholend)"
+msgstr[1] "<b>Wiedergabeliste</b> ({0} Minuten wiederholend)"
 
 #: src/PlaylistWindow.cs:958
 #, csharp-format
-msgid "<span weight=\"bold\">Playlist</span> ({0} hour remaining)"
-msgid_plural "<span weight=\"bold\">Playlist</span> ({0} hours remaining)"
-msgstr[0] ""
-"<span weight=\"bold\">Wiedergabeliste</span> ({0} Stunde verbleibend)"
-msgstr[1] ""
-"<span weight=\"bold\">Wiedergabeliste</span> ({0} Stunden verbleibend)"
+msgid "<b>Playlist</b> ({0} hour remaining)"
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde verbleibend)"
+msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden verbleibend)"
 
 #: src/PlaylistWindow.cs:963
 #, csharp-format
-msgid "<span weight=\"bold\">Playlist</span> ({0} minute remaining)"
-msgid_plural "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)"
-msgstr[0] ""
-"<span weight=\"bold\">Wiedergabeliste</span> ({0} Minute verbleibend)"
-msgstr[1] ""
-"<span weight=\"bold\">Wiedergabeliste</span> ({0} Minuten verbleibend)"
+msgid "<b>Playlist</b> ({0} minute remaining)"
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] "<b>Wiedergabeliste</b> ({0} Minute verbleibend)"
+msgstr[1] "<b>Wiedergabeliste</b> ({0} Minuten verbleibend)"
 
 #: src/PluginManager.cs:34
 #, csharp-format
@@ -534,12 +622,20 @@ msgstr "Fehler beim Laden des Plugins {0}: {1}"
 
 #: src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}..."
-msgstr "Importiere {0}..."
+msgid "Importing {0}"
+msgstr "Importieren von {0}"
 
 #: src/ProgressWindow.cs:35
 msgid "Loading:"
 msgstr "Laden:"
+
+#: src/SaveDialog.cs:36
+msgid "Save Playlist"
+msgstr "Wiedergabeliste speichern"
+
+#: src/SaveDialog.cs:38
+msgid "Untitled"
+msgstr "Unbetitelt"
 
 #: src/StringUtils.cs:32
 msgid "Unknown"
@@ -555,11 +651,23 @@ msgstr "{0} und andere"
 msgid "{0} and {1}"
 msgstr "{0} und {1}"
 
-#~ msgid "Playlist"
-#~ msgstr "Wiedergabeliste"
+#~ msgid "Question"
+#~ msgstr "Frage"
 
-#~ msgid "Playlist (Repeating)"
-#~ msgstr "Wiedergabeliste (Wiederholung)"
+#~ msgid "An error occurred:"
+#~ msgstr "Ein Fehler ist aufgetreten:"
+
+#~ msgid "<span weight=\"bold\">Playlist</span>"
+#~ msgstr "<span weight=\"bold\">Wiedergabeliste</span>"
+
+#~ msgid "<span weight=\"bold\">Playlist</span> (Repeating)"
+#~ msgstr "<span weight=\"bold\">Wiedergabeliste</span> (wiederholend)"
+
+#~ msgid "Failed to open {0} for reading"
+#~ msgstr "Konnte {0} nicht zum Lesen öffnen"
+
+#~ msgid "Failed to open {0} for writing"
+#~ msgstr "Konnte {0} nicht zum Schreiben öffnen"
 
 #~ msgid "\"Add album\" list minimum query length (speed hack)"
 #~ msgstr ""
@@ -611,62 +719,11 @@ msgstr "{0} und {1}"
 #~ msgid "P_roperties"
 #~ msgstr "_Eigenschaften"
 
-#~ msgid "Play _Album..."
-#~ msgstr "_Album wiedergeben..."
-
-#~ msgid "Play _Song..."
-#~ msgstr "_Song wiedergeben..."
-
-#~ msgid "R_epeat"
-#~ msgstr "_Wiederholen"
-
-#~ msgid "Remove _Played Songs"
-#~ msgstr "A_bgespielte Songs entfernen"
-
-#~ msgid "Shu_ffle"
-#~ msgstr "Zu_fallsreihenfolge"
-
-#~ msgid "Skip _Backwards"
-#~ msgstr "_Zurück"
-
-#~ msgid "Skip _Forward"
-#~ msgstr "_Vorwärts"
-
 #~ msgid "TMP"
 #~ msgstr "TMP"
 
-#~ msgid "_Clear"
-#~ msgstr "_Löschen"
-
 #~ msgid "_Hide Window"
 #~ msgstr "Fenster _verbergen"
-
-#~ msgid "_Import Folder..."
-#~ msgstr "Ordner _importieren..."
-
-#~ msgid "_Next"
-#~ msgstr "_Nächster Song"
-
-#~ msgid "_Open Playlist..."
-#~ msgstr "Wiedergabeliste _öffnen..."
-
-#~ msgid "_Playlist"
-#~ msgstr "_Wiedergabeliste"
-
-#~ msgid "_Previous"
-#~ msgstr "V_orheriger Song"
-
-#~ msgid "_Remove Song"
-#~ msgstr "Song _entfernen"
-
-#~ msgid "_Save Playlist As..."
-#~ msgstr "Wiedergabeliste speichern _als..."
-
-#~ msgid "_Skip to..."
-#~ msgstr "_Springe zu..."
-
-#~ msgid "_Song"
-#~ msgstr "_Song"
 
 #~ msgid "Failed to create the required gnomevfssrc GStreamer element"
 #~ msgstr "Konnte das benötigte gnomevfssrc GStreamer-Element nicht erzeugen"
@@ -680,12 +737,6 @@ msgstr "{0} und {1}"
 #~ msgid "_Next Song"
 #~ msgstr "_Nächster Song"
 
-#~ msgid "Show _Window"
-#~ msgstr "_Fenster anzeigen"
-
-#~ msgid "Hide _Window"
-#~ msgstr "_Fenster verbergen"
-
 #~ msgid "Pause music playback"
 #~ msgstr "Wiedergabe unterbrechen"
 
@@ -697,24 +748,6 @@ msgstr "{0} und {1}"
 
 #~ msgid "Pl_ay"
 #~ msgstr "Wiederg_abe"
-
-#~ msgid "Import Folder"
-#~ msgstr "Ordner importieren"
-
-#~ msgid "_Import"
-#~ msgstr "_Importieren"
-
-#~ msgid "Open Playlist"
-#~ msgstr "Wiedergabeliste öffnen"
-
-#~ msgid "Playlist files"
-#~ msgstr "Wiedergabeliste-Dateien"
-
-#~ msgid "Save Playlist"
-#~ msgstr "Wiedergabeliste speichern"
-
-#~ msgid "Untitled"
-#~ msgstr "Unbetitelt"
 
 #~ msgid ""
 #~ "File {0} will be overwritten.\n"
