@@ -1,5 +1,12 @@
 2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+
+	Release 0.8.1pre4.
+
+2005-02-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* doc/en/Muine.DBusLib/Player.xml:
 
 	Document GetAlbumCover.
