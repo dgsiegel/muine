@@ -1,5 +1,13 @@
 2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/PlaylistWindow.glade:
+
+	Menu rearrangement.
+
+	Patch by Viet Yen Nguyen <nguyen@cs.utwente.nl>
+
+2004-01-21  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/AddWindow.glade:
 
 	Change the button order of the add window to be HIG compliant.

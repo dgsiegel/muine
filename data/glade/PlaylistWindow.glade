@@ -40,7 +40,7 @@
 		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image250">
+			<widget class="GtkImage" id="image283">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-execute</property>
 			  <property name="icon_size">1</property>
@@ -55,97 +55,6 @@
 
 		  <child>
 		    <widget class="GtkMenuItem" id="separator6">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_song_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Add _Song...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleAddSongCommand" last_modification_time="Sat, 17 Jan 2004 19:24:06 GMT"/>
-		      <accelerator key="S" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image251">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="add_album_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Add _Album...</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleAddAlbumCommand" last_modification_time="Sat, 17 Jan 2004 23:31:04 GMT"/>
-		      <accelerator key="A" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image252">
-			  <property name="visible">True</property>
-			  <property name="stock">gnome-stock-about</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="remove_song_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Remove Song</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleRemoveSongCommand" last_modification_time="Sun, 11 Jan 2004 21:28:39 GMT"/>
-		      <accelerator key="Delete" modifiers="0" signal="activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image253">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-remove</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="clear_played1">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Remove _Played Songs</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleRemovePlayedSongsCommand" last_modification_time="Mon, 12 Jan 2004 17:15:04 GMT"/>
-		      <accelerator key="Delete" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="clear_playlist_menu_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Clear Playlist</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="HandleClearPlaylistCommand" last_modification_time="Sun, 11 Jan 2004 21:49:02 GMT"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="separator4">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -179,13 +88,13 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkMenuItem" id="actions">
+	    <widget class="GtkMenuItem" id="song">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Actions</property>
+	      <property name="label" translatable="yes">_Song</property>
 	      <property name="use_underline">True</property>
 
 	      <child>
-		<widget class="GtkMenu" id="actions_menu">
+		<widget class="GtkMenu" id="song_menu">
 
 		  <child>
 		    <widget class="GtkImageMenuItem" id="play_pause_menu_item">
@@ -196,7 +105,7 @@
 		      <accelerator key="space" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image254">
+			<widget class="GtkImage" id="image284">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -224,7 +133,7 @@
 		      <accelerator key="P" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image255">
+			<widget class="GtkImage" id="image285">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -246,7 +155,7 @@
 		      <accelerator key="N" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image256">
+			<widget class="GtkImage" id="image286">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -274,7 +183,7 @@
 		      <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image257">
+			<widget class="GtkImage" id="image287">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -296,7 +205,7 @@
 		      <accelerator key="Left" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image258">
+			<widget class="GtkImage" id="image288">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -318,7 +227,7 @@
 		      <accelerator key="Right" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image259">
+			<widget class="GtkImage" id="image289">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -328,6 +237,110 @@
 			  <property name="ypad">0</property>
 			</widget>
 		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="playlist2">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Playlist</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="playlist2_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_song_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Add _Song...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="HandleAddSongCommand" last_modification_time="Sat, 17 Jan 2004 19:24:06 GMT"/>
+		      <accelerator key="S" modifiers="0" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image290">
+			  <property name="visible">True</property>
+			  <property name="stock">gnome-stock-about</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="add_album_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Add _Album...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="HandleAddAlbumCommand" last_modification_time="Sat, 17 Jan 2004 23:31:04 GMT"/>
+		      <accelerator key="A" modifiers="0" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image291">
+			  <property name="visible">True</property>
+			  <property name="stock">gnome-stock-about</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator7">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="remove_song_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Remove Song</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="HandleRemoveSongCommand" last_modification_time="Sun, 11 Jan 2004 21:28:39 GMT"/>
+		      <accelerator key="Delete" modifiers="0" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image292">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-remove</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="clear_played1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Remove _Played Songs</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="HandleRemovePlayedSongsCommand" last_modification_time="Mon, 12 Jan 2004 17:15:04 GMT"/>
+		      <accelerator key="Delete" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="clear_playlist_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Clear Playlist</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="HandleClearPlaylistCommand" last_modification_time="Sun, 11 Jan 2004 21:49:02 GMT"/>
 		    </widget>
 		  </child>
 		</widget>
@@ -353,7 +366,7 @@
 		      <accelerator key="Up" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image260">
+			<widget class="GtkImage" id="image293">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
@@ -375,7 +388,7 @@
 		      <accelerator key="Down" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image261">
+			<widget class="GtkImage" id="image294">
 			  <property name="visible">True</property>
 			  <property name="stock">gnome-stock-about</property>
 			  <property name="icon_size">1</property>
