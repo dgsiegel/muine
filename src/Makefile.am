@@ -85,23 +85,19 @@ RESOURCES =											\
 	/resource:$(top_srcdir)/data/images/muine-volume-max.png,muine-volume-max.png		\
 	/resource:$(top_srcdir)/data/images/muine-playlist.png,muine-playlist.png
 
-muinelibdir = $(prefix)/lib/muine
-
 AmazonSearchService.cs: AmazonSearchService.wsdl
-	wsdl AmazonSearchService.wsdl
+	wsdl $(srcdir)/AmazonSearchService.wsdl
 
 AmazonSearchService.dll: AmazonSearchService.cs
-	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll $(srcdir)/AmazonSearchService.cs -r:System.Web.Services
+	$(CSC) -target:library $(LIBFLAGS) -out:AmazonSearchService.dll AmazonSearchService.cs -r:System.Web.Services
 
 muine.exe: $(MUINE_CSFILES) AmazonSearchService.dll
 	$(CSC) -o $@ $(CSFLAGS) $(MUINE_CSFILES) $(ASSEMBLIES) $(RESOURCES)
 
 all: AmazonSearchService.dll muine.exe
 
-install-data-local: muine.exe AmazonSearchService.dll
-	$(mkinstalldirs) $(DESTDIR)$(muinelibdir)
-	$(INSTALL_DATA) muine.exe $(DESTDIR)$(muinelibdir)/muine.exe
-	$(INSTALL_DATA) AmazonSearchService.dll $(DESTDIR)$(muinelibdir)/AmazonSearchService.dll
+muinelibdir = $(prefix)/lib/muine
+muinelib_DATA = muine.exe AmazonSearchService.dll
 
 bin_SCRIPTS = muine
 
