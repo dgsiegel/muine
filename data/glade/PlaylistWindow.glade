@@ -494,20 +494,72 @@
 		  <property name="spacing">6</property>
 
 		  <child>
-		    <widget class="GtkButton" id="previous_button">
+		    <widget class="GtkToggleButton" id="play_pause_button">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePreviousCommand" last_modification_time="Sat, 03 Jan 2004 14:20:36 GMT"/>
+		      <property name="active">False</property>
+		      <property name="inconsistent">False</property>
+		      <signal name="clicked" handler="HandlePlayPauseCommand" last_modification_time="Sun, 09 May 2004 12:41:27 GMT"/>
 
 		      <child>
-			<widget class="GtkImage" id="previous_image">
+			<widget class="GtkAlignment" id="alignment5">
 			  <property name="visible">True</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
+			  <property name="xscale">0</property>
+			  <property name="yscale">0</property>
+			  <property name="top_padding">0</property>
+			  <property name="bottom_padding">0</property>
+			  <property name="left_padding">0</property>
+			  <property name="right_padding">0</property>
+
+			  <child>
+			    <widget class="GtkHBox" id="hbox11">
+			      <property name="visible">True</property>
+			      <property name="homogeneous">False</property>
+			      <property name="spacing">2</property>
+
+			      <child>
+				<widget class="GtkImage" id="play_pause_image">
+				  <property name="visible">True</property>
+				  <property name="stock">gnome-stock-about</property>
+				  <property name="icon_size">4</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
+			      </child>
+
+			      <child>
+				<widget class="GtkLabel" id="label5">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Play</property>
+				  <property name="use_underline">True</property>
+				  <property name="use_markup">False</property>
+				  <property name="justify">GTK_JUSTIFY_LEFT</property>
+				  <property name="wrap">False</property>
+				  <property name="selectable">False</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
+			      </child>
+			    </widget>
+			  </child>
 			</widget>
 		      </child>
 		    </widget>
@@ -519,15 +571,15 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkButton" id="play_pause_button">
+		    <widget class="GtkButton" id="previous_button">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="HandlePlayPauseCommand" last_modification_time="Sat, 03 Jan 2004 14:20:46 GMT"/>
+		      <signal name="clicked" handler="HandlePreviousCommand" last_modification_time="Sat, 03 Jan 2004 14:20:36 GMT"/>
 
 		      <child>
-			<widget class="GtkImage" id="play_pause_image">
+			<widget class="GtkImage" id="previous_image">
 			  <property name="visible">True</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>

@@ -1,5 +1,12 @@
 2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/images/muine-tray-paused.png:
+	* data/images/muine-tray-playing.png:
+
+	Revert to the old tray icon, has much more of a "music" association.
+
+2004-05-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/PlaylistWindow.cs:
 
