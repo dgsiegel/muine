@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-27 20:17+0200\n"
-"PO-Revision-Date: 2004-04-27 22:47+0200\n"
+"POT-Creation-Date: 2004-05-15 04:33+0200\n"
+"PO-Revision-Date: 2004-05-15 13:26+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -72,9 +72,10 @@ msgstr ""
 "gebruikers en wordt daarom normaliter afgeraden."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
+msgid "_Create an empty music collection"
 msgstr "Een _lege muziekverzameling aanmaken"
 
+# ik ga zelf mijn muziek beheren
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
 msgstr "_Niets, ik zal zelf mijn muziek beheren"
@@ -186,93 +187,127 @@ msgid "Muine Music Player"
 msgstr "Muine muziekspeler"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr "Album toevoegen vensterhoogte."
+msgid "\"Add album\" window height"
+msgstr "\"Album toevoegen\" vensterhoogte"
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr "Album toevoegen vensterbreedte."
+msgid "\"Add album\" window width"
+msgstr "\"Album toevoegen\" vensterbreedte"
 
 #: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr "Nummer toevoegen vensterhoogte."
+msgid "\"Add song\" window height"
+msgstr "\"Nummer toevoegen\" vensterhoogte"
 
 #: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr "Nummer toevoegen vensterbreedte."
+msgid "\"Add song\" window width"
+msgstr "\"Nummer toevoegen\" vensterbreedte"
 
 #: data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images."
-msgstr "Te gebruiken site van Amazon voor albumhoezen."
+msgid "Amazon site to use for album images"
+msgstr "Te gebruiken site van Amazon voor albumhoezen"
 
 #: data/muine.schemas.in.h:6
-msgid "Default import folder."
-msgstr "Standaard importmap."
+msgid "Default import folder"
+msgstr "Standaard importmap"
 
 #: data/muine.schemas.in.h:7
-msgid "Default playlist folder."
-msgstr "Standaard speellijstmap."
+msgid "Default playlist folder"
+msgstr "Standaard speellijstmap"
 
 #: data/muine.schemas.in.h:8
-msgid "First start."
-msgstr "Eerste begin."
+msgid "First start"
+msgstr "Eerste begin"
 
 #: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Mappen die bijgehouden worden voor veranderingen."
 
 #: data/muine.schemas.in.h:10
-msgid "Information window height."
-msgstr "Informatievenster hoogte."
+msgid "Height of the \"Add album\" window."
+msgstr "Hoogte van het venster \"Album toevoegen\"."
 
 #: data/muine.schemas.in.h:11
-msgid "Information window width."
-msgstr "Informatievenster breedte."
+msgid "Height of the \"Add song\" window."
+msgstr "Hoogte van het venster \"Nummer toevoegen\""
 
 #: data/muine.schemas.in.h:12
+msgid "Height of the information window."
+msgstr "Hoogte van het informatievenster."
+
+#: data/muine.schemas.in.h:13
+msgid "Height of the playlist window."
+msgstr "Hoogte van het speellijstvenster."
+
+#: data/muine.schemas.in.h:14
+msgid "Information window height"
+msgstr "Informatievenster hoogte"
+
+#: data/muine.schemas.in.h:15
+msgid "Information window width"
+msgstr "Informatievenster breedte"
+
+#: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:17
 msgid "Last used folder from the playlist file selectors."
 msgstr "Laatst gebruikte map bij selectie van speellijstbestanden."
 
-#: data/muine.schemas.in.h:14
-msgid "Playlist window height."
-msgstr "Speellijst vensterhoogte."
+#: data/muine.schemas.in.h:18
+msgid "Playlist window height"
+msgstr "Speellijst vensterhoogte"
 
-#: data/muine.schemas.in.h:15
-msgid "Playlist window width."
-msgstr "Speellijst vensterbreedte."
+#: data/muine.schemas.in.h:19
+msgid "Playlist window width"
+msgstr "Speellijst vensterbreedte"
 
-#: data/muine.schemas.in.h:16
-msgid "Repeat mode."
-msgstr "Herhaalstand."
+#: data/muine.schemas.in.h:20
+msgid "Repeat mode"
+msgstr "Herhaalstand"
 
-#: data/muine.schemas.in.h:17
-msgid "Volume level."
-msgstr "Geluidsvolume."
+#: data/muine.schemas.in.h:21
+msgid "Volume level"
+msgstr "Geluidsvolume"
 
 # highest volume level = maximaal geluidsvolume
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
-#: data/muine.schemas.in.h:19
-msgid "Watched folders."
-msgstr "Bijgehouden mappen."
+#: data/muine.schemas.in.h:23
+msgid "Watched folders"
+msgstr "Bijgehouden mappen"
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Of 'speellijst herhalen' wordt gebruikt of niet. "
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:25
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
-msgstr "Welke site van Amazon wordt gebruikt voor het ophalen van albumhoezen: \"us\" \"uk\" \"de\" of \"jp\"."
+msgstr ""
+"Welke site van Amazon wordt gebruikt voor het ophalen van albumhoezen: \"us"
+"\" \"uk\" \"de\" of \"jp\"."
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:26
+msgid "Width of the \"Add album\" window."
+msgstr "Breedte van het venster \"Album toevoegen\"."
+
+#: data/muine.schemas.in.h:27
+msgid "Width of the \"Add song\" window."
+msgstr "Breedte van het venster \"Nummer toevoegen\"."
+
+#: data/muine.schemas.in.h:28
+msgid "Width of the information window."
+msgstr "Breedte van het informatievenster."
+
+#: data/muine.schemas.in.h:29
+msgid "Width of the playlist window."
+msgstr "Breedte van het speellijstvenster."
+
+#: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
 msgstr "onwaar indien Muine al eerder is gestart."
 
@@ -329,32 +364,29 @@ msgstr "Jorn Baayen (jbaayen@gnome.org)"
 msgid "Lee Willis (lee@leewillis.co.uk)"
 msgstr "Lee Willis (lee@leewillis.co.uk)"
 
-#. please use Vietnamese spelling, if the relevant characters occur in
-#. * your language.
-#: src/About.cs:42
-msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#: src/About.cs:40
+msgid "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
+msgstr "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
 
-#: src/About.cs:44
+#: src/About.cs:42
 msgid "Album covers are provided by amazon.com."
 msgstr "Albumhoezen geleverd door amazon.com."
 
-#: src/About.cs:54
+#: src/About.cs:52
 msgid "translator-credits"
 msgstr ""
 "Tino Meinen <a.t.meinen@chello.nl>\n"
 "Daniel van Eeden"
 
-#: src/About.cs:59
+#: src/About.cs:57
 msgid "Muine"
 msgstr "Muine"
 
-#. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:61
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#: src/About.cs:58
+msgid "Copyright © 2003, 2004 Jorn Baayen"
 msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
-#: src/About.cs:62
+#: src/About.cs:59
 msgid "A music player"
 msgstr "Een muziekspeler"
 
@@ -367,7 +399,7 @@ msgstr "Uitgevoerd door {0}"
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. * if "the" is included in this list. Also include the English "the"
 #. * if English is generally spoken in your country.
-#: src/Album.cs:93
+#: src/Album.cs:83
 msgid "the dj"
 msgstr "the dj de"
 
@@ -423,7 +455,7 @@ msgstr ""
 "Fout bij openen van {0}:\n"
 "{1}"
 
-#: src/Player.cs:239
+#: src/Player.cs:235
 #, csharp-format
 msgid ""
 "Audio backend error:\n"
@@ -562,19 +594,19 @@ msgstr "Openen van {0} voor lezen is mislukt"
 msgid "Failed to open {0} for writing"
 msgstr "Openen van {0} voor schrijven is mislukt"
 
-#: src/PlaylistWindow.cs:1178
+#: src/PlaylistWindow.cs:1192
 msgid "Import Folder"
 msgstr "Map importeren"
 
-#: src/PlaylistWindow.cs:1224
+#: src/PlaylistWindow.cs:1238
 msgid "Open Playlist"
 msgstr "Speellijst openen"
 
-#: src/PlaylistWindow.cs:1245
+#: src/PlaylistWindow.cs:1259
 msgid "Save Playlist"
 msgstr "Speellijst opslaan"
 
-#: src/PlaylistWindow.cs:1260
+#: src/PlaylistWindow.cs:1274
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
@@ -713,9 +745,6 @@ msgstr "{0} en {1}"
 
 #~ msgid "Size"
 #~ msgstr "Afmeting"
-
-#~ msgid "The size of the icon"
-#~ msgstr "De afmeting  an het pictogram"
 
 #~ msgid "Blinking"
 #~ msgstr "Knipperend"
