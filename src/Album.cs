@@ -260,7 +260,7 @@ namespace Muine
 				if (image != null)
 					return image;
 
-				return SetCoverAmazonInternal (key);
+				return Global.CoverDB.Getter.GetAmazon (this);
 			}
 		}
 
@@ -273,17 +273,6 @@ namespace Muine
 		{
 			CoverImage = Global.CoverDB.Getter.GetWeb (Key, url,
 					new CoverGetter.GotCoverDelegate (OnGotCover));
-		}
-
-		public void SetCoverAmazon ()
-		{
-			CoverImage = SetCoverAmazonInternal (Key);
-		}
-
-		private Pixbuf SetCoverAmazonInternal (string key)
-		{
-			return Global.CoverDB.Getter.GetAmazon (key,
-				this, new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 
 		private void OnGotCover (Pixbuf pixbuf)

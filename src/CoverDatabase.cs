@@ -141,7 +141,7 @@ namespace Muine
 					// being checked
 					Album a = (Album) lc.Item;
 
-					a.SetCoverAmazon ();
+					a.CoverImage = Global.CoverDB.Getter.GetAmazon (a);
 				} else
 					lc.Item.CoverImage = lc.Pixbuf;
 

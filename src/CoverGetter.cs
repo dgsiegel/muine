@@ -21,8 +21,9 @@ using System;
 using System.Web;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.IO;
+using System.Threading;
+using System.Collections;
 
 using Gdk;
 
@@ -36,6 +37,7 @@ namespace Muine
 		private CoverDatabase db;
 		private GnomeProxy proxy;
 		private string amazon_locale;
+		private GetAmazonThread amazon_thread;
 
 		private static string [] cover_filenames = {
 			"cover.jpg",
@@ -59,7 +61,9 @@ namespace Muine
 			Config.AddNotify (GConfKeyAmazonLocale,
 					  new GConf.NotifyEventHandler (OnAmazonLocaleChanged));
 
-			proxy = new GnomeProxy ();	
+			proxy = new GnomeProxy ();
+
+			amazon_thread = new GetAmazonThread (this);
 		}
 
 		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
@@ -67,6 +71,7 @@ namespace Muine
 			amazon_locale = (string) args.Value;
 		}
 
+		// Getters
 		public Pixbuf GetLocal (string key, string file)
 		{
 			Pixbuf pix = new Pixbuf (file);
@@ -112,72 +117,156 @@ namespace Muine
 			return null;
 		}
 
-		public Pixbuf GetAmazon (string key, Album album,
-					 GotCoverDelegate done_func)
-		{
-			db.MarkAsBeingChecked (key);
-
-			return db.DownloadingPixbuf;
-		}
-
+		// Web getting
 		public Pixbuf GetWeb (string key, string url,
 				      GotCoverDelegate done_func)
 		{
 			db.RemoveCover (key);
 
+			new GetWebThread (this, key, url, done_func);
+
 			return db.DownloadingPixbuf;
 		}
 
-		public delegate void GotCoverDelegate (Pixbuf pixbuf);
-		
-		private Pixbuf Download (string url)
+		private class GetWebThread
 		{
-			Pixbuf cover;
+			private CoverGetter getter;
+			private string key;
+			private string url;
+			private GotCoverDelegate done_func;
+			private Pixbuf pixbuf = null;
 
-			/* read the cover image */
-			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (url);
-			req.UserAgent = "Muine";
-			req.KeepAlive = false;
-			req.Timeout = 30000; /* Timeout after 30 seconds */
-			if (proxy.Use)
-				req.Proxy = proxy.Proxy;
-				
-			WebResponse resp = null;
-		
-			/* May throw an exception, but we catch it in the calling
-			 * function in Song.cs */
-			resp = req.GetResponse ();
+			private void ThreadFunc ()
+			{
+				try {
+					pixbuf = getter.Download (url);
+					pixbuf = getter.AddBorder (pixbuf);
+				} catch {}
 
-			Stream s = resp.GetResponseStream ();
-		
-			cover = new Pixbuf (s);
+				GLib.IdleHandler idle = new GLib.IdleHandler (SignalIdle);
+				GLib.Idle.Add (idle);
+			}
+			
+			private bool SignalIdle ()
+			{
+				if (Global.CoverDB.Covers [key] != null) {
+					// has been modified while we were downloading ..
+					return false;
+				}
 
-			resp.Close ();
+				Global.CoverDB.SetCover (key, pixbuf);
 
-			/* Trap Amazon 1x1 images */
-			if (cover.Height == 1 && cover.Width == 1)
-				return null;
+				done_func (pixbuf);
 
-			return cover;
+				return false;
+			}
+			
+			public GetWebThread (CoverGetter getter,
+					     string key, string url,
+					     GotCoverDelegate done_func)
+			{
+				this.getter = getter;
+				this.key = key;
+				this.url = url;
+				this.done_func = done_func;
+
+				Thread thread = new Thread (new ThreadStart (ThreadFunc));
+				thread.Priority = ThreadPriority.BelowNormal;
+				thread.Start ();
+			}
 		}
 
-		private string SanitizeString (string s)
+		// Amazon getting
+		public Pixbuf GetAmazon (Album album)
 		{
-			s = s.ToLower ();
-			s = Regex.Replace (s, "\\(.*\\)", "");
-			s = Regex.Replace (s, "\\[.*\\]", "");
-			s = s.Replace ("-", " ");
-			s = s.Replace ("_", " ");
-			s = Regex.Replace (s, " +", " ");
+			db.MarkAsBeingChecked (album.Key);
 
-			return s;
+			amazon_thread.Queue.Enqueue (album);
+
+			return db.DownloadingPixbuf;
 		}
 
-		public Pixbuf DownloadFromAmazon (Song song)
+		private class GetAmazonThread
+		{
+			private CoverGetter getter;
+			private Queue queue;
+
+			private void ThreadFunc ()
+			{
+				while (true) {
+					while (queue.Count > 0) {
+						Album album = (Album) queue.Dequeue ();
+						Pixbuf pixbuf = null;
+
+						try {
+							pixbuf = getter.DownloadFromAmazon (album);
+							pixbuf = getter.AddBorder (pixbuf);
+						} catch (WebException e) {
+							// Temporary web problem (Timeout etc.) - re-queue
+							Thread.Sleep (60000); /* wait for a minute first */
+							queue.Enqueue (album);
+							continue;
+						} catch (Exception e) {}
+
+						new IdleData (album, pixbuf);
+					}
+
+					Thread.Sleep (1000);
+				}
+			}
+			
+			private class IdleData
+			{
+				private Album album;
+				private Pixbuf pixbuf;
+
+				private bool IdleFunc ()
+				{
+					string key = album.Key;
+					
+					if (Global.CoverDB.Covers [key] != null) {
+						// has been modified while we were downloading ..
+						return false;
+					}
+
+					Global.CoverDB.SetCover (key, pixbuf);
+
+					album.CoverImage = pixbuf;
+		
+					return false;
+				}
+
+				public IdleData (Album album, Pixbuf pixbuf)
+				{
+					this.album = album;
+					this.pixbuf = pixbuf;
+
+					GLib.IdleHandler idle = new GLib.IdleHandler (IdleFunc);
+					GLib.Idle.Add (idle);
+				}
+			}
+			
+			public GetAmazonThread (CoverGetter getter)
+			{
+				this.getter = getter;
+
+				queue = Queue.Synchronized (new Queue ());
+
+				Thread thread = new Thread (new ThreadStart (ThreadFunc));
+				thread.Priority = ThreadPriority.BelowNormal;
+				thread.Start ();
+			}
+
+			public Queue Queue {
+				get { return queue; }
+			}
+		}
+
+		public Pixbuf DownloadFromAmazon (Album album)
 		{
 			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
 
-			string sane_album_title = SanitizeString (song.Album);
+			string sane_album_title = SanitizeString (album.Name);
 			/* remove "disc 1" and family */
 			sane_album_title =  Regex.Replace (sane_album_title, @"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
 
@@ -185,7 +274,7 @@ namespace Muine
 			Array.Sort (album_title_array);
 
 			/* This assumes the right artist is always in Artists [0] */
-			string sane_artist = SanitizeString (song.Artists [0]);
+			string sane_artist = SanitizeString (album.Artists [0]);
 			
 			/* Prepare for handling multi-page results */
 			int total_pages = 1;
@@ -240,7 +329,7 @@ namespace Muine
 				if (proxy.Use)
 					search_service.Proxy = proxy.Proxy;
 				
-				/* This may throw an exception, we catch it in Song.cs in the calling function */
+				/* This may throw an exception, we catch it in the calling function */
 				pi = search_service.ArtistSearchRequest (asearch);
 
 				int num_results = pi.Details.Length;
@@ -320,78 +409,51 @@ namespace Muine
 			return best_match;
 		}
 
-
-		/*
-		// this is run from the main thread 
-		private bool ProcessDownloadedAlbumCover ()
+		private string SanitizeString (string s)
 		{
-			if (dead)
-				return false;
+			s = s.ToLower ();
+			s = Regex.Replace (s, "\\(.*\\)", "");
+			s = Regex.Replace (s, "\\[.*\\]", "");
+			s = s.Replace ("-", " ");
+			s = s.Replace ("_", " ");
+			s = Regex.Replace (s, " +", " ");
 
-			if (checked_cover_image) {
-				tmp_cover_image = null;
-
-				return false;
-			}
-
-			Muine.CoverDB.RemoveCover (AlbumKey);
-			cover_image = Muine.CoverDB.AddCover (AlbumKey, tmp_cover_image);
-			tmp_cover_image = null;
-
-			Muine.DB.EmitSongChanged (this);
-			
-			Muine.DB.SyncCoverWithSong (this);
-			
-			return false;
+			return s;
 		}
 
-		// This is run from the action thread 
-		private void DownloadAlbumCoverInThread (ActionThread.Action action)
+		// Utility functions
+		public Pixbuf Download (string url)
 		{
-			try {
-				tmp_cover_image = Muine.CoverDB.Getter.DownloadFromAmazon (this);
-			} catch (WebException e) {
-				// Temporary web problem (Timeout etc.) - re-queue
-				Thread.Sleep (60000); // wait for a minute first
-				Muine.ActionThread.QueueAction (action);
+			Pixbuf cover;
+
+			/* read the cover image */
+			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (url);
+			req.UserAgent = "Muine";
+			req.KeepAlive = false;
+			req.Timeout = 30000; /* Timeout after 30 seconds */
+			if (proxy.Use)
+				req.Proxy = proxy.Proxy;
 				
-				return;
-			} catch (Exception e) {
-				tmp_cover_image = null;
-			}
+			WebResponse resp = null;
+		
+			/* May throw an exception, but we catch it in the calling
+			 * function */
+			resp = req.GetResponse ();
 
-			GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
+			Stream s = resp.GetResponseStream ();
+		
+			cover = new Pixbuf (s);
+
+			resp.Close ();
+
+			/* Trap Amazon 1x1 images */
+			if (cover.Height == 1 && cover.Width == 1)
+				return null;
+
+			return cover;
 		}
 
-		private string new_cover_url;
-
-		private void DownloadAlbumCoverInThreadFromURL (ActionThread.Action action)
-		{
-			try {
-				tmp_cover_image = Muine.CoverDB.Getter.Download (new_cover_url);
-			} catch {
-				tmp_cover_image = null;
-			}
-
-			CheckedCoverImage = false;
-
-			GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
-		}
-
-		public void DownloadNewCoverImage (string url)
-		{
-			new_cover_url = url;
-
-			ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThreadFromURL);
-			Muine.ActionThread.QueueAction (action);
-		}
-
-			// Failed to find a cover on disk - try the web 
-			ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThread);
-			Muine.ActionThread.QueueAction (action);
-		}*/
-
-		private Pixbuf AddBorder (Pixbuf cover)
+		public Pixbuf AddBorder (Pixbuf cover)
 		{
 			Pixbuf border;
 
@@ -423,5 +485,7 @@ namespace Muine
 			/* done */
 			return border;
 		}
+
+		public delegate void GotCoverDelegate (Pixbuf pixbuf);
 	}
 }
