@@ -77,8 +77,6 @@ public class SongDatabase
 
 		Songs = Hashtable.Synchronized (new Hashtable ());
 		Albums = new Hashtable ();
-
-		changing_mutex = new Mutex ();
 	}
 
 	/*** loading ***/
@@ -309,8 +307,16 @@ public class SongDatabase
 
 	private bool thread_has_started;
 
+	private uint timeout_id;
+
 	public void CheckChanges ()
 	{
+		removed_songs = new Queue ();
+		changed_songs = new Queue ();
+		new_songs = new Queue ();
+
+		timeout_id = GLib.Timeout.Add (10, new GLib.TimeoutHandler (ProcessActionsFromThread));
+
 		thread_has_started = false;
 		
 		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
@@ -322,16 +328,6 @@ public class SongDatabase
 			Thread.Sleep (5);
 	}
 	
-	private Mutex changing_mutex;
-	public bool Changing {
-		set {
-			if (value)
-				changing_mutex.WaitOne ();
-			else
-				changing_mutex.ReleaseMutex ();
-		}
-	}
-
 	private Queue removed_songs;
 	private Queue changed_songs;
 	private Queue new_songs;
@@ -382,7 +378,7 @@ public class SongDatabase
 			return true;
 		}
 
-		return false;
+		return true;
 	}
 
 	private void HandleDirectory (DirectoryInfo info,
@@ -413,13 +409,9 @@ public class SongDatabase
 
 	private void CheckChangesThread ()
 	{
-		Changing = true;
-
 		thread_has_started = true;
 
 		/* check for removed songs and changes */
-		removed_songs = new Queue ();
-		changed_songs = new Queue ();
 		foreach (string file in Songs.Keys) {
 			FileInfo finfo = new FileInfo (file);
 			Song song = (Song) Songs [file];
@@ -451,7 +443,6 @@ public class SongDatabase
 			folders = new string [0];
 		}
 
-		new_songs = new Queue ();
 		foreach (string folder in folders) {
 			DirectoryInfo dinfo = new DirectoryInfo (folder);
 			if (!dinfo.Exists)
@@ -460,8 +451,6 @@ public class SongDatabase
 			HandleDirectory (dinfo, new_songs);
 		}
 		
-		GLib.Timeout.Add (10, new GLib.TimeoutHandler (ProcessActionsFromThread));
-		
-		Changing = false;
+		GLib.Source.Remove (timeout_id);
 	}
 }

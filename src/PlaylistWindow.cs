@@ -188,8 +188,6 @@ public class PlaylistWindow : Window
 
  			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
 
-			Muine.DB.Changing = true;
-
  			/* seems to be that $HOME/Music does exists, but user hasn't started Muine before! */
  			Muine.DB.AddWatchedFolder (musicdir.FullName);
 
@@ -197,8 +195,6 @@ public class PlaylistWindow : Window
 	 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
 	
  			HandleDirectory (musicdir, pw);
-
-			Muine.DB.Changing = false;
 
  			pw.Done ();
   		}
@@ -1190,12 +1186,8 @@ public class PlaylistWindow : Window
 		if (dinfo.Exists) {
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 
-			Muine.DB.Changing = true;
-
 			Muine.DB.AddWatchedFolder (dinfo.FullName);
 			HandleDirectory (dinfo, pw);
-
-			Muine.DB.Changing = false;
 
 			pw.Done ();
 		}
