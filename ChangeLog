@@ -1,5 +1,14 @@
 2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+	* configure.in:
+	* muine.spec.in:
+	* src/About.cs:
+
+	Release 0.3.1.
+
+2004-01-31  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Song.cs:
 
 	Fix SearchKey calculation. Bug pointed out by Lee Willis.

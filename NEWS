@@ -2,7 +2,8 @@
 =====
 
 - Added FLAC support [Jorn Baayen]
-- Improved Amazon cover image fetching code reliability [Lee Willis, Jorn Baayen]
+- Improved Amazon cover image fetching code reliability [Lee Willis,
+  Jorn Baayen]
 - Added replaygain support for MP3 files using the RVA2 tag [Jorn Baayen]
 - Added a Dashboard frontend [Lee Willis]
 - Interface enhancements [Jorn Baayen]

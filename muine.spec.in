@@ -9,7 +9,7 @@ URL: http://people.nl.linux.org/~jorn/Muine/
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 Requires: /sbin/ldconfig, mono, gtk-sharp
-BuildRequires: gstreamer-devel, gstreamer-plugins-devel, libvorbis-devel, mono-devel, gtk-sharp-devel, libid3tag-devel
+BuildRequires: gstreamer-devel, gstreamer-plugins-devel, libvorbis-devel, mono-devel, gtk-sharp-devel, libid3tag-devel, flac-devel
 
 Summary: GNOME music player
 %description
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sat Jan 31 2004 Jorn Baayen <jorn@nl.linux.org>
+- Add a build dependency on flac-devel
+
 * Thu Jan 22 2004 Link Dupont <link@subpop.net> 0.2-2.spc
 - Add explicit dependency on Mono.
 
