@@ -1,5 +1,11 @@
 2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Muine.cs:
+
+	Small cleanup.
+
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
 	* DBusLib/Player.cs:
 	* PluginLib/IPlayer.cs:
 	* PluginLib/ISong.cs:

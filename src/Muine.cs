@@ -197,30 +197,31 @@ namespace Muine
 			for (int i = 0; i < args.Length; i++) {
 				System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
 			
-				if (finfo.Exists) {
-					if (FileUtils.IsPlaylist (args [i])) {
-						/* load as playlist */
-						if (dbo != null)
-							dbo.OpenPlaylist (finfo.FullName);
-						else
-							playlist.OpenPlaylist (finfo.FullName);
-					} else {
-						/* load as music file */
-						if (i == 0) {
-							if (dbo != null)
-								dbo.PlayFile (finfo.FullName);
-							else
-								playlist.PlayFile (finfo.FullName);
-						} else {
-							if (dbo != null)
-								dbo.QueueFile (finfo.FullName);
-							else
-								playlist.QueueFile (finfo.FullName);
-						}
-					}
+				if (!finfo.Exists)
+					continue;
 
-					opened_file = true;
+				if (FileUtils.IsPlaylist (args [i])) {
+					/* load as playlist */
+					if (dbo != null)
+						dbo.OpenPlaylist (finfo.FullName);
+					else
+						playlist.OpenPlaylist (finfo.FullName);
+				} else {
+					/* load as music file */
+					if (i == 0) {
+						if (dbo != null)
+							dbo.PlayFile (finfo.FullName);
+						else
+							playlist.PlayFile (finfo.FullName);
+					} else {
+						if (dbo != null)
+							dbo.QueueFile (finfo.FullName);
+						else
+							playlist.QueueFile (finfo.FullName);
+					}
 				}
+
+				opened_file = true;
 			}
 
 			if (dbo != null && args.Length == 0)
