@@ -175,7 +175,10 @@ namespace Muine
 
 		public void Changed (IntPtr handle)
 		{
-			pointer_list_view_changed (Raw, handle);
+			// FIXME http://bugzilla.gnome.org/show_bug.cgi?id=165017
+			//pointer_list_view_changed (Raw, handle);
+
+			QueueDraw ();
 		}
 		
 		// Methods :: Public :: Remove

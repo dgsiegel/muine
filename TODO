@@ -74,6 +74,8 @@ o Create message dialogs ourselves, not through glade
   Once we have Gtk 2.6 support in Gtk#
 o Set Window.IconName on windows
   Once we have Gtk 2.6 support in Gtk#
+o Remove HandleView.Changed hack
+  Depends on Gnome Bugzilla #165017
 
 We won't have:
 ==============

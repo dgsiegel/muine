@@ -788,6 +788,7 @@ namespace Muine
 			
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
+			col.Spacing = 4;
 			col.PackStart (pixbuf_renderer, false);
 			col.PackStart (text_renderer, true);
 			col.SetCellDataFunc (pixbuf_renderer, new TreeCellDataFunc (PixbufCellDataFunc));
