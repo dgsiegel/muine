@@ -16,7 +16,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * TODO fam (wrapped C code), file import wizard (musicbrainz for tags, cover image, filename fixing)
+ * TODO FileSystemWatcher, file import wizard (musicbrainz for tags, cover image, filename fixing)
  * TODO use gnomevfs pixbuf loader for cover images
  */
 

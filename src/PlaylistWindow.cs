@@ -354,20 +354,26 @@ public class PlaylistWindow : Window
 
 	private void AddSong (IntPtr p)
 	{
-		had_last_eos = false;
+		IntPtr new_p = p;
 
 		if (playlist.Contains (p)) {
 			Song song = Song.FromHandle (p);
-			playlist.Append (song.RegisterExtraHandle ());
-		} else {
-			playlist.Append (p);
-		}
+			new_p = song.RegisterExtraHandle ();
+		} 
+		
+		playlist.Append (new_p);
 		
 		if (playlist.Playing == IntPtr.Zero) {
 			playlist.First ();
 
 			SongChanged ();
+		} else if (had_last_eos == true) {
+			playlist.Playing = new_p;
+
+			SongChanged ();
 		}
+
+		had_last_eos = false;
 	}
 
 	private void RemoveSong (IntPtr p)
@@ -776,7 +782,7 @@ public class PlaylistWindow : Window
 
 			had_last_eos = false;
 		}
-		
+
 		player.Playing = !player.Playing;
 	}
 

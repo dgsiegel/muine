@@ -1,3 +1,13 @@
+2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
+
+	* data/glade/ProgressWindow.glade:
+
+	Remove "FILENAME" tmp string. It was shown at times.
+	
+	* src/PlaylistWindow.cs:
+
+	Fix a last_eos bug.
+
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
 	* NEWS:
