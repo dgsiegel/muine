@@ -1,3 +1,9 @@
+2005-03-18  Jeroen Zwartepoorte  <jeroen.zwartepoorte@gmail.com>
+
+	* src/HandleView.cs: Use the HandleModel also for the TreeView.Model
+	property (why does HandleView have a new Model property in the first
+	place?). This makes muine work again.
+
 2005-03-16  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/HandleView.cs:
