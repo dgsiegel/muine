@@ -1,5 +1,11 @@
 2004-12-13  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Only one tooltip for the play button.
+
+2004-12-13  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* data/glade/PlaylistWindow.glade:
 	* src/NotificationAreaIcon.cs:

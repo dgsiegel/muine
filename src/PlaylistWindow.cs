@@ -493,6 +493,8 @@ public class PlaylistWindow : Window
 		image.SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
+		tooltips.SetTip (play_pause_button,
+		                 Muine.Catalog.GetString ("Toggle music playback"), null);
 		tooltips.SetTip (previous_button,
 		                 Muine.Catalog.GetString ("Play the previous song"), null);
 		tooltips.SetTip (next_button,
@@ -849,28 +851,13 @@ public class PlaylistWindow : Window
 	private new void StateChanged (bool playing)
 	{
 		if (playing) {
-			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Pause music playback"), null);
-
 			block_play_pause_action = true;
 			play_pause_action.Active = true;
 			play_pause_button.Active = true;
 			block_play_pause_action = false;
 
 			icon.Tooltip = artist_label.Text + " - " + title_label.Text;
-		} else if (playlist.Playing != IntPtr.Zero &&
-		           player.Position > 0 &&
-			   !had_last_eos) {
-			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Resume music playback"), null);
-
-			block_play_pause_action = true;
-			play_pause_action.Active = false;
-			play_pause_button.Active = false;
-			block_play_pause_action = false;
-			
-			icon.Tooltip = null;
 		} else {
-			tooltips.SetTip (play_pause_button, Muine.Catalog.GetString ("Start music playback"), null);
-
 			block_play_pause_action = true;
 			play_pause_action.Active = false;
 			play_pause_button.Active = false;
