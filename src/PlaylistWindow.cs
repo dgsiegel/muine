@@ -1313,6 +1313,8 @@ public class PlaylistWindow : Window
 		}
 
 		playlist.Select (playlist.Playing);
+
+		NSongsChanged ();
 	}
 
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
