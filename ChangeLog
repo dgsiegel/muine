@@ -1,3 +1,9 @@
+2005-02-17  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Actions.cs:
+
+	Change shortcut of "Play" to "P" and of "Previous" to "B".
+
 2005-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Album.cs:

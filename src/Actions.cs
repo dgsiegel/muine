@@ -109,7 +109,7 @@ namespace Muine
 					 "<control>Q", null, null),
 			
 			new ActionEntry ("Previous", "stock_media-prev", string_previous,
-					 "P", null, null),
+					 "B", null, null),
 
 			new ActionEntry ("Next", "stock_media-next", string_next,
 					 "N", null, null),
@@ -148,7 +148,7 @@ namespace Muine
 		// Toggle Entries
 		private static ToggleActionEntry [] toggle_entries = new ToggleActionEntry [] {
 			new ToggleActionEntry ("TogglePlay", "stock_media-play", string_toggle_play,
-					       "space", null, null, false),
+					       "P", null, null, false),
 
 			new ToggleActionEntry ("ToggleRepeat", null, string_toggle_repeat,
 					       "<control>R", null, null, false),

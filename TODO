@@ -76,6 +76,8 @@ o Remove EllipsizingLabel and CellRendererText hack classes
   Once we have Gtk 2.6 support in Gtk#
 o Re-enable fixed-height-mode in HandleView
   Depends on Gnome Bugzilla #165017, #165034
+o Remove amazon cover fetching
+  Once there is a tagger which can do this for us
 
 We won't have:
 ==============
