@@ -1,3 +1,9 @@
+2004-03-30  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	"part of the best damn Docklet code this side of Tahiti"
+
 2004-03-23  Gustavo Maciel Dias Vieira  <gdvieira@zaz.com.br>
 
 	* configure.in: Added pt_BR to ALL_LINGUAS.

@@ -104,6 +104,10 @@ public class PlaylistWindow : Window
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 		DeleteEvent += new DeleteEventHandler (HandleDeleteEvent);
 
+		/* keep track of window visibility */
+		VisibilityNotifyEvent += new VisibilityNotifyEventHandler (HandleWindowVisibilityNotifyEvent);
+		AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
+
 		icon = new NotificationAreaIcon ();
 
 		SetupWindowSize ();
@@ -846,6 +850,17 @@ public class PlaylistWindow : Window
 
 		if (old_window_visible != window_visible)
 			UpdateWindowVisibilityUI ();
+	}
+
+	private void HandleWindowVisibilityNotifyEvent (object o, VisibilityNotifyEventArgs args)
+	{
+		bool old_window_visible = window_visible;
+		window_visible = (args.Event.State != Gdk.VisibilityState.FullyObscured);
+
+		if (old_window_visible != window_visible)
+			UpdateWindowVisibilityUI ();
+
+		args.RetVal = false;
 	}
 
 	private void HandleDeleteEvent (object o, DeleteEventArgs args)
