@@ -147,8 +147,8 @@ public class NotificationAreaIcon : Plug
 		x = menu_x;
 		y = menu_y;
 
-		int monitor = menu.Screen.GetMonitorAtPoint (x, y);
-		Gdk.Rectangle rect = menu.Screen.GetMonitorGeometry (monitor);
+		int monitor = ((Widget) menu).Screen.GetMonitorAtPoint (x, y);
+		Gdk.Rectangle rect = ((Widget) menu).Screen.GetMonitorGeometry (monitor);
 
 		int space_above = y - rect.Y;
 		int space_below = rect.Y + rect.Height - y;
