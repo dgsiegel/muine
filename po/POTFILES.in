@@ -18,6 +18,7 @@ src/AddAlbumWindow.cs
 src/AddSongWindow.cs
 src/Album.cs
 src/CoverDatabase.cs
+src/ErrorDialog.cs
 src/Metadata.cs
 src/Muine.cs
 src/NotificationAreaIcon.cs

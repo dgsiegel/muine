@@ -1,3 +1,7 @@
+2004-12-05  Jorn Baayen  <jbaayen@gnome.org>
+
+	* POTFILES.in: Add ErrorDialog.cs
+
 2004-12-04  Sigurd Gartmann  <sigurd-translate@brogar.org>
 
 	* no.po, nb.po: Upated Norwegian Bokmål translation.
