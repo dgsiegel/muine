@@ -1018,14 +1018,14 @@ public class PlaylistWindow : Window
 		had_last_eos = false;
 
 		/* restart song if not in the first 3 seconds */
-		if (player.Position < 3000 &&
+		if (player.Position < 3 &&
 		    playlist.HasPrevious) {
 			playlist.Previous ();
 
 			SongChanged (true);
 
 			NSongsChanged ();
-		} else if (player.Position < 3000 &&
+		} else if (player.Position < 3 &&
 		           !playlist.HasPrevious &&
 			   repeat_menu_item.Active) {
 			playlist.Last ();
