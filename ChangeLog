@@ -2,6 +2,13 @@
 
 	* src/SongDatabase.cs:
 
+	Support setting both a removed album as well as an added album
+	in the signal request. Needed for changed songs.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/SongDatabase.cs:
+
 	Restore SignalRequest constructor.
 
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>

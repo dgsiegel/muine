@@ -67,15 +67,17 @@ namespace Muine
 		// Internal Classes :: SignalRequest
 		private class SignalRequest {
 			// Fields
-			public Song  Song;
-			public Album Album;
-			public bool  SongAdded;
-			public bool  SongChanged;
-			public bool  SongRemoved;
-			public bool  AlbumAdded;
-			public bool  AlbumChanged;
-			public bool  AlbumRemoved;
-			public bool  AlbumSongsChanged;
+			public Song Song;
+
+			public bool SongAdded   = false;
+			public bool SongChanged = false;
+			public bool SongRemoved = false;
+
+			public Album AddedAlbum   = null;
+			public Album ChangedAlbum = null;
+			public Album RemovedAlbum = null;
+
+			public bool AlbumSongsChanged;
 
 			// Constructor
 			public SignalRequest (Song song)
@@ -488,9 +490,11 @@ namespace Muine
 			}
 
 			if (!from_db) {
-				rq.Album = album;
-				rq.AlbumAdded = added;
-				rq.AlbumChanged = changed;
+				if (added)
+					rq.AddedAlbum = album;
+				else if (changed)
+					rq.ChangedAlbum = album;
+					
 				rq.AlbumSongsChanged = songs_changed;
 			}
 		}
@@ -511,8 +515,7 @@ namespace Muine
 				// album is empty
 				Albums.Remove (key);
 
-				rq.Album = album;
-				rq.AlbumRemoved = true;
+				rq.RemovedAlbum = album;
 			}
 		}
 
@@ -603,6 +606,7 @@ namespace Muine
 				if (rq.Song.Dead)
 					return;
 
+				// Song
 				if (rq.SongAdded) {
 					EmitSongAdded (rq.Song);
 
@@ -614,18 +618,22 @@ namespace Muine
 					rq.Song.Deregister ();
 				}
 				
-				if (rq.AlbumAdded) {
-					EmitAlbumAdded (rq.Album);
-
-				} else if (rq.AlbumChanged) {
-					EmitAlbumChanged (rq.Album);
+				// Albums
+				if (rq.AddedAlbum != null) {
+					EmitAlbumAdded (rq.AddedAlbum);
+				}
+				
+				if (rq.ChangedAlbum != null) {
+					EmitAlbumChanged (rq.ChangedAlbum);
 
 					if (rq.AlbumSongsChanged)
-						foreach (Song s in rq.Album.Songs)
+						foreach (Song s in rq.ChangedAlbum.Songs)
 							EmitSongChanged (s);
 
-				} else if (rq.AlbumRemoved) {
-					EmitAlbumRemoved (rq.Album);
+				}
+				
+				if (rq.RemovedAlbum != null) {
+					EmitAlbumRemoved (rq.RemovedAlbum);
 				}
 			}
 		}
