@@ -27,6 +27,74 @@ using DBus;
 
 public class Muine : Gnome.Program
 {
+	// directories
+	private static void CreateDirectory (string dir)
+	{
+		DirectoryInfo dinfo = new DirectoryInfo (dir);
+		if (dinfo.Exists)
+			return;
+				
+		dinfo.Create ();
+	}
+	
+	private static string home_directory = Environment.GetEnvironmentVariable ("HOME");
+	public static string HomeDirectory {
+		get {
+			return home_directory;
+		}
+	}
+	
+	// We set these proper in the constructor because we use 
+	// Gnome.User.DirGet () and Gtk has to be initialized for that
+	private static string config_directory;
+	public static string ConfigDirectory {
+		get {
+			return config_directory;
+		}
+		
+		set {
+			config_directory = value;
+			CreateDirectory (config_directory);
+			playlist_file = Path.Combine (config_directory, playlist_filename);
+			songsdb_file = Path.Combine (config_directory, songsdb_filename);
+			coversdb_file = Path.Combine (config_directory, coversdb_filename);
+			plugins_directory = Path.Combine (config_directory, plugins_dirname);
+		}
+	}
+	
+	private static string playlist_file;
+	private const string playlist_filename = "playlist.m3u";
+	public static string PlaylistFile {
+		get {
+			return playlist_file;
+		}
+	}
+
+	private static string songsdb_file;
+	private const string songsdb_filename = "songs.db";
+	public static string SongsDBFile {
+		get {
+			return songsdb_file;
+		}
+	}
+
+	private static string coversdb_file;
+	private const string coversdb_filename = "covers.db";
+	public static string CoversDBFile {
+		get {
+			return coversdb_file;
+		}
+	}
+
+	private static string plugins_directory;
+	private const string plugins_dirname = "plugins";
+	public static string PluginsDirectory {
+		get {
+			return plugins_directory;
+		}
+	}
+	
+	// objects
 	private static PlaylistWindow playlist;
 
 	private static GConf.Client gconf_client;
@@ -104,6 +172,15 @@ public class Muine : Gnome.Program
 		/* Set default window icon */
 		SetDefaultWindowIcon ();
 
+		/* Setup config directory (~/.gnome2/muine) */
+		try {
+			ConfigDirectory = Path.Combine (Gnome.User.DirGet (), "muine");
+		} catch (Exception e) {
+			new ErrorDialog (String.Format (Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting..."), e.Message));
+
+			Exit ();
+		}
+		
 		/* Start the action thread */
 		action_thread = new ActionThread ();
 

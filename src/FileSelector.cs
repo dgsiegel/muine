@@ -42,10 +42,7 @@ public class FileSelector : FileChooserDialog
 
 		string start_dir = (string) Muine.GetGConfValue (gconf_path, "~");
 
-		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
-
-		if (!start_dir.EndsWith ("/"))
-			start_dir += "/";
+		start_dir.Replace ("~", Muine.HomeDirectory);
 
 		SetCurrentFolderUri (start_dir);
 	}
@@ -60,8 +57,7 @@ public class FileSelector : FileChooserDialog
 
 		string ret = Uri;
 
-		Muine.SetGConfValue (gconf_path,
-		                     System.IO.Path.GetDirectoryName (ret) + "/");
+		Muine.SetGConfValue (gconf_path, System.IO.Path.GetDirectoryName (ret));
 
 		Destroy ();
 

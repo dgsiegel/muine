@@ -57,19 +57,7 @@ public class CoverDatabase
 	{
 		amazon_locale = (string) Muine.GetGConfValue ("/apps/muine/amazon_locale", "us");
 
-		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
-		if (!dinfo.Exists) {
-			try {
-				dinfo.Create ();
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		
-		string filename = dinfo.FullName + "/covers.db";
-
-
-		db = new Database (filename, version);
+		db = new Database (Muine.CoversDBFile, version);
 		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 

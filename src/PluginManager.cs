@@ -66,6 +66,6 @@ public class PluginManager
 			foreach (string dir in path.Split (':'))
 				FindAssemblies (dir);
 
-		FindAssemblies (Gnome.User.DirGet () + "/muine/plugins");
+		FindAssemblies (Muine.PluginsDirectory);
 	}
 }

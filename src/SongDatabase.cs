@@ -63,18 +63,7 @@ public class SongDatabase
 
 	public SongDatabase (int version)
 	{
-		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
-		if (!dinfo.Exists) {
-			try {
-				dinfo.Create ();
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		
-		string filename = dinfo.FullName + "/songs.db";
-
-		db = new Database (filename, version);
+		db = new Database (Muine.SongsDBFile, version);
 		db.DecodeFunction = new Database.DecodeFunctionDelegate (DecodeFunction);
 		db.EncodeFunction = new Database.EncodeFunctionDelegate (EncodeFunction);
 		

@@ -80,9 +80,6 @@ public class PlaylistWindow : Window, PlayerInterface
 	private bool had_last_eos;
 	private bool ignore_song_change;
 
-	/* the playlist filename */
-	private string playlist_filename;
-
 	/* Multimedia Key handler */
 	private MmKeys mmkeys;
 
@@ -380,9 +377,6 @@ public class PlaylistWindow : Window, PlayerInterface
 		/* Initialize plug-ins */
 		PluginManager pm = new PluginManager (this);
 
-		/* set up playlist filename */
-		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
-		
 		/* make sure the interface is up to date */
 		SelectionChanged ();
 		StateChanged (false);
@@ -391,9 +385,9 @@ public class PlaylistWindow : Window, PlayerInterface
 	public void RestorePlaylist ()
 	{
 		/* load last playlist */
-		System.IO.FileInfo finfo = new System.IO.FileInfo (playlist_filename);
+		System.IO.FileInfo finfo = new System.IO.FileInfo (Muine.PlaylistFile);
 		if (finfo.Exists)
-			OpenPlaylist (playlist_filename);
+			OpenPlaylist (Muine.PlaylistFile);
 	}
 
 	public void Run ()
@@ -451,6 +445,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		Drag.Finish (args.Context, true, false, args.Time);
 	}
 
+	/*
 	public void CheckFirstStartUp () 
  	{
  		bool first_start = (bool) Muine.GetGConfValue ("/apps/muine/first_start", true);
@@ -458,35 +453,31 @@ public class PlaylistWindow : Window, PlayerInterface
 		if (!first_start)
 			return;
 
- 		string dir = Environment.GetEnvironmentVariable ("HOME");
- 		if (!dir.EndsWith ("/"))
- 			dir += "/";
- 		
- 		DirectoryInfo musicdir = new DirectoryInfo (dir + "Music/");
+ 		DirectoryInfo musicdir = new DirectoryInfo (Muine.MusicDirectory);
   
  		if (!musicdir.Exists) {
  			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
 
 	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
  		} else { 
- 			/* create a playlists directory if it still doesn't exists */
- 			DirectoryInfo playlistsdir = new DirectoryInfo (dir + "Music/Playlists/");
+ 			// create a playlists directory if it still doesn't exists
+ 			DirectoryInfo playlistsdir = new DirectoryInfo (Muine.PlaylistsDirectory);
  			if (!playlistsdir.Exists)
  				playlistsdir.Create ();
 
  			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
 
- 			/* seems to be that $HOME/Music does exists, but user hasn't started Muine before! */
+ 			// seems to be that MusicDirectory does exists, but user hasn't started Muine before!
  			Muine.DB.AddWatchedFolder (musicdir.FullName);
 
-			/* do this here, because the folder is watched now */
+			// do this here, because the folder is watched now
 	 		Muine.SetGConfValue ("/apps/muine/first_start", false);
 	
  			HandleDirectory (musicdir, pw);
 
  			pw.Done ();
   		}
-  	}
+  	}*/
 	
 	private void SetupWindowSize ()
 	{
@@ -837,7 +828,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		UpdateTimeLabels (player.Position);
 
-		SavePlaylist (playlist_filename, !repeat_action.Active, true);
+		SavePlaylist (Muine.PlaylistFile, !repeat_action.Active, true);
 	}
 
 	private void SongChanged (bool restart)
@@ -1400,6 +1391,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		SeekTo (player.Position + 5);
 	}
 
+/*
 	private void HandleInformationCommand (object o, EventArgs args)
 	{
 		//FIXME deal with selection
@@ -1415,7 +1407,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		id.Run ();
 		
 		AddChildWindowIfVisible (id);
-	}
+	}*/
 
 	public void PlaySong ()
 	{
@@ -1515,10 +1507,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		
 		string start_dir = (string) Muine.GetGConfValue ("/apps/muine/default_import_folder", "~");
 
-		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
-
-		if (!start_dir.EndsWith ("/"))
-			start_dir += "/";
+		start_dir.Replace ("~", Muine.HomeDirectory);
 
 		fc.SetCurrentFolderUri (start_dir);
 

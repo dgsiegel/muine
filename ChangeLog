@@ -1,3 +1,16 @@
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
+	* src/FileSelector.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/SongDatabase.cs:
+
+	Filenames are now properties of the Muine class. Based on a patch by
+	Tamara Roberson.
+
 2004-12-30  Tamara Roberson  <foxxygirltamara@gmail.com>
             Jorn Baayen  <jbaayen@gnome.org>
 
