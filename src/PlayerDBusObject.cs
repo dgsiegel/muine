@@ -200,7 +200,8 @@ public class PlayerDBusObject
 
 	private void HandleStateChangedEvent (bool playing)
 	{
-		StateChanged (playing);
+		if (StateChanged != null)
+			StateChanged (playing);
 	}
 
 	private string SongToString (SongInterface song)
