@@ -42,6 +42,8 @@ public class AddSongWindow
 	ScrolledWindow scrolledwindow;
 	private HandleView view;
 	private CellRenderer text_renderer;
+
+	private static int FakeLength = 200;
 	
 	public AddSongWindow (Window parent)
 	{
@@ -76,6 +78,7 @@ public class AddSongWindow
 		view = new HandleView ();
 
 		view.Reorderable = false;
+		view.Selection.Mode = SelectionMode.Multiple;
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
 		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
 		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
@@ -83,14 +86,21 @@ public class AddSongWindow
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc));
 
-		AddExplRow ();
-
 		view.Show ();
 
 		scrolledwindow.Add (view);
 
 		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+
+		int i = 0;
+		foreach (Song s in Muine.DB.Songs.Values) {
+			view.Append (s.Handle);
+
+			i++;
+			if (i >= FakeLength)
+				break;
+		}
 	}
 
 	public void Run ()
@@ -98,13 +108,6 @@ public class AddSongWindow
 		search_entry.GrabFocus ();
 
 		window.Visible = true;
-	}
-
-	private void AddExplRow ()
-	{
-		view.Append (new IntPtr (-1));
-
-		view.Selection.Mode = SelectionMode.None;
 	}
 
 	public delegate void QueueSongsEventHandler (List songs);
@@ -119,16 +122,7 @@ public class AddSongWindow
 		Song a = Song.FromHandle (a_ptr);
 		Song b = Song.FromHandle (b_ptr);
 
-		string a_key = null;
-		string b_key = null;
-
-		if (a != null)
-			a_key = a.SortKey;
-
-		if (b != null)
-			b_key = b.SortKey;
-
-		return String.Compare (a_key, b_key);
+		return String.Compare (a.SortKey, b.SortKey);
 	}
 
 	private void CellDataFunc (HandleView view,
@@ -136,23 +130,14 @@ public class AddSongWindow
 				   IntPtr handle)
 	{
 		CellRendererText r = (CellRendererText) cell;
+		Song song = Song.FromHandle (handle);
 
-		if ((int) handle == -1) {
-			/* explanation row */
-			r.Text = "Please enter 3 or more characters to search";
+		string title = String.Join (", ", song.Titles);
 
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (r.Text),
-						   false, false, true);
-		} else {
-			Song song = Song.FromHandle (handle);
+		r.Text = title + "\n" + String.Join (", ", song.Artists);
 
-			string title = String.Join (", ", song.Titles);
-
-			r.Text = title + "\n" + String.Join (", ", song.Artists);
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
-						   false, true, false);
-		}
+		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
+					   false, true, false);
 	}
 
 	private void HandleWindowResponse (object o, EventArgs a)
@@ -213,26 +198,29 @@ public class AddSongWindow
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
-		/* only show something if typing a word >= 3 chars */
-		if (search_entry.Text.Length < 3) {
-			view.RemoveDelta (l);
-			AddExplRow ();
-			return;
-		}
+		int max_len = -1;
 
-		view.Selection.Mode = SelectionMode.Multiple;
+		/* show max. FakeLength songs if < 3 chars are entered. this is to fake speed. */
+		if (search_entry.Text.Length < 3)
+			max_len = FakeLength;
 
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 
+		int i = 0;
 		foreach (Song s in Muine.DB.Songs.Values) {
-			if (FitsCriteria (s, search_bits))
+			if (FitsCriteria (s, search_bits)) {
 				l.Append (s.Handle);
+				
+				i++;
+				if (max_len > 0 && i >= max_len)
+					break;
+			}	
 		}
 
 		view.RemoveDelta (l);
 
-		foreach (int i in l) {
-			IntPtr ptr = new IntPtr (i);
+		foreach (int p in l) {
+			IntPtr ptr = new IntPtr (p);
 
 			view.Append (ptr);
 		}
@@ -299,7 +287,7 @@ public class AddSongWindow
 
 	private void HandleSongAdded (Song song)
 	{
-		if (search_entry.Text.Length < 3)
+		if (search_entry.Text.Length < 3 && view.Length >= FakeLength)
 			return;
 
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
@@ -310,8 +298,5 @@ public class AddSongWindow
 	private void HandleSongRemoved (Song song)
 	{
 		view.Remove (song.Handle);
-
-		if (!view.HasFirst)
-			AddExplRow ();
 	}
 }

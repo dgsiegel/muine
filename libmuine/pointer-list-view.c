@@ -293,6 +293,12 @@ pointer_list_view_get_contents (PointerListView *view)
 	return pointer_list_model_get_pointers (view->model);
 }
 
+int
+pointer_list_view_get_length (PointerListView *view)
+{
+	return gtk_tree_model_iter_n_children (GTK_TREE_MODEL (view->model), NULL);
+}
+
 gboolean
 pointer_list_view_contains (PointerListView *view,
 		            gpointer pointer)

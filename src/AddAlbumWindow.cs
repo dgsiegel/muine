@@ -78,6 +78,7 @@ public class AddAlbumWindow
 		view = new HandleView ();
 
 		view.Reorderable = false;
+		view.Selection.Mode = SelectionMode.Multiple;
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
 		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
 		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
@@ -120,16 +121,7 @@ public class AddAlbumWindow
 		Album a = Album.FromHandle (a_ptr);
 		Album b = Album.FromHandle (b_ptr);
 
-		string a_key = null;
-		string b_key = null;
-
-		if (a != null)
-			a_key = a.SortKey;
-
-		if (b != null)
-			b_key = b.SortKey;
-
-		return String.Compare (a_key, b_key);
+		return String.Compare (a.SortKey, b.SortKey);
 	}
 
 	private void PixbufCellDataFunc (HandleView view,
@@ -219,8 +211,6 @@ public class AddAlbumWindow
 	private void HandleSearchEntryChanged (object o, EventArgs args)
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
-
-		view.Selection.Mode = SelectionMode.Multiple;
 
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 

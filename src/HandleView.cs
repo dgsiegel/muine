@@ -142,6 +142,15 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern int pointer_list_view_get_length (IntPtr view);
+
+	public int Length {
+		get {
+			return pointer_list_view_get_length (Raw);
+		}
+	}
+
+	[DllImport ("libmuine")]
 	private static extern IntPtr pointer_list_view_get_selection (IntPtr view);
 
 	public List SelectedPointers {

@@ -64,6 +64,7 @@ void             pointer_list_view_remove_delta  (PointerListView *view,
 				                  GList *delta);
 void             pointer_list_view_clear         (PointerListView *view);
 GList *          pointer_list_view_get_contents  (PointerListView *view);
+int              pointer_list_view_get_length    (PointerListView *view);
 gboolean         pointer_list_view_contains      (PointerListView *view,
 				                  gpointer pointer);
 GList *          pointer_list_view_get_selection (PointerListView *view);

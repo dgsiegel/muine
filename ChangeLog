@@ -1,5 +1,16 @@
 2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_get_length):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+
+	Show max. 200 songs in the Add Song window if we are searching for
+	a string with less than 3 chars.
+
+2004-01-18  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/Album.cs:
 
 	Sort by artist, instead of album name.
