@@ -79,6 +79,8 @@ o Tagging support
 o Volume normalization. We support the replaygain tag, the tagging
   application is responsible for setting these.. Muine is purely a player.
 o Opening music files directly from nautilus
+o Visualization. Other apps can monitor the ALSA device and make fancy effects,
+  for example someone could code up an xscreensaver hack.
 
 All of these because these tasks can be handled much better by specialized
 applications.

@@ -43,15 +43,17 @@ public class About
 	public static void ShowWindow (Gtk.Window parent)
 	{
 		string [] documenters = new string [] {};
-		string translators = null;
+		string translator_credits = Muine.Catalog.GetString ("translator-credits");
 
 		Pixbuf pixbuf = new Pixbuf (null, "muine-playlist.png");
 
 		Gnome.About about;
 		about = new Gnome.About ("Muine", version,
+					 /* please use the UTF-8 copyright symbol in your translation .. */
 					 Muine.Catalog.GetString ("Copyright (C) 2003, 2004 Jorn Baayen"),
 					 Muine.Catalog.GetString ("A music player"),
-					 authors, documenters, translators,
+					 authors, documenters,
+					 (translator_credits == "translator-credits") ? null : translator_credits,
 					 pixbuf);
 
 		Gnome.HRef href = new Gnome.HRef ("http://www.amazon.com/", "Amazon.com");

@@ -1,5 +1,15 @@
 2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+
+	Added info about visualization.
+	
+	* src/About.cs:
+
+	Added translation stuff.
+
+2004-02-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/Makefile.am:
 	* libmuine/gettext-utils.c: (init_intl):
 	* libmuine/gettext-utils.h:
