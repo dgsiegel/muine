@@ -129,7 +129,7 @@ public class Player : GLib.Object
 
 		set {
 			if (stopped)
-				Song = song;
+				Song = song; // load song, then seek
 				
 			player_seek (Raw, value);
 
