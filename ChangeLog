@@ -1,5 +1,11 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* plugins/DashboardPlugin.cs:
+
+	Add null check.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Mark string from translation.

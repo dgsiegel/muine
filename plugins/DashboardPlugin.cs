@@ -37,6 +37,9 @@ public class DashboardPlugin : Plugin
 	
 	private void HandleSongChanged (SongInterface song)
 	{
+		if (song == null)
+			return;
+
 		bool has_focus = player.WindowFocused;
 
 		SendClue (song.Artists, song.Album, song.Title, has_focus);
