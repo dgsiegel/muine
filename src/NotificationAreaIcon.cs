@@ -193,30 +193,16 @@ public class NotificationAreaIcon : Plug
 		return ((x > high) ? high : ((x < low) ? low : x));
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void gtk_glue_get_monitor_dimensions (IntPtr screen,
-								    int x, int y,
-								    out int monitor_x,
-								    out int monitor_y,
-								    out int monitor_width,
-								    out int monitor_height);
-
 	private void PositionMenu (Menu menu, out int x, out int y, out bool push_in)
 	{
 		x = menu_x;
 		y = menu_y;
 
-		int monitor_x, monitor_y, monitor_width, monitor_height;
+		int monitor = menu.Screen.GetMonitorAtPoint (x, y);
+		Gdk.Rectangle rect = menu.Screen.GetMonitorGeometry (monitor);
 
-		gtk_glue_get_monitor_dimensions (menu.Screen.Handle,
-						 x, y,
-						 out monitor_x,
-						 out monitor_y,
-						 out monitor_width,
-						 out monitor_height);
-
-		int space_above = y - monitor_y;
-		int space_below = monitor_y + monitor_height - y;
+		int space_above = y - rect.Y;
+		int space_below = rect.Y + rect.Height - y;
 
 		Requisition requisition = new Requisition ();
 		menu.SizeRequest (ref requisition);
@@ -229,11 +215,11 @@ public class NotificationAreaIcon : Plug
 				y = y - requisition.Height;
 		} else if (requisition.Height > space_below && requisition.Height > space_above) {
 			if (space_below >= space_above)
-				y = monitor_y + monitor_height - requisition.Height;
+				y = rect.Y + rect.Height - requisition.Height;
 			else
-				y = monitor_y;
+				y = rect.Y;
 		} else {
-			y = monitor_y;
+			y = rect.Y;
 		}
 
 		push_in = true;

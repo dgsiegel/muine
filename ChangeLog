@@ -1,3 +1,16 @@
+2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
+	* configure.in:
+	* libmuine/Makefile.am:
+	R libmuine/gtk-glue.c:
+	R libmuine/gtk-glue.h:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Remove workarounds for Gtk# bugs that were fixed in Gtk# 0.18.
+	We depend on 0.18 now.
+
 2004-03-31  Edd Dumbill  <edd@usefulinc.com>
 
 	* libmuine/db.c: (db_unpack_string), (db_unpack_int),

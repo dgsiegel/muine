@@ -48,9 +48,7 @@ libmuine_la_SOURCES =			\
 	gettext-utils.c			\
 	gettext-utils.h			\
 	mm-keys.c			\
-	mm-keys.h			\
-	gtk-glue.c			\
-	gtk-glue.h
+	mm-keys.h
 	
 libmuine_la_LIBADD = id3-vfs/libid3-vfs.la egg/libegg.la $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS)
 

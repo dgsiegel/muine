@@ -21,7 +21,6 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Runtime.InteropServices; //FIXME
 
 using Gtk;
 using GLib;
@@ -1402,17 +1401,11 @@ public class PlaylistWindow : Window
 			NSongsChanged ();
 	}
 
-	[DllImport ("libgtk-win32-2.0-0.dll")]
-	private static extern void gtk_window_set_transient_for (IntPtr window, IntPtr parent);
-
 	public void AddChildWindowIfVisible (Window window)
 	{
 		if (WindowVisible)
 			window.TransientFor = this;
-		else {
-			/* FIXME this works around a Gtk# bug.. */
-			gtk_window_set_transient_for (window.Handle, IntPtr.Zero);
-			//window.TransientFor = null;
-		}
+		else
+			window.TransientFor = null;
 	}
 }
