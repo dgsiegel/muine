@@ -1,5 +1,12 @@
 2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+
+	Release 0.8.0.
+
+2005-01-09  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/NotificationAreaIcon.cs:
 
 	More comments back to where they belong.
