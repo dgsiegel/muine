@@ -114,14 +114,13 @@ namespace Muine
 		private bool block_play_pause_action = false;
 
 		/* toolbar widgets */
-		[Glade.Widget]
-		private Button previous_button;
-		[Glade.Widget]
-		private ToggleButton play_pause_button;
-		[Glade.Widget]
-		private Button next_button;
-		[Glade.Widget]
-		private Image play_pause_image;
+		[Glade.Widget] private ToggleButton play_pause_button;
+		[Glade.Widget] private Image        play_pause_image;
+		[Glade.Widget] private Button       previous_button;
+		[Glade.Widget] private Button       next_button;
+		[Glade.Widget] private Button       add_song_button;
+		[Glade.Widget] private Button       add_album_button;
+		
 		private VolumeButton volume_button;
 
 		/* player area */
@@ -471,35 +470,21 @@ namespace Muine
 
 		private void SetupMenus (Glade.XML glade_xml)
 		{
-			Global.Actions.Import.Activated += new EventHandler (OnImportFolder);
-			Global.Actions.Open.Activated += new EventHandler (OnOpenPlaylist);
-			Global.Actions.Save.Activated += new EventHandler (OnSavePlaylistAs);
-			Global.Actions.Visibility.Activated += new EventHandler (OnToggleWindowVisibility);
-			Global.Actions.Quit.Activated += new EventHandler (OnQuit);
-			Global.Actions.Previous.Activated += new EventHandler (OnPrevious);
-			Global.Actions.Next.Activated += new EventHandler (OnNext);
-			Global.Actions.SkipTo.Activated += new EventHandler (OnSkipTo);
-			Global.Actions.SkipBackwards.Activated += new EventHandler (OnSkipBackwards);
-			Global.Actions.SkipForward.Activated += new EventHandler (OnSkipForward);
-			Global.Actions.PlaySong.Activated += new EventHandler (OnPlaySong);
-			Global.Actions.PlayAlbum.Activated += new EventHandler (OnPlayAlbum);
-			Global.Actions.Remove.Activated += new EventHandler (OnRemoveSong);
-			Global.Actions.RemovePlayed.Activated += new EventHandler (OnRemovePlayedSongs);
-			Global.Actions.Clear.Activated += new EventHandler (OnClearPlaylist);
-			Global.Actions.Shuffle.Activated += new EventHandler (OnShuffle);
-			Global.Actions.About.Activated += new EventHandler (OnAbout);
-			
-			Global.Actions.PlayPause.Activated += new EventHandler (OnPlayPause);
-			Global.Actions.Repeat.Activated += new EventHandler (OnRepeat);
-
 			base.AddAccelGroup (Global.Actions.UIManager.AccelGroup);
 			((Box) glade_xml ["menu_bar_box"]).Add (Global.Actions.MenuBar);
 		}
 
 		private void SetupButtons (Glade.XML glade_xml)
 		{
-			Image image;
+			// Callbacks
+			play_pause_button.Clicked += new EventHandler (OnPlayPauseButtonClicked);
+			previous_button.Clicked   += new EventHandler (OnPreviousButtonClicked );
+			next_button.Clicked       += new EventHandler (OnNextButtonClicked     );
+			add_song_button.Clicked   += new EventHandler (OnAddSongButtonClicked  );
+			add_album_button.Clicked  += new EventHandler (OnAddAlbumButtonClicked );
 
+			// Images
+			Image image;
 			image = (Image) glade_xml ["play_pause_image"];
 			image.SetFromStock ("stock_media-play", IconSize.LargeToolbar);
 			image = (Image) glade_xml ["previous_image"];
@@ -511,6 +496,7 @@ namespace Muine
 			image = (Image) glade_xml ["add_album_image"];
 			image.SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
 
+			// Tooltips
 			tooltips = new Tooltips ();
 			tooltips.SetTip (play_pause_button, string_tooltip_play_pause, null);
 			tooltips.SetTip (previous_button  , string_tooltip_previous  , null);
@@ -518,6 +504,7 @@ namespace Muine
 			tooltips.SetTip (glade_xml ["add_album_button"], string_tooltip_add_album, null);
 			tooltips.SetTip (glade_xml ["add_song_button"] , string_tooltip_add_song , null);
 
+			// Volume
 			volume_button = new VolumeButton ();
 			((Container) glade_xml ["volume_button_container"]).Add (volume_button);
 			volume_button.Visible = true;
@@ -1110,6 +1097,11 @@ namespace Muine
 			args.RetVal = false;
 		}
 
+		public void Quit ()
+		{
+			Global.Exit ();
+		}
+
 		private void OnDeleteEvent (object o, DeleteEventArgs args)
 		{
 			Quit ();
@@ -1139,11 +1131,6 @@ namespace Muine
 
 			if (vol != Volume)
 				Volume = (int) args.Value;
-		}
-
-		private void OnToggleWindowVisibility (object o, EventArgs args)
-		{
-			WindowVisible = !WindowVisible;
 		}
 
 		private void OnQueueSongsEvent (List songs)
@@ -1339,19 +1326,6 @@ namespace Muine
 			player.Play ();
 		}
 
-		private void OnPrevious (object o, EventArgs args)
-		{
-			Previous ();
-		}
-
-		private void OnPlayPause (object o, EventArgs args)
-		{
-			if (block_play_pause_action)
-				return;
-
-			Playing = !Playing;
-		}
-
 		public void Next ()
 		{
 			if (playlist.HasNext)
@@ -1368,31 +1342,6 @@ namespace Muine
 			player.Play ();
 		}
 
-		private void OnNext (object o, EventArgs args)
-		{
-			Next ();
-		}
-
-		private void OnSkipTo (object o, EventArgs args)
-		{
-			playlist.Select (playlist.Playing);
-
-			if (skip_to_window == null)
-				skip_to_window = new SkipToWindow (this, player);
-
-			skip_to_window.Run ();
-		}
-
-		private void OnSkipBackwards (object o, EventArgs args)
-		{
-			SeekTo (player.Position - 5);
-		}
-
-		private void OnSkipForward (object o, EventArgs args)
-		{
-			SeekTo (player.Position + 5);
-		}
-
 		public void PlaySong ()
 		{
 			if (add_song_window == null) {
@@ -1407,11 +1356,6 @@ namespace Muine
 			AddChildWindowIfVisible (add_song_window);
 		}
 
-		private void OnPlaySong (object o, EventArgs args)
-		{
-			PlaySong ();
-		}
-
 		public void PlayAlbum ()
 		{
 			if (add_album_window == null) {
@@ -1424,164 +1368,6 @@ namespace Muine
 			add_album_window.Run ();
 
 			AddChildWindowIfVisible (add_album_window);
-		}
-
-		private void OnPlayAlbum (object o, EventArgs args)
-		{
-			PlayAlbum ();
-		}
-
-		private void OnImportFolder (object o, EventArgs args) 
-		{
-			FileChooserDialog fc;
-
-			fc = new FileChooserDialog (string_title_import, this,
-						    FileChooserAction.SelectFolder);
-			fc.LocalOnly = true;
-			fc.SelectMultiple = true;
-			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
-			fc.AddButton (string_button_import, ResponseType.Ok);
-			fc.DefaultResponse = ResponseType.Ok;
-			
-			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
-
-			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
-
-			fc.SetCurrentFolder (start_dir);
-
-			if (fc.Run () != (int) ResponseType.Ok) {
-				fc.Destroy ();
-
-				return;
-			}
-
-			fc.Visible = false;
-
-			Config.Set (GConfKeyImportFolder, fc.CurrentFolder);
-
-			ArrayList new_dinfos = new ArrayList ();
-			foreach (string dir in fc.Filenames) {
-				DirectoryInfo dinfo = new DirectoryInfo (dir);
-				
-				if (dinfo.Exists)
-					new_dinfos.Add (dinfo);
-			}
-
-			if (new_dinfos.Count > 0)
-				Global.DB.AddFolders (new_dinfos);
-
-			fc.Destroy ();
-		}
-
-		private void OnOpenPlaylist (object o, EventArgs args)
-		{
-			FileSelector sel = new FileSelector (string_title_open, this, FileChooserAction.Open,
-							     "/apps/muine/default_playlist_folder");
-
-			FileFilter filter = new FileFilter ();
-			filter.Name = string_open_filter;
-			filter.AddMimeType ("audio/x-mpegurl");
-			filter.AddPattern ("*.m3u");
-			sel.AddFilter (filter);
-
-			string fn = sel.GetFile ();
-
-			if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
-				return;
-
-			if (FileUtils.Exists (fn))
-				OpenPlaylist (fn);
-		}
-
-		private void OnSavePlaylistAs (object o, EventArgs args)
-		{
-			FileSelector sel = new FileSelector (string_title_save, this, FileChooserAction.Save,
-							     "/apps/muine/default_playlist_folder");
-			sel.CurrentName = string_save_default;
-
-			string fn = sel.GetFile ();
-
-			if (fn.Length == 0)
-				return;
-
-			/* make sure the extension is ".m3u" */
-			if (!FileUtils.IsPlaylist (fn))
-				fn += ".m3u";
-
-			if (FileUtils.Exists (fn)) {
-				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), this);
-				if (d.GetAnswer ())
-					SavePlaylist (fn, false, false);
-			} else
-				SavePlaylist (fn, false, false);
-		}
-
-		private void OnRemoveSong (object o, EventArgs args)
-		{
-			List selected_pointers = playlist.SelectedPointers;
-
-			int counter = 0, selected_pointers_count = selected_pointers.Count;
-			bool song_changed = false;
-
-			ignore_song_change = true; // Hack to improve performance-
-						   // only load new song once
-
-			foreach (int i in selected_pointers) {
-				IntPtr sel = new IntPtr (i);
-
-				if (sel == playlist.Playing) {
-					OnPlayingSongRemoved ();
-					
-					song_changed = true;
-				}
-				
-				if (counter == selected_pointers_count - 1) {
-					if (!playlist.SelectNext ())
-						playlist.SelectPrevious ();
-				}
-
-				RemoveSong (sel);
-
-				counter ++;
-			}
-
-			ignore_song_change = false;
-
-			if (song_changed)
-				SongChanged (true);
-
-			PlaylistChanged ();
-		}
-
-		private void OnRemovePlayedSongs (object o, EventArgs args)
-		{
-			if (playlist.Playing == IntPtr.Zero)
-				return;
-
-			if (had_last_eos) {
-				ClearPlaylist ();
-				PlaylistChanged ();
-				return;
-			}
-
-			foreach (int i in playlist.Contents) {
-				IntPtr current = new IntPtr (i);
-
-				if (current == playlist.Playing)
-					break;
-
-				RemoveSong (current);
-			}
-
-			playlist.Select (playlist.Playing);
-
-			PlaylistChanged ();
-		}
-
-		private void OnClearPlaylist (object o, EventArgs args)
-		{
-			ClearPlaylist ();
-			PlaylistChanged ();
 		}
 
 		private bool setting_repeat = false;
@@ -1599,14 +1385,6 @@ namespace Muine
 			}
 
 			get { return Global.Actions.Repeat.Active; }
-		}
-
-		private void OnRepeat (object o, EventArgs args)
-		{
-			if (setting_repeat)
-				return;
-
-			this.Repeat = Global.Actions.Repeat.Active;
 		}
 
 		private void OnConfigRepeatChanged (object o, GConf.NotifyEventArgs args)
@@ -1632,31 +1410,6 @@ namespace Muine
 				return 0;
 		}
 
-		private void OnShuffle (object o, EventArgs args)
-		{
-			Random rand = new Random ();
-
-			random_sort_keys = new Hashtable ();
-
-			foreach (int i in playlist.Contents) {
-				Song song = Song.FromHandle ((IntPtr) i);
-
-				if (i == (int) playlist.Playing)
-					random_sort_keys.Add (i, -1.0);
-				else
-					random_sort_keys.Add (i, rand.NextDouble ());
-			}
-
-			playlist.Sort (new HandleView.CompareFunc (ShuffleFunc));
-
-			random_sort_keys = null;
-
-			PlaylistChanged ();
-
-			if (playlist.Playing != IntPtr.Zero)
-				playlist.Select (playlist.Playing);
-		}
-
 		private void OnPlaylistRowActivated (IntPtr handle)
 		{
 			playlist.Playing = handle;
@@ -1675,21 +1428,6 @@ namespace Muine
 		{
 			if (!ignore_song_change)
 				SongChanged (true);
-		}
-
-		public void Quit ()
-		{
-			Global.Exit ();
-		}
-
-		private void OnQuit (object o, EventArgs args)
-		{
-			Quit ();
-		}
-
-		private void OnAbout (object o, EventArgs args)
-		{
-			About.ShowWindow (this);
 		}
 
 		private void OnSongChanged (Song song)
@@ -2009,6 +1747,251 @@ namespace Muine
 			}
 
 			Drag.Finish (args.Context, success, false, args.Time);
+		}
+		
+		public void RunImportDialog ()
+		{
+			FileChooserDialog fc;
+
+			fc = new FileChooserDialog (string_title_import, this,
+						    FileChooserAction.SelectFolder);
+			fc.LocalOnly = true;
+			fc.SelectMultiple = true;
+			fc.AddButton (Stock.Cancel, ResponseType.Cancel);
+			fc.AddButton (string_button_import, ResponseType.Ok);
+			fc.DefaultResponse = ResponseType.Ok;
+			
+			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
+
+			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
+
+			fc.SetCurrentFolder (start_dir);
+
+			if (fc.Run () != (int) ResponseType.Ok) {
+				fc.Destroy ();
+
+				return;
+			}
+
+			fc.Visible = false;
+
+			Config.Set (GConfKeyImportFolder, fc.CurrentFolder);
+
+			ArrayList new_dinfos = new ArrayList ();
+			foreach (string dir in fc.Filenames) {
+				DirectoryInfo dinfo = new DirectoryInfo (dir);
+				
+				if (dinfo.Exists)
+					new_dinfos.Add (dinfo);
+			}
+
+			if (new_dinfos.Count > 0)
+				Global.DB.AddFolders (new_dinfos);
+
+			fc.Destroy ();
+		}
+		
+		public void RunOpenDialog ()
+		{
+			FileSelector sel = new FileSelector (string_title_open, this, FileChooserAction.Open,
+							     "/apps/muine/default_playlist_folder");
+
+			FileFilter filter = new FileFilter ();
+			filter.Name = string_open_filter;
+			filter.AddMimeType ("audio/x-mpegurl");
+			filter.AddPattern ("*.m3u");
+			sel.AddFilter (filter);
+
+			string fn = sel.GetFile ();
+
+			if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
+				return;
+
+			if (FileUtils.Exists (fn))
+				OpenPlaylist (fn);
+		}
+		
+		public void RunSaveDialog ()
+		{
+			FileSelector sel = new FileSelector (string_title_save, this, FileChooserAction.Save,
+							     "/apps/muine/default_playlist_folder");
+
+			sel.CurrentName = string_save_default;
+
+			string fn = sel.GetFile ();
+
+			if (fn.Length == 0)
+				return;
+
+			/* make sure the extension is ".m3u" */
+			if (!FileUtils.IsPlaylist (fn))
+				fn += ".m3u";
+
+			if (FileUtils.Exists (fn)) {
+				YesNoDialog d = new YesNoDialog (String.Format (string_overwrite, FileUtils.MakeHumanReadable (fn)), this);
+				if (d.GetAnswer ())
+					SavePlaylist (fn, false, false);
+			} else
+				SavePlaylist (fn, false, false);
+		}
+
+		public void RunSkipToDialog ()
+		{
+			playlist.Select (playlist.Playing);
+
+			if (skip_to_window == null)
+				skip_to_window = new SkipToWindow (this, player);
+
+			skip_to_window.Run ();
+		}
+				
+		public void ToggleVisibility ()
+		{
+			WindowVisible = !WindowVisible;
+		}
+		
+		public void SkipBackwards ()
+		{				
+			SeekTo (player.Position - 5);
+		}
+		
+		public void SkipForward ()
+		{
+			SeekTo (player.Position + 5);
+		}
+		
+		public void RemoveSelectedSong ()
+		{
+			List selected_pointers = playlist.SelectedPointers;
+
+			int counter = 0, selected_pointers_count = selected_pointers.Count;
+			bool song_changed = false;
+
+			ignore_song_change = true; // Hack to improve performance-
+						   // only load new song once
+
+			foreach (int i in selected_pointers) {
+				IntPtr sel = new IntPtr (i);
+
+				if (sel == playlist.Playing) {
+					OnPlayingSongRemoved ();
+					
+					song_changed = true;
+				}
+				
+				if (counter == selected_pointers_count - 1) {
+					if (!playlist.SelectNext ())
+						playlist.SelectPrevious ();
+				}
+
+				RemoveSong (sel);
+
+				counter ++;
+			}
+
+			ignore_song_change = false;
+
+			if (song_changed)
+				SongChanged (true);
+
+			PlaylistChanged ();
+		}
+		
+		public void RemovePlayedSongs ()
+		{
+			if (playlist.Playing == IntPtr.Zero)
+				return;
+
+			if (had_last_eos) {
+				ClearPlaylist ();
+				PlaylistChanged ();
+				return;
+			}
+
+			foreach (int i in playlist.Contents) {
+				IntPtr current = new IntPtr (i);
+
+				if (current == playlist.Playing)
+					break;
+
+				RemoveSong (current);
+			}
+
+			playlist.Select (playlist.Playing);
+
+			PlaylistChanged ();
+		}
+		
+		public void Clear ()
+		{
+			ClearPlaylist ();
+			PlaylistChanged ();
+		}
+		
+		public void Shuffle ()
+		{
+			Random rand = new Random ();
+
+			random_sort_keys = new Hashtable ();
+
+			foreach (int i in playlist.Contents) {
+				Song song = Song.FromHandle ((IntPtr) i);
+
+				if (i == (int) playlist.Playing)
+					random_sort_keys.Add (i, -1.0);
+				else
+					random_sort_keys.Add (i, rand.NextDouble ());
+			}
+
+			playlist.Sort (new HandleView.CompareFunc (ShuffleFunc));
+
+			random_sort_keys = null;
+
+			PlaylistChanged ();
+
+			if (playlist.Playing != IntPtr.Zero)
+				playlist.Select (playlist.Playing);
+		}
+		
+		public void TogglePlaying ()
+		{
+			if (block_play_pause_action)
+				return;
+
+			Playing = !Playing;
+		}
+		
+		public void ToggleRepeat ()
+		{
+			if (setting_repeat)
+				return;
+
+			this.Repeat = Global.Actions.Repeat.Active;
+		}
+
+		private void OnPlayPauseButtonClicked (object o, EventArgs args)
+		{
+			Global.Actions.PlayPause.Activate ();
+		}
+		
+		private void OnPreviousButtonClicked (object o, EventArgs args)
+		{
+			Global.Actions.Previous.Activate ();
+		}
+		
+		private void OnNextButtonClicked (object o, EventArgs args)
+		{
+			Global.Actions.Next.Activate ();
+		}
+		
+		private void OnAddSongButtonClicked (object o, EventArgs args)
+		{
+			Global.Actions.PlaySong.Activate ();
+		}
+		
+		private void OnAddAlbumButtonClicked (object o, EventArgs args)
+		{
+			Global.Actions.PlayAlbum.Activate ();
 		}
 	}
 }

@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.IO;
 using System.Collections;
 
 using Mono.Posix;
@@ -77,6 +78,7 @@ namespace Muine
 		private static readonly string string_repeat =
 			Catalog.GetString ("R_epeat");
 
+		// Entries
 		private static ActionEntry [] entries = new ActionEntry [] {
 			new ActionEntry ("FileMenu", null, string_file,
 					 null, null, null),
@@ -104,7 +106,7 @@ namespace Muine
 
 			new ActionEntry ("Quit", Stock.Quit, null,
 					 "<control>Q", null, null),
-
+			
 			new ActionEntry ("PreviousSong", "stock_media-prev", string_previous,
 					 "P", null, null),
 
@@ -142,12 +144,13 @@ namespace Muine
 					 null, null, null)
 		};
 
+		// Toggle Entries
 		private static ToggleActionEntry [] toggle_entries = new ToggleActionEntry [] {
 			new ToggleActionEntry ("PlayPause", "stock_media-play", string_play,
 					       "space", null, null, false),
 
 			new ToggleActionEntry ("Repeat", null, string_repeat,
-					       "<control>R", null, null, false)
+					       "<control>R", null, null, false),
 		};
 		
 		// Static Properties
@@ -179,7 +182,29 @@ namespace Muine
 
 			ui_manager.InsertActionGroup (action_group, 0);
 			ui_manager.AddUiFromResource ("PlaylistWindow.xml");
+			
+			// Setup Callbacks
+                        this.Import.Activated += new EventHandler (OnImportFolder);
+                        this.Open.Activated += new EventHandler (OnOpenPlaylist);
+                        this.Save.Activated += new EventHandler (OnSavePlaylistAs);
+                        this.Visibility.Activated += new EventHandler (OnToggleWindowVisibility);
+                        this.Quit.Activated += new EventHandler (OnQuit);
+                        this.Previous.Activated += new EventHandler (OnPrevious);
+                        this.Next.Activated += new EventHandler (OnNext);
+                        this.SkipTo.Activated += new EventHandler (OnSkipTo);
+                        this.SkipBackwards.Activated += new EventHandler (OnSkipBackwards);
+                        this.SkipForward.Activated += new EventHandler (OnSkipForward);
+                        this.PlaySong.Activated += new EventHandler (OnPlaySong);
+                        this.PlayAlbum.Activated += new EventHandler (OnPlayAlbum);
+                        this.Remove.Activated += new EventHandler (OnRemoveSong);
+                        this.RemovePlayed.Activated += new EventHandler (OnRemovePlayedSongs);
+                        this.Clear.Activated += new EventHandler (OnClearPlaylist);
+                        this.Shuffle.Activated += new EventHandler (OnShuffle);
+                        this.About.Activated += new EventHandler (OnAbout);
 
+                        this.PlayPause.Activated += new EventHandler (OnPlayPause);
+                        this.Repeat.Activated += new EventHandler (OnRepeat);
+			
 		}
 		
 		// Properties
@@ -265,6 +290,102 @@ namespace Muine
 				
 		public Gtk.Widget MenuBar {
 			get { return ui_manager.GetWidget ("/MenuBar"); }
+		}
+		
+		// Handlers
+		private void OnImportFolder (object o, EventArgs args) 
+		{
+			Global.Playlist.RunImportDialog ();
+		}
+
+		private void OnOpenPlaylist (object o, EventArgs args)
+		{
+			Global.Playlist.RunOpenDialog ();
+		}
+
+		private void OnSavePlaylistAs (object o, EventArgs args)
+		{
+			Global.Playlist.RunSaveDialog ();
+		}
+		
+		private void OnToggleWindowVisibility (object o, EventArgs args)
+		{
+			Global.Playlist.ToggleVisibility ();
+		}
+
+		private void OnQuit (object o, EventArgs args)
+		{
+			Global.Playlist.Quit ();
+		}
+
+		private void OnPrevious (object o, EventArgs args)
+		{
+			Global.Playlist.Previous ();
+		}
+		
+		private void OnNext (object o, EventArgs args)
+		{
+			Global.Playlist.Next ();
+		}
+		
+		private void OnSkipTo (object o, EventArgs args)
+		{
+			Global.Playlist.RunSkipToDialog ();
+		}
+
+		private void OnSkipBackwards (object o, EventArgs args)
+		{
+			Global.Playlist.SkipBackwards ();
+		}
+
+		private void OnSkipForward (object o, EventArgs args)
+		{
+			Global.Playlist.SkipForward ();
+		}
+
+		private void OnPlaySong (object o, EventArgs args)
+		{
+			Global.Playlist.PlaySong ();
+		}
+
+		private void OnPlayAlbum (object o, EventArgs args)
+		{
+			Global.Playlist.PlayAlbum ();
+		}
+
+		private void OnRemoveSong (object o, EventArgs args)
+		{
+			Global.Playlist.RemoveSelectedSong ();
+		}
+
+		private void OnRemovePlayedSongs (object o, EventArgs args)
+		{
+			Global.Playlist.RemovePlayedSongs ();
+		}
+
+		private void OnClearPlaylist (object o, EventArgs args)
+		{
+			Global.Playlist.Clear ();
+		}
+
+		private void OnShuffle (object o, EventArgs args)
+		{
+			Global.Playlist.Shuffle ();
+		}
+
+		private void OnAbout (object o, EventArgs args)
+		{
+			Muine.About.ShowWindow (Global.Playlist);
+		}
+		
+		private void OnPlayPause (object o, EventArgs args)
+		{
+			Global.Playlist.TogglePlaying ();
+		}
+
+		private void OnRepeat (object o, EventArgs args)
+		{
+			Global.Playlist.ToggleRepeat ();
 		}
 	}
 }
