@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-23 05:00+0100\n"
-"PO-Revision-Date: 2004-01-23 17:36+0100\n"
+"POT-Creation-Date: 2004-02-10 15:43+0100\n"
+"PO-Revision-Date: 2004-02-10 20:19+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "_Fronta"
 msgid "_Search:"
 msgstr "_Hledat:"
 
-#: data/glade/ErrorDialog.glade.h:1
+#: data/glade/ErrorDialog.glade.h:1 data/glade/YesNoDialog.glade.h:1
 msgid "ERROR MESSAGE"
 msgstr "ZPRÁVA O CHYBĚ"
 
@@ -44,87 +44,133 @@ msgstr "ZPRÁVA O CHYBĚ"
 msgid "Error"
 msgstr "Chyba"
 
+#: data/glade/GroupsWindow.glade.h:1
+msgid "<b>Groups</b>"
+msgstr "<b>Skupiny</b>"
+
+#: data/glade/GroupsWindow.glade.h:2
+msgid "<b>Songs</b> (30 minutes in total)"
+msgstr "<b>Skladby</b> (celkem 30 minut)"
+
+#: data/glade/GroupsWindow.glade.h:3
+msgid "Groups"
+msgstr "Skupiny"
+
+#: data/glade/GroupsWindow.glade.h:4
+msgid "_Add song"
+msgstr "_Přidat skladbu"
+
+#: data/glade/NoMusicFoundWindow.glade.h:1
+msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Nebyla nalezena žádná hudba</span>"
+
+#: data/glade/NoMusicFoundWindow.glade.h:2
+msgid ""
+"Muine was unable to find your music collection. What would you like me to do?"
+msgstr "Muine nemohl najít vaši sbírku hudby. Co chcete, abych udělal?"
+
+#: data/glade/NoMusicFoundWindow.glade.h:3
+msgid ""
+"Muine will create the folders Music and Music/Playlists in your home folder "
+"to store your music files. This option is highly recommended. You can always "
+"import other folders manually."
+msgstr "Muine vytvoří adresáře Music a Music/Playlists ve vašem domovském adresáři pro ukládání vašich souborů hudby. Tato možnost se velice doporučuje. Jiné adresáře můžete kdykoli importovat ručně."
+
+#: data/glade/NoMusicFoundWindow.glade.h:4
+msgid "No Music Found"
+msgstr "Nenalezena žádná hudba"
+
+#: data/glade/NoMusicFoundWindow.glade.h:5
+msgid ""
+"You will have to import your music manually. This is for experienced users "
+"only and therefor not generally recommended."
+msgstr "Budete muset svou hudbu importovat ručně. Toto je jen pro zkušené uživatele a proto se obecně nedoporučuje."
+
+#: data/glade/NoMusicFoundWindow.glade.h:6
+msgid "_Create an empty music collection "
+msgstr "_Vytořit prázdnou sbírku hudby."
+
+#: data/glade/NoMusicFoundWindow.glade.h:7
+msgid "_Nothing, I will manage my music myself"
+msgstr "_Nic, budu svou hudbu spravovat sám"
+
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "Add _Album"
-msgstr "Přidat _album"
+msgid "Play _Album"
+msgstr "Přehávat _album"
 
 #: data/glade/PlaylistWindow.glade.h:2
-msgid "Add _Album..."
-msgstr "Přidat _album..."
+msgid "Play _Album..."
+msgstr "Přehrávat _album..."
 
 #: data/glade/PlaylistWindow.glade.h:3
-msgid "Add _Song"
-msgstr "Přidat _skladbu"
+msgid "Play _Song"
+msgstr "Přehrávat _skladbu"
 
 #: data/glade/PlaylistWindow.glade.h:4
-msgid "Add _Song..."
-msgstr "Přidat _skladbu..."
+msgid "Play _Song..."
+msgstr "Přehrávat _skladbu..."
 
 #: data/glade/PlaylistWindow.glade.h:5
+msgid "R_epeat"
+msgstr "_Opakovat"
+
+#: data/glade/PlaylistWindow.glade.h:6
 msgid "Remove _Played Songs"
 msgstr "Odstranit _přehrávané skladby"
 
-#: data/glade/PlaylistWindow.glade.h:6
+#: data/glade/PlaylistWindow.glade.h:7
 msgid "Skip _Backwards"
 msgstr "Přeskočit _zpět"
 
-#: data/glade/PlaylistWindow.glade.h:7
+#: data/glade/PlaylistWindow.glade.h:8
 msgid "Skip _Forward"
 msgstr "Přeskočit _vpřed"
 
-#: data/glade/PlaylistWindow.glade.h:8
+#: data/glade/PlaylistWindow.glade.h:9
 msgid "TMP"
 msgstr "TMP"
 
-#: data/glade/PlaylistWindow.glade.h:9
+#: data/glade/PlaylistWindow.glade.h:10
 msgid "_Clear Playlist"
 msgstr "_Vymazat seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "_Fill queue with random songs from selected groups"
-msgstr "_Naplnit frontu náhodnými skladbami z vybraných skupin"
-
 #: data/glade/PlaylistWindow.glade.h:11
-msgid "_Groups"
-msgstr "_Skupiny"
-
-#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Hide Window"
 msgstr "_Skrýt okno"
 
-#: data/glade/PlaylistWindow.glade.h:13
+#: data/glade/PlaylistWindow.glade.h:12
 msgid "_Import Folder..."
 msgstr "_Importovat adresář..."
 
-#: data/glade/PlaylistWindow.glade.h:14
+#: data/glade/PlaylistWindow.glade.h:13
 msgid "_Next"
 msgstr "_Následující"
 
-#: data/glade/PlaylistWindow.glade.h:15
+#: data/glade/PlaylistWindow.glade.h:14
 msgid "_Open Playlist..."
 msgstr "_Otevřít seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:16
+#: data/glade/PlaylistWindow.glade.h:15
 msgid "_Playlist"
 msgstr "_Seznam skladeb"
 
-#: data/glade/PlaylistWindow.glade.h:17
+#: data/glade/PlaylistWindow.glade.h:16
 msgid "_Previous"
 msgstr "_Předchozí"
 
-#: data/glade/PlaylistWindow.glade.h:18
+#: data/glade/PlaylistWindow.glade.h:17
 msgid "_Remove Song"
 msgstr "_Odstranit skladbu"
 
-#: data/glade/PlaylistWindow.glade.h:19
+#: data/glade/PlaylistWindow.glade.h:18
 msgid "_Save Playlist As..."
 msgstr "_Uložit seznam skladeb jako..."
 
-#: data/glade/PlaylistWindow.glade.h:20
+#: data/glade/PlaylistWindow.glade.h:19
 msgid "_Skip to..."
 msgstr "_Přeskočit na ..."
 
-#: data/glade/PlaylistWindow.glade.h:21
+#: data/glade/PlaylistWindow.glade.h:20
 msgid "_Song"
 msgstr "_Skladba"
 
@@ -135,6 +181,10 @@ msgstr "Načítám:"
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Přeskočit na"
+
+#: data/glade/YesNoDialog.glade.h:2
+msgid "Question"
+msgstr "Otázka"
 
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -161,108 +211,60 @@ msgid "Add song window width."
 msgstr "Šířka okna přidání skladby."
 
 #: data/muine.schemas.in.h:5
-msgid "Default \"Open Playlist\" folder."
-msgstr "Implicitní adresář \"Otevřít seznam skladeb\"."
-
-#: data/muine.schemas.in.h:6
-msgid "Default \"Save Playlist As\" folder."
-msgstr "Implicitní adresář \"Uložit seznam skladeb jako\"."
-
-#: data/muine.schemas.in.h:7
 msgid "Default import folder."
 msgstr "Implicitní adresář importu."
 
+#: data/muine.schemas.in.h:6
+msgid "Default playlist folder."
+msgstr "Implicitní adresář seznamů skladeb."
+
+#: data/muine.schemas.in.h:7
+msgid "First start."
+msgstr "První spuštění."
+
 #: data/muine.schemas.in.h:8
+msgid "Folders that are monitored for changes."
+msgstr "Adresáře, ve kterých jsou sledovány změny."
+
+#: data/muine.schemas.in.h:9
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Poslední používaný adresář z dialogu \"Importovat adresář\""
 
-#: data/muine.schemas.in.h:9
-msgid "Last used folder from \"Open Playlist\" dialog."
-msgstr "Poslední používaný adresář z dialogu \"Otevřít seznam skladeb\"."
-
 #: data/muine.schemas.in.h:10
-msgid "Last used folder from \"Save Playlist As\" dialog."
-msgstr "Poslední používaný adresář z dialogu \"Uložit seznam skladeb jako\"."
+msgid "Last used folder from the playlist file selectors."
+msgstr "Poslední používaný adresář z výběru souboru seznamu skladeb."
 
 #: data/muine.schemas.in.h:11
 msgid "Playlist window height."
 msgstr "Výška okna seznamu skladeb."
 
 #: data/muine.schemas.in.h:12
-msgid "Playlist window visibility."
-msgstr "Viditelnost okna seznamu skladeb."
-
-#: data/muine.schemas.in.h:13
-msgid "Playlist window visible (true) or not (false)."
-msgstr "Okno seznamu skladeb je (true) nebo není (false) viditelné."
-
-#: data/muine.schemas.in.h:14
 msgid "Playlist window width."
 msgstr "Šířka okna seznamu skladeb."
 
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:13
+msgid "Repeat mode."
+msgstr "Režim opakování."
+
+#: data/muine.schemas.in.h:14
 msgid "Volume level."
 msgstr "Úroveň hlasitosti."
 
-#: data/muine.schemas.in.h:16
+#: data/muine.schemas.in.h:15
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Úroveň hlasitosti. 0 = nejnižší, 100 = nejvyšší.."
 
-#: libmuine/egg/eggstatusicon.c:154
-msgid "Pixbuf"
-msgstr "Pixbuf"
+#: data/muine.schemas.in.h:16
+msgid "Watched folders."
+msgstr "Sledované adresáře."
 
-#: libmuine/egg/eggstatusicon.c:155
-msgid "A GdkPixbuf to display"
-msgstr "GdkPixbuf, který zobrazovat"
+#: data/muine.schemas.in.h:17
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Jestli povolit režim opakování seznamu skladeb."
 
-#: libmuine/egg/eggstatusicon.c:162
-msgid "Filename"
-msgstr "Název souboru"
-
-#: libmuine/egg/eggstatusicon.c:163
-msgid "Filename to load and display"
-msgstr "Název souboru, který načíst a zobrazovat"
-
-#: libmuine/egg/eggstatusicon.c:170
-msgid "Stock ID"
-msgstr "Standardní ID"
-
-#: libmuine/egg/eggstatusicon.c:171
-msgid "Stock ID for a stock image to display"
-msgstr "ID standardního obrázku, který zobrazovat"
-
-#: libmuine/egg/eggstatusicon.c:178
-msgid "Animation"
-msgstr "Animace"
-
-#: libmuine/egg/eggstatusicon.c:179
-msgid "GdkPixbufAnimation to display"
-msgstr "GdkPixbufAnimation, kterou zobrazovat"
-
-#: libmuine/egg/eggstatusicon.c:186
-msgid "Image type"
-msgstr "Typ obrázku"
-
-#: libmuine/egg/eggstatusicon.c:187
-msgid "The representation being used for image data"
-msgstr "Reprezentace používaná pro data obrázku"
-
-#: libmuine/egg/eggstatusicon.c:195
-msgid "Size"
-msgstr "Velikost"
-
-#: libmuine/egg/eggstatusicon.c:196
-msgid "The size of the icon"
-msgstr "Velikost ikony"
-
-#: libmuine/egg/eggstatusicon.c:205
-msgid "Blinking"
-msgstr "Bliká"
-
-#: libmuine/egg/eggstatusicon.c:206
-msgid "Whether or not the status icon is blinking"
-msgstr "Jestli ikona stavu bliká"
+#: data/muine.schemas.in.h:18
+msgid "false if Muine has been started before."
+msgstr "false, pokud byl již Muine spuštěn dříve."
 
 #: libmuine/egg/eggtrayicon.c:118 libmuine/egg/eggtraymanager.c:145
 msgid "Orientation"
@@ -271,6 +273,64 @@ msgstr "Orientace"
 #: libmuine/egg/eggtrayicon.c:119 libmuine/egg/eggtraymanager.c:146
 msgid "The orientation of the tray."
 msgstr "Orientace oznamovací oblasti."
+
+#~ msgid "_Fill queue with random songs from selected groups"
+#~ msgstr "_Naplnit frontu náhodnými skladbami z vybraných skupin"
+
+#~ msgid "Default \"Save Playlist As\" folder."
+#~ msgstr "Implicitní adresář \"Uložit seznam skladeb jako\"."
+
+#~ msgid "Last used folder from \"Save Playlist As\" dialog."
+#~ msgstr ""
+#~ "Poslední používaný adresář z dialogu \"Uložit seznam skladeb jako\"."
+
+#~ msgid "Playlist window visibility."
+#~ msgstr "Viditelnost okna seznamu skladeb."
+
+#~ msgid "Playlist window visible (true) or not (false)."
+#~ msgstr "Okno seznamu skladeb je (true) nebo není (false) viditelné."
+
+#~ msgid "Pixbuf"
+#~ msgstr "Pixbuf"
+
+#~ msgid "A GdkPixbuf to display"
+#~ msgstr "GdkPixbuf, který zobrazovat"
+
+#~ msgid "Filename"
+#~ msgstr "Název souboru"
+
+#~ msgid "Filename to load and display"
+#~ msgstr "Název souboru, který načíst a zobrazovat"
+
+#~ msgid "Stock ID"
+#~ msgstr "Standardní ID"
+
+#~ msgid "Stock ID for a stock image to display"
+#~ msgstr "ID standardního obrázku, který zobrazovat"
+
+#~ msgid "Animation"
+#~ msgstr "Animace"
+
+#~ msgid "GdkPixbufAnimation to display"
+#~ msgstr "GdkPixbufAnimation, kterou zobrazovat"
+
+#~ msgid "Image type"
+#~ msgstr "Typ obrázku"
+
+#~ msgid "The representation being used for image data"
+#~ msgstr "Reprezentace používaná pro data obrázku"
+
+#~ msgid "Size"
+#~ msgstr "Velikost"
+
+#~ msgid "The size of the icon"
+#~ msgstr "Velikost ikony"
+
+#~ msgid "Blinking"
+#~ msgstr "Bliká"
+
+#~ msgid "Whether or not the status icon is blinking"
+#~ msgstr "Jestli ikona stavu bliká"
 
 #~ msgid "Volume _Down"
 #~ msgstr "S_nížit hlasitost"
