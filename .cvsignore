@@ -17,7 +17,6 @@ intl
 libtool
 ltconfig
 ltmain.sh
-m4
 missing
 mkinstalldirs
 stamp*
