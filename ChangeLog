@@ -1,3 +1,10 @@
+2004-06-05  iain  <iain@prettypeople.org>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
+	DNDing an album to the playlist window will import it.
+
 2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:

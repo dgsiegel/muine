@@ -90,6 +90,15 @@ public class PlaylistWindow : Window
 	/* Multimedia Key handler */
 	private MmKeys mmkeys;
 
+	/* Drag and drop targets. */
+	private enum TargetType {
+		UriList
+	};
+
+	private static TargetEntry [] drag_entries = new TargetEntry [] {
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+	};
+
 	public PlaylistWindow () : base (WindowType.Toplevel)
 	{
 		/* build the interface */
@@ -102,6 +111,9 @@ public class PlaylistWindow : Window
 
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 		DeleteEvent += new DeleteEventHandler (HandleDeleteEvent);
+		DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
+		Gtk.Drag.DestSet (this, DestDefaults.All,
+				  drag_entries, Gdk.DragAction.Copy);
 
 		/* keep track of window visibility */
 		VisibilityNotifyEvent += new VisibilityNotifyEventHandler (HandleWindowVisibilityNotifyEvent);
@@ -147,6 +159,40 @@ public class PlaylistWindow : Window
 		/* put on the screen immediately please */
 		while (MainContext.Pending ())
 			Main.Iteration ();
+	}
+
+	private void HandleDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		string data = StringUtils.SelectionDataToString (args.SelectionData);
+		string [] uri_list;
+		string fn;
+
+		switch (args.Info) {
+		case (uint) TargetType.UriList:
+			uri_list = Regex.Split (data, "\r\n");
+			fn = StringUtils.LocalPathFromUri (uri_list [0]);
+
+			if (fn == null) {
+				Drag.Finish (args.Context, false, false, args.Time);
+				return;
+			}
+				
+			break;
+
+		default:
+			Drag.Finish (args.Context, false, false, args.Time);
+			return;
+		}
+
+		DirectoryInfo dinfo = new DirectoryInfo (fn);
+		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+		
+		Muine.DB.AddWatchedFolder (dinfo.FullName);
+		HandleDirectory (dinfo, pw);
+		
+		pw.Done ();
+
+		Drag.Finish (args.Context, true, false, args.Time);
 	}
 
 	public void CheckFirstStartUp () 
