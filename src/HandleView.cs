@@ -28,11 +28,32 @@ namespace Muine
 {
 	public class HandleView : TreeView
 	{
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_new ();
+		// Events
+		public new delegate void RowActivatedHandler (IntPtr handle);
+		public new event HandleView.RowActivatedHandler RowActivated;
 
+		public delegate void SelectionChangedHandler ();
+		public event SelectionChangedHandler SelectionChanged;
+
+		public delegate void PlayingChangedHandler (IntPtr handle);
+		public event PlayingChangedHandler PlayingChanged;
+
+		// Delegates
+		// Delegates :: Public
+		public delegate void CellDataFunc (HandleView view, CellRenderer renderer, IntPtr handle);
+		public delegate int  CompareFunc  (IntPtr a, IntPtr b);
+		
+		// Delegates :: Private
 		private SignalUtils.SignalDelegatePtr pointer_activated_cb;
 		private SignalUtils.SignalDelegatePtr selection_changed_cb;
+
+		// Delegates :: Internal
+		internal delegate void CellDataFuncNative (IntPtr view, IntPtr renderer, IntPtr handle);
+		internal delegate int  CompareFuncNative  (IntPtr a, IntPtr b);
+
+		// Constructor
+		[DllImport ("libmuine")]
+		private static extern IntPtr pointer_list_view_new ();
 
 		public HandleView () : base (IntPtr.Zero)
 		{
@@ -45,103 +66,145 @@ namespace Muine
 			SignalUtils.SignalConnect (Raw, "selection_changed", selection_changed_cb);
 		}
 
+		// Destructor
 		~HandleView ()
 		{
 			Dispose ();
 		}
-
+		
+		// Properties
+		// Properties :: SortFunc (set;)
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_add_column (IntPtr view,
-									 IntPtr renderer,
-									 CellDataFuncNative data_func,
-									 bool expand);
-								
-		public delegate void CellDataFunc (HandleView view, CellRenderer renderer, IntPtr handle);
+		private static extern void pointer_list_view_set_sort_func (IntPtr view, CompareFuncNative sort_func);
 
-		internal delegate void CellDataFuncNative (IntPtr view, IntPtr renderer, IntPtr handle);
-
-		internal class CellDataFuncWrapper : GLib.DelegateWrapper
-		{
-			public void NativeCallback (IntPtr view, IntPtr renderer, IntPtr handle)
-			{
-				HandleView v = (HandleView) GLib.Object.GetObject (view, false);
-				CellRenderer r = (CellRenderer) GLib.Object.GetObject (renderer, false);
-				
-				_managed (v, r, handle);
-			}
-
-			internal CellDataFuncNative NativeDelegate;
-			protected CellDataFunc _managed;
-
-			public CellDataFuncWrapper (CellDataFunc managed, object o) : base (o)
-			{
-				NativeDelegate = new CellDataFuncNative (NativeCallback);
-				_managed = managed;
+		public CompareFunc SortFunc {
+			set {
+				CompareFuncWrapper wrapper = new CompareFuncWrapper (value, this);
+				pointer_list_view_set_sort_func (Raw, wrapper.NativeDelegate);
 			}
 		}
-		
+
+		// Properties :: Playing (set; get;)
+		[DllImport ("libmuine")]
+		private static extern void pointer_list_view_set_playing (IntPtr view, IntPtr pointer);
+
+		[DllImport ("libmuine")]
+		private static extern IntPtr pointer_list_view_get_playing (IntPtr view);
+
+		public IntPtr Playing {
+			set {
+				pointer_list_view_set_playing (Raw, value);
+
+				if (PlayingChanged != null)
+					PlayingChanged (value);
+			}
+
+			get { return pointer_list_view_get_playing (Raw); }
+		}
+
+		// Properties :: Contents (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr pointer_list_view_get_contents (IntPtr view);
+
+		public List Contents {
+			get {
+				List ret = new List (pointer_list_view_get_contents (Raw), typeof (int));
+				ret.Managed = true;
+				return ret;
+			}
+		}
+
+		// Properties :: Length (get;)
+		[DllImport ("libmuine")]
+		private static extern int pointer_list_view_get_length (IntPtr view);
+
+		public int Length {
+			get {
+				return pointer_list_view_get_length (Raw);
+			}
+		}
+
+		// Properties :: SelectedPointers (get;)
+		[DllImport ("libmuine")]
+		private static extern IntPtr pointer_list_view_get_selection (IntPtr view);
+
+		public List SelectedPointers {
+			get {
+				List ret = new List (pointer_list_view_get_selection (Raw), typeof (int));
+				ret.Managed = true;
+				return ret;
+			}
+		}
+
+
+		// Methods
+		// Methods :: Public
+		// Methods :: Public :: AddColumn
+		[DllImport ("libmuine")]
+		private static extern void pointer_list_view_add_column (IntPtr view, IntPtr renderer, CellDataFuncNative data_func, 
+									 bool expand);
+								
 		public void AddColumn (CellRenderer renderer, CellDataFunc data_func, bool expand)
 		{
 			CellDataFuncWrapper wrapper = new CellDataFuncWrapper (data_func, this);
 			pointer_list_view_add_column (Raw, renderer.Handle, wrapper.NativeDelegate, expand);
 		}		
 
+		// Methods :: Public :: Append
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_append (IntPtr view,
-		                                                     IntPtr pointer);
+		private static extern void pointer_list_view_append (IntPtr view, IntPtr pointer);
 								     
 		public void Append (IntPtr handle)
 		{
 			pointer_list_view_append (Raw, handle);
 		}
 
+		// Methods :: Public :: Insert
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_insert (IntPtr view,
-								     IntPtr pointer,
-		                                                     IntPtr ins,
-								     uint pos);
+		private static extern void pointer_list_view_insert (IntPtr view, IntPtr pointer, IntPtr ins, uint pos);
 
 		public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
 		{
 			pointer_list_view_insert (Raw, handle, ins, (uint) pos);
 		}
 
+		// Methods :: Public :: Contains
 		[DllImport ("libmuine")]
-		private static extern bool pointer_list_view_contains (IntPtr view,
-								       IntPtr pointer);
+		private static extern bool pointer_list_view_contains (IntPtr view, IntPtr pointer);
 
 		public bool Contains (IntPtr handle)
 		{
 			return pointer_list_view_contains (Raw, handle);
 		}
 
+		// Methods :: Public :: Changed
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_changed (IntPtr view,
-								      IntPtr pointer);
+		private static extern void pointer_list_view_changed (IntPtr view, IntPtr pointer);
 
 		public void Changed (IntPtr handle)
 		{
 			pointer_list_view_changed (Raw, handle);
 		}
 		
+		// Methods :: Public :: Remove
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_remove (IntPtr view,
-								     IntPtr pointer);
+		private static extern void pointer_list_view_remove (IntPtr view, IntPtr pointer);
 
 		public void Remove (IntPtr handle)
 		{
 			pointer_list_view_remove (Raw, handle);
 		}
 
+		// Methods :: Public :: RemoveDelta
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_remove_delta (IntPtr view,
-									   IntPtr delta);
+		private static extern void pointer_list_view_remove_delta (IntPtr view, IntPtr delta);
 
 		public void RemoveDelta (List delta)
 		{
 			pointer_list_view_remove_delta (Raw, delta.Handle);
 		}
 
+		// Methods :: Public :: Clear
 		[DllImport ("libmuine")]
 		private static extern void pointer_list_view_clear (IntPtr view);
 		
@@ -155,45 +218,15 @@ namespace Muine
 				PlayingChanged (IntPtr.Zero);
 		}
 
+		// Methods :: Public :: GetHandleFromPath
 		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_get_contents (IntPtr view);
-
-		public List Contents {
-			get {
-				List ret = new List (pointer_list_view_get_contents (Raw), typeof (int));
-				ret.Managed = true;
-				return ret;
-			}
-		}
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_get_handle_from_path (IntPtr view,
-				                                                IntPtr path);
+		private static extern IntPtr pointer_list_get_handle_from_path (IntPtr view, IntPtr path);
 
 		public IntPtr GetHandleFromPath (TreePath path) {
 			return pointer_list_get_handle_from_path (Raw, path.Handle);
 		}
 
-		[DllImport ("libmuine")]
-		private static extern int pointer_list_view_get_length (IntPtr view);
-
-		public int Length {
-			get {
-				return pointer_list_view_get_length (Raw);
-			}
-		}
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_get_selection (IntPtr view);
-
-		public List SelectedPointers {
-			get {
-				List ret = new List (pointer_list_view_get_selection (Raw), typeof (int));
-				ret.Managed = true;
-				return ret;
-			}
-		}
-
+		// Methods :: Public :: SelectFirst
 		[DllImport ("libmuine")]
 		private static extern void pointer_list_view_select_first (IntPtr view);
 
@@ -202,6 +235,7 @@ namespace Muine
 			pointer_list_view_select_first (Raw);
 		}
 
+		// Methods :: Public :: SelectPrevious
 		[DllImport ("libmuine")]
 		private static extern bool pointer_list_view_select_prev (IntPtr view);
 
@@ -210,6 +244,7 @@ namespace Muine
 			return pointer_list_view_select_prev (Raw);
 		}
 
+		// Methods :: Public :: SelectNext
 		[DllImport ("libmuine")]
 		private static extern bool pointer_list_view_select_next (IntPtr view);
 
@@ -218,56 +253,23 @@ namespace Muine
 			return pointer_list_view_select_next (Raw);
 		}
 
+		// Methods :: Public :: Select
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_select (IntPtr view, 
-							             IntPtr handle,
-								     bool center);
-
-		public void Select (IntPtr handle, bool center)
-		{
-			pointer_list_view_select (Raw, handle, center);
-		}
+		private static extern void pointer_list_view_select (IntPtr view, IntPtr handle, bool center);
 
 		public void Select (IntPtr handle)
 		{
 			Select (handle, true);
 		}
 
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_set_sort_func (IntPtr view,
-		                                                            CompareFuncNative sort_func);
-
-		public delegate int CompareFunc (IntPtr a, IntPtr b);
-
-		internal delegate int CompareFuncNative (IntPtr a, IntPtr b);
-
-		internal class CompareFuncWrapper : GLib.DelegateWrapper
+		public void Select (IntPtr handle, bool center)
 		{
-			public int NativeCallback (IntPtr a, IntPtr b)
-			{
-				return (int) _managed (a, b);
-			}
-
-			internal CompareFuncNative NativeDelegate;
-			protected CompareFunc _managed;
-
-			public CompareFuncWrapper (CompareFunc managed, object o) : base (o)
-			{
-				NativeDelegate = new CompareFuncNative (NativeCallback);
-				_managed = managed;
-			}
-		}
-		
-		public CompareFunc SortFunc {
-			set {
-				CompareFuncWrapper wrapper = new CompareFuncWrapper (value, this);
-				pointer_list_view_set_sort_func (Raw, wrapper.NativeDelegate);
-			}
+			pointer_list_view_select (Raw, handle, center);
 		}
 
+		// Methods :: Public :: Sort
 		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_sort (IntPtr view,
-		                                                   CompareFuncNative sort_func);
+		private static extern void pointer_list_view_sort (IntPtr view, CompareFuncNative sort_func);
 
 		public void Sort (CompareFunc func)
 		{
@@ -275,52 +277,31 @@ namespace Muine
 	                pointer_list_view_sort (Raw, wrapper.NativeDelegate);
 		}
 
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_get_playing (IntPtr view);
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_set_playing (IntPtr view,
-									  IntPtr pointer);
-
-		public IntPtr Playing {
-			get {
-				return pointer_list_view_get_playing (Raw);
-			}
-
-			set {
-				pointer_list_view_set_playing (Raw, value);
-
-				if (PlayingChanged != null)
-					PlayingChanged (value);
-			}
-		}
-
+		// Methods :: Public :: HasFirst
 		[DllImport ("libmuine")]
 		private static extern bool pointer_list_view_has_first (IntPtr view);
 
 		public bool HasFirst {
-			get {
-				return pointer_list_view_has_first (Raw);
-			}
+			get { return pointer_list_view_has_first (Raw); }
 		}
 
+		// Methods :: Public :: HasPrevious
 		[DllImport ("libmuine")]
 		private static extern bool pointer_list_view_has_prev (IntPtr view);
 
 		public bool HasPrevious {
-			get {
-				return pointer_list_view_has_prev (Raw);
-			}
+			get { return pointer_list_view_has_prev (Raw); }
 		}
 
+		// Methods :: Public :: HasNext
 		[DllImport ("libmuine")]
 		private static extern bool pointer_list_view_has_next (IntPtr view);
 
 		public bool HasNext {
-			get {
-				return pointer_list_view_has_next (Raw);
-			}
+			get { return pointer_list_view_has_next (Raw); }
 		}
 
+		// Methods :: Public :: First
 		[DllImport ("libmuine")]
 		private static extern IntPtr pointer_list_view_first (IntPtr view);
 
@@ -334,6 +315,7 @@ namespace Muine
 			return ret;
 		}
 
+		// Methods :: Public :: Last
 		[DllImport ("libmuine")]
 		private static extern IntPtr pointer_list_view_last (IntPtr view);
 
@@ -347,6 +329,7 @@ namespace Muine
 			return ret;
 		}
 
+		// Methods :: Public :: Previous
 		[DllImport ("libmuine")]
 		private static extern IntPtr pointer_list_view_prev (IntPtr view);
 
@@ -360,6 +343,7 @@ namespace Muine
 			return ret;
 		}
 
+		// Methods :: Public :: Next
 		[DllImport ("libmuine")]
 		private static extern IntPtr pointer_list_view_next (IntPtr view);
 
@@ -373,38 +357,33 @@ namespace Muine
 			return ret;
 		}
 
-		public bool ForwardKeyPress (Widget orig_widget,
-		                             Gdk.EventKey e)
+		// Methods :: Public :: ForwardKeyPress
+		// hack to forward key press events to the treeview
+		public bool ForwardKeyPress (Widget orig_widget, Gdk.EventKey e)
 		{
-			bool go = false;
+			bool go  = false;
 			bool ret = false;
 			
 			Gdk.ModifierType mod = 0;
 
-			if ((e.State != 0) &&
-			    ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
+			if        ((e.State != 0) && ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
 			    	go = true;
-
 				mod = Gdk.ModifierType.ControlMask;
-			} else if ((e.State != 0) &&
-			           ((e.State & Gdk.ModifierType.Mod1Mask) != 0)) {
-				go = true;
 
+			} else if ((e.State != 0) && ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0)) {
+				go = true;
 				mod = Gdk.ModifierType.Mod1Mask;
-			} else if ((e.State != 0) &&
-			           ((e.State & Gdk.ModifierType.ShiftMask) != 0)) {
-				go = true;
 
-				mod = Gdk.ModifierType.ShiftMask;
-			} else if (!KeyUtils.HaveModifier (e) &&
-			           !KeyUtils.IsModifier (e)) {
+			} else if ((e.State != 0) && ((e.State & Gdk.ModifierType.ShiftMask  ) != 0)) {
 				go = true;
-				
+				mod = Gdk.ModifierType.ShiftMask;
+
+			} else if (!KeyUtils.HaveModifier (e) && !KeyUtils.IsModifier (e)) {
+				go = true;
 				mod = 0;
 			}
 
 			if (go) {
-				/* hack to forward key press events to the treeview */
 				Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
 				Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
 
@@ -420,25 +399,59 @@ namespace Muine
 			return ret;
 		}
 
+		// Handlers
+		// Handlers :: OnPointerActivated
 		private void OnPointerActivated (IntPtr obj, IntPtr ptr)
 		{
 			if (RowActivated != null)
 				RowActivated (ptr);
 		}
 
-		public new delegate void RowActivatedHandler (IntPtr handle);
-		public new event HandleView.RowActivatedHandler RowActivated;
-
+		// Handlers :: OnSelectionChanged
 		private void OnSelectionChanged (IntPtr obj, IntPtr unused_data)
 		{
 			if (SelectionChanged != null)
 				SelectionChanged ();
 		}
 
-		public delegate void SelectionChangedHandler ();
-		public event SelectionChangedHandler SelectionChanged;
+		// Internal Classes
+		// Internal Classes :: CellDataFuncWrapper
+		internal class CellDataFuncWrapper : GLib.DelegateWrapper
+		{
+			protected CellDataFunc _managed;
+			internal CellDataFuncNative NativeDelegate;
 
-		public delegate void PlayingChangedHandler (IntPtr handle);
-		public event PlayingChangedHandler PlayingChanged;
+			public void NativeCallback (IntPtr view, IntPtr renderer, IntPtr handle)
+			{
+				HandleView v = (HandleView) GLib.Object.GetObject (view, false);
+				CellRenderer r = (CellRenderer) GLib.Object.GetObject (renderer, false);
+				
+				_managed (v, r, handle);
+			}
+
+			public CellDataFuncWrapper (CellDataFunc managed, object o) : base (o)
+			{
+				NativeDelegate = new CellDataFuncNative (NativeCallback);
+				_managed = managed;
+			}
+		}
+		
+		// InternalClasses :: CompareFuncWrapper
+		internal class CompareFuncWrapper : GLib.DelegateWrapper
+		{
+			protected CompareFunc _managed;
+			internal CompareFuncNative NativeDelegate;
+
+			public int NativeCallback (IntPtr a, IntPtr b)
+			{
+				return (int) _managed (a, b);
+			}
+
+			public CompareFuncWrapper (CompareFunc managed, object o) : base (o)
+			{
+				NativeDelegate = new CompareFuncNative (NativeCallback);
+				_managed = managed;
+			}
+		}
 	}
 }
