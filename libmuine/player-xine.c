@@ -434,15 +434,12 @@ player_set_file (Player *player,
 		 char      **error)
 {
   PlayerPriv *priv;
-  gboolean start;
   char *escaped;
 
   g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
   priv = player->priv;
 
-  start = player_playing (player);
- 
   *error = NULL;
 
   escaped = gnome_vfs_escape_path_string (file);
@@ -454,9 +451,6 @@ player_set_file (Player *player,
 
   g_free (escaped);
 
-  if (start)
-    player_play (player);
-  
   return TRUE;
 }
 

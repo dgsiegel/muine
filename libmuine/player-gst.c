@@ -309,8 +309,6 @@ player_set_file (Player     *player,
 		 const char *file,
 		 char      **error)
 {
-	GstElementState new_state;
-
 	g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
 	*error = NULL;
@@ -328,12 +326,10 @@ player_set_file (Player     *player,
 
 	switch (gst_element_get_state (GST_ELEMENT (player->priv->play))) {
 	case GST_STATE_PLAYING:
-		new_state = GST_STATE_PLAYING;
 		player_stop (player);
 		break;
 
 	default:
-		new_state = GST_STATE_PAUSED;
 		break;
 	}
 
@@ -343,8 +339,6 @@ player_set_file (Player     *player,
 
 	g_object_set (G_OBJECT (player->priv->play), "uri",
 		      player->priv->current_file, NULL);
-
-	gst_element_set_state (GST_ELEMENT (player->priv->play), new_state);
 
 	player->priv->pos = 0;
 

@@ -1,5 +1,12 @@
 2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-gst.c: (player_set_file):
+	* libmuine/player-xine.c: (player_set_file):
+
+	Remove state restoration code. It is done in Player already.
+
+2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Muine.cs:
 
 	Remove obsoleted GConfClient property.
