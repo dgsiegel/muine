@@ -1,5 +1,12 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	R src/GroupWindow.cs:
+	* src/Makefile.am:
+
+	Remove unused code.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* src/PlaylistWindow.cs:
 

@@ -4,7 +4,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/ActionThread.cs		\
 	$(srcdir)/AddSongWindow.cs		\
 	$(srcdir)/AddAlbumWindow.cs		\
-	$(srcdir)/GroupWindow.cs		\
 	$(srcdir)/Muine.cs			\
 	$(srcdir)/NotificationAreaIcon.cs	\
 	$(srcdir)/PlaylistWindow.cs		\
