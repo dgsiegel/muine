@@ -4,3 +4,4 @@ muine.schemas
 muine.desktop
 muine-dbus.pc
 muine-plugin.pc
+org.gnome.Muine.service
