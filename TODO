@@ -48,6 +48,9 @@ o Musicbrainz support
   We need a musicbrainz element for GStreamer
   We should also use album IDs from musicbrainz to distinguish albums with
   the same name.
+o Support setting different equalizer settings, reverb etc for different
+  albums.
+  We need an equalizer element etc for GStreamer.
 o Translation
   Depends on gettext. Gettext 0.14 will have C# support.
 o Monitor imported folders using FileWatcher
