@@ -166,6 +166,7 @@ get_mp3_picture_data (struct id3_tag *tag, const char *field_name)
 	id3_byte_t const *picture_data;
 	id3_length_t length;
 	GdkPixbuf *ret;
+	gboolean bail = FALSE;
 
 	/* Note: An MP3 can actualy have multiple embedded images. We should
 	 * really check them all for one of "type" [field 2] 03, however with
@@ -189,10 +190,16 @@ get_mp3_picture_data (struct id3_tag *tag, const char *field_name)
 
 	GdkPixbufLoader *pb_loader = gdk_pixbuf_loader_new ();
 	if (!gdk_pixbuf_loader_write (pb_loader, picture_data, length, NULL))
-		return NULL;
+		bail = TRUE;
 
 	if (!gdk_pixbuf_loader_close (pb_loader, NULL))
+		bail = TRUE;
+
+	if (bail) {
+		g_object_unref (pb_loader);
+
 		return NULL;
+	}
 
 	ret = gdk_pixbuf_loader_get_pixbuf (pb_loader);
 	if (ret != NULL &&
@@ -322,8 +329,11 @@ get_mp3_comment_value (struct id3_tag *tag,
 	if (utf8 == NULL)
 		return NULL;
 
-	if (!g_utf8_validate ((char *) utf8, -1, NULL))
+	if (!g_utf8_validate ((char *) utf8, -1, NULL)) {
+		g_free (utf8);
+
 		return NULL;
+	}
 
 	return (char *) utf8;
 }

@@ -1,3 +1,10 @@
+2005-02-07  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/metadata.c: (get_mp3_picture_data),
+	(get_mp3_comment_value):
+
+	Plug two leaks.
+
 2005-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
 	* libmuine/db.c: (db_pack_pixbuf):
