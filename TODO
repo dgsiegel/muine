@@ -5,7 +5,7 @@ o Globally consume ACME keys
 o Drag images from Nautilus or Epiphany to the album cover area in
   the PlaylistWindow to change the cover image.
   (This one is half implemented)
-o Add DnD from Nautilus to the playlist window, adding to a) the library
+o Add folder DnD from Nautilus to the playlist window, adding to a) the library
   and b) the playlist.
 o DnD m3u files to the playlist window should load them
 o D-BUS service (Sergio Rubio is on this)
