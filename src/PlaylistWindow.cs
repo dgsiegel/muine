@@ -194,6 +194,11 @@ public class PlaylistWindow : Window
 		}
 
 		DirectoryInfo dinfo = new DirectoryInfo (fn);
+		if (!dinfo.Exists) {
+			Drag.Finish (args.Context, false, false, args.Time);
+			return;
+		}
+			
 		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 		
 		Muine.DB.AddWatchedFolder (dinfo.FullName);

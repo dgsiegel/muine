@@ -1,5 +1,11 @@
 2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Don't crash when dropping a file.
+
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Song.cs:
 
 	Add a comment explaining the AlbumKey stuff.
