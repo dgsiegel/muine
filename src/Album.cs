@@ -79,7 +79,7 @@ public class Album
 	public string SortKey {
 		get {
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (name, -1);
+				sort_key = g_utf8_collate_key (AllLowerArtists, -1);
 			
 			return sort_key;
 		}
