@@ -10,6 +10,7 @@ o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
 o Create ~/Music if it doesn't exist, but ask first? (Viet Yen Nguyen is on this)
 o D-BUS service (Sergio Rubio is on this)
+o Replaygain support for MP3, see http://gabriel.mp3-tech.org/mp3infotag.html
 
 Tough:
 ======
