@@ -56,7 +56,7 @@ public class ProgressWindow
 
 		file_label.Text = "...";
 
-		while (Global.EventsPending () == 1)
+		while (MainContext.Pending ())
 			Main.Iteration ();
 	}
 
@@ -69,7 +69,7 @@ public class ProgressWindow
 
 		file_label.Text = file;
 
-		while (Global.EventsPending () == 1)
+		while (MainContext.Pending ())
 			Main.Iteration ();
 
 		return true;

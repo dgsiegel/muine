@@ -127,7 +127,7 @@ public class PlaylistWindow : Window
 
 		/* load last playlist */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
-		FileInfo finfo = new FileInfo (playlist_filename);
+		System.IO.FileInfo finfo = new System.IO.FileInfo (playlist_filename);
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
 
@@ -145,7 +145,7 @@ public class PlaylistWindow : Window
 		icon.Run ();
 
 		/* put on the screen immediately please */
-		while (Global.EventsPending () > 0)
+		while (MainContext.Pending ())
 			Main.Iteration ();
 	}
 
@@ -1141,7 +1141,7 @@ public class PlaylistWindow : Window
 	private bool HandleDirectory (DirectoryInfo info,
 				      ProgressWindow pw)
 	{
-		FileInfo [] finfos;
+		System.IO.FileInfo [] finfos;
 		
 		try {
 			finfos = info.GetFiles ();
@@ -1149,7 +1149,7 @@ public class PlaylistWindow : Window
 			return true;
 		}
 		
-		foreach (FileInfo finfo in finfos) {
+		foreach (System.IO.FileInfo finfo in finfos) {
 			Song song;
 
 			song = (Song) Muine.DB.Songs [finfo.FullName];
@@ -1243,7 +1243,7 @@ public class PlaylistWindow : Window
 		if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
 			return;
 
-		FileInfo finfo = new FileInfo (fn);
+		System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 
 		if (finfo.Exists) {
 			OpenPlaylist (fn);
@@ -1268,7 +1268,7 @@ public class PlaylistWindow : Window
 		if (!FileUtils.IsPlaylist (fn))
 			fn += ".m3u";
 
-		FileInfo finfo = new FileInfo (fn);
+		System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
 
 		if (finfo.Exists) {
 			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), fn), this);

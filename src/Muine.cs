@@ -114,7 +114,7 @@ public class Muine : Gnome.Program
 	{
 		if (args.Length > 0) {
 			/* try to load first argument as playlist */
-			FileInfo finfo = new FileInfo (args [0]);
+			System.IO.FileInfo finfo = new System.IO.FileInfo (args [0]);
 			
 			if (finfo.Exists && FileUtils.IsPlaylist (args [0])) {
 				if (use_conn)
