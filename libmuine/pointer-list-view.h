@@ -55,7 +55,8 @@ PointerListView *pointer_list_view_new           (void);
 
 void             pointer_list_view_add_column    (PointerListView *view,
 						  GtkCellRenderer *renderer,
-						  CellDataFunc func);
+						  CellDataFunc func,
+						  gboolean expand);
 void             pointer_list_view_append        (PointerListView *view,
 				                  gpointer pointer);
 void             pointer_list_view_changed       (PointerListView *view,
@@ -75,6 +76,8 @@ gboolean         pointer_list_view_select_next   (PointerListView *view,
 						  gboolean center);
 gboolean         pointer_list_view_select_prev   (PointerListView *view,
 						  gboolean center);
+void             pointer_list_view_select        (PointerListView *view,
+						  gpointer pointer);
 void             pointer_list_view_scroll_to     (PointerListView *view,
 						  gpointer pointer);
 void             pointer_list_view_set_sort_func (PointerListView *view,

@@ -11,6 +11,7 @@ o A song information dialog, which will later be used for tag editing.
 o Create ~/Music and ~/Music/Playlists/ if it doesn't exist, but ask first (Viet Yen Nguyen is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Dashboard integration (Lee Willis is on this)
+o Add a repeat menu item
 
 Tough:
 ======
@@ -26,6 +27,10 @@ o Implement music groups (Jorn is working on this)
 
   Groups editor, and a group selector that can be brought up from a button
   in the PlaylistWindow.
+
+  Play random albums?
+
+  Statistical next random song analysis?
 o CD burning (Brad Griffith is workong on this)
   Support both audio and MP3 cds.
   

@@ -212,7 +212,8 @@ cell_data_func (GtkTreeViewColumn *col,
 void
 pointer_list_view_add_column (PointerListView *view,
 			      GtkCellRenderer *renderer,
-			      CellDataFunc func)
+			      CellDataFunc func,
+			      gboolean expand)
 {
 	GtkTreeViewColumn *column;
 	CellDataFuncData *data;
@@ -227,7 +228,7 @@ pointer_list_view_add_column (PointerListView *view,
 					 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_pack_start (column,
 					 renderer,
-					 FALSE);
+					 expand);
 	gtk_tree_view_column_set_cell_data_func (column,
 						 renderer,
 						 (GtkTreeCellDataFunc) cell_data_func,
@@ -446,6 +447,19 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center)
 	g_list_free (list);
 
 	return ret;
+}
+
+void
+pointer_list_view_select (PointerListView *view,
+		          gpointer pointer)
+{
+	GtkTreeIter iter;
+	GtkTreeSelection *sel;
+
+	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
+
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_selection_select_iter (sel, &iter);
 }
 
 void

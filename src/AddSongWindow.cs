@@ -84,7 +84,7 @@ public class AddSongWindow
 		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
 
 		text_renderer = new CellRendererText ();
-		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc));
+		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
 
 		scrolledwindow.Add (view);
 

@@ -84,9 +84,9 @@ public class AddAlbumWindow
 		view.SelectionChanged += new HandleView.SelectionChangedHandler (HandleSelectionChanged);
 
 		pixbuf_renderer = new CellRendererPixbuf ();
-		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc));
+		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
 		text_renderer = new CellRendererText ();
-		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc));
+		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
 		scrolledwindow.Add (view);
 

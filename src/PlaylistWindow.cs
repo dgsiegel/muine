@@ -205,8 +205,10 @@ public class PlaylistWindow : Window
 			if (Visible == false)
 				Move (last_x, last_y);
 
-			if (playlist.Playing != IntPtr.Zero)
+			if (playlist.Playing != IntPtr.Zero) {
+				playlist.Select (playlist.Playing);
 				playlist.ScrollTo (playlist.Playing);
+			}
 
 			Visible = true;
 
@@ -291,10 +293,10 @@ public class PlaylistWindow : Window
 		playlist.Selection.Mode = SelectionMode.Single;
 
 		pixbuf_renderer = new ColoredCellRendererPixbuf ();
-		playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc));
+		playlist.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
 
 		text_renderer = new CellRendererText ();
-		playlist.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc));
+		playlist.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
 		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
 		playlist.RowsReordered += new HandleView.RowsReorderedHandler (HandlePlaylistRowsReordered);
@@ -399,10 +401,13 @@ public class PlaylistWindow : Window
 		
 		if (playlist.Playing == IntPtr.Zero) {
 			playlist.First ();
+			playlist.Select (playlist.Playing);
+			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
 		} else if (had_last_eos == true) {
 			playlist.Playing = new_p;
+			playlist.Select (new_p);
 			playlist.ScrollTo (new_p);
 
 			SongChanged (true);
@@ -814,6 +819,7 @@ public class PlaylistWindow : Window
 			
 			if (first == true) {
 				playlist.Playing = new_p;
+				playlist.Select (new_p);
 				playlist.ScrollTo (new_p);
 
 				SongChanged (true);
@@ -851,6 +857,7 @@ public class PlaylistWindow : Window
 
 				if (first == true) {
 					playlist.Playing = new_p;
+					playlist.Select (new_p);
 					playlist.ScrollTo (new_p);
 
 					SongChanged (true);
@@ -900,6 +907,7 @@ public class PlaylistWindow : Window
 		/* restart song if not in the first 3 seconds */
 		if ((player.Position < 3000) || !playlist.HasPrevious) {
 			playlist.Previous ();
+			playlist.Select (playlist.Playing);
 			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
@@ -915,6 +923,7 @@ public class PlaylistWindow : Window
 	{
 		if (had_last_eos) {
 			playlist.First ();
+			playlist.Select (playlist.Playing);
 			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged (true);
@@ -930,6 +939,7 @@ public class PlaylistWindow : Window
 	private void HandleNextCommand (object o, EventArgs args)
 	{
 		playlist.Next ();
+		playlist.Select (playlist.Playing);
 		playlist.ScrollTo (playlist.Playing);
 
 		SongChanged (true);

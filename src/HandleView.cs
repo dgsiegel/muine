@@ -54,7 +54,8 @@ public class HandleView : TreeView
 	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_add_column (IntPtr view,
 								 IntPtr renderer,
-								 CellDataFuncNative data_func);
+								 CellDataFuncNative data_func,
+								 bool expand);
 							
 	public delegate void CellDataFunc (HandleView view, CellRenderer renderer, IntPtr handle);
 
@@ -80,10 +81,10 @@ public class HandleView : TreeView
 		}
 	}
 	
-	public void AddColumn (CellRenderer renderer, CellDataFunc data_func)
+	public void AddColumn (CellRenderer renderer, CellDataFunc data_func, bool expand)
 	{
 		CellDataFuncWrapper wrapper = new CellDataFuncWrapper (data_func, this);
-		pointer_list_view_add_column (Raw, renderer.Handle, wrapper.NativeDelegate);
+		pointer_list_view_add_column (Raw, renderer.Handle, wrapper.NativeDelegate, expand);
 	}		
 
 	[DllImport ("libmuine")]
@@ -194,6 +195,15 @@ public class HandleView : TreeView
 	public bool SelectNext (bool center)
 	{
 		return pointer_list_view_select_next (Raw, center);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_select (IntPtr view, 
+						             IntPtr handle);
+
+	public void Select (IntPtr handle)
+	{
+		pointer_list_view_select (Raw, handle);
 	}
 
 	[DllImport ("libmuine")]

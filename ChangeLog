@@ -1,3 +1,17 @@
+2004-01-30  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* libmuine/pointer-list-view.c: (pointer_list_view_add_column),
+	(pointer_list_view_select):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Expand text column in treeviews, select playing row when changing
+	playing song except when changing due to an EOS event.
+
 2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
 
 	* NEWS:
