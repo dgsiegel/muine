@@ -19,6 +19,7 @@
 
 using System;
 using System.IO;
+using Gnome.Vfs;
 
 public class FileUtils
 {
@@ -35,5 +36,12 @@ public class FileUtils
 		string ext = Path.GetExtension (fn).ToLower ();
 
 		return (ext == ".m3u");
+	}
+
+	public static bool Exists (string fn)
+	{
+		Gnome.Vfs.Uri u = new Gnome.Vfs.Uri (fn);
+
+		return u.Exists;
 	}
 }

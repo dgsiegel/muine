@@ -27,10 +27,10 @@ public class FileSelector : FileChooserDialog
 {
 	private string gconf_path;
 
-	public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action)
+	public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
 	{
 		TransientFor = parent;
-		LocalOnly = true;
+		LocalOnly = false;
 		AddButton (Stock.Cancel, ResponseType.Cancel);
 		if (action == FileChooserAction.Open)
 	                AddButton (Stock.Open, ResponseType.Ok);
@@ -63,7 +63,12 @@ public class FileSelector : FileChooserDialog
 			return "";
 		}
 
-		string ret = StringUtils.LocalPathFromUri (Uri);
+		string ret;
+
+		if (Uri.StartsWith ("file://") == true)
+			ret = Uri.Substring ("file://".Length);
+		else
+			ret = Uri;
 		
 		Muine.GConfClient.Set (gconf_path,
 		                       System.IO.Path.GetDirectoryName (ret) + "/");

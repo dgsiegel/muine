@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 
 using Gtk;
 using GLib;
+using Gnome.Vfs;
 
 public class PlaylistWindow : Window
 {
@@ -162,15 +163,16 @@ public class PlaylistWindow : Window
 		System.IO.FileInfo finfo = new System.IO.FileInfo (playlist_filename);
 		if (finfo.Exists)
 			OpenPlaylist (playlist_filename);
-		else {
-			EnsurePlaying ();
-
-			NSongsChanged ();
-		}
 	}
 
 	public void Run ()
 	{
+		if (!playlist.HasFirst) {
+			EnsurePlaying ();
+
+			NSongsChanged ();
+		}
+
 		WindowVisible = true;
 
 		icon.Run ();
@@ -800,10 +802,12 @@ public class PlaylistWindow : Window
 
 	public void OpenPlaylist (string fn)
 	{
+		VfsStream stream;
 		StreamReader reader;
 		
 		try {
-			reader = new StreamReader (fn);
+			stream = new VfsStream (fn, FileMode.Open);
+			reader = new StreamReader (stream);
 		} catch {
 			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for reading"), fn), this);
 			return;
@@ -875,7 +879,12 @@ public class PlaylistWindow : Window
 			}
 		}
 
-		reader.Close ();
+		try {
+			reader.Close ();
+		} catch {
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), fn), this);
+			return;
+		}
 
 		EnsurePlaying ();
 
@@ -884,10 +893,12 @@ public class PlaylistWindow : Window
 
 	private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
 	{
+		VfsStream stream;
 		StreamWriter writer;
 		
 		try {
-			writer = new StreamWriter (fn, false);
+			stream = new VfsStream (fn, FileMode.Create);
+			writer = new StreamWriter (stream);
 		} catch {
 			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to open {0} for writing"), fn), this);
 			return;
@@ -919,7 +930,12 @@ public class PlaylistWindow : Window
 			writer.WriteLine (song.Filename);
 		}
 
-		writer.Close ();
+		try {
+			writer.Close ();
+		} catch {
+			new ErrorDialog (String.Format (Muine.Catalog.GetString ("Failed to close {0}"), fn), this);
+			return;
+		}
 	}
 
 	private void HandleStateChanged (bool playing)
@@ -1004,11 +1020,6 @@ public class PlaylistWindow : Window
 			try {
 				song = new Song (file);
 			} catch {
-				if (!playlist.HasFirst) {
-					SongChanged (true);
-					NSongsChanged ();
-				}
-
 				return;
 			}
 
@@ -1352,7 +1363,7 @@ public class PlaylistWindow : Window
 		FileChooserDialog fc;
 
 		fc = new FileChooserDialog (Muine.Catalog.GetString ("Import Folder"), this,
-					    FileChooserAction.SelectFolder);
+					    FileChooserAction.SelectFolder, "gnome-vfs");
 		fc.LocalOnly = true;
 		fc.AddButton (Stock.Cancel, ResponseType.Cancel);
 		fc.AddButton (Muine.Catalog.GetString ("_Import"), ResponseType.Ok);
@@ -1407,6 +1418,7 @@ public class PlaylistWindow : Window
 		FileFilter filter = new FileFilter ();
 		filter.Name = Muine.Catalog.GetString ("Playlist files");
 		filter.AddMimeType ("audio/x-mpegurl");
+		filter.AddPattern ("*.m3u");
 		sel.AddFilter (filter);
 
 		string fn = sel.GetFile ();
@@ -1414,9 +1426,7 @@ public class PlaylistWindow : Window
 		if (fn.Length == 0 || !FileUtils.IsPlaylist (fn))
 			return;
 
-		System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
-
-		if (finfo.Exists)
+		if (FileUtils.Exists (fn))
 			OpenPlaylist (fn);
 	}
 
@@ -1436,9 +1446,7 @@ public class PlaylistWindow : Window
 		if (!FileUtils.IsPlaylist (fn))
 			fn += ".m3u";
 
-		System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
-
-		if (finfo.Exists) {
+		if (FileUtils.Exists (fn)) {
 			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), fn), this);
 			if (d.GetAnswer () == true)
 				SavePlaylist (fn, false, false);
