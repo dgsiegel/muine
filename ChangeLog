@@ -1,5 +1,14 @@
 2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/pointer-list-view.c: (pointer_list_view_select):
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Center on playing song.
+
+2004-12-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Keep selection when deleting multiple items.

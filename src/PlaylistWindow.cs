@@ -1880,7 +1880,7 @@ public class PlaylistWindow : Window
 				}
 				
 				if (first) {
-					playlist.Select (new_ptr);
+					playlist.Select (new_ptr, false);
 
 					first = false;
 				}
@@ -1915,7 +1915,7 @@ public class PlaylistWindow : Window
 					pos = TreeViewDropPosition.After;
 					
 					if (first) {
-						playlist.Select (new_ptr);
+						playlist.Select (new_ptr, false);
 
 						first = false;
 					}
@@ -1973,7 +1973,7 @@ public class PlaylistWindow : Window
 							pos = TreeViewDropPosition.After;
 					
 							if (first) {
-								playlist.Select (new_ptr);
+								playlist.Select (new_ptr, false);
 	
 								first = false;
 							}

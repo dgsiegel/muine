@@ -220,11 +220,17 @@ public class HandleView : TreeView
 
 	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_select (IntPtr view, 
-						             IntPtr handle);
+						             IntPtr handle,
+							     bool center);
+
+	public void Select (IntPtr handle, bool center)
+	{
+		pointer_list_view_select (Raw, handle, center);
+	}
 
 	public void Select (IntPtr handle)
 	{
-		pointer_list_view_select (Raw, handle);
+		Select (handle, true);
 	}
 
 	[DllImport ("libmuine")]

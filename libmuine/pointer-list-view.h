@@ -81,7 +81,8 @@ void             pointer_list_view_select_first    (PointerListView *view);
 gboolean         pointer_list_view_select_next     (PointerListView *view);
 gboolean         pointer_list_view_select_prev     (PointerListView *view);
 void             pointer_list_view_select          (PointerListView *view,
-						    gpointer pointer);
+						    gpointer pointer,
+						    gboolean center);
 void             pointer_list_view_set_sort_func   (PointerListView *view,
 				                    GCompareFunc sort_func);
 void		 pointer_list_view_sort		   (PointerListView *view,

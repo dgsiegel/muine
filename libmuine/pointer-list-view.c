@@ -420,17 +420,24 @@ pointer_list_view_select_prev (PointerListView *view)
 
 void
 pointer_list_view_select (PointerListView *view,
-		          gpointer pointer)
+		          gpointer pointer,
+			  gboolean center)
 {
 	GtkTreeView *tree_view = GTK_TREE_VIEW (view);
 	GtkTreeIter iter;
 	GtkTreePath *path;
+	GtkTreeViewColumn *col = gtk_tree_view_get_column (tree_view, 0);
 
 	pointer_list_model_pointer_get_iter (view->model, pointer, &iter);
 
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
-	gtk_tree_view_set_cursor (tree_view, path,
-				  gtk_tree_view_get_column (tree_view, 0), FALSE);
+
+	if (center) {
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path,
+				              col, TRUE, 0.5, 0.5);
+	}
+
+	gtk_tree_view_set_cursor (tree_view, path, col, FALSE);
 	gtk_tree_path_free (path);
 }
 
