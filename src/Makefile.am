@@ -32,7 +32,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/DashboardFrontend.cs		\
 	$(srcdir)/MessageConnection.cs		\
-	$(srcdir)/GnomeProxy.cs
+	$(srcdir)/GnomeProxy.cs			\
+	$(srcdir)/InfoWindow.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\
@@ -55,6 +56,7 @@ RESOURCES =											\
 	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade			\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade			\
 	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade		\
+	/resource:$(top_srcdir)/data/glade/InfoWindow.glade,InfoWindow.glade			\
 	/resource:$(top_srcdir)/data/images/muine-previous.png,muine-previous.png		\
 	/resource:$(top_srcdir)/data/images/muine-previous-16.png,muine-previous-16.png		\
 	/resource:$(top_srcdir)/data/images/muine-play.png,muine-play.png			\

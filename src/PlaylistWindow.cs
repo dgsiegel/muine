@@ -43,6 +43,8 @@ public class PlaylistWindow : Window
 	[Glade.Widget]
 	private ImageMenuItem skip_forward_menu_item;
 	[Glade.Widget]
+	private ImageMenuItem information_menu_item;
+	[Glade.Widget]
 	private ImageMenuItem remove_song_menu_item;
 	[Glade.Widget]
 	private CheckMenuItem repeat_menu_item;
@@ -326,6 +328,7 @@ public class PlaylistWindow : Window
 		icon.play_pause_menu_item.Activated += new EventHandler (HandlePlayPauseCommand);
 		icon.previous_song_menu_item.Activated += new EventHandler (HandlePreviousCommand);
 		icon.next_song_menu_item.Activated += new EventHandler (HandleNextCommand);
+		icon.information_menu_item.Activated += new EventHandler (HandleInformationCommand);
 		icon.play_song_menu_item.Activated += new EventHandler (HandleAddSongCommand);
 		icon.play_album_menu_item.Activated += new EventHandler (HandleAddAlbumCommand);
 		icon.show_window_menu_item.Activated += new EventHandler (HandleToggleWindowVisibilityCommand);
@@ -577,6 +580,9 @@ public class PlaylistWindow : Window
 		skip_to_menu_item.Sensitive = has_first;
 		skip_backwards_menu_item.Sensitive = has_first;
 		skip_forward_menu_item.Sensitive = has_first;
+
+		information_menu_item.Sensitive = has_first;
+		icon.information_menu_item.Sensitive = has_first;
 
 		UpdateTimeLabels (player.Position);
 
@@ -1128,6 +1134,20 @@ public class PlaylistWindow : Window
 	private void HandleSkipForwardCommand (object o, EventArgs args)
 	{
 		SeekTo (player.Position + 5);
+	}
+
+	private void HandleInformationCommand (object o, EventArgs args)
+	{
+		Song song = Song.FromHandle (playlist.Playing);
+
+		if (song.Album.Length == 0)
+			return;
+		Album album = (Album) Muine.DB.Albums [song.AlbumKey];
+		
+		InfoWindow id = new InfoWindow ("Information for " + song.Title, this);
+		id.Load (album);
+		
+		id.Run ();
 	}
 
 	private void HandleAddSongCommand (object o, EventArgs args)

@@ -41,6 +41,7 @@ public class NotificationAreaIcon : Plug
 	public Gtk.Image play_pause_menu_item_image;
 	public ImageMenuItem previous_song_menu_item;
 	public ImageMenuItem next_song_menu_item;
+	public ImageMenuItem information_menu_item;
 	public ImageMenuItem play_song_menu_item;
 	public ImageMenuItem play_album_menu_item;
 	public MenuItem show_window_menu_item;
@@ -90,6 +91,13 @@ public class NotificationAreaIcon : Plug
 		next_song_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Next Song"));
 		next_song_menu_item.Image = new Gtk.Image ("muine-next", IconSize.Menu);
 		menu.Append (next_song_menu_item);
+
+		sep = new SeparatorMenuItem ();
+		menu.Append (sep);
+
+		information_menu_item = new ImageMenuItem (Muine.Catalog.GetString ("_Information"));
+		information_menu_item.Image = new Gtk.Image (Stock.DialogInfo, IconSize.Menu);
+		menu.Append (information_menu_item);
 
 		sep = new SeparatorMenuItem ();
 		menu.Append (sep);

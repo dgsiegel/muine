@@ -68,6 +68,28 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/information_window/width</key>
+      <applyto>/apps/muine/information_window/width</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>350</default>
+      <locale name="C">
+        <short>Information window width.</short>
+        <long>Information window width.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/information_window/height</key>
+      <applyto>/apps/muine/information_window/height</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>300</default>
+      <locale name="C">
+        <short>Information window height.</short>
+        <long>Information window height.</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/first_start</key>
       <applyto>/apps/muine/first_start</applyto>
       <owner>muine</owner>

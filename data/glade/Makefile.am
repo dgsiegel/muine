@@ -6,6 +6,7 @@ noinst_DATA =					\
 	NoMusicFoundWindow.glade		\
 	ErrorDialog.glade			\
 	YesNoDialog.glade			\
-	ProgressWindow.glade
+	ProgressWindow.glade			\
+	InfoWindow.glade
 
 EXTRA_DIST = $(noinst_DATA)
