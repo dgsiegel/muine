@@ -1,3 +1,54 @@
+2005-03-12  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/About.cs:
+	* src/Actions.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowList.cs:
+	* src/Album.cs:
+	* src/CellRendererText.cs:
+	* src/CoverDatabase:
+	* src/CoverGetter.cs:
+	* src/CoverImage.cs:
+	* src/DndUtils.cs:
+	* src/EllipsizingLabel.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/Global.cs:
+	* src/GnomeProxy.cs:
+	* src/HandleModel.cs:
+	* src/HandleView.cs:
+	* src/ImportDialog.cs:
+	* src/InfoWindow.cs:
+	* src/Item.cs:
+	* src/KeyUtils.cs:
+	* src/Metadata.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/OpenDialog.cs:
+	* src/OverwriteDialog.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/ProgressWindow.cs:
+	* src/SaveDialog.cs:
+	* src/SignalUtils.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+	* src/StringUtils.cs:
+	* src/ThreadBase.cs:
+	* src/VolumeButton.cs:
+	
+	Code cleanup.
+	
+	* src/Album.cs:
+	
+	Overload HaveHalfAlbum.
+
 2005-02-20  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/SkipToWindow.cs:
@@ -196,7 +247,7 @@
 	R libmuine/egg/eggmarshalers.list:
 	* libmuine/egg/eggtrayicon.c:
 	R libmuine/egg/eggtraymanager.c:
-	R libmuine/egg/eggtraymaneger.h:
+	R libmuine/egg/eggtraymanager.h:
 	R libmuine/egg/update-from-egg.sh:
 	* libmuine/metadata.c: (get_mp3_duration), (get_mp3_comment_value),
 	(assign_metadata_mp4):
@@ -851,7 +902,7 @@
 	* src/PlaylistWindow.cs:
 	* src/SongDatabase.cs:
 
-	SingalRequest, BooleanBox and DragDropPosition have to be classes,
+	SignalRequest, BooleanBox and DragDropPosition have to be classes,
 	not structs!
 	We change their properties while they are being passed around.
 
