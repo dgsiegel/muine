@@ -325,6 +325,8 @@ public class SongDatabase
 	private Queue removed_songs;
 	private Queue changed_songs;
 	private Queue new_songs;
+	
+	private GLib.IdleHandler process_actions_from_thread;
 
 	public void CheckChanges ()
 	{
@@ -334,13 +336,14 @@ public class SongDatabase
 		changed_songs = Queue.Synchronized (new Queue ());
 		new_songs = Queue.Synchronized (new Queue ());
 
-		GLib.Idle.Add (new GLib.IdleHandler (ProcessActionsFromThread));
+		process_actions_from_thread = new GLib.IdleHandler (ProcessActionsFromThread);
+		GLib.Idle.Add (process_actions_from_thread);
 
 		Thread thread = new Thread (new ThreadStart (CheckChangesThread));
 		thread.Priority = ThreadPriority.BelowNormal;
 		thread.Start ();
 	}
-	
+
 	private class ChangedSong {
 		public Metadata Metadata;
 		public Song Song;

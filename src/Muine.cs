@@ -69,7 +69,7 @@ public class Muine : Gnome.Program
 		/* An instance already exists. Handle command line args and exit. */
 		if (conn.Role == MessageConnection.ConnectionType.Client)
 		{
-			ProcessCommandLine (args, true);
+			conn.Send (System.Text.Encoding.UTF8.GetBytes (String.Join ("\n", args)));
 			conn.Close ();
 			Gdk.Global.NotifyStartupComplete ();
 			Environment.Exit (0);
@@ -112,7 +112,7 @@ public class Muine : Gnome.Program
 
 		/* Hook up connection callback */
 		conn.MessageReceivedHandler = new MessageConnection.MessageReceivedDelegate (HandleMessageReceived);
-		ProcessCommandLine (args, false);
+		ProcessCommandLine (args);
 
 		/* Load playlist */
 		if (!opened_playlist)
@@ -137,40 +137,28 @@ public class Muine : Gnome.Program
 		client.SaveYourself += new Gnome.SaveYourselfHandler (HandleSaveYourselfEvent);
 	}
 
-	private void ProcessCommandLine (string [] args, bool use_conn)
+	private void ProcessCommandLine (string [] args)
 	{
-		if (args.Length > 0) {
-			for (int i = 0; i < args.Length; i++) {
-				System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
-			
-				if (finfo.Exists) {
-					if (FileUtils.IsPlaylist (args [i])) {
-						/* load as playlist */
-						if (use_conn)
-							conn.Send ("LoadPlaylist " + finfo.FullName);
-						else
-							playlist.OpenPlaylist (finfo.FullName);
-					} else {
-						/* load as music file */
-						if (use_conn)
-							if (i == 0)
-								conn.Send ("PlayFile " + finfo.FullName);
-							else
-								conn.Send ("QueueFile " + finfo.FullName);
-						else
-							if (i == 0)
-								playlist.PlayFile (finfo.FullName);
-							else
-								playlist.QueueFile (finfo.FullName);
-					}
-
-					opened_playlist = true;
+		for (int i = 0; i < args.Length; i++) {
+			System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);
+		
+			if (finfo.Exists) {
+				if (FileUtils.IsPlaylist (args [i])) {
+					/* load as playlist */
+					playlist.OpenPlaylist (finfo.FullName);
+				} else {
+					/* load as music file */
+					if (i == 0)
+						playlist.PlayFile (finfo.FullName);
+					else
+						playlist.QueueFile (finfo.FullName);
 				}
-			}
-		} else if (use_conn)
-			conn.Send ("ShowWindow");
-	}
 
+				opened_playlist = true;
+			}
+		}
+	}
+	
 	private void SetDefaultWindowIcon ()
 	{
 		Pixbuf [] default_icon_list = new Pixbuf [1];
@@ -178,16 +166,12 @@ public class Muine : Gnome.Program
 		Gtk.Window.DefaultIconList = default_icon_list;
 	}
 
-	private void HandleMessageReceived (string message)
+	private void HandleMessageReceived (string [] message)
 	{
-		if (message == "ShowWindow")
+		if (message == null)
 			playlist.WindowVisible = true;
-		else if (message.StartsWith ("LoadPlaylist "))
-			playlist.OpenPlaylist (message.Substring (13));
-		else if (message.StartsWith ("PlayFile "))
-			playlist.PlayFile (message.Substring (9));
-		else if (message.StartsWith ("QueueFile "))
-			playlist.QueueFile (message.Substring (10));
+		else
+			ProcessCommandLine (message);
 	}
 
 	private void HandleCoversDoneLoading ()

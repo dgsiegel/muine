@@ -61,7 +61,7 @@ public class MessageConnection
 		}
 	}
 
-	public delegate void MessageReceivedDelegate (string Message);
+	public delegate void MessageReceivedDelegate (string[] Message);
 
 	private MessageReceivedDelegate message_received_handler;
 	public MessageReceivedDelegate MessageReceivedHandler {
@@ -120,9 +120,9 @@ public class MessageConnection
 		Close ();
 	}
 
-	public int Send (string Message)
+	public int Send (byte[] message)
 	{
-		return socket.Send (Encoding.ASCII.GetBytes (Message));
+		return socket.Send (message);
 	}
 
 	public void Close ()
@@ -130,32 +130,44 @@ public class MessageConnection
 		if (role == ConnectionType.Server) {
 			File.Delete (socket_filename);
 		}
+		socket.Close ();
 	}
 
+	private GLib.IdleHandler message_cb;
 	private void ListenCallback (IAsyncResult state)
 	{
 		Socket Client = ((Socket) state.AsyncState).EndAccept (state);
 		((Socket) state.AsyncState).BeginAccept (new AsyncCallback (ListenCallback), state.AsyncState);
-		byte[] buf = new byte [1024];
-		Client.Receive (buf);
+		
+		byte [] buf = new byte [1024];
+		string [] message;
+		int bytes = Client.Receive (buf);
 
-		string raw_message = Encoding.ASCII.GetString (buf);
-		string message = "";
-		foreach (char c in raw_message) {
-			if (c == 0x0000)
-				break;
-			message += c;
+		if (bytes > 0) {
+			string [] raw_message = Encoding.UTF8.GetString (buf).Split ('\n');
+			message = new string [raw_message.Length];
+			for (int i = 0; i < raw_message.Length; ++i)
+			{
+				foreach (char c in raw_message [i]) {
+					if (c == 0x0000)
+						break;
+					message [i] += c;
+				}
+			}
+		} else {
+			message = null;
 		}
 
-		GLib.Idle.Add (new GLib.IdleHandler (new IdleWork (message_received_handler, message).Run));
+		message_cb = new GLib.IdleHandler (new IdleWork (message_received_handler, message).Run);
+		GLib.Idle.Add (message_cb);
 	}
 
 	internal class IdleWork
 	{
-		private string message;
+		private string [] message;
 		private MessageReceivedDelegate callback;
 
-		public IdleWork (MessageReceivedDelegate cb, string msg)
+		public IdleWork (MessageReceivedDelegate cb, string [] msg)
 		{
 			message = msg;
 			callback = cb;
