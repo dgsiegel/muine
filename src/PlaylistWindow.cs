@@ -99,6 +99,12 @@ public class PlaylistWindow : Window
 		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
 	};
 
+	public delegate void PlayerChangedSongHandler (Song song, bool hasfocus);
+
+	/* Event to notify when song changed: plugins like
+	   Dashboard can use this.  */
+	public event PlayerChangedSongHandler PlayerChangedSong;
+
 	public PlaylistWindow () : base (WindowType.Toplevel)
 	{
 		/* build the interface */
@@ -137,6 +143,9 @@ public class PlaylistWindow : Window
 		mmkeys.PlayPause += new EventHandler (HandlePlayPauseCommand);
 		mmkeys.Stop += new EventHandler (HandleStopCommand);
 
+		/* Add Dashboard support */
+		PlayerChangedSong += DashboardFrontend.PlayerChangedSong;
+		
 		/* load last playlist */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
 		System.IO.FileInfo finfo = new System.IO.FileInfo (playlist_filename);
@@ -649,8 +658,10 @@ public class PlaylistWindow : Window
 			if (player.Playing)
 				icon.Tooltip = artist_label.Text + " - " + title_label.Text;
 
-			if (restart)
-				DashboardFrontend.SendClue (song.Artists, song.Album, song.Title, HasToplevelFocus);
+			if (restart) {
+				PlayerChangedSong (song, HasToplevelFocus);
+			}
+
 		} else {
 			cover_image.Song = null;
 

@@ -26,6 +26,11 @@ using System.Text;
 
 public class DashboardFrontend
 {
+	public static void PlayerChangedSong (Song song, bool has_focus)
+	{
+		SendClue (song.Artists, song.Album, song.Title, has_focus);
+	}
+
         public static void SendClue (string [] artists, string album, string song_title, bool has_focus)
         {
 		TcpClient tcp_client = new TcpClient ();
