@@ -1,3 +1,12 @@
+2005-01-16  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+
+	Replace <span weight="bold"> stuff with <b>.
+
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:

@@ -59,11 +59,11 @@ namespace Muine
 		private static readonly string string_playlist_filename =
 			Catalog.GetString ("Playlist.m3u");
 		private static readonly string string_playlist = 
-			Catalog.GetString ("<span weight=\"bold\">Playlist</span>");
+			Catalog.GetString ("<b>Playlist</b>");
 		private static readonly string string_playlist_repeating =
-			Catalog.GetString ("<span weight=\"bold\">Playlist</span> (Repeating)");
+			Catalog.GetString ("<b>Playlist</b> (Repeating)");
 		private static readonly string string_playlist_under_minute =
-			Catalog.GetString ("<span weight=\"bold\">Playlist</span> (Less than one minute remaining)");
+			Catalog.GetString ("<b>Playlist</b> (Less than one minute remaining)");
 		private static readonly string string_artists =
 			Catalog.GetString ("From \"{0}\"");
 		private static readonly string string_album_unknown =
@@ -945,23 +945,23 @@ namespace Muine
 
 			// Possible strings
 			string string_repeat_hour = 
-				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> (Repeating {0} hour)", 
-							 "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)", 
+				Catalog.GetPluralString ("<b>Playlist</b> (Repeating {0} hour)", 
+							 "<b>Playlist</b> (Repeating {0} hours)", 
 							 hours);
 
 			string string_repeat_minute =
-				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> (Repeating {0} minute)", 
-							 "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)", 
+				Catalog.GetPluralString ("<b>Playlist</b> (Repeating {0} minute)", 
+							 "<b>Playlist</b> (Repeating {0} minutes)", 
 							 minutes);
 
 			string string_normal_hour =
-				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> ({0} hour remaining)", 
-							 "<span weight=\"bold\">Playlist</span> ({0} hours remaining)", 
+				Catalog.GetPluralString ("<b>Playlist</b> ({0} hour remaining)", 
+							 "<b>Playlist</b> ({0} hours remaining)", 
 							 hours);
 							 
 			string string_normal_minute =
-				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> ({0} minute remaining)", 
-							 "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)", 
+				Catalog.GetPluralString ("<b>Playlist</b> ({0} minute remaining)", 
+							 "<b>Playlist</b> ({0} minutes remaining)", 
 							 minutes);
 
 			// Choose string for each scenario based on whether we are repeating or not
@@ -1972,7 +1972,7 @@ namespace Muine
 			Song song = Song.FromHandle (handle);
 			CellRendererText r = (CellRendererText) cell;
 
-			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}",
+			r.Markup = String.Format ("<b>{0}</b>\n{1}",
 			                          StringUtils.EscapeForPango (song.Title),
 						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}

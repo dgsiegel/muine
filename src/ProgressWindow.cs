@@ -61,7 +61,7 @@ namespace Muine
 			file_label.Visible = true;
 			file_label_container.Add (file_label);
 
-			loading_label.Markup = String.Format ("<span weight=\"bold\">{0}</span>",
+			loading_label.Markup = String.Format ("<b>{0}</b>",
 							      StringUtils.EscapeForPango (string_loading));
 
 			title_format = string_title;

@@ -243,7 +243,7 @@ namespace Muine
 			if (album.Performers.Length > 0)
 				performers = StringUtils.EscapeForPango (String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2)));
 
-			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}\n\n{2}",
+			r.Markup = String.Format ("<b>{0}</b>\n{1}\n\n{2}",
 						  StringUtils.EscapeForPango (album.Name),
 						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (album.Artists, 3)),
 						  performers);

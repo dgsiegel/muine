@@ -169,7 +169,7 @@ namespace Muine
 			CellRendererText r = (CellRendererText) cell;
 			Song song = Song.FromHandle (handle);
 
-			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}",
+			r.Markup = String.Format ("<b>{0}</b>\n{1}",
 			                          StringUtils.EscapeForPango (song.Title),
 						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}
