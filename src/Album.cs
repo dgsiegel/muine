@@ -26,7 +26,7 @@ using Mono.Posix;
 
 namespace Muine
 {
-	public class Album
+	public class Album : Item
 	{
 		private string name;
 		public string Name {
@@ -81,81 +81,6 @@ namespace Muine
 
 		private static string [] prefixes = null;
 
-		private string sort_key = null;
-		public string SortKey {
-			get {
-				if (sort_key != null)
-					return sort_key;
-
-				if (prefixes == null) {
-					/* Space-separated list of prefixes that will be taken off the front
-					 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-					 * if "the" is included in this list. Also include the English "the"
-					 * if English is generally spoken in your country. */
-					prefixes = Catalog.GetString ("the dj").Split (' ');
-				}
-						
-				string [] p_artists = new string [artists.Count];
-				for (int i = 0; i < artists.Count; i++) {
-					p_artists [i] = ((string) artists [i]).ToLower ();
-					
-					foreach (string prefix in prefixes) {
-						if (p_artists [i].StartsWith (prefix + " ")) {
-							p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
-
-							break;
-						}
-					}
-				}
-
-				string [] p_performers = new string [performers.Count];
-				for (int i = 0; i < performers.Count; i++) {
-					p_performers [i] = ((string) performers [i]).ToLower ();
-					
-					foreach (string prefix in prefixes) {
-						if (p_performers [i].StartsWith (prefix + " ")) {
-							p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
-
-							break;
-						}
-					}
-				}
-
-				string a = String.Join (" ", p_artists);
-				string p = String.Join (" ", p_performers);
-
-				if (artists.Count > 3) {
-					/* more than three artists, sort by album name */
-					sort_key = StringUtils.CollateKey (name.ToLower () + " " + year + " " + a + " " + p);
-				} else {
-					/* three or less artists, sort by artist */
-					sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
-				}
-				
-				return sort_key;
-			}
-		}
-
-		private string search_key = null;
-		public string SearchKey {
-			get {
-				if (search_key != null)
-					return search_key;
-
-				string a = String.Join (" ", Artists).ToLower ();
-				string p = String.Join (" ", Performers).ToLower ();
-
-				search_key = name.ToLower () + " " + a + " " + p;
-
-				return search_key;
-			}
-		}
-
-		private IntPtr handle;
-		public IntPtr Handle {
-			get { return handle; }
-		}
-
 		public Album (Song initial_song)
 		{
 			songs = new ArrayList ();
@@ -174,7 +99,7 @@ namespace Muine
 
 			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 			pointers [cur_ptr] = this;
-			handle = cur_ptr;
+			base.handle = cur_ptr;
 
 			if (Muine.CoverDB.Loading)
 				return;
@@ -277,7 +202,7 @@ namespace Muine
 			if (songs.Count > 0)
 				return false;
 
-			pointers.Remove (handle);
+			pointers.Remove (base.handle);
 
 			if (!FileUtils.IsFromRemovableMedia (folder))
 				Muine.CoverDB.RemoveCover (Key);
@@ -343,5 +268,62 @@ namespace Muine
 
 		private static Hashtable pointers = new Hashtable ();
 		private static IntPtr cur_ptr = IntPtr.Zero;
+		
+		protected override string GenerateSortKey ()
+		{
+			if (prefixes == null) {
+				/* Space-separated list of prefixes that will be taken off the front
+				 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+				 * if "the" is included in this list. Also include the English "the"
+				 * if English is generally spoken in your country. */
+				prefixes = Catalog.GetString ("the dj").Split (' ');
+			}
+					
+			string [] p_artists = new string [artists.Count];
+			for (int i = 0; i < artists.Count; i++) {
+				p_artists [i] = ((string) artists [i]).ToLower ();
+				
+				foreach (string prefix in prefixes) {
+					if (p_artists [i].StartsWith (prefix + " ")) {
+						p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+
+						break;
+					}
+				}
+			}
+
+			string [] p_performers = new string [performers.Count];
+			for (int i = 0; i < performers.Count; i++) {
+				p_performers [i] = ((string) performers [i]).ToLower ();
+				
+				foreach (string prefix in prefixes) {
+					if (p_performers [i].StartsWith (prefix + " ")) {
+						p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
+
+						break;
+					}
+				}
+			}
+
+			string a = String.Join (" ", p_artists);
+			string p = String.Join (" ", p_performers);
+
+			/* more than three artists, sort by album name
+			 * three or less artists, sort by artist */
+
+			string key = (artists.Count > 3)
+				     ? String.Format ("{0} {1} {2} {3}", name.ToLower (), year, a, p)
+				     : String.Format ("{0} {1} {2} {3}", a, p, year, name.ToLower ());
+
+			return StringUtils.CollateKey (key);
+		}				
+
+		protected override string GenerateSearchKey ()
+		{
+			string a = String.Join (" ", Artists).ToLower ();
+			string p = String.Join (" ", Performers).ToLower ();
+
+			return String.Format ("{0} {1} {2}", name.ToLower (), a, p);
+		}
 	}
 }

@@ -29,7 +29,7 @@ using Muine.PluginLib;
 
 namespace Muine
 {
-	public class Song : ISong
+	public class Song : Item, ISong
 	{
 		private string filename;
 		public string Filename {
@@ -118,36 +118,6 @@ namespace Muine
 			get { return peak; }
 		}
 
-		private string sort_key = null;
-		public string SortKey {
-			get {
-				if (sort_key != null)
-					return sort_key;
-
-				string a = String.Join (" ", artists).ToLower ();
-				string p = String.Join (" ", performers).ToLower ();
-				
-				sort_key = StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
-			
-				return sort_key;
-			}
-		}
-
-		private string search_key = null;
-		public string SearchKey {
-			get {
-				if (search_key != null)
-					return search_key;
-
-				string a = String.Join (" ", artists).ToLower ();
-				string p = String.Join (" ", performers).ToLower ();
-				
-				search_key = title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
-
-				return search_key;
-			}
-		}
-
 		public string AlbumKey {
 			get {
 				return Muine.DB.MakeAlbumKey (Folder, album);
@@ -162,7 +132,7 @@ namespace Muine
 				if (!dead)
 					return;
 
-				pointers.Remove (Handle);
+				pointers.Remove (this.Handle);
 
 				foreach (IntPtr extra_handle in handles)
 					pointers.Remove (extra_handle);
@@ -174,7 +144,7 @@ namespace Muine
 			get { return dead; }
 		}
 
-		public IntPtr Handle {
+		public new IntPtr Handle {
 			get { return (IntPtr) handles [0]; }
 		}
 
@@ -357,7 +327,7 @@ namespace Muine
 		public void SetCoverWeb (string url)
 		{
 			CoverImage = Muine.CoverDB.Getter.GetWeb (filename, url,
-					new CoverGetter.GotCoverDelegate (OnGotCover));
+				new CoverGetter.GotCoverDelegate (OnGotCover));
 		}
 
 		private void OnGotCover (Pixbuf pixbuf)
@@ -365,8 +335,23 @@ namespace Muine
 			CoverImage = pixbuf;
 		}
 
-		private static Hashtable pointers =
-			Hashtable.Synchronized (new Hashtable ());
+		private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
 		private static IntPtr cur_ptr = IntPtr.Zero;
+		
+		protected override string GenerateSortKey ()
+		{
+			string a = String.Join (" ", artists).ToLower ();
+			string p = String.Join (" ", performers).ToLower ();
+				
+			return StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
+		}
+
+		protected override string GenerateSearchKey ()
+		{
+			string a = String.Join (" ", artists).ToLower ();
+			string p = String.Join (" ", performers).ToLower ();
+				
+			return title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
+		}
 	}
 }

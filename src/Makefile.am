@@ -41,7 +41,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/AddWindow.cs			\
 	$(srcdir)/Config.cs			\
-	$(srcdir)/DndUtils.cs
+	$(srcdir)/DndUtils.cs			\
+	$(srcdir)/Item.cs
 
 MUINE_GENERATED_CSFILES =			\
 	$(srcdir)/AmazonSearchService.cs	\

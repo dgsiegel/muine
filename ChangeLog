@@ -1,5 +1,14 @@
 2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* src/Album.cs:
+	* src/Item.cs:
+	* src/Makefile.am:
+	* src/Song.cs:
+	
+	Added Item, a base class for Album and Song.
+
+2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/CoverGetter.cs:
 	
 	Use Amazon namespace.
