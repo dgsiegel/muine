@@ -1,3 +1,34 @@
+0.7.0
+=====
+
+- Drag'n'Drop support all over the place [Sean Egan, Jorn Baayen]
+- Shuffle current playlist functionality [Jorn Baayen]
+- Use Gtk# 1.9: new fileselectors and gnome icon theme [Jorn Baayen]
+- Support loading and saving playlists over gnome-vfs [Jorn Baayen]
+- Many bugfixes, optimizations, and UI improvements [Jorn Baayen, Ross Girshick,
+                                                     Lee Willis, Bryan Forbes]
+
+New translations:
+- Finnish [Hile Tuohela]
+- Lithuanian [Žygimantas Beručka]
+- Malay [Hasbullah Bin Pit]
+- Russian [Alekseev Vladimir]
+
+Updated translations:
+- British English [David Lodge]
+- Bulgarian [Vladimir "Kaladan" Petkov]
+- Canadian English [Adam Weinberger]
+- Czech [Miloslav Trmac]
+- Dutch [Tino Meinen]
+- French [Christophe Merlet]
+- German [Matthias Debus]
+- Hungarian [Laszlo Dvornik]
+- Icelandic [Samúel Jón Gunnarsson]
+- Norwegian Bokmål [Sigurd Gartmann]
+- Portuguese [Duarte Loreto]
+- Simplified Chinese [Funda Wang]
+- Spanish [Francisco Javier F. Serrador]
+
 0.6.3
 =====
 
