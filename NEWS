@@ -1,3 +1,28 @@
+0.5.1
+=====
+
+- New xine backend, which is currently built by default [Jorn Baayen]
+- Updated gstreamer backend to work with gstreamer 0.8 and GstPlay [Jorn Baayen]
+- Grab multimedia keys globally [Lee Willis]
+- Major improvements to the db rebuilding and changes handling [Jorn Baayen]
+- Fixes to the replaygain support [Jorn Baayen]
+- Tray icon improvements [Jorn Baayen]
+- Pressing the window close button hides the window [Jorn Baayen]
+- Various other fixes [Edd Dumbill, Jorn Baayen]
+
+Updated translations:
+- Basque [Mikel Olasagasti, Iñaki Larrañaga]
+- Brazilian Portuguese [Everson Santos Araujo]
+- Croatian [Robert Sedak]
+- Czech [Miloslav Trmac]
+- Dutch [Daniel van Eeden, Timo Meinen]
+- French [Vincent Carriere]
+- German [Matthias Debus]
+- Korean [Young-Ho Cha]
+- Norwegian [Kjartan Maraas]
+- Serbian [Danilo Šegan]
+- Spanish [Francisco Javier F. Serrador]
+
 0.5.0
 =====
 
