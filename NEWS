@@ -1,3 +1,10 @@
+0.3.1.1
+=======
+
+- Improve cover image fetching code some more [Jorn Baayen]
+- Use a "downloading" image as album cover when relevant [Jorn Baayen]
+- Support mono > 0.29 [Jorn Baayen]
+
 0.3.1
 =====
 

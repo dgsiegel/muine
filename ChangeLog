@@ -1,5 +1,13 @@
 2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
 
+	* NEWS:
+	* configure.in:
+	* src/About.cs:
+
+	Release 0.3.1.1.
+
+2004-02-01  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* src/Album.cs:
 	* src/CoverDatabase.cs:
