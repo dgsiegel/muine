@@ -1,5 +1,12 @@
 2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/muine.schemas.in:
+	* src/PlaylistWindow.cs:
+
+	Merge save_playlist_as an open_playlist gconf keys.
+
+2004-01-24  Jorn Baayen  <jorn@nl.linux.org>
+
 	* TODO:
 	* libmuine/pointer-list-view.c: (scroll_to_path),
 	(pointer_list_view_select_next), (pointer_list_view_select_prev):

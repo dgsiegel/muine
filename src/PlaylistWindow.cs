@@ -1000,7 +1000,7 @@ public class PlaylistWindow : Window
 	private void HandleOpenPlaylistCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector ("Open Playlist",
-						     "/apps/muine/default_open_playlist_folder");
+						     "/apps/muine/default_playlist_folder");
 
 		bool exists;
 		string fn = sel.GetFile (out exists);
@@ -1015,7 +1015,7 @@ public class PlaylistWindow : Window
 	private void HandleSavePlaylistAsCommand (object o, EventArgs args)
 	{
 		FileSelector sel = new FileSelector ("Save Playlist",
-						     "/apps/muine/default_save_playlist_as_folder");
+						     "/apps/muine/default_playlist_folder");
 
 		bool exists;
 		string fn = sel.GetFile (out exists);

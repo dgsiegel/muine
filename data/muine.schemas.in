@@ -101,25 +101,14 @@
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/muine/default_open_playlist_folder</key>
-      <applyto>/apps/muine/default_open_playlist_folder</applyto>
+      <key>/schemas/apps/muine/default_playlist_folder</key>
+      <applyto>/apps/muine/default_playlist_folder</applyto>
       <owner>muine</owner>
       <type>string</type>
       <default>~/Playlists/</default>
       <locale name="C">
-        <short>Default "Open Playlist" folder.</short>
-        <long>Last used folder from "Open Playlist" dialog.</long>
-      </locale>
-    </schema>
-    <schema>
-      <key>/schemas/apps/muine/default_save_playlist_as_folder</key>
-      <applyto>/apps/muine/default_save_playlist_as_folder</applyto>
-      <owner>muine</owner>
-      <type>string</type>
-      <default>~/Playlists/</default>
-      <locale name="C">
-        <short>Default "Save Playlist As" folder.</short>
-        <long>Last used folder from "Save Playlist As" dialog.</long>
+        <short>Default playlist folder.</short>
+        <long>Last used folder from the playlist file selectors.</long>
       </locale>
     </schema>
   </schemalist>
