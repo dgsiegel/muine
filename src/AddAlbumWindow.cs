@@ -158,12 +158,11 @@ public class AddAlbumWindow
 		CellRendererText r = (CellRendererText) cell;
 		Album album = Album.FromHandle (handle);
 
-		r.Text = album.Name + "\n";
-		if (album.Artists.Length > 3)
-			r.Text = r.Text + String.Join (", ", album.Artists, 0, 3) + " and others";
-		else
-			r.Text = r.Text + String.Join (", ", album.Artists);
-		r.Yalign = 0.25f;
+		string performers = "";
+		if (album.Performers.Length > 0)
+			performers = "Performed by " + StringUtils.JoinHumanReadable (album.Performers, 2);
+
+		r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
 
 		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
 					   false, true, false);
@@ -221,12 +220,7 @@ public class AddAlbumWindow
 		int n_matches = 0;
 			
 		foreach (string search_bit in search_bits) {
-			if (a.LowerName.IndexOf (search_bit) >= 0) {
-				n_matches++;
-				continue;
-			}
-
-			if (a.AllLowerArtists.IndexOf (search_bit) >= 0) {
+			if (a.SearchKey.IndexOf (search_bit) >= 0) {
 				n_matches++;
 				continue;
 			}

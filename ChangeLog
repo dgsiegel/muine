@@ -1,5 +1,34 @@
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
+	* TODO:
+	* libmuine/db.c: (db_open), (db_get_version), (db_set_version),
+	(db_foreach), (db_unpack_double), (db_pack_double):
+	* libmuine/db.h:
+	* libmuine/metadata.c: (assign_metadata_mp3),
+	(assign_metadata_ogg), (metadata_free), (metadata_get_title),
+	(metadata_get_performer), (metadata_get_performer_count),
+	(metadata_get_album), (metadata_get_gain), (metadata_get_peak):
+	* libmuine/metadata.h:
+	* libmuine/player.c: (player_set_volume), (player_get_volume),
+	(player_set_replaygain):
+	* libmuine/player.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/Metadata.cs:
+	* src/Muine.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:
+
+	Add database versioning, replaygain support, performer tag support,
+	and some misc bugfixes and cleanups.
+
+2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/PlaylistWindow.glade:
 	* src/About.cs:
 	* src/PlaylistWindow.cs:

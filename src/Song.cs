@@ -33,24 +33,10 @@ public class Song
 		}
 	}
 		
-	private string [] titles;
-	public string [] Titles {
+	private string title;
+	public string Title {
 		get {
-			return titles;
-		}
-	}
-
-	private string all_lower_titles = null;
-	public string AllLowerTitles {
-		get {
-			if (all_lower_titles == null) {
-				string [] lower_titles = new string [titles.Length];
-				for (int i = 0; i < titles.Length; i++)
-					lower_titles [i] = titles [i].ToLower ();
-				all_lower_titles = String.Join (", ", lower_titles);
-			}
-
-			return all_lower_titles;
+			return title;
 		}
 	}
 
@@ -61,17 +47,10 @@ public class Song
 		}
 	}
 
-	private string all_lower_artists = null;
-	public string AllLowerArtists {
+	private string [] performers;
+	public string [] Performers {
 		get {
-			if (all_lower_artists == null) {
-				string [] lower_artists = new string [artists.Length];
-				for (int i = 0; i < artists.Length; i++)
-					lower_artists [i] = artists [i].ToLower ();
-				all_lower_artists = String.Join (", ", lower_artists);
-			}
-
-			return all_lower_artists;
+			return performers;
 		}
 	}
 
@@ -134,6 +113,20 @@ public class Song
 		}
 	}
 
+	private double gain;
+	public double Gain {
+		get {
+			return gain;
+		}
+	}
+
+	private double peak;
+	public double Peak {
+		get {
+			return peak;
+		}
+	}
+
 	[DllImport ("libglib-2.0-0.dll")]
 	private static extern string g_utf8_collate_key (string str, int len);
 
@@ -141,9 +134,25 @@ public class Song
 	public string SortKey {
 		get {
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (AllLowerTitles, -1);
+				sort_key = g_utf8_collate_key (title, -1);
 			
 			return sort_key;
+		}
+	}
+
+	private string search_key = null;
+	public string SearchKey {
+		get {
+			if (search_key == null) {
+				string [] lower_artists = new string [artists.Length + performers.Length];
+				for (int i = 0; i < artists.Length; i++)
+					lower_artists [i] = artists [i].ToLower ();
+				for (int i = 0; i < performers.Length; i++)
+					lower_artists [artists.Length - 1 + i] = performers [i].ToLower ();
+				search_key = String.Join (" ", lower_artists) + " " + title.ToLower ();
+			}
+
+			return search_key;
 		}
 	}
 
@@ -282,22 +291,26 @@ public class Song
 
 	public void Sync (Metadata metadata)
 	{
-		if (metadata.Titles.Length > 0)
-			titles = metadata.Titles;
+		if (metadata.Title.Length > 0)
+			title = metadata.Title;
 		else {
-			titles = new string [1];
-
 			FileInfo finfo = new FileInfo (filename);
-			titles [0] = finfo.Name;
+			title = finfo.Name;
 		}
 		
 		artists = metadata.Artists;
+		performers = metadata.Performers;
 		album = metadata.Album;
 		track_number = metadata.TrackNumber;
 		year = metadata.Year;
 		duration = metadata.Duration;
 		mime_type = metadata.MimeType;
 		mtime = metadata.MTime;
+		gain = metadata.Gain;
+		peak = metadata.Peak;
+
+		sort_key = null;
+		search_key = null;
 
 		GetCoverImage ();
 	}
@@ -332,6 +345,8 @@ public class Song
         private static extern IntPtr db_unpack_long (IntPtr p, out long l);
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
+        [DllImport ("libmuine")]
+        private static extern IntPtr db_unpack_double (IntPtr p, out double d);
 
 	public Song (string fn,
 	             IntPtr data)
@@ -341,16 +356,18 @@ public class Song
 
 		filename = fn;
 
-		p = db_unpack_int (p, out len);
-		titles = new string [len];
-		for (int i = 0; i < len; i++) {
-			p = db_unpack_string (p, out titles [i]);
-		}
+		p = db_unpack_string (p, out title);
 
 		p = db_unpack_int (p, out len);
 		artists = new string [len];
 		for (int i = 0; i < len; i++) {
 			p = db_unpack_string (p, out artists [i]);
+		}
+
+		p = db_unpack_int (p, out len);
+		performers = new string [len];
+		for (int i = 0; i < len; i++) {
+			p = db_unpack_string (p, out performers [i]);
 		}
 
 		p = db_unpack_string (p, out album);
@@ -360,6 +377,8 @@ public class Song
 		p = db_unpack_string (p, out mime_type);
 		p = db_unpack_long (p, out mtime);
 		p = db_unpack_bool (p, out checked_cover_image);
+		p = db_unpack_double (p, out gain);
+		p = db_unpack_double (p, out peak);
 
 		/* cover image */
 		if (album.Length == 0 || artists.Length == 0)
@@ -394,6 +413,8 @@ public class Song
 	[DllImport ("libmuine")]
 	private static extern void db_pack_bool (IntPtr p, bool b);
 	[DllImport ("libmuine")]
+	private static extern void db_pack_double (IntPtr p, double d);
+	[DllImport ("libmuine")]
 	private static extern IntPtr db_pack_end (IntPtr p, out int length);
 
 	public IntPtr Pack (out int length)
@@ -402,14 +423,16 @@ public class Song
 
 		p = db_pack_start ();
 		
-		db_pack_int (p, titles.Length);
-		foreach (string title in titles) {
-			db_pack_string (p, title);
-		}
+		db_pack_string (p, title);
 		
 		db_pack_int (p, artists.Length);
 		foreach (string artist in artists) {
 			db_pack_string (p, artist);
+		}
+		
+		db_pack_int (p, performers.Length);
+		foreach (string performer in performers) {
+			db_pack_string (p, performer);
 		}
 		
 		db_pack_string (p, album);
@@ -419,6 +442,8 @@ public class Song
 		db_pack_string (p, mime_type);
 		db_pack_long (p, mtime);
 		db_pack_bool (p, checked_cover_image);
+		db_pack_double (p, gain);
+		db_pack_double (p, peak);
 		
 		return db_pack_end (p, out length);
 	}

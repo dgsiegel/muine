@@ -53,24 +53,27 @@ struct _PlayerClass
   GObjectClass parent_class;
 };
 
-GType        player_get_type    (void);
-Player *     player_new         (void);
-gboolean     player_set_file    (Player     *player,
-				 const char *filename,
-				 const char *mime_type);
-const char * player_get_file    (Player     *player);
-gboolean     player_play        (Player     *player);
-void         player_stop        (Player     *player);
-void         player_pause       (Player     *player);
-void         player_set_volume  (Player     *player,
-				 int         volume);
-int          player_get_volume  (Player     *player);
-void         player_toggle_mute (Player     *player);
-PlayerState  player_get_state   (Player     *player);
-void         player_seek        (Player     *player,
-				 guint64     t);
-guint64      player_tell        (Player     *player);
-gboolean     player_is_playing  (Player     *player,
-				 const char *filename);
+GType        player_get_type       (void);
+Player *     player_new            (void);
+gboolean     player_set_file       (Player     *player,
+				    const char *filename,
+				    const char *mime_type);
+const char * player_get_file       (Player     *player);
+gboolean     player_play           (Player     *player);
+void         player_stop           (Player     *player);
+void         player_pause          (Player     *player);
+void         player_set_volume     (Player     *player,
+				    int         volume);
+int          player_get_volume     (Player     *player);
+void         player_set_replaygain (Player     *player,
+				    double      gain,
+				    double      peak);
+void         player_toggle_mute    (Player     *player);
+PlayerState  player_get_state      (Player     *player);
+void         player_seek           (Player     *player,
+				    guint64     t);
+guint64      player_tell           (Player     *player);
+gboolean     player_is_playing     (Player     *player,
+				    const char *filename);
 
 #endif /* __PLAYER_H__ */

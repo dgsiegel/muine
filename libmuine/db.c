@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <gdbm.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "db.h"
 
@@ -31,13 +32,30 @@
 #define _ALIGN_ADDRESS(this, boundary) \
   ((void*)_ALIGN_VALUE(this, boundary))
 
+#define VERSION_KEY "version"
+
 gpointer
 db_open (const char *filename,
+	 int version,
 	 char **error_message_return)
 {
 	GDBM_FILE db = gdbm_open ((char *) filename, 4096,
-				  GDBM_NOLOCK | GDBM_WRCREAT | GDBM_SYNC,
+				  GDBM_NOLOCK | GDBM_WRITER | GDBM_SYNC,
 				  04644, NULL);
+
+	if (db != NULL && db_get_version (db) != version) {
+		gdbm_close (db);
+		db = NULL;
+	}
+
+	if (db == NULL) {
+		db = gdbm_open ((char *) filename, 4096,
+				GDBM_NOLOCK | GDBM_NEWDB | GDBM_SYNC,
+				04644, NULL);
+
+		if (db != NULL)
+			db_set_version (db, version);
+	}
 
 	if (db == NULL) {
 		*error_message_return = gdbm_strerror (gdbm_errno);
@@ -46,6 +64,45 @@ db_open (const char *filename,
 	}
 
 	return (gpointer) db;
+}
+
+int
+db_get_version (gpointer db)
+{
+	datum key, data;
+	int ret;
+
+	memset (&key, 0, sizeof (key));
+	key.dptr = VERSION_KEY;
+	key.dsize = strlen (key.dptr);
+
+	data = gdbm_fetch ((GDBM_FILE) db, key);
+	if (!data.dptr)
+		return -1;
+
+	db_unpack_int (data.dptr, &ret);
+
+	return ret;
+}
+
+void
+db_set_version (gpointer db,
+		int version)
+{
+	GString *string;
+	datum key, data;
+
+	memset (&key, 0, sizeof (key));
+	key.dptr = VERSION_KEY;
+	key.dsize = strlen (key.dptr);
+
+	string = db_pack_start ();
+	db_pack_int (string, version);
+
+	memset (&data, 0, sizeof (data));
+	data.dptr = db_pack_end (string, &data.dsize);
+
+	gdbm_store ((GDBM_FILE) db, key, data, GDBM_REPLACE);
 }
 
 gboolean
@@ -114,7 +171,8 @@ db_foreach (gpointer db,
 		data = gdbm_fetch ((GDBM_FILE) db, key);
 
 		keystr = g_strndup (key.dptr, key.dsize);
-		func ((const char *) keystr, (gpointer) data.dptr, user_data);
+		if (strcmp (keystr, VERSION_KEY) != 0)
+			func ((const char *) keystr, (gpointer) data.dptr, user_data);
 		g_free (keystr);
 
 		key = gdbm_nextkey ((GDBM_FILE) db, key);
@@ -176,6 +234,19 @@ gpointer
 db_unpack_bool (gpointer p, gboolean *val)
 {
 	return db_unpack_int (p, (int *) val);
+}
+
+gpointer
+db_unpack_double (gpointer p, double *val)
+{
+	gpointer ret;
+	char *str;
+
+	ret = db_unpack_string (p, &str);
+	*val = atof (str);
+	g_free (str);
+
+	return ret;
 }
 
 gpointer
@@ -265,6 +336,16 @@ void
 db_pack_bool (gpointer p, gboolean val)
 {
 	db_pack_int (p, (int) val);
+}
+
+void
+db_pack_double (gpointer p, double val)
+{
+	char *str;
+
+	str = g_strdup_printf ("%f", val);
+	db_pack_string (p, str);
+	g_free (str);
 }
 
 void

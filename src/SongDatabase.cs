@@ -35,12 +35,12 @@ public class SongDatabase
 	private delegate void DecodeFuncDelegate (string key, IntPtr data, IntPtr user_data);
 	
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_open (string filename, out string error);
+	private static extern IntPtr db_open (string filename, int version, out string error);
 	[DllImport ("libmuine")]
 	private static extern void db_foreach (IntPtr dbf, DecodeFuncDelegate decode_func,
 					       IntPtr user_data);
 
-	public SongDatabase ()
+	public SongDatabase (int version)
 	{
 		DirectoryInfo dinfo = new DirectoryInfo (User.DirGet () + "/muine");
 		if (!dinfo.Exists) {
@@ -55,7 +55,7 @@ public class SongDatabase
 
 		string error = null;
 
-		dbf = db_open (filename, out error);
+		dbf = db_open (filename, version, out error);
 
 		if (dbf == IntPtr.Zero) {
 			throw new Exception ("Failed to open database: " + error);
@@ -305,6 +305,9 @@ public class SongDatabase
 			return;
 
 		Album album = (Album) Albums [song.Album];
+		if (album == null)
+			return;
+			
 		if (album.RemoveSong (song)) {
 			Albums.Remove (album.Name);
 

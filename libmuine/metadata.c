@@ -30,14 +30,15 @@
 #include "metadata.h"
 
 struct _Metadata {
-	char **titles;
-	int titles_count;
+	char *title;
 
 	char **artists;
 	int artists_count;
 
-	char **albums;
-	int albums_count;
+	char **performers;
+	int performers_count;
+
+	char *album;
 
 	int track_number;
 
@@ -48,6 +49,9 @@ struct _Metadata {
 	char *mime_type;
 
 	long mtime;
+
+	double gain;
+	double peak;
 };
 
 static long
@@ -187,13 +191,7 @@ assign_metadata_mp3 (const char *filename,
 		}
 	}
 
-	count = get_mp3_comment_count (tag, ID3_FRAME_TITLE);
-	metadata->titles = g_new (char *, count + 1);
-	metadata->titles[count] = NULL;
-	metadata->titles_count = count;
-	for (i = 0; i < count; i++) {
-		metadata->titles[i] = get_mp3_comment_value (tag, ID3_FRAME_TITLE, i);
-	}
+	metadata->title = get_mp3_comment_value (tag, ID3_FRAME_TITLE, 0);
 
 	count = get_mp3_comment_count (tag, ID3_FRAME_ARTIST);
 	metadata->artists = g_new (char *, count + 1);
@@ -203,13 +201,15 @@ assign_metadata_mp3 (const char *filename,
 		metadata->artists[i] = get_mp3_comment_value (tag, ID3_FRAME_ARTIST, i);
 	}
 
-	count = get_mp3_comment_count (tag, ID3_FRAME_ALBUM);
-	metadata->albums = g_new (char *, count + 1);
-	metadata->albums[count] = NULL;
-	metadata->albums_count = count;
+	count = get_mp3_comment_count (tag, "TPE2");
+	metadata->performers = g_new (char *, count + 1);
+	metadata->performers[count] = NULL;
+	metadata->performers_count = count;
 	for (i = 0; i < count; i++) {
-		metadata->albums[i] = get_mp3_comment_value (tag, ID3_FRAME_ALBUM, i);
+		metadata->performers[i] = get_mp3_comment_value (tag, "TPE2", i);
 	}
+
+	metadata->album = get_mp3_comment_value (tag, ID3_FRAME_ALBUM, 0);
 
 	track_number_raw = get_mp3_comment_value (tag, ID3_FRAME_TRACK, 0);
 	if (track_number_raw != NULL)
@@ -219,6 +219,10 @@ assign_metadata_mp3 (const char *filename,
 	g_free (track_number_raw);
 
 	metadata->year = get_mp3_comment_value (tag, ID3_FRAME_YEAR, 0);
+
+	/* TODO implement */
+	metadata->gain = 0.0;
+	metadata->peak = 0.0;
 
 	id3_vfs_close (file);
 
@@ -263,7 +267,7 @@ assign_metadata_ogg (const char *filename,
 	int rc, count, i;
 	OggVorbis_File vf;
 	vorbis_comment *comment;
-	char *track_number_raw;
+	char *raw, *version, *title;
 
 	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
 	if (res != GNOME_VFS_OK) {
@@ -287,12 +291,19 @@ assign_metadata_ogg (const char *filename,
 
 	metadata = g_new0 (Metadata, 1);
 
-	count = vorbis_comment_query_count (comment, "title");
-	metadata->titles = g_new (char *, count + 1);
-	metadata->titles[count] = NULL;
-	metadata->titles_count = count;
-	for (i = 0; i < count; i++) {
-		metadata->titles[i] = get_vorbis_comment_value (comment, "title", i);
+	version = get_vorbis_comment_value (comment, "version", 0);
+
+	title = get_vorbis_comment_value (comment, "title", 0);
+
+	if (version != NULL && title != NULL) {
+		metadata->title = g_strdup_printf ("%s (%s)", title, version);
+
+		g_free (title);
+		g_free (version);
+	} else if (title != NULL) {
+		metadata->title = title;
+	} else if (version != NULL) {
+		metadata->title = version;
 	}
 
 	count = vorbis_comment_query_count (comment, "artist");
@@ -303,23 +314,54 @@ assign_metadata_ogg (const char *filename,
 		metadata->artists[i] = get_vorbis_comment_value (comment, "artist", i);
 	}
 
-	count = vorbis_comment_query_count (comment, "album");
-	metadata->albums = g_new (char *, count + 1);
-	metadata->albums[count] = NULL;
-	metadata->albums_count = count;
+	count = vorbis_comment_query_count (comment, "performer");
+	metadata->performers = g_new0 (char *, count + 1);
+	metadata->performers[count] = NULL;
+	metadata->performers_count = count;
 	for (i = 0; i < count; i++) {
-		metadata->albums[i] = get_vorbis_comment_value (comment, "album", i);
+		metadata->performers[i] = get_vorbis_comment_value (comment, "performer", i);
 	}
 
-	track_number_raw = vorbis_comment_query (comment, "tracknumber", 0);
-	if (track_number_raw != NULL)
-		metadata->track_number = atoi (track_number_raw);
+	metadata->album = get_vorbis_comment_value (comment, "album", 0);
+
+	raw = vorbis_comment_query (comment, "tracknumber", 0);
+	if (raw != NULL)
+		metadata->track_number = atoi (raw);
 	else
 		metadata->track_number = -1;
 
 	metadata->year = get_vorbis_comment_value (comment, "date", 0);
 
 	metadata->duration = (long) ov_time_total (&vf, -1) * 1000;
+
+	raw = vorbis_comment_query (comment, "replaygain_album_gain", 0);
+	if (raw == NULL) {
+		raw = vorbis_comment_query (comment, "replaygain_track_gain", 0);
+		if (raw == NULL) {
+			raw = vorbis_comment_query (comment, "rg_audiophile", 0);
+			if (raw == NULL) {
+				raw = vorbis_comment_query (comment, "rg_radio", 0);
+			}
+		}
+	}
+
+	if (raw != NULL)
+		metadata->gain = atof (raw);
+	else
+		metadata->gain = 0.0;
+
+	raw = vorbis_comment_query (comment, "replaygain_album_peak", 0);
+	if (raw == NULL) {
+		raw = vorbis_comment_query (comment, "replaygain_track_peak", 0);
+		if (raw == NULL) {
+			raw = vorbis_comment_query (comment, "rg_peak", 0);
+		}
+	}
+
+	if (raw != NULL)
+		metadata->peak = atof (raw);
+	else
+		metadata->peak = 0.0;
 
 	*error_message_return = NULL;
 
@@ -367,13 +409,13 @@ metadata_free (Metadata *metadata)
 {
 	g_return_if_fail (metadata != NULL);
 
-	if (metadata->titles)
-		g_strfreev (metadata->titles);
 	if (metadata->artists)
 		g_strfreev (metadata->artists);
-	if (metadata->albums)
-		g_strfreev (metadata->albums);
+	if (metadata->performers)
+		g_strfreev (metadata->performers);
 
+	g_free (metadata->title);
+	g_free (metadata->album);
 	g_free (metadata->year);
 	g_free (metadata->mime_type);
 
@@ -381,19 +423,11 @@ metadata_free (Metadata *metadata)
 }
 
 const char *
-metadata_get_title (Metadata *metadata, int index)
+metadata_get_title (Metadata *metadata)
 {
 	g_return_val_if_fail (metadata != NULL, NULL);
 
-	return (const char *) metadata->titles[index];
-}
-
-int
-metadata_get_title_count (Metadata *metadata)
-{
-	g_return_val_if_fail (metadata != NULL, -1);
-
-	return metadata->titles_count;
+	return (const char *) metadata->title;
 }
 
 const char *
@@ -413,19 +447,27 @@ metadata_get_artist_count (Metadata *metadata)
 }
 
 const char *
-metadata_get_album (Metadata *metadata, int index)
+metadata_get_performer (Metadata *metadata, int index)
 {
 	g_return_val_if_fail (metadata != NULL, NULL);
 
-	return (const char *) metadata->albums[index];
+	return (const char *) metadata->performers[index];
 }
 
 int
-metadata_get_album_count (Metadata *metadata)
+metadata_get_performer_count (Metadata *metadata)
 {
 	g_return_val_if_fail (metadata != NULL, -1);
 
-	return metadata->albums_count;
+	return metadata->performers_count;
+}
+
+const char *
+metadata_get_album (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, NULL);
+
+	return (const char *) metadata->album;
 }
 
 int
@@ -466,4 +508,20 @@ metadata_get_mtime (Metadata *metadata)
 	g_return_val_if_fail (metadata != NULL, -1);
 
 	return metadata->mtime;
+}
+
+double
+metadata_get_gain (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->gain;
+}
+
+double
+metadata_get_peak (Metadata *metadata)
+{
+	g_return_val_if_fail (metadata != NULL, -1);
+
+	return metadata->peak;
 }

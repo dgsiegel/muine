@@ -2,12 +2,10 @@
 - pango stuff directly in C# with Gtk# CVS
 - listen to multimedia keys
 - panel crash
-- Do something special with performer tags, other than treat them as artists?
 - dnd from nautilus
 - gapless transition
 - volume normalization
 - songinfo + tagging
-- replaygain support
 - enable fixed height mode for gtk 2.3 treeview
 - add wma, mp4 and flac support
 - musicbrainz support
@@ -28,3 +26,4 @@
    - groups in group menu met number accels
 - translation (gettext 0.14 (not yet released) supports C#)
 - integrate with portable players somehow?
+- replaygain support for mp3 (vorbis is implemented)

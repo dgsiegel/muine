@@ -59,7 +59,7 @@ public class Muine : Gnome.Program
 
 		/* Load cover database */
 		try {
-			CoverDB = new CoverDatabase ();
+			CoverDB = new CoverDatabase (1);
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the cover database: " + e.ToString () + "\nExiting...");
 			Environment.Exit (0);
@@ -69,7 +69,7 @@ public class Muine : Gnome.Program
 
 		/* Load song database */
 		try {
-			DB = new SongDatabase ();
+			DB = new SongDatabase (1);
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the song database: " + e.ToString () + "\nExiting...");
 

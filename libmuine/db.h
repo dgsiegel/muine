@@ -30,7 +30,11 @@ typedef void (*ForeachDecodeFunc) (const char *key,
 				   gpointer user_data);
 
 gpointer db_open          (const char *filename,
+			   int version,
 	                   char **error_message_return);
+int      db_get_version   (gpointer db);
+void     db_set_version   (gpointer db,
+			   int version);
 gboolean db_exists        (gpointer db,
 	                   const char *key_str);
 void     db_delete        (gpointer db,
@@ -48,6 +52,7 @@ gpointer db_unpack_string (gpointer p, char **str);
 gpointer db_unpack_int    (gpointer p, int *val);
 gpointer db_unpack_long   (gpointer p, long *val);
 gpointer db_unpack_bool   (gpointer p, gboolean *val);
+gpointer db_unpack_double (gpointer p, double *val);
 gpointer db_unpack_pixbuf (gpointer p, GdkPixbuf **pixbuf);
 
 gpointer db_pack_start    (void);
@@ -55,6 +60,7 @@ void     db_pack_string   (gpointer p, const char *str);
 void     db_pack_int      (gpointer p, int val);
 void     db_pack_long     (gpointer p, long val);
 void     db_pack_bool     (gpointer p, gboolean val);
+void     db_pack_double   (gpointer p, double val);
 void	 db_pack_pixbuf   (gpointer p, GdkPixbuf *pixbuf);
 gpointer db_pack_end      (gpointer p, int *len);
 

@@ -24,31 +24,34 @@
 
 typedef struct _Metadata Metadata;
 
-Metadata   *metadata_load             (const char *filename,
-				       char **error_message_return);
+Metadata   *metadata_load                (const char *filename,
+				          char **error_message_return);
 
-void        metadata_free             (Metadata *metadata);
+void        metadata_free                (Metadata *metadata);
 
-const char *metadata_get_title        (Metadata *metadata,
-				       int index);
-int         metadata_get_title_count  (Metadata *metadata);
+const char *metadata_get_title           (Metadata *metadata);
 
-const char *metadata_get_artist       (Metadata *metadata,
-				       int index);
-int         metadata_get_artist_count (Metadata *metadata);
+const char *metadata_get_artist          (Metadata *metadata,
+				          int index);
+int         metadata_get_artist_count    (Metadata *metadata);
 
-const char *metadata_get_album        (Metadata *metadata,
-				       int index);
-int         metadata_get_album_count  (Metadata *metadata);
+const char *metadata_get_performer       (Metadata *metadata,
+				          int index);
+int         metadata_get_performer_count (Metadata *metadata);
 
-int         metadata_get_track_number (Metadata *metadata);
+const char *metadata_get_album           (Metadata *metadata);
 
-long        metadata_get_duration     (Metadata *metadata);
+int         metadata_get_track_number    (Metadata *metadata);
 
-const char *metadata_get_year         (Metadata *metadata);
+long        metadata_get_duration        (Metadata *metadata);
 
-const char *metadata_get_mime_type    (Metadata *metadata);
+const char *metadata_get_year            (Metadata *metadata);
 
-long        metadata_get_mtime        (Metadata *metadata);
+const char *metadata_get_mime_type       (Metadata *metadata);
+
+long        metadata_get_mtime           (Metadata *metadata);
+
+double      metadata_get_gain            (Metadata *metadata);
+double      metadata_get_peak            (Metadata *metadata);
 
 #endif /* __METADATA_H__ */

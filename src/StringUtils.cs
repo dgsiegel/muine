@@ -44,4 +44,25 @@ public class StringUtils
 			return m + ":" + s.ToString ("d2");
 		}
 	}
+
+	public static string JoinHumanReadable (string [] strings, int max)
+	{
+		string ret;
+
+		if (strings.Length == 0)
+			ret = "Unknown";
+		else if (strings.Length == 1) 
+			ret = strings [0];
+		else if (max > 1 && strings.Length > max)
+			ret = String.Join (", ", strings, 0, max) + " and others";
+		else
+			ret = String.Join (", ", strings, 0, strings.Length - 1) + " and " + strings [strings.Length - 1];
+
+		return ret;
+	}
+
+	public static string JoinHumanReadable (string [] strings)
+	{
+		return JoinHumanReadable (strings, -1);
+	}
 }

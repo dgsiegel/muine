@@ -30,36 +30,19 @@ public class Album
 		}
 	}
 
-	private string lower_name = null;
-	public string LowerName {
-		get {
-			if (lower_name == null)
-				lower_name = name.ToLower ();
-
-			return lower_name;
-		}
-	}
-
 	public ArrayList Songs;
 
-	public ArrayList artists;
+	private ArrayList artists;
 	public string [] Artists {
 		get {
 			return (string []) artists.ToArray (typeof (string));
 		}
 	}
 
-	private string all_lower_artists = null;
-	public string AllLowerArtists {
+	private ArrayList performers;
+	public string [] Performers {
 		get {
-			if (all_lower_artists == null) {
-				string [] lower_artists = new string [artists.Count];
-				for (int i = 0; i < artists.Count; i++)
-					lower_artists [i] = ((string) artists [i]).ToLower ();
-				all_lower_artists = String.Join (", ", lower_artists);
-			}
-
-			return all_lower_artists;
+			return (string []) performers.ToArray (typeof (string));
 		}
 	}
 
@@ -78,11 +61,28 @@ public class Album
 	private string sort_key = null;
 	public string SortKey {
 		get {
-			/* + name because we first sort on artist, then on album name */
 			if (sort_key == null)
-				sort_key = g_utf8_collate_key (AllLowerArtists + name, -1);
+				sort_key = g_utf8_collate_key (SearchKey, -1);
 			
 			return sort_key;
+		}
+	}
+
+	private string search_key = null;
+	public string SearchKey {
+		get {
+			if (search_key == null) {
+				/* need to keep this in the order for sorting too */
+				string [] lower_artists = new string [artists.Count];
+				string [] lower_performers = new string [performers.Count];
+				for (int i = 0; i < artists.Count; i++)
+					lower_artists [i] = ((string) artists [i]).ToLower ();
+				for (int i = 0; i < performers.Count; i++)
+					lower_performers [i] = ((string) performers [i]).ToLower ();
+				search_key = String.Join (" ", lower_artists) + " " + name.ToLower () + " " + String.Join (" ", lower_performers);
+			}
+
+			return search_key;
 		}
 	}
 
@@ -103,8 +103,9 @@ public class Album
 		Songs.Add (initial_song);
 
 		artists = new ArrayList ();
+		performers = new ArrayList ();
 
-		AddArtists (initial_song);
+		AddArtistsAndPerformers (initial_song);
 
 		name = initial_song.Album;
 		year = initial_song.Year;
@@ -125,22 +126,36 @@ public class Album
 		return (Album) pointers [handle];
 	}
 
-	private bool AddArtists (Song song)
+	private bool AddArtistsAndPerformers (Song song)
 	{
-		bool changed = false;
+		bool artists_changed = false;
+		bool performers_changed = false;
 		
 		foreach (string artist in song.Artists) {
 			if (artists.Contains (artist) == false) {
 				artists.Add (artist);
-				changed = true;
-				all_lower_artists = null;
+				artists_changed = true;
+				search_key = null;
 				sort_key = null;
 			}
 		}
 
-		artists.Sort ();
+		if (artists_changed == true)
+			artists.Sort ();
 
-		return changed;
+		foreach (string performer in song.Performers) {
+			if (performers.Contains (performer) == false) {
+				performers.Add (performer);
+				performers_changed = true;
+				search_key = null;
+				sort_key = null;
+			}
+		}
+
+		if (performers_changed == true)
+			performers.Sort ();
+
+		return (artists_changed || performers_changed);
 	}
 
 	private class SongComparer : IComparer {
@@ -177,7 +192,7 @@ public class Album
 		
 		song.CoverImage = CoverImage;
 		
-		return AddArtists (song);
+		return AddArtistsAndPerformers (song);
 	}
 
 	/* returns true if empty now */

@@ -65,6 +65,8 @@ struct _PlayerPriv {
   
   guint          tick_timeout_id;
   guint64        pause_offset;
+
+  int		 cur_volume;
 };
 
 static GObjectClass *parent_class;
@@ -571,6 +573,8 @@ player_set_volume (Player *player, int volume)
   g_return_if_fail (IS_PLAYER (player));
   g_return_if_fail (volume >= 0 && volume <= 100);
 
+  player->priv->cur_volume = volume;
+
   f = volume / 100.0;
 
   g_object_set (player->priv->volume, "volume", f, NULL);
@@ -579,13 +583,33 @@ player_set_volume (Player *player, int volume)
 int
 player_get_volume (Player *player)
 {
-  float volume;
-  
   g_return_val_if_fail (IS_PLAYER (player), 0);
 
-  g_object_get (player->priv->volume, "volume", &volume, NULL);
- 
-  return floor (0.5 + volume * 100.0);
+  return player->priv->cur_volume;
+}
+
+void
+player_set_replaygain (Player *player, double gain, double peak)
+{
+  double scale;
+
+  g_return_if_fail (IS_PLAYER (player));
+
+  if (gain == 0)
+    return;
+
+  scale = pow (10., gain / 20);
+
+  /* anti clip */
+  if (peak != 0 && (scale * peak) > 1)
+    scale = 1.0 / peak;
+
+  /* For security */
+  if (scale > 15)
+    scale = 15;
+
+  g_object_set (player->priv->volume, "volume",
+		(player->priv->cur_volume / 100) * scale, NULL);
 }
 
 void

@@ -247,6 +247,7 @@ public class PlaylistWindow : Window
 		}
 
 		volume_button.Volume = vol;
+		player.Volume = vol;
 		
 		add_song_menu_item_image = new Image (Stock.Add, IconSize.Menu);
 		add_song_menu_item.Image = add_song_menu_item_image;
@@ -329,17 +330,9 @@ public class PlaylistWindow : Window
 		Song song = Song.FromHandle (handle);
 		CellRendererText r = (CellRendererText) cell;
 
-		string title = String.Join (", ", song.Titles);
+		r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
 
-		string artist;
-		if (song.Artists.Length > 0)
-			artist = String.Join (", ", song.Artists);
-		else
-			artist = "Unknown";
-
-		r.Text = title + "\n" + artist;
-
-		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
+		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
 		                           false, true, false);
 	}
 
@@ -489,28 +482,27 @@ public class PlaylistWindow : Window
 			else
 				cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
 
-			if (song.Album.Length > 0 && song.Year.Length > 0)
-				tooltips.SetTip (cover_ebox, song.Album + " (" + song.Year + ")", null);
-			else if (song.Album.Length > 0)
-				tooltips.SetTip (cover_ebox, song.Album, null);
-			else if (song.Year.Length > 0)
-				tooltips.SetTip (cover_ebox, "Album unknown (" + song.Year + ")", null);
+			string tip;
+			if (song.Album.Length > 0)
+				tip = "\"" + song.Album + "\"";
 			else
-				tooltips.SetTip (cover_ebox, null, null);
+				tip = "Album unknown";
+			if (song.Performers.Length > 0)
+				tip += "\n" + "Performed by " + StringUtils.JoinHumanReadable (song.Performers);
+			if (song.Year.Length > 0)
+				tip += "\n" + "Released in " + song.Year;
+			tooltips.SetTip (cover_ebox, tip, null);
 
-			title_label.Text = String.Join (", ", song.Titles);
+			title_label.Text = song.Title;
 
-			if (song.Artists.Length > 0)
-				artist_label.Text = String.Join (", ", song.Artists);
-			else
-				artist_label.Text = "Unknown";
+			artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
 			if (player.Song != song || restart)
 				player.Song = song;
 
-			Title = title_label.Text + " - Muine Music Player";
+			Title = song.Title + " - Muine Music Player";
 
-			icon.Tooltip = artist_label.Text + " - " + title_label.Text;
+			icon.Tooltip = artist_label.Text + " - " + song.Title;
 		} else {
 			cover_image.FromPixbuf = new Gdk.Pixbuf (null, "muine-default-cover.png");
 
@@ -779,14 +771,6 @@ public class PlaylistWindow : Window
 		player.Volume = vol;
 
 		Muine.GConfClient.Set ("/apps/muine/volume", vol);
-
-		bool up_sensitive = true, down_sensitive = true;
-
-		if (vol == 0) {
-			down_sensitive = false;
-		} else if (vol == 100) {
-			up_sensitive = false;
-		}
 	}
 
 	private void HandleNotificationAreaIconActivateEvent ()

@@ -143,17 +143,9 @@ public class AddSongWindow
 		CellRendererText r = (CellRendererText) cell;
 		Song song = Song.FromHandle (handle);
 
-		string title = String.Join (", ", song.Titles);
+		r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
 
-		string artist;
-		if (song.Artists.Length > 0)
-			artist = String.Join (", ", song.Artists);
-		else
-			artist = "Unknown";
-
-		r.Text = title + "\n" + artist;
-
-		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (title),
+		MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
 					   false, true, false);
 	}
 
@@ -209,12 +201,7 @@ public class AddSongWindow
 		int n_matches = 0;
 			
 		foreach (string search_bit in search_bits) {
-			if (s.AllLowerTitles.IndexOf (search_bit) >= 0) {
-				n_matches++;
-				continue;
-			}
-
-			if (s.AllLowerArtists.IndexOf (search_bit) >= 0) {
+			if (s.SearchKey.IndexOf (search_bit) >= 0) {
 				n_matches++;
 				continue;
 			}

@@ -22,10 +22,10 @@ using System.Runtime.InteropServices;
 
 public class Metadata 
 {
-	private string [] titles;
-	public string [] Titles {
+	private string title;
+	public string Title {
 		get {
-			return titles;
+			return title;
 		}
 	}
 
@@ -33,6 +33,13 @@ public class Metadata
 	public string [] Artists {
 		get {
 			return artists;
+		}
+	}
+
+	private string [] performers;
+	public string [] Performers {
+		get {
+			return performers;
 		}
 	}
 
@@ -78,6 +85,20 @@ public class Metadata
 		}
 	}
 
+	private double gain;
+	public double Gain {
+		get {
+			return gain;
+		}
+	}
+
+	private double peak;
+	public double Peak {
+		get {
+			return peak;
+		}
+	}
+
 	[DllImport ("libmuine")]
 	private static extern IntPtr metadata_load (string filename,
 				                    out string error_message_return);
@@ -86,10 +107,7 @@ public class Metadata
 	private static extern void metadata_free (IntPtr metadata);
 	
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_title (IntPtr metadata,
-	                                                 int index);
-	[DllImport ("libmuine")]
-	private static extern int metadata_get_title_count (IntPtr metadata);
+	private static extern string metadata_get_title (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern string metadata_get_artist (IntPtr metadata,
@@ -98,10 +116,13 @@ public class Metadata
 	private static extern int metadata_get_artist_count (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_album (IntPtr metadata,
-	                                                 int index);
+	private static extern string metadata_get_performer (IntPtr metadata,
+	                                                     int index);
 	[DllImport ("libmuine")]
-	private static extern int metadata_get_album_count (IntPtr metadata);
+	private static extern int metadata_get_performer_count (IntPtr metadata);
+
+	[DllImport ("libmuine")]
+	private static extern string metadata_get_album (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern int metadata_get_track_number (IntPtr metadata);
@@ -118,34 +139,47 @@ public class Metadata
 	[DllImport ("libmuine")]
 	private static extern long metadata_get_mtime (IntPtr metadata);
 
+	[DllImport ("libmuine")]
+	private static extern double metadata_get_gain (IntPtr metadata);
+
+	[DllImport ("libmuine")]
+	private static extern double metadata_get_peak (IntPtr metadata);
+
 	public Metadata (string filename)
 	{
-		string error = null;
+		string error = null, s;
 		IntPtr md = metadata_load (filename, out error);
 
 		if (error != null)
 			throw new Exception ("Failed to load metadata: " + error);
 
-		titles = new string [metadata_get_title_count (md)];
-		for (int i = 0; i < titles.Length; i++) {
-			titles[i] = String.Copy (metadata_get_title (md, i));
-		}
+		s = metadata_get_title (md);
+		if (s != null)
+			title = String.Copy (s);
+		else
+			title = "";
 
 		artists = new string [metadata_get_artist_count (md)];
 		for (int i = 0; i < artists.Length; i++) {
 			artists[i] = String.Copy (metadata_get_artist (md, i));
 		}
+
+		performers = new string [metadata_get_performer_count (md)];
+		for (int i = 0; i < performers.Length; i++) {
+			performers[i] = String.Copy (metadata_get_performer (md, i));
+		}
 		
-		if (metadata_get_album_count (md) > 0)
-			album = String.Copy (metadata_get_album (md, 0));
+		s = metadata_get_album (md);
+		if (s != null)
+			album = String.Copy (s);
 		else
 			album = "";
 
 		track_number = metadata_get_track_number (md);
 
-		string y = metadata_get_year (md);
-		if (y != null)
-			year = String.Copy (y);
+		s = metadata_get_year (md);
+		if (s != null)
+			year = String.Copy (s);
 		else
 			year = "";
 
@@ -154,6 +188,9 @@ public class Metadata
 		mime_type = String.Copy (metadata_get_mime_type (md));
 
 		mtime = metadata_get_mtime (md);
+
+		gain = metadata_get_gain (md);
+		peak = metadata_get_peak (md);
 
 		metadata_free (md);
 	}

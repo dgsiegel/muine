@@ -27,6 +27,10 @@ public class Player : GLib.Object
 	                                            string filename,
 						    string mime_type);
 	[DllImport ("libmuine")]
+	private static extern void player_set_replaygain (IntPtr player,
+							  double gain,
+							  double peak);
+	[DllImport ("libmuine")]
 	private static extern void player_stop (IntPtr player);
 
 	private Song song;
@@ -40,6 +44,7 @@ public class Player : GLib.Object
 
 			player_stop (Raw);
 			player_set_file (Raw, song.Filename, song.MimeType);
+			player_set_replaygain (Raw, song.Gain, song.Peak);
 
 			if (TickEvent != null)
 				TickEvent (0);
