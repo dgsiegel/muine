@@ -34,6 +34,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/InfoWindow.cs			\
 	$(srcdir)/CoverImage.cs			\
+	$(srcdir)/MmKeys.cs			\
 	$(srcdir)/GettextCatalog.cs
 
 ASSEMBLIES =					\

@@ -1,3 +1,17 @@
+2004-03-12  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/Makefile.am:
+	* libmuine/mm-keys.c: (mmkeys_get_type), (mmkeys_class_init),
+	(mmkeys_finalize), (mmkeys_init), (mmkeys_new), (grab_mmkey),
+	(filter_mmkeys):
+	* libmuine/mm-keys.h:
+	* src/Makefile.am:
+	* src/MmKeys.cs:
+	* src/PlaylistWindow.cs:
+
+	Grab multimedia keys globally.
+
 2004-03-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Added Norwegian to ALL_LINGUAS.

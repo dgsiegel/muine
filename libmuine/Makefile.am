@@ -47,6 +47,8 @@ libmuine_la_SOURCES =			\
 	bacon-message-connection.h	\
 	gettext-utils.c			\
 	gettext-utils.h			\
+	mm-keys.c			\
+	mm-keys.h			\
 	gtk-glue.c			\
 	gtk-glue.h
 	

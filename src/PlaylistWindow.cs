@@ -88,6 +88,9 @@ public class PlaylistWindow : Window
 	/* the playlist filename */
 	private string playlist_filename;
 
+	/* Multimedia Key handler */
+	private MmKeys mmkeys;
+
 	public PlaylistWindow () : base ("")
 	{
 		/* build the interface */
@@ -98,7 +101,6 @@ public class PlaylistWindow : Window
 
 		AddAccelGroup (((Menu) glade_xml ["file_menu"]).AccelGroup);
 
-		KeyPressEvent += new KeyPressEventHandler (HandleWindowKeyPressEvent);
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
 
 		icon = new NotificationAreaIcon ();
@@ -122,6 +124,12 @@ public class PlaylistWindow : Window
 		/* connect to song database signals */
 		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
+
+		/* Create multimedia key handler */
+		mmkeys = new MmKeys ();
+		mmkeys.Next += new MmKeys.NextHandler (HandleNextCommand);
+		mmkeys.Previous += new MmKeys.PreviousHandler (HandlePreviousCommand);
+		mmkeys.PlayPause += new MmKeys.PlayPauseHandler (HandlePlayPauseCommand);
 
 		/* load last playlist */
 		playlist_filename = Gnome.User.DirGet () + "/muine/playlist.m3u";
@@ -690,20 +698,11 @@ public class PlaylistWindow : Window
 			    (repeat_menu_item.Active && playlist.HasFirst))
 				HandleNextCommand (null, null);
 			else {
-				if (repeat_menu_item.Active) {
-					playlist.First ();
-					playlist.Select (playlist.Playing);
+				player.Position = song.Duration;
 
-					SongChanged (true);
+				had_last_eos = true;
 
-					player.Playing = true;
-				} else {
-					player.Position = song.Duration;
-
-					had_last_eos = true;
-
-					player.Playing = false;
-				}
+				player.Playing = false;
 
 				NSongsChanged ();
 			}
@@ -836,36 +835,6 @@ public class PlaylistWindow : Window
 	private void HandleStateChanged (bool playing)
 	{
 		StateChanged (playing);
-	}
-
-	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)
-	{
-		if (KeyUtils.HaveModifier (args.Event)) {
-			args.RetVal = false;
-			return;
-		}
-
-		args.RetVal = true;
-
-		switch ((int) args.Event.Key) {
-		case 0x1008FF14: /* XF86XK_AudioPlay */
-		case 0x1008FF31: /* XF86XK_AudioPause */
-			if (playlist.HasFirst)
-				HandlePlayPauseCommand (null, null);
-			break;
-		case 0x1008FF16: /* XF86XK_AudioPrev */
-			if (playlist.HasFirst)
-				HandlePreviousCommand (null, null);
-			break;
-		case 0x1008FF17: /* XF86XK_AudioNext */
-			if (playlist.HasNext ||
-			    (repeat_menu_item.Active && playlist.HasFirst))
-				HandleNextCommand (null, null);
-			break;
-		default:
-			args.RetVal = false;
-			break;
-		}
 	}
 
 	private void HandleWindowStateEvent (object o, WindowStateEventArgs args)
@@ -1015,6 +984,9 @@ public class PlaylistWindow : Window
 
 	private void HandlePreviousCommand (object o, EventArgs args)
 	{
+		if (!playlist.HasFirst)
+			return;
+
 		had_last_eos = false;
 
 		/* restart song if not in the first 3 seconds */
@@ -1044,6 +1016,9 @@ public class PlaylistWindow : Window
 
 	private void HandlePlayPauseCommand (object o, EventArgs args)
 	{
+		if (!playlist.HasFirst)
+			return;
+
 		if (had_last_eos) {
 			playlist.First ();
 			playlist.Select (playlist.Playing);
@@ -1062,8 +1037,10 @@ public class PlaylistWindow : Window
 	{
 		if (playlist.HasNext)
 			playlist.Next ();
-		else
+		else if (repeat_menu_item.Active && playlist.HasFirst)
 			playlist.First ();
+		else
+			return;
 
 		playlist.Select (playlist.Playing);
 
