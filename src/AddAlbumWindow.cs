@@ -104,7 +104,7 @@ public class AddAlbumWindow : Window
 
 		foreach (Album a in Muine.DB.Albums.Values) 
 			view.Append (a.Handle);
-		view.SelectFirst ();
+		SelectFirst ();
 
 		view.DragDataReceived += new DragDataReceivedHandler (HandleDragDataReceived);
 		view.DragMotion += new DragMotionHandler (HandleDragMotion);
@@ -116,7 +116,7 @@ public class AddAlbumWindow : Window
 	{
 		search_entry.GrabFocus ();
 
-		view.SelectFirst ();
+		SelectFirst ();
 
 		window.Present ();
 	}
@@ -238,7 +238,7 @@ public class AddAlbumWindow : Window
 			view.Append (ptr);
 		}
 
-		view.SelectFirst ();
+		SelectFirst ();
 
 		return false;
 	}
@@ -296,11 +296,18 @@ public class AddAlbumWindow : Window
 			view.Append (album.Handle);
 	}
 
+	private void SelectFirst ()
+	{
+		scrolledwindow.Hadjustment.Value = 0.0;
+
+		view.SelectFirst ();
+	}
+
 	private void SelectFirstIfNeeded ()
 	{
 		/* it is insensitive if we have no selection, see HandleSelectionChanged */
 		if (play_button.Sensitive == false)
-			view.SelectFirst ();
+			SelectFirst ();
 	}
 
 	private void HandleAlbumChanged (Album album)

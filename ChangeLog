@@ -1,5 +1,12 @@
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Reset horizontal scrollbar when opening window and searching.
+
+2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlayerDBusObject.cs:
 
 	Don't crash if D-Bus support could not be initialized.

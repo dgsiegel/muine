@@ -105,7 +105,7 @@ public class AddSongWindow : Window
 	{
 		search_entry.GrabFocus ();
 
-		view.SelectFirst ();
+		SelectFirst ();
 
 		window.Present ();
 	}
@@ -222,7 +222,7 @@ public class AddSongWindow : Window
 			view.Append (ptr);
 		}
 
-		view.SelectFirst ();
+		SelectFirst ();
 
 		return false;
 	}
@@ -283,11 +283,18 @@ public class AddSongWindow : Window
 			view.Append (song.Handle);
 	}
 
+	private void SelectFirst ()
+	{
+		scrolledwindow.Hadjustment.Value = 0.0;
+
+		view.SelectFirst ();
+	}
+
 	private void SelectFirstIfNeeded ()
 	{
 		/* it is insensitive if we have no selection, see HandleSelectionChanged */
 		if (play_button.Sensitive == false)
-			view.SelectFirst ();
+			SelectFirst ();
 	}
 
 	private void HandleSongChanged (Song song)
