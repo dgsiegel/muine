@@ -371,7 +371,7 @@ public class PlaylistWindow : Window, PlayerInterface
 			
 			MuineDBusService.Instance.RegisterObject (dbo, "/org/gnome/Muine/Player");
 		} catch (Exception e) {
-			Console.WriteLine ("Failed to export D-BUS object: {0}", e.Message);
+			Console.WriteLine (Muine.Catalog.GetString ("Failed to export D-Bus object: {0}"), e.Message);
 		}
 
 		/* Initialize plug-ins */
