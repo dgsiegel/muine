@@ -358,7 +358,7 @@ db_pack_double (gpointer p, double val)
 {
 	char *str;
 
-	str = g_strdup_printf ("%f", val);
+	str = g_strdup_printf ("%.9f", val);
 	db_pack_string (p, str);
 	g_free (str);
 }

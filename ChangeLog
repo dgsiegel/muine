@@ -1,5 +1,11 @@
 2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/db.c: (db_pack_double):
+
+	Fix precision for db_pack_double.
+
+2004-01-29  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/pointer-list-view.c: (pointer_list_view_select_next),
 	(pointer_list_view_select_prev):
 	* libmuine/pointer-list-view.h:
