@@ -1,3 +1,10 @@
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
+	* src/PlaylistWindow.cs:
+
+	Add XF86XK_Audio* keybindings.
+
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
 	* data/images/Makefile.am:

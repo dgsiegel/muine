@@ -720,6 +720,8 @@ public class PlaylistWindow : Window
 		args.RetVal = true;
 
 		switch (args.Event.keyval) {
+		case 0x1008FF14: /* XF86XK_AudioPlay */
+		case 0x1008FF31: /* XF86XK_AudioPause */
 		case 0x020: /* space */
 			if (playlist.HasFirst)
 				HandlePlayPauseCommand (null, null);
@@ -728,11 +730,13 @@ public class PlaylistWindow : Window
 		case 0x041: /* A */
 			HandleAddAlbumCommand (null, null);
 			break;
+		case 0x1008FF16: /* XF86XK_AudioPrev */
 		case 0x070: /* p */
 		case 0x050: /* P */
 			if (playlist.HasFirst)
 				HandlePreviousCommand (null, null);
 			break;
+		case 0x1008FF17: /* XF86XK_AudioNext */
 		case 0x06e: /* n */
 		case 0x04e: /* N */
 			if (playlist.HasNext)

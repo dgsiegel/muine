@@ -16,7 +16,6 @@ o Add FLAC support
   This code can be stolen from Rhythmbox
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
-o Listen to XFree86 multimedia keys (as configured using ACME)
 
 Tough:
 ======
