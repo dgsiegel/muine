@@ -7,6 +7,8 @@ o Use stock volume icons
   Needs a new gnome-icon-theme release first
 o group ["action"] instead of group.GetAction ("action")
   Needs a new Gtk# release first
+o Subclass Gnome.About for Muine.About
+  Needs a new Gtk# release first
 
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
@@ -58,8 +60,6 @@ o Get m3u mime type icon properly
   Depends on Ximian Bugzilla #71060
 o Busy-interactive cursor while loading
   Depends on Gnome Bugzilla #122728
-o Subclass Gnome.About for Muine.About
-  Depends on Ximian Bugzilla #71271
 o Fix DnD hack in PlaylistWindow
   Depends on Gnome Bugzilla #164085
 o Use Hashtable/dictionary in D-Bus song info code

@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine 0.5.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-24 12:42+0200\n"
-"PO-Revision-Date: 2005-01-24 12:42+0200\n"
+"POT-Creation-Date: 2005-01-25 13:13+0200\n"
+"PO-Revision-Date: 2005-01-25 14:09+0200\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;"
 
 #: data/glade/AddWindow.glade.h:1 src/Actions.cs:78
 msgid "_Play"
@@ -204,9 +204,8 @@ msgstr "Песента \"%s\" не може да бъде изпълена"
 
 #: src/About.cs:31
 msgid "translator-credits"
-msgstr ""
-"Владимир \"Kaladan\" Петков <vpetkov@i-space.org>\n"
-"Ростислав \"zbrox\" Райков <zbrox@i-space.org>"
+msgstr "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>\n"
+"Ростислав \"zbrox\" Райков <nostalgiafed@gmail.com>"
 
 #: src/About.cs:33
 msgid "Muine"
@@ -564,16 +563,17 @@ msgstr "Запазване на Плейлист"
 msgid "Untitled"
 msgstr "Неозаглавен"
 
-#: src/StringUtils.cs:32
+#: src/StringUtils.cs:33
 msgid "Unknown"
 msgstr "Непознат"
 
-#: src/StringUtils.cs:34
+#: src/StringUtils.cs:35
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} и други"
 
-#: src/StringUtils.cs:36
+#: src/StringUtils.cs:37
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} и {1}"
+
