@@ -59,23 +59,11 @@ void             pointer_list_view_add_column      (PointerListView *view,
 						    gboolean expand);
 void             pointer_list_view_append          (PointerListView *view,
 				                    gpointer pointer);
-void             pointer_list_view_insert          (PointerListView *view,
-				                    gpointer pointer,
-						    gpointer ins,
-						    GtkTreeViewDropPosition pos);
 void             pointer_list_view_changed         (PointerListView *view,
 			                            gpointer pointer);
-void             pointer_list_view_remove          (PointerListView *view,
-			                            gpointer pointer);
-void             pointer_list_view_remove_delta    (PointerListView *view,
-				                    GList *delta);
-void             pointer_list_view_clear           (PointerListView *view);
-GList *          pointer_list_view_get_contents    (PointerListView *view);
 gpointer	 pointer_list_get_handle_from_path (PointerListView *view,
 						    GtkTreePath *path);
 int              pointer_list_view_get_length      (PointerListView *view);
-gboolean         pointer_list_view_contains        (PointerListView *view,
-				                    gpointer pointer);
 GList *          pointer_list_view_get_selection   (PointerListView *view);
 void             pointer_list_view_select_first    (PointerListView *view);
 gboolean         pointer_list_view_select_next     (PointerListView *view);
@@ -83,19 +71,6 @@ gboolean         pointer_list_view_select_prev     (PointerListView *view);
 void             pointer_list_view_select          (PointerListView *view,
 						    gpointer pointer,
 						    gboolean center);
-void             pointer_list_view_set_sort_func   (PointerListView *view,
-				                    GCompareFunc sort_func);
-void		 pointer_list_view_sort		   (PointerListView *view,
-						    GCompareFunc sort_func);
-void             pointer_list_view_set_playing     (PointerListView *view,
-				                    gpointer pointer);
-gpointer         pointer_list_view_get_playing     (PointerListView *view);
-gboolean         pointer_list_view_has_first       (PointerListView *view);
-gboolean         pointer_list_view_has_prev        (PointerListView *view);
-gboolean         pointer_list_view_has_next        (PointerListView *view);
-gpointer         pointer_list_view_first           (PointerListView *view);
-gpointer	 pointer_list_view_last		   (PointerListView *view);
-gpointer         pointer_list_view_prev            (PointerListView *view);
-gpointer         pointer_list_view_next            (PointerListView *view);
+gpointer         pointer_list_view_get_model       (PointerListView *view);
 
 #endif /* __POINTER_LIST_VIEW_H__ */

@@ -52,7 +52,7 @@ namespace Muine
 		internal delegate int  CompareFuncNative  (IntPtr a, IntPtr b);
 
 		// Constructor
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern IntPtr pointer_list_view_new ();
 
 		public HandleView () : base (IntPtr.Zero)
@@ -73,49 +73,57 @@ namespace Muine
 		}
 		
 		// Properties
+		// Properties :: Model (get;)
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_view_get_model (IntPtr view);
+		
+		public new IntPtr Model {
+			get { return pointer_list_view_get_model (Raw); }
+		}
+		
 		// Properties :: SortFunc (set;)
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_set_sort_func (IntPtr view, CompareFuncNative sort_func);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_set_sorting (IntPtr model, CompareFuncNative sort_func);
 
 		public CompareFunc SortFunc {
 			set {
 				CompareFuncWrapper wrapper = new CompareFuncWrapper (value, this);
-				pointer_list_view_set_sort_func (Raw, wrapper.NativeDelegate);
+				pointer_list_model_set_sorting (Model, wrapper.NativeDelegate);
 			}
 		}
 
 		// Properties :: Playing (set; get;)
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_set_playing (IntPtr view, IntPtr pointer);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_set_current (IntPtr model, IntPtr pointer);
 
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_get_playing (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_get_current (IntPtr model);
 
 		public IntPtr Playing {
 			set {
-				pointer_list_view_set_playing (Raw, value);
+				pointer_list_model_set_current (Model, value);
 
 				if (PlayingChanged != null)
 					PlayingChanged (value);
 			}
 
-			get { return pointer_list_view_get_playing (Raw); }
+			get { return pointer_list_model_get_current (Model); }
 		}
 
 		// Properties :: Contents (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_get_contents (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_get_pointers (IntPtr model);
 
 		public List Contents {
 			get {
-				List ret = new List (pointer_list_view_get_contents (Raw), typeof (int));
+				List ret = new List (pointer_list_model_get_pointers (Model), typeof (int));
 				ret.Managed = true;
 				return ret;
 			}
 		}
 
 		// Properties :: Length (get;)
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern int pointer_list_view_get_length (IntPtr view);
 
 		public int Length {
@@ -125,7 +133,7 @@ namespace Muine
 		}
 
 		// Properties :: SelectedPointers (get;)
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern IntPtr pointer_list_view_get_selection (IntPtr view);
 
 		public List SelectedPointers {
@@ -140,7 +148,7 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: AddColumn
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern void pointer_list_view_add_column (IntPtr view, IntPtr renderer, CellDataFuncNative data_func, 
 									 bool expand);
 								
@@ -151,34 +159,34 @@ namespace Muine
 		}		
 
 		// Methods :: Public :: Append
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_append (IntPtr view, IntPtr pointer);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_add (IntPtr model, IntPtr pointer);
 								     
 		public void Append (IntPtr handle)
 		{
-			pointer_list_view_append (Raw, handle);
+			pointer_list_model_add (Model, handle);
 		}
 
 		// Methods :: Public :: Insert
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_insert (IntPtr view, IntPtr pointer, IntPtr ins, uint pos);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_insert (IntPtr model, IntPtr pointer, IntPtr ins, uint pos);
 
 		public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
 		{
-			pointer_list_view_insert (Raw, handle, ins, (uint) pos);
+			pointer_list_model_insert (Model, handle, ins, (uint) pos);
 		}
 
 		// Methods :: Public :: Contains
-		[DllImport ("libmuine")]
-		private static extern bool pointer_list_view_contains (IntPtr view, IntPtr pointer);
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_contains (IntPtr model, IntPtr pointer);
 
 		public bool Contains (IntPtr handle)
 		{
-			return pointer_list_view_contains (Raw, handle);
+			return pointer_list_model_contains (Model, handle);
 		}
 
 		// Methods :: Public :: Changed
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern void pointer_list_view_changed (IntPtr view, IntPtr pointer);
 
 		public void Changed (IntPtr handle)
@@ -187,39 +195,39 @@ namespace Muine
 		}
 		
 		// Methods :: Public :: Remove
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_remove (IntPtr view, IntPtr pointer);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_remove (IntPtr model, IntPtr pointer);
 
 		public void Remove (IntPtr handle)
 		{
-			pointer_list_view_remove (Raw, handle);
+			pointer_list_model_remove (Model, handle);
 		}
 
 		// Methods :: Public :: RemoveDelta
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_remove_delta (IntPtr view, IntPtr delta);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_remove_delta (IntPtr model, IntPtr delta);
 
 		public void RemoveDelta (List delta)
 		{
-			pointer_list_view_remove_delta (Raw, delta.Handle);
+			pointer_list_model_remove_delta (Model, delta.Handle);
 		}
 
 		// Methods :: Public :: Clear
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_clear (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_clear (IntPtr model);
 		
 		public void Clear ()
 		{
 			bool playing_changed = (Playing != IntPtr.Zero);
 			
-			pointer_list_view_clear (Raw);
+			pointer_list_model_clear (Model);
 
 			if (playing_changed && PlayingChanged != null)
 				PlayingChanged (IntPtr.Zero);
 		}
 
 		// Methods :: Public :: GetHandleFromPath
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern IntPtr pointer_list_get_handle_from_path (IntPtr view, IntPtr path);
 
 		public IntPtr GetHandleFromPath (TreePath path) {
@@ -227,7 +235,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: SelectFirst
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern void pointer_list_view_select_first (IntPtr view);
 
 		public void SelectFirst ()
@@ -236,7 +244,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: SelectPrevious
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern bool pointer_list_view_select_prev (IntPtr view);
 
 		public bool SelectPrevious ()
@@ -245,7 +253,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: SelectNext
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern bool pointer_list_view_select_next (IntPtr view);
 
 		public bool SelectNext ()
@@ -254,7 +262,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Select
-		[DllImport ("libmuine")]
+		[DllImport("libmuine")]
 		private static extern void pointer_list_view_select (IntPtr view, IntPtr handle, bool center);
 
 		public void Select (IntPtr handle)
@@ -268,46 +276,46 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Sort
-		[DllImport ("libmuine")]
-		private static extern void pointer_list_view_sort (IntPtr view, CompareFuncNative sort_func);
+		[DllImport("libmuine")]
+		private static extern void pointer_list_model_sort (IntPtr model, CompareFuncNative sort_func);
 
 		public void Sort (CompareFunc func)
 		{
 			CompareFuncWrapper wrapper = new CompareFuncWrapper (func, this);
-	                pointer_list_view_sort (Raw, wrapper.NativeDelegate);
+	                pointer_list_model_sort (Model, wrapper.NativeDelegate);
 		}
 
 		// Methods :: Public :: HasFirst
-		[DllImport ("libmuine")]
-		private static extern bool pointer_list_view_has_first (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_first (IntPtr model);
 
 		public bool HasFirst {
-			get { return pointer_list_view_has_first (Raw); }
+			get { return pointer_list_model_has_first (Model); }
 		}
 
 		// Methods :: Public :: HasPrevious
-		[DllImport ("libmuine")]
-		private static extern bool pointer_list_view_has_prev (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_prev (IntPtr model);
 
 		public bool HasPrevious {
-			get { return pointer_list_view_has_prev (Raw); }
+			get { return pointer_list_model_has_prev (Model); }
 		}
 
 		// Methods :: Public :: HasNext
-		[DllImport ("libmuine")]
-		private static extern bool pointer_list_view_has_next (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern bool pointer_list_model_has_next (IntPtr model);
 
 		public bool HasNext {
-			get { return pointer_list_view_has_next (Raw); }
+			get { return pointer_list_model_has_next (Model); }
 		}
 
 		// Methods :: Public :: First
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_first (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_first (IntPtr model);
 
 		public IntPtr First ()
 		{
-			IntPtr ret = pointer_list_view_first (Raw);
+			IntPtr ret = pointer_list_model_first (Model);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -316,12 +324,12 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Last
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_last (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_last (IntPtr model);
 
 		public IntPtr Last ()
 		{
-			IntPtr ret = pointer_list_view_last (Raw);
+			IntPtr ret = pointer_list_model_last (Model);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -330,12 +338,12 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Previous
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_prev (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_prev (IntPtr model);
 
 		public IntPtr Previous ()
 		{
-			IntPtr ret = pointer_list_view_prev (Raw);
+			IntPtr ret = pointer_list_model_prev (Model);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);
@@ -344,12 +352,12 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Next
-		[DllImport ("libmuine")]
-		private static extern IntPtr pointer_list_view_next (IntPtr view);
+		[DllImport("libmuine")]
+		private static extern IntPtr pointer_list_model_next (IntPtr model);
 
 		public IntPtr Next ()
 		{
-			IntPtr ret = pointer_list_view_next (Raw);
+			IntPtr ret = pointer_list_model_next (Model);
 
 			if (PlayingChanged != null)
 				PlayingChanged (ret);

@@ -202,22 +202,6 @@ pointer_list_view_add_column (PointerListView *view,
 }
 
 void
-pointer_list_view_append (PointerListView *view,
-		          gpointer pointer)
-{
-	pointer_list_model_add (view->model, pointer);
-}
-
-void
-pointer_list_view_insert (PointerListView *view,
-			  gpointer pointer,
-			  gpointer ins,
-			  GtkTreeViewDropPosition pos)
-{
-	pointer_list_model_insert (view->model, pointer, ins, pos);
-}
-
-void
 pointer_list_view_changed (PointerListView *view,
 			   gpointer pointer)
 {
@@ -230,32 +214,6 @@ pointer_list_view_changed (PointerListView *view,
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
 	gtk_tree_model_row_changed (GTK_TREE_MODEL (view->model), path, &iter);
 	gtk_tree_path_free (path);
-}
-
-void
-pointer_list_view_remove (PointerListView *view,
-			  gpointer pointer)
-{
-	pointer_list_model_remove (view->model, pointer);
-}
-
-void
-pointer_list_view_remove_delta (PointerListView *view,
-				GList *delta)
-{
-	pointer_list_model_remove_delta (view->model, delta);
-}
-
-void
-pointer_list_view_clear (PointerListView *view)
-{
-	pointer_list_model_clear (view->model);
-}
-
-GList *
-pointer_list_view_get_contents (PointerListView *view)
-{
-	return pointer_list_model_get_pointers (view->model);
 }
 
 gpointer 
@@ -274,13 +232,6 @@ int
 pointer_list_view_get_length (PointerListView *view)
 {
 	return gtk_tree_model_iter_n_children (GTK_TREE_MODEL (view->model), NULL);
-}
-
-gboolean
-pointer_list_view_contains (PointerListView *view,
-		            gpointer pointer)
-{
-	return pointer_list_model_contains (view->model, pointer);
 }
 
 static gboolean
@@ -441,73 +392,8 @@ pointer_list_view_select (PointerListView *view,
 	gtk_tree_path_free (path);
 }
 
-void
-pointer_list_view_set_sort_func (PointerListView *view,
-				 GCompareFunc sort_func)
-{
-	pointer_list_model_set_sorting (view->model,
-					sort_func);
-}
-
-void
-pointer_list_view_sort (PointerListView *view,
-		        GCompareFunc sort_func)
-{
-	pointer_list_model_sort (view->model,
-				 (GCompareDataFunc) sort_func);
-}
-
-void
-pointer_list_view_set_playing (PointerListView *view,
-			       gpointer pointer)
-{
-	pointer_list_model_set_current (view->model, pointer);
-}
-
 gpointer
-pointer_list_view_get_playing (PointerListView *view)
+pointer_list_view_get_model (PointerListView *view)
 {
-	return pointer_list_model_get_current (view->model);
-}
-
-gboolean
-pointer_list_view_has_first (PointerListView *view)
-{
-	return pointer_list_model_has_first (view->model);
-}
-
-gboolean
-pointer_list_view_has_prev (PointerListView *view)
-{
-	return pointer_list_model_has_prev (view->model);
-}
-
-gboolean
-pointer_list_view_has_next (PointerListView *view)
-{
-	return pointer_list_model_has_next (view->model);
-}
-
-gpointer
-pointer_list_view_first (PointerListView *view)
-{
-	return pointer_list_model_first (view->model);
-}
-
-gpointer
-pointer_list_view_last (PointerListView *view)
-{
-	return pointer_list_model_last (view->model);
-}
-
-gpointer
-pointer_list_view_prev (PointerListView *view)
-{
-	return pointer_list_model_prev (view->model);
-}
-
-gpointer
-pointer_list_view_next (PointerListView *view)
-{
-	return pointer_list_model_next (view->model);
+	return view->model;
 }

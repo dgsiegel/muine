@@ -1,5 +1,13 @@
 2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* libmuine/pointer-list-view.c:
+	* libmuine/pointer-list-view.h:
+	* src/HandleView.cs:
+	
+	Implemented some functions in C#.
+
+2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* src/HandleView.cs:
 	
 	Some code cleanup.
