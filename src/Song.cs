@@ -87,7 +87,11 @@ namespace Muine
 		public int Duration {
 			// we have a setter too, because sometimes we want
 			// to correct the duration.
-			set { duration = value; }
+			set {
+				duration = value;
+
+				Global.DB.EmitSongChanged (this);
+			}
 		
 			get { return duration; }
 		}

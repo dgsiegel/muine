@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Song.cs:
+
+	Call EmitSongChanged when setting Duration.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 
 	Release 0.8.0pre4.
