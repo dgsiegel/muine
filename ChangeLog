@@ -1,5 +1,12 @@
 2004-12-26  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Bump version number to 0.7.0.99.
+
+2004-12-26  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
 	* src/StringUtils.cs:
