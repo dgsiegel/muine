@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-26 04:16+0200\n"
-"PO-Revision-Date: 2004-04-26 15:14+0200\n"
+"POT-Creation-Date: 2004-05-11 04:29+0200\n"
+"PO-Revision-Date: 2004-05-11 13:13+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,8 +71,8 @@ msgstr ""
 "a proto se obecně nedoporučuje."
 
 #: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
-msgstr "_Vytořit prázdnou sbírku hudby."
+msgid "_Create an empty music collection"
+msgstr "_Vytořit prázdnou sbírku hudby"
 
 #: data/glade/NoMusicFoundWindow.glade.h:7
 msgid "_Nothing, I will manage my music myself"
@@ -183,92 +183,126 @@ msgid "Muine Music Player"
 msgstr "Přehrávač hudby Muine"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr "Výška okna přidání alba."
+msgid "\"Add album\" window height"
+msgstr "Výška okna \"Přidat album\""
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr "Šířka okna přidání alba."
+msgid "\"Add album\" window width"
+msgstr "Šířka okna \"Přidat album\""
 
 #: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr "Výška okna přidání skladby."
+msgid "\"Add song\" window height"
+msgstr "Výška okna \"Přidat skladbu\""
 
 #: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr "Šířka okna přidání skladby."
+msgid "\"Add song\" window width"
+msgstr "Šířka okna \"Přidat skladbu\""
 
 #: data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images."
-msgstr "Server Amazon, který používat pro obrázky alb."
+msgid "Amazon site to use for album images"
+msgstr "Server Amazon, který používat pro obrázky alb"
 
 #: data/muine.schemas.in.h:6
-msgid "Default import folder."
-msgstr "Implicitní adresář importu."
+msgid "Default import folder"
+msgstr "Implicitní adresář importu"
 
 #: data/muine.schemas.in.h:7
-msgid "Default playlist folder."
-msgstr "Implicitní adresář seznamů skladeb."
+msgid "Default playlist folder"
+msgstr "Implicitní adresář seznamů skladeb"
 
 #: data/muine.schemas.in.h:8
-msgid "First start."
-msgstr "První spuštění."
+msgid "First start"
+msgstr "První spuštění"
 
 #: data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Adresáře, ve kterých jsou sledovány změny."
 
 #: data/muine.schemas.in.h:10
-msgid "Information window height."
-msgstr "Výška okna informací."
+msgid "Height of the \"Add album\" window."
+msgstr "Šířka okna \"Přidat album\"."
 
 #: data/muine.schemas.in.h:11
-msgid "Information window width."
-msgstr "Šířka okna informací."
+msgid "Height of the \"Add song\" window."
+msgstr "Výška okna \"Přidat skladbu\"."
 
 #: data/muine.schemas.in.h:12
+msgid "Height of the information window."
+msgstr "Výška okna informací."
+
+#: data/muine.schemas.in.h:13
+msgid "Height of the playlist window."
+msgstr "Výška okna se seznamem skladeb."
+
+#: data/muine.schemas.in.h:14
+msgid "Information window height"
+msgstr "Výška okna informací"
+
+#: data/muine.schemas.in.h:15
+msgid "Information window width"
+msgstr "Šířka okna informací"
+
+#: data/muine.schemas.in.h:16
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Poslední používaný adresář z dialogu \"Importovat adresář\""
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:17
 msgid "Last used folder from the playlist file selectors."
 msgstr "Poslední používaný adresář z výběru souboru seznamu skladeb."
 
-#: data/muine.schemas.in.h:14
-msgid "Playlist window height."
-msgstr "Výška okna seznamu skladeb."
-
-#: data/muine.schemas.in.h:15
-msgid "Playlist window width."
-msgstr "Šířka okna seznamu skladeb."
-
-#: data/muine.schemas.in.h:16
-msgid "Repeat mode."
-msgstr "Režim opakování."
-
-#: data/muine.schemas.in.h:17
-msgid "Volume level."
-msgstr "Úroveň hlasitosti."
-
 #: data/muine.schemas.in.h:18
+msgid "Playlist window height"
+msgstr "Výška okna se seznamem skladeb"
+
+#: data/muine.schemas.in.h:19
+msgid "Playlist window width"
+msgstr "Šířka okna se seznamem skladeb"
+
+#: data/muine.schemas.in.h:20
+msgid "Repeat mode"
+msgstr "Režim opakování"
+
+#: data/muine.schemas.in.h:21
+msgid "Volume level"
+msgstr "Úroveň hlasitosti"
+
+#: data/muine.schemas.in.h:22
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Úroveň hlasitosti. 0 = nejnižší, 100 = nejvyšší.."
 
-#: data/muine.schemas.in.h:19
-msgid "Watched folders."
-msgstr "Sledované adresáře."
+#: data/muine.schemas.in.h:23
+msgid "Watched folders"
+msgstr "Sledované adresáře"
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:24
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Jestli povolit režim opakování seznamu skladeb."
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:25
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
-msgstr "Který server Amazon používat pro stahování obrázků alb, \"us\", \"uk\", \"de\", nebo \"jp\"."
+msgstr ""
+"Který server Amazon používat pro stahování obrázků alb, \"us\", \"uk\", \"de"
+"\", nebo \"jp\"."
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:26
+msgid "Width of the \"Add album\" window."
+msgstr "Šířka okna \"Přidat album\"."
+
+#: data/muine.schemas.in.h:27
+msgid "Width of the \"Add song\" window."
+msgstr "Šířka okna \"Přidat skladbu\"."
+
+#: data/muine.schemas.in.h:28
+msgid "Width of the information window."
+msgstr "Šířka okna informací."
+
+#: data/muine.schemas.in.h:29
+msgid "Width of the playlist window."
+msgstr "Šířka okna se seznamem skladeb."
+
+#: data/muine.schemas.in.h:30
 msgid "false if Muine has been started before."
 msgstr "false, pokud byl již Muine spuštěn dříve."
 
@@ -324,30 +358,27 @@ msgstr "Jorn Baayen (jbaayen@gnome.org)"
 msgid "Lee Willis (lee@leewillis.co.uk)"
 msgstr "Lee Willis (lee@leewillis.co.uk)"
 
-#. please use Vietnamese spelling, if the relevant characters occur in
-#. * your language.
-#: src/About.cs:42
-msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-msgstr "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
+#: src/About.cs:40
+msgid "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
+msgstr "Việt Yên Nguyễn (nguyen@cs.utwente.nl)"
 
-#: src/About.cs:44
+#: src/About.cs:42
 msgid "Album covers are provided by amazon.com."
 msgstr "Obálky alb jsou poskytovány amazon.com."
 
-#: src/About.cs:54
+#: src/About.cs:52
 msgid "translator-credits"
 msgstr "Miloslav Trmač <mitr@volny.cz>"
 
-#: src/About.cs:59
+#: src/About.cs:57
 msgid "Muine"
 msgstr "Muine"
 
-#. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:61
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
+#: src/About.cs:58
+msgid "Copyright © 2003, 2004 Jorn Baayen"
 msgstr "Copyright © 2003, 2004 Jorn Baayen"
 
-#: src/About.cs:62
+#: src/About.cs:59
 msgid "A music player"
 msgstr "Přehrávač hudby"
 
@@ -360,7 +391,7 @@ msgstr "Hraje {0}"
 #. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. * if "the" is included in this list. Also include the English "the"
 #. * if English is generally spoken in your country.
-#: src/Album.cs:93
+#: src/Album.cs:83
 msgid "the dj"
 msgstr "the dj"
 
@@ -556,19 +587,19 @@ msgstr "Nemohu otevřít {0} pro čtení"
 msgid "Failed to open {0} for writing"
 msgstr "Nemohu otevřít {0} pro zápis"
 
-#: src/PlaylistWindow.cs:1178
+#: src/PlaylistWindow.cs:1192
 msgid "Import Folder"
 msgstr "Importovat adresář"
 
-#: src/PlaylistWindow.cs:1224
+#: src/PlaylistWindow.cs:1238
 msgid "Open Playlist"
 msgstr "Otevřít seznam skladeb"
 
-#: src/PlaylistWindow.cs:1245
+#: src/PlaylistWindow.cs:1259
 msgid "Save Playlist"
 msgstr "Uložit seznam skladeb"
 
-#: src/PlaylistWindow.cs:1260
+#: src/PlaylistWindow.cs:1274
 #, csharp-format
 msgid ""
 "File {0} will be overwritten.\n"
