@@ -334,7 +334,7 @@ public class PlaylistWindow : Window
 		image = (Image) glade_xml ["add_song_image"];
 		image.SetFromStock (Stock.Add, IconSize.LargeToolbar);
 		image = (Image) glade_xml ["add_album_image"];
-		image.SetFromStock ("muine-add-album", IconSize.LargeToolbar);
+		image.SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
 
 		tooltips = new Tooltips ();
 		tooltips.SetTip (previous_button,
@@ -367,7 +367,7 @@ public class PlaylistWindow : Window
 		image = new Image (Stock.Add, IconSize.Menu);
 		((ImageMenuItem) glade_xml ["add_song_menu_item"]).Image = image;
 		image.Visible = true;
-		image = new Image ("muine-add-album", IconSize.Menu);
+		image = new Image ("gnome-dev-cdrom-audio", IconSize.Menu);
 		((ImageMenuItem) glade_xml ["add_album_menu_item"]).Image = image;
 		image.Visible = true;
 

@@ -26,7 +26,6 @@ using System.IO;
 public class StockIcons 
 {
 	private static string [] stock_icons = {
-		"muine-add-album",
 		"muine-tray-playing",
 		"muine-tray-paused",
 		"muine-default-cover",
@@ -47,7 +46,8 @@ public class StockIcons
 		"volume-zero",
 		"volume-min",
 		"volume-medium",
-		"volume-max"
+		"volume-max",
+		"gnome-dev-cdrom-audio"
 	};
 
 	public static IconSize AlbumCoverSize;

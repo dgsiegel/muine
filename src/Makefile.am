@@ -52,8 +52,6 @@ RESOURCES =												\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
 	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
 	/resource:$(top_srcdir)/data/glade/InfoWindow.glade,InfoWindow.glade				\
-	/resource:$(top_srcdir)/data/images/muine-add-album.png,muine-add-album.png			\
-	/resource:$(top_srcdir)/data/images/muine-add-album-16.png,muine-add-album-16.png		\
 	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
 	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
 	/resource:$(top_srcdir)/data/images/muine-nothing.png,muine-nothing.png				\

@@ -1,7 +1,5 @@
 noinst_DATA =					\
 	muine-about.png				\
-	muine-add-album.png			\
-	muine-add-album-16.png			\
 	muine-playing.png			\
 	muine-paused.png			\
 	muine-nothing.png			\

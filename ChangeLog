@@ -1,3 +1,14 @@
+2004-11-18  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/images/Makefile.am:
+	* data/images/muine-add-album-16.png:
+	* data/images/muine-add-album.png:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/StockIcons.cs:
+
+	Use gnome-dev-cdrom-audio stock icon.
+
 2004-11-17  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:
