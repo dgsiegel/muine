@@ -1,5 +1,13 @@
 2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/ActionThread.cs:
+	* src/Song.cs:
+	* src/StringUtils.cs:
+
+	Cleanups, fix cover image fetching.
+
+2004-02-10  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/CoverDatabase.cs:
 	* src/Metadata.cs:
 

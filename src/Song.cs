@@ -215,7 +215,7 @@ public class Song
 	}
 
 	/* This is run from the action thread */
-	private void DownloadAlbumCoverInThread (Action action)
+	private void DownloadAlbumCoverInThread (ActionThread.Action action)
 	{
 		string url = null;
 
@@ -290,14 +290,13 @@ public class Song
 			return;
 		}
 
-		/* Failed to find a cover on disk - try the web */
-		Action action = new Action ();
-		action.Perform += new Action.PerformHandler (DownloadAlbumCoverInThread);
-		Muine.ActionThread.QueueAction (action);
+		cover_image = Muine.CoverDB.AddCoverDownloading (AlbumKey);
 
 		checked_cover_image = false;
 
-		cover_image = Muine.CoverDB.AddCoverDownloading (AlbumKey);
+		/* Failed to find a cover on disk - try the web */
+		ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThread);
+		Muine.ActionThread.QueueAction (action);
 	}
 
 	private IntPtr handle;

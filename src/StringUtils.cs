@@ -24,14 +24,6 @@ using GLibSharp;
 
 public class StringUtils
 {
-	[DllImport ("libc")]
-	private static extern int strlen (string str);
-
-	public static uint GetByteLength (string str)
-	{
-		return (uint) strlen (str);
-	}
-	
 	public static string SecondsToString (long time)
 	{
 		int h, m, s;
@@ -78,6 +70,14 @@ public class StringUtils
 		return ret;
 	}
 
+	[DllImport ("libc")]
+	private static extern int strlen (string str);
+
+	public static uint GetByteLength (string str)
+	{
+		return (uint) strlen (str);
+	}
+	
 	[DllImport ("libc")]
 	private static extern int strcmp (string a, string b);
 

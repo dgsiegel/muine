@@ -21,39 +21,32 @@ using System;
 using System.Threading;
 using System.Collections;
 
-public class Action
-{
-	public void EmitPerform ()
-	{
-		if (Perform != null)
-			Perform (this);
-	}
-
-	public delegate void PerformHandler (Action action);
-	public event PerformHandler Perform;
-}
-
 public class ActionThread
 {
 	private Thread thread;
 	private Queue queue;
+
+	public delegate void Action (Action action);
 	
 	public ActionThread ()
 	{
 		queue = Queue.Synchronized (new Queue ());
 		thread = new Thread (new ThreadStart (RunThread));
+
 		thread.Start ();
 	}
 
 	private void RunThread ()
 	{
-		while (queue.Count > 0) {
-			Action action = (Action) queue.Dequeue ();
+		while (true) {
+			while (queue.Count > 0) {
+				Action action = (Action) queue.Dequeue ();
 
-			action.EmitPerform ();
+				action (action);
+			}
+
+			Thread.Sleep (1000);
 		}
-
-		Thread.Sleep (1000);
 	}
 
 	public void QueueAction (Action action)
