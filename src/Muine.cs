@@ -96,7 +96,6 @@ public class Muine : Gnome.Program
 
 		/* Create playlist window */
 		playlist = new PlaylistWindow ();
-		playlist.DeleteEvent += new DeleteEventHandler (HandlePlaylistDeleteEvent);
 		playlist.Run ();
 
 		/* Hook up connection callback */
@@ -134,11 +133,6 @@ public class Muine : Gnome.Program
 		Pixbuf [] default_icon_list = new Pixbuf [1];
 		default_icon_list [0] = new Pixbuf (null, "muine-playlist.png");
 		Gtk.Window.DefaultIconList = default_icon_list;
-	}
-
-	private void HandlePlaylistDeleteEvent (object o, DeleteEventArgs args)
-	{
-		Exit ();
 	}
 
 	private void HandleMessageReceived (string message,

@@ -1,3 +1,14 @@
+2004-03-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/PlaylistWindow.glade:
+
+	Remove accels from Play buttons, fixing #137106.
+	
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Clicking the WM close button hides the window.
+
 2004-03-12  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jbaayen@gnome.org>
 

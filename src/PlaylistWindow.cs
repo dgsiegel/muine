@@ -102,6 +102,7 @@ public class PlaylistWindow : Window
 		AddAccelGroup (((Menu) glade_xml ["file_menu"]).AccelGroup);
 
 		WindowStateEvent += new WindowStateEventHandler (HandleWindowStateEvent);
+		DeleteEvent += new DeleteEventHandler (HandleDeleteEvent);
 
 		icon = new NotificationAreaIcon ();
 
@@ -845,6 +846,13 @@ public class PlaylistWindow : Window
 
 		if (old_window_visible != window_visible)
 			UpdateWindowVisibilityUI ();
+	}
+
+	private void HandleDeleteEvent (object o, DeleteEventArgs args)
+	{
+		WindowVisible = false;
+
+		args.RetVal = true;
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
