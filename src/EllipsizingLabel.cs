@@ -41,8 +41,6 @@ public class EllipsizingLabel : Label
 	[DllImport ("libmuine")]
 	private static extern void rb_ellipsizing_label_set_text (IntPtr label,
 								  string text);
-	[DllImport ("libgtk-win32-2.0-0.dll")]
-	private static extern string gtk_label_get_text (IntPtr label);
 
 	public new string Text {
 		set {
@@ -50,7 +48,7 @@ public class EllipsizingLabel : Label
 		}
 		
 		get {
-			return gtk_label_get_text (Raw);
+			return ((Label) this).Text;
 		}
 	}
 }

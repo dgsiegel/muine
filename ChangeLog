@@ -1,5 +1,11 @@
 2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/EllipsizingLabel.cs:
+
+	Replace an unnecessary DllImport.
+
+2004-04-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 	* src/Song.cs:
 
