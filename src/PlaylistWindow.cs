@@ -1258,6 +1258,9 @@ public class PlaylistWindow : Window
 
 			RemoveSong (current);
 		}
+
+		playlist.Select (playlist.Playing);
+		playlist.ScrollTo (playlist.Playing);
 	}
 
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
