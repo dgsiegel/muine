@@ -12,6 +12,7 @@ o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
 o A song information dialog, which will later be used for tag editing.
 o D-BUS service (Sergio Rubio is on this)
 o Nicer application icon
+  A harp would be cool ..
 o Nicer default cover image
 o Shift+Arrow keys selects in add windows
   Depends on Gnome Bugzilla #133143
