@@ -1,3 +1,11 @@
+2004-04-04  Lee Willis  <lee@leewillis.co.uk>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/CoverDatabase.cs:
+	* src/Song.cs:
+
+	Even better album cover matching. 
+
 2004-04-03  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

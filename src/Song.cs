@@ -226,10 +226,8 @@ public class Song
 	/* This is run from the action thread */
 	private void DownloadAlbumCoverInThread (ActionThread.Action action)
 	{
-		string url = null;
-
 		try {
-			url = Muine.CoverDB.GetAlbumCoverURL (this);
+			tmp_cover_image = Muine.CoverDB.GetAlbumCoverFromAmazon (this);
 		} catch (WebException e) {
 			/* Temporary web problem (Timeout etc.) - re-queue */
 			Thread.Sleep (60000); /* wait for a minute first */
@@ -237,21 +235,7 @@ public class Song
 			
 			return;
 		} catch (Exception e) {
-			url = null;
-		}
-
-		if (url != null) {
-			try {
-				tmp_cover_image = Muine.CoverDB.DownloadCoverPixbuf (url);
-			} catch (WebException e) {
-				/* Temporary web problem (Timeout etc.) - re-queue */
-				Thread.Sleep (60000); /* wait for a minute first */
-				Muine.ActionThread.QueueAction (action);
-				
-				return;
-			} catch (Exception e) {
-				tmp_cover_image = null;
-			}
+			tmp_cover_image = null;
 		}
 
 		GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
