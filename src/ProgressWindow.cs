@@ -36,7 +36,9 @@ namespace Muine
 		Container file_label_container;
 		private EllipsizingLabel file_label;
 
-		bool canceled;
+		private bool canceled = false;
+
+		private static string title_format;
 		
 		public ProgressWindow (Window parent)
 		{
@@ -55,9 +57,7 @@ namespace Muine
 			MarkupUtils.LabelSetMarkup (loading_label, 0, StringUtils.GetByteLength (loading_label.Text),
 						    false, true, false);
 
-			canceled = false;
-
-			file_label.Text = Catalog.GetString ("...");
+			title_format = Catalog.GetString ("Importing {0}...");
 		}
 
 		public bool Report (string folder, string file)
@@ -65,7 +65,7 @@ namespace Muine
 			if (canceled)
 				return true;
 
-			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
+			window.Title = String.Format (title_format, folder);
 
 			if (file != null)
 				file_label.Text = file;

@@ -1,5 +1,12 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/ProgressWindow.cs:
+	* src/SongDatabase.cs:
+
+	Small ProgressWindow cleanup.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Now volume and repeat react to GConf changes too.

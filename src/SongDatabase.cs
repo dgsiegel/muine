@@ -328,7 +328,7 @@ namespace Muine
 		// Folder watching
 		public void AddFolder (DirectoryInfo dinfo, ProgressWindow pw)
 		{
-			pw.Report (dinfo.Name, null);
+			pw.Report (dinfo.Name, dinfo.Name);
 
 			AddToConfig (dinfo.FullName);
 
@@ -421,6 +421,7 @@ namespace Muine
 						continue;
 
 					ProgressWindow pw = new ProgressWindow (Global.Playlist);
+					pw.Report (dinfo.Name, dinfo.Name);
 					AddFolderThread t = new AddFolderThread (dinfo, pw);
 				}
 			}
