@@ -61,3 +61,9 @@ o Monitor imported folders using FileWatcher
   Depends on mono 0.30, which will have the FileWatcher class.
 o Tag editing
   Depends on this to work nicely in GStreamer
+
+Current problems:
+=================
+
+o Hard to find music to play, only works when you know what you want.
+o Albums with the same name get mixed up.
