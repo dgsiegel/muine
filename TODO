@@ -8,8 +8,8 @@ o Add MP4 support
   This code can be stolen from Rhythmbox
 o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o A song information dialog, which will later be used for tag editing.
-o Create ~/Music if it doesn't exist, but ask first? (Viet Yen is on this)
-o D-BUS service
+o Create ~/Music if it doesn't exist, but ask first? (Viet Yen Nguyen is on this)
+o D-BUS service (Sergio Rubio is on this)
 
 Tough:
 ======
@@ -37,7 +37,7 @@ o Gapless transition/crossfading
   and have a fancy adder somewhere in the pipeline that does the mixing
   when a new song comes in ..
 o Make drop-at-end work in the PlaylistWindow.
-o Album cover fetching is not working reliably?
+o Album cover fetching is not working reliably? (Lee Willis is on this)
 
 Depends on other components:
 ============================
