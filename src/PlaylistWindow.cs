@@ -59,11 +59,11 @@ namespace Muine
 		private static readonly string string_playlist_filename =
 			Catalog.GetString ("Playlist.m3u");
 		private static readonly string string_playlist = 
-			Catalog.GetString ("Playlist");
+			Catalog.GetString ("<span weight=\"bold\">Playlist</span>");
 		private static readonly string string_playlist_repeating =
-			Catalog.GetString ("Playlist (Repeating)");
+			Catalog.GetString ("<span weight=\"bold\">Playlist</span> (Repeating)");
 		private static readonly string string_playlist_under_minute =
-			Catalog.GetString ("Playlist (Less than one minute remaining)");
+			Catalog.GetString ("<span weight=\"bold\">Playlist</span> (Less than one minute remaining)");
 		private static readonly string string_artists =
 			Catalog.GetString ("From \"{0}\"");
 		private static readonly string string_album_unknown =
@@ -800,9 +800,6 @@ namespace Muine
 
 			scrolledwindow.Add (playlist);
 			
-			MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (string_playlist),
-						    false, true, false);
-
 			empty_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 		}
 
@@ -941,23 +938,23 @@ namespace Muine
 
 			// Possible strings
 			string string_repeat_hour = 
-				Catalog.GetPluralString ("Playlist (Repeating {0} hour)", 
-							 "Playlist (Repeating {0} hours)", 
+				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> (Repeating {0} hour)", 
+							 "<span weight=\"bold\">Playlist</span> (Repeating {0} hours)", 
 							 hours);
 
 			string string_repeat_minute =
-				Catalog.GetPluralString ("Playlist (Repeating {0} minute)", 
-							 "Playlist (Repeating {0} minutes)", 
+				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> (Repeating {0} minute)", 
+							 "<span weight=\"bold\">Playlist</span> (Repeating {0} minutes)", 
 							 minutes);
 
 			string string_normal_hour =
-				Catalog.GetPluralString ("Playlist ({0} hour remaining)", 
-							 "Playlist ({0} hours remaining)", 
+				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> ({0} hour remaining)", 
+							 "<span weight=\"bold\">Playlist</span> ({0} hours remaining)", 
 							 hours);
 							 
 			string string_normal_minute =
-				Catalog.GetPluralString ("Playlist ({0} minute remaining)", 
-							 "Playlist ({0} minutes remaining)", 
+				Catalog.GetPluralString ("<span weight=\"bold\">Playlist</span> ({0} minute remaining)", 
+							 "<span weight=\"bold\">Playlist</span> ({0} minutes remaining)", 
 							 minutes);
 
 			// Choose string for each scenario based on whether we are repeating or not
@@ -974,16 +971,16 @@ namespace Muine
 					       : string_playlist_under_minute;
 			
 			// Set the label
-			playlist_label.Text = (r_seconds > MinShowHours)
-					      ? String.Format (string_hour, hours)
-					      : 
-					      (r_seconds > MinShowMinutes)
-					      ? String.Format (string_minute, minutes)
-				              : 
-				              (r_seconds > 0)
-					      ? string_second
-					      : 
-					      string_playlist;
+			playlist_label.Markup = (r_seconds > MinShowHours)
+					        ? String.Format (string_hour, hours)
+					        : 
+					        (r_seconds > MinShowMinutes)
+					        ? String.Format (string_minute, minutes)
+				                : 
+				                (r_seconds > 0)
+					        ? string_second
+					        : 
+					        string_playlist;
 		}
 
 		// Methods :: Private :: PlaylistChanged
@@ -1051,7 +1048,8 @@ namespace Muine
 				
 				tooltips.SetTip (cover_image, tip, null);
 
-				title_label.Text = song.Title;
+				title_label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>",
+								    StringUtils.EscapeForPango (song.Title));
 
 				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
 
@@ -1076,7 +1074,8 @@ namespace Muine
 
 				tooltips.SetTip (cover_image, null, null);
 
-				title_label .Text = "";
+				title_label.Markup = "";
+
 				artist_label.Text = "";
 				time_label  .Text = "";
 
@@ -1092,9 +1091,6 @@ namespace Muine
 				if (SongChangedEvent != null)
 					SongChangedEvent (song);
 			}
-
-			MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
-						    true, true, false);
 		}
 
 		// Methods :: Private :: SelectionChanged
@@ -1973,10 +1969,9 @@ namespace Muine
 			Song song = Song.FromHandle (handle);
 			CellRendererText r = (CellRendererText) cell;
 
-			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
-						   false, true, false);
+			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}",
+			                          StringUtils.EscapeForPango (song.Title),
+						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}
 
 		// Delegate Functions :: ShuffleFunc		

@@ -41,8 +41,6 @@ libmuine_la_SOURCES =			\
 	pointer-list-model.h		\
 	pointer-list-view.c		\
 	pointer-list-view.h		\
-	markup-utils.c			\
-	markup-utils.h			\
 	string-utils.c			\
 	string-utils.h			\
 	rb-cell-renderer-pixbuf.c	\

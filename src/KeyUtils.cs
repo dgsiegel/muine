@@ -41,7 +41,6 @@ namespace Muine
 		}
 
 		// Methods :: Public :: IsModifier
-		//	TODO: use an array instead of a switch.
 		public static bool IsModifier (Gdk.EventKey e) {
 			bool ret = false;
 			

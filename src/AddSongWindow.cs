@@ -179,10 +179,9 @@ namespace Muine
 			CellRendererText r = (CellRendererText) cell;
 			Song song = Song.FromHandle (handle);
 
-			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
-						   false, true, false);
+			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}",
+			                          StringUtils.EscapeForPango (song.Title),
+						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 		}
 	}
 }

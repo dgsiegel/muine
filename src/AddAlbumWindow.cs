@@ -244,12 +244,12 @@ namespace Muine
 
 			string performers = "";
 			if (album.Performers.Length > 0)
-				performers = String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2));
+				performers = StringUtils.EscapeForPango (String.Format (string_artists, StringUtils.JoinHumanReadable (album.Performers, 2)));
 
-			r.Text = album.Name + "\n" + StringUtils.JoinHumanReadable (album.Artists, 3) + "\n\n" + performers;
-
-			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (album.Name),
-						   false, true, false);
+			r.Markup = String.Format ("<span weight=\"bold\">{0}</span>\n{1}\n\n{2}",
+						  StringUtils.EscapeForPango (album.Name),
+						  StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (album.Artists, 3)),
+						  performers);
 		}
 	}
 }

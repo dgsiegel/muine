@@ -49,7 +49,15 @@ namespace Muine
 
 		public new string Text {
 			set { rb_ellipsizing_label_set_text (Raw, value); }
-			get { return base.Text;	}
+			get { return base.Text; }
+		}
+
+		// Properties :: Markup (set; get;)
+		[DllImport ("libmuine")]
+		private static extern void rb_ellipsizing_label_set_markup (IntPtr label, string markup);
+
+		public new string Markup {
+			set { rb_ellipsizing_label_set_markup (Raw, value); }
 		}
 	}
 }

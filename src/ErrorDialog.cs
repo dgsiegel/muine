@@ -17,8 +17,6 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// TODO: Use Gnome Error Dialog
-
 using System;
 
 using Gtk;
@@ -50,12 +48,11 @@ namespace Muine
 			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
 			gxml.Autoconnect (this);
 
-			string full_text = string_heading + "\n\n" + text;
+			string full_text = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
+			                                  StringUtils.EscapeForPango (string_heading),
+							  StringUtils.EscapeForPango (text));
 
-			MarkupUtils.LabelSetMarkup (label, 0, StringUtils.GetByteLength (string_heading),
-						    true, true, false);
-
-			label.Text = full_text;
+			label.Markup = full_text;
 
 			window.Run ();
 			window.Destroy ();

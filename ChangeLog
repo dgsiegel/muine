@@ -1,5 +1,29 @@
 2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
 
+	* TODO:
+	* data/glade/ProgressWindow.glade:
+	* libmuine/Makefile.am:
+	R libmuine/markup-utils.c:
+	R libmuine/markup-utils.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/CoverGetter.cs:
+	* src/EllipsizingLabel.cs:
+	* src/ErrorDialog.cs:
+	* src/KeyUtils.cs:
+	* src/Makefile.am:
+	R src/MarkupUtils.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/StringUtils.cs:
+
+	Obsolete MarkupUtils, we use pango xml-style markup instead.
+	We add it in the code everywhere, apart from the playlist label-
+	it is in the translatable string there, otherwise we can't do RTL right.
+	This was a bug before.
+
+2005-01-15  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/string-utils.c: (string_utils_strip_non_alnum):
 	* libmuine/string-utils.h:
 	* src/AddWindowEntry.cs:

@@ -41,8 +41,6 @@ o Support mastroska and mp3cue
 Depends on other components:
 ============================
 
-o Directly use Pango# instead of using pango-utils.c
-  Depends on Gtk#, Ximian Bugzilla #52575
 o Monitor imported folders using FileWatcher
   Depends on Mono, Ximian Bugzilla #58234
 o Make title and artist label one for easier selection.

@@ -101,15 +101,6 @@ namespace Muine
 			return ret;
 		}
 
-		// Methods :: Public :: GetByteLength
-		[DllImport ("libc")]
-		private static extern int strlen (string str);
-
-		public static uint GetByteLength (string str)
-		{
-			return (uint) strlen (str);
-		}
-
 		// Methods :: Public :: CollateKey		
 		[DllImport ("libglib-2.0-0.dll")]
 		private static extern IntPtr g_utf8_collate_key (string str, int len);
@@ -140,6 +131,15 @@ namespace Muine
 				return String.Format ("{0} {1}", stripped, lower);
 			else
 				return stripped;
+		}
+
+		// Methods :: Public :: EscapeForPango
+		public static string EscapeForPango (string original)
+		{
+			string str = original;
+                        str = str.Replace ("&", "&amp;");
+                        str = str.Replace ("<", "&lt;");
+			return str;
 		}
 	}
 }

@@ -166,7 +166,6 @@ namespace Muine
 
 			// Delegate Functions
 			// Delegate Functions :: ThreadFunc
-			// 	TODO: Split this up.
 			private void ThreadFunc ()
 			{
 				while (true) {
@@ -310,7 +309,6 @@ namespace Muine
 		}
 
 		// Methods :: Public :: DownloadFromAmazon
-		// 	TODO: Split this up.
 		public Pixbuf DownloadFromAmazon (Album album)
 		{
 			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
@@ -530,7 +528,6 @@ namespace Muine
 
 		// Methods :: Private
 		// Methods :: Private :: SanitizeString
-		// 	TODO: Move to StringUtils?
 		private string SanitizeString (string s)
 		{
 			s = s.ToLower ();
