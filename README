@@ -1,9 +1,7 @@
-Muine is a music player.
-
-You're probably wondering why another one. We've got Rhythmbox, Jamboree, and 
-who knows what else. The difference is that Muine has a very different
-interface which I find very comfortable to use. I dislike the iTunes model
-that both Rhythmbox and Jamboree use.
+Muine is a new music player using some new UI ideas. The idea is that it will
+be much easier and comfortable to use than the iTunes model, which is used by
+both Rhythmbox and Jamboree. It is written in C and C#, using GStreamer for
+music playback.
 
 Bugs should be reported at bugzilla.gnome.org, product Muine.
 
