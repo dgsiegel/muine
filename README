@@ -3,6 +3,10 @@ be much easier and comfortable to use than the iTunes model, which is used by
 both Rhythmbox and Jamboree. It is written in C and C#, using GStreamer for
 music playback.
 
+We have a mailinglist, muine-list@gnome.org. More information can be found here:
+  
+  http://mail.gnome.org/mailman/listinfo/muine-list
+
 Bugs should be reported at bugzilla.gnome.org, product Muine.
 
 Our IRC channel is #muine on irc.gimp.org.
