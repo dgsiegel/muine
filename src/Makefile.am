@@ -19,7 +19,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/StringUtils.cs		\
 	$(srcdir)/KeyUtils.cs			\
 	$(srcdir)/SkipToWindow.cs		\
-	$(srcdir)/SearchMusicWindow.cs		\
+	$(srcdir)/NoMusicFoundWindow.cs		\
 	$(srcdir)/ProgressWindow.cs		\
 	$(srcdir)/ErrorDialog.cs		\
 	$(srcdir)/YesNoDialog.cs		\
@@ -50,7 +50,7 @@ ASSEMBLIES =					\
 RESOURCES =											\
 	/resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade		\
 	/resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade		\
-	/resource:$(top_srcdir)/data/glade/SearchMusicWindow.glade,SearchMusicWindow.glade	\
+	/resource:$(top_srcdir)/data/glade/NoMusicFoundWindow.glade,NoMusicFoundWindow.glade	\
 	/resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade			\
 	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade			\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade			\

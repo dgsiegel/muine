@@ -3,7 +3,7 @@ noinst_DATA =					\
 	GroupsWindow.glade			\
 	AddWindow.glade				\
 	SkipToWindow.glade			\
-	SearchMusicWindow.glade			\
+	NoMusicFoundWindow.glade		\
 	ErrorDialog.glade			\
 	YesNoDialog.glade			\
 	ProgressWindow.glade

@@ -1,3 +1,18 @@
+2004-02-06  Việt Yên Nguyễn  <nguyen@cs.utwente.nl>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
+	* data/glade/Makefile.am:
+	* data/glade/NoMusicFoundWindow.glade:
+	* data/glade/SearchMusicWindow.glade:
+	* data/muine.schemas.in:
+	* src/Makefile.am:
+	* src/NoMusicFoundWindow.cs:
+	* src/PlaylistWindow.cs:
+	* src/SearchMusicWindow.cs:
+
+	Better first time window.
+
 2004-02-06  Jorn Baayen  <jbaayen@gnome.org>
 
 	* data/muine.schemas.in:

@@ -10,7 +10,6 @@ o Enable fixed height mode for the GTK 2.3 treeview when it is available.
 o Use media stock icons and music-player icon (gtk_icon_theme_lookup_icon) once
   we use GTK 2.3
 o A song information dialog, which will later be used for tag editing.
-o Create ~/Music and ~/Music/Playlists/ if it doesn't exist, but ask first (Viet Yen Nguyen is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Nicer application icon
 o Nicer default cover image

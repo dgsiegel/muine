@@ -159,13 +159,42 @@ public class PlaylistWindow : Window
 		/* show */
 		Visible = true;
 
-		/* empty lib dialog */
-		if (Muine.DB.Empty) {
-			SearchMusicWindow w = new SearchMusicWindow (this);
-			w.ImportFolderEvent += new SearchMusicWindow.ImportFolderEventHandler (HandleImportFolderEvent); 
-			w.Run ();
-		}
+		CheckFirstStartUp ();
 	}
+
+	private void CheckFirstStartUp () 
+ 	{
+		bool first_start;
+ 		try { 
+ 			first_start = (bool) Muine.GConfClient.Get ("/apps/muine/first_start");
+ 		} catch {
+ 			first_start = true;
+ 		}
+ 
+ 		string dir = Environment.GetEnvironmentVariable ("HOME");
+ 		if (dir.EndsWith ("/") == false)
+ 			dir += "/";
+ 		
+ 		DirectoryInfo musicdir = new DirectoryInfo (dir + "Music/");
+  
+ 		if (first_start && !musicdir.Exists) {
+ 			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
+ 		} else if (first_start) { 
+ 			/* seems to be that $HOME/Music does exists, but user hasn't started Muine before! */
+ 			Muine.DB.AddWatchedFolder (musicdir.FullName);
+
+ 			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
+ 			HandleDirectory (musicdir, pw);
+ 			pw.Done ();
+ 
+ 			/* create a playlists directory if it still doesn't exists */
+ 			DirectoryInfo playlistsdir = new DirectoryInfo (dir + "Music/Playlists/");
+ 			if (!playlistsdir.Exists)
+ 				playlistsdir.Create ();
+  		}
+ 
+ 		Muine.GConfClient.Set ("/apps/muine/first_start", false);
+  	}
 	
 	private void SetupWindowSize ()
 	{
@@ -1136,9 +1165,10 @@ public class PlaylistWindow : Window
 		DirectoryInfo dinfo = new DirectoryInfo (fs.Filename);
 			
 		if (dinfo.Exists) {
+			Muine.DB.AddWatchedFolder (dinfo.FullName);
+
 			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
 			HandleDirectory (dinfo, pw);
-			Muine.DB.AddWatchedFolder (dinfo.FullName);
 			pw.Done ();
 		}
 
@@ -1179,14 +1209,6 @@ public class PlaylistWindow : Window
 				SavePlaylist (fn, false, false);
 		} else
 			SavePlaylist (fn, false, false);
-	}
-
-	private void HandleImportFolderEvent (DirectoryInfo dinfo)
-	{
-		ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
-		HandleDirectory (dinfo, pw);
-		Muine.DB.AddWatchedFolder (dinfo.FullName);
-		pw.Done ();
 	}
 
 	private void HandleRemoveSongCommand (object o, EventArgs args)

@@ -68,6 +68,17 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/first_start</key>
+      <applyto>/apps/muine/first_start</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>1</default>
+      <locale name="C">
+        <short>First start.</short>
+        <long>false if Muine has been started before.</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/volume</key>
       <applyto>/apps/muine/volume</applyto>
       <owner>muine</owner>
