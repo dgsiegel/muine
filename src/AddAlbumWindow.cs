@@ -306,7 +306,7 @@ public class AddAlbumWindow : Window
 	private void SelectFirstIfNeeded ()
 	{
 		/* it is insensitive if we have no selection, see HandleSelectionChanged */
-		if (play_button.Sensitive == false)
+		if (!play_button.Sensitive)
 			SelectFirst ();
 	}
 

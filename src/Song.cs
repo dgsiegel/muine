@@ -241,7 +241,7 @@ public class Song : SongInterface
 		if (dead)
 			return false;
 
-		if (checked_cover_image == true) {
+		if (checked_cover_image) {
 			tmp_cover_image = null;
 
 			return false;
@@ -484,7 +484,7 @@ public class Song : SongInterface
 		handles = new ArrayList ();
 		handles.Add (cur_ptr);
 
-		if (checked_cover_image == false)
+		if (!checked_cover_image)
 			GetCoverImage (null);
 	}
 

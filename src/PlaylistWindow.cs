@@ -455,11 +455,11 @@ public class PlaylistWindow : Window, PlayerInterface
  	{
  		bool first_start = (bool) Muine.GetGConfValue ("/apps/muine/first_start", true);
 
-		if (first_start == false)
+		if (!first_start)
 			return;
 
  		string dir = Environment.GetEnvironmentVariable ("HOME");
- 		if (dir.EndsWith ("/") == false)
+ 		if (!dir.EndsWith ("/"))
  			dir += "/";
  		
  		DirectoryInfo musicdir = new DirectoryInfo (dir + "Music/");
@@ -507,7 +507,7 @@ public class PlaylistWindow : Window, PlayerInterface
 			window_visible = value;
 
 			if (window_visible) {
-				if (Visible == false && last_x >= 0 && last_y >= 0)
+				if (!Visible && last_x >= 0 && last_y >= 0)
 					Move (last_x, last_y);
 
 				Present ();
@@ -713,7 +713,7 @@ public class PlaylistWindow : Window, PlayerInterface
 	{
 		IntPtr ret = AddSongAtPos (p, IntPtr.Zero, TreeViewDropPosition.Before);
 
-		if (had_last_eos == true)
+		if (had_last_eos)
 			PlayAndSelect (ret);
 
 		return ret;
@@ -809,7 +809,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		foreach (int i in playlist.Contents) {
 			IntPtr current = new IntPtr (i);
 
-			if (start_counting == true) {
+			if (start_counting) {
 				Song song = Song.FromHandle (current);
 				remaining_songs_time += song.Duration;
 			}
@@ -1229,13 +1229,14 @@ public class PlaylistWindow : Window, PlayerInterface
 			
 			IntPtr new_p = AddSong (p);
 			
-			if (first == true) {
-				PlayAndSelect (new_p);
+			if (!first)
+				continue;
 
-				player.Play ();
+			PlayAndSelect (new_p);
+
+			player.Play ();
 		
-				first = false;
-			}
+			first = false;
 		}
 
 		PlaylistChanged ();
@@ -1264,13 +1265,14 @@ public class PlaylistWindow : Window, PlayerInterface
 			foreach (Song s in a.Songs) {
 				IntPtr new_p = AddSong (s);
 
-				if (first == true) {
-					PlayAndSelect (new_p);
+				if (!first)
+					continue;
 
-					player.Play ();
-		
-					first = false;
-				}
+				PlayAndSelect (new_p);
+
+				player.Play ();
+
+				first = false;
 			}
 		}
 
@@ -1470,7 +1472,7 @@ public class PlaylistWindow : Window, PlayerInterface
 			song = (Song) Muine.DB.Songs [finfo.FullName];
 			if (song == null) {
 				bool ret = pw.ReportFile (finfo.Name);
-				if (ret == false)
+				if (!ret)
 					return false;
 
 				try {
@@ -1493,7 +1495,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		foreach (DirectoryInfo dinfo in dinfos) {
 			bool ret = HandleDirectory (dinfo, pw);
-			if (ret == false)
+			if (!ret)
 				return false;
 		}
 
@@ -1515,7 +1517,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
-		if (start_dir.EndsWith ("/") == false)
+		if (!start_dir.EndsWith ("/"))
 			start_dir += "/";
 
 		fc.SetCurrentFolderUri (start_dir);
@@ -1585,7 +1587,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 		if (FileUtils.Exists (fn)) {
 			YesNoDialog d = new YesNoDialog (String.Format (Muine.Catalog.GetString ("File {0} will be overwritten.\nIf you choose yes, the contents will be lost.\n\nDo you want to continue?"), FileUtils.MakeHumanReadable (fn)), this);
-			if (d.GetAnswer () == true)
+			if (d.GetAnswer ())
 				SavePlaylist (fn, false, false);
 		} else
 			SavePlaylist (fn, false, false);

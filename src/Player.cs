@@ -116,7 +116,7 @@ public class Player : GLib.Object
 		player_stop (Raw);
 		stopped = true;
 
-		if (playing == false)
+		if (!playing)
 			return;
 
 		playing = false;

@@ -114,10 +114,8 @@ public class NotificationAreaIcon : Plug
 
 	private void UpdateImage ()
 	{
-		if (playing == true)
-			image.SetFromStock ("muine-tray-playing", IconSize.Menu);
-		else
-			image.SetFromStock ("muine-tray-paused", IconSize.Menu);
+		string icon = (playing) ? "muine-tray-playing" : "muine-tray-paused";
+		image.SetFromStock (icon, IconSize.Menu);
 	}
 
 	public bool Playing {

@@ -44,7 +44,7 @@ public class FileSelector : FileChooserDialog
 
 		start_dir.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 
-		if (start_dir.EndsWith ("/") == false)
+		if (!start_dir.EndsWith ("/"))
 			start_dir += "/";
 
 		SetCurrentFolderUri (start_dir);

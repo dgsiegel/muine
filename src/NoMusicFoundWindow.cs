@@ -51,7 +51,7 @@ public class NoMusicFoundWindow
 	{
 		// get $HOME from environment
 		string homeDirectory = Environment.GetEnvironmentVariable ("HOME");
-		if (homeDirectory.EndsWith ("/") == false)
+		if (!homeDirectory.EndsWith ("/"))
 			homeDirectory += "/";
 		
 		// retrieve information about $HOME/Music and $HOME/Music/Playlists

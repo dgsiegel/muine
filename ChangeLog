@@ -1,3 +1,24 @@
+2004-12-30  Tamara Roberson  <foxxygirltamara@gmail.com>
+            Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/NotificationAreaIcon.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/Song.cs:
+
+	Minor code cleanup.
+	
+	* src/GnomeProxy.cs:
+
+	Minor code cleanup -- return early rather than having big 
+	if-statements.
+
 2004-12-30  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/AddAlbumWindow.cs:

@@ -185,7 +185,7 @@ public class Album
 		bool performers_changed = false;
 		
 		foreach (string artist in song.Artists) {
-			if (artists.Contains (artist) == false) {
+			if (!artists.Contains (artist)) {
 				artists.Add (artist);
 
 				artists_changed = true;
@@ -194,11 +194,11 @@ public class Album
 			}
 		}
 
-		if (artists_changed == true)
+		if (artists_changed)
 			artists.Sort ();
 
 		foreach (string performer in song.Performers) {
-			if (performers.Contains (performer) == false) {
+			if (!performers.Contains (performer)) {
 				performers.Add (performer);
 
 				performers_changed = true;
@@ -207,7 +207,7 @@ public class Album
 			}
 		}
 
-		if (performers_changed == true)
+		if (performers_changed)
 			performers.Sort ();
 
 		return (artists_changed || performers_changed);

@@ -53,7 +53,7 @@ public class FileUtils
 
 		string ret = u.ToString ();
 
-		if (ret.StartsWith ("file://") == true)
+		if (ret.StartsWith ("file://"))
 			ret = ret.Substring ("file://".Length);
 
 		return ret;
