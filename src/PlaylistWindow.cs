@@ -1780,14 +1780,70 @@ public class PlaylistWindow : Window
 		}
 	}
 
+	private class DragAddSongPosition {
+		private IntPtr pointer;
+		public IntPtr Pointer {
+			set {
+				pointer = value;
+			}
+
+			get {
+				return pointer;
+			}
+		}
+
+		private TreeViewDropPosition position;
+		public TreeViewDropPosition Position {
+			set {
+				position = value;
+			}
+
+			get {
+				return position;
+			}
+		}
+
+		private bool first;
+		public bool First {
+			set {
+				first = value;
+			}
+
+			get {
+				return first;
+			}
+		}
+	}
+
+	private void DragAddSong (Song song, DragAddSongPosition pos)
+	{
+		if (pos.Pointer != IntPtr.Zero)
+			pos.Pointer = AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
+		else
+			pos.Pointer = AddSong (song.Handle);
+
+		pos.Position = TreeViewDropPosition.After;
+			
+		if (pos.First) {
+			playlist.Select (pos.Pointer, false);
+
+			pos.First = false;
+		}
+	}
+
 	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		IntPtr pos_ptr = IntPtr.Zero;
 		TreePath path;
-		TreeViewDropPosition pos;
+		TreeViewDropPosition tmp_pos;
 
-		if (playlist.GetDestRowAtPos (args.X, args.Y, out path, out pos))
-			pos_ptr = playlist.GetHandleFromPath (path);
+		DragAddSongPosition pos = new DragAddSongPosition ();
+		pos.First = true;
+
+		if (playlist.GetDestRowAtPos (args.X, args.Y, out path, out tmp_pos)) {
+			pos.Pointer = playlist.GetHandleFromPath (path);
+			pos.Position = tmp_pos;
+		}
 
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
 
@@ -1804,8 +1860,6 @@ public class PlaylistWindow : Window
 			type = (uint) TargetType.AlbumList;
 			data = data.Substring ("\tMUINE_ALBUM_LIST\t".Length);
 		}
-
-		bool first = true;
 
 		switch (type) {
 		case (uint) TargetType.SongList:
@@ -1834,24 +1888,11 @@ public class PlaylistWindow : Window
 					
 					RemoveSong (new_ptr);
 				}
+
+				DragAddSong (song, pos);
 					
-				if (pos_ptr != IntPtr.Zero)
-					new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
-				else
-					new_ptr = AddSong (song.Handle);
-
-				pos_ptr = new_ptr;
-				pos = TreeViewDropPosition.After;
-				
-				if (play) {
+				if (play)
 					playlist.Playing = new_ptr;
-				}
-				
-				if (first) {
-					playlist.Select (new_ptr, false);
-
-					first = false;
-				}
 			}
 
 			EnsurePlaying ();
@@ -1873,21 +1914,8 @@ public class PlaylistWindow : Window
 				
 				Album album = Album.FromHandle (new_ptr);
 				
-				foreach (Song song in album.Songs) {
-					if (pos_ptr != IntPtr.Zero)
-						new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
-					else
-						new_ptr = AddSong (song.Handle);
-
-					pos_ptr = new_ptr;
-					pos = TreeViewDropPosition.After;
-					
-					if (first) {
-						playlist.Select (new_ptr, false);
-
-						first = false;
-					}
-				}	
+				foreach (Song song in album.Songs)
+					DragAddSong (song, pos);
 			}
 			
 			EnsurePlaying ();
@@ -1925,27 +1953,12 @@ public class PlaylistWindow : Window
 					if (FileUtils.IsPlaylist (fn)) {
 						OpenPlaylist (fn);
 
-						first = false;
+						pos.First = false;
 					} else {
 						Song song = GetSingleSong (finfo.FullName);
 					
-						if (song != null) {
-							IntPtr new_ptr;
-
-							if (pos_ptr != IntPtr.Zero)
-								new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
-							else
-								new_ptr = AddSong (song.Handle);
-
-							pos_ptr = new_ptr;
-							pos = TreeViewDropPosition.After;
-					
-							if (first) {
-								playlist.Select (new_ptr, false);
-	
-								first = false;
-							}
-						}
+						if (song != null)
+							DragAddSong (song, pos);
 					}
 
 					EnsurePlaying ();

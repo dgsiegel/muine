@@ -2,6 +2,12 @@
 
 	* src/PlaylistWindow.cs:
 
+	Clean up DND code.
+
+2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/PlaylistWindow.cs:
+
 	Clean up last EOS handling.
 
 2004-12-27  Jorn Baayen  <jbaayen@gnome.org>
