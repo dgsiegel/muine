@@ -2,7 +2,7 @@
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the muine package.
 # Vincent Carriere<carriere_vincent@yahoo.fr>, 2004.
-#  <christophe.gouyen@free.fr>, 2005.
+# Christophe Gouyen<christophe.gouyen@free.fr>, 2005.
 # 
 # 
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: muine 0.8.1pre2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-24 14:54+0200\n"
-"PO-Revision-Date: 2005-01-24 15:36+0100\n"
+"PO-Revision-Date: 2005-01-25 10:32+0100\n"
 "Last-Translator: Christophe Gouyen <christophe.gouyen@free.fr>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "Écoutez votre musique"
 
 #: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:58
 msgid "Muine Music Player"
-msgstr "Lecteur de Musique Muine"
+msgstr "Lecteur de musique Muine"
 
 #: data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -271,7 +271,7 @@ msgstr "_Enregistrer la liste de lecture sous..."
 
 #: src/Actions.cs:50
 msgid "Hide _Window"
-msgstr "_Cacher la fenêtre"
+msgstr "Cacher la _fenêtre"
 
 #: src/Actions.cs:52
 msgid "Show _Window"
@@ -460,7 +460,7 @@ msgstr "Album inconnu"
 #: src/PlaylistWindow.cs:76
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "{0} - Lecteur de Musique Muine"
+msgstr "{0} - Lecteur de musique Muine"
 
 #: src/PlaylistWindow.cs:80
 msgid "Switch music playback on or off"
