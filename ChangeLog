@@ -1,5 +1,11 @@
 2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Song.cs:
+
+	Sort songs by title, then artists.
+
+2004-04-11  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/NotificationAreaIcon.cs:
 	* src/PlaylistWindow.cs:
 
