@@ -170,7 +170,7 @@ public class PlayerDBusObject
 	[Method]
 	public virtual void Quit ()
 	{
-		Muine.Exit ();
+		player.Quit ();
 	}
 
 	[Signal] public event SongChangedHandler SongChanged;

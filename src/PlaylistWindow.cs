@@ -1136,7 +1136,7 @@ public class PlaylistWindow : Window, PlayerInterface
 
 	private void HandleDeleteEvent (object o, DeleteEventArgs args)
 	{
-		Muine.Exit ();
+		Quit ();
 	}
 
 	private void HandleSizeAllocated (object o, SizeAllocatedArgs args)
@@ -1732,9 +1732,14 @@ public class PlaylistWindow : Window, PlayerInterface
 			SongChanged (true);
 	}
 
-	private void HandleQuitCommand (object o, EventArgs args)
+	public void Quit ()
 	{
 		Muine.Exit ();
+	}
+
+	private void HandleQuitCommand (object o, EventArgs args)
+	{
+		Quit ();
 	}
 
 	private void HandleAboutCommand (object o, EventArgs args)

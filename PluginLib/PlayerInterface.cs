@@ -71,5 +71,7 @@ namespace MuinePluginLib
 		}
 
 		event Plugin.SongEventHandler PlayingSongChanged;
+
+		void Quit ();
 	}
 }

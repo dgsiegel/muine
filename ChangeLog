@@ -1,5 +1,13 @@
 2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
 
+	* PluginLib/PlayerInterface.cs:
+	* src/PlayerDBusObject.cs:
+	* src/PlaylistWindow.cs:
+
+	Add PlayerInterface.Quit.
+
+2004-12-31  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Makefile.am:
 
 	Split CLEANFILES up into CLEANFILES and DISTCLEANFILES.
