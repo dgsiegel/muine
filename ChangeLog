@@ -1,6 +1,22 @@
 2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
 
 	* ClientLib/.cvsignore:
+	* ClientLib/Makefile.am:
+	* ClientLib/Player.cs:
+	* configure.in:
+	* data/.cvsignore:
+	* data/Makefile.am:
+	R data/muine-client.pc.in:
+	* data/muine-dbus.pc.in:
+	* src/Makefile.am:
+	* src/Muine.cs:
+
+	Rename muine-client to muine-dbus, and add a
+	MuineDBusLib.Player.GetInstance method.
+
+2005-01-04  Jorn Baayen  <jbaayen@gnome.org>
+
+	* ClientLib/.cvsignore:
 	* ClientLib/AssemblyInfo.cs:
 	* ClientLib/Makefile.am:
 	* ClientLib/Player.cs:

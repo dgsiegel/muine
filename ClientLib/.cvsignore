@@ -1,4 +1,4 @@
 Makefile
 Makefile.in
-muine-client.dll
+muine-dbus.dll
 muine.snk

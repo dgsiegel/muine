@@ -17,7 +17,7 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 @INTLTOOL_SCHEMAS_RULE@
 
-pkgconfig_in_files = muine-plugin.pc.in muine-client.pc.in
+pkgconfig_in_files = muine-plugin.pc.in muine-dbus.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 

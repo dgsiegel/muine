@@ -2,5 +2,5 @@ Makefile
 Makefile.in
 muine.schemas
 muine.desktop
-muine-client.pc
+muine-dbus.pc
 muine-plugin.pc

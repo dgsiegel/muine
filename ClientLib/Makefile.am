@@ -1,4 +1,4 @@
-ASSEMBLY = muine-client.dll
+ASSEMBLY = muine-dbus.dll
 TARGET = $(ASSEMBLY)
 
 CSC = $(MCS) -codepage:utf8 $(MCS_FLAGS) $(CSFLAGS)

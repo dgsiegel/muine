@@ -126,7 +126,7 @@ AC_OUTPUT([
 Makefile
 muine.spec
 data/Makefile
-data/muine-client.pc
+data/muine-dbus.pc
 data/muine-plugin.pc
 data/glade/Makefile
 data/images/Makefile

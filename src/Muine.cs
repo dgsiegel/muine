@@ -173,17 +173,11 @@ public class Muine : Gnome.Program
 
 	public Muine (string [] args) : base ("muine", About.Version, Gnome.Modules.UI, args)
 	{
-		MuineClientLib.Player dbo = null;
+		MuineDBusLib.Player dbo = null;
 
 		/* Try to find a running Muine */
 		try {
-			Connection conn = Bus.GetSessionBus ();
-			
-			Service service = Service.Get (conn, "org.gnome.Muine");
-			
-			dbo = (MuineClientLib.Player) service.GetObject
-					(typeof (MuineClientLib.Player), "/org/gnome/Muine/Player");
-
+			dbo = MuineDBusLib.Player.FindInstance ();
 		} catch {}
 
 		if (dbo != null) {
@@ -201,7 +195,7 @@ public class Muine : Gnome.Program
 			   through the main thread anyway. For now it is
 			   just important to have the thing registered. */
 			try {
-				dbo = new MuineClientLib.Player ();
+				dbo = new MuineDBusLib.Player ();
 			
 				MuineDBusService.Instance.RegisterObject
 					(dbo, "/org/gnome/Muine/Player");
@@ -307,7 +301,7 @@ public class Muine : Gnome.Program
 			Gtk.Main.Iteration ();
 	}
 
-	private void ProcessCommandLine (string [] args, MuineClientLib.Player dbo)
+	private void ProcessCommandLine (string [] args, MuineDBusLib.Player dbo)
 	{
 		for (int i = 0; i < args.Length; i++) {
 			System.IO.FileInfo finfo = new System.IO.FileInfo (args [i]);

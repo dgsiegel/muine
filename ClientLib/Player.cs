@@ -25,11 +25,21 @@ using DBus;
 
 using MuinePluginLib;
 
-namespace MuineClientLib
+namespace MuineDBusLib
 {
 	[Interface ("org.gnome.Muine.Player")]
 	public class Player
 	{
+		public static Player FindInstance ()
+		{
+			Connection conn = Bus.GetSessionBus ();
+			
+			Service service = Service.Get (conn, "org.gnome.Muine");
+			
+			return (Player) service.GetObject
+				(typeof (Player), "/org/gnome/Muine/Player");
+		}
+
 		private IPlayer player = null;
 
 		public void HookUp (IPlayer player)
