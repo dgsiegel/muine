@@ -1,3 +1,7 @@
+2004-02-23  Abel Cheung  <maddog@linux.org.hk>
+
+	* fr.po: Convert to UTF-8 encoding.
+
 2004-02-22  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* es.po: Updated Spansih translation.
