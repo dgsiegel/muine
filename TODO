@@ -11,6 +11,7 @@ o A song information dialog (in tray and song menus, and in add album window)
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
+o Song->Delete (with confirmation, as deleting from disk) menu item
 
 Tough:
 ======
