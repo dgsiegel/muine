@@ -134,6 +134,7 @@ public class CoverDatabase
 			/* read the cover image */
 			HttpWebRequest req = (HttpWebRequest) WebRequest.Create (album_url);
 			req.UserAgent = "Muine";
+			req.KeepAlive = false;
 	
 			WebResponse resp = req.GetResponse ();
 			Stream s = resp.GetResponseStream ();
