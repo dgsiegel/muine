@@ -1,3 +1,9 @@
+2005-01-25  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+
+	0.8.1pre3.
+
 2005-01-24  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/CoverDatabase.cs:
