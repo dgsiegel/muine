@@ -332,11 +332,11 @@ namespace Muine
 		{
 			private DirectoryInfo dinfo;
 			private ProgressWindow pw;
-			private bool canceled = false;
-			
+			private BooleanBox canceled_box = new BooleanBox (false);
+
 			protected override void ThreadFunc ()
 			{
-				Muine.DB.HandleDirectory (dinfo, queue);
+				Muine.DB.HandleDirectory (dinfo, queue, canceled_box);
 
 				thread_done = true;
 			}
@@ -354,11 +354,10 @@ namespace Muine
 
 				SignalRequest rq = (SignalRequest) queue.Dequeue ();
 
-				canceled = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
+				bool canceled = pw.Report (dinfo.Name, Path.GetFileName (rq.Song.Filename));
 				if (canceled) {
-					thread.Abort ();
-
-					return false;
+					canceled_box.Value = true;
+					// finish what is in the queue
 				}
 
 				Muine.DB.HandleSignalRequest (rq);
@@ -462,7 +461,8 @@ namespace Muine
 					if (!dinfo.Exists)
 						continue;
 
-					Muine.DB.HandleDirectory (dinfo, queue);
+					BooleanBox canceled = new BooleanBox (false);
+					Muine.DB.HandleDirectory (dinfo, queue, canceled);
 				}
 
 				thread_done = true;
@@ -475,17 +475,22 @@ namespace Muine
 		}
 
 		// Directory walking
-		private void HandleDirectory (DirectoryInfo info, Queue queue)
+		private bool HandleDirectory (DirectoryInfo info,
+					      Queue queue,
+					      BooleanBox canceled_box)
 		{
 			FileInfo [] finfos;
 			
 			try {
 				finfos = info.GetFiles ();
 			} catch {
-				return;
+				return true;
 			}
 
 			foreach (FileInfo finfo in finfos) {
+				if (canceled_box.Value)
+					return false;
+
 				if (Songs [finfo.FullName] == null) {
 					Song song;
 
@@ -506,13 +511,31 @@ namespace Muine
 			try {
 				dinfos = info.GetDirectories ();
 			} catch {
-				return;
+				return true;
 			}
 
-			foreach (DirectoryInfo dinfo in dinfos)
-				HandleDirectory (dinfo, queue);
+			foreach (DirectoryInfo dinfo in dinfos) {
+				bool ret = HandleDirectory (dinfo, queue, canceled_box);
+				if (!ret)
+					return false;
+			}
+
+			return true;
 		}
 
+		private class BooleanBox {
+			private bool val;
+			public bool Value {
+				set { val = value; }
+				get { return val; }
+			}
+
+			public BooleanBox (bool value)
+			{
+				val = value;
+			}
+		}
+			
 		// SignalRequest
 		private class SignalRequest
 		{

@@ -1,5 +1,11 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Gracefully cancel the thread instead of using a brute Thread.Abort ().
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/PlaylistWindow.cs:
 
 	Start playing when opening a playlist.
