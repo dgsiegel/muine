@@ -6,6 +6,7 @@ o A song information dialog (Jorn is on this)
 o D-BUS service (Sergio Rubio is on this)
 o Rewrite metadata backend to use TagLib, and add metadata writing support
   http://developer.kde.org/~wheeler/taglib.html
+o Make clicking the window close button just quit the app again?
 
 Tough:
 ======
@@ -35,7 +36,7 @@ Graphic artists needed:
 =======================
 
 o Nicer application icon
-  A harp would be cool ..
+  A harp would be cool .. or a bass clef
 o Nicer default cover image
 
 Depends on other components:
