@@ -9,6 +9,7 @@
 - Improved error handling [Jorn Baayen]
 - Keep covers when files from removable media are removed [Jorn Baayen]
 - GConf key for using a different amazon variant [Lee Willis]
+- Pressing the "Stop" multimedia key will pause playback [Crispin Flowerday]
 - Various other fixes [Kenneth Christiansen, Lee Willis, Crispin Flowerday,
                        Jorn Baayen]
 
