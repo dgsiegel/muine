@@ -283,7 +283,7 @@ time_tick_cb (GstPlay *play, gint64 time_nanos, Player *player)
 {
 	player->priv->pos = time_nanos;
 
-	g_signal_emit (player, signals[TICK], 0, time_nanos / GST_SECOND);
+	g_signal_emit (player, signals[TICK], 0, (int) (time_nanos / GST_SECOND));
 }
 
 gboolean

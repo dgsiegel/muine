@@ -1,3 +1,8 @@
+2004-07-12  Bryan Forbes  <bryan@reigndropsfall.net>
+
+	* libmuine/player-gst.c: Fix issue where big endian machines don't
+	report the correct time.
+
 2004-07-13 Hile Tuohela <hile@iki.fi>
 
 	* Added Finnish translation
