@@ -218,7 +218,7 @@ pointer_list_model_row_draggable (GtkTreeDragSource *drag_source,
 {
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (drag_source), FALSE);
 
-  return (POINTER_LIST_MODEL (drag_source)->sort_func == NULL);
+  return TRUE;
 }
   
 static gboolean
@@ -278,8 +278,6 @@ put_before (PointerListModel *model,
     old_order[i] = g_sequence_get_ptr_at_pos (pointers, i);
 
   g_sequence_ptr_move_before (ptr, before);
-
-  model->moved_pointer = ptr;
 
   /* Generate new order. */
   new_order = g_new (int, length);
@@ -542,6 +540,54 @@ pointer_list_model_add (PointerListModel *model, gpointer pointer)
   iter.stamp = model->stamp;
   iter.user_data = new_ptr;
   
+  path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+  gtk_tree_model_row_inserted (GTK_TREE_MODEL (model), path, &iter);
+  gtk_tree_path_free (path);
+
+  return TRUE;
+}
+
+gboolean
+pointer_list_model_insert (PointerListModel *model, gpointer pointer,
+			   gpointer ins, GtkTreeViewDropPosition pos)
+{
+  GtkTreeIter iter;
+  GtkTreePath *path;
+  GSequencePtr new_ptr, before_ptr;
+  gboolean is_end;
+
+  if (g_hash_table_lookup (model->reverse_map, pointer))
+    return FALSE;
+
+  before_ptr = g_hash_table_lookup (model->reverse_map, ins);
+  g_assert (before_ptr != NULL);
+
+  is_end = g_sequence_ptr_is_end (g_sequence_ptr_next (before_ptr));
+
+  new_ptr = g_sequence_append (model->pointers, pointer);
+
+  switch (pos) {
+    case GTK_TREE_VIEW_DROP_BEFORE:
+    case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
+      break;
+    case GTK_TREE_VIEW_DROP_AFTER:
+    case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
+      if (!is_end)
+        before_ptr = g_sequence_ptr_next (before_ptr);
+      else
+        before_ptr = NULL;
+
+      break;
+  }
+
+  if (before_ptr != NULL)
+    g_sequence_ptr_move_before (new_ptr, before_ptr);
+
+  g_hash_table_insert (model->reverse_map, pointer, new_ptr);
+
+  iter.stamp = model->stamp;
+  iter.user_data = new_ptr;
+
   path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
   gtk_tree_model_row_inserted (GTK_TREE_MODEL (model), path, &iter);
   gtk_tree_path_free (path);
@@ -956,15 +1002,4 @@ pointer_list_model_has_first (PointerListModel *model)
   len = g_sequence_get_length (model->pointers);
 
   return (len > 0);
-}
-
-void
-pointer_list_model_get_moved_iter (PointerListModel *model,
-				   GtkTreeIter      *iter)
-{
-  g_return_if_fail (IS_POINTER_LIST_MODEL (model));
-  g_return_if_fail (iter != NULL);
-
-  iter->stamp = model->stamp;
-  iter->user_data = model->moved_pointer;
 }

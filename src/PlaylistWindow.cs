@@ -94,11 +94,27 @@ public class PlaylistWindow : Window
 	private MmKeys mmkeys;
 
 	/* Drag and drop targets. */
-	private enum TargetType {
-		UriList
+	public enum TargetType {
+		UriList,
+		Uri,
+		SongList,
+		AlbumList,
+		ModelRow
 	};
 
 	private static TargetEntry [] drag_entries = new TargetEntry [] {
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+	};
+
+	private static TargetEntry [] playlist_source_entries = new TargetEntry [] {
+		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow),
+		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
+ 	};
+		
+	private static TargetEntry [] playlist_dest_entries = new TargetEntry [] {
+		new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow),
+		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList),
+		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList),
 		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList)
 	};
 
@@ -422,7 +438,6 @@ public class PlaylistWindow : Window
 	{
 		playlist = new HandleView ();
 
-		playlist.Reorderable = true; 
 		playlist.Selection.Mode = SelectionMode.Multiple;
 
 		pixbuf_renderer = new ColoredCellRendererPixbuf ();
@@ -432,8 +447,16 @@ public class PlaylistWindow : Window
 		playlist.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
 
 		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
-		playlist.RowsReordered += new HandleView.RowsReorderedHandler (HandlePlaylistRowsReordered);
 		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (HandlePlaylistSelectionChanged);
+
+		playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
+						playlist_source_entries,
+						Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Move);
+		playlist.EnableModelDragDest (playlist_dest_entries,
+					      Gdk.DragAction.Copy | Gdk.DragAction.Move);
+
+		playlist.DragDataGet += new DragDataGetHandler (HandlePlaylistDragDataGet);
+		playlist.DragDataReceived += new DragDataReceivedHandler (HandlePlaylistDragDataReceived);
 
 		playlist.Show ();
 
@@ -520,14 +543,23 @@ public class PlaylistWindow : Window
 
 	private IntPtr AddSong (IntPtr p)
 	{
+		return AddSongAtPos (p, IntPtr.Zero, TreeViewDropPosition.Before);
+	}
+
+	private IntPtr AddSongAtPos (IntPtr p, IntPtr pos,
+				     TreeViewDropPosition dp)
+	{
 		IntPtr new_p = p;
 
 		if (playlist.Contains (p)) {
 			Song song = Song.FromHandle (p);
 			new_p = song.RegisterExtraHandle ();
 		} 
-		
-		playlist.Append (new_p);
+	
+		if (pos == IntPtr.Zero)
+			playlist.Append (new_p);
+		else
+			playlist.Insert (new_p, pos, dp);
 
 		if (had_last_eos == true) {
 			playlist.Playing = new_p;
@@ -1011,7 +1043,7 @@ public class PlaylistWindow : Window
 		NSongsChanged ();
 	}
 
-	public void PlayFile (string file)
+	private Song GetSingleSong (string file)
 	{
 		Song song = (Song) Muine.DB.Songs [file];
 
@@ -1020,11 +1052,18 @@ public class PlaylistWindow : Window
 			try {
 				song = new Song (file);
 			} catch {
-				return;
+				return null;
 			}
 
 			song.Orphan = true;
 		}
+
+		return song;
+	}
+
+	public void PlayFile (string file)
+	{
+		Song song = GetSingleSong (file);
 
 		if (song == null)
 			return;
@@ -1045,18 +1084,7 @@ public class PlaylistWindow : Window
 
 	public void QueueFile (string file)
 	{
-		Song song = (Song) Muine.DB.Songs [file];
-
-		if (song == null) {
-			/* try to create a new song object */
-			try {
-				song = new Song (file);
-			} catch {
-				return;
-			}
-
-			song.Orphan = true;
-		}
+		Song song = GetSingleSong (file);
 
 		if (song == null)
 			return;
@@ -1067,7 +1095,7 @@ public class PlaylistWindow : Window
 
 		NSongsChanged ();
 	}
-
+	
 	private void HandlePlaySongsEvent (List songs)
 	{
 		bool first = true;
@@ -1582,11 +1610,6 @@ public class PlaylistWindow : Window
 		player.Playing = true;
 	}
 
-	private void HandlePlaylistRowsReordered ()
-	{
-		NSongsChanged ();
-	}
-
 	private void HandlePlaylistSelectionChanged ()
 	{
 		SelectionChanged ();
@@ -1665,5 +1688,230 @@ public class PlaylistWindow : Window
 			window.TransientFor = this;
 		else
 			window.TransientFor = null;
+	}
+
+	private void HandlePlaylistDragDataGet (object o, DragDataGetArgs args)
+	{
+		List songs = playlist.SelectedPointers;
+
+		switch (args.Info) {
+		case (uint) TargetType.UriList:
+			string files = "";
+
+			foreach (int p in songs) {
+				IntPtr s = new IntPtr (p);
+				files += StringUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+			}
+	
+			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+						8, System.Text.Encoding.UTF8.GetBytes (files));
+						
+			break;	
+		case (uint) TargetType.ModelRow:
+			string ptrs = "\tMUINE_TREE_MODEL_ROW\t";
+
+			foreach (int p in songs) {
+				IntPtr s = new IntPtr (p);
+				ptrs += s.ToString () + "\r\n";
+			}
+			
+			args.SelectionData.Set (Gdk.Atom.Intern ("MUINE_TREE_MODEL_ROW", false),
+					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+					
+			break;
+		default:
+			break;	
+		}
+	}
+
+	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
+	{
+		IntPtr pos_ptr = IntPtr.Zero;
+		TreePath path;
+		TreeViewDropPosition pos;
+
+		if (playlist.GetDestRowAtPos (args.X, args.Y, out path, out pos))
+			pos_ptr = playlist.GetHandleFromPath (path);
+
+		string data = StringUtils.SelectionDataToString (args.SelectionData);
+
+		uint type = (uint) TargetType.UriList;
+
+		/* work around gtk bug .. */
+		if (data.StartsWith ("\tMUINE_TREE_MODEL_ROW\t")) {
+			type = (uint) TargetType.ModelRow;
+			data = data.Substring ("\tMUINE_TREE_MODEL_ROW\t".Length);
+		} else if (data.StartsWith ("\tMUINE_SONG_LIST\t")) {
+			type = (uint) TargetType.SongList;
+			data = data.Substring ("\tMUINE_SONG_LIST\t".Length);
+		} else if (data.StartsWith ("\tMUINE_ALBUM_LIST\t")) {
+			type = (uint) TargetType.AlbumList;
+			data = data.Substring ("\tMUINE_ALBUM_LIST\t".Length);
+		}
+
+		bool first = true;
+		
+		switch (type) {
+		case (uint) TargetType.SongList:
+		case (uint) TargetType.ModelRow:
+			string [] sngs = Regex.Split (data, "\r\n");
+
+			foreach (string newsong in sngs) {
+				IntPtr new_ptr;
+
+				try { 
+					new_ptr = new IntPtr (Int64.Parse (newsong)); 
+				} catch { 	
+					continue;
+				}
+
+				Song song = Song.FromHandle (new_ptr);
+
+				bool play = false;
+
+				if (type == (uint) TargetType.ModelRow) {
+					if (new_ptr == pos_ptr)
+						break;
+
+					if (new_ptr == playlist.Playing)
+						play = true;
+					
+					RemoveSong (new_ptr);
+				}
+					
+				if (pos_ptr != IntPtr.Zero)
+					new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
+				else
+					new_ptr = AddSong (song.Handle);
+
+				pos_ptr = new_ptr;
+				pos = TreeViewDropPosition.After;
+				
+				if (play) {
+					playlist.Playing = new_ptr;
+				}
+				
+				if (first) {
+					if (type == (uint) TargetType.ModelRow) {
+						/* scroll if the first & moved, because it will haev scrolled out of view
+						   during the move - hack, hack, hack :( */
+						playlist.Select (new_ptr, playlist.IsFirst (new_ptr));
+					} else
+						playlist.Select (new_ptr);
+
+					first = false;
+				}
+			}
+
+			EnsurePlaying ();
+
+			NSongsChanged ();
+
+			break;
+		case (uint) TargetType.AlbumList:
+			string [] albms = Regex.Split (data, "\r\n");
+
+			foreach (string newalbum in albms) {
+				IntPtr new_ptr;
+				
+				try {
+					new_ptr = new IntPtr (Int64.Parse (newalbum));
+				} catch {
+					continue;
+				}
+				
+				Album album = Album.FromHandle (new_ptr);
+				
+				foreach (Song song in album.Songs) {
+					if (pos_ptr != IntPtr.Zero)
+						new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
+					else
+						new_ptr = AddSong (song.Handle);
+
+					pos_ptr = new_ptr;
+					pos = TreeViewDropPosition.After;
+					
+					if (first) {
+						playlist.Select (new_ptr);
+
+						first = false;
+					}
+				}	
+			}
+			
+			EnsurePlaying ();
+
+			NSongsChanged ();
+
+			break;
+		case (uint) TargetType.UriList:
+			string [] uri_list = Regex.Split (data, "\r\n");
+			
+			foreach (string s in uri_list) {
+				string fn = StringUtils.LocalPathFromUri (s);
+
+				if (fn == null) {
+					Drag.Finish (args.Context, false, false, args.Time);
+					
+					return;
+				}
+	
+				DirectoryInfo dinfo = new DirectoryInfo (fn);
+				
+				if (dinfo.Exists) {
+					ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+		
+					Muine.DB.AddWatchedFolder (dinfo.FullName);
+					HandleDirectory	(dinfo, pw);
+		
+					pw.Done ();
+				} else {
+					System.IO.FileInfo finfo = new System.IO.FileInfo (fn);
+					
+					if (!finfo.Exists) {
+						Drag.Finish (args.Context, false, false, args.Time);
+
+						return;
+					}	
+					
+					if (FileUtils.IsPlaylist (fn)) {
+						OpenPlaylist (fn);
+						first = false;
+					} else {
+						if (pos_ptr == IntPtr.Zero) {
+							if (first) {
+								PlayFile (finfo.FullName);
+								first = false;
+							} else {
+								QueueFile (finfo.FullName);
+							}
+						} else {
+							Song song = GetSingleSong (finfo.FullName);
+							
+							if (song != null) {
+								IntPtr new_ptr = AddSongAtPos (song.Handle, pos_ptr, pos);
+								pos_ptr = new_ptr;
+								pos = TreeViewDropPosition.After;
+
+								if (first) {
+									playlist.Select (new_ptr);
+									first = false;
+								}
+							}
+						}	
+					}
+
+					EnsurePlaying ();
+
+					NSongsChanged ();
+				}
+			}
+
+			break;
+		default:
+			break;
+		}
+
+		Drag.Finish (args.Context, true, false, args.Time);
 	}
 }

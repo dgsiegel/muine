@@ -35,7 +35,6 @@ public class HandleView : TreeView
 							  IntPtr p, int flags);
 
 	private SignalDelegate pointer_activated_cb;
-	private SignalDelegate pointers_reordered_cb;
 	private SignalDelegate selection_changed_cb;
 
 	public HandleView () : base (IntPtr.Zero)
@@ -43,12 +42,9 @@ public class HandleView : TreeView
 		Raw = pointer_list_view_new ();
 
 		pointer_activated_cb = new SignalDelegate (PointerActivatedCallback);
-		pointers_reordered_cb = new SignalDelegate (PointersReorderedCallback);
 		selection_changed_cb = new SignalDelegate (SelectionChangedCallback);
 
 		g_signal_connect_data (Raw, "pointer_activated", pointer_activated_cb,
-				       IntPtr.Zero, IntPtr.Zero, 0);
-		g_signal_connect_data (Raw, "pointers_reordered", pointers_reordered_cb,
 				       IntPtr.Zero, IntPtr.Zero, 0);
 		g_signal_connect_data (Raw, "selection_changed", selection_changed_cb,
 				       IntPtr.Zero, IntPtr.Zero, 0);
@@ -105,12 +101,32 @@ public class HandleView : TreeView
 	}
 
 	[DllImport ("libmuine")]
+	private static extern void pointer_list_view_insert (IntPtr view,
+							     IntPtr pointer,
+	                                                     IntPtr ins,
+							     uint pos);
+
+	public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
+	{
+		pointer_list_view_insert (Raw, handle, ins, (uint) pos);
+	}
+
+	[DllImport ("libmuine")]
 	private static extern bool pointer_list_view_contains (IntPtr view,
 							       IntPtr pointer);
 
 	public bool Contains (IntPtr handle)
 	{
 		return pointer_list_view_contains (Raw, handle);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern bool pointer_list_view_is_first (IntPtr view,
+							       IntPtr pointer);
+
+	public bool IsFirst (IntPtr handle)
+	{
+		return pointer_list_view_is_first (Raw, handle);
 	}
 
 	[DllImport ("libmuine")]
@@ -217,11 +233,17 @@ public class HandleView : TreeView
 
 	[DllImport ("libmuine")]
 	private static extern void pointer_list_view_select (IntPtr view, 
-						             IntPtr handle);
+						             IntPtr handle,
+							     bool scroll);
+
+	public void Select (IntPtr handle, bool scroll)
+	{
+		pointer_list_view_select (Raw, handle, scroll);
+	}
 
 	public void Select (IntPtr handle)
 	{
-		pointer_list_view_select (Raw, handle);
+		Select (handle, true);
 	}
 
 	[DllImport ("libmuine")]
@@ -399,15 +421,6 @@ public class HandleView : TreeView
 	public new delegate void RowActivatedHandler (IntPtr handle);
 	public new event HandleView.RowActivatedHandler RowActivated;
 
-	private void PointersReorderedCallback (IntPtr obj, IntPtr unused_data)
-	{
-		if (RowsReordered != null)
-			RowsReordered ();
-	}
-
-	public delegate void RowsReorderedHandler ();
-	public event HandleView.RowsReorderedHandler RowsReordered;
-	
 	private void SelectionChangedCallback (IntPtr obj, IntPtr unused_data)
 	{
 		if (SelectionChanged != null)

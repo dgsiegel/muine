@@ -23,6 +23,7 @@
 #define __POINTER_LIST_MODEL_H__
 
 #include <gtk/gtktreemodel.h>
+#include <gtk/gtktreeview.h>
 #include "gsequence.h"
 
 #define TYPE_POINTER_LIST_MODEL		 (pointer_list_model_get_type ())
@@ -44,8 +45,6 @@ struct _PointerListModel {
 
   GSequencePtr     current_pointer;
 
-  GSequencePtr     moved_pointer;
-  
   GSequence       *pointers;
   GHashTable      *reverse_map;
 };
@@ -59,6 +58,10 @@ GType         pointer_list_model_get_type       (void);
 GtkTreeModel *pointer_list_model_new            (void);
 gboolean      pointer_list_model_add            (PointerListModel *model,
 					         gpointer          pointer);
+gboolean      pointer_list_model_insert         (PointerListModel *model,
+					         gpointer          pointer,
+						 gpointer          ins,
+						 GtkTreeViewDropPosition pos);
 void          pointer_list_model_remove         (PointerListModel *model,
 					         gpointer          pointer);
 void          pointer_list_model_remove_iter    (PointerListModel *model,
@@ -88,8 +91,6 @@ gpointer      pointer_list_model_last           (PointerListModel *model);
 gboolean      pointer_list_model_has_next       (PointerListModel *model);
 gboolean      pointer_list_model_has_prev       (PointerListModel *model);
 gboolean      pointer_list_model_has_first      (PointerListModel *model);
-void          pointer_list_model_get_moved_iter (PointerListModel *model,
-						 GtkTreeIter      *iter);
 
 #endif /* __POINTER_LIST_MODEL_H__ */
 

@@ -44,15 +44,14 @@ public class AddAlbumWindow : Window
 	private CellRenderer pixbuf_renderer;
 	private Gdk.Pixbuf nothing_pixbuf;
 	
-	private enum TargetType {
-		UriList,
-		Uri
-	}
-
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
+		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList),
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) PlaylistWindow.TargetType.UriList),
+		new TargetEntry ("_NETSCAPE_URL", 0, (uint) PlaylistWindow.TargetType.Uri)
+	};
+
+	private static TargetEntry [] source_entries = new TargetEntry [] {
+		new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.AlbumList)
 	};
 
 	public AddAlbumWindow () : base (IntPtr.Zero)
@@ -87,7 +86,6 @@ public class AddAlbumWindow : Window
 
 		view = new HandleView ();
 
-		view.Reorderable = false;
 		view.Selection.Mode = SelectionMode.Multiple;
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
 		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
@@ -97,6 +95,10 @@ public class AddAlbumWindow : Window
 		view.AddColumn (pixbuf_renderer, new HandleView.CellDataFunc (PixbufCellDataFunc), false);
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (TextCellDataFunc), true);
+
+		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
+					    source_entries, Gdk.DragAction.Copy);
+		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
 
 		scrolledwindow.Add (view);
 
@@ -371,5 +373,27 @@ public class AddAlbumWindow : Window
 		search_entry.Text = "";
 
 		process_changes_immediately = false;
+	}
+
+	private void DragDataGetCallback (object o, DragDataGetArgs args)
+	{
+		List albums = view.SelectedPointers;
+
+		switch (args.Info) {
+		case (uint) PlaylistWindow.TargetType.AlbumList:
+			string ptrs = "\tMUINE_ALBUM_LIST\t";
+			
+			foreach (int p in albums) {
+				IntPtr s = new IntPtr (p);
+				ptrs += s.ToString () + "\r\n";
+			}
+			
+			args.SelectionData.Set (Gdk.Atom.Intern ("MUINE_ALBUM_LIST", false),
+					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+						
+			break;
+		default:
+			break;	
+		}
 	}
 }

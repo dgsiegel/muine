@@ -1,3 +1,23 @@
+2004-11-20  Jorn Baayen  <jbaayen@gnome.org>
+
+	* libmuine/pointer-list-model.c:
+	(pointer_list_model_row_draggable), (put_before),
+	(pointer_list_model_insert), (pointer_list_model_has_first):
+	* libmuine/pointer-list-model.h:
+	* libmuine/pointer-list-view.c: (pointer_list_view_class_init),
+	(pointer_list_view_init), (pointer_list_view_insert),
+	(pointer_list_view_is_first), (pointer_list_view_select):
+	* libmuine/pointer-list-view.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/CoverImage.cs:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+	* src/StringUtils.cs:
+
+	DND support all over the place. Inspired by a patch by
+	Sean Egan <seanegan@gmail.com>.
+
 2004-11-18  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/NotificationAreaIcon.cs:

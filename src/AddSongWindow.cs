@@ -43,6 +43,11 @@ public class AddSongWindow : Window
 	private CellRenderer text_renderer;
 
 	private static int FakeLength = 150;
+
+	private static TargetEntry [] source_entries = new TargetEntry [] {
+		new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) PlaylistWindow.TargetType.SongList),
+		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList)
+	};
 	
 	public AddSongWindow () : base (IntPtr.Zero)
 	{
@@ -76,7 +81,6 @@ public class AddSongWindow : Window
 
 		view = new HandleView ();
 
-		view.Reorderable = false;
 		view.Selection.Mode = SelectionMode.Multiple;
 		view.SortFunc = new HandleView.CompareFunc (SortFunc);
 		view.RowActivated += new HandleView.RowActivatedHandler (HandleRowActivated);
@@ -85,6 +89,10 @@ public class AddSongWindow : Window
 		text_renderer = new CellRendererText ();
 		view.AddColumn (text_renderer, new HandleView.CellDataFunc (CellDataFunc), true);
 
+		view.EnableModelDragSource (Gdk.ModifierType.Button1Mask, 
+					    source_entries, Gdk.DragAction.Copy);
+		view.DragDataGet += new DragDataGetHandler (DragDataGetCallback);
+	
 		scrolledwindow.Add (view);
 
 		view.Realize ();
@@ -321,5 +329,39 @@ public class AddSongWindow : Window
 		search_entry.Text = "";
 
 		process_changes_immediately = false;
+	}
+
+	private void DragDataGetCallback (object o, DragDataGetArgs args)
+	{
+		List songs = view.SelectedPointers;
+
+		switch (args.Info) {
+		case (uint) PlaylistWindow.TargetType.UriList:
+			string files = "";
+
+			foreach (int p in songs) {
+				IntPtr s = new IntPtr (p);
+				files += StringUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+			}
+	
+			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+						8, System.Text.Encoding.UTF8.GetBytes (files));
+						
+			break;	
+		case (uint) PlaylistWindow.TargetType.SongList:
+			string ptrs = "\tMUINE_SONG_LIST\t";
+			
+			foreach (int p in songs) {
+				IntPtr s = new IntPtr (p);
+				ptrs += s.ToString () + "\r\n";
+			}
+			
+			args.SelectionData.Set (Gdk.Atom.Intern ("MUINE_SONG_LIST", false),
+					        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+					
+			break;
+		default:
+			break;	
+		}
 	}
 }

@@ -44,15 +44,10 @@ public class CoverImage : EventBox
 		Dispose ();
 	}
 
-	private enum TargetType {
-		UriList,
-		Uri
-	}
-
 	private static TargetEntry [] cover_drag_entries = new TargetEntry [] {
-		new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList),
-		new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri)
+		new TargetEntry ("text/uri-list", 0, (uint) PlaylistWindow.TargetType.UriList),
+		new TargetEntry ("x-special/gnome-icon-list", 0, (uint) PlaylistWindow.TargetType.UriList),
+		new TargetEntry ("_NETSCAPE_URL", 0, (uint) PlaylistWindow.TargetType.Uri)
 	};
 
 	private void Sync ()
@@ -94,7 +89,7 @@ public class CoverImage : EventBox
 		string fn;
 		
 		switch (args.Info) {
-		case (uint) TargetType.Uri:
+		case (uint) PlaylistWindow.TargetType.Uri:
 			uri_list = Regex.Split (data, "\n");
 			fn = uri_list [0];
 			
@@ -121,7 +116,7 @@ public class CoverImage : EventBox
 			}
 
 			break;
-		case (uint) TargetType.UriList:
+		case (uint) PlaylistWindow.TargetType.UriList:
 			uri_list = Regex.Split (data, "\r\n");
 			fn = StringUtils.LocalPathFromUri (uri_list [0]);
 

@@ -29,7 +29,6 @@ static void pointer_list_view_class_init (PointerListViewClass *klass);
 
 enum {
 	POINTER_ACTIVATED,
-	POINTERS_REORDERED,
 	SELECTION_CHANGED,
 	LAST_SIGNAL
 };
@@ -82,15 +81,6 @@ pointer_list_view_class_init (PointerListViewClass *klass)
 			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE, 1, G_TYPE_POINTER);
 
-	signals[POINTERS_REORDERED] =
-		g_signal_new ("pointers_reordered",
-			      G_TYPE_FROM_CLASS (klass),
-			      G_SIGNAL_RUN_LAST,
-			      0,
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-
 	signals[SELECTION_CHANGED] =
 		g_signal_new ("selection_changed",
 			      G_TYPE_FROM_CLASS (klass),
@@ -120,28 +110,6 @@ pointer_activated_cb (GtkTreeView *tree_view,
 }
 
 static void
-pointers_reordered_cb (GtkTreeModel *tree_model,
-		       GtkTreePath *path,
-		       GtkTreeIter *unused_iter,
-		       gint *new_order,
-		       PointerListView *view)
-{
-	PointerListModel *model;
-	GtkTreeSelection *sel;
-	GtkTreeIter iter;
-
-	model = POINTER_LIST_MODEL (tree_model);
-
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-
-	pointer_list_model_get_moved_iter (model, &iter);
-	gtk_tree_selection_unselect_all (sel);
-	gtk_tree_selection_select_iter (sel, &iter);
-
-	g_signal_emit (view, signals[POINTERS_REORDERED], 0, NULL);
-}
-
-static void
 selection_changed_cb (GtkTreeSelection *sel,
 		      PointerListView *view)
 {
@@ -168,11 +136,6 @@ pointer_list_view_init (PointerListView *view)
 	g_signal_connect (G_OBJECT (view),
 			  "row_activated",
 			  G_CALLBACK (pointer_activated_cb),
-			  view);
-
-	g_signal_connect (G_OBJECT (view->model),
-			  "rows_reordered",
-			  G_CALLBACK (pointers_reordered_cb),
 			  view);
 }
 
@@ -246,6 +209,15 @@ pointer_list_view_append (PointerListView *view,
 }
 
 void
+pointer_list_view_insert (PointerListView *view,
+			  gpointer pointer,
+			  gpointer ins,
+			  GtkTreeViewDropPosition pos)
+{
+	pointer_list_model_insert (view->model, pointer, ins, pos);
+}
+
+void
 pointer_list_view_changed (PointerListView *view,
 			   gpointer pointer)
 {
@@ -309,6 +281,21 @@ pointer_list_view_contains (PointerListView *view,
 		            gpointer pointer)
 {
 	return pointer_list_model_contains (view->model, pointer);
+}
+
+gboolean
+pointer_list_view_is_first (PointerListView *view,
+		            gpointer pointer)
+{
+	GtkTreeIter iter, first;
+
+	if (!pointer_list_model_pointer_get_iter (view->model, pointer, &iter))
+		return FALSE;
+
+	if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &first))
+		return FALSE;
+
+	return (first.user_data == iter.user_data);
 }
 
 static gboolean
@@ -491,7 +478,8 @@ pointer_list_view_select_prev (PointerListView *view,
 
 void
 pointer_list_view_select (PointerListView *view,
-		          gpointer pointer)
+		          gpointer pointer,
+			  gboolean scroll)
 {
 	GtkTreeView *tree_view = GTK_TREE_VIEW (view);
 	GtkTreeIter iter;
@@ -503,11 +491,14 @@ pointer_list_view_select (PointerListView *view,
 	sel = gtk_tree_view_get_selection (tree_view);
 	gtk_tree_selection_unselect_all (sel);
 	gtk_tree_selection_select_iter (sel, &iter);
-	path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
-	scroll_to_path (view, path, TRUE);
-	gtk_tree_view_set_cursor (tree_view, path,
-				  gtk_tree_view_get_column (tree_view, 0), FALSE);
-	gtk_tree_path_free (path);
+
+	if (scroll) {
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
+		scroll_to_path (view, path, TRUE);
+		gtk_tree_view_set_cursor (tree_view, path,
+					  gtk_tree_view_get_column (tree_view, 0), FALSE);
+		gtk_tree_path_free (path);
+	}
 }
 
 void
