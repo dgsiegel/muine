@@ -51,6 +51,8 @@ RESOURCES =												\
 	/resource:$(top_srcdir)/data/glade/YesNoDialog.glade,YesNoDialog.glade				\
 	/resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
 	/resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
+	/resource:$(top_srcdir)/data/ui/PlaylistWindow.xml,PlaylistWindow.xml				\
+	/resource:$(top_srcdir)/data/ui/NotificationAreaIcon.xml,NotificationAreaIcon.xml		\
 	/resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
 	/resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
 	/resource:$(top_srcdir)/data/images/muine-volume-zero.png,muine-volume-zero.png			\

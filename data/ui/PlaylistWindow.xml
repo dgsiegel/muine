@@ -1,0 +1,38 @@
+<ui>
+  <menubar name="MenuBar">
+    <menu action="FileMenu">
+      <menuitem action="ImportFolder" />
+      <separator />
+      <menuitem action="OpenPlaylist" />
+      <menuitem action="SavePlaylistAs" />
+      <separator />
+      <menuitem action="ShowHideWindow" />
+      <separator />
+      <menuitem action="Quit" />
+    </menu>
+    <menu action="SongMenu">
+      <menuitem action="PlayPause" />
+      <separator />
+      <menuitem action="PreviousSong" />
+      <menuitem action="NextSong" />
+      <separator />
+      <menuitem action="SkipTo" />
+      <menuitem action="SkipBackwards" />
+      <menuitem action="SkipForward" />
+    </menu>
+    <menu action="PlaylistMenu">
+      <menuitem action="PlaySong" />
+      <menuitem action="PlayAlbum" />
+      <separator />
+      <menuitem action="RemoveSong" />
+      <menuitem action="RemovePlayedSongs" />
+      <menuitem action="ClearPlaylist" />
+      <separator />
+      <menuitem action="Repeat" />
+      <menuitem action="Shuffle" />
+    </menu>
+    <menu action="HelpMenu">
+      <menuitem action="About" />
+    </menu>
+  </menubar>
+</ui>

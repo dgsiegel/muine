@@ -1,0 +1,13 @@
+<ui>
+  <popup name="Menu">
+    <menuitem action="PlayPause" />
+    <separator />
+    <menuitem action="PreviousSong" />
+    <menuitem action="NextSong" />
+    <separator />
+    <menuitem action="PlaySong" />
+    <menuitem action="PlayAlbum" />
+    <separator />
+    <menuitem action="ShowHideWindow" />
+  </popup>
+</ui>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn@nl.linux.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -398,45 +398,6 @@ public class PlaylistWindow : Window, PlayerInterface
 		}
 	}
 
-	/* Menu layout */
-	private const string ui_info = 
-		"<menubar name=\"MenuBar\">\n" +
-		"  <menu action=\"FileMenu\">\n" +
-		"    <menuitem action=\"ImportFolder\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"OpenPlaylist\" />\n" +
-		"    <menuitem action=\"SavePlaylistAs\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"ShowHideWindow\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"Quit\" />\n" +
-		"  </menu>\n" +
-		"  <menu action=\"SongMenu\">\n" +
-		"    <menuitem action=\"PlayPause\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"PreviousSong\" />\n" +
-		"    <menuitem action=\"NextSong\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"SkipTo\" />\n" +
-		"    <menuitem action=\"SkipBackwards\" />\n" +
-		"    <menuitem action=\"SkipForward\" />\n" +
-		"  </menu>\n" +
-		"  <menu action=\"PlaylistMenu\">\n" +
-		"    <menuitem action=\"PlaySong\" />\n" +
-		"    <menuitem action=\"PlayAlbum\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"RemoveSong\" />\n" +
-		"    <menuitem action=\"RemovePlayedSongs\" />\n" +
-		"    <menuitem action=\"ClearPlaylist\" />\n" +
-		"    <separator />\n" +
-		"    <menuitem action=\"Repeat\" />\n" +
-		"    <menuitem action=\"Shuffle\" />\n" +
-		"  </menu>\n" +
-		"  <menu action=\"HelpMenu\">\n" +
-		"    <menuitem action=\"About\" />\n" +
-		"  </menu>\n" +
-		"</menubar>\n";
-
 	private void SetupMenus (Glade.XML glade_xml)
 	{
 		ActionEntry [] action_entries = new ActionEntry [] {
@@ -527,7 +488,7 @@ public class PlaylistWindow : Window, PlayerInterface
 		
 		ui_manager = new UIManager ();
 		ui_manager.InsertActionGroup (action_group, 0);
-		ui_manager.AddUiFromString (ui_info);
+		ui_manager.AddUiFromResource ("PlaylistWindow.xml");
 
 		AddAccelGroup (ui_manager.AccelGroup);
 		

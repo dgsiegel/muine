@@ -1,6 +1,7 @@
 SUBDIRS =	\
 	glade	\
-	images
+	images	\
+	ui
 
 @INTLTOOL_DESKTOP_RULE@
 

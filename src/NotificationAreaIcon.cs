@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004 Jorn Baayen <jorn@nl.linux.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn@nl.linux.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -66,19 +66,6 @@ public class NotificationAreaIcon : Plug
 			ShowAll ();
 	}
 
-	private const string ui_info =
-		"<popup name=\"Menu\">\n" +
-		"  <menuitem action=\"PlayPause\" />\n" +
-		"  <separator />\n" +
-		"  <menuitem action=\"PreviousSong\" />\n" +
-		"  <menuitem action=\"NextSong\" />\n" +
-		"  <separator />\n" +
-		"  <menuitem action=\"PlaySong\" />\n" +
-		"  <menuitem action=\"PlayAlbum\" />\n" +
-		"  <separator />\n" +
-		"  <menuitem action=\"ShowHideWindow\" />\n" +
-		"</popup>\n";
-
 	public NotificationAreaIcon (PlayerInterface player) : base (IntPtr.Zero)
 	{
 		/* connect to player */
@@ -90,7 +77,7 @@ public class NotificationAreaIcon : Plug
 			new Plugin.StateChangedEventHandler (HandleStateChangedEvent);
 		
 		/* build menu */
-		player.UIManager.AddUiFromString (ui_info);
+		player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
 		
 		menu = (Menu) player.UIManager.GetWidget ("/Menu");
 		menu.Deactivated += new EventHandler (HandleMenuDeactivated);

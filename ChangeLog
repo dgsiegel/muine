@@ -1,5 +1,19 @@
 2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* data/Makefile.am:
+	* data/ui/.cvsignore:
+	* data/ui/Makefile.am:
+	* data/ui/NotificationAreaIcon.xml:
+	* data/ui/PlaylistWindow.xml:
+	* src/Makefile.am:
+	* src/NotificationAreaIcon.cs:
+	* src/PlaylistWindow.cs:
+
+	Move menu definitions to separate files.
+
+2005-01-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* PluginLib/PlayerInterface.cs:
 	* src/PlaylistWindow.cs:
 
