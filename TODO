@@ -14,6 +14,10 @@ o Create ~/Music and ~/Music/Playlists/ if it doesn't exist, but ask first (Viet
 o D-BUS service (Sergio Rubio is on this)
 o Nicer application icon
 o Nicer default cover image
+o Shift+Arrow keys selects in add windows
+  Depends on Gnome Bugzilla #133143
+  Proxying events to treeview doesn't work, we manually need to mimic
+  the multiple selection keybindings.
 
 Tough:
 ======
@@ -75,8 +79,6 @@ o Drag images from Nautilus or Epiphany to the album cover area in
 o Make title and artist label one for easier selection.
   We need a proper Gtk ellipsizing widget for this.
 o Use storage
-o Shift+Arrow keys selects in add windows
-  Depends on Gnome Bugzilla #133143
 
 Current problems:
 =================
