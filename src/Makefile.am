@@ -30,7 +30,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/EllipsizingLabel.cs		\
 	$(srcdir)/MarkupUtils.cs		\
 	$(srcdir)/AmazonSearchService.cs	\
-	$(srcdir)/CoverDatabase.cs
+	$(srcdir)/CoverDatabase.cs		\
+	$(srcdir)/MessageConnection.cs
 
 ASSEMBLIES =					\
 	/r:atk-sharp				\

@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.IO;
 
 using Gtk;
 using GtkSharp;
@@ -26,7 +27,7 @@ using Gdk;
 
 public class Muine : Gnome.Program
 {
-	private PlaylistWindow playlist;
+	private static PlaylistWindow playlist;
 
 	public static GConf.Client GConfClient;
 
@@ -35,6 +36,8 @@ public class Muine : Gnome.Program
 	public static CoverDatabase CoverDB;
 
 	public static ActionThread ActionThread;
+
+	private static MessageConnection conn;
 
 	public static void Main (string [] args)
 	{
@@ -45,6 +48,15 @@ public class Muine : Gnome.Program
 
 	public Muine (string [] args) : base ("muine", About.Version, Gnome.Modules.UI, args)
 	{
+		/* Create message connection */
+		conn = new MessageConnection ();
+		if (!conn.IsServer) {
+			ProcessCommandLine (args, true);
+			conn.Close ();
+			Gdk.Global.NotifyStartupComplete ();
+			Environment.Exit (0);
+		}
+
 		/* Init GConf */
 		GConfClient = new GConf.Client ();
 
@@ -62,7 +74,8 @@ public class Muine : Gnome.Program
 			CoverDB = new CoverDatabase (1);
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the cover database: " + e.ToString () + "\nExiting...");
-			Environment.Exit (0);
+
+			Exit ();
 		}
 
 		CoverDB.Load ();
@@ -73,7 +86,7 @@ public class Muine : Gnome.Program
 		} catch (Exception e) {
 			new ErrorDialog ("Failed to load the song database: " + e.ToString () + "\nExiting...");
 
-			Environment.Exit (0);
+			Exit ();
 		}
 
 		DB.Load ();
@@ -82,6 +95,28 @@ public class Muine : Gnome.Program
 		playlist = new PlaylistWindow ();
 		playlist.DeleteEvent += new DeleteEventHandler (HandlePlaylistDeleteEvent);
 		playlist.Run ();
+
+		/* Hook up connection callback */
+		conn.SetCallback (new MessageConnection.MessageReceivedHandler (HandleMessageReceived));
+		ProcessCommandLine (args, false);
+	}
+
+	private void ProcessCommandLine (string [] args, bool use_conn)
+	{
+		if (args.Length > 0) {
+			/* try to load first argument as playlist */
+			FileInfo finfo = new FileInfo (args [0]);
+			
+			if (finfo.Exists) {
+				if (use_conn)
+					conn.Send (finfo.FullName);
+				else
+					playlist.OpenPlaylist (finfo.FullName);
+			}
+		}
+
+		if (use_conn)
+			conn.Send ("ShowWindow");
 	}
 
 	private void SetDefaultWindowIcon ()
@@ -97,8 +132,19 @@ public class Muine : Gnome.Program
 		Exit ();
 	}
 
+	private void HandleMessageReceived (string message,
+					    IntPtr user_data)
+	{
+		if (message == "ShowWindow")
+			playlist.SetWindowVisible (true);
+		else
+			playlist.OpenPlaylist (message);
+	}
+
 	public static void Exit ()
 	{
+		conn.Close ();
+
 		//Application.Quit ();
 		Environment.Exit (0);
 	}

@@ -3,8 +3,6 @@ Easy:
 o Use the GTK+ 2.3 fileselector, if it is available.
 o Use a GStreamer 0.7 backend if 0.6 is not available. (Is Richard Hult on this?)
   The 0.6 backend should stay supported because 0.7 is not very solid yet.
-o Clicking an m3u file in Nautilus should load it in Muine
-o Starting muine when an instance is running already it should present the window
 o Add WMA support
 o Add MP4 support
   This code can be stolen from Rhythmbox

@@ -195,14 +195,15 @@ public class PlaylistWindow : Window
 	private int last_x;
 	private int last_y;
 
-	private void SetWindowVisible (bool visible)
+	public void SetWindowVisible (bool visible)
 	{
 		if (visible == false) {
 			GetPosition (out last_x, out last_y);
 
 			Visible = false;
 		} else {
-			Move (last_x, last_y);
+			if (Visible == false)
+				Move (last_x, last_y);
 
 			if (playlist.Playing != IntPtr.Zero)
 				playlist.ScrollTo (playlist.Playing);
@@ -355,7 +356,7 @@ public class PlaylistWindow : Window
 		} catch {
 			new ErrorDialog ("Failed to create the required GStreamer elements.\nExiting...");
 
-			Environment.Exit (0);
+			Muine.Exit ();
 		}
 
 		player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (HandleEndOfStreamEvent);
@@ -604,7 +605,7 @@ public class PlaylistWindow : Window
 		}
 	}
 
-	private void OpenPlaylist (string fn)
+	public void OpenPlaylist (string fn)
 	{
 		StreamReader reader;
 		
@@ -720,11 +721,6 @@ public class PlaylistWindow : Window
 	private void HandleStateChanged (bool playing)
 	{
 		StateChanged (playing);
-	}
-
-	private void HandleFileActivated (string file)
-	{
-		OpenPlaylist (file);
 	}
 
 	private void HandleWindowKeyPressEvent (object o, KeyPressEventArgs args)

@@ -1,6 +1,27 @@
 2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
 
 	* TODO:
+	* data/Makefile.am:
+	* data/muine.applications:
+	* libmuine/Makefile.am:
+	* libmuine/bacon-message-connection.c: (test_is_socket),
+	(server_cb), (try_server), (try_client),
+	(bacon_message_connection_new), (bacon_message_connection_free),
+	(bacon_message_connection_set_callback),
+	(bacon_message_connection_send),
+	(bacon_message_connection_get_is_server):
+	* libmuine/bacon-message-connection.h:
+	* src/Makefile.am:
+	* src/MessageConnection.cs:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+
+	Add command line handling and an applications file so that
+	Nautilus knows about us.
+
+2004-01-27  Jorn Baayen  <jorn@nl.linux.org>
+
+	* TODO:
 	* data/glade/PlaylistWindow.glade:
 	* src/CoverDatabase.cs:
 	* src/PlaylistWindow.cs:

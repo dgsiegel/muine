@@ -1,0 +1,9 @@
+muine
+	command=muine
+	name=Muine Music Player
+	can_open_multiple_files=false
+	expects_uris=false
+	requires_terminal=false
+	startup_notify=true
+	supported_uri_schemes=file
+	mime_types=audio/x-mpegurl
