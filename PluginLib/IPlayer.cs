@@ -84,6 +84,11 @@ namespace Muine.PluginLib
 			get;
 		}
 
+		uint BusyLevel {
+			set;
+			get;
+		}
+
 		event SongChangedEventHandler SongChangedEvent;
 	
 		event StateChangedEventHandler StateChangedEvent;

@@ -184,5 +184,10 @@ namespace Muine
 		{
 			return "file://" + uri;
 		}
+
+		public static bool IsRemote (string uri)
+		{
+			return (uri [0] != '/' && !uri.StartsWith ("file://"));
+		}
 	}
 }

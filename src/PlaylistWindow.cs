@@ -214,6 +214,23 @@ namespace Muine
 			get { return this; }
 		}
 
+		private uint busy_level = 0;
+		public uint BusyLevel {
+			set {
+				if (busy_level == 0 && value > 0) {
+					this.Realize ();
+					this.GdkWindow.Cursor =
+						new Gdk.Cursor (Gdk.CursorType.Watch);
+					this.GdkWindow.Display.Flush ();
+				} else if (busy_level > 0 && value == 0)
+					this.GdkWindow.Cursor = null;
+				
+				busy_level = value;
+			}
+
+			get { return busy_level; }
+		}
+
 		public event SongChangedEventHandler SongChangedEvent;
 
 		public event StateChangedEventHandler StateChangedEvent;
@@ -940,11 +957,15 @@ namespace Muine
 
 		public void OpenPlaylist (string fn)
 		{
+			BusyLevel ++;
+			
 			OpenPlaylistInternal (fn);
 
 			PlaylistChanged ();
 
 			Playing = true;
+
+			BusyLevel --;
 		}
 
 		private void OpenPlaylistInternal (string fn)
@@ -1031,12 +1052,19 @@ namespace Muine
 		{
 			VfsStream stream;
 			StreamWriter writer;
+
+			bool remote = FileUtils.IsRemote (fn);
+
+			if (remote)
+				BusyLevel ++;
 			
 			try {
 				stream = new VfsStream (fn, System.IO.FileMode.Create);
 				writer = new StreamWriter (stream);
 			} catch {
 				new ErrorDialog (String.Format (Catalog.GetString ("Failed to open {0} for writing"), FileUtils.MakeHumanReadable (fn)), this);
+				if (remote)
+					BusyLevel --;
 				return;
 			}
 
@@ -1067,8 +1095,10 @@ namespace Muine
 				writer.Close ();
 			} catch {
 				new ErrorDialog (String.Format (Catalog.GetString ("Failed to close {0}"), FileUtils.MakeHumanReadable (fn)), this);
-				return;
 			}
+
+			if (remote)
+				BusyLevel --;
 		}
 
 		private void OnStateChanged (bool playing)
@@ -1154,14 +1184,19 @@ namespace Muine
 		private Song AddSongToDB (string file)
 		{
 			Song song;
+
+			BusyLevel ++;
 			
 			try {
 				song = new Song (file);
 			} catch {
+				BusyLevel --;
 				return null;
 			}
 
 			Global.DB.AddSong (song);
+
+			BusyLevel --;
 
 			return song;
 		}

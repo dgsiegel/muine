@@ -1,5 +1,17 @@
 2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
 
+	* PluginLib/IPlayer.cs:
+	* TODO:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+	* src/CoverDatabase.cs:
+	* src/FileUtils.cs:
+	* src/PlaylistWindow.cs:
+
+	Add BusyLevel to IPlayer. If BusyLevel > 0, Muine displays
+	a busy cursor.
+
+2005-01-08  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Global.cs:
 
 	Clean up ProcessCommandLine.

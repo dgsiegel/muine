@@ -282,6 +282,30 @@ player.UIManager.AddUI (UIManager.NewMergeId (),
         <remarks>Use this to properly parent your plug-in's windows.</remarks>
       </Docs>
     </Member>
+    <Member MemberName="BusyLevel">
+      <MemberSignature Language="C#" Value="public virtual uint BusyLevel { set; get; };" />
+      <MemberType>Property</MemberType>
+      <ReturnValue>
+        <ReturnType>System.UInt32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Busy indicator</summary>
+        <returns>a <see cref="T:System.UInt32" /></returns>
+        <remarks>
+	  <para>Muine displays a busy cursor if BusyLevel is greater than zero.</para>
+	  <example>
+	    <code lang="C#">
+player.BusyLevel ++;
+
+DoIntensiveOperation ();
+
+player.BusyLevel --;
+	    </code>
+	  </example>
+	</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="SongChangedEvent">
       <MemberSignature Language="C#" Value="public virtual event Muine.PluginLib.Plugin+SongChangedEventHandler SongChangedEvent;" />
       <MemberType>Event</MemberType>

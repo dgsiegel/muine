@@ -175,7 +175,7 @@ namespace Muine
 				if (Global.CoverDB.Covers.Contains (key)) {
 					if (pixbuf == null)
 						return;
-					else
+					else // stored covers take priority
 						Global.CoverDB.Covers.Remove (key);
 				}
 				

@@ -9,6 +9,9 @@ o A song information dialog (Jorn is on this)
 o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
+o "Only single songs" folder stuff: checkbox in filesel??
+o "Append" button in Open Playlist dialog,
+  and DnD insert playlists into position
 
 Tough:
 ======
@@ -59,6 +62,8 @@ o Fix drag-into-itself madness in add album window
   Depends on Gnome Bugzilla #163141
 o Get m3u mime type icon properly
   Depends on Ximian Bugzilla #71060
+o Busy-interactive cursor while loading
+  Depends on Gnome Bugzilla #122728
 
 We won't have:
 ==============
