@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 11:23+0100\n"
-"PO-Revision-Date: 2005-01-19 12:54+0100\n"
+"POT-Creation-Date: 2005-01-31 12:14+0100\n"
+"PO-Revision-Date: 2005-01-31 18:59+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,50 +35,9 @@ msgstr "_Zoeken:"
 msgid "Error"
 msgstr "Fout"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Geen muziek gevonden</span>"
-
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr "Muine kon uw muziekverzameling niet vinden. Wat wilt u dat ik doe?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine zal de mappen Music en Music/Playlists in uw persoonlijke map aanmaken "
-"om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U kunt altijd "
-"handmatig andere mappen importeren."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "Geen muziek gevonden"
-
-# gewoonlijk ipv normaliter?
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren "
-"gebruikers en wordt daarom normaliter afgeraden."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "Een _lege muziekverzameling aanmaken"
-
-# ik ga zelf mijn muziek beheren
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Niets, ik zal zelf mijn muziek beheren"
-
 #: data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File"
-msgstr "Bestand overschrijven"
+msgid "Overwrite File?"
+msgstr "Bestand overschrijven?"
 
 #: data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
@@ -89,11 +48,11 @@ msgstr "_Overschrijven"
 msgid "Play"
 msgstr "Afspelen"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "_Album afspelen"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "_Nummer afspelen"
 
@@ -138,87 +97,59 @@ msgid "Default playlist folder"
 msgstr "Standaard speellijstmap"
 
 #: data/muine.schemas.in.h:8
-msgid "Enable speed hacks on the \"Add album\" list."
-msgstr "Verhoogde snelheid op de lijst \"Album toevoegen\"."
-
-#: data/muine.schemas.in.h:9
-msgid "Enable speed hacks on the \"Add song\" list."
-msgstr "Verhoogde snelheid op de lijst \"Nummer toevoegen\"."
-
-#: data/muine.schemas.in.h:10
-msgid "First start"
-msgstr "Eerste begin"
-
-#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Mappen die bijgehouden worden voor veranderingen."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "Hoogte van het venster \"Album toevoegen\"."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "Hoogte van het venster \"Nummer toevoegen\"."
 
-#: data/muine.schemas.in.h:14
-msgid "Height of the information window."
-msgstr "Hoogte van het informatievenster."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "Hoogte van het speellijstvenster."
 
-#: data/muine.schemas.in.h:16
-msgid "Information window height"
-msgstr "Informatievenster hoogte"
-
-#: data/muine.schemas.in.h:17
-msgid "Information window width"
-msgstr "Informatievenster breedte"
-
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Laatst gebruikte map bij selectie van speellijstbestanden."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "Speellijst vensterhoogte"
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "Speellijst vensterbreedte"
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "Herhaalstand"
 
-#: data/muine.schemas.in.h:23
-msgid "Speed hacks"
-msgstr "Verhoogde snelheid"
-
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "Geluidsvolume"
 
 # highest volume level = maximaal geluidsvolume
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "Bijgehouden mappen"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Of 'speellijst herhalen' wordt gebruikt of niet."
 
-#: data/muine.schemas.in.h:28
+#: data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -226,25 +157,17 @@ msgstr ""
 "Welke site van Amazon wordt gebruikt voor het ophalen van albumhoezen: \"us"
 "\" \"uk\" \"de\" of \"jp\"."
 
-#: data/muine.schemas.in.h:29
+#: data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "Breedte van het venster \"Album toevoegen\"."
 
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "Breedte van het venster \"Nummer toevoegen\"."
 
-#: data/muine.schemas.in.h:31
-msgid "Width of the information window."
-msgstr "Breedte van het informatievenster."
-
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "Breedte van het speellijstvenster."
-
-#: data/muine.schemas.in.h:33
-msgid "false if Muine has been started before."
-msgstr "onwaar indien Muine al eerder is gestart."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
@@ -410,7 +333,7 @@ msgstr "I_nfo"
 msgid "R_epeat"
 msgstr "_Herhalen"
 
-#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Uitgevoerd door {0}"
@@ -420,8 +343,8 @@ msgstr "Uitgevoerd door {0}"
 #. Space-separated list of prefixes that will be taken off the front
 #. when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. if "the" is included in this list. Also include the English "the"
-#. if English is generally spoken in your country.*/
-#: src/Album.cs:38
+#. if English is generally spoken in your country.
+#: src/Album.cs:39
 msgid "the dj"
 msgstr "the dj de"
 
@@ -497,14 +420,16 @@ msgstr "Speellijst openen"
 msgid "Playlist files"
 msgstr "Speellijstbestanden"
 
-#: src/OverwriteDialog.cs:33
+#: src/OverwriteDialog.cs:34
 #, csharp-format
-msgid "A file {0} already exists."
-msgstr "Een bestand {0} bestaat al."
+msgid "Overwrite \"{0}\"?"
+msgstr "\"{0}\" Overschrijven?"
 
-#: src/OverwriteDialog.cs:35
-msgid "If you choose to overwrite this file, the contents will be lost."
-msgstr "Als u kiest om dit bestand te overschrijven, zal de inhoud verloren gaan."
+#: src/OverwriteDialog.cs:36
+msgid ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
+msgstr "Een bestand met deze naam bestaat al. Indien u ervoor kiest dit bestand te overschrijven, zal de inhoud verloren gaan."
 
 #: src/Player.cs:39
 msgid "Audio backend error:"
@@ -594,28 +519,28 @@ msgid "Failed to write {0}:"
 msgstr "Schrijven van {0} is mislukt:"
 
 # meervoud van uur is hier uur en niet uren
-#: src/PlaylistWindow.cs:948
+#: src/PlaylistWindow.cs:942
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 
-#: src/PlaylistWindow.cs:953
+#: src/PlaylistWindow.cs:947
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} minuut herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} minuten herhalen)"
 
-#: src/PlaylistWindow.cs:958
+#: src/PlaylistWindow.cs:952
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Speellijst</b> ({0} uur resterend)"
 msgstr[1] "<b>Speellijst</b> ({0} uur resterend)"
 
-#: src/PlaylistWindow.cs:963
+#: src/PlaylistWindow.cs:957
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -629,8 +554,8 @@ msgstr "Fout bij laden van plug-in {0}: {1}"
 
 #: src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}"
-msgstr "Importeren van {0}"
+msgid "Importing \"{0}\""
+msgstr "Importeren van \"{0}\""
 
 # Bezig met laden:
 # Nu aan het laden:
@@ -646,19 +571,84 @@ msgstr "Speellijst opslaan"
 msgid "Untitled"
 msgstr "Zonder titel"
 
-#: src/StringUtils.cs:32
+#: src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: src/StringUtils.cs:34
+#: src/StringUtils.cs:33
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} en anderen"
 
-#: src/StringUtils.cs:36
+#: src/StringUtils.cs:35
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} en {1}"
+
+#~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+#~ msgstr "<span weight=\"bold\" size=\"larger\">Geen muziek gevonden</span>"
+
+#~ msgid ""
+#~ "Muine was unable to find your music collection. What would you like me to "
+#~ "do?"
+#~ msgstr "Muine kon uw muziekverzameling niet vinden. Wat wilt u dat ik doe?"
+
+#~ msgid ""
+#~ "Muine will create the folders Music and Music/Playlists in your home "
+#~ "folder to store your music files. This option is highly recommended. You "
+#~ "can always import other folders manually."
+#~ msgstr ""
+#~ "Muine zal de mappen Music en Music/Playlists in uw persoonlijke map "
+#~ "aanmaken om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U "
+#~ "kunt altijd handmatig andere mappen importeren."
+
+#~ msgid "No Music Found"
+#~ msgstr "Geen muziek gevonden"
+
+# gewoonlijk ipv normaliter?
+#~ msgid ""
+#~ "You will have to import your music manually. This is for experienced "
+#~ "users only and therefore not generally recommended."
+#~ msgstr ""
+#~ "U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren "
+#~ "gebruikers en wordt daarom normaliter afgeraden."
+
+#~ msgid "_Create an empty music collection"
+#~ msgstr "Een _lege muziekverzameling aanmaken"
+
+# ik ga zelf mijn muziek beheren
+#~ msgid "_Nothing, I will manage my music myself"
+#~ msgstr "_Niets, ik zal zelf mijn muziek beheren"
+
+#~ msgid "Enable speed hacks on the \"Add album\" list."
+#~ msgstr "Verhoogde snelheid op de lijst \"Album toevoegen\"."
+
+#~ msgid "Enable speed hacks on the \"Add song\" list."
+#~ msgstr "Verhoogde snelheid op de lijst \"Nummer toevoegen\"."
+
+#~ msgid "First start"
+#~ msgstr "Eerste begin"
+
+#~ msgid "Height of the information window."
+#~ msgstr "Hoogte van het informatievenster."
+
+#~ msgid "Information window height"
+#~ msgstr "Informatievenster hoogte"
+
+#~ msgid "Information window width"
+#~ msgstr "Informatievenster breedte"
+
+#~ msgid "Speed hacks"
+#~ msgstr "Verhoogde snelheid"
+
+#~ msgid "Width of the information window."
+#~ msgstr "Breedte van het informatievenster."
+
+#~ msgid "false if Muine has been started before."
+#~ msgstr "onwaar indien Muine al eerder is gestart."
+
+#~ msgid "A file {0} already exists."
+#~ msgstr "Een bestand {0} bestaat al."
 
 #~ msgid "Question"
 #~ msgstr "Vraag"
