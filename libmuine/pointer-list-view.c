@@ -18,6 +18,8 @@
  */
 
 #include <gtk/gtktreeselection.h>
+#include <gtk/gtkversion.h>
+#include <gtk/gtkwindow.h>
 
 #include "pointer-list-view.h"
 
@@ -368,7 +370,9 @@ pointer_list_view_select_first (PointerListView *view)
 }
 
 gboolean
-pointer_list_view_select_next (PointerListView *view, gboolean center, gboolean scroll)
+pointer_list_view_select_next (PointerListView *view,
+			       gboolean center,
+			       gboolean scroll)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
@@ -415,11 +419,13 @@ pointer_list_view_select_next (PointerListView *view, gboolean center, gboolean 
 }
 
 gboolean
-pointer_list_view_select_prev (PointerListView *view, gboolean center, gboolean scroll)
+pointer_list_view_select_prev (PointerListView *view,
+			       gboolean center,
+			       gboolean scroll)
 {
 	GtkTreeSelection *sel;
 	GList *list = NULL, *l;
-	gboolean last = TRUE;
+	gboolean first = TRUE;
 	gboolean ret = FALSE;
 
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -427,10 +433,10 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center, gboolean 
 					     (GtkTreeSelectionForeachFunc) path_foreach_func,
 					     (gpointer) &list);
 
-	for (l = g_list_last (list); l != NULL; l = g_list_previous (l)) {
+	for (l = list; l != NULL; l = g_list_next (l)) {
 		GtkTreePath *p = (GtkTreePath *) l->data;
 
-		if (last) {
+		if (first) {
 			GtkTreePath *prev = gtk_tree_path_copy (p);
 			if (gtk_tree_path_prev (prev)) {
 				gtk_tree_selection_unselect_all (sel);
@@ -446,7 +452,7 @@ pointer_list_view_select_prev (PointerListView *view, gboolean center, gboolean 
 			}
 			gtk_tree_path_free (prev);
 
-			last = FALSE;
+			first = FALSE;
 		}
 
 		gtk_tree_path_free (p);

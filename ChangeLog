@@ -1,6 +1,19 @@
 2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
 
 	* TODO:
+	* libmuine/pointer-list-view.c: (pointer_list_view_select_next),
+	(pointer_list_view_select_prev):
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/HandleView.cs:
+	* src/KeyUtils.cs:
+	* src/PlaylistWindow.cs:
+
+	Forward navigation keypresses in add windows to the treeview.
+
+2004-02-14  Jorn Baayen  <jbaayen@gnome.org>
+
+	* TODO:
 	* libmuine/pointer-list-model.c:
 	(pointer_list_model_drag_data_received), (remove_ptr):
 
