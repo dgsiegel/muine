@@ -93,7 +93,7 @@ public class Album
 				for (int i = 0; i < performers.Count; i++)
 					lower_performers [i] = ((string) performers [i]).ToLower ();
 
-				search_key = String.Join (" ", lower_artists) + " " + name.ToLower () + " " + String.Join (" ", lower_performers);
+				search_key = String.Join (" ", lower_artists) + " " + year.ToLower () + " " + name.ToLower () + " " + String.Join (" ", lower_performers);
 			}
 
 			return search_key;

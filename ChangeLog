@@ -1,3 +1,9 @@
+2004-04-09  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Album.cs:
+
+	Sort by album year after artist. Inspired by a patch from teemu.
+
 2004-04-09  Lee Willis  <lee@leewillis.co.uk>
             Jorn Baayen  <jbaayen@gnome.org>
 
