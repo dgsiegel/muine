@@ -635,6 +635,9 @@ player_tell (Player *player)
   if (!priv->sink)
     return 0;
 
+  if (gst_element_get_state (priv->thread) == GST_STATE_NULL)
+    return 0;
+
   clock = gst_bin_get_clock (GST_BIN (priv->thread));
  
   return gst_clock_get_time (clock) / GST_MSECOND;

@@ -1,5 +1,12 @@
 2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/player.c: (player_tell):
+	* src/PlaylistWindow.cs:
+
+	More eos bugs.
+
+2004-01-19  Jorn Baayen  <jorn@nl.linux.org>
+
 	* data/glade/ProgressWindow.glade:
 
 	Remove "FILENAME" tmp string. It was shown at times.

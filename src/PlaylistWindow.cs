@@ -369,6 +369,7 @@ public class PlaylistWindow : Window
 			SongChanged ();
 		} else if (had_last_eos == true) {
 			playlist.Playing = new_p;
+			playlist.ScrollTo (new_p);
 
 			SongChanged ();
 		}
@@ -513,7 +514,6 @@ public class PlaylistWindow : Window
 		                            true, true, false);
 
 		NSongsChanged ();
-		UpdateTimeLabels (0);
 	}
 
 	private void SelectionChanged ()
@@ -531,9 +531,9 @@ public class PlaylistWindow : Window
 			else {
 				player.Position = song.Duration;
 
-				player.Playing = false;
-
 				had_last_eos = true;
+
+				player.Playing = false;
 			}
 		} else {
 			if (seconds < 0)
@@ -765,6 +765,7 @@ public class PlaylistWindow : Window
 		/* restart song if not in the first 3 seconds */
 		if ((player.Position < 3000) || !playlist.HasPrevious) {
 			playlist.Previous ();
+			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged ();
 		} else
@@ -777,6 +778,7 @@ public class PlaylistWindow : Window
 	{
 		if (had_last_eos) {
 			playlist.First ();
+			playlist.ScrollTo (playlist.Playing);
 
 			SongChanged ();
 
@@ -789,6 +791,7 @@ public class PlaylistWindow : Window
 	private void HandleNextCommand (object o, EventArgs args)
 	{
 		playlist.Next ();
+		playlist.ScrollTo (playlist.Playing);
 
 		SongChanged ();
 
