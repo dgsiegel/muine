@@ -53,7 +53,8 @@ public class SongDatabase
 	private IntPtr dbf;
 
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_open (string filename, int version, out string error);
+	private static extern IntPtr db_open (string filename, int version,
+					      out IntPtr error);
 
 	public SongDatabase (int version)
 	{
@@ -68,12 +69,12 @@ public class SongDatabase
 		
 		string filename = dinfo.FullName + "/songs.db";
 
-		string error = null;
+		IntPtr error_ptr;
 
-		dbf = db_open (filename, version, out error);
+		dbf = db_open (filename, version, out error_ptr);
 
 		if (dbf == IntPtr.Zero)
-			throw new Exception (error);
+			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
 
 		Songs = new Hashtable ();
 		Albums = new Hashtable ();
@@ -486,7 +487,7 @@ public class SongDatabase
 
 			HandleDirectory (dinfo, new_songs);
 		}
-		
+
 		thread_done = true;
 	}
 }

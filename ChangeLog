@@ -1,5 +1,14 @@
 2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/CoverDatabase.cs:
+	* src/CoverImage.cs:
+	* src/Metadata.cs:
+	* src/SongDatabase.cs:
+
+	Fix native-to-managed string conversion.
+
+2004-06-05  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/EllipsizingLabel.cs:
 
 	Fix GtkLabel warning on startup.

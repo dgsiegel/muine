@@ -131,6 +131,9 @@ public class CoverImage : EventBox
 			if (!(uri.Scheme == "file"))
 				break;
 
+			Console.WriteLine (" " + uri.LocalPath);
+			Console.WriteLine (fn);
+
 			try {
 				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
 					Muine.CoverDB.RemoveCover (song.AlbumKey);

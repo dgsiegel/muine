@@ -109,28 +109,28 @@ public class Metadata
 
 	[DllImport ("libmuine")]
 	private static extern IntPtr metadata_load (string filename,
-				                    out string error_message_return);
+				                    out IntPtr error_message_return);
 						   
 	[DllImport ("libmuine")]
 	private static extern void metadata_free (IntPtr metadata);
 	
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_title (IntPtr metadata);
+	private static extern IntPtr metadata_get_title (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_artist (IntPtr metadata,
+	private static extern IntPtr metadata_get_artist (IntPtr metadata,
 	                                                  int index);
 	[DllImport ("libmuine")]
 	private static extern int metadata_get_artist_count (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_performer (IntPtr metadata,
+	private static extern IntPtr metadata_get_performer (IntPtr metadata,
 	                                                     int index);
 	[DllImport ("libmuine")]
 	private static extern int metadata_get_performer_count (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_album (IntPtr metadata);
+	private static extern IntPtr metadata_get_album (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern IntPtr metadata_get_album_art (IntPtr metadata);
@@ -139,13 +139,13 @@ public class Metadata
 	private static extern int metadata_get_track_number (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_year (IntPtr metadata);
+	private static extern IntPtr metadata_get_year (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern int metadata_get_duration (IntPtr metadata);
 
 	[DllImport ("libmuine")]
-	private static extern string metadata_get_mime_type (IntPtr metadata);
+	private static extern IntPtr metadata_get_mime_type (IntPtr metadata);
 
 	[DllImport ("libmuine")]
 	private static extern int metadata_get_mtime (IntPtr metadata);
@@ -158,29 +158,32 @@ public class Metadata
 	
 	public Metadata (string filename)
 	{
-		string error = null, s;
-		IntPtr md = metadata_load (filename, out error);
+		IntPtr error_ptr, p;
+		
+		IntPtr md = metadata_load (filename, out error_ptr);
+		if (error_ptr != IntPtr.Zero) {
+			string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
 
-		if (error != null)
 			throw new Exception (String.Format (Muine.Catalog.GetString ("Failed to load metadata: {0}"), error));
+		}
 
-		s = metadata_get_title (md);
-		if (s != null)
-			title = s;
+		p = metadata_get_title (md);
+		if (p != IntPtr.Zero)
+			title = Marshal.PtrToStringAnsi (p);
 		else
 			title = "";
 
 		artists = new string [metadata_get_artist_count (md)];
 		for (int i = 0; i < artists.Length; i++)
-			artists[i] = metadata_get_artist (md, i);
+			artists [i] = Marshal.PtrToStringAnsi (metadata_get_artist (md, i));
 
 		performers = new string [metadata_get_performer_count (md)];
 		for (int i = 0; i < performers.Length; i++)
-			performers[i] = metadata_get_performer (md, i);
+			performers [i] = Marshal.PtrToStringAnsi (metadata_get_performer (md, i));
 		
-		s = metadata_get_album (md);
-		if (s != null)
-			album = s;
+		p = metadata_get_album (md);
+		if (p != IntPtr.Zero)
+			album = Marshal.PtrToStringAnsi (p);
 		else
 			album = "";
 
@@ -191,15 +194,15 @@ public class Metadata
 
 		track_number = metadata_get_track_number (md);
 
-		s = metadata_get_year (md);
-		if (s != null)
-			year = s;
+		p = metadata_get_year (md);
+		if (p != IntPtr.Zero)
+			year = Marshal.PtrToStringAnsi (p);
 		else
 			year = "";
 
 		duration = metadata_get_duration (md);
 
-		mime_type = metadata_get_mime_type (md);
+		mime_type = Marshal.PtrToStringAnsi (metadata_get_mime_type (md));
 
 		mtime = metadata_get_mtime (md);
 

@@ -46,7 +46,8 @@ public class CoverDatabase
 	private GnomeProxy proxy;
 
 	[DllImport ("libmuine")]
-	private static extern IntPtr db_open (string filename, int version, out string error);
+	private static extern IntPtr db_open (string filename, int version,
+	                                      out IntPtr error);
 						   
 	public CoverDatabase (int version)
 	{
@@ -67,12 +68,12 @@ public class CoverDatabase
 		
 		string filename = dinfo.FullName + "/covers.db";
 
-		string error = null;
+		IntPtr error_ptr;
 
-		dbf = db_open (filename, version, out error);
+		dbf = db_open (filename, version, out error_ptr);
 
 		if (dbf == IntPtr.Zero)
-			throw new Exception (error);
+			throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
 
 		dbf_box = dbf;
 
@@ -251,10 +252,11 @@ public class CoverDatabase
 	public Pixbuf AddCoverLocal (string key, string filename)
 	{
 		Pixbuf pix;
-		
+
 		try {
 			pix = new Pixbuf (filename);
-		} catch {
+		} catch (Exception e) {
+			Console.WriteLine ("failed to create pixbuf: " + e.ToString ());
 			return null;
 		}
 
