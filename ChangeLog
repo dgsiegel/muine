@@ -1,5 +1,12 @@
 2004-06-18  Jorn Baayen  <jbaayen@gnome.org>
 
+	* configure.in:
+	* src/About.cs:
+
+	Bump version number to 0.6.3.99.
+
+2004-06-18  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* README:
 	* configure.in:
