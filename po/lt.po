@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-17 19:36+0200\n"
-"PO-Revision-Date: 2005-01-17 20:10+0200\n"
+"POT-Creation-Date: 2005-01-27 19:18+0200\n"
+"PO-Revision-Date: 2005-01-27 19:20+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -33,50 +33,9 @@ msgstr "_Ieškoti:"
 msgid "Error"
 msgstr "Klaida"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Muzikos nerasta</span>"
-
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
-"Muine negalėjo surasti Jūsų muzikos kolekcijos. Ką norėtumėte, kad aš "
-"padaryčiau?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine dabar Jūsų namų aplanke sukurs aplankus Music ir Music/Playlists, kur "
-"saugos Jūsų muzikos bylas. Šis variantas yra primygtinai rekomenduojamas. "
-"Jūs visada galite įtraukti kitus aplankus rankiniu būdu."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "Muzikos nerasta"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"Jūs turėsite įtraukti Jūsų muziką rankiniu būdu. Tai skirta tik patyrusiems "
-"naudotojams ir todėl nėra rekomenduojama."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "Su_kurti tuščią muzikos kolekciją "
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Nieko, aš sutvarkysiu savo muziką savarankiškai"
-
 #: data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File"
-msgstr "Perrašyti bylą"
+msgid "Overwrite File?"
+msgstr "Perrašyti bylą?"
 
 #: data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
@@ -86,11 +45,11 @@ msgstr "_Perrašyti"
 msgid "Play"
 msgstr "Groti"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Groti albumą"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Groti dainą"
 
@@ -135,86 +94,58 @@ msgid "Default playlist folder"
 msgstr "Įprastas grojaraščio aplankas"
 
 #: data/muine.schemas.in.h:8
-msgid "Enable speed hacks on the \"Add album\" list."
-msgstr "Įjungti greičio „hakus“ „Pridėti albumą“ sąraše."
-
-#: data/muine.schemas.in.h:9
-msgid "Enable speed hacks on the \"Add song\" list."
-msgstr "Įjungti greičio „hakus“ „Pridėti dainą“ sąraše."
-
-#: data/muine.schemas.in.h:10
-msgid "First start"
-msgstr "Pirmas paleidimas"
-
-#: data/muine.schemas.in.h:11
 msgid "Folders that are monitored for changes."
 msgstr "Aplankai, kuriuose yra stebimi pakeitimai."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "„Pridėti albumą“ lango aukštis."
 
-#: data/muine.schemas.in.h:13
+#: data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "„Pridėti dainą“ lango aukštis."
 
-#: data/muine.schemas.in.h:14
-msgid "Height of the information window."
-msgstr "Informacijos lango aukštis."
-
-#: data/muine.schemas.in.h:15
+#: data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "Grojaraščio lango aukštis."
 
-#: data/muine.schemas.in.h:16
-msgid "Information window height"
-msgstr "Informacijos lango aukštis"
-
-#: data/muine.schemas.in.h:17
-msgid "Information window width"
-msgstr "Informacijos lango plotis"
-
-#: data/muine.schemas.in.h:18
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Paskutinis „Importuoti aplanką“ dialogo naudotas aplankas."
 
-#: data/muine.schemas.in.h:19
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Paskutinis grojaraščio bylų parinkiklio naudotas aplankas."
 
-#: data/muine.schemas.in.h:20
+#: data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "Grojaraščio lango aukštis"
 
-#: data/muine.schemas.in.h:21
+#: data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "Grojaraščio lango plotis"
 
-#: data/muine.schemas.in.h:22
+#: data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "Kartojimo režimas"
 
-#: data/muine.schemas.in.h:23
-msgid "Speed hacks"
-msgstr "Greičio „hakai“"
-
-#: data/muine.schemas.in.h:24
+#: data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "Garsumo lygis"
 
-#: data/muine.schemas.in.h:25
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Garsumo lygis. 0 = mažiausias, 100 = didžiausias."
 
-#: data/muine.schemas.in.h:26
+#: data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "Stebimi aplankai"
 
-#: data/muine.schemas.in.h:27
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Ar įjungti grojaraščio kartojimo režimą. "
 
-#: data/muine.schemas.in.h:28
+#: data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -222,25 +153,17 @@ msgstr ""
 "Kurią Amazon svetainę naudoti albumų viršelių gavimui, „us“, „uk“, „de“ ar "
 "„jp“."
 
-#: data/muine.schemas.in.h:29
+#: data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "„Pridėti albumą“ lango plotis."
 
-#: data/muine.schemas.in.h:30
+#: data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "„Pridėti dainą“ lango plotis."
 
-#: data/muine.schemas.in.h:31
-msgid "Width of the information window."
-msgstr "Informacijos lango plotis."
-
-#: data/muine.schemas.in.h:32
+#: data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "Grojaraščio lango plotis."
-
-#: data/muine.schemas.in.h:33
-msgid "false if Muine has been started before."
-msgstr "neigiama reikšmė, jeigu Muine jau buvo anksčiau paleistas."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
@@ -402,7 +325,7 @@ msgstr "_Apie"
 msgid "R_epeat"
 msgstr "Ka_rtoti"
 
-#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:72
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Atlikta {0}"
@@ -412,8 +335,8 @@ msgstr "Atlikta {0}"
 #. Space-separated list of prefixes that will be taken off the front
 #. when sorting. For example, "The Beatles" will be sorted as "Beatles",
 #. if "the" is included in this list. Also include the English "the"
-#. if English is generally spoken in your country.*/
-#: src/Album.cs:38
+#. if English is generally spoken in your country.
+#: src/Album.cs:39
 msgid "the dj"
 msgstr "the dj"
 
@@ -489,14 +412,18 @@ msgstr "Atidaryti grojaraštį"
 msgid "Playlist files"
 msgstr "Grojaraščio bylos"
 
-#: src/OverwriteDialog.cs:33
+#: src/OverwriteDialog.cs:34
 #, csharp-format
-msgid "A file {0} already exists."
-msgstr "Byla {0} jau egzistuoja."
+msgid "Overwrite \"{0}\"?"
+msgstr "Perrašyti „{0}“?"
 
-#: src/OverwriteDialog.cs:35
-msgid "If you choose to overwrite this file, the contents will be lost."
-msgstr "Jeigu Jūs pasirinksite perrašyti šią bylą, jos turinys bus prarastas."
+#: src/OverwriteDialog.cs:36
+msgid ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
+msgstr ""
+"Byla tokiu vardu jau egzistuoja. Jeigu Jūs pasirinksite perrašyti šią bylą, "
+"jos turinys bus prarastas."
 
 #: src/Player.cs:39
 msgid "Audio backend error:"
@@ -584,7 +511,7 @@ msgstr "Nepavyko uždaryti {0}:"
 msgid "Failed to write {0}:"
 msgstr "Nepavyko įrašyti {0}:"
 
-#: src/PlaylistWindow.cs:948
+#: src/PlaylistWindow.cs:942
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
@@ -592,7 +519,7 @@ msgstr[0] "<b>Grojaraštis</b> (kartojama {0} valandą)"
 msgstr[1] "<b>Grojaraštis</b> (kartojama {0} valandas)"
 msgstr[2] "<b>Grojaraštis</b> (kartojama {0} valandų)"
 
-#: src/PlaylistWindow.cs:953
+#: src/PlaylistWindow.cs:947
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
@@ -600,7 +527,7 @@ msgstr[0] "<b>Grojaraštis</b> (kartojama {0} minutę)"
 msgstr[1] "<b>Grojaraštis</b> (kartojama {0} minutes)"
 msgstr[2] "<b>Grojaraštis</b> (kartojama {0} minučių)"
 
-#: src/PlaylistWindow.cs:958
+#: src/PlaylistWindow.cs:952
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
@@ -608,7 +535,7 @@ msgstr[0] "<b>Grojaraštis</b> (liko {0} valanda)"
 msgstr[1] "<b>Grojaraštis</b> (liko {0} valandos)"
 msgstr[2] "<b>Grojaraštis</b> (liko {0} valandų)"
 
-#: src/PlaylistWindow.cs:963
+#: src/PlaylistWindow.cs:957
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -623,8 +550,8 @@ msgstr "Klaida įkeliant įskiepį {0}: {1}"
 
 #: src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}"
-msgstr "Importuojama {0}"
+msgid "Importing \"{0}\""
+msgstr "Importuojama „{0}“"
 
 #: src/ProgressWindow.cs:35
 msgid "Loading:"
@@ -638,19 +565,84 @@ msgstr "Išsaugoti grojaraštį"
 msgid "Untitled"
 msgstr "Be pavadinimo"
 
-#: src/StringUtils.cs:32
+#: src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Nežinomas"
 
-#: src/StringUtils.cs:34
+#: src/StringUtils.cs:33
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} ir kiti"
 
-#: src/StringUtils.cs:36
+#: src/StringUtils.cs:35
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} ir {1}"
+
+#~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+#~ msgstr "<span weight=\"bold\" size=\"larger\">Muzikos nerasta</span>"
+
+#~ msgid ""
+#~ "Muine was unable to find your music collection. What would you like me to "
+#~ "do?"
+#~ msgstr ""
+#~ "Muine negalėjo surasti Jūsų muzikos kolekcijos. Ką norėtumėte, kad aš "
+#~ "padaryčiau?"
+
+#~ msgid ""
+#~ "Muine will create the folders Music and Music/Playlists in your home "
+#~ "folder to store your music files. This option is highly recommended. You "
+#~ "can always import other folders manually."
+#~ msgstr ""
+#~ "Muine dabar Jūsų namų aplanke sukurs aplankus Music ir Music/Playlists, "
+#~ "kur saugos Jūsų muzikos bylas. Šis variantas yra primygtinai "
+#~ "rekomenduojamas. Jūs visada galite įtraukti kitus aplankus rankiniu būdu."
+
+#~ msgid "No Music Found"
+#~ msgstr "Muzikos nerasta"
+
+#~ msgid ""
+#~ "You will have to import your music manually. This is for experienced "
+#~ "users only and therefore not generally recommended."
+#~ msgstr ""
+#~ "Jūs turėsite įtraukti Jūsų muziką rankiniu būdu. Tai skirta tik "
+#~ "patyrusiems naudotojams ir todėl nėra rekomenduojama."
+
+#~ msgid "_Create an empty music collection"
+#~ msgstr "Su_kurti tuščią muzikos kolekciją "
+
+#~ msgid "_Nothing, I will manage my music myself"
+#~ msgstr "_Nieko, aš sutvarkysiu savo muziką savarankiškai"
+
+#~ msgid "Enable speed hacks on the \"Add album\" list."
+#~ msgstr "Įjungti greičio „hakus“ „Pridėti albumą“ sąraše."
+
+#~ msgid "Enable speed hacks on the \"Add song\" list."
+#~ msgstr "Įjungti greičio „hakus“ „Pridėti dainą“ sąraše."
+
+#~ msgid "First start"
+#~ msgstr "Pirmas paleidimas"
+
+#~ msgid "Height of the information window."
+#~ msgstr "Informacijos lango aukštis."
+
+#~ msgid "Information window height"
+#~ msgstr "Informacijos lango aukštis"
+
+#~ msgid "Information window width"
+#~ msgstr "Informacijos lango plotis"
+
+#~ msgid "Speed hacks"
+#~ msgstr "Greičio „hakai“"
+
+#~ msgid "Width of the information window."
+#~ msgstr "Informacijos lango plotis."
+
+#~ msgid "false if Muine has been started before."
+#~ msgstr "neigiama reikšmė, jeigu Muine jau buvo anksčiau paleistas."
+
+#~ msgid "A file {0} already exists."
+#~ msgstr "Byla {0} jau egzistuoja."
 
 #~ msgid "*"
 #~ msgstr "*"
