@@ -63,34 +63,46 @@ public class Player : GLib.Object
 		}
 	}
 
-	[DllImport ("libmuine")]
-	private static extern void player_play (IntPtr player);
-	[DllImport ("libmuine")]
-	private static extern void player_pause (IntPtr player);
-
-	public delegate void StateChangedHandler (bool playing);
-	public event StateChangedHandler StateChanged;
-		
 	private bool playing;
 	public bool Playing {
 		get {
 			return playing;
 		}
+	}
 
-		set {
-			if (playing == value)
-				return;
+	public delegate void StateChangedHandler (bool playing);
+	public event StateChangedHandler StateChanged;
+		
+	[DllImport ("libmuine")]
+	private static extern void player_play (IntPtr player);
+
+	public void Play ()
+	{
+		if (playing)
+			return;
 				
-			playing = value;
+		playing = true;
 
-			if (playing)
-				player_play (Raw);
-			else
-				player_pause (Raw);
+		player_play (Raw);
 
-			if (StateChanged != null)
-				StateChanged (playing);
-		}
+		if (StateChanged != null)
+			StateChanged (playing);
+	}
+
+	[DllImport ("libmuine")]
+	private static extern void player_pause (IntPtr player);
+
+	public void Pause ()
+	{
+		if (!playing)
+			return;
+			
+		playing = false;
+		
+		player_pause (Raw);
+
+		if (StateChanged != null)
+			StateChanged (playing);
 	}
 
 	[DllImport ("libmuine")]

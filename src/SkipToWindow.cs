@@ -78,7 +78,7 @@ public class SkipToWindow
 		if (!from_tick) {
 			player.Position = (int) song_slider.Value;
 
-			player.Playing = true;
+			player.Play ();
 		} else
 			from_tick = false;
 	}

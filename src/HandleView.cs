@@ -145,7 +145,12 @@ public class HandleView : TreeView
 	
 	public void Clear ()
 	{
+		bool playing_changed = (Playing != IntPtr.Zero);
+		
 		pointer_list_view_clear (Raw);
+
+		if (playing_changed && PlayingChanged != null)
+			PlayingChanged (IntPtr.Zero);
 	}
 
 	[DllImport ("libmuine")]
@@ -281,6 +286,9 @@ public class HandleView : TreeView
 
 		set {
 			pointer_list_view_set_playing (Raw, value);
+
+			if (PlayingChanged != null)
+				PlayingChanged (value);
 		}
 	}
 
@@ -316,7 +324,12 @@ public class HandleView : TreeView
 
 	public IntPtr First ()
 	{
-		return pointer_list_view_first (Raw);
+		IntPtr ret = pointer_list_view_first (Raw);
+
+		if (PlayingChanged != null)
+			PlayingChanged (ret);
+
+		return ret;
 	}
 
 	[DllImport ("libmuine")]
@@ -324,7 +337,12 @@ public class HandleView : TreeView
 
 	public IntPtr Last ()
 	{
-		return pointer_list_view_last (Raw);
+		IntPtr ret = pointer_list_view_last (Raw);
+
+		if (PlayingChanged != null)
+			PlayingChanged (ret);
+
+		return ret;
 	}
 
 	[DllImport ("libmuine")]
@@ -332,7 +350,12 @@ public class HandleView : TreeView
 
 	public IntPtr Previous ()
 	{
-		return pointer_list_view_prev (Raw);
+		IntPtr ret = pointer_list_view_prev (Raw);
+
+		if (PlayingChanged != null)
+			PlayingChanged (ret);
+
+		return ret;
 	}
 
 	[DllImport ("libmuine")]
@@ -340,7 +363,12 @@ public class HandleView : TreeView
 
 	public IntPtr Next ()
 	{
-		return pointer_list_view_next (Raw);
+		IntPtr ret = pointer_list_view_next (Raw);
+
+		if (PlayingChanged != null)
+			PlayingChanged (ret);
+
+		return ret;
 	}
 
 	public bool ForwardKeyPress (Widget orig_widget,
@@ -407,4 +435,7 @@ public class HandleView : TreeView
 
 	public delegate void SelectionChangedHandler ();
 	public event SelectionChangedHandler SelectionChanged;
+
+	public delegate void PlayingChangedHandler (IntPtr handle);
+	public event PlayingChangedHandler PlayingChanged;
 }

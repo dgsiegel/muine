@@ -76,6 +76,7 @@ public class PlaylistWindow : Window
 	/* the player object */
 	private Player player;
 	private bool had_last_eos;
+	private bool ignore_song_change;
 
 	/* the playlist filename */
 	private string playlist_filename;
@@ -281,9 +282,11 @@ public class PlaylistWindow : Window
 		VisibilityNotifyEvent += new VisibilityNotifyEventHandler (HandleWindowVisibilityNotifyEvent);
 		AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
+		/* create tray icon */
 		icon = new NotificationAreaIcon ((Menu) uim.GetWidget ("/NotificationAreaIconMenu"),
 						 window_visibility_action);
 
+		/* set up various other UI bits */
 		SetupWindowSize ();
 		SetupPlayer (glade_xml);
 		SetupButtonsAndMenuItems (glade_xml);
@@ -322,9 +325,9 @@ public class PlaylistWindow : Window
 	public void Run ()
 	{
 		if (!playlist.HasFirst) {
-			EnsurePlaying ();
+			SongChanged (true); /* make sure the UI is up to date */
 
-			NSongsChanged ();
+			PlaylistChanged ();
 		}
 
 		WindowVisible = true;
@@ -524,6 +527,7 @@ public class PlaylistWindow : Window
 
 		playlist.RowActivated += new HandleView.RowActivatedHandler (HandlePlaylistRowActivated);
 		playlist.SelectionChanged += new HandleView.SelectionChangedHandler (HandlePlaylistSelectionChanged);
+		playlist.PlayingChanged += new HandleView.PlayingChangedHandler (HandlePlayingChanged);
 
 		playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
 						playlist_source_entries,
@@ -617,8 +621,6 @@ public class PlaylistWindow : Window
 		if (playlist.Playing == IntPtr.Zero) {
 			if (playlist.HasFirst)
 				PlayFirstAndSelect ();
-
-			SongChanged (true);
 		} 
 	}
 
@@ -631,11 +633,8 @@ public class PlaylistWindow : Window
 	{
 		IntPtr ret = AddSongAtPos (p, IntPtr.Zero, TreeViewDropPosition.Before);
 
-		if (had_last_eos == true) {
+		if (had_last_eos == true)
 			PlayAndSelect (ret);
-
-			SongChanged (true);
-		}
 
 		return ret;
 	}
@@ -717,7 +716,7 @@ public class PlaylistWindow : Window
 		} 
 	}
 
-	private void NSongsChanged ()
+	private void PlaylistChanged ()
 	{
 		bool start_counting;
 		remaining_songs_time = 0;
@@ -875,11 +874,9 @@ public class PlaylistWindow : Window
 			else {
 				player.Position = song.Duration;
 
-				had_last_eos = true;
+				HadLastEos ();
 
-				player.Stop ();
-
-				NSongsChanged ();
+				PlaylistChanged ();
 			}
 		} else {
 			if (seconds < 0)
@@ -887,7 +884,7 @@ public class PlaylistWindow : Window
 			else
 				player.Position = seconds;
 
-			player.Playing = true;
+			player.Play ();
 		}
 
 		playlist.Select (playlist.Playing);
@@ -964,8 +961,6 @@ public class PlaylistWindow : Window
 				if (playing_song) {
 					PlayAndSelect (song.Handle);
 
-					SongChanged (true);
-
 					playing_song = false;
 				}
 			}
@@ -980,7 +975,7 @@ public class PlaylistWindow : Window
 
 		EnsurePlaying ();
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void SavePlaylist (string fn, bool exclude_played, bool store_playing)
@@ -1095,7 +1090,7 @@ public class PlaylistWindow : Window
 
 		EnsurePlaying ();
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private Song GetSingleSong (string file)
@@ -1127,13 +1122,9 @@ public class PlaylistWindow : Window
 
 		PlayAndSelect (p);
 
-		SongChanged (true);
+		player.Play ();
 
-		player.Playing = true;
-
-		EnsurePlaying ();
-
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	public void QueueFile (string file)
@@ -1147,7 +1138,7 @@ public class PlaylistWindow : Window
 
 		EnsurePlaying ();
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 	
 	private void HandlePlaySongsEvent (List songs)
@@ -1161,17 +1152,13 @@ public class PlaylistWindow : Window
 			if (first == true) {
 				PlayAndSelect (new_p);
 
-				SongChanged (true);
-
-				player.Playing = true;
+				player.Play ();
 		
 				first = false;
 			}
 		}
 
-		EnsurePlaying ();
-
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandleQueueAlbumsEvent (List albums)
@@ -1179,14 +1166,13 @@ public class PlaylistWindow : Window
 		foreach (int i in albums) {
 			Album a = Album.FromHandle (new IntPtr (i));
 
-			foreach (Song s in a.Songs) {
+			foreach (Song s in a.Songs)
 				AddSong (s);
-			}
 		}
 
 		EnsurePlaying ();
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandlePlayAlbumsEvent (List albums)
@@ -1201,23 +1187,26 @@ public class PlaylistWindow : Window
 				if (first == true) {
 					PlayAndSelect (new_p);
 
-					SongChanged (true);
-
-					player.Playing = true;
+					player.Play ();
 		
 					first = false;
 				}
 			}
 		}
 
-		EnsurePlaying ();
-
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandleTickEvent (int pos)
 	{
 		UpdateTimeLabels (pos);
+	}
+
+	private void HadLastEos ()
+	{
+		had_last_eos = true;
+
+		player.Stop ();
 	}
 
 	private void HandleEndOfStreamEvent ()
@@ -1230,23 +1219,15 @@ public class PlaylistWindow : Window
 			Muine.DB.UpdateSong (song);
 		}
 		
-		if (playlist.HasNext) {
+		if (playlist.HasNext)
 			playlist.Next ();
-
-			SongChanged (true);
-		} else {
-			if (repeat_action.Active) {
+		else
+			if (repeat_action.Active)
 				playlist.First ();
+			else
+				HadLastEos ();
 
-				SongChanged (true);
-			} else {
-				had_last_eos = true;
-
-				player.Stop ();
-			}
-		}
-
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandlePreviousCommand (object o, EventArgs args)
@@ -1259,24 +1240,20 @@ public class PlaylistWindow : Window
 		    playlist.HasPrevious) {
 			playlist.Previous ();
 
-			SongChanged (true);
-
-			NSongsChanged ();
+			PlaylistChanged ();
 		} else if (player.Position < 3 &&
 		           !playlist.HasPrevious &&
 			   repeat_action.Active) {
 			playlist.Last ();
 
-			SongChanged (true);
-
-			NSongsChanged ();
+			PlaylistChanged ();
 		} else {
 			player.Position = 0;
 		}
 
 		playlist.Select (playlist.Playing);
 
-		player.Playing = true;
+		player.Play ();
 	}
 
 	private void HandlePlayPauseCommand (object o, EventArgs args)
@@ -1287,12 +1264,13 @@ public class PlaylistWindow : Window
 		if (had_last_eos) {
 			PlayFirstAndSelect ();
 
-			SongChanged (true);
-
-			NSongsChanged ();
+			PlaylistChanged ();
 		}
 
-		player.Playing = !player.Playing;
+		if (player.Playing)
+			player.Pause ();
+		else
+			player.Play ();
 	}
 
 	private void HandleStopCommand (object o, EventArgs args)
@@ -1300,7 +1278,7 @@ public class PlaylistWindow : Window
 		if (!playlist.HasFirst)
 			return;
 
-		player.Playing = false;
+		player.Pause ();
 	}
 
 	private void HandleNextCommand (object o, EventArgs args)
@@ -1314,11 +1292,9 @@ public class PlaylistWindow : Window
 
 		playlist.Select (playlist.Playing);
 
-		SongChanged (true);
+		PlaylistChanged ();
 
-		NSongsChanged ();
-
-		player.Playing = true;
+		player.Play ();
 	}
 
 	private void HandleSkipToCommand (object o, EventArgs args)
@@ -1531,19 +1507,14 @@ public class PlaylistWindow : Window
 		int counter = 0, selected_pointers_count = selected_pointers.Count;
 		bool song_changed = false;
 
+		ignore_song_change = true; // Hack to improve performance-
+		                           // only load new song once
+
 		foreach (int i in selected_pointers) {
 			IntPtr sel = new IntPtr (i);
 
 			if (sel == playlist.Playing) {
-				if (playlist.HasNext)
-					playlist.Next ();
-				else if (playlist.HasPrevious)
-					playlist.Previous ();
-				else {
-					playlist.Playing = IntPtr.Zero;
-
-					player.Stop ();
-				}
+				HandlePlayingSongRemoved ();
 				
 				song_changed = true;
 			}
@@ -1558,11 +1529,12 @@ public class PlaylistWindow : Window
 			counter ++;
 		}
 
+		ignore_song_change = false;
 
 		if (song_changed)
 			SongChanged (true);
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandleRemovePlayedSongsCommand (object o, EventArgs args)
@@ -1572,8 +1544,7 @@ public class PlaylistWindow : Window
 
 		if (had_last_eos) {
 			ClearPlaylist ();
-			SongChanged (true);
-			NSongsChanged ();
+			PlaylistChanged ();
 			return;
 		}
 
@@ -1588,14 +1559,13 @@ public class PlaylistWindow : Window
 
 		playlist.Select (playlist.Playing);
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandleClearPlaylistCommand (object o, EventArgs args)
 	{
 		ClearPlaylist ();
-		SongChanged (true);
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private void HandleRepeatCommand (object o, EventArgs args)
@@ -1605,7 +1575,7 @@ public class PlaylistWindow : Window
 
 		Muine.SetGConfValue ("/apps/muine/repeat", repeat_action.Active);
 
-		NSongsChanged ();
+		PlaylistChanged ();
 	}
 
 	private Hashtable random_sort_keys;
@@ -1642,7 +1612,7 @@ public class PlaylistWindow : Window
 
 		random_sort_keys = null;
 
-		NSongsChanged ();
+		PlaylistChanged ();
 
 		if (playlist.Playing != IntPtr.Zero)
 			playlist.Select (playlist.Playing);
@@ -1657,16 +1627,20 @@ public class PlaylistWindow : Window
 	{
 		playlist.Playing = handle;
 
-		SongChanged (true);
+		PlaylistChanged ();
 
-		NSongsChanged ();
-
-		player.Playing = true;
+		player.Play ();
 	}
 
 	private void HandlePlaylistSelectionChanged ()
 	{
 		SelectionChanged ();
+	}
+
+	private void HandlePlayingChanged (IntPtr playing)
+	{
+		if (!ignore_song_change)
+			SongChanged (true);
 	}
 
 	private void HandleQuitCommand (object o, EventArgs args)
@@ -1681,13 +1655,13 @@ public class PlaylistWindow : Window
 
 	private void HandleSongChanged (Song song)
 	{
-		bool n_songs_changed = false;
+		bool song_changed = false;
 		
 		foreach (IntPtr h in song.Handles) {
 			if (!playlist.Contains (h))
 				continue;
 
-			n_songs_changed = true;
+			song_changed = true;
 			
 			if (h == playlist.Playing)
 				SongChanged (false);
@@ -1695,8 +1669,22 @@ public class PlaylistWindow : Window
 			playlist.Changed (h);
 		}
 		
-		if (n_songs_changed)
-			NSongsChanged ();
+		if (song_changed)
+			PlaylistChanged ();
+	}
+
+	private void HandlePlayingSongRemoved ()
+	{
+		if (playlist.HasNext)
+			playlist.Next ();
+		else if (playlist.HasPrevious)
+			playlist.Previous ();
+		else {
+			// playlist is empty now
+			playlist.Playing = IntPtr.Zero;
+
+			player.Stop ();
+		}
 	}
 
 	private void HandleSongRemoved (Song song)
@@ -1709,19 +1697,8 @@ public class PlaylistWindow : Window
 
 			n_songs_changed = true;
 			
-			if (h == playlist.Playing) {
-				if (playlist.HasNext)
-					playlist.Next ();
-				else if (playlist.HasPrevious)
-					playlist.Previous ();
-				else {
-					playlist.Playing = IntPtr.Zero;
-
-					player.Stop ();
-				}
-
-				SongChanged (true);
-			}
+			if (h == playlist.Playing)
+				HandlePlayingSongRemoved ();
 
 			if ((playlist.SelectedPointers.Count == 1) &&
                             ((int) playlist.SelectedPointers [0] == (int) h)) {
@@ -1733,7 +1710,7 @@ public class PlaylistWindow : Window
 		}
 		
 		if (n_songs_changed)
-			NSongsChanged ();
+			PlaylistChanged ();
 	}
 
 	public void AddChildWindowIfVisible (Window window)
@@ -1813,7 +1790,7 @@ public class PlaylistWindow : Window
 		}
 	}
 
-	private void DragAddSong (Song song, DragAddSongPosition pos)
+	private IntPtr DragAddSong (Song song, DragAddSongPosition pos)
 	{
 		if (pos.Pointer != IntPtr.Zero)
 			pos.Pointer = AddSongAtPos (song.Handle, pos.Pointer, pos.Position);
@@ -1827,12 +1804,13 @@ public class PlaylistWindow : Window
 
 			pos.First = false;
 		}
+
+		return pos.Pointer;
 	}
 
 	private void HandlePlaylistDragDataReceived (object o, DragDataReceivedArgs args)
 	{
 		string data = StringUtils.SelectionDataToString (args.SelectionData);
-		IntPtr pos_ptr = IntPtr.Zero;
 		TreePath path;
 		TreeViewDropPosition tmp_pos;
 
@@ -1863,51 +1841,59 @@ public class PlaylistWindow : Window
 		switch (type) {
 		case (uint) TargetType.SongList:
 		case (uint) TargetType.ModelRow:
-			foreach (string newsong in bits) {
-				IntPtr new_ptr;
+			foreach (string s in bits) {
+				IntPtr ptr;
 
 				try { 
-					new_ptr = new IntPtr (Int64.Parse (newsong)); 
+					ptr = new IntPtr (Int64.Parse (s)); 
 				} catch { 	
 					continue;
 				}
 
-				Song song = Song.FromHandle (new_ptr);
+				Song song = Song.FromHandle (ptr);
 
 				bool play = false;
 
 				if (type == (uint) TargetType.ModelRow) {
-					if (new_ptr == pos_ptr)
+					// Reorder part 1: remove old row
+					if (ptr == pos.Pointer)
 						break;
 
-					if (new_ptr == playlist.Playing)
+					if (ptr == playlist.Playing) {
 						play = true;
+
+						ignore_song_change = true;
+					}
 					
-					RemoveSong (new_ptr);
+					RemoveSong (ptr);
 				}
 
-				DragAddSong (song, pos);
+				ptr = DragAddSong (song, pos);
 					
-				if (play)
-					playlist.Playing = new_ptr;
+				if (play) {
+				        // Reorder part 2: if the row was playing, keep it playing
+					playlist.Playing = ptr;
+					
+					ignore_song_change = false;
+				}
 			}
 
 			EnsurePlaying ();
 
-			NSongsChanged ();
+			PlaylistChanged ();
 
 			break;
 		case (uint) TargetType.AlbumList:
-			foreach (string newalbum in bits) {
-				IntPtr new_ptr;
+			foreach (string s in bits) {
+				IntPtr ptr;
 				
 				try {
-					new_ptr = new IntPtr (Int64.Parse (newalbum));
+					ptr = new IntPtr (Int64.Parse (s));
 				} catch {
 					continue;
 				}
 				
-				Album album = Album.FromHandle (new_ptr);
+				Album album = Album.FromHandle (ptr);
 				
 				foreach (Song song in album.Songs)
 					DragAddSong (song, pos);
@@ -1915,7 +1901,7 @@ public class PlaylistWindow : Window
 			
 			EnsurePlaying ();
 
-			NSongsChanged ();
+			PlaylistChanged ();
 
 			break;
 		case (uint) TargetType.UriList:
@@ -1956,7 +1942,7 @@ public class PlaylistWindow : Window
 
 					EnsurePlaying ();
 
-					NSongsChanged ();
+					PlaylistChanged ();
 				}
 			}
 

@@ -1,5 +1,14 @@
 2004-12-29  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/HandleView.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/SkipToWindow.cs:
+
+	Simplify playing song handling.
+
+2004-12-29  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/AddSongWindow.cs:
 	* src/CoverImage.cs:
 	* src/FileUtils.cs:
