@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+using Gtk;
 using Gdk;
 
 public class About
@@ -53,6 +54,14 @@ public class About
 					 "A music player",
 					 authors, documenters, translators,
 					 pixbuf);
+
+		Gnome.HRef href = new Gnome.HRef ("http://www.amazon.com/", "Amazon.com");
+		about.VBox.PackStart (href, false, false, 5);
+		href.Visible = true;
+
+		Tooltips tooltips = new Tooltips ();
+		tooltips.SetTip (href, "Thanks to Amazon.com for providing album cover images!", null);
+					 
 		about.TransientFor = parent;
 		about.Show ();
 	}

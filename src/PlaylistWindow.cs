@@ -896,11 +896,6 @@ public class PlaylistWindow : Window
 		}
 	}
 
-	private void HandleCoverImageCommand (object o, EventArgs args)
-	{
-		Gnome.Url.Show ("http://people.nl.linux.org/~jorn/Muine/amazon.html");
-	}
-
 	private void HandlePreviousCommand (object o, EventArgs args)
 	{
 		had_last_eos = false;

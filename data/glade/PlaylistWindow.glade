@@ -779,7 +779,6 @@
 	      <child>
 		<widget class="GtkEventBox" id="cover_ebox">
 		  <property name="visible">True</property>
-		    <signal name="button_release_event" handler="HandleCoverImageCommand" last_modification_time="Sat, 24 Jan 2004 15:51:17 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="cover_image">

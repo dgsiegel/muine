@@ -1,5 +1,14 @@
 2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
 
+	* data/glade/PlaylistWindow.glade:
+	* src/About.cs:
+	* src/PlaylistWindow.cs:
+
+	Put a link to amazon.com in the about box, instead of
+	linking to amazon.com from the cover image widget.
+
+2004-01-26  Jorn Baayen  <jorn@nl.linux.org>
+
 	* src/PlaylistWindow.cs:
 
 	Don't watch foo/bar/ if foo/ is already being watched.
