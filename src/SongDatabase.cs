@@ -76,6 +76,12 @@ namespace Muine
 			public bool  AlbumChanged;
 			public bool  AlbumRemoved;
 			public bool  AlbumSongsChanged;
+
+			// Constructor
+			public SignalRequest (Song song)
+			{
+				Song = song;
+			}
 		}
 
 		// Internal Classes :: AddFoldersThread
@@ -360,8 +366,7 @@ namespace Muine
 		private SignalRequest StartAddSong (Song song)
 		{
 			lock (this) {
-				SignalRequest rq = new SignalRequest ();
-				rq.Song = song;
+				SignalRequest rq = new SignalRequest (song);
 			
 				try {
 					Songs.Add (song.Filename, song);
@@ -388,8 +393,7 @@ namespace Muine
 				if (song.Dead)
 					throw new InvalidOperationException ();
 
-				SignalRequest rq = new SignalRequest ();
-				rq.Song = song;
+				SignalRequest rq = new SignalRequest (song);
 			
 				song.Sync (metadata);
 
@@ -418,8 +422,7 @@ namespace Muine
 				if (song.Dead)
 					throw new InvalidOperationException ();
 
-				SignalRequest rq = new SignalRequest ();
-				rq.Song = song;
+				SignalRequest rq = new SignalRequest (song);
 
 				db.Delete (song.Filename);
 
@@ -436,8 +439,7 @@ namespace Muine
 		// Methods :: Private :: AddToAlbum
 		private void AddToAlbum (Song song)
 		{
-			SignalRequest rq = new SignalRequest ();
-			rq.Song = song;
+			SignalRequest rq = new SignalRequest (song);
 			
 			StartAddToAlbum (rq);
 			HandleSignalRequest (rq);
@@ -451,8 +453,7 @@ namespace Muine
 
 		private void StartAddToAlbum (Song song)
 		{
-			SignalRequest rq = new SignalRequest ();
-			StartAddToAlbum (rq, song);
+			StartAddToAlbum (null, song);
 		}
 
 		private void StartAddToAlbum (SignalRequest rq, Song s)

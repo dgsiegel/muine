@@ -1,5 +1,11 @@
 2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/SongDatabase.cs:
+
+	Restore SignalRequest constructor.
+
+2005-01-14  Jorn Baayen  <jbaayen@gnome.org>
+
 	* PluginLib/IPlayer.cs:
 	* PluginLib/Plugin.cs:
 	* doc/en/Muine.PluginLib/IPlayer.xml:

@@ -940,7 +940,6 @@ namespace Muine
 			int minutes = (int) Math.Floor ((double) r_seconds /   60.0 + 0.5);
 
 			// Possible strings
-			// TODO: Define these somewhere else...
 			string string_repeat_hour = 
 				Catalog.GetPluralString ("Playlist (Repeating {0} hour)", 
 							 "Playlist (Repeating {0} hours)", 
