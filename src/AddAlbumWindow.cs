@@ -237,7 +237,7 @@ public class AddAlbumWindow : Window
 		return (n_matches == search_bits.Length);
 	}
 
-	private void HandleSearchEntryChanged (object o, EventArgs args)
+	private bool SearchIdleFunc ()
 	{
 		List l = new List (IntPtr.Zero, typeof (int));
 
@@ -257,6 +257,18 @@ public class AddAlbumWindow : Window
 		}
 
 		view.SelectFirst ();
+
+		return false;
+	}
+
+	private uint search_idle_id = 0;
+	
+	private void HandleSearchEntryChanged (object o, EventArgs args)
+	{
+		if (search_idle_id > 0)
+			GLib.Source.Remove (search_idle_id);
+
+		search_idle_id = GLib.Idle.Add (new GLib.IdleHandler (SearchIdleFunc));
 	}
 
 	private void HandleSearchEntryKeyPressEvent (object o, EventArgs a)

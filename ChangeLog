@@ -1,5 +1,13 @@
 2004-04-27  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+
+	Use an idle for performing the searches. Searching is much more
+	responsive now.
+
+2004-04-27  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Song.cs:
 
 	Include album name in search key.
