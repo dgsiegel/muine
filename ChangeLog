@@ -1,5 +1,17 @@
 2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
 
+	* README:
+	* TODO:
+	* src/Muine.cs:
+	* src/Song.cs:
+
+	Mime types not stored any longer. Broke the db format again,
+	will rebuild on the startup.. 
+
+	Also updated the docs to include info on the xine backend.
+
+2004-04-02  Jorn Baayen  <jbaayen@gnome.org>
+
 	* TODO:
 	* src/Player.cs:
 	* src/PlaylistWindow.cs:

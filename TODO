@@ -4,13 +4,11 @@ Easy:
 o A song information dialog (in tray and song menus, and in add album window)
   This one is half done, I'm on this (Jorn)
 o D-BUS service (Sergio Rubio is on this)
-o Update docs with info about xine backend
 o Fix replaygain
 
 Tough:
 ======
 
-o Remove mimetype storage without breaking the db format
 o Add a library browser
 o Portable player integration
   Need to discuss the UI first

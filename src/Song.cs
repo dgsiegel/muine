@@ -105,13 +105,6 @@ public class Song
 		}
 	}
 
-	private string mime_type;
-	public string MimeType {
-		get {
-			return mime_type;
-		}
-	}
-
 	private int mtime;
 	public int MTime {
 		get {
@@ -398,7 +391,6 @@ public class Song
 		track_number = metadata.TrackNumber;
 		year = metadata.Year;
 		duration = metadata.Duration;
-		mime_type = metadata.MimeType;
 		mtime = metadata.MTime;
 		gain = metadata.Gain;
 		peak = metadata.Peak;
@@ -476,7 +468,6 @@ public class Song
 		p = db_unpack_int (p, out track_number);
 		p = UnpackString (p, out year);
 		p = db_unpack_int (p, out duration);
-		p = UnpackString (p, out mime_type);
 		p = db_unpack_int (p, out mtime);
 		p = db_unpack_bool (p, out checked_cover_image);
 		p = db_unpack_double (p, out gain);
@@ -534,7 +525,6 @@ public class Song
 		db_pack_int (p, track_number);
 		db_pack_string (p, year);
 		db_pack_int (p, duration);
-		db_pack_string (p, mime_type);
 		db_pack_int (p, mtime);
 		db_pack_bool (p, checked_cover_image);
 		db_pack_double (p, gain);
