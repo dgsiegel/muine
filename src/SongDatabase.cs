@@ -76,6 +76,9 @@ public class SongDatabase
 
 	public delegate void AlbumAddedHandler (Album album);
 	public event AlbumAddedHandler AlbumAdded;
+
+	public delegate void AlbumChangedHandler (Album album);
+	public event AlbumChangedHandler AlbumChanged;
 	
 	public delegate void AlbumRemovedHandler (Album album);
 	public event AlbumRemovedHandler AlbumRemoved;
@@ -262,9 +265,24 @@ public class SongDatabase
 		RemoveFromAlbum (song);
 		DoAlbum (song, true);
 
-		/* emit changed signal */
+		EmitSongChanged (song);
+	}
+
+	public void EmitSongChanged (Song song)
+	{
 		if (SongChanged != null)
 			SongChanged (song);
+	}
+
+	public void AlbumChangedForSong (Song song)
+	{
+		if (song.Album.Length == 0)
+			return;
+
+		Album album = (Album) Albums [song.Album];
+		album.SyncCoverImageWith (song);
+		if (AlbumChanged != null)
+			AlbumChanged (album);
 	}
 
 	private void RemoveFromAlbum (Song song)
@@ -294,7 +312,9 @@ public class SongDatabase
 			if (emit_signal && AlbumAdded != null)
 				AlbumAdded (album);
 		} else {
-			album.AddSong (song);
+			bool changed = album.AddSong (song);
+			if (changed && AlbumChanged != null)
+				AlbumChanged (album);
 		}
 	}
 

@@ -92,6 +92,7 @@ public class AddSongWindow
 		view.Show ();
 
 		Muine.DB.SongAdded += new SongDatabase.SongAddedHandler (HandleSongAdded);
+		Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (HandleSongChanged);
 		Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (HandleSongRemoved);
 
 		int i = 0;
@@ -310,6 +311,16 @@ public class AddSongWindow
 	{
 		if (search_entry.Text.Length < 3 && view.Length >= FakeLength)
 			return;
+
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		if (FitsCriteria (song, search_bits))
+			view.Append (song.Handle);
+	}
+
+	private void HandleSongChanged (Song song)
+	{
+		/* remove and insert because this is sorted */
+		view.Remove (song.Handle);
 
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 		if (FitsCriteria (song, search_bits))

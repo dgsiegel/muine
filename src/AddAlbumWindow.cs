@@ -94,6 +94,7 @@ public class AddAlbumWindow
 		view.Show ();
 
 		Muine.DB.AlbumAdded += new SongDatabase.AlbumAddedHandler (HandleAlbumAdded);
+		Muine.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (HandleAlbumChanged);
 		Muine.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (HandleAlbumRemoved);
 
 		nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
@@ -308,6 +309,16 @@ public class AddAlbumWindow
 
 	private void HandleAlbumAdded (Album album)
 	{
+		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
+		if (FitsCriteria (album, search_bits))
+			view.Append (album.Handle);
+	}
+
+	private void HandleAlbumChanged (Album album)
+	{
+		/* remove and insert because this is sorted */
+		view.Remove (album.Handle);
+
 		string [] search_bits = search_entry.Text.ToLower ().Split (' ');
 		if (FitsCriteria (album, search_bits))
 			view.Append (album.Handle);

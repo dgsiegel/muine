@@ -173,6 +173,12 @@ db_unpack_long (gpointer p, long *val)
 }
 
 gpointer
+db_unpack_bool (gpointer p, gboolean *val)
+{
+	return db_unpack_int (p, (int *) val);
+}
+
+gpointer
 db_unpack_pixbuf (gpointer p, GdkPixbuf **pixbuf)
 {
 	int len;
@@ -253,6 +259,12 @@ db_pack_long (gpointer p, long val)
 	string_align (string, 4);
 
 	g_string_append_len (string, (char *) &val, 4);
+}
+
+void
+db_pack_bool (gpointer p, gboolean val)
+{
+	db_pack_int (p, (int) val);
 }
 
 void

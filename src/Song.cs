@@ -156,12 +156,24 @@ public class Song
 
 	private Gdk.Pixbuf tmp_cover_image;
 
+	private bool checked_cover_image;
+
 	private bool Proxy ()
 	{
-		/* FIXME change signal on song, change signal on album.. */
-		/* FIXME need some sort of CoverState field, because if we quite before all fetching is done we are not yet resuming on startup */
+		checked_cover_image = true;
+
+		Muine.DB.UpdateSong (this);
+		
+		if (tmp_cover_image == null)
+			return false;
+
 		cover_image = tmp_cover_image;
+
 		Muine.CoverDB.ReplaceCover (album, cover_image);
+		
+		Muine.DB.EmitSongChanged (this);
+		Muine.DB.AlbumChangedForSong (this);
+		
 		return false;
 	}
 
@@ -173,16 +185,16 @@ public class Song
 
 		string url = Muine.CoverDB.GetAlbumCoverURL (artist, album);
 
-		if (url == null)
-			return;
-
-		tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
+		if (url != null)
+			tmp_cover_image = Muine.CoverDB.CoverPixbufFromURL (url);
 		
 		GLib.Idle.Add (new GLib.IdleHandler (Proxy));
 	}
 
 	private void GetCoverImage ()
 	{
+		checked_cover_image = true;
+
 		if (album.Length == 0 || artists.Length == 0) {
 			cover_image = null;
 			return;
@@ -214,6 +226,8 @@ public class Song
 		action.UserData1 = (object) album;
 		action.Perform += new Action.PerformHandler (FetchAlbumCover);
 		Muine.ActionThread.QueueAction (action);
+
+		checked_cover_image = false;
 			
 		Muine.CoverDB.AddCoverDummy (album);
 	}
@@ -313,6 +327,8 @@ public class Song
         private static extern IntPtr db_unpack_int (IntPtr p, out int i);
         [DllImport ("libmuine")]
         private static extern IntPtr db_unpack_long (IntPtr p, out long l);
+        [DllImport ("libmuine")]
+        private static extern IntPtr db_unpack_bool (IntPtr p, out bool b);
 
 	public Song (string fn,
 	             IntPtr data)
@@ -340,6 +356,7 @@ public class Song
 		p = db_unpack_long (p, out duration);
 		p = db_unpack_string (p, out mime_type);
 		p = db_unpack_long (p, out mtime);
+		p = db_unpack_bool (p, out checked_cover_image);
 
 		/* cover image */
 		if (album.Length == 0 || artists.Length == 0)
@@ -353,6 +370,9 @@ public class Song
 
 		handles = new ArrayList ();
 		handles.Add (cur_ptr);
+
+		if (checked_cover_image == false)
+			GetCoverImage ();
 	}
 
 	~Song ()
@@ -368,6 +388,8 @@ public class Song
 	private static extern void db_pack_int (IntPtr p, int i);
 	[DllImport ("libmuine")]
 	private static extern void db_pack_long (IntPtr p, long l);
+	[DllImport ("libmuine")]
+	private static extern void db_pack_bool (IntPtr p, bool b);
 	[DllImport ("libmuine")]
 	private static extern IntPtr db_pack_end (IntPtr p, out int length);
 
@@ -393,6 +415,7 @@ public class Song
 		db_pack_long (p, duration);
 		db_pack_string (p, mime_type);
 		db_pack_long (p, mtime);
+		db_pack_bool (p, checked_cover_image);
 		
 		return db_pack_end (p, out length);
 	}

@@ -125,16 +125,21 @@ public class Album
 		return (Album) pointers [handle];
 	}
 
-	private void AddArtists (Song song)
+	private bool AddArtists (Song song)
 	{
+		bool changed = false;
+		
 		foreach (string artist in song.Artists) {
 			if (artists.Contains (artist) == false) {
 				artists.Add (artist);
+				changed = true;
 				all_lower_artists = null;
 			}
 		}
 
 		artists.Sort ();
+
+		return changed;
 	}
 
 	private class SongComparer : IComparer {
@@ -154,12 +159,17 @@ public class Album
 
 	private static IComparer song_comparer = new SongComparer ();
 
-	public void AddSong (Song song)
+	public void SyncCoverImageWith (Song song)
+	{
+		CoverImage = song.CoverImage;
+	}
+
+	public bool AddSong (Song song)
 	{
 		Songs.Add (song);
 		Songs.Sort (song_comparer);
 		
-		AddArtists (song);
+		return AddArtists (song);
 	}
 
 	/* returns true if empty now */

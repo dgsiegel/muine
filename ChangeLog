@@ -1,5 +1,19 @@
 2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
 
+	* libmuine/db.c: (db_unpack_bool), (db_pack_bool):
+	* libmuine/db.h:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/Album.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+
+	Fully asynchronous cover image fetching.
+
+	Again, the DB format has changed..
+
+2004-01-25  Jorn Baayen  <jorn@nl.linux.org>
+
 	* libmuine/db.c: (db_store):
 	* libmuine/pointer-list-view.c: (pointer_list_view_changed):
 	* libmuine/pointer-list-view.h:
