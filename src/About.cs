@@ -33,13 +33,15 @@ public class About
 	public static string [] Authors {
 		get {
 			if (authors == null) {
-				authors = new string [3];
+				authors = new string [5];
 
 				authors [0] = Muine.Catalog.GetString ("Jorn Baayen (jbaayen@gnome.org)");
 				authors [1] = Muine.Catalog.GetString ("Lee Willis (lee@leewillis.co.uk)");
 				/* please use Vietnamese spelling, if the relevant characters occur in
 				 * your language. */
 				authors [2] = Muine.Catalog.GetString ("Viet Yen Nguyen (nguyen@cs.utwente.nl)");
+				authors [3] = "";
+				authors [4] = Muine.Catalog.GetString ("Album covers are provided by amazon.com.");
 			}
 			
 			return authors;
@@ -51,7 +53,7 @@ public class About
 		string [] documenters = new string [] {};
 		string translator_credits = Muine.Catalog.GetString ("translator-credits");
 
-		Pixbuf pixbuf = new Pixbuf (null, "muine-playlist.png");
+		Pixbuf pixbuf = new Pixbuf (null, "muine-about.png");
 
 		Gnome.About about;
 		about = new Gnome.About (Muine.Catalog.GetString ("Muine"), version,
@@ -62,13 +64,6 @@ public class About
 					 (translator_credits == "translator-credits") ? null : translator_credits,
 					 pixbuf);
 
-		Gnome.HRef href = new Gnome.HRef ("http://www.amazon.com/", "Amazon.com");
-		about.VBox.PackStart (href, false, false, 5);
-		href.Visible = true;
-
-		Tooltips tooltips = new Tooltips ();
-		tooltips.SetTip (href, Muine.Catalog.GetString ("Thanks to Amazon.com for providing album cover images!"), null);
-					 
 		about.TransientFor = parent;
 		about.Show ();
 	}

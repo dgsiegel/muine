@@ -1,5 +1,15 @@
 2004-04-17  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/images/Makefile.am:
+	A data/images/muine-about.png:
+	* src/About.cs:
+	* src/Makefile.am:
+
+	Use new logo by Andreas Kwiatkowski (kwiatkowski@typorism.com) in
+	the about box.
+
+2004-04-17  Jorn Baayen  <jbaayen@gnome.org>
+
 	* configure.in:
 
 	Require mono 0.31.

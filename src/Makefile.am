@@ -73,7 +73,8 @@ RESOURCES =											\
 	/resource:$(top_srcdir)/data/images/muine-volume-min.png,muine-volume-min.png		\
 	/resource:$(top_srcdir)/data/images/muine-volume-medium.png,muine-volume-medium.png	\
 	/resource:$(top_srcdir)/data/images/muine-volume-max.png,muine-volume-max.png		\
-	/resource:$(top_srcdir)/data/images/muine-playlist.png,muine-playlist.png
+	/resource:$(top_srcdir)/data/images/muine-playlist.png,muine-playlist.png			\
+	/resource:$(top_srcdir)/data/images/muine-about.png,muine-about.png
 
 AmazonSearchService.cs: AmazonSearchService.wsdl
 	wsdl $(srcdir)/AmazonSearchService.wsdl
