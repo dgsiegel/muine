@@ -38,13 +38,12 @@ namespace Muine
 
 		bool canceled;
 		
-		public ProgressWindow (Window parent, string folder)
+		public ProgressWindow (Window parent)
 		{
 			Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
 			gxml.Autoconnect (this);
 
 			window.TransientFor = parent;
-			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
 
 			window.SetDefaultSize (300, -1);
 
@@ -62,6 +61,11 @@ namespace Muine
 
 			while (MainContext.Pending ())
 				Main.Iteration ();
+		}
+
+		public void ReportFolder (string folder)
+		{
+			window.Title = String.Format (Catalog.GetString ("Importing {0}..."), folder);
 		}
 
 		public bool ReportFile (string file)

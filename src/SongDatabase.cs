@@ -28,9 +28,9 @@ namespace Muine
 {
 	public class SongDatabase 
 	{
-	        // MCS doesn't support array constants yet (as of 1.0)
-	        private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
-	        private readonly string [] GConfDefaultWatchedFolders = new string [0];
+		// MCS doesn't support array constants yet (as of 1.0)
+		private const string GConfKeyWatchedFolders = "/apps/muine/watched_folders";
+		private readonly string [] GConfDefaultWatchedFolders = new string [0];
 
 		private Hashtable songs;
 		public Hashtable Songs {
@@ -60,9 +60,9 @@ namespace Muine
 		public delegate void AlbumRemovedHandler (Album album);
 		public event AlbumRemovedHandler AlbumRemoved;
 
-		/*** constructor ***/
 		private Database db;
 
+		/*** constructor ***/
 		public SongDatabase (int version)
 		{
 			db = new Database (FileUtils.SongsDBFile, version);
@@ -80,12 +80,18 @@ namespace Muine
 
 			Songs.Add (key, song);
 			
-			AddToAlbum (song, false);
+			AddToAlbum (song);
 		}
+
+		private bool loading;
 
 		public void Load ()
 		{
+			loading = true;
+			
 			db.Load ();
+
+			loading = false;
 			
 			/* add file monitors */
 			string [] folders = (string []) Config.Get (GConfKeyWatchedFolders, GConfDefaultWatchedFolders);
@@ -108,7 +114,7 @@ namespace Muine
 
 			Songs.Add (song.Filename, song);
 
-			AddToAlbum (song, true);
+			AddToAlbum (song);
 
 			if (SongAdded != null)
 				SongAdded (song);
@@ -125,56 +131,52 @@ namespace Muine
 
 			RemoveFromAlbum (song);
 
-			song.Kill ();
+			song.Dead = true;
 		}
 
-		private void SyncSongWithMetadata (Song song, Metadata metadata)
+		private void SyncSong (Song song, Metadata metadata)
 		{
 			song.Sync (metadata);
 
 			/* update album */
 			RemoveFromAlbum (song);
-			AddToAlbum (song, true);
+			AddToAlbum (song);
 			
-			UpdateSong (song);
+			SaveSong (song);
 		}
 
-		public void UpdateSong (Song song)
+		public void SaveSong (Song song)
 		{
-			if (!song.Orphan && song.Dirty) {
-				db.Store (song.Filename, song.Handle, true);
+			db.Store (song.Filename, song.Handle, true);
+		}
 
-				song.Dirty = false;
-			}
-		
-			if (SongChanged != null)
+		public void EmitSongChanged (Song song)
+		{
+			if (SongChanged != null && !loading)
 				SongChanged (song);
 		}
 
-		/*** album management ***/
-		public void SyncAlbumCoverImageWithSong (Song song)
+		public Song GetSong (string filename)
 		{
-			if (song.Album.Length == 0 || song.Orphan)
-				return;
+			return (Song) Songs [filename];
+		}
 
-			Album album = (Album) Albums [song.AlbumKey];
-			if (album == null)
-				return;
-
-			album.CoverImage = song.CoverImage;
-
-			EmitAlbumChanged (album);
+		/*** album management ***/
+		private void EmitAlbumAdded (Album album)
+		{
+			if (AlbumAdded != null && !loading)
+				AlbumAdded (album);
 		}
 
 		public void EmitAlbumChanged (Album album)
 		{
-			if (AlbumChanged != null)
+			if (AlbumChanged != null && !loading)
 				AlbumChanged (album);
 		}
 
 		private void RemoveFromAlbum (Song song)
 		{
-			if (song.Album.Length == 0)
+			if (!song.HasAlbum)
 				return;
 
 			string key = song.AlbumKey;
@@ -183,30 +185,22 @@ namespace Muine
 			if (album == null)
 				return;
 				
-			bool album_empty;
-			album.RemoveSong (song, out album_empty);
-			
-			if (album_empty) {
-				Albums.Remove (key);
+			if (!album.RemoveSong (song))
+				return;
 
-				/* only remove the album cover if we are not dealing
-				 * with removable media */
-				if (!FileUtils.IsFromRemovableMedia (song.Filename))
-					Muine.CoverDB.RemoveCover (key);
+			// album is empty
+			Albums.Remove (key);
 
-				if (AlbumRemoved != null)
-					AlbumRemoved (album);
-			}
+			if (AlbumRemoved != null)
+				AlbumRemoved (album);
 		}
 
-		private void AddToAlbum (Song song, bool emit_signal)
+		private void AddToAlbum (Song song)
 		{
-			if (song.Album.Length == 0)
+			if (!song.HasAlbum)
 				return;
 
 			string key = song.AlbumKey;
-
-			bool changed = false;
 
 			Album album = (Album) Albums [key];
 			
@@ -214,12 +208,23 @@ namespace Muine
 				album = new Album (song);
 				Albums.Add (key, album);
 
-				changed = true;
-			} else
-				album.AddSong (song, out changed);
+				EmitAlbumAdded (album);
+			} else {
+				bool changed = album.AddSong (song);
 
-			if (emit_signal && changed && AlbumChanged != null)
-				AlbumChanged (album);
+				if (changed)
+					EmitAlbumChanged (album);
+			}
+		}
+
+		public Album GetAlbum (Song song)
+		{
+			return GetAlbum (song.AlbumKey);
+		}
+
+		public Album GetAlbum (string key)
+		{
+			return (Album) Albums [key];
 		}
 
 		/*** monitoring ***/
@@ -252,7 +257,7 @@ namespace Muine
 			FileSystemWatcher watcher = new FileSystemWatcher (folder);
 
 			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite |
-			                       NotifyFilters.Size | NotifyFilters.DirectoryName;
+					       NotifyFilters.Size | NotifyFilters.DirectoryName;
 			
 			watcher.IncludeSubdirectories = true;
 			
@@ -288,6 +293,29 @@ namespace Muine
 
 		/*** the thread that checks for changes on startup ***/
 
+		public event DoneCheckingChangesHandler DoneCheckingChanges;
+		public delegate void DoneCheckingChangesHandler ();
+
+		private bool checking_changes = true;
+		public bool CheckingChanges {
+			set {
+				checking_changes = value;
+
+				if (!value) {
+					thread.Abort ();
+
+					thread_done = true;
+					
+					if (DoneCheckingChanges != null)
+						DoneCheckingChanges ();
+				}
+			}
+
+			get { return checking_changes; }
+		}
+		
+		private Thread thread;
+
 		private bool thread_done;
 
 		private Queue removed_songs;
@@ -307,7 +335,7 @@ namespace Muine
 			process_actions_from_thread = new GLib.IdleHandler (ProcessActionsFromThread);
 			GLib.Idle.Add (process_actions_from_thread);
 
-			Thread thread = new Thread (new ThreadStart (CheckChangesThread));
+			thread = new Thread (new ThreadStart (CheckChangesThread));
 			thread.Priority = ThreadPriority.BelowNormal;
 			thread.Start ();
 		}
@@ -334,12 +362,13 @@ namespace Muine
 		}
 
 		/* this is run from the main thread */
+		private const int BatchSize = 10;
 		private bool ProcessActionsFromThread ()
 		{
 			int counter = 0;
 			
 			if (removed_songs.Count > 0) {
-				while (removed_songs.Count > 0 && counter < 10) {
+				while (removed_songs.Count > 0 && counter < BatchSize) {
 					counter++;
 					
 					Song song = (Song) removed_songs.Dequeue ();
@@ -354,7 +383,7 @@ namespace Muine
 			}
 
 			if (changed_songs.Count > 0) {
-				while (changed_songs.Count > 0 && counter < 10) {
+				while (changed_songs.Count > 0 && counter < BatchSize) {
 					counter++;
 					
 					ChangedSong cs = (ChangedSong) changed_songs.Dequeue ();
@@ -362,14 +391,14 @@ namespace Muine
 					if (cs.Song.Dead)
 						continue;
 
-					SyncSongWithMetadata (cs.Song, cs.Metadata);
+					SyncSong (cs.Song, cs.Metadata);
 				}
 
 				return true;
 			}
 
 			if (new_songs.Count > 0) {
-				while (new_songs.Count > 0 && counter < 10) {
+				while (new_songs.Count > 0 && counter < BatchSize) {
 					counter++;
 					
 					Song song = (Song) new_songs.Dequeue ();
@@ -383,7 +412,15 @@ namespace Muine
 				return true;
 			}
 
-			return !thread_done;
+			if (thread_done) {
+				checking_changes = false;
+
+				if (DoneCheckingChanges != null)
+					DoneCheckingChanges ();
+				
+				return false;
+			} else
+				return true;
 		}
 
 		private void HandleDirectory (DirectoryInfo info,
@@ -438,7 +475,7 @@ namespace Muine
 			foreach (string file in snapshot.Keys) {
 				FileInfo finfo = new FileInfo (file);
 				Song song = (Song) snapshot [file];
-				
+
 				if (!finfo.Exists)
 					removed_songs.Enqueue (song);
 				else {
@@ -470,6 +507,29 @@ namespace Muine
 			}
 
 			thread_done = true;
+		}
+
+		/*
+		The album key is "folder:album name" because of the following
+		reasons:
+		We cannot do artist/performer matching, because it is very common for
+		albums to be made by different artists. Random example, the Sigur
+		Rós/Radiohead split. Using "Various Artists" as artist tag is whacky.
+		But, we cannot match only by album name either: a user may very well
+		have multiple albums with the title "Greatest Hits". We don't want to
+		incorrectly group all these together.
+		So, the best thing we've managed to come up with so far is using
+		folder:albumname. This because most people who even have whole albums
+		have those organised in folders, or at the very least all music files in
+		the same folder. So for those it should more or less work. And for those
+		who have a decently organised music collection, the original target user
+		base, it should work flawlessly. And for those who have a REALLY poorly
+		organised collection, well, bummer. Moving all files to the same dir
+		will help a bit.
+		*/
+		public string MakeAlbumKey (string folder, string album_name)
+		{
+			return folder + ":" + album_name.ToLower ();
 		}
 	}
 }

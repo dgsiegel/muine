@@ -27,8 +27,8 @@ namespace Muine
 {
 	public class FileSelector : FileChooserDialog
 	{
-	        private const string GConfDefaultStartDir = "~";
-	        
+		private const string GConfDefaultStartDir = "~";
+		
 		private string gconf_path;
 
 		public FileSelector (string title, Window parent, FileChooserAction action, string gcp) : base (title, null, action, "gnome-vfs")
@@ -37,16 +37,17 @@ namespace Muine
 			LocalOnly = false;
 			AddButton (Stock.Cancel, ResponseType.Cancel);
 			if (action == FileChooserAction.Open)
-		                AddButton (Stock.Open, ResponseType.Ok);
+				AddButton (Stock.Open, ResponseType.Ok);
 			else if (action == FileChooserAction.Save)
-		                AddButton (Stock.Save, ResponseType.Ok);
-	                DefaultResponse = ResponseType.Ok;
+				AddButton (Stock.Save, ResponseType.Ok);
+			DefaultResponse = ResponseType.Ok;
 
 			gconf_path = gcp;
 
 			string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
-			start_dir.Replace ("~", FileUtils.HomeDirectory);
+			start_dir = start_dir.Replace ("~",
+				FileUtils.UriFromLocalPath (FileUtils.HomeDirectory));
 
 			SetCurrentFolderUri (start_dir);
 		}

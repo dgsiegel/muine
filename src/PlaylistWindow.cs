@@ -33,20 +33,20 @@ namespace Muine
 {
 	public class PlaylistWindow : Window, IPlayer
 	{
-	        private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
-	        private const int GConfDefaultWidth = 450; 
+		private const string GConfKeyWidth = "/apps/muine/playlist_window/width";
+		private const int GConfDefaultWidth = 450; 
 
-	        private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
-	        private const int GConfDefaultHeight = 475;
+		private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
+		private const int GConfDefaultHeight = 475;
 
-	        private const string GConfKeyVolume = "/apps/muine/volume";
-	        private const int GConfDefaultVolume = 50;
+		private const string GConfKeyVolume = "/apps/muine/volume";
+		private const int GConfDefaultVolume = 50;
 
-	        private const string GConfKeyRepeat = "/apps/muine/repeat";
-	        private const bool GConfDefaultRepeat = false;
+		private const string GConfKeyRepeat = "/apps/muine/repeat";
+		private const bool GConfDefaultRepeat = false;
 
-	        private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
-	        private const string GConfDefaultImportFolder = "~";
+		private const string GConfKeyImportFolder = "/apps/muine/default_import_folder";
+		private const string GConfDefaultImportFolder = "~";
 
 		/* menu widgets */
 		private Action previous_action;
@@ -94,6 +94,7 @@ namespace Muine
 		SkipToWindow skip_to_window = null;
 		AddSongWindow add_song_window = null;
 		AddAlbumWindow add_album_window = null;
+		ProgressWindow checking_changes_progress_window = null;
 
 		/* the player object */
 		private Player player;
@@ -108,7 +109,7 @@ namespace Muine
 		private static TargetEntry [] playlist_source_entries = new TargetEntry [] {
 			DndUtils.TargetMuineTreeModelRow,
 			DndUtils.TargetUriList
-	 	};
+		};
 			
 		private static TargetEntry [] playlist_dest_entries = new TargetEntry [] {
 			DndUtils.TargetMuineTreeModelRow,
@@ -237,12 +238,18 @@ namespace Muine
 			/* set up various other UI bits */
 			SetupWindowSize ();
 			SetupPlayer (glade_xml); /* Has to be before the others,
-			                            they need the Player object */
+						    they need the Player object */
 			SetupMenus (glade_xml);
 			SetupButtons (glade_xml);
 			SetupPlaylist (glade_xml);
 
+			checking_changes_progress_window = new ProgressWindow (this);
+
 			/* connect to song database signals */
+			Muine.DB.DoneCheckingChanges +=
+				new SongDatabase.DoneCheckingChangesHandler (OnDoneCheckingChanges);
+			
+			Muine.DB.SongAdded   += new SongDatabase.SongAddedHandler (OnSongAdded);
 			Muine.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
 			Muine.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
 
@@ -318,7 +325,8 @@ namespace Muine
 				return;
 			}
 				
-			ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+			ProgressWindow pw = new ProgressWindow (this);
+			pw.ReportFolder (dinfo.Name);
 			
 			Muine.DB.AddWatchedFolder (dinfo.FullName);
 			HandleDirectory (dinfo, pw);
@@ -330,37 +338,37 @@ namespace Muine
 
 		/*
 		public void CheckFirstStartUp () 
-	 	{
-	 		bool first_start = (bool) Muine.GetGConfValue (GConfKeyFirstStart, GConfDefaultFirstStart);
+		{
+			bool first_start = (bool) Muine.GetGConfValue (GConfKeyFirstStart, GConfDefaultFirstStart);
 
 			if (!first_start)
 				return;
 
-	 		DirectoryInfo musicdir = new DirectoryInfo (Muine.MusicDirectory);
+			DirectoryInfo musicdir = new DirectoryInfo (Muine.MusicDirectory);
 	  
-	 		if (!musicdir.Exists) {
-	 			NoMusicFoundWindow w = new NoMusicFoundWindow (this);
+			if (!musicdir.Exists) {
+				NoMusicFoundWindow w = new NoMusicFoundWindow (this);
 
-		 		Muine.SetGConfValue (GConfKeyFirstStart, false);
-	 		} else { 
-	 			// create a playlists directory if it still doesn't exists
-	 			DirectoryInfo playlistsdir = new DirectoryInfo (Muine.PlaylistsDirectory);
-	 			if (!playlistsdir.Exists)
-	 				playlistsdir.Create ();
+				Muine.SetGConfValue (GConfKeyFirstStart, false);
+			} else { 
+				// create a playlists directory if it still doesn't exists
+				DirectoryInfo playlistsdir = new DirectoryInfo (Muine.PlaylistsDirectory);
+				if (!playlistsdir.Exists)
+					playlistsdir.Create ();
 
-	 			ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
+				ProgressWindow pw = new ProgressWindow (this, musicdir.Name);
 
-	 			// seems to be that MusicDirectory does exists, but user hasn't started Muine before!
-	 			Muine.DB.AddWatchedFolder (musicdir.FullName);
+				// seems to be that MusicDirectory does exists, but user hasn't started Muine before!
+				Muine.DB.AddWatchedFolder (musicdir.FullName);
 
 				// do this here, because the folder is watched now
-		 		Muine.SetGConfValue (GConfKeyFirstStart, false);
+				Muine.SetGConfValue (GConfKeyFirstStart, false);
 		
-	 			HandleDirectory (musicdir, pw);
+				HandleDirectory (musicdir, pw);
 
-	 			pw.Done ();
-	  		}
-	  	}*/
+				pw.Done ();
+			}
+		}*/
 		
 		private void SetupWindowSize ()
 		{
@@ -413,63 +421,63 @@ namespace Muine
 		{
 			ActionEntry [] action_entries = new ActionEntry [] {
 				new ActionEntry ("FileMenu", null, Catalog.GetString ("_File"),
-				                 null, null, null),
+						 null, null, null),
 				new ActionEntry ("SongMenu", null, Catalog.GetString ("_Song"),
-				                 null, null, null),
+						 null, null, null),
 				new ActionEntry ("PlaylistMenu", null, Catalog.GetString ("_Playlist"),
-				                 null, null, null),
+						 null, null, null),
 				new ActionEntry ("HelpMenu", null, Catalog.GetString ("_Help"),
-				                 null, null, null),
+						 null, null, null),
 				new ActionEntry ("ImportFolder", Stock.Execute, Catalog.GetString ("_Import Folder..."),
-				                 null, null,
+						 null, null,
 						 new EventHandler (OnImportFolder)),
 				new ActionEntry ("OpenPlaylist", Stock.Open, Catalog.GetString ("_Open Playlist..."),
-				                 "<control>O", null,
+						 "<control>O", null,
 						 new EventHandler (OnOpenPlaylist)),
 				new ActionEntry ("SavePlaylistAs", Stock.SaveAs, Catalog.GetString ("_Save Playlist As..."),
-				                 "<shift><control>S", null,
+						 "<shift><control>S", null,
 						 new EventHandler (OnSavePlaylistAs)),
 				new ActionEntry ("ShowHideWindow", null, "",
-				                 "Escape", null,
+						 "Escape", null,
 						 new EventHandler (OnToggleWindowVisibility)),
 				new ActionEntry ("Quit", Stock.Quit, null,
-				                 "<control>Q", null,
+						 "<control>Q", null,
 						 new EventHandler (OnQuit)),
 				new ActionEntry ("PreviousSong", "stock_media-prev", Catalog.GetString ("_Previous"),
-				                 "P", null,
+						 "P", null,
 						 new EventHandler (OnPrevious)),
 				new ActionEntry ("NextSong", "stock_media-next", Catalog.GetString ("_Next"),
-				                 "N", null,
+						 "N", null,
 						 new EventHandler (OnNext)),
 				new ActionEntry ("SkipTo", Stock.JumpTo, Catalog.GetString ("_Skip to..."),
-				                 "T", null,
+						 "T", null,
 						 new EventHandler (OnSkipTo)),
 				new ActionEntry ("SkipBackwards", "stock_media-rew", Catalog.GetString ("Skip _Backwards"),
-				                 "<control>Left", null,
+						 "<control>Left", null,
 						 new EventHandler (OnSkipBackwards)),
 				new ActionEntry ("SkipForward", "stock_media-fwd",
-				                 Catalog.GetString ("Skip _Forward"), "<control>Right", null,
+						 Catalog.GetString ("Skip _Forward"), "<control>Right", null,
 						 new EventHandler (OnSkipForward)),
 				new ActionEntry ("PlaySong", Stock.Add, Catalog.GetString ("Play _Song..."),
-				                 "S", null,
+						 "S", null,
 						 new EventHandler (OnPlaySong)),
 				new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", Catalog.GetString ("Play _Album..."),
-				                 "A", null,
+						 "A", null,
 						 new EventHandler (OnPlayAlbum)),
 				new ActionEntry ("RemoveSong", Stock.Remove, Catalog.GetString ("_Remove Song"),
-				                 "Delete", null,
+						 "Delete", null,
 						 new EventHandler (OnRemoveSong)),
 				new ActionEntry ("RemovePlayedSongs", null, Catalog.GetString ("Remove _Played Songs"),
-				                 "<control>Delete", null,
+						 "<control>Delete", null,
 						 new EventHandler (OnRemovePlayedSongs)),
 				new ActionEntry ("ClearPlaylist", Stock.Clear, Catalog.GetString ("_Clear"),
-				                 null, null,
+						 null, null,
 						 new EventHandler (OnClearPlaylist)),
 				new ActionEntry ("Shuffle", "stock_shuffle", Catalog.GetString ("Shu_ffle"),
-				                 "<control>S", null,
+						 "<control>S", null,
 						 new EventHandler (OnShuffle)),
 				new ActionEntry ("About", Gnome.Stock.About, Catalog.GetString ("_About"),
-				                 null, null,
+						 null, null,
 						 new EventHandler (OnAbout))
 			};
 
@@ -478,7 +486,7 @@ namespace Muine
 						       "space", null,
 						       new EventHandler (OnPlayPause), false),
 				new ToggleActionEntry ("Repeat", null, Catalog.GetString ("R_epeat"),
-				                       "<control>R", null,
+						       "<control>R", null,
 						       new EventHandler (OnRepeat), false)
 			};
 		
@@ -527,15 +535,15 @@ namespace Muine
 
 			tooltips = new Tooltips ();
 			tooltips.SetTip (play_pause_button,
-			                 Catalog.GetString ("Switch music playback on or off"), null);
+					 Catalog.GetString ("Switch music playback on or off"), null);
 			tooltips.SetTip (previous_button,
-			                 Catalog.GetString ("Play the previous song"), null);
+					 Catalog.GetString ("Play the previous song"), null);
 			tooltips.SetTip (next_button,
-			                 Catalog.GetString ("Play the next song"), null);
+					 Catalog.GetString ("Play the next song"), null);
 			tooltips.SetTip (glade_xml ["add_album_button"],
-			                 Catalog.GetString ("Add an album to the playlist"), null);
+					 Catalog.GetString ("Add an album to the playlist"), null);
 			tooltips.SetTip (glade_xml ["add_song_button"],
-				         Catalog.GetString ("Add a song to the playlist"), null);
+					 Catalog.GetString ("Add a song to the playlist"), null);
 
 			volume_button = new VolumeButton ();
 			((Container) glade_xml ["volume_button_container"]).Add (volume_button);
@@ -586,7 +594,7 @@ namespace Muine
 			((Container) glade_xml ["scrolledwindow"]).Add (playlist);
 			
 			MarkupUtils.LabelSetMarkup (playlist_label, 0, StringUtils.GetByteLength (Catalog.GetString ("Playlist")),
-			                            false, true, false);
+						    false, true, false);
 
 			empty_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
 		}
@@ -613,7 +621,7 @@ namespace Muine
 			r.Text = song.Title + "\n" + StringUtils.JoinHumanReadable (song.Artists);
 
 			MarkupUtils.CellSetMarkup (r, 0, StringUtils.GetByteLength (song.Title),
-			                           false, true, false);
+						   false, true, false);
 		}
 
 		private void SetupPlayer (Glade.XML glade_xml)
@@ -798,7 +806,7 @@ namespace Muine
 			previous_button.Sensitive = has_first;
 			play_pause_button.Sensitive = has_first;
 			next_button.Sensitive = playlist.HasNext ||
-			                        (repeat_action.Active && has_first);
+						(repeat_action.Active && has_first);
 
 			play_pause_action.Sensitive = previous_button.Sensitive;
 			previous_action.Sensitive = play_pause_button.Sensitive;
@@ -879,7 +887,7 @@ namespace Muine
 			}
 
 			MarkupUtils.LabelSetMarkup (title_label, 0, StringUtils.GetByteLength (title_label.Text),
-			                            true, true, false);
+						    true, true, false);
 		}
 
 		private void SelectionChanged ()
@@ -985,35 +993,27 @@ namespace Muine
 					continue;
 				}
 
-				Song song = (Song) Muine.DB.Songs [line];
+				Song song = Muine.DB.GetSong (line);
 				if (song == null) {
 					/* not found, lets see if we can find it anyway.. */
 					foreach (string key in Muine.DB.Songs.Keys) {
 						string key_basename = System.IO.Path.GetFileName (key);
 
 						if (basename == key_basename) {
-							song = (Song) Muine.DB.Songs [key];
+							song = Muine.DB.GetSong (key);
 							break;
 						}
 					}
 				}
 
-				if (song == null) {
-					try {
-						song = new Song (line);
-					} catch {
-						song = null;
-					}
-
-					if (song != null)
-						song.Orphan = true;
-				}
+				if (song == null)
+					song = AddSongToDB (line);
 
 				if (song != null) {
-					AddSong (song);
+					IntPtr p = AddSong (song);
 
 					if (playing_song) {
-						PlayAndSelect (song.Handle);
+						PlayAndSelect (p);
 
 						playing_song = false;
 					}
@@ -1147,20 +1147,27 @@ namespace Muine
 			PlaylistChanged ();
 		}
 
+		private Song AddSongToDB (string file)
+		{
+			Song song;
+			
+			try {
+				song = new Song (file);
+			} catch {
+				return null;
+			}
+
+			Muine.DB.AddSong (song);
+
+			return song;
+		}
+
 		private Song GetSingleSong (string file)
 		{
-			Song song = (Song) Muine.DB.Songs [file];
+			Song song = Muine.DB.GetSong (file);
 
-			if (song == null) {
-				/* try to create a new song object */
-				try {
-					song = new Song (file);
-				} catch {
-					return null;
-				}
-
-				song.Orphan = true;
-			}
+			if (song == null)
+				song = AddSongToDB (file);
 
 			return song;
 		}
@@ -1272,7 +1279,7 @@ namespace Muine
 			if (song.Duration != player.Position) {
 				song.Duration = player.Position;
 
-				Muine.DB.UpdateSong (song);
+				Muine.DB.SaveSong (song);
 			}
 			
 			if (playlist.HasNext)
@@ -1298,7 +1305,7 @@ namespace Muine
 
 				PlaylistChanged ();
 			} else if (player.Position < 3 &&
-			           !playlist.HasPrevious &&
+				   !playlist.HasPrevious &&
 				   repeat_action.Active) {
 				playlist.Last ();
 
@@ -1436,19 +1443,13 @@ namespace Muine
 			foreach (System.IO.FileInfo finfo in finfos) {
 				Song song;
 
-				song = (Song) Muine.DB.Songs [finfo.FullName];
+				song = Muine.DB.GetSong (finfo.FullName);
 				if (song == null) {
 					bool ret = pw.ReportFile (finfo.Name);
 					if (!ret)
 						return false;
 
-					try {
-						song = new Song (finfo.FullName);
-					} catch {
-						continue;
-					}
-
-					Muine.DB.AddSong (song);
+					AddSongToDB (finfo.FullName);
 				}
 			}
 
@@ -1482,9 +1483,9 @@ namespace Muine
 			
 			string start_dir = (string) Config.Get (GConfKeyImportFolder, GConfDefaultImportFolder);
 
-			start_dir.Replace ("~", FileUtils.HomeDirectory);
+			start_dir = start_dir.Replace ("~", FileUtils.HomeDirectory);
 
-			fc.SetCurrentFolderUri (start_dir);
+			fc.SetCurrentFolder (start_dir);
 
 			if (fc.Run () != (int) ResponseType.Ok) {
 				fc.Destroy ();
@@ -1501,7 +1502,8 @@ namespace Muine
 			DirectoryInfo dinfo = new DirectoryInfo (res);
 				
 			if (dinfo.Exists) {
-				ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+				ProgressWindow pw = new ProgressWindow (this);
+				pw.ReportFolder (dinfo.Name);
 
 				Muine.DB.AddWatchedFolder (dinfo.FullName);
 				HandleDirectory (dinfo, pw);
@@ -1565,7 +1567,7 @@ namespace Muine
 			bool song_changed = false;
 
 			ignore_song_change = true; // Hack to improve performance-
-			                           // only load new song once
+						   // only load new song once
 
 			foreach (int i in selected_pointers) {
 				IntPtr sel = new IntPtr (i);
@@ -1710,6 +1712,28 @@ namespace Muine
 			About.ShowWindow (this);
 		}
 
+		private void OnDoneCheckingChanges ()
+		{
+			checking_changes_progress_window.Done ();
+			checking_changes_progress_window = null;
+		}
+
+		private void OnSongAdded (Song song)
+		{
+			if (!Muine.DB.CheckingChanges)
+				return;
+
+			string basename = System.IO.Path.GetFileName (song.Filename);
+			string folder = System.IO.Path.GetDirectoryName (song.Filename);
+
+			DirectoryInfo dinfo = new DirectoryInfo (folder);
+			string folder_basename = dinfo.Name;
+
+			checking_changes_progress_window.ReportFolder (folder_basename);
+			if (!checking_changes_progress_window.ReportFile (basename))
+				Muine.DB.CheckingChanges = false;
+		}
+
 		private void OnSongChanged (Song song)
 		{
 			bool song_changed = false;
@@ -1758,9 +1782,9 @@ namespace Muine
 					OnPlayingSongRemoved ();
 
 				if ((playlist.SelectedPointers.Count == 1) &&
-	                            ((int) playlist.SelectedPointers [0] == (int) h)) {
+				    ((int) playlist.SelectedPointers [0] == (int) h)) {
 					if (!playlist.SelectNext ())
-	                        		playlist.SelectPrevious ();
+						playlist.SelectPrevious ();
 				}
 
 				playlist.Remove (h);
@@ -1805,7 +1829,7 @@ namespace Muine
 				}
 				
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineTreeModelRow.Target, false),
-						        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+							8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 						
 				break;
 
@@ -1928,7 +1952,7 @@ namespace Muine
 					ptr = DragAddSong (song, pos);
 						
 					if (play) {
-					        // Reorder part 2: if the row was playing, keep it playing
+						// Reorder part 2: if the row was playing, keep it playing
 						playlist.Playing = ptr;
 						
 						ignore_song_change = false;
@@ -1973,7 +1997,8 @@ namespace Muine
 					DirectoryInfo dinfo = new DirectoryInfo (fn);
 					
 					if (dinfo.Exists) {
-						ProgressWindow pw = new ProgressWindow (this, dinfo.Name);
+						ProgressWindow pw = new ProgressWindow (this);
+						pw.ReportFolder (dinfo.Name);
 			
 						Muine.DB.AddWatchedFolder (dinfo.FullName);
 						HandleDirectory	(dinfo, pw);

@@ -35,7 +35,13 @@ namespace Muine
 		public string Filename {
 			get { return filename; }
 		}
-			
+
+		public string Folder {
+			get {
+				return Path.GetDirectoryName (filename);
+			}
+		}
+		
 		private string title;
 		public string Title {
 			get { return title; }
@@ -54,6 +60,12 @@ namespace Muine
 		private string album;
 		public string Album {
 			get { return album; }
+		}
+
+		public bool HasAlbum {
+			get {
+				return (album.Length > 0);
+			}
 		}
 
 		private int track_number;
@@ -76,7 +88,7 @@ namespace Muine
 			/* we have a setter too, because sometimes we want
 			 * to correct the duration. */
 			set { duration = value; }
-			
+		
 			get { return duration; }
 		}
 
@@ -85,14 +97,12 @@ namespace Muine
 			set {
 				cover_image = value;
 
-				if (cover_image != null &&
-				    cover_image != Muine.CoverDB.DownloadingPixbuf)
-					CheckedCoverImage = true;
+				Muine.DB.EmitSongChanged (this);
 			}
-			
+		
 			get { return cover_image; }
 		}
-
+	
 		private int mtime;
 		public int MTime {
 			get { return mtime; }
@@ -111,13 +121,14 @@ namespace Muine
 		private string sort_key = null;
 		public string SortKey {
 			get {
-				if (sort_key == null) {
-					string a = String.Join (" ", artists).ToLower ();
-					string p = String.Join (" ", performers).ToLower ();
-					
-					sort_key = StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
-				}
+				if (sort_key != null)
+					return sort_key;
+
+				string a = String.Join (" ", artists).ToLower ();
+				string p = String.Join (" ", performers).ToLower ();
 				
+				sort_key = StringUtils.CollateKey (title.ToLower () + " " + a + " " + p);
+			
 				return sort_key;
 			}
 		}
@@ -125,243 +136,58 @@ namespace Muine
 		private string search_key = null;
 		public string SearchKey {
 			get {
-				if (search_key == null) {
-					string a = String.Join (" ", artists).ToLower ();
-					string p = String.Join (" ", performers).ToLower ();
-					
-					search_key = title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
-				}
+				if (search_key != null)
+					return search_key;
+
+				string a = String.Join (" ", artists).ToLower ();
+				string p = String.Join (" ", performers).ToLower ();
+				
+				search_key = title.ToLower () + " " + a + " " + p + " " + album.ToLower ();
 
 				return search_key;
 			}
 		}
 
-		/*
-		- The album key is "dirname:album name" because of the following
-		reasons: (I should add a comment in the code ..)
-		We cannot do artist/performer matching, because it is very common for
-		albums to be made by different artists. Random example, the Sigur
-		Rós/Radiohead split. Using "Various Artists" as artist tag is whacky.
-		But, we cannot match only by album name either: a user may very well
-		have multiple albums with the title "Greatest Hits". We don't want to
-		incorrectly group all these together.
-		So, the best thing we've managed to come up with so far is using
-		dirname:albumname. This because most people who even have whole albums
-		have those organised in folders, or at the very least all music files in
-		the same folder. So for those it should more or less work. And for those
-		who have a decently organised music collection, the original target user
-		base, it should work flawlessly. And for those who have a REALLY poorly
-		organised collection, well, bummer. Moving all files to the same dir
-		will help a bit.
-		*/
 		public string AlbumKey {
 			get {
-				if (album.Length == 0)
-					return null;
-					
-				string dirname = Path.GetDirectoryName (filename);
-
-				return dirname + ":" + album.ToLower ();
+				return Muine.DB.MakeAlbumKey (Folder, album);
 			}
 		}
 
 		private bool dead = false;
 		public bool Dead {
+			set {
+				dead = value;
+
+				if (!dead)
+					return;
+
+				pointers.Remove (Handle);
+
+				foreach (IntPtr extra_handle in handles)
+					pointers.Remove (extra_handle);
+				
+				if (!HasAlbum && !FileUtils.IsFromRemovableMedia (filename))
+					Muine.CoverDB.RemoveCover (filename);
+			}
+
 			get { return dead; }
 		}
 
-		public void Kill ()
-		{
-			dead = true;
-
-			pointers.Remove (handle);
-
-			foreach (IntPtr extra_handle in handles)
-				pointers.Remove (extra_handle);
-		}
-
-		private bool orphan = false;
-		public bool Orphan {
-			set { orphan = value; }
-			
-			get { return orphan; }
-		}
-
-		private static string [] cover_filenames = {
-			"cover.jpg",
-			"Cover.jpg",
-			"cover.jpeg",
-			"Cover.jpeg",
-			"cover.png",
-			"Cover.png",
-			"folder.jpg",
-			"Folder.jpg",
-			"cover.gif",
-			"Cover.gif"
-		};
-
-		private Gdk.Pixbuf tmp_cover_image;
-
-		private bool dirty = false;
-		public bool Dirty {
-			set { dirty = value; }
-
-			get { return dirty; }
-		}
-
-		private bool checked_cover_image;
-		private bool CheckedCoverImage {
-			set {
-				if (checked_cover_image == value)
-					return;
-
-				checked_cover_image = value;
-
-				dirty = true;
-			}
-
-			get { return checked_cover_image; }
-		}
-
-		/* this is run from the main thread */
-		private bool ProcessDownloadedAlbumCover ()
-		{
-			if (dead)
-				return false;
-
-			if (checked_cover_image) {
-				tmp_cover_image = null;
-
-				return false;
-			}
-
-			CheckedCoverImage = true;
-
-			Muine.CoverDB.RemoveCover (AlbumKey);
-			cover_image = Muine.CoverDB.AddCover (AlbumKey, tmp_cover_image);
-			tmp_cover_image = null;
-
-			Muine.DB.UpdateSong (this);
-			
-			Muine.DB.SyncAlbumCoverImageWithSong (this);
-			
-			return false;
-		}
-
-		/* This is run from the action thread */
-		private void DownloadAlbumCoverInThread (ActionThread.Action action)
-		{
-			try {
-				tmp_cover_image = Muine.CoverDB.GetAlbumCoverFromAmazon (this);
-			} catch (WebException e) {
-				/* Temporary web problem (Timeout etc.) - re-queue */
-				Thread.Sleep (60000); /* wait for a minute first */
-				Muine.ActionThread.QueueAction (action);
-				
-				return;
-			} catch (Exception e) {
-				tmp_cover_image = null;
-			}
-
-			GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
-		}
-
-		private string new_cover_url;
-
-		private void DownloadAlbumCoverInThreadFromURL (ActionThread.Action action)
-		{
-			try {
-				tmp_cover_image = Muine.CoverDB.DownloadCoverPixbuf (new_cover_url);
-			} catch {
-				tmp_cover_image = null;
-			}
-
-			CheckedCoverImage = false;
-
-			GLib.Idle.Add (new GLib.IdleHandler (ProcessDownloadedAlbumCover));
-		}
-
-		public void DownloadNewCoverImage (string url)
-		{
-			new_cover_url = url;
-
-			ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThreadFromURL);
-			Muine.ActionThread.QueueAction (action);
-		}
-
-		private void GetCoverImage (Metadata metadata)
-		{
-			checked_cover_image = true;
-
-			if (album.Length == 0) {
-				cover_image = null;
-				return;
-			}
-
-			string key = AlbumKey;
-
-			/* Check the cache first */
-			if (Muine.CoverDB.Covers.ContainsKey (key)) {
-				cover_image = (Gdk.Pixbuf) Muine.CoverDB.Covers [key];
-				return;
-			}
-
-			/* Search for popular image names */
-			string dirname = Path.GetDirectoryName (filename);
-
-			foreach (string fn in cover_filenames) {
-				FileInfo cover = new FileInfo (dirname + "/" + fn);
-				
-				if (cover.Exists) {
-					try {
-						cover_image = new Pixbuf (cover.FullName);
-					} catch {
-						continue;
-					}
-
-					cover_image = Muine.CoverDB.AddCover (key, cover_image);
-
-					return;
-				}
-			}
-
-			/* Check for an embedded image in the ID3 tag */
-			if (metadata != null && metadata.AlbumArt != null) {
-				cover_image = Muine.CoverDB.AddCover (key, metadata.AlbumArt);
-
-				if (cover_image != null)
-					return;
-			}
-
-			if (artists.Length == 0) {
-				cover_image = null;
-				return;
-			}
-
-			cover_image = Muine.CoverDB.AddCoverDownloading (key);
-
-			checked_cover_image = false;
-
-			/* Failed to find a cover on disk - try the web */
-			ActionThread.Action action = new ActionThread.Action (DownloadAlbumCoverInThread);
-			Muine.ActionThread.QueueAction (action);
-		}
-
-		private IntPtr handle;
 		public IntPtr Handle {
-			get { return handle; }
+			get { return (IntPtr) handles [0]; }
 		}
-
-		private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
-		private static IntPtr cur_ptr = IntPtr.Zero;
 
 		private ArrayList handles;
+		public ArrayList Handles {
+			get { return handles; }
+		}
 
 		/* support for having multiple handles to the same song,
 		 * used for, for example, having the same song in the playlist
 		 * more than once.
 		 */
-		public IntPtr RegisterExtraHandle ()
+		public IntPtr RegisterHandle ()
 		{
 			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 			pointers [cur_ptr] = this;
@@ -370,15 +196,10 @@ namespace Muine
 
 			return cur_ptr;
 		}
-
-		public bool IsExtraHandle (IntPtr h)
+	
+		public IntPtr RegisterExtraHandle ()
 		{
-			return ((pointers [h] == this) &&
-			        (handle != h));
-		}
-
-		public ArrayList Handles {
-			get { return handles; }
+			return RegisterHandle ();
 		}
 
 		public void UnregisterExtraHandle (IntPtr handle)
@@ -386,6 +207,12 @@ namespace Muine
 			handles.Remove (cur_ptr);
 
 			pointers.Remove (handle);
+		}
+
+		public bool IsExtraHandle (IntPtr h)
+		{
+			return ((pointers [h] == this) &&
+				(Handle != h));
 		}
 
 		public void Sync (Metadata metadata)
@@ -406,12 +233,19 @@ namespace Muine
 			gain = metadata.Gain;
 			peak = metadata.Peak;
 
+			if (!HasAlbum)
+				cover_image = (Pixbuf) Muine.CoverDB.Covers [filename];
+
+			if (cover_image == null && metadata.AlbumArt != null) {
+				string key = HasAlbum ? AlbumKey :
+						filename;
+
+				if (Muine.CoverDB.Covers [key] == null)
+					cover_image = Muine.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
+			}
+
 			sort_key = null;
 			search_key = null;
-
-			GetCoverImage (metadata);
-			
-			dirty = true;
 		}
 
 		public Song (string fn)
@@ -428,12 +262,9 @@ namespace Muine
 
 			Sync (metadata);
 
-			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
-			pointers [cur_ptr] = this;
-			handle = cur_ptr;
-
 			handles = new ArrayList ();
-			handles.Add (cur_ptr);
+
+			RegisterHandle ();
 		}
 
 		public Song (string fn, IntPtr data)
@@ -461,21 +292,14 @@ namespace Muine
 			p = Database.UnpackString (p, out year);
 			p = Database.UnpackInt (p, out duration);
 			p = Database.UnpackInt (p, out mtime);
-			p = Database.UnpackBool (p, out checked_cover_image);
 			p = Database.UnpackDouble (p, out gain);
 			p = Database.UnpackDouble (p, out peak);
 
-			/* cover image is added later, when the covers are being loaded */
-
-			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
-			pointers [cur_ptr] = this;
-			handle = cur_ptr;
+			/* cover image is loaded later */
 
 			handles = new ArrayList ();
-			handles.Add (cur_ptr);
 
-			if (!checked_cover_image)
-				GetCoverImage (null);
+			RegisterHandle ();
 		}
 
 		public IntPtr Pack (out int length)
@@ -500,7 +324,6 @@ namespace Muine
 			Database.PackString (p, year);
 			Database.PackInt (p, duration);
 			Database.PackInt (p, mtime);
-			Database.PackBool (p, checked_cover_image);
 			Database.PackDouble (p, gain);
 			Database.PackDouble (p, peak);
 
@@ -525,5 +348,25 @@ namespace Muine
 
 			return (n_matches == search_bits.Length);
 		}
+
+		public void SetCoverLocal (string file)
+		{
+			CoverImage = Muine.CoverDB.Getter.GetLocal (filename, file);
+		}
+
+		public void SetCoverWeb (string url)
+		{
+			CoverImage = Muine.CoverDB.Getter.GetWeb (filename, url,
+					new CoverGetter.GotCoverDelegate (OnGotCover));
+		}
+
+		private void OnGotCover (Pixbuf pixbuf)
+		{
+			CoverImage = pixbuf;
+		}
+
+		private static Hashtable pointers =
+			Hashtable.Synchronized (new Hashtable ());
+		private static IntPtr cur_ptr = IntPtr.Zero;
 	}
 }

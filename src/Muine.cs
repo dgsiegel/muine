@@ -121,14 +121,14 @@ namespace Muine
 
 			/* Open cover database */
 			try {
-				cover_db = new CoverDatabase (2);
+				cover_db = new CoverDatabase (3);
 			} catch (Exception e) {
 				Error (String.Format (Catalog.GetString ("Failed to load the cover database: {0}\n\nExiting..."), e.Message));
 			}
 
 			/* Load song database */
 			try {
-				db = new SongDatabase (4);
+				db = new SongDatabase (5);
 			} catch (Exception e) {
 				Error (String.Format (Catalog.GetString ("Failed to load the song database: {0}\n\nExiting..."), e.Message));
 			}

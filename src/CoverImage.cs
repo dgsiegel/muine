@@ -32,8 +32,8 @@ namespace Muine
 		public CoverImage () : base ()
 		{
 			image = new Gtk.Image ();	
-			image.SetSizeRequest (CoverDatabase.AlbumCoverSize, 
-					      CoverDatabase.AlbumCoverSize);
+			image.SetSizeRequest (CoverDatabase.CoverSize, 
+					      CoverDatabase.CoverSize);
 			
 			Add (image);
 
@@ -64,10 +64,10 @@ namespace Muine
 				image.FromPixbuf = Muine.CoverDB.DownloadingPixbuf;
 			else {
 				image.SetFromStock ("muine-default-cover",
-					            StockIcons.AlbumCoverSize);
+						    StockIcons.CoverSize);
 			}
 		
-			if (song != null && song.Album.Length > 0 && !Muine.CoverDB.Loading) {
+			if (song != null && !Muine.CoverDB.Loading) {
 				Gtk.Drag.DestSet (this, DestDefaults.All,
 						  drag_entries, Gdk.DragAction.Copy);
 			} else {
@@ -104,13 +104,12 @@ namespace Muine
 				if (uri.Scheme != "http")
 					break;
 
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
+				if (song.HasAlbum) {
+					Album a = Muine.DB.GetAlbum (song);
 
-				song.CoverImage = Muine.CoverDB.AddCoverDownloading (song.AlbumKey);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
-					
-				song.DownloadNewCoverImage (uri.AbsoluteUri);
+					a.SetCoverWeb (uri.AbsoluteUri);
+				} else
+					song.SetCoverWeb (uri.AbsoluteUri);
 
 				success = true;
 
@@ -123,22 +122,18 @@ namespace Muine
 				if (fn == null)
 					break;
 
-				Pixbuf pixbuf;
-
 				try {
-					pixbuf = new Pixbuf (fn);
+					if (song.HasAlbum) {
+						Album a = Muine.DB.GetAlbum (song);
+
+						a.SetCoverLocal (fn);
+					} else
+						song.SetCoverLocal (fn);
+						
+					success = true;
 				} catch {
 					success = false;
-					
-					break;
 				}
-
-				if (Muine.CoverDB.Covers.ContainsKey (song.AlbumKey))
-					Muine.CoverDB.RemoveCover (song.AlbumKey);
-				song.CoverImage = Muine.CoverDB.AddCover (song.AlbumKey, pixbuf);
-				Muine.DB.SyncAlbumCoverImageWithSong (song);
-
-				success = true;
 				
 				break;
 

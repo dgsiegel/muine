@@ -20,6 +20,8 @@
 using System;
 using System.Collections;
 
+using Gdk;
+
 using Mono.Posix;
 
 namespace Muine
@@ -60,14 +62,21 @@ namespace Muine
 			set {
 				cover_image = value;
 
-				foreach (Song s in songs) {
-					s.CoverImage = CoverImage;
+				foreach (Song s in songs)
+					s.CoverImage = value;
 
-					Muine.DB.UpdateSong (s);
-				}
+				Muine.DB.EmitAlbumChanged (this);
 			}
 
 			get { return cover_image; }
+		}
+
+		private string folder;
+
+		public string Key {
+			get {
+				return Muine.DB.MakeAlbumKey (folder, name);
+			}
 		}
 
 		private static string [] prefixes = null;
@@ -75,51 +84,52 @@ namespace Muine
 		private string sort_key = null;
 		public string SortKey {
 			get {
-				if (sort_key == null) {
-					if (prefixes == null) {
-						/* Space-separated list of prefixes that will be taken off the front
-						 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-						 * if "the" is included in this list. Also include the English "the"
-						 * if English is generally spoken in your country. */
-						prefixes = Catalog.GetString ("the dj").Split (' ');
-					}
-						
-					string [] p_artists = new string [artists.Count];
-					for (int i = 0; i < artists.Count; i++) {
-						p_artists [i] = ((string) artists [i]).ToLower ();
-						
-						foreach (string prefix in prefixes) {
-							if (p_artists [i].StartsWith (prefix + " ")) {
-								p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+				if (sort_key != null)
+					return sort_key;
 
-								break;
-							}
+				if (prefixes == null) {
+					/* Space-separated list of prefixes that will be taken off the front
+					 * when sorting. For example, "The Beatles" will be sorted as "Beatles",
+					 * if "the" is included in this list. Also include the English "the"
+					 * if English is generally spoken in your country. */
+					prefixes = Catalog.GetString ("the dj").Split (' ');
+				}
+						
+				string [] p_artists = new string [artists.Count];
+				for (int i = 0; i < artists.Count; i++) {
+					p_artists [i] = ((string) artists [i]).ToLower ();
+					
+					foreach (string prefix in prefixes) {
+						if (p_artists [i].StartsWith (prefix + " ")) {
+							p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+
+							break;
 						}
 					}
+				}
 
-					string [] p_performers = new string [performers.Count];
-					for (int i = 0; i < performers.Count; i++) {
-						p_performers [i] = ((string) performers [i]).ToLower ();
-						
-						foreach (string prefix in prefixes) {
-							if (p_performers [i].StartsWith (prefix + " ")) {
-								p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
+				string [] p_performers = new string [performers.Count];
+				for (int i = 0; i < performers.Count; i++) {
+					p_performers [i] = ((string) performers [i]).ToLower ();
+					
+					foreach (string prefix in prefixes) {
+						if (p_performers [i].StartsWith (prefix + " ")) {
+							p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
 
-								break;
-							}
+							break;
 						}
 					}
+				}
 
-					string a = String.Join (" ", p_artists);
-					string p = String.Join (" ", p_performers);
+				string a = String.Join (" ", p_artists);
+				string p = String.Join (" ", p_performers);
 
-					if (artists.Count > 3) {
-						/* more than three artists, sort by album name */
-						sort_key = StringUtils.CollateKey (name.ToLower () + " " + year + " " + a + " " + p);
-					} else {
-						/* three or less artists, sort by artist */
-						sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
-					}
+				if (artists.Count > 3) {
+					/* more than three artists, sort by album name */
+					sort_key = StringUtils.CollateKey (name.ToLower () + " " + year + " " + a + " " + p);
+				} else {
+					/* three or less artists, sort by artist */
+					sort_key = StringUtils.CollateKey (a + " " + p + " " + year + " " + name.ToLower ());
 				}
 				
 				return sort_key;
@@ -129,19 +139,17 @@ namespace Muine
 		private string search_key = null;
 		public string SearchKey {
 			get {
-				if (search_key == null) {
-					string a = String.Join (" ", Artists).ToLower ();
-					string p = String.Join (" ", Performers).ToLower ();
+				if (search_key != null)
+					return search_key;
 
-					search_key = name.ToLower () + " " + a + " " + p;
-				}
+				string a = String.Join (" ", Artists).ToLower ();
+				string p = String.Join (" ", Performers).ToLower ();
+
+				search_key = name.ToLower () + " " + a + " " + p;
 
 				return search_key;
 			}
 		}
-
-		private static Hashtable pointers = new Hashtable ();
-		private static IntPtr cur_ptr = IntPtr.Zero;
 
 		private IntPtr handle;
 		public IntPtr Handle {
@@ -160,12 +168,20 @@ namespace Muine
 			AddArtistsAndPerformers (initial_song);
 
 			name = initial_song.Album;
-			cover_image = initial_song.CoverImage;
 			year = initial_song.Year;
+
+			folder = initial_song.Folder;
 
 			cur_ptr = new IntPtr (((int) cur_ptr) + 1);
 			pointers [cur_ptr] = this;
 			handle = cur_ptr;
+
+			if (Muine.CoverDB.Loading)
+				return;
+
+			cover_image = GetCover ();
+			if (initial_song.CoverImage != cover_image)
+				initial_song.CoverImage = cover_image;
 		}
 
 		public static Album FromHandle (IntPtr handle)
@@ -213,35 +229,33 @@ namespace Muine
 				Song song_a = (Song) a;
 				Song song_b = (Song) b;
 
-	                        if (song_a.DiscNumber < song_b.DiscNumber)
-	                                return -1;
+				if (song_a.DiscNumber < song_b.DiscNumber)
+					return -1;
 				else if (song_a.DiscNumber > song_b.DiscNumber)
 					return 1;
 				else {
-	                                if (song_a.TrackNumber < song_b.TrackNumber)
-	                                        return -1;
-	                                else if (song_a.TrackNumber > song_b.TrackNumber)
-	                                        return 1;
-	                                else 
-	                                        return 0;
+					if (song_a.TrackNumber < song_b.TrackNumber)
+						return -1;
+					else if (song_a.TrackNumber > song_b.TrackNumber)
+						return 1;
+					else 
+						return 0;
 				}
 			}
 		}
 
 		private static IComparer song_comparer = new SongComparer ();
 
-		public void AddSong (Song song, out bool album_changed)
+		// returns true if the album's properties changed
+		public bool AddSong (Song song)
 		{
 			songs.Add (song);
 			songs.Sort (song_comparer);
 
-			bool cover_changed = false;
-			if (CoverImage == null && song.CoverImage != null) {
+			if (cover_image == null && song.CoverImage != null)
 				CoverImage = song.CoverImage;
-
-				cover_changed = true;
-			} else
-				song.CoverImage = CoverImage;
+			else if (song.CoverImage != cover_image)
+				song.CoverImage = cover_image;
 
 			bool year_changed = false;
 			if (year.Length == 0 && song.Year.Length > 0) {
@@ -252,17 +266,23 @@ namespace Muine
 
 			bool artists_changed = AddArtistsAndPerformers (song);
 
-			album_changed = (cover_changed || artists_changed || year_changed);
+			return (artists_changed || year_changed);
 		}
 
-		public void RemoveSong (Song song, out bool album_empty)
+		// returns true if the album is now empty
+		public bool RemoveSong (Song song)
 		{
 			songs.Remove (song);
 
-			album_empty = (songs.Count == 0);
+			if (songs.Count > 0)
+				return false;
 
-			if (album_empty)
-				pointers.Remove (handle);
+			pointers.Remove (handle);
+
+			if (!FileUtils.IsFromRemovableMedia (folder))
+				Muine.CoverDB.RemoveCover (Key);
+
+			return true;
 		}
 
 		public bool FitsCriteria (string [] search_bits)
@@ -278,5 +298,50 @@ namespace Muine
 
 			return (n_matches == search_bits.Length);
 		}
+
+		private Pixbuf GetCover ()
+		{
+			string key = Key;
+			
+			if (Muine.CoverDB.Covers.ContainsKey (key))
+				return (Pixbuf) Muine.CoverDB.Covers [key];
+			else {
+				Pixbuf image = Muine.CoverDB.Getter.GetFolderImage (key, folder);
+				if (image != null)
+					return image;
+
+				return SetCoverAmazonInternal (key);
+			}
+		}
+
+		public void SetCoverLocal (string file)
+		{
+			CoverImage = Muine.CoverDB.Getter.GetLocal (Key, file);
+		}
+
+		public void SetCoverWeb (string url)
+		{
+			CoverImage = Muine.CoverDB.Getter.GetWeb (Key, url,
+					new CoverGetter.GotCoverDelegate (OnGotCover));
+		}
+
+		public void SetCoverAmazon ()
+		{
+			CoverImage = SetCoverAmazonInternal (Key);
+		}
+
+		private Pixbuf SetCoverAmazonInternal (string key)
+		{
+			return Muine.CoverDB.Getter.GetAmazon (key,
+				this, new CoverGetter.GotCoverDelegate (OnGotCover));
+		}
+
+		private void OnGotCover (Pixbuf pixbuf)
+		{
+			CoverImage = pixbuf;
+		}
+
+		private static Hashtable pointers = new Hashtable ();
+		private static IntPtr cur_ptr = IntPtr.Zero;
 	}
 }

@@ -1,3 +1,23 @@
+2005-01-07  Jorn Baayen  <jbaayen@gnome.org>
+
+	* NEWS:
+	* src/AddAlbumWindow.cs:
+	* src/Album.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+	* src/CoverImage.cs:
+	* src/FileSelector.cs:
+	* src/Makefile.am:
+	* src/Muine.cs:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+
+	Big reshuffle of cover image handling, squashing a few bugs along 
+	the way. Not quite finished yet; web fetching isn't hooked up yet.
+
 2005-01-06  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/About.cs:

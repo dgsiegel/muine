@@ -29,11 +29,11 @@ namespace Muine
 {
 	public class AddAlbumWindow : AddWindow
 	{
-	        private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
-	        private const int GConfDefaultWidth = 500;
+		private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
+		private const int GConfDefaultWidth = 500;
 
-	        private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
-	        private const int GConfDefaultHeight = 475; 
+		private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
+		private const int GConfDefaultHeight = 475; 
 
 		// Widgets
 		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
@@ -98,7 +98,7 @@ namespace Muine
 					? Muine.CoverDB.DownloadingPixbuf
 					: nothing_pixbuf;
 
-			r.Width = r.Height = CoverDatabase.AlbumCoverSize + 5 * 2;
+			r.Width = r.Height = CoverDatabase.CoverSize + 5 * 2;
 		}
 
 		private void TextCellDataFunc (HandleView view,
@@ -208,7 +208,7 @@ namespace Muine
 				}
 				
 				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
-						        8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+							8, System.Text.Encoding.ASCII.GetBytes (ptrs));
 							
 				break;
 

@@ -52,10 +52,10 @@ namespace Muine
 			"gnome-mime-audio"
 		};
 
-		private static IconSize album_cover_size;
-		public static IconSize AlbumCoverSize {
+		private static IconSize cover_size;
+		public static IconSize CoverSize {
 			get {
-				return album_cover_size;
+				return cover_size;
 			}
 		}
 
@@ -94,9 +94,9 @@ namespace Muine
 			}
 
 			/* register cover image icon size */
-			album_cover_size = Icon.SizeRegister ("muine-album-cover-size",
-							      CoverDatabase.AlbumCoverSize,
-							      CoverDatabase.AlbumCoverSize);
+			cover_size = Icon.SizeRegister ("muine-album-cover-size",
+							CoverDatabase.CoverSize,
+							CoverDatabase.CoverSize);
 		}
 	}
 }
