@@ -1,24 +1,28 @@
+# Muine eesti keele tõlge.
 # Estonian translation of Muine.
+#
 # Copyright (C) 2004-2005 Jorn Baayen.
 # This file is distributed under the same license as the muine package.
-# Piret Vacht <piraaja@airpost.net>, 2004-2005.
 #
-#, fuzzy
+# Piret Vacht <piraaja@airpost.net>, 2004-2005.
+# Priit Laes <amd@store20.com>, 2005
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-23 18:06+0200\n"
 "PO-Revision-Date: 2005-01-23 18:06+0200\n"
-"Last-Translator: Piret Vacht <piraaja@airpost.net>\n"
+"Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/glade/AddWindow.glade.h:1 src/Actions.cs:78
 msgid "_Play"
-msgstr "_Mängi"
+msgstr "_Esita"
 
 #: data/glade/AddWindow.glade.h:2
 msgid "_Queue"
@@ -42,15 +46,15 @@ msgstr "_Kirjuta üle"
 
 #: data/glade/PlaylistWindow.glade.h:1
 msgid "Play"
-msgstr "Mängi"
+msgstr "Esita"
 
 #: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
-msgstr "Mängi album"
+msgstr "Minu albumid"
 
 #: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
-msgstr "Mängi lugu"
+msgstr "Minu lood"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -66,27 +70,27 @@ msgstr "Muusikamängija Muine"
 
 #: data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
-msgstr "\"Lisa album\" akna kõrgus"
+msgstr "\"Minu albumid\" akna kõrgus"
 
 #: data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
-msgstr "\"Lisa album\" akna laius"
+msgstr "\"Minu albumid\" akna laius"
 
 #: data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
-msgstr "\"Lisa lugu\" akna kõrgus"
+msgstr "\"Minu lood\" akna kõrgus"
 
 #: data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
-msgstr "\"Lisa lugu\" akna laius"
+msgstr "\"Minu lood\" akna laius"
 
 #: data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
-msgstr "Amazon'i sait albumi piltide saamiseks"
+msgstr "Amazon'i sait albumipiltide saamiseks"
 
 #: data/muine.schemas.in.h:6
 msgid "Default import folder"
-msgstr "Impordi kaust vaikimisi"
+msgstr "Impordi vaikimisi kaust"
 
 #: data/muine.schemas.in.h:7
 msgid "Default playlist folder"
@@ -122,7 +126,7 @@ msgstr "Ainult täielikud albumid "
 
 #: data/muine.schemas.in.h:15
 msgid "Only deal with complete albums in the interface."
-msgstr "Käsitle ainult täielikke albumeid kasutajaliites."
+msgstr "Käsitle ainult täielikke albumeid kasutajaliideses."
 
 #: data/muine.schemas.in.h:16
 msgid "Playlist window height"
@@ -134,15 +138,15 @@ msgstr "Esitusloendi akna laius"
 
 #: data/muine.schemas.in.h:18
 msgid "Repeat mode"
-msgstr "Kordamis valik"
+msgstr "Korduvrežiim"
 
 #: data/muine.schemas.in.h:19
 msgid "Volume level"
-msgstr "Heli tase"
+msgstr "Helitugevus"
 
 #: data/muine.schemas.in.h:20
 msgid "Volume level. 0 = lowest, 100 = highest."
-msgstr "Heli tase. 0 = madalaim, 100 = kõrgeim."
+msgstr "Helitugevus. 0 = madalaim, 100 = kõrgeim."
 
 #: data/muine.schemas.in.h:21
 msgid "Watched folders"
@@ -174,7 +178,7 @@ msgstr "Esitusloendi akna laius."
 
 #: libmuine/player-gst.c:157
 msgid "Failed to create a GStreamer play object"
-msgstr "Ei õnnestunud luua GStreamer objekti"
+msgstr "Tõrge GStreamer'i esitusobjekti loomisel"
 
 #: libmuine/player-gst.c:164
 msgid "Could not render default GStreamer audio output sink"
@@ -197,7 +201,7 @@ msgstr "Puudub plugin \"%s\" jaoks"
 #: libmuine/player-xine.c:390
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr "Ei õnnestunud mängida \"%s\""
+msgstr "Tõrge \"%s\"'i esitamisel"
 
 #: libmuine/player-xine.c:394
 msgid "Internal error"
@@ -206,11 +210,16 @@ msgstr "Sisemine viga"
 #: libmuine/player-xine.c:403
 #, c-format
 msgid "Could not play \"%s\""
-msgstr "Ei õnnestunud mängida \"%s\""
+msgstr "Ei õnnestunud esitada \"%s\""
 
 #: src/About.cs:31
 msgid "translator-credits"
-msgstr "Piret Vacht <piraaja@airpost.net>"
+msgstr "Piret Vacht <piraaja@airpost.net>\n"
+"Priit Laes <amd@store20.com>\n"
+"\n"
+"GNOME'i Tõlkeprojekti Eesti meeskond.\n"
+"http://et-gnome.sourceforge.net\n"
+"Veateated, parandused: <gnome-et@linux.ee>"
 
 #: src/About.cs:33
 msgid "Muine"
@@ -282,7 +291,7 @@ msgstr "Näita _akent"
 
 #: src/Actions.cs:54
 msgid "_Previous"
-msgstr "_Eelmine"
+msgstr "Eel_mine"
 
 #: src/Actions.cs:56
 msgid "_Next"
@@ -302,11 +311,11 @@ msgstr "Hüppa e_dasi"
 
 #: src/Actions.cs:64
 msgid "Play _Song..."
-msgstr "Mängi _lugu..."
+msgstr "Esita _lugu..."
 
 #: src/Actions.cs:66
 msgid "Play _Album..."
-msgstr "Mängi _album..."
+msgstr "Esita _album..."
 
 #: src/Actions.cs:68
 msgid "_Remove Song"
@@ -314,7 +323,7 @@ msgstr "_Eemalda lugu"
 
 #: src/Actions.cs:70
 msgid "Remove _Played Songs"
-msgstr "Eemalda _mängitud lood"
+msgstr "Eemalda _esitatud lood"
 
 #: src/Actions.cs:72
 msgid "_Clear"
@@ -353,7 +362,7 @@ msgid ""
 "Failed to initialize the configuration folder: {0}\n"
 "\n"
 "Exiting..."
-msgstr "Ei õnnestunud installeerida konfiguratsiooni kausta: {0}\n"
+msgstr "Tõrge konfiguratsioonikausta lähtestamisel: {0}\n"
 "\n"
 "Väljumine..."
 
@@ -363,28 +372,28 @@ msgid ""
 "Failed to initialize the temporary files folder: {0}\n"
 "\n"
 "Exiting..." 
-msgstr "Ei õnnestunud installeerida ajutiste failide kausta: {0}\n"
+msgstr "Tõrge ajutiste failide kausta lähtestamisel: {0}\n"
 "\n"
 "Väljumine..."
 
 #: src/Global.cs:37
 #, csharp-format
 msgid "Failed to export D-Bus object: {0}"
-msgstr "Ei õnnestunud eksportida D-Bus-i objekti: {0}"
+msgstr "Tõrge D-Bus objekti eksportimisel: {0}"
 
 #: src/Global.cs:39
 #, csharp-format
 msgid "Failed to load the cover database: {0}"
-msgstr "Ei õnnestunud laadida albumi piltide andmebaasi: {0}"
+msgstr "Tõrge albumipiltide andmebaasi laadimisel: {0}"
 
 #: src/Global.cs:41
 #, csharp-format
 msgid "Failed to load the song database: {0}"
-msgstr "Ei õnnestunud laadida lugude andmebaasi: {0}"
+msgstr "Tõrge lugude andmebaasi laadimisel: {0}"
 
 #: src/Global.cs:43
 msgid "Error initializing Muine."
-msgstr "Viga Muine'i installeerimisel."
+msgstr "Viga Muine'i lähtestamisel."
 
 #: src/ImportDialog.cs:37
 msgid "Import Folder"
@@ -397,7 +406,7 @@ msgstr "_Impordi"
 #: src/Metadata.cs:34
 #, csharp-format
 msgid "Failed to load metadata: {0}"
-msgstr "Ei õnnestunud laadida metadata: {0}"
+msgstr "Tõrge metadata laadimisel: {0}"
 
 #: src/NotificationAreaIcon.cs:38
 msgid "Muine music player"
@@ -432,7 +441,7 @@ msgstr ""
 
 #: src/Player.cs:39
 msgid "Audio backend error:"
-msgstr "Heli backendi viga:"
+msgstr "Audio backendi viga:"
 
 #: src/PlaylistWindow.cs:60
 msgid "Playlist.m3u"
@@ -466,15 +475,15 @@ msgstr "{0} - Muusikamängija Muine"
 
 #: src/PlaylistWindow.cs:80
 msgid "Switch music playback on or off"
-msgstr "Lülita muusika mängima või kinni"
+msgstr "Muusikaesituse peatamine või alustamine"
 
 #: src/PlaylistWindow.cs:82
 msgid "Play the previous song"
-msgstr "Mängi eelmine lugu"
+msgstr "Esita eelmine lugu"
 
 #: src/PlaylistWindow.cs:84
 msgid "Play the next song"
-msgstr "Mängi järgmine lugu"
+msgstr "Esita järgmine lugu"
 
 #: src/PlaylistWindow.cs:86
 msgid "Add an album to the playlist"
@@ -486,7 +495,7 @@ msgstr "Lisa lugu esitusloendisse"
 
 #: src/PlaylistWindow.cs:90
 msgid "Change the volume level"
-msgstr "Muuda heli tugevust"
+msgstr "Helitugevuse muutmine"
 
 #: src/PlaylistWindow.cs:92
 msgid "Drop an image here to use it as album cover"
@@ -498,23 +507,23 @@ msgid ""
 "Failed to initialize the audio backend:\n"
 "{0}"
 msgstr ""
-"Ei õnnestunud installeerida heli backendi:\n"
+"Tõrge audio backendi lähtestamisel:\n"
 "{0}"
 
 #: src/PlaylistWindow.cs:98
 #, csharp-format
 msgid "Failed to read {0}:"
-msgstr "Ei õnnestunud lugeda {0}"
+msgstr "Tõrge {0} lugemisel:"
 
 #: src/PlaylistWindow.cs:100
 #, csharp-format
 msgid "Failed to close {0}:"
-msgstr "Ei õnnestunud sulgeda {0}"
+msgstr "Tõrge {0} sulgemisel:"
 
 #: src/PlaylistWindow.cs:102
 #, csharp-format
 msgid "Failed to write {0}:"
-msgstr "Ei õnnestund kirjutada {0}"
+msgstr "Tõrge {0} kirjutamisel:"
 
 #: src/PlaylistWindow.cs:946
 #, csharp-format
