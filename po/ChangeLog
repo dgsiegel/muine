@@ -1,6 +1,10 @@
+2005-04-23  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation.
+
 2005-04-19  Priit Laes  <amd@store20.com>
 
-		* et.po: Updated Estonian translation.
+	* et.po: Updated Estonian translation.
 
 2005-04-01  Steve Murphy  <murf@e-tools.com>
 
@@ -27,9 +31,9 @@
 	* en_GB.po: s/Pl_ayPlay/Play
 
 2005-02-13  David Lodge <dave@cirt.net>
-                                                                                
-        * en_GB.po: Updated British translation.
-                                                                                
+
+	* en_GB.po: Updated British translation.
+
 2005-02-12  Jorn Baayen  <jbaayen@gnome.org>
 
 	* et.po: Small fix
