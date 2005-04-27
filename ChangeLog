@@ -1,5 +1,11 @@
 2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Lock Global.DB while copying Global.DB.Songs.
+
+2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* NEWS:
 	* configure.in:
 

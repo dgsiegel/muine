@@ -350,11 +350,13 @@ namespace Muine
                 // Properties :: AllSongs (get;) (IPlayer)
                 public ISong [] AllSongs {
                         get {
-                                ISong [] array = new ISong [Global.DB.Songs.Count];
-                                // We copy, to avoid bothering plugins with locking
-                                // issues.
-                                Global.DB.Songs.Values.CopyTo (array, 0);
-                                return array;
+                                lock (Global.DB) {
+                                        ISong [] array = new ISong [Global.DB.Songs.Count];
+                                        // We copy, to avoid bothering plugins with locking
+                                        // issues.
+                                        Global.DB.Songs.Values.CopyTo (array, 0);
+                                        return array;
+                                }
                         }
                 }
 
