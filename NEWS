@@ -1,12 +1,26 @@
 0.8.3
 =====
 
-- Workarounds for the various limitations of the GStreamer backend,
-  GStreamer backend is now the default [Jorn Baayen]
-- New PackWidget method on the IPlayer interface [Jorn Baayen]
+- Added workarounds for the various limitations of the GStreamer backend,
+  the GStreamer backend is now the default [Jorn]
+- The "Add Song", "Add Album" and "Skip To" windows are now dialogs [Jorn]
+- New AllSongs property on the IPlayer interface [Mark McLauchlan]
+- New PackWidget method on the IPlayer interface [Jorn]
+- UI responsiveness improvements [Jorn]
+- Various code cleanups [Tamara Roberson, Jorn]
+- Various small fixes [Peter Johanson, Jeroen Zwartepoorte, Jorn]
+
+New translations:
+- Kinyarwanda [Steve Murphy]
 
 Updated translations:
+- Brazilian Portuguese [Raphael Higino]
+- Canadian English [Adam Weinberger]
+- Catalan [Aleix Badia i Bosch]
+- Estonian [Priit Laes]
 - Norwegian (bokmål) [Kjartan Maraas]
+- Serbian [Danilo Šegan]
+- Swedish [Christian Rose]
 
 0.8.2
 =====

@@ -1,5 +1,12 @@
 2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
 
+	* NEWS:
+	* configure.in:
+
+	Release 0.8.3pre1.
+
+2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/glade/AddWindow.glade:
 	* data/glade/SkipToWindow.glade:
 
