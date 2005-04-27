@@ -1,3 +1,14 @@
+2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
+
+	* data/glade/AddWindow.glade:
+	* data/glade/SkipToWindow.glade:
+
+	Set dialog window type hint.
+	
+	* src/PlaylistWindow.cs:
+
+	Set transiency before opening dialog.
+
 2005-04-27  Mark McLauchlan  <mrm21@sussex.ac.uk>
 	    Jorn Baayen  <jbaayen@gnome.org>
 

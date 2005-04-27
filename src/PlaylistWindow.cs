@@ -569,8 +569,8 @@ namespace Muine
 				add_song_window.PlayEvent  += new AddSongWindow.PlayEventHandler  (OnPlaySongsEvent );
 			}
 
-			add_song_window.Run ();
 			AddChildWindowIfVisible (add_song_window);
+			add_song_window.Run ();
 		}
 
 		// Methods :: Public :: PlayAlbum (IPlayer)
@@ -583,8 +583,8 @@ namespace Muine
 				add_album_window.PlayEvent  += new AddAlbumWindow.PlayEventHandler  (OnPlayAlbumsEvent );
 			}
 
-			add_album_window.Run ();
 			AddChildWindowIfVisible (add_album_window);
+			add_album_window.Run ();
 		}
 
 		// Methods :: Public :: AddChildWindowIfVisible
