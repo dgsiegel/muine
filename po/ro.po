@@ -6,16 +6,16 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Muine 0.8.1\n"
+"Project-Id-Version: Muine 0.8.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-25 13:13+0200\n"
-"PO-Revision-Date: 2005-01-25 15:06+0200\n"
+"POT-Creation-Date: 2005-04-28 00:56+0300\n"
+"PO-Revision-Date: 2005-04-28 01:06+0300\n"
 "Last-Translator: Spoială Cristian <scristian@gmail.com>\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -33,47 +33,47 @@ msgstr "Înălţimea ferestrei \"Adaugă melodie\""
 msgid "\"Add song\" window width"
 msgstr "Lăţimea ferestrei \"Adaugă melodie\""
 
-#: src/PlaylistWindow.cs:62
+#: src/PlaylistWindow.cs:74
 msgid "<b>Playlist</b>"
 msgstr "<b>Playlist</b>"
 
-#: src/PlaylistWindow.cs:66
+#: src/PlaylistWindow.cs:80
 msgid "<b>Playlist</b> (Less than one minute remaining)"
 msgstr "<b>Playlist</b> (A rămas mai puţin de un minut)"
 
-#: src/PlaylistWindow.cs:942
+#: src/PlaylistWindow.cs:1002
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Playlist</b> (Se repetă {0} ore)"
 msgstr[1] "<b>Playlist</b> (Se repetă {0} ore)"
 
-#: src/PlaylistWindow.cs:947
+#: src/PlaylistWindow.cs:1007
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Playlist</b> (Se repetă {0} minute)"
 msgstr[1] "<b>Playlist</b> (Se repetă {0} minute)"
 
-#: src/PlaylistWindow.cs:64
+#: src/PlaylistWindow.cs:77
 msgid "<b>Playlist</b> (Repeating)"
 msgstr "<b>Playlist</b> (Repetare)"
 
-#: src/PlaylistWindow.cs:952
+#: src/PlaylistWindow.cs:1012
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Playlist</b> (Mai sunt {0} ore)"
 msgstr[1] "<b>Playlist</b> (Mai sunt {0} ore)"
 
-#: src/PlaylistWindow.cs:957
+#: src/PlaylistWindow.cs:1017
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
 msgstr[0] "<b>Playlist</b> (Mai sunt {0} minute)"
 msgstr[1] "<b>Playlist</b> (Mai sunt {0} minute)"
 
-#: src/OverwriteDialog.cs:36
+#: src/OverwriteDialog.cs:37
 msgid ""
 "A file with this name already exists. If you choose to overwrite this file, "
 "the contents will be lost."
@@ -81,23 +81,23 @@ msgstr ""
 "Un fişier cu acest nume există deja, dacă alegeţi să rescrieţi fişierul, "
 "conţinutul acestuia se va pierde."
 
-#: src/About.cs:37
+#: src/About.cs:40
 msgid "A music player"
 msgstr "Un player muzical"
 
-#: src/PlaylistWindow.cs:88
+#: src/PlaylistWindow.cs:109
 msgid "Add a song to the playlist"
 msgstr "Adaugă o melodie la playlist"
 
-#: src/PlaylistWindow.cs:86
+#: src/PlaylistWindow.cs:106
 msgid "Add an album to the playlist"
 msgstr "Adaugă un album la playlist"
 
-#: src/About.cs:46
+#: src/About.cs:49
 msgid "Album covers are provided by amazon.com."
 msgstr "Coperţile la albume puse la dispoziţie de către amazon.com"
 
-#: src/PlaylistWindow.cs:70
+#: src/PlaylistWindow.cs:86
 msgid "Album unknown"
 msgstr "Album necunoscut"
 
@@ -109,24 +109,24 @@ msgstr "Siteul Amazon care să fie folosit pentru căutare de coperţi la albume
 msgid "Audio backend error:"
 msgstr "Eroare la suportul audio:"
 
-#: src/PlaylistWindow.cs:90
+#: src/PlaylistWindow.cs:112
 msgid "Change the volume level"
 msgstr "Schimbă nivelul volumului"
 
-#: src/About.cs:35
+#: src/About.cs:37
 msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
 msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
 
-#: libmuine/player-xine.c:403
+#: libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "Nu s-a putut rula \"%s\""
 
-#: libmuine/player-gst.c:164
+#: libmuine/player-gst.c:170
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Nu s-a putut reda o ieşire audio de la GStreamer"
 
-#: libmuine/player-xine.c:286
+#: libmuine/player-xine.c:290
 #, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
@@ -143,7 +143,7 @@ msgstr "Directorul de importare predefinit"
 msgid "Default playlist folder"
 msgstr "Directorul cu playlistul predefinit"
 
-#: src/PlaylistWindow.cs:92
+#: src/PlaylistWindow.cs:115
 msgid "Drop an image here to use it as album cover"
 msgstr "Adaugă o imagine aici care să fie folosită pentru coperta albumului"
 
@@ -151,7 +151,7 @@ msgstr "Adaugă o imagine aici care să fie folosită pentru coperta albumului"
 msgid "Error"
 msgstr "Eroare"
 
-#: src/Global.cs:43
+#: src/Global.cs:46
 msgid "Error initializing Muine."
 msgstr "Eroare la iniţializarea Muine."
 
@@ -160,17 +160,17 @@ msgstr "Eroare la iniţializarea Muine."
 msgid "Error loading plug-in {0}: {1}"
 msgstr "Eroare la încărcarea pluginului {0}: {1}"
 
-#: libmuine/player-xine.c:390
+#: libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
 msgstr "Nu s-a putut rula \"%s\""
 
-#: src/PlaylistWindow.cs:100
+#: src/PlaylistWindow.cs:125
 #, csharp-format
 msgid "Failed to close {0}:"
 msgstr "Eroare la închiderea {0}:"
 
-#: libmuine/player-gst.c:157
+#: libmuine/player-gst.c:163
 msgid "Failed to create a GStreamer play object"
 msgstr "Nu s-a putut crea un obiect de rulare GStreamer"
 
@@ -179,7 +179,7 @@ msgstr "Nu s-a putut crea un obiect de rulare GStreamer"
 msgid "Failed to export D-Bus object: {0}"
 msgstr "Eroare la exportarea obiectului D-Bus: {0}"
 
-#: src/PlaylistWindow.cs:96
+#: src/PlaylistWindow.cs:119
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -188,7 +188,7 @@ msgstr ""
 "Eroare la iniţializarea suportului audio:\n"
 "{0}"
 
-#: src/FileUtils.cs:43
+#: src/FileUtils.cs:44
 #, csharp-format
 msgid ""
 "Failed to initialize the configuration folder: {0}\n"
@@ -199,7 +199,7 @@ msgstr ""
 "\n"
 "Ieşire..."
 
-#: src/FileUtils.cs:45
+#: src/FileUtils.cs:47
 #, csharp-format
 msgid ""
 "Failed to initialize the temporary files folder: {0}\n"
@@ -215,22 +215,22 @@ msgstr ""
 msgid "Failed to load metadata: {0}"
 msgstr "Eroare la încărcarea metadata: {0}"
 
-#: src/Global.cs:39
+#: src/Global.cs:40
 #, csharp-format
 msgid "Failed to load the cover database: {0}"
 msgstr "Eroare la încărcarea bazei de date cu coperţi: {0}"
 
-#: src/Global.cs:41
+#: src/Global.cs:43
 #, csharp-format
 msgid "Failed to load the song database: {0}"
 msgstr "Eroare la încărcarea bazei de date cu melodii: {0}"
 
-#: src/PlaylistWindow.cs:98
+#: src/PlaylistWindow.cs:122
 #, csharp-format
 msgid "Failed to read {0}:"
 msgstr "Eroare la citirea {0}:"
 
-#: src/PlaylistWindow.cs:102
+#: src/PlaylistWindow.cs:128
 #, csharp-format
 msgid "Failed to write {0}:"
 msgstr "Eroare la scrierea {0}:"
@@ -239,7 +239,7 @@ msgstr "Eroare la scrierea {0}:"
 msgid "Folders that are monitored for changes."
 msgstr "Directoarele care sunt monitorizate pentru schimbări."
 
-#: src/PlaylistWindow.cs:68
+#: src/PlaylistWindow.cs:83
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "De la \"{0}\""
@@ -256,9 +256,9 @@ msgstr "Înălţimea pentru fereastra \"Adaugă melodie\""
 msgid "Height of the playlist window."
 msgstr "Înălţimea pentru fereastra cu playlistul"
 
-#: src/Actions.cs:50
+#: src/Actions.cs:58
 msgid "Hide _Window"
-msgstr "_Ascunde Fereastra"
+msgstr "A_scunde Fereastra"
 
 #: src/ImportDialog.cs:37
 msgid "Import Folder"
@@ -269,11 +269,11 @@ msgstr "Importă director"
 msgid "Importing \"{0}\""
 msgstr "Se importă \"{0}\""
 
-#: libmuine/player-xine.c:394
+#: libmuine/player-xine.c:398
 msgid "Internal error"
 msgstr "Eroare internă"
 
-#: src/About.cs:41
+#: src/About.cs:44
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
@@ -285,7 +285,7 @@ msgstr "Ultimul director folosit de la dialogul \"Importă director\"."
 msgid "Last used folder from the playlist file selectors."
 msgstr "Ultimul director folosit de la selectarea playlisturilor."
 
-#: src/About.cs:42
+#: src/About.cs:45
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
@@ -293,15 +293,15 @@ msgstr "Lee Willis <lee@leewillis.co.uk>"
 msgid "Listen to your music"
 msgstr "Ascultaţi muzica"
 
-#: src/ProgressWindow.cs:35
+#: src/ProgressWindow.cs:36
 msgid "Loading:"
 msgstr "Se încarcă:"
 
-#: src/About.cs:33
+#: src/About.cs:34
 msgid "Muine"
 msgstr "Muine"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:58
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
 msgstr "Muine Player Muzical"
 
@@ -309,12 +309,12 @@ msgstr "Muine Player Muzical"
 msgid "Muine music player"
 msgstr "Muine player muzical"
 
-#: libmuine/player-xine.c:380 libmuine/player-xine.c:385
+#: libmuine/player-xine.c:384 libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "Nici un plugin disponibil pentru \"%s\""
 
-#: src/OpenDialog.cs:36
+#: src/OpenDialog.cs:37
 msgid "Open Playlist"
 msgstr "Deschide Playlist"
 
@@ -327,7 +327,7 @@ msgstr "_Rescrie \"{0}\"?"
 msgid "Overwrite File?"
 msgstr "Rescrie fişier ?"
 
-#: src/AddAlbumWindow.cs:43 src/PlaylistWindow.cs:72
+#: src/AddAlbumWindow.cs:44 src/PlaylistWindow.cs:89
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Cântată de {0}"
@@ -344,23 +344,23 @@ msgstr "Ascultă album"
 msgid "Play Song"
 msgstr "Ascultă melodie"
 
-#: src/Actions.cs:66
+#: src/Actions.cs:87
 msgid "Play _Album..."
-msgstr "Ascultă _Album..."
+msgstr "As_cultă Album..."
 
-#: src/Actions.cs:64
+#: src/Actions.cs:84
 msgid "Play _Song..."
 msgstr "Ascultă _Melodia..."
 
-#: src/PlaylistWindow.cs:84
+#: src/PlaylistWindow.cs:103
 msgid "Play the next song"
 msgstr "Ascultă melodia următoare"
 
-#: src/PlaylistWindow.cs:82
+#: src/PlaylistWindow.cs:100
 msgid "Play the previous song"
 msgstr "Ascultă melodia precedentă"
 
-#: src/OpenDialog.cs:38
+#: src/OpenDialog.cs:40
 msgid "Playlist files"
 msgstr "Fişierele playlist"
 
@@ -372,15 +372,15 @@ msgstr "Înălţimea pentru fereastra playlistului"
 msgid "Playlist window width"
 msgstr "Lăţimea pentru fereastra playlistului"
 
-#: src/PlaylistWindow.cs:60
+#: src/PlaylistWindow.cs:71
 msgid "Playlist.m3u"
 msgstr "Playlist.m3u"
 
-#: src/Actions.cs:80
+#: src/Actions.cs:99
 msgid "R_epeat"
 msgstr "_Repetă"
 
-#: src/Actions.cs:70
+#: src/Actions.cs:93
 msgid "Remove _Played Songs"
 msgstr "Şterge melodiile ascultate"
 
@@ -388,23 +388,23 @@ msgstr "Şterge melodiile ascultate"
 msgid "Repeat mode"
 msgstr "Modul de repetare"
 
-#: src/SaveDialog.cs:36
+#: src/SaveDialog.cs:37
 msgid "Save Playlist"
 msgstr "Salvează playlist"
 
-#: src/Actions.cs:52
+#: src/Actions.cs:61
 msgid "Show _Window"
 msgstr "Arată _Fereastra"
 
-#: src/Actions.cs:74
+#: src/Actions.cs:102
 msgid "Shu_ffle"
 msgstr "A_leator"
 
-#: src/Actions.cs:60
+#: src/Actions.cs:77
 msgid "Skip _Backwards"
 msgstr "Derulează î_napoi"
 
-#: src/Actions.cs:62
+#: src/Actions.cs:80
 msgid "Skip _Forward"
 msgstr "Derulează îna_inte"
 
@@ -412,23 +412,23 @@ msgstr "Derulează îna_inte"
 msgid "Skip to"
 msgstr "Sari la"
 
-#: src/PlaylistWindow.cs:80
+#: src/PlaylistWindow.cs:97
 msgid "Switch music playback on or off"
 msgstr "Schimbaţi rularea melodiei cu închis sau deschis"
 
-#: src/About.cs:44
+#: src/About.cs:47
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: src/StringUtils.cs:33
+#: src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: src/SaveDialog.cs:38
+#: src/SaveDialog.cs:40
 msgid "Untitled"
 msgstr "Fără nume"
 
-#: src/About.cs:43
+#: src/About.cs:46
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
@@ -468,35 +468,35 @@ msgstr "Lăţimea pentru fereastra \"Adaugă melodie\"."
 msgid "Width of the playlist window."
 msgstr "Lăţimea pentru fereastra playlistului."
 
-#: src/Actions.cs:76
+#: src/Actions.cs:106
 msgid "_About"
 msgstr "_Despre"
 
-#: src/Actions.cs:72
+#: src/Actions.cs:96
 msgid "_Clear"
 msgstr "_Şterge"
 
-#: src/Actions.cs:35
+#: src/Actions.cs:36
 msgid "_File"
 msgstr "_Fişier"
 
-#: src/Actions.cs:41
+#: src/Actions.cs:45
 msgid "_Help"
 msgstr "_Ajutor"
 
-#: src/ImportDialog.cs:39
+#: src/ImportDialog.cs:40
 msgid "_Import"
 msgstr "_Importă"
 
-#: src/Actions.cs:44
+#: src/Actions.cs:49
 msgid "_Import Folder..."
 msgstr "_Importă director..."
 
-#: src/Actions.cs:56
+#: src/Actions.cs:71
 msgid "_Next"
 msgstr "_Următoare"
 
-#: src/Actions.cs:46
+#: src/Actions.cs:52
 msgid "_Open Playlist..."
 msgstr "_Deschide Playlist..."
 
@@ -504,15 +504,15 @@ msgstr "_Deschide Playlist..."
 msgid "_Overwrite"
 msgstr "_Rescrie"
 
-#: data/glade/AddWindow.glade.h:1 src/Actions.cs:78
+#: data/glade/AddWindow.glade.h:1 src/Actions.cs:65
 msgid "_Play"
 msgstr "_Ascultă"
 
-#: src/Actions.cs:39
+#: src/Actions.cs:42
 msgid "_Playlist"
 msgstr "_Playlist"
 
-#: src/Actions.cs:54
+#: src/Actions.cs:68
 msgid "_Previous"
 msgstr "_Precedentă"
 
@@ -520,11 +520,11 @@ msgstr "_Precedentă"
 msgid "_Queue"
 msgstr "_În aşteptare"
 
-#: src/Actions.cs:68
+#: src/Actions.cs:90
 msgid "_Remove Song"
 msgstr "Ş_terge melodie"
 
-#: src/Actions.cs:48
+#: src/Actions.cs:55
 msgid "_Save Playlist As..."
 msgstr "_Salvează Playlist ca..."
 
@@ -532,40 +532,33 @@ msgstr "_Salvează Playlist ca..."
 msgid "_Search:"
 msgstr "_Căutare"
 
-#: src/Actions.cs:58
+#: src/Actions.cs:74
 msgid "_Skip to..."
 msgstr "_Sari la..."
 
-#: src/Actions.cs:37
+#: src/Actions.cs:39
 msgid "_Song"
 msgstr "_Melodie"
 
-#. Strings
-#. Strings :: Prefixes
-#. Space-separated list of prefixes that will be taken off the front
-#. when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. if "the" is included in this list. Also include the English "the"
-#. if English is generally spoken in your country.
-#: src/Album.cs:38
+#: src/Album.cs:44
 msgid "the dj"
 msgstr "dj-ul"
 
 #: src/About.cs:31
 msgid "translator-credits"
-msgstr "meritele traducătorilor"
+msgstr "Spoială Cristian - scristian@gmail.com"
 
-#: src/PlaylistWindow.cs:76
+#: src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine Player Muzical"
 
-#. song artists - song title
-#: src/NotificationAreaIcon.cs:41
+#: src/NotificationAreaIcon.cs:43
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#: src/StringUtils.cs:35
+#: src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} şi alţii"
