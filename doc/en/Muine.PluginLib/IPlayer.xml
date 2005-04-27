@@ -225,6 +225,19 @@
         <remarks>To be added</remarks>
       </Docs>
     </Member>
+    <Member MemberName="AllSongs">
+      <MemberSignature Language="C#" Value="public virtual Muine.PluginLib.ISong [] AllSongs { get; };" />
+      <MemberType>Property</MemberType>
+      <ReturnValue>
+        <ReturnType>Muine.PluginLib.ISong[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Returns an array containing all songs in Muine's database</summary>
+        <returns>a <see cref="T:Muine.PluginLib.ISong[]" /></returns>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="WindowVisible">
       <MemberSignature Language="C#" Value="public virtual bool WindowVisible { set; get; };" />
       <MemberType>Property</MemberType>

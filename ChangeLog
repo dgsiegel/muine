@@ -1,3 +1,12 @@
+2005-04-27  Mark McLauchlan  <mrm21@sussex.ac.uk>
+	    Jorn Baayen  <jbaayen@gnome.org>
+
+	* PluginLib/IPlayer.cs:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+	* src/PlaylistWindow.cs:
+
+	Added AllSongs property.
+
 2005-04-27  Peter Johanson  <latexer@gentoo.org>
 
 	* configure.in:

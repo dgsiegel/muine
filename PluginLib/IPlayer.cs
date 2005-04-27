@@ -64,6 +64,10 @@ namespace Muine.PluginLib
 			get;
 		}
 
+                ISong [] AllSongs {
+                       get;
+                }
+
 		void OpenPlaylist (string uri);
 
 		void PlayFile (string uri);
