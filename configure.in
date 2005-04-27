@@ -112,8 +112,8 @@ AM_CONDITIONAL(HAVE_ID3TAG, test "x$have_id3tag" = "xyes")
 AC_SUBST(ID3TAG_LIBS)
 
 dnl Check for FAAD 
-AC_ARG_ENABLE(faad2, [  --disable-faad2         Disable AAC support],,have_faad2=yes)
-if test "x$have_faad2" = "xyes"; then
+AC_ARG_ENABLE(faad2, [  --disable-faad2         Disable AAC support],,enable_faad2=yes)
+if test "x$enable_faad2" = "xyes"; then
 	AC_CHECK_HEADER(mp4ff.h, faad2_detect=yes, faad_detect=no)
 	if test "x$faad2_detect" = "xyes"; then
 		FAAD_LIBS="-lmp4ff -lfaad"

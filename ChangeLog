@@ -1,5 +1,11 @@
 2005-04-27  Peter Johanson  <latexer@gentoo.org>
 
+	* configure.in:
+
+	Fix faad2 detection.
+
+2005-04-27  Peter Johanson  <latexer@gentoo.org>
+
 	* src/PlaylistWindow.cs:
 
 	Call SongChanged () in Clear ().
