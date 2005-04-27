@@ -696,9 +696,6 @@ namespace Muine
 		}
 
 		// Methods :: Private :: CheckCompleteness
-		//	TODO: Shouldn't we see if we *have* at least 8 songs,
-		//		not if the track number of the last song is at
-		//		least 8?
 		/// <summary>
 		///	Check if the album is now complete enough to be listed
 		///	in the <see cref="AddAlbumWindow" />.
@@ -742,9 +739,8 @@ namespace Muine
 					if (delta <= 0)
 						new_complete = true;
 
-					else if (last_track >= 8) {
+					else if (last_track >= 8)
 						new_complete = HaveHalfAlbum (last_track, n_tracks);
-					}
 				}
 			}
 

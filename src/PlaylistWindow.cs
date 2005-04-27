@@ -676,6 +676,7 @@ namespace Muine
 		{
 			ClearPlaylist ();
 			PlaylistChanged ();
+			SongChanged (false);
 		}
 		
 		// Methods :: Public :: Shuffle

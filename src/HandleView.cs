@@ -34,7 +34,7 @@ namespace Muine
 		public HandleView ()
 		{
 			this.model = new HandleModel ();
-			((TreeView)this).Model = model;
+			((TreeView) this).Model = model;
 
 			RulesHint      = true;
 			EnableSearch   = false;
@@ -45,7 +45,7 @@ namespace Muine
 		}
 
 		// Properties
-		// Properties :: Model (get;) (TreeView)
+		// Properties :: Model (get;)
 		public new HandleModel Model {
 			get { return model; }
 		}
