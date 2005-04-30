@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-23 16:26+0100\n"
-"PO-Revision-Date: 2005-01-23 16:37+0100\n"
+"POT-Creation-Date: 2005-04-30 23:48+0200\n"
+"PO-Revision-Date: 2005-04-30 23:48+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,211 +21,136 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: data/glade/AddWindow.glade.h:1 src/Actions.cs:78
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
 msgid "_Play"
 msgstr "_Reproducir"
 
-#: data/glade/AddWindow.glade.h:2
+#: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
 msgstr "_Encolar"
 
-#: data/glade/AddWindow.glade.h:3
+#: ../data/glade/AddWindow.glade.h:3
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: data/glade/ErrorDialog.glade.h:1
+#: ../data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Error"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">No se encontró música</span>"
-
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid "Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
-"Muine no fue capaz de encontrar su colección de música. ¿Qué le gustaría "
-"hacer?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine creará las carpetas Music y Music/Playlists en su carpeta personal "
-"para almacenar sus archivos de música. Esta opción se recomienda. Puede "
-"importar otras carpetas manualmente."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "No se encontró música"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"Tendrá que importar su música manualmente. Esto es para usuarios "
-"experimentados sólo y no recomendado para uso general."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "_Crear una colección de música vacía"
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Nada, gestionaré mi música yo mismo"
-
-#: data/glade/OverwriteDialog.glade.h:1
+#: ../data/glade/OverwriteDialog.glade.h:1
 msgid "Overwrite File?"
 msgstr "¿Sobreescribir el archivo?"
 
-#: data/glade/OverwriteDialog.glade.h:2
+#: ../data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
 msgstr "_Sobreescribir"
 
-#: data/glade/PlaylistWindow.glade.h:1
+#: ../data/glade/PlaylistWindow.glade.h:1
 msgid "Play"
 msgstr "Reproducir"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:44
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Reproducir álbum"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:44
+#: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Reproducir canción"
 
-#: data/glade/SkipToWindow.glade.h:1
+#: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Saltar a"
 
-#: data/muine.desktop.in.h:1
+#: ../data/muine.desktop.in.h:1
 msgid "Listen to your music"
 msgstr "Escuchar tu música"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:58
+#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
 msgstr "Reproductor de Música Muine"
 
-#: data/muine.schemas.in.h:1
+#: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
 msgstr "Altura de la ventana «Añadir álbum»"
 
-#: data/muine.schemas.in.h:2
+#: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
 msgstr "Anchura de la ventana «Añadir álbum»."
 
-#: data/muine.schemas.in.h:3
+#: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
 msgstr "Altura de la ventana «Añadir canción»"
 
-#: data/muine.schemas.in.h:4
+#: ../data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
 msgstr "Anchura de la ventana «Añadir canción»"
 
-#: data/muine.schemas.in.h:5
+#: ../data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
 msgstr "Sitio Amazon para usar en las cubiertas de los álbumes"
 
-#: data/muine.schemas.in.h:6
+#: ../data/muine.schemas.in.h:6
 msgid "Default import folder"
 msgstr "Carpeta de importación predeterminada"
 
-#: data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:7
 msgid "Default playlist folder"
 msgstr "Carpeta de reproducción predeterminada"
 
-#: data/muine.schemas.in.h:8
-msgid "Enable speed hacks on the \"Add album\" list."
-msgstr "Activar hacks de velocidad en la lista de  «Añadir álbum»."
-
-#: data/muine.schemas.in.h:9
-msgid "Enable speed hacks on the \"Add song\" list."
-msgstr "Activar hacks de velocidad en la lista «Añadir canción»."
-
-#: data/muine.schemas.in.h:10
-msgid "First start"
-msgstr "Primer inicio"
-
-#: data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
 msgstr "Las carpetas se monitorizan buscando cambios."
 
-#: data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "Altura de la ventana «Añadir álbum»."
 
-#: data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "Altura de la ventana «Añadir canción»."
 
-#: data/muine.schemas.in.h:14
-msgid "Height of the information window."
-msgstr "Anchura de la ventana de información."
-
-#: data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "Altura de la ventana de la lista de reproducción."
 
-#: data/muine.schemas.in.h:16
-msgid "Information window height"
-msgstr "Altura de la ventana de información"
-
-#: data/muine.schemas.in.h:17
-msgid "Information window width"
-msgstr "Anchura de la ventana de información"
-
-#: data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Última carpeta usada desde el diálogo «Importar carpeta»."
 
-#: data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "Última carpeta usada los selectores de lista de reproducción."
 
-#: data/muine.schemas.in.h:20
-msgid "Only complete albums"
-msgstr "Sólo completar álbumes"
-
-#: data/muine.schemas.in.h:21
-msgid "Only deal with complete albums in the interface."
-msgstr "Sólo tratar con álbumes completos en el interfaz."
-
-#: data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "Altura de la ventana de lista de reproducción"
 
-#: data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "Anchura de la ventana de lista de reproducción"
 
-#: data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "Modo de repetición"
 
-#: data/muine.schemas.in.h:25
-msgid "Speed hacks"
-msgstr "Hacks de velocidad"
-
-#: data/muine.schemas.in.h:26
+#: ../data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "Nivel de volumen"
 
-#: data/muine.schemas.in.h:27
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Nivel de volumen. 0 = el más bajo, 100 = el más alto."
 
-#: data/muine.schemas.in.h:28
+#: ../data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "Carpetas monitorizadas"
 
-#: data/muine.schemas.in.h:29
+#: ../data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Indica si debe o no activar el modo repetición de lista de reproducción."
+msgstr ""
+"Indica si debe o no activar el modo repetición de lista de reproducción."
 
-#: data/muine.schemas.in.h:30
+#: ../data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -233,37 +158,29 @@ msgstr ""
 "¿Qué sitio Amazon se usaré para obtener las imágenes del álbum, \"us\", \"uk"
 "\", \"de\", o \"jp\"."
 
-#: data/muine.schemas.in.h:31
+#: ../data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "Anchura de la ventana «Añadir álbum»."
 
-#: data/muine.schemas.in.h:32
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "Anchura de la ventana «Añadir canción»."
 
-#: data/muine.schemas.in.h:33
-msgid "Width of the information window."
-msgstr "Anchura de la ventana de información"
-
-#: data/muine.schemas.in.h:34
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "Anchura de la ventana de la lista de reproducción"
 
-#: data/muine.schemas.in.h:35
-msgid "false if Muine has been started before."
-msgstr "falso si Muine ha sido iniciado antes."
-
-#: libmuine/player-gst.c:157
+#: ../libmuine/player-gst.c:163
 msgid "Failed to create a GStreamer play object"
 msgstr "Falló al crear el objeto de reproducción GStreamer"
 
-#: libmuine/player-gst.c:164
+#: ../libmuine/player-gst.c:170
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "No se pudo renderizar el sumidero de salida de sonido predeterminado de "
 "GStreamer"
 
-#: libmuine/player-xine.c:286
+#: ../libmuine/player-xine.c:290
 #, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
@@ -274,167 +191,161 @@ msgstr ""
 "Compruebe que el dispositivo no\n"
 "esté ocupado."
 
-#: libmuine/player-xine.c:380 libmuine/player-xine.c:385
+#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "No hay un complemento disponible para «%s»"
 
-#: libmuine/player-xine.c:390
+#: ../libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
 msgstr "Falló al reproducir «%s»"
 
-#: libmuine/player-xine.c:394
+#: ../libmuine/player-xine.c:398
 msgid "Internal error"
 msgstr "Error interno"
 
-#: libmuine/player-xine.c:403
+#: ../libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "No se pudo reproducir «%s»"
 
-#: src/About.cs:31
+#: ../src/About.cs:31
 msgid "translator-credits"
 msgstr ""
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Sergio Rubio <sergio.rubio@hispalinux.es>"
 
-#: src/About.cs:33
+#: ../src/About.cs:34
 msgid "Muine"
 msgstr "Muine"
 
-#: src/About.cs:35
+#: ../src/About.cs:37
 msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
 msgstr "Copyright © 2003, 2004, 2005 Jorn Baayern"
 
-#: src/About.cs:37
+#: ../src/About.cs:40
 msgid "A music player"
 msgstr "Un reproductor de música"
 
-#: src/About.cs:41
+#: ../src/About.cs:44
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: src/About.cs:42
+#: ../src/About.cs:45
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: src/About.cs:43
+#: ../src/About.cs:46
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: src/About.cs:44
+#: ../src/About.cs:47
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: src/About.cs:46
+#: ../src/About.cs:49
 msgid "Album covers are provided by amazon.com."
 msgstr "Las cubiertas de los álbumes se suministran por amazon.com"
 
-#: src/Actions.cs:35
+#: ../src/Actions.cs:36
 msgid "_File"
 msgstr "_Archivo"
 
-#: src/Actions.cs:37
+#: ../src/Actions.cs:39
 msgid "_Song"
 msgstr "_Canción"
 
-#: src/Actions.cs:39
+#: ../src/Actions.cs:42
 msgid "_Playlist"
 msgstr "_Lista de reproducción"
 
-#: src/Actions.cs:41
+#: ../src/Actions.cs:45
 msgid "_Help"
 msgstr "A_yuda"
 
-#: src/Actions.cs:44
+#: ../src/Actions.cs:49
 msgid "_Import Folder..."
 msgstr "_Importar carpeta..."
 
-#: src/Actions.cs:46
+#: ../src/Actions.cs:52
 msgid "_Open Playlist..."
 msgstr "_Abrir lista de reproducción..."
 
-#: src/Actions.cs:48
+#: ../src/Actions.cs:55
 msgid "_Save Playlist As..."
 msgstr "_Guardar lista de reproducción como..."
 
-#: src/Actions.cs:50
+#: ../src/Actions.cs:58
 msgid "Hide _Window"
 msgstr "_Ocultar ventana"
 
-#: src/Actions.cs:52
+#: ../src/Actions.cs:61
 msgid "Show _Window"
 msgstr "Mostrar _ventana"
 
-#: src/Actions.cs:54
+#: ../src/Actions.cs:68
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: src/Actions.cs:56
+#: ../src/Actions.cs:71
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: src/Actions.cs:58
+#: ../src/Actions.cs:74
 msgid "_Skip to..."
 msgstr "_Saltar a..."
 
-#: src/Actions.cs:60
+#: ../src/Actions.cs:77
 msgid "Skip _Backwards"
 msgstr "Saltar _atrás"
 
-#: src/Actions.cs:62
+#: ../src/Actions.cs:80
 msgid "Skip _Forward"
 msgstr "Saltar a_delante"
 
-#: src/Actions.cs:64
+#: ../src/Actions.cs:84
 msgid "Play _Song..."
 msgstr "Reproducir _canción..."
 
-#: src/Actions.cs:66
+#: ../src/Actions.cs:87
 msgid "Play _Album..."
 msgstr "Reproducir _álbum..."
 
-#: src/Actions.cs:68
+#: ../src/Actions.cs:90
 msgid "_Remove Song"
 msgstr "_Eliminar canción"
 
-#: src/Actions.cs:70
+#: ../src/Actions.cs:93
 msgid "Remove _Played Songs"
 msgstr "Eliminar _canciones reproducidas"
 
-#: src/Actions.cs:72
+#: ../src/Actions.cs:96
 msgid "_Clear"
 msgstr "_Borrar"
 
-#: src/Actions.cs:74
-msgid "Shu_ffle"
-msgstr "_Aleatorio"
-
-#: src/Actions.cs:76
-msgid "_About"
-msgstr "A_cerca de"
-
-#: src/Actions.cs:80
+#: ../src/Actions.cs:99
 msgid "R_epeat"
 msgstr "R_epetir"
 
-#: src/AddAlbumWindow.cs:46 src/PlaylistWindow.cs:72
+#: ../src/Actions.cs:102
+msgid "Shu_ffle"
+msgstr "_Aleatorio"
+
+#: ../src/Actions.cs:106
+msgid "_About"
+msgstr "A_cerca de"
+
+#: ../src/AddAlbumWindow.cs:44 ../src/PlaylistWindow.cs:89
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Ejecutado por {0}"
 
-#. Strings
-#. Strings :: Prefixes
-#. Space-separated list of prefixes that will be taken off the front
-#. when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. if "the" is included in this list. Also include the English "the"
-#. if English is generally spoken in your country.
-#: src/Album.cs:38
+#: ../src/Album.cs:44
 msgid "the dj"
 msgstr "el dj"
 
-#: src/FileUtils.cs:43
+#: ../src/FileUtils.cs:44
 #, csharp-format
 msgid ""
 "Failed to initialize the configuration folder: {0}\n"
@@ -445,7 +356,7 @@ msgstr ""
 "\n"
 "Saliendo..."
 
-#: src/FileUtils.cs:45
+#: ../src/FileUtils.cs:47
 #, csharp-format
 msgid ""
 "Failed to initialize the temporary files folder: {0}\n"
@@ -456,130 +367,131 @@ msgstr ""
 "\n"
 "Saliendo..."
 
-#: src/Global.cs:37
+#: ../src/Global.cs:37
 #, csharp-format
 msgid "Failed to export D-Bus object: {0}"
 msgstr "Falló al exportar el objeto D-Bus: {0}"
 
-#: src/Global.cs:39
+#: ../src/Global.cs:40
 #, csharp-format
 msgid "Failed to load the cover database: {0}"
 msgstr "Falló al cargar la base de datos de cubiertas: {0}"
 
-#: src/Global.cs:41
+#: ../src/Global.cs:43
 #, csharp-format
 msgid "Failed to load the song database: {0}"
 msgstr "Falló al cargar la base de datos de canciones: {0}"
 
-#: src/Global.cs:43
+#: ../src/Global.cs:46
 msgid "Error initializing Muine."
 msgstr "Error al inicializar Muine."
 
-#: src/ImportDialog.cs:37
+#: ../src/ImportDialog.cs:37
 msgid "Import Folder"
 msgstr "Importar carpeta"
 
-#: src/ImportDialog.cs:39
+#: ../src/ImportDialog.cs:40
 msgid "_Import"
 msgstr "_Importar"
 
-#: src/Metadata.cs:34
+#: ../src/Metadata.cs:34
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Falló al cargar los metadatos: {0}"
 
-#: src/NotificationAreaIcon.cs:38
+#: ../src/NotificationAreaIcon.cs:38
 msgid "Muine music player"
 msgstr "Reproductor de música Muine"
 
-#. song artists - song title
-#: src/NotificationAreaIcon.cs:41
+#: ../src/NotificationAreaIcon.cs:43
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#: src/OpenDialog.cs:36
+#: ../src/OpenDialog.cs:37
 msgid "Open Playlist"
 msgstr "Abrir lista de reproducción"
 
-#: src/OpenDialog.cs:38
+#: ../src/OpenDialog.cs:40
 msgid "Playlist files"
 msgstr "Archivos de la lista de reproducción"
 
-#: src/OverwriteDialog.cs:34
+#: ../src/OverwriteDialog.cs:34
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
 msgstr "¿Desea sobreescribir «{0}»?"
 
-#: src/OverwriteDialog.cs:36
+#: ../src/OverwriteDialog.cs:37
 msgid ""
 "A file with this name already exists. If you choose to overwrite this file, "
 "the contents will be lost."
-msgstr "Ya existe un archivo con este nombre. Si elije sobreescribir este archivo, se perderá su contenido."
+msgstr ""
+"Ya existe un archivo con este nombre. Si elije sobreescribir este archivo, "
+"se perderá su contenido."
 
-#: src/Player.cs:39
+#: ../src/Player.cs:39
 msgid "Audio backend error:"
 msgstr "Error del backend de sonido:"
 
-#: src/PlaylistWindow.cs:60
+#: ../src/PlaylistWindow.cs:71
 msgid "Playlist.m3u"
 msgstr "Lista de reproducción.m3u"
 
-#: src/PlaylistWindow.cs:62
+#: ../src/PlaylistWindow.cs:74
 msgid "<b>Playlist</b>"
 msgstr "<b>Lista de reproducción</b>"
 
-#: src/PlaylistWindow.cs:64
+#: ../src/PlaylistWindow.cs:77
 msgid "<b>Playlist</b> (Repeating)"
 msgstr "<b>Lista de reproducción</b> (repitiendo)"
 
-#: src/PlaylistWindow.cs:66
+#: ../src/PlaylistWindow.cs:80
 msgid "<b>Playlist</b> (Less than one minute remaining)"
 msgstr "<b>Lista de reproducción</b> (queda menos de un minuto)"
 
-#: src/PlaylistWindow.cs:68
+#: ../src/PlaylistWindow.cs:83
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Desde «{0}»"
 
-#: src/PlaylistWindow.cs:70
+#: ../src/PlaylistWindow.cs:86
 msgid "Album unknown"
 msgstr "Álbum desconocido"
 
-#: src/PlaylistWindow.cs:76
+#: ../src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "Reproductor de Música Muine - {0}"
 
-#: src/PlaylistWindow.cs:80
+#: ../src/PlaylistWindow.cs:97
 msgid "Switch music playback on or off"
 msgstr "Enciende o apaga la reproducción de música"
 
-#: src/PlaylistWindow.cs:82
+#: ../src/PlaylistWindow.cs:100
 msgid "Play the previous song"
 msgstr "Reproduce la canción anterior"
 
-#: src/PlaylistWindow.cs:84
+#: ../src/PlaylistWindow.cs:103
 msgid "Play the next song"
 msgstr "Reproducir la canción siguiente"
 
-#: src/PlaylistWindow.cs:86
+#: ../src/PlaylistWindow.cs:106
 msgid "Add an album to the playlist"
 msgstr "Añadir un álbum a la lista de reproducción"
 
-#: src/PlaylistWindow.cs:88
+#: ../src/PlaylistWindow.cs:109
 msgid "Add a song to the playlist"
 msgstr "Añadir una canción a la lista de reproducción"
 
-#: src/PlaylistWindow.cs:90
+#: ../src/PlaylistWindow.cs:112
 msgid "Change the volume level"
 msgstr "Cambia el nivel de volumen"
 
-#: src/PlaylistWindow.cs:92
+#: ../src/PlaylistWindow.cs:115
 msgid "Drop an image here to use it as album cover"
 msgstr "Suelte una imagen aquí para usarla como cubierta del álbum"
 
-#: src/PlaylistWindow.cs:96
+#: ../src/PlaylistWindow.cs:119
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -588,84 +500,152 @@ msgstr ""
 "Falló al inicializar el backend de sonido:\n"
 "{0}"
 
-#: src/PlaylistWindow.cs:98
+#: ../src/PlaylistWindow.cs:122
 #, csharp-format
 msgid "Failed to read {0}:"
 msgstr "Falló al leer {0}:"
 
-#: src/PlaylistWindow.cs:100
+#: ../src/PlaylistWindow.cs:125
 #, csharp-format
 msgid "Failed to close {0}:"
 msgstr "Falló al cerrar {0}:"
 
-#: src/PlaylistWindow.cs:102
+#: ../src/PlaylistWindow.cs:128
 #, csharp-format
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: src/PlaylistWindow.cs:946
+#: ../src/PlaylistWindow.cs:1004
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: src/PlaylistWindow.cs:951
+#: ../src/PlaylistWindow.cs:1009
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: src/PlaylistWindow.cs:956
+#: ../src/PlaylistWindow.cs:1014
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: src/PlaylistWindow.cs:961
+#: ../src/PlaylistWindow.cs:1019
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} minutos)"
 
-#: src/PluginManager.cs:34
+#: ../src/PluginManager.cs:34
 #, csharp-format
 msgid "Error loading plug-in {0}: {1}"
 msgstr "Error al cargar el complemento {0}: {1}"
 
-#: src/ProgressWindow.cs:33
+#: ../src/ProgressWindow.cs:33
 #, csharp-format
-msgid "Importing {0}"
-msgstr "Importando {0}"
+msgid "Importing \"{0}\""
+msgstr "Importando «{0}»"
 
-#: src/ProgressWindow.cs:35
+#: ../src/ProgressWindow.cs:36
 msgid "Loading:"
 msgstr "Cargando:"
 
-#: src/SaveDialog.cs:36
+#: ../src/SaveDialog.cs:37
 msgid "Save Playlist"
 msgstr "Guardar lista de reproducción"
 
-#: src/SaveDialog.cs:38
+#: ../src/SaveDialog.cs:40
 msgid "Untitled"
 msgstr "Sin título"
 
-#: src/StringUtils.cs:32
+#: ../src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/StringUtils.cs:34
+#: ../src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} y otros"
 
-#: src/StringUtils.cs:36
+#: ../src/StringUtils.cs:37
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
+
+#~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
+#~ msgstr "<span weight=\"bold\" size=\"larger\">No se encontró música</span>"
+
+#~ msgid ""
+#~ "Muine was unable to find your music collection. What would you like me to "
+#~ "do?"
+#~ msgstr ""
+#~ "Muine no fue capaz de encontrar su colección de música. ¿Qué le gustaría "
+#~ "hacer?"
+
+#~ msgid ""
+#~ "Muine will create the folders Music and Music/Playlists in your home "
+#~ "folder to store your music files. This option is highly recommended. You "
+#~ "can always import other folders manually."
+#~ msgstr ""
+#~ "Muine creará las carpetas Music y Music/Playlists en su carpeta personal "
+#~ "para almacenar sus archivos de música. Esta opción se recomienda. Puede "
+#~ "importar otras carpetas manualmente."
+
+#~ msgid "No Music Found"
+#~ msgstr "No se encontró música"
+
+#~ msgid ""
+#~ "You will have to import your music manually. This is for experienced "
+#~ "users only and therefore not generally recommended."
+#~ msgstr ""
+#~ "Tendrá que importar su música manualmente. Esto es para usuarios "
+#~ "experimentados sólo y no recomendado para uso general."
+
+#~ msgid "_Create an empty music collection"
+#~ msgstr "_Crear una colección de música vacía"
+
+#~ msgid "_Nothing, I will manage my music myself"
+#~ msgstr "_Nada, gestionaré mi música yo mismo"
+
+#~ msgid "Enable speed hacks on the \"Add album\" list."
+#~ msgstr "Activar hacks de velocidad en la lista de  «Añadir álbum»."
+
+#~ msgid "Enable speed hacks on the \"Add song\" list."
+#~ msgstr "Activar hacks de velocidad en la lista «Añadir canción»."
+
+#~ msgid "First start"
+#~ msgstr "Primer inicio"
+
+#~ msgid "Height of the information window."
+#~ msgstr "Anchura de la ventana de información."
+
+#~ msgid "Information window height"
+#~ msgstr "Altura de la ventana de información"
+
+#~ msgid "Information window width"
+#~ msgstr "Anchura de la ventana de información"
+
+#~ msgid "Only complete albums"
+#~ msgstr "Sólo completar álbumes"
+
+#~ msgid "Only deal with complete albums in the interface."
+#~ msgstr "Sólo tratar con álbumes completos en el interfaz."
+
+#~ msgid "Speed hacks"
+#~ msgstr "Hacks de velocidad"
+
+#~ msgid "Width of the information window."
+#~ msgstr "Anchura de la ventana de información"
+
+#~ msgid "false if Muine has been started before."
+#~ msgstr "falso si Muine ha sido iniciado antes."
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -725,4 +705,3 @@ msgstr "{0} y {1}"
 #~ msgstr ""
 #~ "Gracias a amazon.com por proporcionar las imágenes de la cubierta de los "
 #~ "álbumes."
-
