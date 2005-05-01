@@ -1,5 +1,14 @@
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/ImportDialog.cs:
+	* src/OpenDialog.cs:
+
+	Tamara, destroying a dialog *destroys* it. There was a reason
+	we were destoying dialogs only *after* we were done getting response
+	data off them. :)
+
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Global.cs:
 
 	Use Environment.Exit instead of Application.Quit for now. Fixes

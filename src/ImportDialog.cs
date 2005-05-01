@@ -67,12 +67,12 @@ namespace Muine
 		// Handlers :: OnResponse
 		private void OnResponse (object o, ResponseArgs args)
 		{
-			// Close Dialog
-			base.Destroy ();
-
 			// If response wasn't "Ok", do nothing
-			if (args.ResponseId != ResponseType.Ok)
+			if (args.ResponseId != ResponseType.Ok) {
+                                base.Destroy ();
+
 				return;
+                        }
 
 			// Save Start Directory
 			Config.Set (GConfKeyImportFolder, base.CurrentFolder);
@@ -90,11 +90,10 @@ namespace Muine
 			}
 
 			// Check if we have any Directories to add
-			if (new_dinfos.Count < 1)
-				return;
-			
-			// Add Directories
-			Global.DB.AddFolders (new_dinfos);
+			if (new_dinfos.Count > 0)
+			        Global.DB.AddFolders (new_dinfos);
+
+                        base.Destroy ();
 		}
 	}
 }

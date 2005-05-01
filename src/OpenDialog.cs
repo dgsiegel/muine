@@ -58,12 +58,15 @@ namespace Muine
 		// Handlers :: OnResponse
 		private void OnResponse (object o, ResponseArgs args)
 		{
-			base.Destroy ();
+			if (args.ResponseId != ResponseType.Ok) {
+			        base.Destroy ();
 
-			if (args.ResponseId != ResponseType.Ok)
 				return;
+                        }
 
 			string fn = base.Uri;
+
+                        base.Destroy ();
 
 			if (!FileUtils.IsPlaylist (fn))
 				return;
