@@ -1,5 +1,18 @@
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* DBusLib/.cvsignore:
+	* PluginLib/.cvsignore:
+	* plugins/.cvsignore:
+	* src/.cvsignore:
+
+	Updated.
+
+	* configure.in:
+
+	Removed reference to libmuine/egg/.
+
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* data/images/Makefile.am:
 	R data/images/muine-tray-paused.png:
 	R data/images/muine-tray-playing.png:

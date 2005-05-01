@@ -1,4 +1,5 @@
 Makefile
 Makefile.in
 muine-dbus.dll
+muine-dbus.dll.mdb
 muine.snk

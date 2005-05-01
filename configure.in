@@ -175,7 +175,6 @@ data/images/Makefile
 data/ui/Makefile
 libmuine/Makefile
 libmuine/id3-vfs/Makefile
-libmuine/egg/Makefile
 PluginLib/Makefile
 DBusLib/Makefile
 src/Makefile
