@@ -63,7 +63,7 @@ namespace Muine
 			get {
 				IntPtr p = metadata_get_title (raw);
 
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p).Trim ();
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace Muine
 				int count = metadata_get_artist_count (raw);
 
 				for (int i = 0; i < count; i++) {
-					string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i));
+					string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i)).Trim ();
 
 					if (tmp.Length <= 0)
 						continue;
@@ -109,7 +109,7 @@ namespace Muine
 				int count = metadata_get_performer_count (raw);
 
 				for (int i = 0; i < count; i++) {
-					string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i));
+					string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i)).Trim ();
 
 					if (tmp.Length <= 0)
 						continue;
@@ -129,7 +129,7 @@ namespace Muine
 			get { 
 				IntPtr p = metadata_get_album (raw);
 				
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
+				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p).Trim ();
 			}
 		}
 

@@ -1,3 +1,9 @@
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
+	* src/Metadata.cs:
+
+	Strip leading and trailing spaces from tags.
+
 2005-04-28  Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/PlaylistWindow.cs:
