@@ -51,9 +51,8 @@ namespace Muine
 		private static PlaylistWindow playlist;
 		private static Actions        actions;
 
-		private static DBusLib.Player       dbus_object = null;
-		private static NotificationAreaIcon icon;
-		private static Gnome.Client         session_client;
+		private static DBusLib.Player dbus_object = null;
+		private static Gnome.Client   session_client;
 		
 		// Properties
 		// Properties :: DB (get;)
@@ -207,9 +206,6 @@ namespace Muine
 			// Hook up multimedia keys
 			new MmKeys (playlist);
 
-			// Create tray icon
-			icon = new NotificationAreaIcon (playlist);
-
 			// Process command line options
 			bool opened_file = ProcessCommandLine (args);
 
@@ -219,7 +215,6 @@ namespace Muine
 
 			// Show UI
 			playlist.Run ();
-			icon.Run ();
 
 			while (MainContext.Pending ())
 				Gtk.Main.Iteration ();

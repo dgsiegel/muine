@@ -17,10 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-// TODO: Make into a plugin?
-
 using System;
-using System.Runtime.InteropServices;
 
 using Gtk;
 using Gdk;
@@ -31,7 +28,7 @@ using Muine.PluginLib;
 
 namespace Muine
 {
-	public class NotificationAreaIcon : Plug
+	public class TrayIcon : Plugin
 	{
 		// Strings
 		private static readonly string string_program =
@@ -43,6 +40,7 @@ namespace Muine
 			Catalog.GetString ("{0} - {1}");
 
 		// Widgets
+                private Plug icon;
 		private EventBox ebox;
 		private Gtk.Image image;
 		private Tooltips tooltips;
@@ -55,23 +53,32 @@ namespace Muine
 		private int menu_x;
 		private int menu_y;
 		
-		private bool visible = false;
-
 		private string tooltip = "";
 
 		private bool playing = false;
 
-		// Constructor
-		public NotificationAreaIcon (IPlayer player) : base (IntPtr.Zero)
-		{
+                // Plugin initializer
+                public override void Initialize (IPlayer player)
+                {
+                        // Initialize gettext
+                        Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+
+                        // Load stock icons
+                        InitStockIcons ();
+
 			// Connect to player
 			this.player = player;
 			
 			player.SongChangedEvent  += new SongChangedEventHandler  (OnSongChangedEvent );
 			player.StateChangedEvent += new StateChangedEventHandler (OnStateChangedEvent);
+
+                        // Install "Hide Window" menu item
+                        player.UIManager.AddUi (player.UIManager.NewMergeId (), 
+                                                "/MenuBar/FileMenu/ExtraFileActions", "ToggleVisibleMenuItem",
+                                                "ToggleVisible", UIManagerItemType.Menuitem, false);
 			
 			// Build menu
-			player.UIManager.AddUiFromResource ("NotificationAreaIcon.xml");
+			player.UIManager.AddUiFromResource ("TrayIcon.xml");
 			
 			menu = (Menu) player.UIManager.GetWidget ("/Menu");
 			menu.Deactivated += new EventHandler (OnMenuDeactivated);
@@ -84,23 +91,14 @@ namespace Muine
 			Init ();
 		}
 
-		// Destructor
-		~NotificationAreaIcon ()
-		{
-			Dispose ();
-		}
-		
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Init
-		[DllImport ("libmuine")]
-		private static extern IntPtr egg_tray_icon_new (string name);
-
 		public void Init ()
 		{
-			Raw = egg_tray_icon_new (string_program);
+			icon = new Egg.TrayIcon (string_program);
 
-			DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
+			icon.DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
 
 			ebox = new EventBox ();
 			ebox.ButtonPressEvent += new ButtonPressEventHandler (OnButtonPressEvent);
@@ -108,29 +106,19 @@ namespace Muine
 			image = new Gtk.Image ();
 
 			ebox.Add (image);
-			Add (ebox);
+			icon.Add (ebox);
 
 			UpdateImage ();
 			UpdateTooltip ();
 
-			if (!visible)
-				return;
-
-			ShowAll ();
-		}
-
-		// Methods :: Public :: Run
-		public void Run ()
-		{
-			visible = true;
-			ShowAll ();
+                        icon.ShowAll ();
 		}
 
 		// Methods :: Private
 		// Methods :: Private :: UpdateTooltip
 		private void UpdateTooltip ()
 		{
-			tooltips.SetTip (this, tooltip, null);
+			tooltips.SetTip (icon, tooltip, null);
 		}
 
 		// Methods :: Private :: UpdateImage
@@ -192,11 +180,31 @@ namespace Muine
 				StringUtils.JoinHumanReadable (song.Artists), song.Title);
 		}
 
+                // Methods :: Private :: InitStockIcons
+                private void InitStockIcons ()
+                {
+                        string [] stock_icons = {
+                                "muine-tray-paused",
+                                "muine-tray-playing"
+                        };
+                        
+                        IconFactory factory = new IconFactory ();
+			factory.AddDefault ();
+
+			// Stock Icons
+			foreach (string name in stock_icons) {
+				Pixbuf  pixbuf  = new Pixbuf  (null, name + ".png");
+				IconSet iconset = new IconSet (pixbuf);
+
+				factory.Add (name, iconset);
+			}
+                }
+
 		// Handlers
 		// Handlers :: OnSelectionDone
 		private void OnSelectionDone (object o, EventArgs args)
 		{
-			State = StateType.Normal;
+			icon.State = StateType.Normal;
 		}
 
 		// Handlers :: OnButtonPressEvent
@@ -206,7 +214,7 @@ namespace Muine
 			{
 			case 1:
 			case 3:
-				State = StateType.Active;
+				icon.State = StateType.Active;
 
 				menu_x = (int) args.Event.XRoot - (int) args.Event.X;
 				menu_y = (int) args.Event.YRoot - (int) args.Event.Y;
@@ -231,7 +239,7 @@ namespace Muine
 		// Handlers :: OnMenuDeactivated
 		private void OnMenuDeactivated (object o, EventArgs args)
 		{
-			State = StateType.Normal;
+			icon.State = StateType.Normal;
 		}
 
 		// Handlers :: OnDestroyEvent

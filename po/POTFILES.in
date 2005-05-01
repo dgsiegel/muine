@@ -22,7 +22,6 @@ src/FileUtils.cs
 src/Global.cs
 src/ImportDialog.cs
 src/Metadata.cs
-src/NotificationAreaIcon.cs
 src/OpenDialog.cs
 src/OverwriteDialog.cs
 src/Player.cs
@@ -32,3 +31,4 @@ src/ProgressWindow.cs
 src/SaveDialog.cs
 src/SongDatabase.cs
 src/StringUtils.cs
+plugins/TrayIcon.cs

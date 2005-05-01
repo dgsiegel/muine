@@ -33,8 +33,6 @@ namespace Muine
 
 		// Variables :: Stock Icons
 		private static readonly string [] stock_icons = {
-			"muine-tray-playing",
-			"muine-tray-paused",
 			"muine-default-cover",
 			"muine-cover-downloading",
 			"muine-playing",

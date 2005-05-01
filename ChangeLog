@@ -1,5 +1,41 @@
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* data/images/Makefile.am:
+	R data/images/muine-tray-paused.png:
+	R data/images/muine-tray-playing.png:
+	* data/ui/Makefile.am:
+	R data/ui/NotificationAreaIcon.xml:
+	* data/ui/PlaylistWindow.xml:
+	* libmuine/Makefile.am:
+	R libmuine/egg/.cvsignore:
+	R libmuine/egg/Makefile.am:
+	R libmuine/egg/eggtrayicon.c:
+	R libmuine/egg/eggtrayicon.h:
+	* plugins/Makefile.am:
+	A plugins/TrayIcon.cs:
+	A plugins/TrayIcon.xml:
+	A plugins/egg-sharp.cs:
+	A plugins/muine-tray-paused.png:
+	A plugins/muine-tray-playing.png:
+	* po/POTFILES.in:
+	* po/POTFILES.skip:
+	* src/Global.cs:
+	* src/Makefile.am:
+	R src/NotificationAreaIcon.cs:
+	* src/StockIcons.cs:
+
+	Moved tray icon to a plugin, which is not installed by default.
+
+	* src/StringUtils.cs:
+
+	Remove CleanStringList. Tags are now cleaned on import.
+
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+
+	Corrected docs.
+
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/ImportDialog.cs:
 	* src/OpenDialog.cs:
 

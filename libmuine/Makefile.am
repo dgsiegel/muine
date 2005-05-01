@@ -3,7 +3,7 @@ id3_vfs_dir = id3-vfs
 id3_vfs_lib = id3-vfs/libid3-vfs.la
 endif
 
-SUBDIRS = $(id3_vfs_dir) egg
+SUBDIRS = $(id3_vfs_dir)
 
 INCLUDES =							\
 	-I$(top_srcdir)						\
@@ -53,4 +53,4 @@ libmuine_la_SOURCES =			\
 	mm-keys.c			\
 	mm-keys.h
 	
-libmuine_la_LIBADD = $(id3_vfs_lib) egg/libegg.la $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS) $(FAAD_LIBS)
+libmuine_la_LIBADD = $(id3_vfs_lib) $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS) $(FAAD_LIBS)

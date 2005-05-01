@@ -9,8 +9,6 @@
         <separator />
       </placeholder>
       <separator />
-      <menuitem action="ToggleVisible" />
-      <separator />
       <menuitem action="Quit" />
     </menu>
     <menu action="SongMenu">

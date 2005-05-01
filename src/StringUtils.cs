@@ -54,23 +54,6 @@ namespace Muine
 			return String.Format ("{0}:{1}", m, s.ToString ("d2"));
 		}
 
-		// Methods :: Public :: CleanStringList
-		public static string [] CleanStringList (string [] orig_strings)
-		{
-			ArrayList strings = new ArrayList ();
-
-			foreach (string s in orig_strings) {
-				string s2 = s.Trim ();
-
-				if (s2 == String.Empty)
-					continue;
-
-				strings.Add (s2);
-			}
-
-			return (string []) strings.ToArray (typeof (string));
-		}
-
 		// Methods :: Public :: JoinHumanReadable
 		//	TODO: Make I18N (don't hardcode English commas)
 		public static string JoinHumanReadable (string [] strings)
@@ -78,11 +61,8 @@ namespace Muine
 			return JoinHumanReadable (strings, -1);
 		}
 
-		public static string JoinHumanReadable (string [] orig_strings, int max)
+		public static string JoinHumanReadable (string [] strings, int max)
 		{
-		
-			string [] strings = CleanStringList (orig_strings);
-		
 			if (strings.Length == 0)
 				return string_unknown;
 			

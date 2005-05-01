@@ -274,9 +274,9 @@ action_group.Add (action_entries);
 
 player.UIManager.InsertActionGroup (action_group, -1);
 
-player.UIManager.AddUI (UIManager.NewMergeId (), 
+player.UIManager.AddUi (player.UIManager.NewMergeId (), 
 	"/MenuBar/FileMenu/ExtraFileActions", "PoofMenuItem",
-	"Poof", UIManagerItemType.MenuItem, false);
+	"Poof", UIManagerItemType.Menuitem, false);
 	    </code>
 	  </example>
         </remarks>

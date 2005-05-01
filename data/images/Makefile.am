@@ -3,8 +3,6 @@ noinst_DATA =					\
 	muine-playing.png			\
 	muine-paused.png			\
 	muine-nothing.png			\
-	muine-tray-playing.png			\
-	muine-tray-paused.png			\
 	muine-default-cover.png			\
 	muine-cover-downloading.png		\
 	muine-volume-zero.png			\

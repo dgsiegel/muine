@@ -4,6 +4,7 @@
 - Added workarounds for the various limitations of the GStreamer backend,
   the GStreamer backend is now the default [Jorn]
 - The "Add Song", "Add Album" and "Skip To" windows are now dialogs [Jorn]
+- Pluginified tray icon. Not installed by default [Jorn]
 - New AllSongs property on the IPlayer interface [Mark McLauchlan]
 - New PackWidget method on the IPlayer interface [Jorn]
 - UI responsiveness improvements [Jorn]
