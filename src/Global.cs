@@ -241,12 +241,9 @@ namespace Muine
 		/// <summary>
 		///	Exit the program.
 		/// </summary>
-		/// <remarks>
-		///	This just calls <see cref="Gtk.Application.Quit" />.
-		/// </remarks>
 		public static void Exit ()
 		{
-			Application.Quit ();
+                        Environment.Exit (0);
 		}
 
 		// Methods :: Private
@@ -286,16 +283,12 @@ namespace Muine
 				}
 				
 				// Must be a music file
-				//	TODO: Run a filetype check
 				
-				// If it's the first song, start playing it
-				if (arg == args [0]) {
+				// If it's the first song, start playing it.
+				if (arg == args [0])
 					dbus_object.PlayFile (finfo.FullName);
-					continue;
-				}
-				
-				// Queue the song
-				dbus_object.QueueFile (finfo.FullName);
+                                else // Else, queue.
+				        dbus_object.QueueFile (finfo.FullName);
 			}
 
 			return opened_file;

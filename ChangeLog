@@ -1,5 +1,14 @@
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* src/Global.cs:
+
+	Use Environment.Exit instead of Application.Quit for now. Fixes
+	some odd problems .. 
+
+	Also some very minor cleanup.
+
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* libmuine/player-gst.c: (error_cb):
 
 	Correct arguments for "error" callback.
