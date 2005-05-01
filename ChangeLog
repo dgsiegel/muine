@@ -1,5 +1,11 @@
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
+	* libmuine/player-gst.c: (error_cb):
+
+	Correct arguments for "error" callback.
+
+2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
+
 	* src/Metadata.cs:
 
 	Strip leading and trailing spaces from tags.

@@ -35,10 +35,11 @@ static void player_init       (Player          *player);
 static void player_finalize   (GObject         *object);
 static void eos_cb            (GstElement      *sink,
 		               Player          *player);
-static void error_cb          (GObject         *object,
-			       GstObject       *origin,
-			       char            *error,
-			       Player          *player);
+static void error_cb          (GstElement      *element,
+	                       GstElement      *source,
+	                       GError          *error,
+                               char            *debug,
+	                       Player          *player);
 static void state_change_cb   (GstElement      *play,
 			       GstElementState  old_state,
 		               GstElementState  new_state,
@@ -275,10 +276,11 @@ error_idle_cb (PlayerError *data)
 }
 
 static void
-error_cb (GObject   *object,
-	  GstObject *origin,
-	  char      *error,
-	  Player    *player)
+error_cb (GstElement *element,
+	  GstElement *source,
+	  GError     *error,
+          char       *debug,
+	  Player     *player)
 {
 	PlayerError *data = g_new0 (PlayerError, 1);
 
@@ -288,7 +290,7 @@ error_cb (GObject   *object,
 	player_stop (player);
 
 	data->player = player;
-	data->error = g_strdup (error);
+	data->error = g_strdup (error->message);
 
 	g_idle_add ((GSourceFunc) error_idle_cb, data);
 }
