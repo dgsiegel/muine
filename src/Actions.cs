@@ -49,10 +49,10 @@ namespace Muine
 			Catalog.GetString ("_Import Folder...");
 
 		private static readonly string string_open =
-			Catalog.GetString ("_Open Playlist...");
+			Catalog.GetString ("_Open...");
 
 		private static readonly string string_save =
-			Catalog.GetString ("_Save Playlist As...");
+			Catalog.GetString ("_Save As...");
 
 		private static readonly string string_toggle_visible_hide =
 			Catalog.GetString ("Hide _Window");

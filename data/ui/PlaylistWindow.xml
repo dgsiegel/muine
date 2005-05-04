@@ -3,8 +3,8 @@
     <menu action="FileMenu">
       <menuitem action="Import" />
       <separator />
-      <menuitem action="Open" />
-      <menuitem action="Save" />
+      <menuitem action="PlaySong" />
+      <menuitem action="PlayAlbum" />
       <placeholder name="ExtraFileActions">
         <separator />
       </placeholder>
@@ -22,8 +22,8 @@
       <menuitem action="SkipForward" />
     </menu>
     <menu action="PlaylistMenu">
-      <menuitem action="PlaySong" />
-      <menuitem action="PlayAlbum" />
+      <menuitem action="Open" />
+      <menuitem action="Save" />
       <separator />
       <menuitem action="Remove" />
       <menuitem action="RemovePlayed" />

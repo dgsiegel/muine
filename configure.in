@@ -2,7 +2,7 @@ AC_INIT(src/Global.cs)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(muine, 0.8.3)
+AM_INIT_AUTOMAKE(muine, 0.8.3.99)
 
 AM_MAINTAINER_MODE
 
