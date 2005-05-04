@@ -7,7 +7,6 @@
 - Pluginified tray icon. Not installed by default [Jorn]
 - New AllSongs property on the IPlayer interface [Mark McLauchlan]
 - New PackWidget method on the IPlayer interface [Jorn]
-- UI responsiveness improvements [Jorn]
 - Various code cleanups [Tamara Roberson, Jorn]
 - Various small fixes [Peter Johanson, Jeroen Zwartepoorte, Jorn]
 

@@ -8,7 +8,7 @@ TRAY_ICON_CSFILES =			\
 	$(srcdir)/egg-sharp.cs
 
 TRAY_ICON_EXTRA_CSFILES =		\
-	$(top_srcdir)/src/Defines.cs	\
+	$(top_builddir)/src/Defines.cs	\
 	$(top_srcdir)/src/StringUtils.cs
 
 TRAY_ICON_EXTRA_ASSEMBLIES =		\

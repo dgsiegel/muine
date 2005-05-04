@@ -1,3 +1,10 @@
+2005-05-04  Jorn Baayen  <jbaayen@gnome.org>
+
+	* configure.in:
+	* plugins/Makefile.am:
+
+	Release 0.8.3.
+
 2005-05-01  Jorn Baayen  <jbaayen@gnome.org>
 
 	* DBusLib/.cvsignore:
