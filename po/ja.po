@@ -444,7 +444,7 @@ msgstr "不明なアルバム"
 #: ../src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "{0} - Muine 音楽プレイヤ"
+msgstr "{0} - Muine 音楽プレイヤー"
 
 #: ../src/PlaylistWindow.cs:97
 msgid "Switch music playback on or off"
