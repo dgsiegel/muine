@@ -1,15 +1,15 @@
 # muine ja.po.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the "muine" package.
-# Takeshi AIHANA <aihana@gnome.gr.jp>, 2004.
+# Takeshi AIHANA <aihana@gnome.gr.jp>, 2004, 2005.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-06 13:32+0900\n"
-"PO-Revision-Date: 2004-06-06 13:28+0900\n"
+"POT-Creation-Date: 2005-05-05 22:58+0900\n"
+"PO-Revision-Date: 2005-05-05 22:55+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,268 +17,135 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/glade/AddWindow.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: data/glade/AddWindow.glade.h:2
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
 msgid "_Play"
 msgstr "演奏(_P)"
 
-#: data/glade/AddWindow.glade.h:3
+#: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
 msgstr "キューに入れる(_Q)"
 
-#: data/glade/AddWindow.glade.h:4
+#: ../data/glade/AddWindow.glade.h:3
 msgid "_Search:"
 msgstr "検索(_S)"
 
-#: data/glade/ErrorDialog.glade.h:1
+#: ../data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "エラー"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">曲が見つかりませんでした</span>"
+#: ../data/glade/OverwriteDialog.glade.h:1
+msgid "Overwrite File?"
+msgstr "ファイルを上書きしますか？"
 
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr ""
-"Muine は演奏コレクションを見つけることができませんでした。何をすればよろしい"
-"ですか？"
+#: ../data/glade/OverwriteDialog.glade.h:2
+msgid "_Overwrite"
+msgstr "上書き(_O)"
 
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine はあなたの演奏コレクションを保存するためにホーム・フォルダの中に曲と曲/"
-"演奏一覧のフォルダを生成します。このオプションを有効にすることを強くお奨めし"
-"ます。常に他のフォルダを手動でインポートすることができます。"
+#: ../data/glade/PlaylistWindow.glade.h:1
+msgid "Play"
+msgstr "演奏"
 
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "曲が見つかりません"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"曲ファイルを手動でインポートして下さい。これは上級者向けのオプションなので、"
-"一般ユーザにはお奨めできません。"
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection"
-msgstr "空の音楽コレクションの作成する(_C)"
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "何もせずに、音楽ファイルを管理する(_N)"
-
-#: data/glade/PlaylistWindow.glade.h:1
-msgid "P_roperties"
-msgstr "プロパティ(_R)"
-
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "アルバムの演奏"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
+#: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "曲の演奏"
 
-#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
-msgid "Play _Album..."
-msgstr "アルバムの演奏(_A)..."
-
-#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
-msgid "Play _Song..."
-msgstr "曲の演奏(_S)..."
-
-#: data/glade/PlaylistWindow.glade.h:6
-msgid "R_epeat"
-msgstr "リピート"
-
-#: data/glade/PlaylistWindow.glade.h:7
-msgid "Remove _Played Songs"
-msgstr "演奏した曲の削除(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:8
-msgid "Skip _Backwards"
-msgstr "前の曲へスキップ(_B)"
-
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Skip _Forward"
-msgstr "次の曲へスキップ(_F)"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "TMP"
-msgstr "TMP"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Clear"
-msgstr "クリア(_C)"
-
-#: data/glade/PlaylistWindow.glade.h:12
-msgid "_Hide Window"
-msgstr "ウィンドウを隠す(_H)"
-
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Import Folder..."
-msgstr "フォルダのインポート(_I)"
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Next"
-msgstr "次の曲へ(_N)"
-
-#: data/glade/PlaylistWindow.glade.h:15
-msgid "_Open Playlist..."
-msgstr "演奏一覧を開く(_O)"
-
-#: data/glade/PlaylistWindow.glade.h:16
-msgid "_Playlist"
-msgstr "演奏一覧(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:17
-msgid "_Previous"
-msgstr "前の曲へ(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:18
-msgid "_Remove Song"
-msgstr "曲の削除(_R)"
-
-#: data/glade/PlaylistWindow.glade.h:19
-msgid "_Save Playlist As..."
-msgstr "演奏一覧を別名で保存(_S)..."
-
-#: data/glade/PlaylistWindow.glade.h:20
-msgid "_Skip to..."
-msgstr "スキップする(_S)"
-
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Song"
-msgstr "曲(_S)"
-
-#: data/glade/ProgressWindow.glade.h:1
-msgid "Loading:"
-msgstr "読み込み中:"
-
-#: data/glade/SkipToWindow.glade.h:1
+#: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "スキップする先"
 
-#: data/glade/YesNoDialog.glade.h:1
-msgid "Question"
-msgstr "質問"
-
-#: data/muine.desktop.in.h:1
+#: ../data/muine.desktop.in.h:1
 msgid "Listen to your music"
-msgstr "お好みの音楽を聴きます"
+msgstr "お気に入りの音楽を聴きます"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:679
+#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "Muine 音楽プレイヤ"
+msgstr "Muine 楽曲プレイヤー"
 
-#: data/muine.schemas.in.h:1
+#: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
 msgstr "\"アルバムの追加\" ウィンドウの高さ"
 
-#: data/muine.schemas.in.h:2
+#: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
 msgstr "\"アルバムの追加\" ウィンドウの幅"
 
-#: data/muine.schemas.in.h:3
+#: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
 msgstr "\"曲の追加\" ウィンドウの高さ"
 
-#: data/muine.schemas.in.h:4
+#: ../data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
 msgstr "\"曲の追加\" ウィンドウの幅"
 
-#: data/muine.schemas.in.h:5
+#: ../data/muine.schemas.in.h:5
 msgid "Amazon site to use for album images"
 msgstr "アルバムのジャケット画像を利用する Amazon サイト"
 
-#: data/muine.schemas.in.h:6
+#: ../data/muine.schemas.in.h:6
 msgid "Default import folder"
 msgstr "デフォルトのインポート・フォルダ"
 
-#: data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:7
 msgid "Default playlist folder"
 msgstr "デフォルトの演奏一覧フォルダ"
 
-#: data/muine.schemas.in.h:8
-msgid "First start"
-msgstr "初回起動かどうか"
-
-#: data/muine.schemas.in.h:9
+#: ../data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
 msgstr "監視するフォルダ"
 
-#: data/muine.schemas.in.h:10
+#: ../data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
 msgstr "\"アルバムの追加\" ウィンドウの高さです。"
 
-#: data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add song\" window."
 msgstr "\"曲の追加\" ウィンドウの高さです。"
 
-#: data/muine.schemas.in.h:12
-msgid "Height of the information window."
-msgstr "情報ウィンドウの高さです。"
-
-#: data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
 msgstr "演奏一覧ウィンドウの高さです。"
 
-#: data/muine.schemas.in.h:14
-msgid "Information window height"
-msgstr "情報ウィンドウの高さ"
-
-#: data/muine.schemas.in.h:15
-msgid "Information window width"
-msgstr "情報ウィンドウの幅"
-
-#: data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "\"フォルダのインポート\" ダイアログで最後に使用したフォルダです。"
 
-#: data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "演奏一覧のファイル選択で最後に使用したフォルダです。"
 
-#: data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:14
 msgid "Playlist window height"
 msgstr "演奏一覧ウィンドウの高さ"
 
-#: data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window width"
 msgstr "演奏一覧ウィンドウの幅"
 
-#: data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:16
 msgid "Repeat mode"
 msgstr "リピート・モード"
 
-#: data/muine.schemas.in.h:21
+#: ../data/muine.schemas.in.h:17
 msgid "Volume level"
 msgstr "音量レベル"
 
-#: data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "音量のレベルです: 0=最低、100=最高"
 
-#: data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:19
 msgid "Watched folders"
 msgstr "監視フォルダ"
 
-#: data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "演奏一覧モードを繰り返すかどうかです。"
 
-#: data/muine.schemas.in.h:25
+#: ../data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -286,44 +153,28 @@ msgstr ""
 "アルバムのジャケットに使用する画像を取得する Amazon サイトの場所です; \"us"
 "\"、\"uk\"、\"de\" または \"jp\""
 
-#: data/muine.schemas.in.h:26
+#: ../data/muine.schemas.in.h:22
 msgid "Width of the \"Add album\" window."
 msgstr "\"アルバムの追加\" ウィンドウの幅です。"
 
-#: data/muine.schemas.in.h:27
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add song\" window."
 msgstr "\"曲の追加\" ウィンドウの幅です。"
 
-#: data/muine.schemas.in.h:28
-msgid "Width of the information window."
-msgstr "情報ウィンドウの幅です。"
-
-#: data/muine.schemas.in.h:29
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
 msgstr "演奏一覧ウィンドウの幅です。"
 
-#: data/muine.schemas.in.h:30
-msgid "false if Muine has been started before."
-msgstr "Muine が以前起動されていたら FALSE です。"
+#: ../libmuine/player-gst.c:164
+msgid "Failed to create a GStreamer play object"
+msgstr "GStreamer 演奏オブジェクトの生成に失敗しました"
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
-msgstr "GstPlay オブジェクトの生成に失敗しました"
-
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr "必要となる gnomevfssrc GStreamer 要素の生成に失敗しました"
-
-#: libmuine/player-gst.c:173
+#: ../libmuine/player-gst.c:171
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "デフォルトの GStreamer オーディオ出力 Sink をレンダリングできませんでした。"
 
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
-msgstr "GstPlay パイプラインにボリューム要素が見つかりませんでした"
-
-#: libmuine/player-xine.c:283
+#: ../libmuine/player-xine.c:290
 #, c-format
 msgid ""
 "Couldn't load the '%s' audio driver\n"
@@ -332,300 +183,390 @@ msgstr ""
 "オーディオ・ドライバ '%s' を読み込めませんでした\n"
 "ドライバが動作中でないことを確認して下さい。"
 
-#: libmuine/player-xine.c:378 libmuine/player-xine.c:383
+#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "\"%s\" に対して利用可能なプラグインがありません"
 
-#: libmuine/player-xine.c:388
+#: ../libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
 msgstr "\"%s\" の演奏に失敗しました"
 
-#: libmuine/player-xine.c:392
+#: ../libmuine/player-xine.c:398
 msgid "Internal error"
 msgstr "Muine 内部のエラー"
 
-#: libmuine/player-xine.c:401
+#: ../libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
 msgstr "\"%s\" を演奏できませんでした"
 
-#: src/About.cs:38
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
-
-#: src/About.cs:39
-msgid "Lee Willis <lee@leewillis.co.uk>"
-msgstr "Lee Willis <lee@leewillis.co.uk>"
-
-#: src/About.cs:40
-msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
-msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
-
-#: src/About.cs:42
-msgid "Album covers are provided by amazon.com."
-msgstr "アルバムのジャケットは amazon.com の提供です。"
-
-#: src/About.cs:52
+#: ../src/About.cs:31
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <aihana@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
 
-#: src/About.cs:57
+#: ../src/About.cs:34
 msgid "Muine"
 msgstr "Muine"
 
-#: src/About.cs:58
-msgid "Copyright © 2003, 2004 Jorn Baayen"
-msgstr "Copyright © 2003, 2004 Jorn Baayen"
+#: ../src/About.cs:37
+msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
 
-#: src/About.cs:59
+#: ../src/About.cs:40
 msgid "A music player"
-msgstr "音楽プレイヤ"
+msgstr "音楽プレイヤー"
 
-#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:647
+#: ../src/About.cs:44
+msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
+
+#: ../src/About.cs:45
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
+
+#: ../src/About.cs:46
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+
+#: ../src/About.cs:47
+msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
+
+#: ../src/About.cs:49
+msgid "Album covers are provided by amazon.com."
+msgstr "アルバムのジャケットは amazon.com の提供です。"
+
+#: ../src/Actions.cs:36
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: ../src/Actions.cs:39
+msgid "_Song"
+msgstr "楽曲(_S)"
+
+#: ../src/Actions.cs:42
+msgid "_Playlist"
+msgstr "演奏一覧(_P)"
+
+#: ../src/Actions.cs:45
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: ../src/Actions.cs:49
+msgid "_Import Folder..."
+msgstr "フォルダのインポート(_I)"
+
+#: ../src/Actions.cs:52
+msgid "_Open..."
+msgstr "開く(_O)..."
+
+#: ../src/Actions.cs:55
+msgid "_Save As..."
+msgstr "別名で保存(_S)..."
+
+#: ../src/Actions.cs:58
+msgid "Hide _Window"
+msgstr "ウィンドウを隠す(_W)"
+
+#: ../src/Actions.cs:61
+msgid "Show _Window"
+msgstr "ウィンドウの表示(_W)"
+
+#: ../src/Actions.cs:68
+msgid "_Previous"
+msgstr "前の曲へ(_P)"
+
+#: ../src/Actions.cs:71
+msgid "_Next"
+msgstr "次の曲へ(_N)"
+
+#: ../src/Actions.cs:74
+msgid "_Skip to..."
+msgstr "スキップする(_S)"
+
+#: ../src/Actions.cs:77
+msgid "Skip _Backwards"
+msgstr "前の曲へスキップ(_B)"
+
+#: ../src/Actions.cs:80
+msgid "Skip _Forward"
+msgstr "次の曲へスキップ(_F)"
+
+#: ../src/Actions.cs:84
+msgid "Play _Song..."
+msgstr "曲の演奏(_S)..."
+
+#: ../src/Actions.cs:87
+msgid "Play _Album..."
+msgstr "アルバムの演奏(_A)..."
+
+#: ../src/Actions.cs:90
+msgid "_Remove Song"
+msgstr "曲の削除(_R)"
+
+#: ../src/Actions.cs:93
+msgid "Remove _Played Songs"
+msgstr "演奏した曲の削除(_P)"
+
+#: ../src/Actions.cs:96
+msgid "_Clear"
+msgstr "クリア(_C)"
+
+#: ../src/Actions.cs:99
+msgid "R_epeat"
+msgstr "リピート"
+
+#: ../src/Actions.cs:102
+msgid "Shu_ffle"
+msgstr "シャッフル(_F)"
+
+#: ../src/Actions.cs:106
+msgid "_About"
+msgstr "情報(_A)"
+
+#: ../src/AddAlbumWindow.cs:44 ../src/PlaylistWindow.cs:89
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "演奏は {0}"
 
-#. Space-separated list of prefixes that will be taken off the front
-#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. * if "the" is included in this list. Also include the English "the"
-#. * if English is generally spoken in your country.
-#: src/Album.cs:83
+#: ../src/Album.cs:44
 msgid "the dj"
 msgstr "the dj"
 
-#: src/Metadata.cs:167
+#: ../src/FileUtils.cs:44
+#, csharp-format
+msgid ""
+"Failed to initialize the configuration folder: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"設定フォルダの初期化に失敗しました: {0}\n"
+"\n"
+"終了します..."
+
+#: ../src/FileUtils.cs:47
+#, csharp-format
+msgid ""
+"Failed to initialize the temporary files folder: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"作業用フォルダの初期化に失敗しました: {0}\n"
+"\n"
+"終了します..."
+
+#: ../src/Global.cs:37
+#, csharp-format
+msgid "Failed to export D-Bus object: {0}"
+msgstr "D-Bus オブジェクトのエキスポートに失敗しました: {0}"
+
+#: ../src/Global.cs:40
+#, csharp-format
+msgid "Failed to load the cover database: {0}"
+msgstr "ジャケットのデータベースを読み込めませんでした: {0}"
+
+#: ../src/Global.cs:43
+#, csharp-format
+msgid "Failed to load the song database: {0}"
+msgstr "楽曲データベースの読み込みに失敗しました: {0}"
+
+#: ../src/Global.cs:46
+msgid "Error initializing Muine."
+msgstr "Muine を初期化する際にエラー"
+
+#: ../src/ImportDialog.cs:37
+msgid "Import Folder"
+msgstr "フォルダのインポート"
+
+#: ../src/ImportDialog.cs:40
+msgid "_Import"
+msgstr "インポート(_I)"
+
+#: ../src/Metadata.cs:34
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "メタデータ {0} の読み込みに失敗しました"
 
-#: src/Muine.cs:79
+#: ../src/OpenDialog.cs:37
+msgid "Open Playlist"
+msgstr "演奏一覧を開く"
+
+#: ../src/OpenDialog.cs:40
+msgid "Playlist files"
+msgstr "演奏一覧のファイル"
+
+#: ../src/OverwriteDialog.cs:34
 #, csharp-format
+msgid "Overwrite \"{0}\"?"
+msgstr "\"{0}\" を上書きしますか？"
+
+#: ../src/OverwriteDialog.cs:37
 msgid ""
-"Failed to load the cover database: {0}\n"
-"\n"
-"Exiting..."
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
 msgstr ""
-"ジャケットのデータベース {0} の読み込みに失敗しました\n"
-"\n"
-"終了します..."
+"既に同じ名前のファイルが存在してます。ファイルを上書きすると、以前の内容が失"
+"われます。"
 
-#: src/Muine.cs:88
-#, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"曲のデータベース {0} の読み込みに失敗しました\n"
-"\n"
-"終了します..."
+#: ../src/Player.cs:39
+msgid "Audio backend error:"
+msgstr "オーディオ・バックエンドのエラー:"
 
-#: src/NotificationAreaIcon.cs:53
-msgid "Muine music player"
-msgstr "Muine 音楽プレイヤ"
+#: ../src/PlaylistWindow.cs:71
+msgid "Playlist.m3u"
+msgstr "Playlist.m3u"
 
-#: src/NotificationAreaIcon.cs:86
-msgid "_Previous Song"
-msgstr "前の曲(_P)"
+#: ../src/PlaylistWindow.cs:74
+msgid "<b>Playlist</b>"
+msgstr "<b>演奏一覧</b>"
 
-#: src/NotificationAreaIcon.cs:89
-msgid "_Next Song"
-msgstr "次の曲(_N)"
+#: ../src/PlaylistWindow.cs:77
+msgid "<b>Playlist</b> (Repeating)"
+msgstr "<b>演奏一覧</b> (リピート)"
 
-#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:310
-msgid "Show _Window"
-msgstr "ウィンドウの表示(_W)"
+#: ../src/PlaylistWindow.cs:80
+msgid "<b>Playlist</b> (Less than one minute remaining)"
+msgstr "<b>演奏一覧</b>·(残り 1 分以下)"
 
-#: src/Player.cs:53
-#, csharp-format
-msgid ""
-"Error opening {0}:\n"
-"{1}"
-msgstr ""
-"{0} を開く際にエラー:\n"
-"{1}"
-
-#: src/Player.cs:233
-#, csharp-format
-msgid ""
-"Audio backend error:\n"
-"{0}"
-msgstr ""
-"オーディオ・バックエンドのエラー:\n"
-"{0}"
-
-#: src/PlaylistWindow.cs:308
-msgid "Hide _Window"
-msgstr "ウィンドウを隠す(_W)"
-
-#: src/PlaylistWindow.cs:329
-msgid "Play the previous song"
-msgstr "前の曲を演奏します"
-
-#: src/PlaylistWindow.cs:331
-msgid "Play the next song"
-msgstr "次の曲を演奏します"
-
-#: src/PlaylistWindow.cs:333
-msgid "Add an album to the playlist"
-msgstr "アルバムを演奏一覧へ追加します"
-
-#: src/PlaylistWindow.cs:335
-msgid "Add a song to the playlist"
-msgstr "曲を演奏一覧へ追加します"
-
-#: src/PlaylistWindow.cs:343
-msgid "Change the volume level"
-msgstr "音量レベルを変更します"
-
-#: src/PlaylistWindow.cs:426 src/PlaylistWindow.cs:544
-#: src/PlaylistWindow.cs:568 src/PlaylistWindow.cs:582
-msgid "Playlist"
-msgstr "演奏一覧"
-
-#: src/PlaylistWindow.cs:462
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"オーディオ・バックエンドの初期化に失敗しました:\n"
-"{0}\n"
-"\n"
-"終了します..."
-
-#: src/PlaylistWindow.cs:561
-#, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] "演奏一覧 (リピート {0} 時間)"
-msgstr[1] "演奏一覧 (リピート {0} 時間)"
-
-#: src/PlaylistWindow.cs:564
-#, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] "演奏一覧 (リピート {0} 分)"
-msgstr[1] "演奏一覧 (リピート {0} 分)"
-
-#: src/PlaylistWindow.cs:566
-msgid "Playlist (Repeating)"
-msgstr "演奏一覧 (リピート)"
-
-#: src/PlaylistWindow.cs:575
-#, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] "演奏一覧 (残り {0} 時間)"
-msgstr[1] "演奏一覧 (残り {0} 時間)"
-
-#: src/PlaylistWindow.cs:578
-#, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] "演奏一覧 (残り {0} 分)"
-msgstr[1] "演奏一覧 (残り {0} 分)"
-
-#: src/PlaylistWindow.cs:580
-msgid "Playlist (Less than one minute remaining)"
-msgstr "演奏一覧·(残り 1 分以下)"
-
-#: src/PlaylistWindow.cs:643
+#: ../src/PlaylistWindow.cs:83
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "\"{0}\" より"
 
-#: src/PlaylistWindow.cs:645
+#: ../src/PlaylistWindow.cs:86
 msgid "Album unknown"
 msgstr "不明なアルバム"
 
-#: src/PlaylistWindow.cs:650
-msgid "Drop an image here to use it as album cover"
-msgstr "ここに画像をドロップするとアルバムのジャケットとして利用します"
-
-#: src/PlaylistWindow.cs:661
+#: ../src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} - Muine 音楽プレイヤ"
 
-#: src/PlaylistWindow.cs:699
-msgid "Pause music playback"
-msgstr "曲の演奏を一時停止します"
+#: ../src/PlaylistWindow.cs:97
+msgid "Switch music playback on or off"
+msgstr "楽曲の演奏を開始/終了します"
 
-#: src/PlaylistWindow.cs:703 src/PlaylistWindow.cs:706
-msgid "P_ause"
-msgstr "一時停止(_A)"
+#: ../src/PlaylistWindow.cs:100
+msgid "Play the previous song"
+msgstr "前の曲を演奏します"
 
-#: src/PlaylistWindow.cs:712
-msgid "Resume music playback"
-msgstr "曲の演奏を再開します"
+#: ../src/PlaylistWindow.cs:103
+msgid "Play the next song"
+msgstr "次の曲を演奏します"
 
-#: src/PlaylistWindow.cs:716 src/PlaylistWindow.cs:719
-#: src/PlaylistWindow.cs:727 src/PlaylistWindow.cs:730
-msgid "Pl_ay"
-msgstr "演奏(_A)"
+#: ../src/PlaylistWindow.cs:106
+msgid "Add an album to the playlist"
+msgstr "アルバムを演奏一覧へ追加します"
 
-#: src/PlaylistWindow.cs:723
-msgid "Start music playback"
-msgstr "曲の演奏を開始します"
+#: ../src/PlaylistWindow.cs:109
+msgid "Add a song to the playlist"
+msgstr "曲を演奏一覧へ追加します"
 
-#: src/PlaylistWindow.cs:785
+#: ../src/PlaylistWindow.cs:112
+msgid "Change the volume level"
+msgstr "音量レベルを変更します"
+
+#: ../src/PlaylistWindow.cs:115
+msgid "Drop an image here to use it as album cover"
+msgstr "ここに画像をドロップするとアルバムのジャケットとして利用します"
+
+#: ../src/PlaylistWindow.cs:119
 #, csharp-format
-msgid "Failed to open {0} for reading"
-msgstr "{0} を読み込みモードで開けませんでした"
+msgid ""
+"Failed to initialize the audio backend:\n"
+"{0}"
+msgstr ""
+"オーディオ・バックエンドの初期化に失敗しました:\n"
+"{0}"
 
-#: src/PlaylistWindow.cs:854
+#: ../src/PlaylistWindow.cs:122
 #, csharp-format
-msgid "Failed to open {0} for writing"
-msgstr "{0} を書き込みモードで開けませんでした"
+msgid "Failed to read {0}:"
+msgstr "{0} の読み込みに失敗しました:"
 
-#: src/PlaylistWindow.cs:1254
-msgid "Import Folder"
-msgstr "フォルダのインポート"
+#: ../src/PlaylistWindow.cs:125
+#, csharp-format
+msgid "Failed to close {0}:"
+msgstr "{0} のクローズに失敗しました:"
 
-#: src/PlaylistWindow.cs:1300
-msgid "Open Playlist"
-msgstr "演奏一覧を開く"
+#: ../src/PlaylistWindow.cs:128
+#, csharp-format
+msgid "Failed to write {0}:"
+msgstr "{0} の書き込みに失敗しました:"
 
-#: src/PlaylistWindow.cs:1321
+#: ../src/PlaylistWindow.cs:1004
+#, csharp-format
+msgid "<b>Playlist</b> (Repeating {0} hour)"
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] "<b>演奏一覧</b> (リピート {0} 時間)"
+msgstr[1] "<b>演奏一覧</b> (リピート {0} 時間)"
+
+#: ../src/PlaylistWindow.cs:1009
+#, csharp-format
+msgid "<b>Playlist</b> (Repeating {0} minute)"
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] "<b>演奏一覧</b> (リピート {0} 分)"
+msgstr[1] "<b>演奏一覧</b> (リピート {0} 分)"
+
+#: ../src/PlaylistWindow.cs:1014
+#, csharp-format
+msgid "<b>Playlist</b> ({0} hour remaining)"
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] "<b>演奏一覧</b> (残り {0} 時間)"
+msgstr[1] "<b>演奏一覧</b> (残り {0} 時間)"
+
+#: ../src/PlaylistWindow.cs:1019
+#, csharp-format
+msgid "<b>Playlist</b> ({0} minute remaining)"
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] "<b>演奏一覧</b> (残り {0} 分)"
+msgstr[1] "<b>演奏一覧</b> (残り {0} 分)"
+
+#: ../src/PluginManager.cs:34
+#, csharp-format
+msgid "Error loading plug-in {0}: {1}"
+msgstr "プラグイン {0} を読み込む際にエラー: {1}"
+
+#: ../src/ProgressWindow.cs:33
+#, csharp-format
+msgid "Importing \"{0}\""
+msgstr "\"{0}\" のインポート中"
+
+#: ../src/ProgressWindow.cs:36
+msgid "Loading:"
+msgstr "読み込み中:"
+
+#: ../src/SaveDialog.cs:37
 msgid "Save Playlist"
 msgstr "演奏一覧の保存"
 
-#: src/PlaylistWindow.cs:1336
-#, csharp-format
-msgid ""
-"File {0} will be overwritten.\n"
-"If you choose yes, the contents will be lost.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
-"ファイル {0} は上書きされます。\n"
-"[はい] を選択すると、以前の内容が失われます。\n"
-"\n"
-"続行してもよろしいですか？"
+#: ../src/SaveDialog.cs:40
+msgid "Untitled"
+msgstr "Untitled"
 
-#: src/ProgressWindow.cs:43
-#, csharp-format
-msgid "Importing {0}..."
-msgstr "{0} のインポート中..."
-
-#: src/StringUtils.cs:45
+#: ../src/StringUtils.cs:31
 msgid "Unknown"
 msgstr "不明"
 
-#: src/StringUtils.cs:49
+#: ../src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
 msgstr "{0} とその他"
 
-#: src/StringUtils.cs:51
+#: ../src/StringUtils.cs:37
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} と {1}"
+
+#: ../plugins/TrayIcon.cs:35
+msgid "Muine music player"
+msgstr "Muine 音楽プレイヤー"
+
+#: ../plugins/TrayIcon.cs:40
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
