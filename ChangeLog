@@ -1,3 +1,9 @@
+2005-05-07  Ryan Lortie  <desrt@desrt.ca>
+
+	* plugins/TrayIcon.cs:
+
+	Ignore all but single click events in tray icon.
+
 2005-05-04  Jorn Baayen  <jbaayen@gnome.org>
 
 	* configure.in:

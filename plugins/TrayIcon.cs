@@ -210,6 +210,9 @@ namespace Muine
 		// Handlers :: OnButtonPressEvent
 		private void OnButtonPressEvent (object o, ButtonPressEventArgs args)
 		{
+			if (args.Event.Type != EventType.ButtonPress)
+				return;
+
 			switch (args.Event.Button)
 			{
 			case 1:
