@@ -5,29 +5,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: muine VERSION\n"
+"Project-Id-Version: muine 0.8.3.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-23 13:51+0200\n"
-"PO-Revision-Date: 2004-03-15 13:14+0900\n"
+"POT-Creation-Date: 2005-06-04 23:48+0900\n"
+"PO-Revision-Date: 2005-06-05 00:06+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist at mizi.com>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/glade/AddWindow.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: data/glade/AddWindow.glade.h:2
+#: data/glade/AddWindow.glade.h:1 src/Actions.cs:65
 msgid "_Play"
 msgstr "연주(_P)"
 
-#: data/glade/AddWindow.glade.h:3
+#: data/glade/AddWindow.glade.h:2
 msgid "_Queue"
 msgstr "예약(_Q)"
 
-#: data/glade/AddWindow.glade.h:4
+#: data/glade/AddWindow.glade.h:3
 msgid "_Search:"
 msgstr "찾기(_S):"
 
@@ -35,551 +32,533 @@ msgstr "찾기(_S):"
 msgid "Error"
 msgstr "오류"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">음악을 찾을 수 없습니다</span>"
+#: data/glade/OverwriteDialog.glade.h:1
+msgid "Overwrite File?"
+msgstr "파일을 덮어쓰겠습니까?"
 
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr "Muin이 음악 모음을 찾을 수 없습니다. 어떻게 하는 것이 좋겠습니까?"
-
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muine이 음악파일을 저장하기 위해 음악과 음악/연주목록 폴더를 만들 것입니다. "
-"이 옵션은 켜두는 것이 좋습니다. 나중에 수동으로 다른 폴더를 가져올 수도 있습"
-"니다."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "음악 없음"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"음악들을 수동으로 가져올 수 있습니다. 고급 사용자만 이 옵션을 쓰십시오. 일반 "
-"사용자에게는 추천하지 않습니다."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
-msgstr "빈 음악 모음 만들기(_C)"
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "내 음악을 스스로 관리하기(_N)"
+#: data/glade/OverwriteDialog.glade.h:2
+msgid "_Overwrite"
+msgstr "덮어쓰기(_O)"
 
 #: data/glade/PlaylistWindow.glade.h:1
-msgid "P_roperties"
-msgstr ""
+msgid "Play"
+msgstr "연주"
 
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
+#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "앨범 연주"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
+#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "노래 연주"
-
-#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
-msgid "Play _Album..."
-msgstr "앨범 연주(_A)..."
-
-#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
-msgid "Play _Song..."
-msgstr "노래 연주(_S)..."
-
-#: data/glade/PlaylistWindow.glade.h:6
-msgid "R_epeat"
-msgstr "반복(_E)"
-
-#: data/glade/PlaylistWindow.glade.h:7
-msgid "Remove _Played Songs"
-msgstr "연주한 노래 지우기(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:8
-msgid "Skip _Backwards"
-msgstr "이전 곡으로 건너뛰기(_B)"
-
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Skip _Forward"
-msgstr "다음 곡으로 건너뛰기(_F)"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "TMP"
-msgstr "TMP"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Clear"
-msgstr ""
-
-#: data/glade/PlaylistWindow.glade.h:12
-msgid "_Hide Window"
-msgstr "창 숨기기(_H)"
-
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Import Folder..."
-msgstr "폴더 가져오기(_I)..."
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Next"
-msgstr "다음(_N)"
-
-#: data/glade/PlaylistWindow.glade.h:15
-msgid "_Open Playlist..."
-msgstr "연주 목록 열기(_O)..."
-
-#: data/glade/PlaylistWindow.glade.h:16
-msgid "_Playlist"
-msgstr "연주 목록(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:17
-msgid "_Previous"
-msgstr "이전(_P)"
-
-#: data/glade/PlaylistWindow.glade.h:18
-msgid "_Remove Song"
-msgstr "노래 지우기(_R)"
-
-#: data/glade/PlaylistWindow.glade.h:19
-msgid "_Save Playlist As..."
-msgstr "다른 이름으로 연주목록 저장(_S)..."
-
-#: data/glade/PlaylistWindow.glade.h:20
-msgid "_Skip to..."
-msgstr "건너 뛰기(_S)..."
-
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Song"
-msgstr "노래(_S)"
-
-#: data/glade/ProgressWindow.glade.h:1
-msgid "Loading:"
-msgstr "읽는 중:"
 
 #: data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "건너 뛰기"
 
-#: data/glade/YesNoDialog.glade.h:1
-msgid "Question"
-msgstr "질문"
-
 #: data/muine.desktop.in.h:1
 msgid "Listen to your music"
 msgstr "음악을 듣습니다"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:616
+#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
 msgstr "Muine 음악 연주기"
 
 #: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr "앨범 창 높이 더하기."
+msgid "\"Add album\" window height"
+msgstr "\"앨범 더하기\" 창 높이"
 
 #: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr "앨범 창 너비 더하기."
+msgid "\"Add album\" window width"
+msgstr "\"앨범 더하기\" 창 너비"
 
 #: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr "노래 창 높이 더하기."
+msgid "\"Add song\" window height"
+msgstr "\"노래 더하기\" 창 높이"
 
 #: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr "노래 창 너비 더하기."
+msgid "\"Add song\" window width"
+msgstr "\"노래 더하기\" 창 너비"
 
 #: data/muine.schemas.in.h:5
-msgid "Default import folder."
-msgstr "기본 가져오기 폴더."
+msgid "Amazon site to use for album images"
+msgstr "앨범 표지 그림은 Amazon에서 가져옵니다."
 
 #: data/muine.schemas.in.h:6
-msgid "Default playlist folder."
-msgstr "기본 연주목록 폴더."
+msgid "Default import folder"
+msgstr "기본 가져오기 폴더."
 
 #: data/muine.schemas.in.h:7
-msgid "First start."
-msgstr "처음 시작."
+msgid "Default playlist folder"
+msgstr "기본 연주목록 폴더."
 
 #: data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
 msgstr "바뀌는 것을 감시하는 폴더들."
 
 #: data/muine.schemas.in.h:9
-msgid "Information window height."
-msgstr "정보 창 높이."
+msgid "Height of the \"Add album\" window."
+msgstr "\"앨범 더하기\" 창 높이."
 
 #: data/muine.schemas.in.h:10
-msgid "Information window width."
-msgstr "정보 창 너비."
+msgid "Height of the \"Add song\" window."
+msgstr "\"노래 더하기\" 창 높이."
 
 #: data/muine.schemas.in.h:11
+msgid "Height of the playlist window."
+msgstr "연주목록 창 높이."
+
+#: data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "\"폴더 가져오기\"창에 마지막으로 쓰인 폴더."
 
-#: data/muine.schemas.in.h:12
+#: data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
 msgstr "연주목록 파일 선택기에서 마지막으로 쓰인 폴더."
 
-#: data/muine.schemas.in.h:13
-msgid "Playlist window height."
-msgstr "연주 목록 창 높이."
-
 #: data/muine.schemas.in.h:14
-msgid "Playlist window width."
-msgstr "연주 목록 창 너비."
+msgid "Playlist window height"
+msgstr "연주 목록 창 높이"
 
 #: data/muine.schemas.in.h:15
-msgid "Repeat mode."
-msgstr "반복 모드."
+msgid "Playlist window width"
+msgstr "연주 목록 창 너비"
 
 #: data/muine.schemas.in.h:16
-msgid "Volume level."
-msgstr "소리 크기."
+msgid "Repeat mode"
+msgstr "반복 모드"
 
 #: data/muine.schemas.in.h:17
+msgid "Volume level"
+msgstr "소리 크기"
+
+#: data/muine.schemas.in.h:18
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "소리 크기. 0 = 가장 낮음, 100 = 가장 높음."
 
-#: data/muine.schemas.in.h:18
-msgid "Watched folders."
-msgstr "일치하는 폴더."
-
 #: data/muine.schemas.in.h:19
+msgid "Watched folders"
+msgstr "일치하는 폴더"
+
+#: data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "연주 목록 반복기능을 켜기/끄기."
 
-#: data/muine.schemas.in.h:20
-msgid "false if Muine has been started before."
-msgstr "이전에 Muine이 한번이라도 실행되었다면 false."
-
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
+#: data/muine.schemas.in.h:21
+msgid ""
+"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
+"or \"jp\"."
 msgstr ""
+"앨범 표지 그림을 가져올 아마존 사이트를 선택하십시오, \"us\", \"uk\", \"de"
+"\", \"jp\" 중에서 선택하면 됩니다."
+
+#: data/muine.schemas.in.h:22
+msgid "Width of the \"Add album\" window."
+msgstr "\"앨범 더하기\" 창 너비."
+
+#: data/muine.schemas.in.h:23
+msgid "Width of the \"Add song\" window."
+msgstr "\"노래 더하기\" 창 너비."
+
+#: data/muine.schemas.in.h:24
+msgid "Width of the playlist window."
+msgstr "연주 목록 창 너비."
 
 #: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr ""
+msgid "Failed to create a GStreamer play object"
+msgstr "GStreamer play 개채 만들기 실패"
 
-#: libmuine/player-gst.c:173
+#: libmuine/player-gst.c:171
 msgid "Could not render default GStreamer audio output sink"
-msgstr ""
+msgstr "기본 GStreamer 오디오 출력 sink 만들기 실패"
 
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
+#: libmuine/player-xine.c:290
+#, c-format
+msgid ""
+"Couldn't load the '%s' audio driver\n"
+"Check that the device is not busy."
 msgstr ""
+"'%s' 오디오 드라이버를 읽을 수 없습니다\n"
+"장치가 쓰고 있는 중인지 확인하십시오."
 
-#: libmuine/player-xine.c:289
-msgid "Failed to set up an audio driver"
-msgstr ""
-
-#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#: libmuine/player-xine.c:384 libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr ""
+msgstr "\"%s\"에 대한 플러그인이 없습니다"
 
-#: libmuine/player-xine.c:368
+#: libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "\"%s\" 연주 실패"
 
-#: libmuine/player-xine.c:372
+#: libmuine/player-xine.c:398
 msgid "Internal error"
-msgstr ""
+msgstr "내부 오류"
 
-#: libmuine/player-xine.c:381
+#: libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
+msgstr "\"%s\"을(를) 연주할 수 없습니다"
 
-#: src/About.cs:38
-msgid "Jorn Baayen (jbaayen@gnome.org)"
-msgstr ""
+#: src/About.cs:31
+msgid "translator-credits"
+msgstr "차영호 <ganadist at mizi dot com>, 2004, 2005"
 
-#: src/About.cs:39
-msgid "Lee Willis (lee@leewillis.co.uk)"
-msgstr ""
+#: src/About.cs:34
+msgid "Muine"
+msgstr "Muine"
 
-#. please use Vietnamese spelling, if the relevant characters occur in
-#. * your language.
-#: src/About.cs:42
-msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-msgstr ""
+#: src/About.cs:37
+msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+
+#: src/About.cs:40
+msgid "A music player"
+msgstr "음악 연주기"
 
 #: src/About.cs:44
+msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
+
+#: src/About.cs:45
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
+
+#: src/About.cs:46
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+
+#: src/About.cs:47
+msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
+
+#: src/About.cs:49
 msgid "Album covers are provided by amazon.com."
-msgstr ""
+msgstr "앨범 표지는 amazon.com에서 제공합니다."
 
-#: src/About.cs:54
-msgid "translator-credits"
-msgstr ""
+#: src/Actions.cs:36
+msgid "_File"
+msgstr "파일(_F)"
 
-#: src/About.cs:59
-msgid "Muine"
-msgstr ""
-
-#. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:61
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr ""
-
-#: src/About.cs:62
-#, fuzzy
-msgid "A music player"
-msgstr "Muine 음악 연주기"
-
-#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:586
-#, csharp-format
-msgid "Performed by {0}"
-msgstr ""
-
-#. Space-separated list of prefixes that will be taken off the front
-#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. * if "the" is included in this list. Also include the English "the"
-#. * if English is generally spoken in your country.
-#: src/Album.cs:93
-msgid "the dj"
-msgstr ""
-
-#: src/Metadata.cs:165
-#, csharp-format
-msgid "Failed to load metadata: {0}"
-msgstr ""
-
-#: src/Muine.cs:79
-#, csharp-format
-msgid ""
-"Failed to load the cover database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-
-#: src/Muine.cs:88
-#, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-
-#: src/NotificationAreaIcon.cs:53
-#, fuzzy
-msgid "Muine music player"
-msgstr "Muine 음악 연주기"
-
-#: src/NotificationAreaIcon.cs:86
-#, fuzzy
-msgid "_Previous Song"
-msgstr "이전(_P)"
-
-#: src/NotificationAreaIcon.cs:89
-#, fuzzy
-msgid "_Next Song"
+#: src/Actions.cs:39
+msgid "_Song"
 msgstr "노래(_S)"
 
-#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:249
-msgid "Show _Window"
-msgstr ""
-
-#: src/Player.cs:51
-#, csharp-format
-msgid ""
-"Error opening {0}:\n"
-"{1}"
-msgstr ""
-
-#: src/Player.cs:232
-#, csharp-format
-msgid ""
-"Audio backend error:\n"
-"{0}"
-msgstr ""
-
-#: src/PlaylistWindow.cs:247
-#, fuzzy
-msgid "Hide _Window"
-msgstr "창 숨기기(_H)"
-
-#: src/PlaylistWindow.cs:268
-msgid "Play the previous song"
-msgstr ""
-
-#: src/PlaylistWindow.cs:270
-msgid "Play the next song"
-msgstr ""
-
-#: src/PlaylistWindow.cs:272
-#, fuzzy
-msgid "Add an album to the playlist"
-msgstr "앨범 창 높이 더하기."
-
-#: src/PlaylistWindow.cs:274
-#, fuzzy
-msgid "Add a song to the playlist"
-msgstr "노래 창 높이 더하기."
-
-#: src/PlaylistWindow.cs:282
-#, fuzzy
-msgid "Change the volume level"
-msgstr "소리 크기."
-
-#: src/PlaylistWindow.cs:365 src/PlaylistWindow.cs:483
-#: src/PlaylistWindow.cs:507 src/PlaylistWindow.cs:521
-#, fuzzy
-msgid "Playlist"
+#: src/Actions.cs:42
+msgid "_Playlist"
 msgstr "연주 목록(_P)"
 
-#: src/PlaylistWindow.cs:401
+#: src/Actions.cs:45
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: src/Actions.cs:49
+msgid "_Import Folder..."
+msgstr "폴더 가져오기(_I)..."
+
+#: src/Actions.cs:52
+msgid "_Open..."
+msgstr "열기(_O)..."
+
+#: src/Actions.cs:55
+msgid "_Save As..."
+msgstr "다른 이름으로 저장(_S)..."
+
+#: src/Actions.cs:58
+msgid "Hide _Window"
+msgstr "창 숨기기(_W)"
+
+#: src/Actions.cs:61
+msgid "Show _Window"
+msgstr "창 보이기(_W)"
+
+#: src/Actions.cs:68
+msgid "_Previous"
+msgstr "이전(_P)"
+
+#: src/Actions.cs:71
+msgid "_Next"
+msgstr "다음(_N)"
+
+#: src/Actions.cs:74
+msgid "_Skip to..."
+msgstr "건너뛰기(_S)..."
+
+#: src/Actions.cs:77
+msgid "Skip _Backwards"
+msgstr "뒤로 건너뛰기(_B)"
+
+#: src/Actions.cs:80
+msgid "Skip _Forward"
+msgstr "앞으로 건너뛰기(_F)"
+
+#: src/Actions.cs:84
+msgid "Play _Song..."
+msgstr "노래 연주(_S)..."
+
+#: src/Actions.cs:87
+msgid "Play _Album..."
+msgstr "앨범 연주(_A)..."
+
+#: src/Actions.cs:90
+msgid "_Remove Song"
+msgstr "노래 지우기(_R)"
+
+#: src/Actions.cs:93
+msgid "Remove _Played Songs"
+msgstr "연주된 노래 지우기(_P)"
+
+#: src/Actions.cs:96
+msgid "_Clear"
+msgstr "비우기(_C)"
+
+#: src/Actions.cs:99
+msgid "R_epeat"
+msgstr "반복 모드(_E)"
+
+#: src/Actions.cs:102
+msgid "Shu_ffle"
+msgstr "무작위 모드(_F)"
+
+#: src/Actions.cs:106
+msgid "_About"
+msgstr "정보(_A)"
+
+#: src/AddAlbumWindow.cs:44 src/PlaylistWindow.cs:89
+#, csharp-format
+msgid "Performed by {0}"
+msgstr "연주자 {0}"
+
+#: src/Album.cs:44
+msgid "the dj"
+msgstr "the dj"
+
+#: src/FileUtils.cs:44
+#, csharp-format
+msgid ""
+"Failed to initialize the configuration folder: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"설정폴더를 초기화 하는데 실패하였습니다: {0}\n"
+"\n"
+"프로그램을 나갑니다..."
+
+#: src/FileUtils.cs:47
+#, csharp-format
+msgid ""
+"Failed to initialize the temporary files folder: {0}\n"
+"\n"
+"Exiting..."
+msgstr ""
+"임시 파일 폴더를 초기화 하는데 실패하였습니다: {0}\n"
+"\n"
+"프로그램을 나갑니다..."
+
+#: src/Global.cs:37
+#, csharp-format
+msgid "Failed to export D-Bus object: {0}"
+msgstr "D-Bus 개체를 내보내는데 실패하였습니다: {0}"
+
+#: src/Global.cs:40
+#, csharp-format
+msgid "Failed to load the cover database: {0}"
+msgstr "표지 데이터베이스를 읽는데 실패하였습니다: {0}"
+
+#: src/Global.cs:43
+#, csharp-format
+msgid "Failed to load the song database: {0}"
+msgstr "노래 데이터베이스를 읽는데 실패하였습니다: {0}"
+
+#: src/Global.cs:46
+msgid "Error initializing Muine."
+msgstr "Muine을 초기화 하는 중 오류."
+
+#: src/ImportDialog.cs:37
+msgid "Import Folder"
+msgstr "폴더 가져오기"
+
+#: src/ImportDialog.cs:40
+msgid "_Import"
+msgstr "가져오기(_I)"
+
+#: src/Metadata.cs:34
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr "메타데이터를 읽는데 실패하였습니다: {0}"
+
+#: src/OpenDialog.cs:37
+msgid "Open Playlist"
+msgstr "연주 목록 열기"
+
+#: src/OpenDialog.cs:40
+msgid "Playlist files"
+msgstr "연주 목록 파일"
+
+#: src/OverwriteDialog.cs:34
+#, csharp-format
+msgid "Overwrite \"{0}\"?"
+msgstr "{0}을(를) 덮어쓰겠습니까?"
+
+#: src/OverwriteDialog.cs:37
+msgid ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
+msgstr ""
+"이 이름을 가진 파일이 이미 있습니다. 이 파일을 덮어쓰면 내용이 덮어씌어집니다."
+
+#: src/Player.cs:39
+msgid "Audio backend error:"
+msgstr "오디오 백엔드 오류:"
+
+#: src/PlaylistWindow.cs:71
+msgid "Playlist.m3u"
+msgstr "연주목록.m3u"
+
+#: src/PlaylistWindow.cs:74
+msgid "<b>Playlist</b>"
+msgstr "<b>연주목록</b>"
+
+#: src/PlaylistWindow.cs:77
+msgid "<b>Playlist</b> (Repeating)"
+msgstr "<b>연주목록</b> (반복)"
+
+#: src/PlaylistWindow.cs:80
+msgid "<b>Playlist</b> (Less than one minute remaining)"
+msgstr "<b>연주목록</b> (1분 미만 남음)"
+
+#: src/PlaylistWindow.cs:83
+#, csharp-format
+msgid "From \"{0}\""
+msgstr "앨범: \"{0}\""
+
+#: src/PlaylistWindow.cs:86
+msgid "Album unknown"
+msgstr "알 수 없는 앨범"
+
+#: src/PlaylistWindow.cs:93
+#, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Music 음악 연주기"
+
+#: src/PlaylistWindow.cs:97
+msgid "Switch music playback on or off"
+msgstr "음악을 연주하거나 멈춥니다"
+
+#: src/PlaylistWindow.cs:100
+msgid "Play the previous song"
+msgstr "이전 노래를 연주합니다"
+
+#: src/PlaylistWindow.cs:103
+msgid "Play the next song"
+msgstr "다음 노래 연주합니다"
+
+#: src/PlaylistWindow.cs:106
+msgid "Add an album to the playlist"
+msgstr "연주목록에 앨범을 더합니다"
+
+#: src/PlaylistWindow.cs:109
+msgid "Add a song to the playlist"
+msgstr "연주목록에 노래를 더합니다"
+
+#: src/PlaylistWindow.cs:112
+msgid "Change the volume level"
+msgstr "소리 크기를 바꿉니다"
+
+#: src/PlaylistWindow.cs:115
+msgid "Drop an image here to use it as album cover"
+msgstr "앨범 표지로 쓸 그림을 놓아두십시오"
+
+#: src/PlaylistWindow.cs:119
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
-"{0}\n"
-"\n"
-"Exiting..."
+"{0}"
 msgstr ""
+"오디오 백엔드를 초기화하는데 실패하였습니다:\n"
+"{0}"
 
-#: src/PlaylistWindow.cs:500
+#: src/PlaylistWindow.cs:122
 #, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to read {0}:"
+msgstr "{0}을(를) 읽기 실패:"
 
-#: src/PlaylistWindow.cs:503
+#: src/PlaylistWindow.cs:125
 #, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to close {0}:"
+msgstr "{0}을(를) 닫기 실패:"
 
-#: src/PlaylistWindow.cs:505
-msgid "Playlist (Repeating)"
-msgstr ""
-
-#: src/PlaylistWindow.cs:514
+#: src/PlaylistWindow.cs:128
 #, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to write {0}:"
+msgstr "{0}을(를) 쓰기 실패:"
 
-#: src/PlaylistWindow.cs:517
+#: src/PlaylistWindow.cs:1004
 #, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>Playlist</b> (Repeating {0} hour)"
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] "<b>연주목록</b> (반복 {0}시간)"
 
-#: src/PlaylistWindow.cs:519
-msgid "Playlist (Less than one minute remaining)"
-msgstr ""
-
-#: src/PlaylistWindow.cs:582
+#: src/PlaylistWindow.cs:1009
 #, csharp-format
-msgid "From \"{0}\""
-msgstr ""
+msgid "<b>Playlist</b> (Repeating {0} minute)"
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] "<b>연주목록</b> (반복 {0}분)"
 
-#: src/PlaylistWindow.cs:584
-msgid "Album unknown"
-msgstr ""
-
-#: src/PlaylistWindow.cs:589
-msgid "Drop an image here to use it as album cover"
-msgstr ""
-
-#: src/PlaylistWindow.cs:600
-#, fuzzy, csharp-format
-msgid "{0} - Muine Music Player"
-msgstr "Muine 음악 연주기"
-
-#: src/PlaylistWindow.cs:636
-msgid "Pause music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:640 src/PlaylistWindow.cs:643
-msgid "P_ause"
-msgstr ""
-
-#: src/PlaylistWindow.cs:649
-msgid "Resume music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:653 src/PlaylistWindow.cs:656
-#: src/PlaylistWindow.cs:664 src/PlaylistWindow.cs:667
-#, fuzzy
-msgid "Pl_ay"
-msgstr "연주(_P)"
-
-#: src/PlaylistWindow.cs:660
-msgid "Start music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:722
+#: src/PlaylistWindow.cs:1014
 #, csharp-format
-msgid "Failed to open {0} for reading"
-msgstr ""
+msgid "<b>Playlist</b> ({0} hour remaining)"
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] "<b>연주목록</b> ({0}시간 남음)"
 
-#: src/PlaylistWindow.cs:791
+#: src/PlaylistWindow.cs:1019
 #, csharp-format
-msgid "Failed to open {0} for writing"
-msgstr ""
+msgid "<b>Playlist</b> ({0} minute remaining)"
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] "<b>연주목록</b> ({0}분 남음)"
 
-#: src/PlaylistWindow.cs:1169
-#, fuzzy
-msgid "Import Folder"
-msgstr "폴더 가져오기(_I)..."
+#: src/PluginManager.cs:34
+#, csharp-format
+msgid "Error loading plug-in {0}: {1}"
+msgstr "플러그인 {0} 읽는 중 오류: {1}"
 
-#: src/PlaylistWindow.cs:1215
-#, fuzzy
-msgid "Open Playlist"
-msgstr "연주 목록 열기(_O)..."
+#: src/ProgressWindow.cs:33
+#, csharp-format
+msgid "Importing \"{0}\""
+msgstr "\"{0}\" 가져오는 중"
 
-#: src/PlaylistWindow.cs:1236
-#, fuzzy
+#: src/ProgressWindow.cs:36
+msgid "Loading:"
+msgstr "읽는 중:"
+
+#: src/SaveDialog.cs:37
 msgid "Save Playlist"
-msgstr "다른 이름으로 연주목록 저장(_S)..."
+msgstr "연주 목록 저장"
 
-#: src/PlaylistWindow.cs:1251
-#, csharp-format
-msgid ""
-"File {0} will be overwritten.\n"
-"If you choose yes, the contents will be lost.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
+#: src/SaveDialog.cs:40
+msgid "Untitled"
+msgstr "이름 없음"
 
-#: src/ProgressWindow.cs:43
-#, fuzzy, csharp-format
-msgid "Importing {0}..."
-msgstr "폴더 가져오기(_I)..."
-
-#: src/StringUtils.cs:47
+#: src/StringUtils.cs:31
 msgid "Unknown"
-msgstr ""
+msgstr "알 수 없음"
 
-#: src/StringUtils.cs:51
+#: src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
-msgstr ""
+msgstr "{0}와(과) 다른 사람들"
 
-#: src/StringUtils.cs:53
+#: src/StringUtils.cs:37
 #, csharp-format
 msgid "{0} and {1}"
-msgstr ""
+msgstr "{0}와(과) {1}"
 
-#~ msgid "_Clear Playlist"
-#~ msgstr "연주 목록 비우기(_C)"
+#: plugins/TrayIcon.cs:35
+msgid "Muine music player"
+msgstr "Muine 음악 연주기"
 
-#~ msgid "_Information"
-#~ msgstr "정보(_I)"
+#: plugins/TrayIcon.cs:40
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
 
-#~ msgid "Orientation"
-#~ msgstr "방향"
-
-#~ msgid "The orientation of the tray."
-#~ msgstr "트레이의 방향."
