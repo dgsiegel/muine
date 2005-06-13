@@ -388,25 +388,8 @@ namespace Muine
 			get { return busy_level; }
 		}
 
-		// Properties :: WindowVisible (set; get;) (IPlayer)
+		// Properties :: WindowVisible (get;) (IPlayer)
 		public bool WindowVisible {
-			set {
-				window_visible = value;
-
-				if (window_visible) {
-					if (!Visible && last_x >= 0 && last_y >= 0)
-						Move (last_x, last_y);
-
-					Present ();
-
-				} else {
-					GetPosition (out last_x, out last_y);
-					Visible = false;
-				}
-
-				UpdateWindowVisibilityUI ();
-			}
-
 			get { return window_visible; }
 		}
 
@@ -447,7 +430,7 @@ namespace Muine
 				SongChanged (true); // make sure the UI is up to date
 
 			RestoreState ();
-			WindowVisible = true;
+                        SetWindowVisible (true, 0);
 		}
 
 		// Methods :: Public :: Quit (IPlayer)
@@ -562,7 +545,7 @@ namespace Muine
 		}
 
 		// Methods :: Public :: PlaySong (IPlayer)
-		public void PlaySong ()
+		public void PlaySong (uint time)
 		{
 			if (add_song_window == null) {
 				add_song_window = new AddSongWindow ();
@@ -572,11 +555,11 @@ namespace Muine
 			}
 
 			AddChildWindowIfVisible (add_song_window);
-			add_song_window.Run ();
+			add_song_window.Run (time);
 		}
 
 		// Methods :: Public :: PlayAlbum (IPlayer)
-		public void PlayAlbum ()
+		public void PlayAlbum (uint time)
 		{
 			if (add_album_window == null) {
 				add_album_window = new AddAlbumWindow ();
@@ -586,8 +569,32 @@ namespace Muine
 			}
 
 			AddChildWindowIfVisible (add_album_window);
-			add_album_window.Run ();
+			add_album_window.Run (time);
 		}
+
+                // Methods :: Public :: SetWindowVisible (IPlayer)
+                public void SetWindowVisible (bool visible, uint time)
+                {
+			window_visible = visible;
+
+			if (window_visible) {
+                                bool was_visible = Visible;
+                                
+				if (!was_visible && last_x >= 0 && last_y >= 0)
+					Move (last_x, last_y);
+
+			        Show ();
+
+                                if (was_visible)
+                                        GdkWindow.Focus (time);
+
+			} else {
+				GetPosition (out last_x, out last_y);
+				Visible = false;
+			}
+                                
+			UpdateWindowVisibilityUI ();
+                }
 
 		// Methods :: Public :: AddChildWindowIfVisible
 		public void AddChildWindowIfVisible (Window window)
@@ -604,12 +611,6 @@ namespace Muine
 				skip_to_window = new SkipToWindow (this);
 
 			skip_to_window.Run ();
-		}
-
-		// Methods :: Public :: ToggleVisible
-		public void ToggleVisible ()
-		{
-			WindowVisible = !WindowVisible;
 		}
 
 		// Methods :: Public :: SkipBackwards		
@@ -1978,13 +1979,13 @@ namespace Muine
 		// Handlers :: OnAddSongButtonClicked
 		private void OnAddSongButtonClicked (object o, EventArgs args)
 		{
-			PlaySong ();
+			PlaySong (Gtk.Global.CurrentEventTime);
 		}
 		
 		// Handlers :: OnAddAlbumButtonClicked
 		private void OnAddAlbumButtonClicked (object o, EventArgs args)
 		{
-			PlayAlbum ();
+			PlayAlbum (Gtk.Global.CurrentEventTime);
 		}
 		
 		// Handlers :: OnPlaylistLabelDragDataGet

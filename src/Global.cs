@@ -126,7 +126,7 @@ namespace Muine
 				if (args.Length > 0)
 					ProcessCommandLine (args);
 				else
-					dbus_object.SetWindowVisible (true);
+					dbus_object.SetWindowVisible (true, 0);
 				
 				Gdk.Global.NotifyStartupComplete ();
 

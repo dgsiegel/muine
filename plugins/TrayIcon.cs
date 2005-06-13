@@ -228,7 +228,7 @@ namespace Muine
 				break;
 
 			case 2:
-				player.WindowVisible = !player.WindowVisible;
+				player.SetWindowVisible (!player.WindowVisible, args.Event.Time);
 
 				break;
 

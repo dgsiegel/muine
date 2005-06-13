@@ -53,8 +53,8 @@ namespace Muine.PluginLib
 		void Next ();
 		void Previous ();
 
-		void PlaySong ();
-		void PlayAlbum ();
+		void PlaySong (uint time);
+		void PlayAlbum (uint time);
 
 		ISong [] Playlist {
 			get;
@@ -77,8 +77,9 @@ namespace Muine.PluginLib
 
 		bool WindowVisible {
 			get;
-			set;
 		}
+
+                void SetWindowVisible (bool visible, uint time);
 	
 		Gtk.UIManager UIManager {
 			get;

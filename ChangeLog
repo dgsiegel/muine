@@ -1,3 +1,18 @@
+2005-06-13  Jorn Baayen  <jorn@openedhand.com>
+
+	* DBusLib/Player.cs:
+	* PluginLib/IPlayer.cs:
+	* plugins/TrayIcon.cs:
+	* src/Actions.cs:
+	* src/AddWindow.cs:
+	* src/Global.cs:
+	* src/PlaylistWindow.cs:
+
+	Provide timestamps to functions raising windows, and use
+	Gdk.Window.Focus instead of Gtk.Window.Present.
+
+	Fixes #303333.
+
 2005-05-07  Ryan Lortie  <desrt@desrt.ca>
 
 	* plugins/TrayIcon.cs:

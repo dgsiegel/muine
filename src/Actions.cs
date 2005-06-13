@@ -363,7 +363,8 @@ namespace Muine
 		/// </param>
 		private void OnToggleVisible (object o, EventArgs args)
 		{
-			Global.Playlist.ToggleVisible ();
+			Global.Playlist.SetWindowVisible (!Global.Playlist.WindowVisible,
+                                                          Gtk.Global.CurrentEventTime);
 		}
 
 		// Handlers :: OnQuit
@@ -489,7 +490,7 @@ namespace Muine
 		/// </param>
 		private void OnPlaySong (object o, EventArgs args)
 		{
-			Global.Playlist.PlaySong ();
+			Global.Playlist.PlaySong (Gtk.Global.CurrentEventTime);
 		}
 
 		// Handlers :: OnPlayAlbum
@@ -507,7 +508,7 @@ namespace Muine
 		/// </param>
 		private void OnPlayAlbum (object o, EventArgs args)
 		{
-			Global.Playlist.PlayAlbum ();
+			Global.Playlist.PlayAlbum (Gtk.Global.CurrentEventTime);
 		}
 
 		// Handlers :: OnRemove

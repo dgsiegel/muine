@@ -106,9 +106,9 @@ namespace Muine.DBusLib
 		}
 	
 		[Method]
-		public virtual void SetWindowVisible (bool visible)
+		public virtual void SetWindowVisible (bool visible, uint time)
 		{
-			player.WindowVisible = visible;
+			player.SetWindowVisible (visible, time);
 		}
 
 		[Method]
@@ -136,15 +136,15 @@ namespace Muine.DBusLib
 		}
 
 		[Method]
-		public virtual void PlayAlbum ()
+		public virtual void PlayAlbum (uint time)
 		{
-			player.PlayAlbum ();
+			player.PlayAlbum (time);
 		}
 
 		[Method]
-		public virtual void PlaySong ()
+		public virtual void PlaySong (uint time)
 		{
-			player.PlaySong ();
+			player.PlaySong (time);
 		}
 
 		[Method]

@@ -163,8 +163,10 @@ namespace Muine
 		/// <summary>
 		/// 	Show the window.
 		/// </summary>		
-		public void Run ()
+		public void Run (uint time)
 		{
+                        bool was_visible = Visible;
+                        
 			if (first_time || entry.Text.Length > 0) {
 				window.GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
 				window.GdkWindow.Display.Flush ();
@@ -183,7 +185,10 @@ namespace Muine
 
 			entry.GrabFocus ();
 
-			window.Present ();
+			window.Show ();
+
+                        if (was_visible)
+                                window.GdkWindow.Focus (time);
 		}
 			
 		// Methods :: Protected
