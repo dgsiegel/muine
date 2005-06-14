@@ -71,12 +71,12 @@ namespace Muine
 			set {
 				volume = value;
 
-				string id = "muine-volume-";
+				string id = "stock_volume-";
 				
-				if      (volume <= 000/3) id += "zero"  ;
-				else if (volume <= 100/3) id += "min"   ;
-				else if (volume <= 200/3) id += "medium";
-				else                      id += "max"   ;
+				if      (volume <= 000/3) id += "0"  ;
+				else if (volume <= 100/3) id += "min";
+				else if (volume <= 200/3) id += "med";
+				else                      id += "max";
 
 				icon.SetFromStock (id, IconSize.LargeToolbar);
 

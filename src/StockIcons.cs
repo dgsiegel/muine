@@ -36,11 +36,7 @@ namespace Muine
 			"muine-default-cover",
 			"muine-cover-downloading",
 			"muine-playing",
-			"muine-paused",
-			"muine-volume-zero",
-			"muine-volume-min",
-			"muine-volume-medium",
-			"muine-volume-max"
+			"muine-paused"
 		};
 
 		// Variables :: Themed Icons
@@ -50,9 +46,13 @@ namespace Muine
 			"stock_media-play",
 			"stock_media-prev",
 			"stock_media-rew",
+                        "stock_music-library",
+                        "stock_volume-0",
+                        "stock_volume-min",
+                        "stock_volume-med",
+                        "stock_volume-max",
 			"stock_shuffle",
 			"stock_timer",
-			"gnome-dev-cdrom-audio",
 			"gnome-mime-audio"
 		};
 

@@ -154,7 +154,7 @@ namespace Muine
 			new ActionEntry ("PlaySong", Stock.Add, string_play_song,
 				"S", null, null),
 
-			new ActionEntry ("PlayAlbum", "gnome-dev-cdrom-audio", string_play_album,
+			new ActionEntry ("PlayAlbum", "stock_music-library", string_play_album,
 				"A", null, null),
 
 			new ActionEntry ("Remove", Stock.Remove, string_remove,

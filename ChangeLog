@@ -1,3 +1,37 @@
+2005-06-14  Jorn Baayen  <jorn@openedhand.com>
+
+	* configure.in:
+
+	Depend on Gtk 2.6 and gnome-icon-theme 2.10.
+
+	* data/images/Makefile.am:
+	R data/images/muine-volume-max.png:
+	R data/images/muine-volume-medium.png:
+	R data/images/muine-volume-min.png:
+	R data/images/muine-volume-zero.png:
+	* src/VolumeButton.cs:
+	* src/StockIcons.cs:
+
+	Take volume icons from the icon theme instead.
+
+	* src/About.cs:
+
+	Remove unused variable.
+
+	* data/glade/PlaylistWindow.glade:
+	* data/glade/ProgressWindow.glade:
+	* libmuine/Makefile.am:
+	R libmuine/rb-ellipsizing-label.c:
+	R libmuine/rb-ellipsizing-label.h:
+	* src/Actions.cs:
+	R src/EllipsizingLabel.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+	* src/ProgressWindow.cs:
+
+	- Use stock GtkLabel widget with built-in ellipsis.
+	- Use ipod-style PlayPause button; should fix #304969.
+
 2005-06-13  Jorn Baayen  <jorn@openedhand.com>
 
 	* DBusLib/Player.cs:

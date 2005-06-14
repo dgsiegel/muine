@@ -38,11 +38,9 @@ namespace Muine
 		private static string title_format;
 				
 		// Widgets
-		[Glade.Widget] private Window    window;
-		[Glade.Widget] private Label     loading_label;
-		[Glade.Widget] private Container file_label_container;
-
-		private EllipsizingLabel file_label;
+		[Glade.Widget] private Window window;
+		[Glade.Widget] private Label  loading_label;
+		[Glade.Widget] private Label  file_label;
 
 		// Variables
 		private bool canceled = false;
@@ -57,11 +55,6 @@ namespace Muine
 			window.TransientFor = parent;
 
 			window.SetDefaultSize (300, -1);
-
-			file_label = new EllipsizingLabel ();
-			file_label.Xalign = 0.0f;
-			file_label.Visible = true;
-			file_label_container.Add (file_label);
 
 			loading_label.Markup = String.Format ("<b>{0}</b>",
 				StringUtils.EscapeForPango (string_loading));

@@ -3,12 +3,6 @@ Easy:
 
 o Use GnomeVFS
   Needs a new Mono release first
-o Use stock volume icons
-  Needs a new gnome-icon-theme release first
-
-o Use stock Gtk ellipsizing label, as soon as we want to depend
-  on Gtk 2.6. This also involves making the artist and title label
-  one label, for easier selection.
 
 o A song information dialog (Jorn is on this)
   See http://huizen.dds.nl/~jbaayen/infodialog-proposal.html
@@ -16,6 +10,8 @@ o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
 o Split out PlaylistWindow
+o Ditch ColoredCellRendererPixbuf when we use Gtk 2.8
+o Ditch CellRendererText once Gtk# supports Gtk 2.6 API
 
 Tough:
 ======

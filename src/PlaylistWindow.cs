@@ -158,16 +158,7 @@ namespace Muine
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
-		[Glade.Widget] private Container title_label_container  ;
-		[Glade.Widget] private Container artist_label_container ;
 		[Glade.Widget] private Container cover_image_container  ;
-
-		// Widgets :: Images
-		[Glade.Widget] private Image toggle_play_image;
-		[Glade.Widget] private Image previous_image   ;
-		[Glade.Widget] private Image next_image       ;
-		[Glade.Widget] private Image add_song_image   ;
-		[Glade.Widget] private Image add_album_image  ;
 
 		// Widgets :: Toolbar
 		[Glade.Widget] private ToggleButton toggle_play_button;
@@ -179,11 +170,10 @@ namespace Muine
 		private VolumeButton volume_button;
 
 		// Widgets :: Player
+		[Glade.Widget] private Label song_label;
 		[Glade.Widget] private Label time_label;
 
 		private CoverImage       cover_image ;
-		private EllipsizingLabel title_label ;
-		private EllipsizingLabel artist_label;
 
 		// Widgets :: Playlist
 		[Glade.Widget] private Label    playlist_label          ;
@@ -792,13 +782,6 @@ namespace Muine
 			add_song_button   .Clicked += new EventHandler (OnAddSongButtonClicked  );
 			add_album_button  .Clicked += new EventHandler (OnAddAlbumButtonClicked );
 
-			// Images
-			toggle_play_image.SetFromStock ("stock_media-play"     , IconSize.LargeToolbar);
-			previous_image   .SetFromStock ("stock_media-prev"     , IconSize.LargeToolbar);
-			next_image       .SetFromStock ("stock_media-next"     , IconSize.LargeToolbar);
-			add_song_image   .SetFromStock (Stock.Add              , IconSize.LargeToolbar);
-			add_album_image  .SetFromStock ("gnome-dev-cdrom-audio", IconSize.LargeToolbar);
-
 			// Volume
 			volume_button = new VolumeButton ();
 			volume_button_container.Add (volume_button);
@@ -871,20 +854,6 @@ namespace Muine
 			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
 			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
 			player.InvalidSong      += new Player.InvalidSongHandler      (OnInvalidSong     );
-
-			// Title
-			title_label = new EllipsizingLabel ();
-			title_label.Xalign = 0.0f;
-			title_label.Visible    = true;
-			title_label.Selectable = true;
-			title_label_container.Add (title_label);
-
-			// Artist
-			artist_label = new EllipsizingLabel ();
-			artist_label.Xalign = 0.0f;
-			artist_label.Visible    = true;
-			artist_label.Selectable = true;
-			artist_label_container.Add (artist_label);
 
 			// Cover Image
 			cover_image = new CoverImage ();
@@ -1111,11 +1080,10 @@ namespace Muine
 				
 				tooltips.SetTip (cover_image, tip, null);
 
-				title_label.Markup = String.Format (
-					"<span size=\"large\" weight=\"bold\">{0}</span>",
-					StringUtils.EscapeForPango (song.Title));
-
-				artist_label.Text = StringUtils.JoinHumanReadable (song.Artists);
+				song_label.Markup = String.Format (
+					"<span size=\"large\" weight=\"bold\">{0}</span>\n{1}",
+					StringUtils.EscapeForPango (song.Title),
+                                        StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 
 				if (player.Song != song || restart)
 					player.Song = song;
@@ -1127,9 +1095,7 @@ namespace Muine
 
 				tooltips.SetTip (cover_image, null, null);
 
-				title_label.Markup = "";
-
-				artist_label.Text = "";
+				song_label.Markup = "";
 				time_label  .Text = "";
 
 				this.Title = string_program;

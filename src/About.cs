@@ -58,7 +58,6 @@ namespace Muine
 	
 		// Variables
 		private static string translators;
-		private static About about = null;
 		
 		// Static Constructor
 		static About ()

@@ -46,8 +46,6 @@ libmuine_la_SOURCES =			\
 	pointer-list-model.h		\
 	rb-cell-renderer-pixbuf.c	\
 	rb-cell-renderer-pixbuf.h	\
-	rb-ellipsizing-label.c		\
-	rb-ellipsizing-label.h		\
 	db.c				\
 	db.h				\
 	mm-keys.c			\

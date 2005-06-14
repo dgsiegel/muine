@@ -4,11 +4,7 @@ noinst_DATA =					\
 	muine-paused.png			\
 	muine-nothing.png			\
 	muine-default-cover.png			\
-	muine-cover-downloading.png		\
-	muine-volume-zero.png			\
-	muine-volume-min.png			\
-	muine-volume-medium.png			\
-	muine-volume-max.png
+	muine-cover-downloading.png
 
 pixmapdir = $(datadir)/pixmaps
 pixmap_DATA = muine.png
