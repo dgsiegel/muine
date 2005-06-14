@@ -91,7 +91,7 @@ namespace Muine
 
 			// Check if we have any Directories to add
 			if (new_dinfos.Count > 0)
-			        Global.DB.AddFolders (new_dinfos);
+			        Global.DB.AddWatchedFolders (new_dinfos);
 
                         base.Destroy ();
 		}

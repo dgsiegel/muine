@@ -144,6 +144,111 @@
         <remarks>To be added</remarks>
       </Docs>
     </Member>
+    <Member MemberName="AddFolder">
+      <MemberSignature Language="C#" Value="public virtual void AddFolder (string folder);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="folder" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <summary>Recursively adds the contents of a folder to the database</summary>
+        <param name="folder">a <see cref="T:System.String" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveFolder">
+      <MemberSignature Language="C#" Value="public virtual void RemoveFolder (string folder);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="folder" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <summary>Recursively removes the contents of a folder from the database</summary>
+        <param name="folder">a <see cref="T:System.String" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AddSong">
+      <MemberSignature Language="C#" Value="public virtual void AddSong (string path);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>Muine.PluginLib.ISong</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <summary>Adds a file to the database</summary>
+        <param name="path">a <see cref="T:System.String" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SyncSong">
+      <MemberSignature Language="C#" Value="public virtual void SyncSong (string path);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <summary>Syncs the database with the metadata of a file</summary>
+        <param name="path">a <see cref="T:System.String" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SyncSong">
+      <MemberSignature Language="C#" Value="public virtual void SyncSong (ISong song);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="song" Type="Muine.PluginLib.ISong" />
+      </Parameters>
+      <Docs>
+        <summary>Syncs the database with the metadata of a file</summary>
+        <param name="path">a <see cref="T:Muine.PluginLib.ISong" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveSong">
+      <MemberSignature Language="C#" Value="public virtual void RemoveSong (string path);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="song" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <summary>Removes a song from the database</summary>
+        <param name="path">a <see cref="T:System.String" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveSong">
+      <MemberSignature Language="C#" Value="public virtual void RemoveSong (ISong song);" />
+      <MemberType>Method</MemberType>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="song" Type="Muine.PluginLib.ISong" />
+      </Parameters>
+      <Docs>
+        <summary>Removes a song from the database</summary>
+        <param name="path">a <see cref="Muine.PluginLib.ISong" /></param>
+        <remarks>To be added</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="PlayingSong">
       <MemberSignature Language="C#" Value="public virtual Muine.PluginLib.ISong PlayingSong { get; };" />
       <MemberType>Property</MemberType>

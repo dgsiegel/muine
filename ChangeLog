@@ -1,5 +1,31 @@
 2005-06-14  Jorn Baayen  <jorn@openedhand.com>
 
+	* configure.in:
+
+	Abort if mcs is not present.
+	
+	* PluginLib/IPlayer.cs:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+	* src/ImportDialog.cs:
+	* src/PlaylistWindow.cs:
+	* src/SongDatabase.cs:
+
+	Extend plugin API with support for adding, removing, and syncing files.
+	Based on the work of James Willcox <snorp@snorp.net>.
+
+	A plugins/Inotify.cs:
+	A plugins/InotifyPlugin.cs:
+	A plugins/InotifyPlugin.dll.config.in:
+	* plugins/Makefile.am:
+	A plugins/inotify-glue.c: (read_int), (inotify_glue_init),
+	(inotify_glue_watch), (inotify_glue_ignore),
+	(inotify_snarf_events):
+	A plugins/inotify.h:
+
+	Added inotify plugin by same James Willcox. Installed by default.
+
+2005-06-14  Jorn Baayen  <jorn@openedhand.com>
+
 	* src/PlaylistWindow.cs:
 
 	Emit SongChangedEvent before TickEvent when changing songs.

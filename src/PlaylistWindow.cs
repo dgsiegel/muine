@@ -143,6 +143,9 @@ namespace Muine
 		// Events :: SelectionChangedEvent (IPlayer)
 		public event GenericEventHandler SelectionChangedEvent;
 
+		// Events :: WatchedFoldersChangedEvent (IPlayer)
+		public event GenericEventHandler WatchedFoldersChangedEvent;
+
 		// Delegates
 		private delegate void PlaylistForeachFunc (Song song, bool playing, object user_data);
 
@@ -253,8 +256,9 @@ namespace Muine
 			SetupPlaylist ();
 
 			// Connect to song database signals
-			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnSongChanged);
-			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+			Global.DB.SongChanged           += new SongDatabase.SongChangedHandler (OnSongChanged);
+			Global.DB.SongRemoved           += new SongDatabase.SongRemovedHandler (OnSongRemoved);
+			Global.DB.WatchedFoldersChanged += new SongDatabase.WatchedFoldersChangedHandler (OnWatchedFoldersChanged);
 
 			// Make sure the interface is up to date
 			SelectionChanged ();
@@ -378,6 +382,12 @@ namespace Muine
 			get { return busy_level; }
 		}
 
+                // Properties :: WatchedFolders (set; get;) (IPlayer)
+ 		public string [] WatchedFolders {
+                        set { Global.DB.WatchedFolders = value; }
+ 			get { return Global.DB.WatchedFolders; }
+ 		}
+
 		// Properties :: WindowVisible (get;) (IPlayer)
 		public bool WindowVisible {
 			get { return window_visible; }
@@ -450,7 +460,7 @@ namespace Muine
 		// Methods :: Public :: PlayFile (IPlayer)
 		public void PlayFile (string file)
 		{
-			Song song = GetSingleSong (file);
+			Song song = GetSingleSong (file, false);
 
 			if (song == null)
 				return;
@@ -464,7 +474,7 @@ namespace Muine
 		// Methods :: Public :: QueueFile (IPlayer)
 		public void QueueFile (string file)
 		{
-			Song song = GetSingleSong (file);
+			Song song = GetSingleSong (file, false);
 
 			if (song == null)
 				return;
@@ -585,6 +595,58 @@ namespace Muine
                                 
 			UpdateWindowVisibilityUI ();
                 }
+
+		// Methods :: Public :: AddSong (IPlayer)
+		public ISong AddSong (string path)
+		{
+			return GetSingleSong (path, true);
+		}
+
+                // Methods :: Public :: SyncSong (IPlayer)
+		public void SyncSong (string path)
+		{
+			lock (Global.DB) {
+				Song song = (Song) Global.DB.Songs [path];
+
+				if (song != null)
+					Global.DB.SyncSong (song);
+			}
+		}
+
+		// Methods :: Public :: SyncSong (IPlayer)
+		public void SyncSong (ISong song)
+		{
+			Global.DB.SyncSong ((Song) song);
+		}
+
+		// Methods :: Public :: RemoveSong (IPlayer)
+		public void RemoveSong (string path)
+		{
+			lock (Global.DB) {
+				Song song = (Song) Global.DB.Songs [path];
+
+				if (song != null)
+					Global.DB.RemoveSong (song);
+			}
+		}
+
+		// Methods :: Public :: RemoveSong (IPlayer)
+		public void RemoveSong (ISong song)
+		{
+			Global.DB.RemoveSong ((Song) song);
+		}
+
+		// Methods :: Public :: AddFolder (IPlayer)
+		public void AddFolder (string folder)
+		{
+			Global.DB.AddFolder (folder);
+		}
+
+		// Methods :: Public :: RemoveFolder (IPlayer)
+		public void RemoveFolder (string folder)
+		{
+			Global.DB.RemoveFolder (folder);
+		}
 
 		// Methods :: Public :: AddChildWindowIfVisible
 		public void AddChildWindowIfVisible (Window window)
@@ -1274,7 +1336,7 @@ namespace Muine
 		}
 
 		// Methods :: Private :: GetSingleSong
-		private Song GetSingleSong (string file)
+		private Song GetSingleSong (string file, bool sync)
 		{
 			// Get Song
 			Song song = Global.DB.GetSong (file);
@@ -1282,6 +1344,8 @@ namespace Muine
 			// If we don't have it, try adding it
 			if (song == null)
 				song = AddSongToDB (file);
+                        else if (sync)
+                                Global.DB.SyncSong (song);
 
 			return song;
 		}
@@ -1620,6 +1684,13 @@ namespace Muine
 			SelectionChanged ();
 		}
 
+		// Handlers :: OnWatchedFoldersChanged
+		private void OnWatchedFoldersChanged ()
+		{
+			if (WatchedFoldersChangedEvent != null)
+				WatchedFoldersChangedEvent ();
+		}
+
 		// Handlers :: OnPlaylistPlayingChanged
 		private void OnPlaylistPlayingChanged (IntPtr playing)
 		{
@@ -1895,7 +1966,7 @@ namespace Muine
 						continue;
 					}
 
-					Song song = GetSingleSong (finfo.FullName);
+					Song song = GetSingleSong (finfo.FullName, false);
 						
 					if (song != null) {
 						DragAddSong (song, pos);
@@ -1910,7 +1981,7 @@ namespace Muine
 				}
 
 				if (new_dinfos.Count > 0) {
-					Global.DB.AddFolders (new_dinfos);
+					Global.DB.AddWatchedFolders (new_dinfos);
 					success = true;
 				}
 
@@ -2019,7 +2090,7 @@ namespace Muine
 			}
 
 			if (new_dinfos.Count > 0) {
-				Global.DB.AddFolders (new_dinfos);
+				Global.DB.AddWatchedFolders (new_dinfos);
 				success = true;
 			}
 

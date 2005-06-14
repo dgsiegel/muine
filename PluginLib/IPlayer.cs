@@ -96,6 +96,20 @@ namespace Muine.PluginLib
 			get;
 		}
 
+		string [] WatchedFolders {
+                        set;
+			get;
+		}
+
+		void AddFolder (string folder);
+		void RemoveFolder (string folder);
+
+		ISong AddSong (string path);
+                void SyncSong (string path);
+                void SyncSong (ISong song);
+		void RemoveSong (string path);
+		void RemoveSong (ISong song);
+
 		event SongChangedEventHandler SongChangedEvent;
 	
 		event StateChangedEventHandler StateChangedEvent;
@@ -105,6 +119,8 @@ namespace Muine.PluginLib
 		event GenericEventHandler PlaylistChangedEvent;
 
 		event GenericEventHandler SelectionChangedEvent;
+
+		event GenericEventHandler WatchedFoldersChangedEvent;
 	}
 
 	public delegate void SongChangedEventHandler (ISong song);

@@ -57,6 +57,10 @@ namespace Muine
 		public delegate void AlbumRemovedHandler (Album album);
 		public event         AlbumRemovedHandler  AlbumRemoved;
 
+		// Events :: WatchedFoldersChanged
+		public delegate void WatchedFoldersChangedHandler ();
+		public event         WatchedFoldersChangedHandler  WatchedFoldersChanged;
+
 		// Objects
 		private Database db;
 
@@ -79,8 +83,9 @@ namespace Muine
 			get { return albums; }
 		}
 
-		// Properties :: WatchedFolders (get;)
+		// Properties :: WatchedFolders (set; get;)
 		public string [] WatchedFolders {
+			set { Config.Set (GConfKeyWatchedFolders, value); }
 			get { return watched_folders; }
 		}
 
@@ -117,6 +122,20 @@ namespace Muine
 				HandleSignalRequest (rq);
 
 			} catch (InvalidOperationException e) {
+                                return;
+			}
+		}
+
+                // Methods :: Public :: SyncSong
+		public void SyncSong (Song song)
+		{
+			SignalRequest rq;
+			try {
+				Metadata metadata = new Metadata (song.Filename);
+				rq = StartSyncSong (song, metadata);
+				HandleSignalRequest (rq);
+
+			} catch (InvalidOperationException e) {
 				return;
 			}
 		}
@@ -141,8 +160,8 @@ namespace Muine
 			}
 		}
 
-		// Methods :: Public :: AddFolders
-		public void AddFolders (ArrayList folders)
+		// Methods :: Public :: AddWatchedFolders
+		public void AddWatchedFolders (ArrayList folders)
 		{
 			foreach (DirectoryInfo dinfo in folders)
 				AddToWatchedFolders (dinfo.FullName);
@@ -150,6 +169,30 @@ namespace Muine
 			Config.Set (GConfKeyWatchedFolders, watched_folders);
 
 			new AddFoldersThread (folders);
+		}
+
+                // Methods :: Public :: AddFolder
+                public void AddFolder (string folder)
+                {
+                        ArrayList list = new ArrayList ();
+                        list.Add (folder);
+                        new AddFoldersThread (list);
+                }
+
+                // Methods :: Public :: RemoveFolder
+		public void RemoveFolder (string folder)
+		{
+			lock (this) {
+				ArrayList songsToRemove = new ArrayList ();
+		
+				foreach (string path in songs.Keys) {
+					if (path.StartsWith (folder + "/"))
+						songsToRemove.Add (songs [path]);
+				}
+				
+				foreach (Song song in songsToRemove)
+					RemoveSong (song);
+			}
 		}
 
 		// Methods :: Public :: CheckChanges
@@ -547,6 +590,9 @@ namespace Muine
 		{
 			string [] old_watched_folders = watched_folders;
 			watched_folders = (string []) args.Value;
+
+			if (WatchedFoldersChanged != null)
+			        WatchedFoldersChanged ();
 
 			ArrayList new_dinfos = new ArrayList ();
 
