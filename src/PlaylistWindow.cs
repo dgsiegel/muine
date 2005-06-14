@@ -1057,10 +1057,8 @@ namespace Muine
 		// Methods :: Private :: SongChanged
 		private void SongChanged (bool restart)
 		{
-			Song song = null;
-
 			if (playlist.Model.Playing != IntPtr.Zero) {
-				song = Song.FromHandle (playlist.Model.Playing);
+				Song song = Song.FromHandle (playlist.Model.Playing);
 
 				cover_image.Song = song;
 
@@ -1085,10 +1083,15 @@ namespace Muine
 					StringUtils.EscapeForPango (song.Title),
                                         StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 
+				this.Title = String.Format (string_title_main, song.Title);
+
+                                // Do this before actually loading the new song, so that the signals are
+                                // emitted in the right order: SongChangedEvent first, and then TickEvent.
+			        if (SongChangedEvent != null)
+				        SongChangedEvent (song);
+
 				if (player.Song != song || restart)
 					player.Song = song;
-
-				this.Title = String.Format (string_title_main, song.Title);
 
 			} else {
 				cover_image.Song = null;
@@ -1102,13 +1105,13 @@ namespace Muine
 
 				if (skip_to_window != null)
 					skip_to_window.Hide ();
+
+			        if (SongChangedEvent != null)
+				        SongChangedEvent (null);
 			}
 			
 			if (restart)
 				had_last_eos = false;
-
-			if (SongChangedEvent != null)
-				SongChangedEvent (song);
 		}
 
 		// Methods :: Private :: SelectionChanged

@@ -163,7 +163,6 @@ namespace Muine
 		// Methods
 		// Methods :: Public
 		// Methods :: Public :: Play
-		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_play (IntPtr player);
 
@@ -182,7 +181,6 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Pause
-		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_pause (IntPtr player);
 
@@ -200,7 +198,6 @@ namespace Muine
 		}
 
 		// Methods :: Public :: Stop
-		//	TODO: Replace with State property
 		[DllImport ("libmuine")]
 		private static extern void player_stop (IntPtr player);
 

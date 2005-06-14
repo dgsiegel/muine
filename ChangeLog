@@ -1,5 +1,11 @@
 2005-06-14  Jorn Baayen  <jorn@openedhand.com>
 
+	* src/PlaylistWindow.cs:
+
+	Emit SongChangedEvent before TickEvent when changing songs.
+
+2005-06-14  Jorn Baayen  <jorn@openedhand.com>
+
 	* configure.in:
 
 	Pass '-debug' instead of '-g' to mcs.
