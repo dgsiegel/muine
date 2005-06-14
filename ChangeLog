@@ -2,6 +2,29 @@
 
 	* configure.in:
 
+	Pass '-debug' instead of '-g' to mcs.
+	
+	* doc/en/Muine.DBusLib/Player.xml:
+	* doc/en/Muine.PluginLib/IPlayer.xml:
+
+	Updated documentation.
+	
+	* src/SongDatabase.cs:
+	* plugins/TrayIcon.cs:
+
+	Remove unused functions.
+	
+	* src/AddWindow.cs:
+	* src/ProgressWindow.cs:
+	* src/SkipToWindow.cs:
+
+	Mark glade-connected callbacks as public to silence compiler
+	warnings.
+
+2005-06-14  Jorn Baayen  <jorn@openedhand.com>
+
+	* configure.in:
+
 	Depend on Gtk 2.6 and gnome-icon-theme 2.10.
 
 	* data/images/Makefile.am:

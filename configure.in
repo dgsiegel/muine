@@ -136,7 +136,7 @@ AC_PATH_PROG(MONO, mono)
 MCS_FLAGS="-codepage:utf8"
 MONO_FLAGS=
 if test $USE_MAINTAINER_MODE = yes; then
-	MCS_FLAGS="$MCS_FLAGS -g"
+	MCS_FLAGS="$MCS_FLAGS -debug"
 	MONO_FLAGS="$MONO_FLAGS --debug"
 fi
 AC_SUBST(MCS_FLAGS)

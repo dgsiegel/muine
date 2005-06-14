@@ -112,7 +112,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnSongSliderValueChanged (Glade)
-		private void OnSongSliderValueChanged (object o, EventArgs a) 
+		public void OnSongSliderValueChanged (object o, EventArgs a) 
 		{
 			if (from_tick) {
 				from_tick = false;
@@ -129,7 +129,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnWindowDeleteEvent
-		private void OnWindowDeleteEvent (object o, EventArgs a)
+		public void OnWindowDeleteEvent (object o, EventArgs a)
 		{
 			window.Visible = false;			
 			DeleteEventArgs args = (DeleteEventArgs) a;
@@ -137,7 +137,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnWindowSizeRequested
-		private void OnWindowSizeRequested (object o, SizeRequestedArgs args)
+		public void OnWindowSizeRequested (object o, SizeRequestedArgs args)
 		{
 			if (geo_no_resize_height.MaxHeight == args.Requisition.Height)
 				return;
@@ -147,7 +147,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnCloseButtonClicked
-		private void OnCloseButtonClicked (object o, EventArgs a)
+		public void OnCloseButtonClicked (object o, EventArgs a)
 		{
 			window.Visible = false;
 		}

@@ -182,17 +182,19 @@ public class Example
       </Docs>
     </Member>
     <Member MemberName="SetWindowVisible">
-      <MemberSignature Language="C#" Value="public virtual void SetWindowVisible (bool visible);" />
+      <MemberSignature Language="C#" Value="public virtual void SetWindowVisible (bool visible, uint time);" />
       <MemberType>Method</MemberType>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
         <Parameter Name="visible" Type="System.Boolean" />
+        <Parameter Name="time" Type="System.UInt32" />
       </Parameters>
       <Docs>
         <summary>To be added</summary>
         <param name="visible">a <see cref="T:System.Boolean" /></param>
+        <param name="time">the timestamp of the originating user interaction</param>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
@@ -253,26 +255,32 @@ public class Example
       </Docs>
     </Member>
     <Member MemberName="PlayAlbum">
-      <MemberSignature Language="C#" Value="public virtual void PlayAlbum ();" />
+      <MemberSignature Language="C#" Value="public virtual void PlayAlbum (uint time);" />
       <MemberType>Method</MemberType>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
-      <Parameters />
+      <Parameters>
+        <Parameter Name="time" Type="System.UInt32" />
+      </Parameters>
       <Docs>
-        <summary>To be added</summary>
+        <summary>Opens the "Play Album" window</summary>
+        <param name="time">the timestamp of the originating user interaction</param>
         <remarks>To be added</remarks>
       </Docs>
     </Member>
     <Member MemberName="PlaySong">
-      <MemberSignature Language="C#" Value="public virtual void PlaySong ();" />
+      <MemberSignature Language="C#" Value="public virtual void PlaySong (uint time);" />
       <MemberType>Method</MemberType>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
-      <Parameters />
+      <Parameters>
+        <Parameter Name="time" Type="System.UInt32" />
+      </Parameters>
       <Docs>
-        <summary>To be added</summary>
+        <summary>Opens the "Play Song" window</summary>
+        <param name="time">the timestamp of the originating user interaction</param>
         <remarks>To be added</remarks>
       </Docs>
     </Member>

@@ -91,14 +91,14 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnWindowResponse
-		private void OnWindowResponse (object o, EventArgs a)
+		public void OnWindowResponse (object o, EventArgs a)
 		{
 			window.Visible = false;
 			canceled = true;
 		}
 
 		// Handlers :: OnWindowDeleteEvent
-		private void OnWindowDeleteEvent (object o, DeleteEventArgs args)
+		public void OnWindowDeleteEvent (object o, DeleteEventArgs args)
 		{
 			window.Visible = false;
 			args.RetVal = true;
@@ -106,7 +106,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnWindowSizeRequested
-		private void OnWindowSizeRequested (object o, SizeRequestedArgs args)
+		public void OnWindowSizeRequested (object o, SizeRequestedArgs args)
 		{
 			if (geo_no_resize_height.MaxHeight == args.Requisition.Height)
 				return;

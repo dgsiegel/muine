@@ -128,14 +128,6 @@ namespace Muine
 			image.SetFromStock (icon, IconSize.Menu);
 		}
 
-		// Methods :: Private :: Clamp
-		private int Clamp (int x, int low, int high)
-		{
-			if      (x > high) return high;
-			else if (x < low ) return low ;
-			else               return x   ;
-		}
-
 		// Methods :: Private :: PositionMenu
 		private void PositionMenu (Menu menu, out int x, out int y, out bool push_in)
 		{
@@ -201,12 +193,6 @@ namespace Muine
                 }
 
 		// Handlers
-		// Handlers :: OnSelectionDone
-		private void OnSelectionDone (object o, EventArgs args)
-		{
-			icon.State = StateType.Normal;
-		}
-
 		// Handlers :: OnButtonPressEvent
 		private void OnButtonPressEvent (object o, ButtonPressEventArgs args)
 		{

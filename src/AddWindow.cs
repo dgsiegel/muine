@@ -398,7 +398,7 @@ namespace Muine
 		/// <param name="args">
 		///	The <see cref="DeleteEventArgs" />.
 		/// </param>
-		private void OnWindowDeleteEvent (object o, DeleteEventArgs args)
+		public void OnWindowDeleteEvent (object o, DeleteEventArgs args)
 		{
 			args.RetVal = true;
 		}
@@ -510,7 +510,7 @@ namespace Muine
 		///	or queue. Really only possible if we add another button
 		///	to the window but forget to add it here.
 		/// </exception>
-		private void OnWindowResponse (object o, ResponseArgs args)
+		public void OnWindowResponse (object o, ResponseArgs args)
 		{
 			switch ((int) args.ResponseId) {
 			case (int) ResponseType.DeleteEvent:

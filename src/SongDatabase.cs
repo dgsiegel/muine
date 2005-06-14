@@ -277,15 +277,6 @@ namespace Muine
 			}
 		}
 
-		// Methods :: Private :: AddToAlbum
-		private void AddToAlbum (Song song)
-		{
-			SignalRequest rq = new SignalRequest (song);
-			
-			StartAddToAlbum (rq);
-			HandleSignalRequest (rq);
-		}
-
 		// Methods :: Private :: StartAddToAlbum
 		private void StartAddToAlbum (SignalRequest rq)
 		{
