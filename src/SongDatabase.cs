@@ -175,7 +175,7 @@ namespace Muine
                 public void AddFolder (string folder)
                 {
                         ArrayList list = new ArrayList ();
-                        list.Add (folder);
+                        list.Add (new DirectoryInfo (folder));
                         new AddFoldersThread (list);
                 }
 
