@@ -869,8 +869,10 @@ metadata_load (const char *filename,
 	gnome_vfs_get_file_info (escaped, info,
 				 GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
-	if (!strcmp (info->mime_type, "application/x-ogg") ||
-	    !strcmp (info->mime_type, "application/ogg"))
+	if (info->mime_type == NULL)
+		*error_message_return = g_strdup ("Unknown format");
+	else if (!strcmp (info->mime_type, "application/x-ogg") ||
+		 !strcmp (info->mime_type, "application/ogg"))
 		m = assign_metadata_ogg (escaped, error_message_return);
 #if HAVE_ID3TAG
 	else if (!strcmp (info->mime_type, "audio/x-mp3") ||
