@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine 0.8.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-21 17:55+0300\n"
-"PO-Revision-Date: 2005-07-21 17:59+0300\n"
+"POT-Creation-Date: 2005-08-01 20:55+0300\n"
+"PO-Revision-Date: 2005-08-01 12:24+0300\n"
 "Last-Translator: Rostislav \"zbrox\" Raykov <zbrox@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "Слушане на музика"
 
 #: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "Muine - Програма за изпълнение на музика"
+msgstr "Програма за слушане на музика (Muine)"
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -89,7 +89,7 @@ msgstr "Стандартната папка за внасяне"
 
 #: ../data/muine.schemas.in.h:7
 msgid "Default playlist folder"
-msgstr "Стандартната папка за плейлисти"
+msgstr "Стандартната папка за списъците с песни"
 
 #: ../data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
@@ -105,7 +105,7 @@ msgstr "Височина на прозореца „Добавяне на пес
 
 #: ../data/muine.schemas.in.h:11
 msgid "Height of the playlist window."
-msgstr "Височина на прозореца за плейлистите."
+msgstr "Височина на прозореца за списъка с песни."
 
 #: ../data/muine.schemas.in.h:12
 msgid "Last used folder from \"Import folder\" dialog."
@@ -113,15 +113,16 @@ msgstr "Последната ползвана папка от диалогови
 
 #: ../data/muine.schemas.in.h:13
 msgid "Last used folder from the playlist file selectors."
-msgstr "Последно използваната папка от файловите селектори на плейлистите."
+msgstr ""
+"Последно използваната папка от файловите селектори на списъците с песни."
 
 #: ../data/muine.schemas.in.h:14
 msgid "Playlist window height"
-msgstr "Височина на прозореца за плейлистите"
+msgstr "Височина на прозореца за списъците с песни"
 
 #: ../data/muine.schemas.in.h:15
 msgid "Playlist window width"
-msgstr "Ширина на прозореца за плейлистите"
+msgstr "Ширина на прозореца за списъците с песни"
 
 #: ../data/muine.schemas.in.h:16
 msgid "Repeat mode"
@@ -141,7 +142,7 @@ msgstr "Наблюдавани папки"
 
 #: ../data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Да позволи или да не режим на повторение на плейлистите."
+msgstr "Да позволи или не режим на повторение на списъците с песни."
 
 #: ../data/muine.schemas.in.h:21
 msgid ""
@@ -161,7 +162,7 @@ msgstr "Ширина на прозорец „Добавяне на песен�
 
 #: ../data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
-msgstr "Ширина на прозореца на плейлистите."
+msgstr "Ширина на прозореца на списъците с песни."
 
 #: ../libmuine/player-gst.c:164
 msgid "Failed to create a GStreamer play object"
@@ -219,7 +220,7 @@ msgstr "Всички права запазени © 2003, 2004 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
-msgstr "Програма за изпълнение на музика"
+msgstr "Програма за слушане на музика"
 
 #: ../src/About.cs:44
 msgid "Jorn Baayen <jbaayen@gnome.org>"
@@ -251,7 +252,7 @@ msgstr "_Песен"
 
 #: ../src/Actions.cs:42
 msgid "_Playlist"
-msgstr "_Плейлист"
+msgstr "_Списък с песни"
 
 #: ../src/Actions.cs:45
 msgid "_Help"
@@ -394,11 +395,11 @@ msgstr "Неуспех при зареждането на мета информ�
 
 #: ../src/OpenDialog.cs:37
 msgid "Open Playlist"
-msgstr "Отваряне на плейлист"
+msgstr "Отваряне на списък с песни"
 
 #: ../src/OpenDialog.cs:40
 msgid "Playlist files"
-msgstr "Плейлист файлове"
+msgstr "Файлове на списъците с песни"
 
 #: ../src/OverwriteDialog.cs:34
 #, csharp-format
@@ -419,19 +420,19 @@ msgstr "Грешка на аудио бек-енда:"
 
 #: ../src/PlaylistWindow.cs:71
 msgid "Playlist.m3u"
-msgstr "Плейлист.m3u"
+msgstr "Списък с песни.m3u"
 
 #: ../src/PlaylistWindow.cs:74
 msgid "<b>Playlist</b>"
-msgstr "<b>Плейлист</b>"
+msgstr "<b>Списък с песни</b>"
 
 #: ../src/PlaylistWindow.cs:77
 msgid "<b>Playlist</b> (Repeating)"
-msgstr "<b>Плейлист</b> (Повтаряне)"
+msgstr "<b>Списък с песни</b> (Повтаряне)"
 
 #: ../src/PlaylistWindow.cs:80
 msgid "<b>Playlist</b> (Less than one minute remaining)"
-msgstr "<b>Плейлист</b> (Остава по-малко от една минута)"
+msgstr "<b>Списък с песни</b> (Остава по-малко от една минута)"
 
 #: ../src/PlaylistWindow.cs:83
 #, csharp-format
@@ -445,27 +446,27 @@ msgstr "Непознат албум"
 #: ../src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "{0} - Muine - програма за изпълнение на музика"
+msgstr "{0} - Muine - програма за слушане на музика"
 
 #: ../src/PlaylistWindow.cs:97
 msgid "Switch music playback on or off"
-msgstr "Пускане и спиране на изпълнението на музика"
+msgstr "Пускане и спиране на музиката"
 
 #: ../src/PlaylistWindow.cs:100
 msgid "Play the previous song"
-msgstr "Изпълнение на предишната песен"
+msgstr "Слушане на предишната песен"
 
 #: ../src/PlaylistWindow.cs:103
 msgid "Play the next song"
-msgstr "Изпълнение на следващата песен"
+msgstr "Слушане на следващата песен"
 
 #: ../src/PlaylistWindow.cs:106
 msgid "Add an album to the playlist"
-msgstr "Добавяне на албум към плейлиста"
+msgstr "Добавяне на албум към списъка с песни"
 
 #: ../src/PlaylistWindow.cs:109
 msgid "Add a song to the playlist"
-msgstr "Добавяне на песен към плейлиста"
+msgstr "Добавяне на песен към списъка с песни"
 
 #: ../src/PlaylistWindow.cs:112
 msgid "Change the volume level"
@@ -473,7 +474,7 @@ msgstr "Промяна силата на звука"
 
 #: ../src/PlaylistWindow.cs:115
 msgid "Drop an image here to use it as album cover"
-msgstr "Пуснете тук изображение за да служи за обложка на албума"
+msgstr "Пуснете тук изображение, за да служи за обложка на албума"
 
 #: ../src/PlaylistWindow.cs:119
 #, csharp-format
@@ -503,8 +504,8 @@ msgstr "Неуспех при запис {0}:"
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
-msgstr[0] "<b>Плейлист</b> (Повтаряне на {0} час)"
-msgstr[1] "<b>Плейлист</b> (Повтаряне на {0} часа)"
+msgstr[0] "<b>Списък с песни</b> (Повтаряне на {0} час)"
+msgstr[1] "<b>Списък с песни</b> (Повтаряне на {0} часа)"
 
 #: ../src/PlaylistWindow.cs:1041
 #, csharp-format
@@ -543,7 +544,7 @@ msgstr "Зареждане:"
 
 #: ../src/SaveDialog.cs:37
 msgid "Save Playlist"
-msgstr "Запазване на плейлист"
+msgstr "Запазване на списък с песни"
 
 #: ../src/SaveDialog.cs:40
 msgid "Untitled"
@@ -565,7 +566,7 @@ msgstr "{0} и {1}"
 
 #: ../plugins/TrayIcon.cs:35
 msgid "Muine music player"
-msgstr "Muine - програма за изпълнение на музика"
+msgstr "Muine - програма за слушане на музика"
 
 #: ../plugins/TrayIcon.cs:40
 #, csharp-format
