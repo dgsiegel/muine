@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine 0.8.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 20:55+0300\n"
-"PO-Revision-Date: 2005-08-01 12:24+0300\n"
+"POT-Creation-Date: 2005-10-04 18:22+0300\n"
+"PO-Revision-Date: 2005-10-04 16:52+0300\n"
 "Last-Translator: Rostislav \"zbrox\" Raykov <zbrox@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "Слушане на музика"
 
 #: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "Програма за слушане на музика (Muine)"
+msgstr "Слушане на музика (Muine)"
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -142,7 +142,7 @@ msgstr "Наблюдавани папки"
 
 #: ../data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Да позволи или не режим на повторение на списъците с песни."
+msgstr "Позволяване или не на режима на повторение на списъците с песни."
 
 #: ../data/muine.schemas.in.h:21
 msgid ""
@@ -256,7 +256,7 @@ msgstr "_Списък с песни"
 
 #: ../src/Actions.cs:45
 msgid "_Help"
-msgstr "Помощ"
+msgstr "_Помощ"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
@@ -328,7 +328,7 @@ msgstr "В разбъркан ред"
 
 #: ../src/Actions.cs:106
 msgid "_About"
-msgstr "Относно"
+msgstr "_Относно"
 
 #: ../src/AddAlbumWindow.cs:44 ../src/PlaylistWindow.cs:89
 #, csharp-format
@@ -357,7 +357,7 @@ msgid ""
 "\n"
 "Exiting..."
 msgstr ""
-"Неуспех при инициализирнато на папката за временни файлове: {0}\n"
+"Неуспех при инициализирането на папката за временни файлове: {0}\n"
 "\n"
 "Програмата спира..."
 
@@ -441,7 +441,7 @@ msgstr "От „{0}“"
 
 #: ../src/PlaylistWindow.cs:86
 msgid "Album unknown"
-msgstr "Непознат албум"
+msgstr "Неизвестен албум"
 
 #: ../src/PlaylistWindow.cs:93
 #, csharp-format
@@ -531,12 +531,12 @@ msgstr[1] "<b>Плейлист</b> ({0} оставащи минути)"
 #: ../src/PluginManager.cs:34
 #, csharp-format
 msgid "Error loading plug-in {0}: {1}"
-msgstr "Грешка при зареждането на плъгина {0}: {1}"
+msgstr "Грешка при зареждането на приставката {0}: {1}"
 
 #: ../src/ProgressWindow.cs:33
 #, csharp-format
 msgid "Importing \"{0}\""
-msgstr "Вмъкване на „{0}“"
+msgstr "Внасяне на „{0}“"
 
 #: ../src/ProgressWindow.cs:36
 msgid "Loading:"
