@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-30 23:48+0200\n"
-"PO-Revision-Date: 2005-04-30 23:48+0200\n"
+"POT-Creation-Date: 2005-10-29 16:45+0200\n"
+"PO-Revision-Date: 2005-10-29 16:46+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -45,15 +45,11 @@ msgstr "¿Sobreescribir el archivo?"
 msgid "_Overwrite"
 msgstr "_Sobreescribir"
 
-#: ../data/glade/PlaylistWindow.glade.h:1
-msgid "Play"
-msgstr "Reproducir"
-
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Reproducir álbum"
 
-#: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Reproducir canción"
 
@@ -170,11 +166,11 @@ msgstr "Anchura de la ventana «Añadir canción»."
 msgid "Width of the playlist window."
 msgstr "Anchura de la ventana de la lista de reproducción"
 
-#: ../libmuine/player-gst.c:163
+#: ../libmuine/player-gst.c:164
 msgid "Failed to create a GStreamer play object"
 msgstr "Falló al crear el objeto de reproducción GStreamer"
 
-#: ../libmuine/player-gst.c:170
+#: ../libmuine/player-gst.c:171
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "No se pudo renderizar el sumidero de salida de sonido predeterminado de "
@@ -269,12 +265,12 @@ msgid "_Import Folder..."
 msgstr "_Importar carpeta..."
 
 #: ../src/Actions.cs:52
-msgid "_Open Playlist..."
-msgstr "_Abrir lista de reproducción..."
+msgid "_Open..."
+msgstr "_Abrir..."
 
 #: ../src/Actions.cs:55
-msgid "_Save Playlist As..."
-msgstr "_Guardar lista de reproducción como..."
+msgid "_Save As..."
+msgstr "_Guardar como..."
 
 #: ../src/Actions.cs:58
 msgid "Hide _Window"
@@ -399,15 +395,6 @@ msgstr "_Importar"
 msgid "Failed to load metadata: {0}"
 msgstr "Falló al cargar los metadatos: {0}"
 
-#: ../src/NotificationAreaIcon.cs:38
-msgid "Muine music player"
-msgstr "Reproductor de música Muine"
-
-#: ../src/NotificationAreaIcon.cs:43
-#, csharp-format
-msgid "{0} - {1}"
-msgstr "{0} - {1}"
-
 #: ../src/OpenDialog.cs:37
 msgid "Open Playlist"
 msgstr "Abrir lista de reproducción"
@@ -515,28 +502,28 @@ msgstr "Falló al cerrar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1004
+#: ../src/PlaylistWindow.cs:1036
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1009
+#: ../src/PlaylistWindow.cs:1041
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1014
+#: ../src/PlaylistWindow.cs:1046
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1019
+#: ../src/PlaylistWindow.cs:1051
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -578,6 +565,18 @@ msgstr "{0} y otros"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
+
+#: ../plugins/TrayIcon.cs:35
+msgid "Muine music player"
+msgstr "Reproductor de música Muine"
+
+#: ../plugins/TrayIcon.cs:40
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#~ msgid "Play"
+#~ msgstr "Reproducir"
 
 #~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 #~ msgstr "<span weight=\"bold\" size=\"larger\">No se encontró música</span>"
