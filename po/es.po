@@ -1,24 +1,23 @@
+# Spanish translation of es
 # traducción de es.po al Spanish
-# translation of es.po to Spanish
-# Spanish translation of muine
 # Copyright (C) 2004 muine's COPYRIGHT HOLDER
 # Copyright (C) 2004 Sergio Rubio <sergio.rubio@hispalinux.es>
 # This file is distributed under the same license as the PACKAGE package.
+#
 # Sergio Rubio <sergio.rubio@hispalinux.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-29 16:45+0200\n"
-"PO-Revision-Date: 2005-10-29 16:46+0200\n"
+"POT-Creation-Date: 2005-12-10 19:41+0100\n"
+"PO-Revision-Date: 2005-12-10 19:51+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
@@ -63,7 +62,7 @@ msgstr "Escuchar tu música"
 
 #: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "Reproductor de Música Muine"
+msgstr "Reproductor de música Muine"
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -71,7 +70,7 @@ msgstr "Altura de la ventana «Añadir álbum»"
 
 #: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
-msgstr "Anchura de la ventana «Añadir álbum»."
+msgstr "Anchura de la ventana «Añadir álbum»"
 
 #: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
@@ -91,11 +90,11 @@ msgstr "Carpeta de importación predeterminada"
 
 #: ../data/muine.schemas.in.h:7
 msgid "Default playlist folder"
-msgstr "Carpeta de reproducción predeterminada"
+msgstr "Carpeta de lista de reproducción predeterminada"
 
 #: ../data/muine.schemas.in.h:8
 msgid "Folders that are monitored for changes."
-msgstr "Las carpetas se monitorizan buscando cambios."
+msgstr "Carpetas que se monitorizan buscando cambios."
 
 #: ../data/muine.schemas.in.h:9
 msgid "Height of the \"Add album\" window."
@@ -119,11 +118,11 @@ msgstr "Última carpeta usada los selectores de lista de reproducción."
 
 #: ../data/muine.schemas.in.h:14
 msgid "Playlist window height"
-msgstr "Altura de la ventana de lista de reproducción"
+msgstr "Altura de la ventana de la lista de reproducción"
 
 #: ../data/muine.schemas.in.h:15
 msgid "Playlist window width"
-msgstr "Anchura de la ventana de lista de reproducción"
+msgstr "Anchura de la ventana de la lista de reproducción"
 
 #: ../data/muine.schemas.in.h:16
 msgid "Repeat mode"
@@ -143,15 +142,14 @@ msgstr "Carpetas monitorizadas"
 
 #: ../data/muine.schemas.in.h:20
 msgid "Whether or not to enable repeat playlist mode."
-msgstr ""
-"Indica si debe o no activar el modo repetición de lista de reproducción."
+msgstr "Indica si debe o no activar el modo repetición de lista de reproducción."
 
 #: ../data/muine.schemas.in.h:21
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
-"¿Qué sitio Amazon se usaré para obtener las imágenes del álbum, \"us\", \"uk"
+"Qué sitio Amazon se usará para obtener las imágenes del álbum, \"us\", \"uk"
 "\", \"de\", o \"jp\"."
 
 #: ../data/muine.schemas.in.h:22
@@ -164,7 +162,7 @@ msgstr "Anchura de la ventana «Añadir canción»."
 
 #: ../data/muine.schemas.in.h:24
 msgid "Width of the playlist window."
-msgstr "Anchura de la ventana de la lista de reproducción"
+msgstr "Anchura de la ventana de la lista de reproducción."
 
 #: ../libmuine/player-gst.c:164
 msgid "Failed to create a GStreamer play object"
@@ -242,7 +240,7 @@ msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
 #: ../src/About.cs:49
 msgid "Album covers are provided by amazon.com."
-msgstr "Las cubiertas de los álbumes se suministran por amazon.com"
+msgstr "Las cubiertas de los álbumes se suministran por amazon.com."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -262,15 +260,15 @@ msgstr "A_yuda"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
-msgstr "_Importar carpeta..."
+msgstr "_Importar carpeta…"
 
 #: ../src/Actions.cs:52
 msgid "_Open..."
-msgstr "_Abrir..."
+msgstr "_Abrir…"
 
 #: ../src/Actions.cs:55
 msgid "_Save As..."
-msgstr "_Guardar como..."
+msgstr "_Guardar como…"
 
 #: ../src/Actions.cs:58
 msgid "Hide _Window"
@@ -290,7 +288,7 @@ msgstr "_Siguiente"
 
 #: ../src/Actions.cs:74
 msgid "_Skip to..."
-msgstr "_Saltar a..."
+msgstr "_Saltar a…"
 
 #: ../src/Actions.cs:77
 msgid "Skip _Backwards"
@@ -302,11 +300,11 @@ msgstr "Saltar a_delante"
 
 #: ../src/Actions.cs:84
 msgid "Play _Song..."
-msgstr "Reproducir _canción..."
+msgstr "Reproducir _canción…"
 
 #: ../src/Actions.cs:87
 msgid "Play _Album..."
-msgstr "Reproducir _álbum..."
+msgstr "Reproducir á_lbum…"
 
 #: ../src/Actions.cs:90
 msgid "_Remove Song"
@@ -348,9 +346,9 @@ msgid ""
 "\n"
 "Exiting..."
 msgstr ""
-"Falló al inicializar la carpeta de configuración: {0}:\n"
+"Falló al inicializar la carpeta de configuración: {0}\n"
 "\n"
-"Saliendo..."
+"Saliendo…"
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
@@ -361,7 +359,7 @@ msgid ""
 msgstr ""
 "Falló al inicializar la carpeta de archivos temporales: {0}\n"
 "\n"
-"Saliendo..."
+"Saliendo…"
 
 #: ../src/Global.cs:37
 #, csharp-format
@@ -460,7 +458,7 @@ msgstr "Reproduce la canción anterior"
 
 #: ../src/PlaylistWindow.cs:103
 msgid "Play the next song"
-msgstr "Reproducir la canción siguiente"
+msgstr "Reproduce la canción siguiente"
 
 #: ../src/PlaylistWindow.cs:106
 msgid "Add an album to the playlist"
@@ -704,3 +702,4 @@ msgstr "{0} - {1}"
 #~ msgstr ""
 #~ "Gracias a amazon.com por proporcionar las imágenes de la cubierta de los "
 #~ "álbumes."
+
