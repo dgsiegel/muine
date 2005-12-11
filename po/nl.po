@@ -1,6 +1,7 @@
 # Dutch translation of muine (een muziekspeler)
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the muine package.
+# Wouter Bolsterlee <uws+gnome@xs4all.nl>, 2005.
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
 # Daniel van Eeden <daniel_e@dds.nl>, 2004.
 #
@@ -8,11 +9,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNOME 2.6\n"
+"Project-Id-Version: GNOME Muine 0.8.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-15 11:57+0000\n"
-"PO-Revision-Date: 2005-05-15 17:19+0200\n"
-"Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
+"PO-Revision-Date: 2005-12-11 19:31+0100\n"
+"Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,11 +51,11 @@ msgstr "Afspelen"
 
 #: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
-msgstr "_Album afspelen"
+msgstr "Album afspelen"
 
 #: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
 msgid "Play Song"
-msgstr "_Nummer afspelen"
+msgstr "Nummer afspelen"
 
 #: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -209,6 +210,7 @@ msgstr "Kon \"%s\" niet afspelen"
 #: ../src/About.cs:31
 msgid "translator-credits"
 msgstr ""
+"Wouter Bolsterlee\n"
 "Tino Meinen\n"
 "Daniel van Eeden\n"
 "zie ook nl.gnome.org"
@@ -841,3 +843,4 @@ msgstr "{0} - {1}"
 
 #~ msgid "seconds"
 #~ msgstr "seconden"
+
