@@ -414,7 +414,7 @@ namespace Muine
 		public void RestorePlaylist ()
 		{
 			// Load last playlist
-			if (!File.Exists (FileUtils.PlaylistFile))
+			if (!System.IO.File.Exists (FileUtils.PlaylistFile))
 				return;
 
 			OpenPlaylistInternal (FileUtils.PlaylistFile,

@@ -1,3 +1,9 @@
+2005-12-17  Peter Johanson <peter@peterjohanson.com>
+
+	* src/PlaylistWindow.cs: Fix compilation issue with recent gtk#
+	versions.
+	* plugins/.cvsignore: Ignore generated InotifyPlugin files.
+
 2005-08-10  Maxim Dziumanenko <mvd@mylinux.ua>
 
 	* configure.in: Added uk in ALL_LINGUAS
