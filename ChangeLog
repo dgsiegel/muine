@@ -1,5 +1,10 @@
 2006-01-10  Peter Johanson <peter@peterjohanson.com>
 
+	* plugins/egg-sharp.cs: Fix amd64 issues as reported on bug #311158.
+	Original patch from Ubuntu or wherever they got the patch from.
+
+2006-01-10  Peter Johanson <peter@peterjohanson.com>
+
 	* data/muine.schemas.in:
 	* src/CoverGetter.cs:
 	A src/MusicBrainz.cs:

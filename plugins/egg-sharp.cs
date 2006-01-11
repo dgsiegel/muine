@@ -185,7 +185,7 @@ namespace Egg
 	[StructLayout(LayoutKind.Sequential)]
 	internal struct XClientMessageEvent {
 		internal XEventName     type;
-		internal int            serial;
+		internal IntPtr		serial;
 		internal bool           send_event;
 		internal IntPtr         display;
 		internal IntPtr         window;
