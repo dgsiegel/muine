@@ -27,6 +27,8 @@ using System.Collections;
 
 using Gdk;
 
+using musicbrainz;
+
 namespace Muine
 {
 	public class CoverGetter
@@ -34,10 +36,12 @@ namespace Muine
 		// GConf
 		private const string GConfKeyAmazonLocale     = "/apps/muine/amazon_locale";
 		private const string GConfDefaultAmazonLocale = "us";
+		private const string GConfKeyAmazonDevTag = "/apps/muine/amazon_dev_tag";
+		private	const string GConfDefaultAmazonDevTag = "amazondevtag";
 
 		// Delegates
 		public delegate void GotCoverDelegate (Pixbuf pixbuf);
-														
+
 		// Objects
 		private CoverDatabase db;
 		private GnomeProxy proxy;
@@ -45,6 +49,9 @@ namespace Muine
 
 		// Variables
 		private string amazon_locale;
+		private string amazon_dev_tag;
+		private bool musicbrainz_lib_missing = false;
+		private bool amazon_dev_tag_missing = false;
 
 		// Variables :: Cover Filenames
 		//	TODO: Maybe make checking these case-insensitve instead
@@ -77,6 +84,9 @@ namespace Muine
 
 			Config.AddNotify (GConfKeyAmazonLocale,
 				new GConf.NotifyEventHandler (OnAmazonLocaleChanged));
+
+			Config.AddNotify (GConfKeyAmazonDevTag,
+				new GConf.NotifyEventHandler (OnAmazonDevTagChanged));
 
 			proxy = new GnomeProxy ();
 
@@ -277,6 +287,119 @@ namespace Muine
 		/// </returns>
 		public Pixbuf DownloadFromAmazon (Album album)
 		{
+			Pixbuf pix = DownloadFromAmazonViaMusicBrainz (album);
+
+			return pix != null ?
+				pix : DownloadFromAmazonViaAPI (album);
+		}
+		
+		// Methods :: Private :: DownloadFromAmazonViaMusicBrainz
+		/// <summary>
+		///	Get the cover URL from amazon with the help of libmusicbrainz
+		/// </summary>
+		/// <remarks>
+		///	This should only be called from <see cref="GetWebThread" />
+		/// 	and <see cref="DownloadFromAmazon" />. Normally, 
+		///	<see cref="GetWeb" /> should be used instead.
+		/// </remarks>
+		/// <param name="album">
+		///	The <see cref="Album"> for which a cover needs to be downloaded.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> if a cover is found, null otherwise.
+		/// </returns>
+		/// <exception cref="WebException">
+		///	Thrown if an error occurred while downloading.
+		/// </exception>
+		/// <exception cref="GLib.GException">
+		///	Thrown if loading file fails.
+		/// </exception>
+		private Pixbuf DownloadFromAmazonViaMusicBrainz (Album album)
+		{
+			// Rather than do the lib search and catch the
+			// DllNotFoundException every single time,
+			// we check a simple bool as a performance helper.
+			if (musicbrainz_lib_missing)
+				return null;
+
+			Pixbuf pix = null;
+			try {
+	  			string sane_album_title = SanitizeString (album.Name);
+				string sane_artist_name = album.Artists.Length > 0 ? album.Artists[0].ToLower () : String.Empty;
+				string asin = null;
+				string AmazonImageUri = "http://images.amazon.com/images/P/{0}.01._SCMZZZZZZZ_.jpg";
+	  			// remove "disc 1" and family
+	  			//	TODO: Make the regexes translatable? (e.g. "uno|dos|tres...", "les|los..)
+				sane_album_title =  Regex.Replace (sane_album_title, 
+	  				@"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
+				// Remove "The " and "the " from artist names
+
+				sane_artist_name = Regex.Replace (sane_artist_name,
+					@"^the\s+", "");
+				
+				MusicBrainz c = new MusicBrainz ();
+				
+				// set the depth of the query (see http://wiki.musicbrainz.org/ClientHOWTO)
+				c.SetDepth(4);
+
+				string [] album_name = new string [] { sane_album_title };
+
+				if (c.Query (MusicBrainz.MBQ_FindAlbumByName, album_name)) {
+					int num_albums = c.GetResultInt (MusicBrainz.MBE_GetNumAlbums);
+					
+					string fetched_artist_name;
+					for (int i = 1; i <= num_albums; i++) {
+						c.Select (MusicBrainz.MBS_SelectAlbum, i);
+						// gets the artist from the first track of the album
+						c.GetResultData (MusicBrainz.MBE_AlbumGetArtistName, 1,  out fetched_artist_name);
+						// Remove "The " here as well
+						fetched_artist_name = Regex.Replace (fetched_artist_name.ToLower (),
+								@"^the\s+", "");
+						if (fetched_artist_name == sane_artist_name) {
+							c.GetResultData (MusicBrainz.MBE_AlbumGetAmazonAsin, out asin);
+							break;
+						}
+						c.Select(MusicBrainz.MBS_Back); // go back one level so we can select the next album
+					}
+				}
+				    
+				pix = asin == null ? null : Download (String.Format (AmazonImageUri,asin));
+			} catch (DllNotFoundException e) {
+				// We catch this exception so we can always include the musicbrainz support
+				// but not have a strict compile/runtime requirement on it.
+				musicbrainz_lib_missing = true;
+			}
+
+			 return pix;
+		}
+		
+		// Methods :: Private :: DownloadFromAmazonViaAPI
+		/// <summary>
+		///	Get the cover URL from amazon usig the Amazon API (required valid dev tag in GConf)
+		/// </summary>
+		/// <remarks>
+		///	This should only be called from <see cref="GetWebThread" />
+		/// 	and <see cref="DownloadFromAmazon" />. Normally, 
+		///	<see cref="GetWeb" /> should be used instead.
+		/// </remarks>
+		/// <param name="album">
+		///	The <see cref="Album"> for which a cover needs to be downloaded.
+		/// </param>
+		/// <returns>
+		///	A <see cref="Gdk.Pixbuf" /> if a cover is found, null otherwise.
+		/// </returns>
+		/// <exception cref="WebException">
+		///	Thrown if an error occurred while downloading.
+		/// </exception>
+		/// <exception cref="GLib.GException">
+		///	Thrown if loading file fails.
+		/// </exception>
+		private Pixbuf DownloadFromAmazonViaAPI (Album album)
+		{
+			// Don't bother trying if we're missing a valid dev tag
+			if (amazon_dev_tag_missing)
+				return null;
+
 			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
 
 			string sane_album_title = SanitizeString (album.Name);
@@ -297,9 +420,20 @@ namespace Muine
 			int current_page = 1;
 			int max_pages = 2; // check no more than 2 pages
 			
+			//Getting the GConf Dev Tag
+		       	amazon_dev_tag = (string) Config.Get (GConfKeyAmazonDevTag, 
+				GConfDefaultAmazonDevTag);
+			
+			// If we're the default, don't bother searching
+			// as Amazon will reject the requests
+			if (amazon_dev_tag == GConfDefaultAmazonDevTag) {
+				amazon_dev_tag_missing = true;
+				return null;
+			}
+
 			// Create Encapsulated Request
 			Amazon.ArtistRequest asearch = new Amazon.ArtistRequest ();
-			asearch.devtag = "INSERT DEV TAG HERE"; // TODO: We really should have a devtag
+			asearch.devtag = amazon_dev_tag;
 			asearch.artist = sane_artist;
 			asearch.keywords = sane_album_title;
 			asearch.type = "heavy";
@@ -567,6 +701,24 @@ namespace Muine
 		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
 		{
 			amazon_locale = (string) args.Value;
+		}
+		
+		// Handlers
+		// Handlers :: OnAmazonDevTagChanged
+		/// <summary>
+		///	Handler called when the Amazon dev tag is changed in GConf.
+		/// </summary>
+		/// <param name="o">
+		///	The calling object.
+		/// </param>
+		/// <param name="args">
+		///	The <see cref="GConf.NotifyEventArgs" />.
+		/// </param>
+		private void OnAmazonDevTagChanged (object o, GConf.NotifyEventArgs args)
+		{
+			amazon_dev_tag = (string) args.Value;
+			// Tag is 'missing' if set to the default value
+			amazon_dev_tag_missing = amazon_dev_tag == GConfDefaultAmazonDevTag;
 		}
 
 		// Internal Classes

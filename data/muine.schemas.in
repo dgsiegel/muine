@@ -134,5 +134,16 @@
 	<long>Which Amazon site to use for fetching album images, "us", "uk", "de", or "jp".</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/muine/amazon_dev_tag</key>
+      <applyto>/apps/muine/amazon_dev_tag</applyto>
+      <owner>muine</owner>
+      <type>string</type>
+      <default>amazondevtag</default>
+      <locale name="C">
+      	<short>Amazon Dev Tag</short>
+	<long>Your Amazon Dev Tag for fetching album cover art</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

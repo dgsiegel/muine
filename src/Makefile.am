@@ -29,6 +29,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/CoverGetter.cs		\
+	$(srcdir)/MusicBrainz.cs		\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/CoverImage.cs			\
 	$(srcdir)/MmKeys.cs			\

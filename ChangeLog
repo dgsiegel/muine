@@ -1,3 +1,14 @@
+2006-01-10  Peter Johanson <peter@peterjohanson.com>
+
+	* data/muine.schemas.in:
+	* src/CoverGetter.cs:
+	A src/MusicBrainz.cs:
+	* src/Makefile.am: Add musicbrainz cover fetching support, based on
+	the work of Yi Qiang <yqiang@washington.edu>. Simultaneously, add
+	support for setting an amazon dev tag in GConf to allow cover fetching
+	via amazon if musicbrainz fails, based on the work of Martin Willis
+	Monroe <willis@irmak.org>.
+
 2005-12-17  Peter Johanson <peter@peterjohanson.com>
 
 	* src/PlaylistWindow.cs: Fix compilation issue with recent gtk#
