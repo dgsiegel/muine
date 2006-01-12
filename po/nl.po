@@ -2,7 +2,7 @@
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the muine package.
 # Wouter Bolsterlee <uws+gnome@xs4all.nl>, 2005.
-# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006
 # Daniel van Eeden <daniel_e@dds.nl>, 2004.
 #
 # vergeet niet jezelf toe te voegen aan "translator-credits"
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Muine 0.8.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-15 11:57+0000\n"
-"PO-Revision-Date: 2005-12-11 19:31+0100\n"
+"POT-Creation-Date: 2006-01-12 12:14+0100\n"
+"PO-Revision-Date: 2006-01-12 14:44+0100\n"
 "Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,16 +44,11 @@ msgstr "Bestand overschrijven?"
 msgid "_Overwrite"
 msgstr "_Overschrijven"
 
-# Afspelen?
-#: ../data/glade/PlaylistWindow.glade.h:1
-msgid "Play"
-msgstr "Afspelen"
-
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Album afspelen"
 
-#: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Nummer afspelen"
 
@@ -86,89 +81,95 @@ msgid "\"Add song\" window width"
 msgstr "\"Nummer toevoegen\" vensterbreedte"
 
 #: ../data/muine.schemas.in.h:5
-msgid "Amazon site to use for album images"
-msgstr "Te gebruiken site van Amazon voor albumhoezen"
+msgid "Amazon Dev Tag"
+msgstr "Amazon dev tag"
 
 #: ../data/muine.schemas.in.h:6
+msgid "Amazon site to use for album images"
+msgstr "Te gebruiken site van Amazon voor albumhoesjes"
+
+#: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
 msgstr "Standaard importmap"
 
-#: ../data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
 msgstr "Standaard speellijstmap"
 
-#: ../data/muine.schemas.in.h:8
+#: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Mappen die bijgehouden worden voor veranderingen."
 
-#: ../data/muine.schemas.in.h:9
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
 msgstr "Hoogte van het venster \"Album toevoegen\"."
 
-#: ../data/muine.schemas.in.h:10
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
 msgstr "Hoogte van het venster \"Nummer toevoegen\"."
 
-#: ../data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
 msgstr "Hoogte van het speellijstvenster."
 
-#: ../data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
 
-#: ../data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
 msgstr "Laatst gebruikte map bij selectie van speellijstbestanden."
 
-#: ../data/muine.schemas.in.h:14
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
 msgstr "Speellijst vensterhoogte"
 
-#: ../data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:16
 msgid "Playlist window width"
 msgstr "Speellijst vensterbreedte"
 
-#: ../data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:17
 msgid "Repeat mode"
 msgstr "Herhaalstand"
 
-#: ../data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level"
 msgstr "Geluidsvolume"
 
 # highest volume level = maximaal geluidsvolume
-#: ../data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Geluidsvolume 0 = laagst, 100 = maximaal."
 
-#: ../data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
 msgstr "Bijgehouden mappen"
 
-#: ../data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Of 'speellijst herhalen' wordt gebruikt of niet."
 
-#: ../data/muine.schemas.in.h:21
+#: ../data/muine.schemas.in.h:22
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
-msgstr ""
-"Welke site van Amazon wordt gebruikt voor het ophalen van albumhoezen: \"us"
-"\" \"uk\" \"de\" of \"jp\"."
+msgstr "Welke site van Amazon wordt gebruikt voor het ophalen van albumhoesjes: \"us\" \"uk\" \"de\" of \"jp\"."
 
-#: ../data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
 msgstr "Breedte van het venster \"Album toevoegen\"."
 
-#: ../data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
 msgstr "Breedte van het venster \"Nummer toevoegen\"."
 
-#: ../data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
 msgstr "Breedte van het speellijstvenster."
+
+#: ../data/muine.schemas.in.h:26
+msgid "Your Amazon Dev Tag for fetching album cover art"
+msgstr "Uw Amazon dev tag voor het ophalen van albumhoesjes"
 
 #: ../libmuine/player-gst.c:164
 msgid "Failed to create a GStreamer play object"
@@ -245,7 +246,7 @@ msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
 #: ../src/About.cs:49
 msgid "Album covers are provided by amazon.com."
-msgstr "Albumhoezen geleverd door amazon.com."
+msgstr "Albumhoesjes geleverd door amazon.com."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -480,7 +481,7 @@ msgstr "Geluidsvolume aanpassen"
 
 #: ../src/PlaylistWindow.cs:115
 msgid "Drop an image here to use it as album cover"
-msgstr "Sleep een afbeelding hiernaartoe om het als hoes te gebruiken"
+msgstr "Sleep een afbeelding hiernaartoe om het als hoesje te gebruiken"
 
 #: ../src/PlaylistWindow.cs:119
 #, csharp-format
@@ -507,28 +508,28 @@ msgid "Failed to write {0}:"
 msgstr "Schrijven van {0} is mislukt:"
 
 # meervoud van uur is hier uur en niet uren
-#: ../src/PlaylistWindow.cs:1004
+#: ../src/PlaylistWindow.cs:1036
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 
-#: ../src/PlaylistWindow.cs:1009
+#: ../src/PlaylistWindow.cs:1041
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} minuut herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} minuten herhalen)"
 
-#: ../src/PlaylistWindow.cs:1014
+#: ../src/PlaylistWindow.cs:1046
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Speellijst</b> ({0} uur resterend)"
 msgstr[1] "<b>Speellijst</b> ({0} uur resterend)"
 
-#: ../src/PlaylistWindow.cs:1019
+#: ../src/PlaylistWindow.cs:1051
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -581,6 +582,10 @@ msgstr "Muine muziekspeler"
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
+
+# Afspelen?
+#~ msgid "Play"
+#~ msgstr "Afspelen"
 
 #~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 #~ msgstr "<span weight=\"bold\" size=\"larger\">Geen muziek gevonden</span>"
@@ -714,9 +719,6 @@ msgstr "{0} - {1}"
 #~ msgid "Failed to set up an audio driver"
 #~ msgstr "Instellen van geluidsstuurprogramma mislukt"
 
-#~ msgid "Thanks to Amazon.com for providing album cover images!"
-#~ msgstr "Dank aan Amazon.com voor de afbeeldingen van de hoezen!"
-
 # database openen mislukt:
 # openen database mislukt:
 #~ msgid "Failed to open database: {0}"
@@ -843,4 +845,3 @@ msgstr "{0} - {1}"
 
 #~ msgid "seconds"
 #~ msgstr "seconden"
-
