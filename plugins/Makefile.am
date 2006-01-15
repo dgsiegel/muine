@@ -6,7 +6,7 @@ plugin_DATA = InotifyPlugin.dll InotifyPlugin.dll.config
 muinelibdir = $(pkglibdir)
 muinelib_LTLIBRARIES = libinotifyglue.la
 
-libinotifyglue_la_SOURCES = inotify-glue.c inotify.h
+libinotifyglue_la_SOURCES = inotify-glue.c inotify.h inotify-syscalls.h
 
 DASHBOARD_PLUGIN_CSFILES =		\
 	$(srcdir)/DashboardPlugin.cs
@@ -56,4 +56,4 @@ all: DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll
 
 EXTRA_DIST = $(DASHBOARD_PLUGIN_CSFILES) $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in
 
-CLEANFILES = DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll
+CLEANFILES = DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll InotifyPlugin.dll.config

@@ -40,9 +40,7 @@ namespace Muine {
 
 	public class Inotify {
 
-		public delegate void Handler (int wd, string path, string subitem, string srcpath, EventType type);
-
-		public static event Handler Event;
+		public delegate void InotifyCallback (Watch watch, string path, string subitem, string srcpath, EventType type);
 
 		/////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,9 +77,6 @@ namespace Muine {
 
 		/////////////////////////////////////////////////////////////////////////////////////
 
-
-		/////////////////////////////////////////////////////////////////////////////////////
-
 		[StructLayout (LayoutKind.Sequential)]
 		private struct inotify_event {
 			public int       wd;
@@ -91,7 +86,7 @@ namespace Muine {
 		}
 
 		[DllImport ("libinotifyglue")]
-		static extern void inotify_glue_init ();
+		static extern int inotify_glue_init ();
 
 		[DllImport ("libinotifyglue")]
 		static extern int inotify_glue_watch (int fd, string filename, EventType mask);
@@ -101,7 +96,7 @@ namespace Muine {
 
 		[DllImport ("libinotifyglue")]
 		static extern unsafe void inotify_snarf_events (int fd,
-								int timeout_seconds,
+								int timeout_ms,
 								out int nr,
 								out IntPtr buffer);
 
@@ -145,33 +140,75 @@ namespace Muine {
 
 		/////////////////////////////////////////////////////////////////////////////////////
 
-		static private int dev_inotify = -1;
+		static private int inotify_fd = -1;
 		static private ArrayList event_queue = new ArrayList ();
 
 		static Inotify ()
 		{
-			if (Environment.GetEnvironmentVariable ("BEAGLE_DISABLE_INOTIFY") != null) {
-				return;
-			}
-
-			if (Environment.GetEnvironmentVariable ("BEAGLE_INOTIFY_VERBOSE") != null)
+			if (Environment.GetEnvironmentVariable ("MUINE_INOTIFY_VERBOSE") != null)
 				Inotify.Verbose = true;
 
-			inotify_glue_init ();
-
-			dev_inotify = Syscall.open ("/dev/inotify", OpenFlags.O_RDONLY);
-			if (dev_inotify == -1)
-				Console.WriteLine ("Could not open /dev/inotify");
+			inotify_fd = inotify_glue_init ();
+			if (inotify_fd == -1)
+				Console.Error.WriteLine ("Could not initialize inotify");
 		}
 
 		static public bool Enabled {
-			get { return dev_inotify >= 0; }
+			get { return inotify_fd >= 0; }
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////
 
-		private class Watched {
-			public int       Wd;
+		public interface Watch {
+			void Unsubscribe ();
+			void ChangeSubscription (EventType new_mask);
+		}
+
+		private class WatchInternal : Watch {
+			private InotifyCallback callback;
+			private EventType mask;
+			private WatchInfo watchinfo;
+			private bool is_subscribed;
+
+			public InotifyCallback Callback {
+				get { return callback; }
+			}
+
+			public EventType Mask {
+				get { return mask; }
+				set { mask = value; }
+			}
+
+			public WatchInternal (InotifyCallback callback, EventType mask, WatchInfo watchinfo)
+			{
+				this.callback = callback;
+				this.mask = mask;
+				this.watchinfo = watchinfo;
+				this.is_subscribed = true;
+			}
+
+			public void Unsubscribe ()
+			{
+				if (!this.is_subscribed)
+					return;
+
+				Inotify.Unsubscribe (watchinfo, this);
+				this.is_subscribed = false;
+			}
+
+			public void ChangeSubscription (EventType mask)
+			{
+				if (! this.is_subscribed)
+					return;
+
+				this.mask = mask;
+				CreateOrModifyWatch (this.watchinfo);
+			}
+
+		}
+
+		private class WatchInfo {
+			public int       Wd = -1;
 			public string    Path;
 			public bool      IsDirectory;
 			public EventType Mask;
@@ -180,29 +217,28 @@ namespace Muine {
 			public EventType FilterSeen;
 
 			public ArrayList Children;
-			public Watched   Parent;
+			public WatchInfo Parent;
+
+			public ArrayList Subscribers;
 		}
 
 		static Hashtable watched_by_wd = new Hashtable ();
 		static Hashtable watched_by_path = new Hashtable ();
-		static Watched   last_watched = null;
+		static WatchInfo last_watched = null;
 
 		private class PendingMove {
-			public Watched   Watch;
+			public WatchInfo Watch;
 			public string    SrcName;
 			public DateTime  Time;
 			public uint      Cookie;
 
-			public PendingMove (Watched watched, string srcname, DateTime time, uint cookie) {
+			public PendingMove (WatchInfo watched, string srcname, DateTime time, uint cookie) {
 				Watch = watched;
 				SrcName = srcname;
 				Time = time;
 				Cookie = cookie;
 			}
 		}
-
-		static Hashtable cookie_hash = new Hashtable ();
-		static ArrayList cookie_list = new ArrayList ();
 
 		static public int WatchCount {
 			get { return watched_by_wd.Count; }
@@ -214,17 +250,17 @@ namespace Muine {
 			return watched_by_path.Contains (path);
 		}
 
-		// Filter Watched items when we do the Lookup.
+		// Filter WatchInfo items when we do the Lookup.
 		// We do the filtering here to avoid having to acquire
 		// the watched_by_wd lock yet again.
-		static private Watched Lookup (int wd, EventType event_type)
+		static private WatchInfo Lookup (int wd, EventType event_type)
 		{
 			lock (watched_by_wd) {
-				Watched watched;
+				WatchInfo watched;
 				if (last_watched != null && last_watched.Wd == wd)
 					watched = last_watched;
 				else {
-					watched = watched_by_wd [wd] as Watched;
+					watched = watched_by_wd [wd] as WatchInfo;
 					if (watched != null)
 						last_watched = watched;
 				}
@@ -239,7 +275,7 @@ namespace Muine {
 		}
 
 		// The caller has to handle all locking itself
-		static private void Forget (Watched watched)
+		static private void Forget (WatchInfo watched)
 		{
 			if (last_watched == watched)
 				last_watched = null;
@@ -249,9 +285,11 @@ namespace Muine {
 			watched_by_path.Remove (watched.Path);
 		}
 
-		static public int Watch (string path, EventType mask, EventType initial_filter)
+		static public Watch Subscribe (string path, InotifyCallback callback, EventType mask, EventType initial_filter)
 		{
-			int wd = -1;
+			WatchInternal watch;
+			WatchInfo watched;
+			EventType mask_orig = mask;
 
 			if (!Path.IsPathRooted (path))
 				path = Path.GetFullPath (path);
@@ -263,47 +301,38 @@ namespace Muine {
 				throw new IOException (path);
 
 			lock (watched_by_wd) {
-				Watched watched;
+				watched = watched_by_path [path] as WatchInfo;
 
-				watched = watched_by_path [path] as Watched;
-				if (watched != null) {
-					if (watched.Mask == mask)
-						return watched.Wd;
-					Forget (watched);
+				if (watched == null) {
+					// We need an entirely new WatchInfo object
+					watched = new WatchInfo ();
+					watched.Path = path;
+					watched.IsDirectory = is_directory;
+					watched.Subscribers = new ArrayList ();
+					watched.Children = new ArrayList ();
+					DirectoryInfo dir = new DirectoryInfo (path);
+					watched.Parent = watched_by_path [dir.Parent.ToString ()] as WatchInfo;
+					if (watched.Parent != null)
+						watched.Parent.Children.Add (watched);
+					watched_by_path [watched.Path] = watched;
 				}
-
-				wd = inotify_glue_watch (dev_inotify, path, mask | base_mask);
-				if (wd < 0) {
-					string msg = String.Format ("Attempt to watch {0} failed!", path);
-					throw new IOException (msg);
-				}
-
-				watched = new Watched ();
-				watched.Wd = wd;
-				watched.Path = path;
-				watched.IsDirectory = is_directory;
-				watched.Mask = mask;
 
 				watched.FilterMask = initial_filter;
 				watched.FilterSeen = 0;
 
-				watched.Children = new ArrayList ();
+				watch = new WatchInternal (callback, mask_orig, watched);
+				watched.Subscribers.Add (watch);
 
-				DirectoryInfo dir = new DirectoryInfo (path);
-				watched.Parent = watched_by_path [dir.Parent.ToString ()] as Watched;
-				if (watched.Parent != null)
-					watched.Parent.Children.Add (watched);
-
+				CreateOrModifyWatch (watched);
 				watched_by_wd [watched.Wd] = watched;
-				watched_by_path [watched.Path] = watched;
 			}
 
-			return wd;
+			return watch;
 		}
-
-		public static int Watch (string path, EventType mask)
+		
+		static public Watch Subscribe (string path, InotifyCallback callback, EventType mask)
 		{
-			return Watch (path, mask, 0);
+			return Subscribe (path, callback, mask, 0);
 		}
 
 		static public EventType Filter (string path, EventType mask)
@@ -313,8 +342,8 @@ namespace Muine {
 			path = Path.GetFullPath (path);
 
 			lock (watched_by_wd) {
-				Watched watched;
-				watched = watched_by_path [path] as Watched;
+				WatchInfo watched;
+				watched = watched_by_path [path] as WatchInfo;
 
 				seen = watched.FilterSeen;
 				watched.FilterMask = mask;
@@ -324,35 +353,56 @@ namespace Muine {
 			return seen;
 		}
 
-		static public int Ignore (string path)
+		static private void Unsubscribe (WatchInfo watched, WatchInternal watch)
 		{
-			path = Path.GetFullPath (path);
+			watched.Subscribers.Remove (watch);
 
-			int wd = 0;
-			lock (watched_by_wd) {
-
-				Watched watched;
-				watched = watched_by_path [path] as Watched;
-
-				// If we aren't actually watching that path,
-				// silently return.
-				if (watched == null)
-					return 0;
-
-				wd = watched.Wd;
-
-				int retval = inotify_glue_ignore (dev_inotify, wd);
-				if (retval < 0) {
-					string msg = String.Format ("Attempt to ignore {0} failed!", watched.Path);
-					throw new IOException (msg);
-				}
-
-				Forget (watched);
+			// Other subscribers might still be around			
+			if (watched.Subscribers.Count > 0) {
+				// Minimize it
+				CreateOrModifyWatch (watched);
+				return;
 			}
 
-			return wd;
+			int retval = inotify_glue_ignore (inotify_fd, watched.Wd);
+			if (retval < 0) {
+				string msg = String.Format ("Attempt to ignore {0} failed!", watched.Path);
+				throw new IOException (msg);
+			}
+
+			Forget (watched);
+			return;
 		}
-		
+
+		// Ensure our watch exists, meets all the subscribers requirements,
+		// and isn't matching any other events that we don't care about.
+		static private void CreateOrModifyWatch (WatchInfo watched)
+		{
+			EventType new_mask = base_mask;
+			foreach (WatchInternal watch in watched.Subscribers)
+				new_mask |= watch.Mask;
+
+			if (watched.Wd >= 0 && watched.Mask == new_mask)
+				return;
+
+			// We rely on the behaviour that watching the same inode twice won't result
+			// in the wd value changing.
+			// (no need to worry about watched_by_wd being polluted with stale watches)
+			
+			int wd = -1;
+			wd = inotify_glue_watch (inotify_fd, watched.Path, new_mask);
+			if (wd < 0) {
+				string msg = String.Format ("Attempt to watch {0} failed!", watched.Path);
+				throw new IOException (msg);
+			}
+			if (watched.Wd >= 0 && watched.Wd != wd) {
+				string msg = String.Format ("Watch handle changed unexpectedly!", watched.Path);	
+				throw new IOException (msg);
+			}
+
+			watched.Wd = wd;
+			watched.Mask = new_mask;
+		}
 
 		/////////////////////////////////////////////////////////////////////////////////////
 
@@ -406,8 +456,8 @@ namespace Muine {
 				int nr;
 
 				// Will block while waiting for events, but with a 1s timeout.
-				inotify_snarf_events (dev_inotify, 
-						      1, 
+				inotify_snarf_events (inotify_fd, 
+						      1000, 
 						      out nr,
 						      out buffer);
 
@@ -452,7 +502,7 @@ namespace Muine {
 				}
 
 				if (saw_overflow)
-					Console.WriteLine ("Inotify queue overflow!");
+					Console.Error.WriteLine ("Inotify queue overflow!");
 
 				lock (event_queue) {
 					event_queue.AddRange (new_events);
@@ -466,7 +516,7 @@ namespace Muine {
 
 		// Update the watched_by_path hash and the path stored inside the watch
 		// in response to a move event.
-		static private void MoveWatch (Watched watch, string name)
+		static private void MoveWatch (WatchInfo watch, string name)		
 		{
 			watched_by_path.Remove (watch.Path);
 			watch.Path = name;
@@ -480,7 +530,7 @@ namespace Muine {
 		// all of its subdirectories, their subdirectories, and so on.
 		static private void HandleMove (string srcpath, string dstpath)
 		{
-			Watched start = watched_by_path [srcpath] as Watched;	// not the same as src!
+			WatchInfo start = watched_by_path [srcpath] as WatchInfo;	// not the same as src!
 			if (start == null) {
 				Console.WriteLine ("Lookup failed for {0}", srcpath);
 				return;
@@ -492,9 +542,9 @@ namespace Muine {
 			Queue queue = new Queue();
 			queue.Enqueue (start);
 			do {
-				Watched target = queue.Dequeue () as Watched;
+				WatchInfo target = queue.Dequeue () as WatchInfo;
 				for (int i = 0; i < target.Children.Count; i++) {
-					Watched child = target.Children[i] as Watched;
+					WatchInfo child = target.Children[i] as WatchInfo;
 					string name = Path.Combine (dstpath, child.Path.Substring (start.Path.Length + 1));
 					MoveWatch (child, name);
 					queue.Enqueue (child);
@@ -505,7 +555,7 @@ namespace Muine {
 			MoveWatch (start, dstpath);
 		}
 
-		static private void SendEvent (Watched watched, string filename, string srcpath, EventType mask)
+		static private void SendEvent (WatchInfo watched, string filename, string srcpath, EventType mask)
 		{
 			// Does the watch care about this event?
 			if ((watched.Mask & mask) == 0)
@@ -523,13 +573,17 @@ namespace Muine {
 						   srcpath != null ? "(from " + srcpath + ")" : "");
 			}
 
-			if (Event != null) {
+			if (watched.Subscribers == null)
+				return;
+
+			foreach (WatchInternal watch in watched.Subscribers)
 				try {
-					Event (watched.Wd, watched.Path, filename, srcpath, mask);
+					if (watch.Callback != null && (watch.Mask & mask) != 0)
+						watch.Callback (watch, watched.Path, filename, srcpath, mask);
 				} catch (Exception e) {
-					Console.WriteLine ("Caught exception inside Inotify.Event: " + e);
+					Console.Error.WriteLine ("Caught exception executing Inotify callbacks");
+					Console.Error.WriteLine (e); 
 				}
-			}
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -649,13 +703,18 @@ namespace Muine {
 					}
 				}
 
+				// If "running" gets set to false, we might get a null next_event as the above
+				// loop terminates
+				if (next_event == null)
+					return;
+
 				// Now we have an event, so we release the event_queue lock and do
 				// the actual dispatch.
 				
 				// Before we get any further, mark it
 				next_event.Dispatched = true;
 
-				Watched watched;
+				WatchInfo watched;
 				watched = Lookup (next_event.Wd, next_event.Type);
 				if (watched == null)
 					continue;
@@ -664,7 +723,7 @@ namespace Muine {
 
 				// If this event is a paired MoveTo, there is extra work to do.
 				if ((next_event.Type & EventType.MovedTo) != 0 && next_event.PairedMove != null) {
-					Watched paired_watched;
+					WatchInfo paired_watched;
 					paired_watched = Lookup (next_event.PairedMove.Wd, next_event.PairedMove.Type);
 
 					if (paired_watched != null) {
@@ -673,8 +732,9 @@ namespace Muine {
 						
 						// Handle the internal rename of the directory.
 						string dstpath = Path.Combine (watched.Path, next_event.Filename);
-						if (Directory.Exists (dstpath))
-							HandleMove (srcpath, dstpath);
+
+						//if (Directory.Exists (dstpath))
+						HandleMove (srcpath, dstpath);
 					}
 				}
 
@@ -690,6 +750,43 @@ namespace Muine {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////
+
+#if INOTIFY_TEST
+		static void Main (string [] args)
+		{
+			Queue to_watch = new Queue ();
+			bool recursive = false;
+
+			foreach (string arg in args) {
+				if (arg == "-r" || arg == "--recursive")
+					recursive = true;
+				else {
+					// Our hashes work without a trailing path delimiter
+					string path = arg.TrimEnd ('/');
+					to_watch.Enqueue (path);
+				}
+			}
+
+			while (to_watch.Count > 0) {
+				string path = (string) to_watch.Dequeue ();
+
+				Console.WriteLine ("Watching {0}", path);
+				Inotify.Subscribe (path, null, Inotify.EventType.All);
+			}
+
+			Inotify.Start ();
+			Inotify.Verbose = true;
+
+			while (Inotify.Enabled && Inotify.WatchCount > 0)
+				Thread.Sleep (1000);
+
+			if (Inotify.WatchCount == 0)
+				Console.WriteLine ("Nothing being watched.");
+
+			// Kill the event-reading thread so that we exit
+			Inotify.Stop ();
+		}
+#endif
 
 	}
 }

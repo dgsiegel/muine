@@ -30,8 +30,6 @@ namespace Muine
 				Watch (dir);
 
 			player.WatchedFoldersChangedEvent += OnFoldersChanged;
-
-			Inotify.Event += OnInotifyEvent;
 			Inotify.Start ();
 		}
 
@@ -47,12 +45,16 @@ namespace Muine
 			{
 				foreach (string folder in foldersToAdd)
 				{
+					//Console.WriteLine ("Adding folder: " + folder);
 					Watch (folder);
 					player.AddFolder (folder);
 				}
 				
 				foreach (string folder in foldersToRemove)
+				{
+					//Console.WriteLine ("Removing folder: " + folder);
 					player.RemoveFolder (folder);
+				}
 				
 				foreach (string file in filesToAdd) player.AddSong (file);
 				
@@ -70,11 +72,13 @@ namespace Muine
 			return ((type & value) == value);
 		}
 
-		private void OnInotifyEvent (int wd, string path, string subitem,
-									 string srcpath, Inotify.EventType type)
+		private void OnInotifyEvent (Inotify.Watch watch, string path, string subitem,
+					     string srcpath, Inotify.EventType type)
 		{
+			/*
 			Console.WriteLine ("Got event ({03}) {0}: {1}/{2}", type, path, subitem,
 							   srcpath);
+			*/
 
 			string fullPath = Path.Combine (path, subitem);
 
@@ -83,7 +87,8 @@ namespace Muine
 				if (HasFlag (type, Inotify.EventType.MovedTo) ||
 				    HasFlag (type, Inotify.EventType.CloseWrite))
 				{
-					if (HasFlag (type, Inotify.EventType.IsDirectory))
+					if (HasFlag (type, Inotify.EventType.IsDirectory) &&
+					    !HasFlag (type, Inotify.EventType.CloseWrite))
 					{
 						foldersToAdd.Add (fullPath);
 						
@@ -100,12 +105,12 @@ namespace Muine
 					
 				}
 				else if (HasFlag (type, Inotify.EventType.Create) &&
-						 HasFlag (type, Inotify.EventType.IsDirectory))
+					 HasFlag (type, Inotify.EventType.IsDirectory))
 				{
-					foldersToAdd.Add (fullPath);
+					Watch (fullPath);
 				}
 				else if (HasFlag (type, Inotify.EventType.Delete) ||
-						 HasFlag (type, Inotify.EventType.MovedFrom))
+					 HasFlag (type, Inotify.EventType.MovedFrom))
 				{
 					if (HasFlag (type, Inotify.EventType.IsDirectory))
 						foldersToRemove.Add (fullPath);
@@ -120,9 +125,13 @@ namespace Muine
 
 		private void Watch (string folder)
 		{
-			Inotify.Watch (folder, Inotify.EventType.CloseWrite |
-				       Inotify.EventType.Delete | Inotify.EventType.Create |
-				       Inotify.EventType.MovedFrom | Inotify.EventType.MovedTo);
+			if (!Directory.Exists (folder))
+				return;
+
+			Inotify.Subscribe (folder, new Inotify.InotifyCallback (OnInotifyEvent),
+					   Inotify.EventType.CloseWrite | Inotify.EventType.Delete |
+					   Inotify.EventType.Create | Inotify.EventType.MovedFrom |
+					   Inotify.EventType.MovedTo);
 
 			foreach (string dir in Directory.GetDirectories (folder))
 				Watch (dir);
