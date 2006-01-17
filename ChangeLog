@@ -1,5 +1,11 @@
 2006-01-16  Peter Johanson <peter@peterjohanson.com>
 
+	* DBusLib/Player.cs: Fix issue with calling Pixbuf.Savev with last two
+	arguments null. Instead use normal Pixbuf.Save. Patch from Eric Lesh
+	<eclesh@pacbell.net>. See bug #321688.
+
+2006-01-16  Peter Johanson <peter@peterjohanson.com>
+
 	A plugins/TrayIcon.dll.config:
 	* plugins/Makefile.am:
 	* src/muine.exe.config.in: Fix mapping of new musicbrainz stuff, and

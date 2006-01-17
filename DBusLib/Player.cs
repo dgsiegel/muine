@@ -173,7 +173,7 @@ namespace Muine.DBusLib
 				return false;
 			
 			try {
-				player.PlayingSong.CoverImage.Savev (file, "png", null, null);
+				player.PlayingSong.CoverImage.Save (file, "png");
 			} catch {
 				return false;
 			}
