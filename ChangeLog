@@ -1,3 +1,11 @@
+2006-01-16  Peter Johanson <peter@peterjohanson.com>
+
+	A plugins/TrayIcon.dll.config:
+	* plugins/Makefile.am:
+	* src/muine.exe.config.in: Fix mapping of new musicbrainz stuff, and
+	add mapping for TrayIcon plugin. Patch from Götz Waschk
+	<goetz.waschk@gmail.com>.
+
 2006-01-15  Peter Johanson <peter@peterjohanson.com>
 
 	A plugins/inotify-syscalls.h:

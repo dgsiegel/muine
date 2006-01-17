@@ -54,6 +54,6 @@ InotifyPlugin.dll.config: $(srcdir)/InotifyPlugin.dll.config.in
 
 all: DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll
 
-EXTRA_DIST = $(DASHBOARD_PLUGIN_CSFILES) $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in
+EXTRA_DIST = $(DASHBOARD_PLUGIN_CSFILES) $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in TrayIcon.dll.config
 
 CLEANFILES = DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll InotifyPlugin.dll.config
