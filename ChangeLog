@@ -1,3 +1,8 @@
+2006-01-18  Peter Johanson <peter@peterjohanson.com>
+
+	* configure.in:
+	* doc/Makefile.am: Move to new monodoc-1.1.x utilities.
+
 2006-01-16  Peter Johanson <peter@peterjohanson.com>
 
 	* DBusLib/Player.cs: Fix issue with calling Pixbuf.Savev with last two

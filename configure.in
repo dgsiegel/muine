@@ -26,7 +26,7 @@ ICON_THEME_REQUIRED=2.10
 MONO_REQUIRED=1.0
 GTKSHARP_REQUIRED=1.9.2
 DBUSSHARP_REQUIRED=0.21
-MONODOC_REQUIRED=0.16
+MONODOC_REQUIRED=1.1.9
 
 dnl Audio backend stuff
 AC_ARG_ENABLE(xine, [  --enable-xine=[no/yes]    compile with libxine support.],,enable_xine=no)
@@ -161,7 +161,11 @@ dnl Monodoc
 PKG_CHECK_MODULES(MONODOC, monodoc >= $MONODOC_REQUIRED, have_monodoc=yes, have_monodoc=no)
 AM_CONDITIONAL(ENABLE_MONODOC, test "x$have_monodoc" = "xyes")
 
-AC_PATH_PROG(MONODOC, monodoc)
+AC_PATH_PROG(MDASSEMBLER, mdassembler)
+AC_PATH_PROG(MONODOCER, monodocer)
+
+MONODOC_SOURCESDIR=`pkg-config --variable=sourcesdir monodoc`
+AC_SUBST(MONODOC_SOURCESDIR)
 
 dnl Intl
 ALL_LINGUAS="az bg ca cs da de en_CA en_GB es et eu fi fr hr hu is ja ko lt ms nb ne nl no pl pt pt_BR ro ru rw sk sr sr@Latn sv uk zh_CN"
