@@ -1,5 +1,10 @@
 2006-01-19  Peter Johanson <peter@peterjohanson.com>
 
+	* src/CoverGetter.cs: Fix some (potential) null references in the
+	MusicBrainz fetching code.
+
+2006-01-19  Peter Johanson <peter@peterjohanson.com>
+
 	* src/PlaylistWindow.cs: Remove extra Console.WriteLine that snuck in.
 
 2006-01-19  Peter Johanson <peter@peterjohanson.com>

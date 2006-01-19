@@ -324,8 +324,10 @@ namespace Muine
 
 			Pixbuf pix = null;
 			try {
-	  			string sane_album_title = SanitizeString (album.Name);
-				string sane_artist_name = album.Artists.Length > 0 ? album.Artists[0].ToLower () : String.Empty;
+	  			string sane_album_title = album.Name != null ? SanitizeString (album.Name) : String.Empty;
+				string sane_artist_name = album.Artists != null && album.Artists.Length > 0 ?
+								album.Artists[0].ToLower () :
+								String.Empty;
 				string asin = null;
 				string AmazonImageUri = "http://images.amazon.com/images/P/{0}.01._SCMZZZZZZZ_.jpg";
 	  			// remove "disc 1" and family
@@ -353,8 +355,9 @@ namespace Muine
 						// gets the artist from the first track of the album
 						c.GetResultData (MusicBrainz.MBE_AlbumGetArtistName, 1,  out fetched_artist_name);
 						// Remove "The " here as well
-						fetched_artist_name = Regex.Replace (fetched_artist_name.ToLower (),
-								@"^the\s+", "");
+						fetched_artist_name = fetched_artist_name != null ?
+							Regex.Replace (fetched_artist_name.ToLower (), @"^the\s+", "") :
+							String.Empty;
 						if (fetched_artist_name == sane_artist_name) {
 							c.GetResultData (MusicBrainz.MBE_AlbumGetAmazonAsin, out asin);
 							break;
