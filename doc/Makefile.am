@@ -1,6 +1,12 @@
 if ENABLE_MONODOC
 TARGETS = muine-docs.zip muine-docs.tree muine-docs.source
 
+ASSEMBLIES = \
+	$(top_builddir)/PluginLib/muine-plugin.dll \
+	$(top_builddir)/DBusLib/muine-dbus.dll
+
+ASSEMBLIES_BUILD = $(foreach asm,$(ASSEMBLIES),$(addprefix -assembly:,$(asm)))
+
 install-data-local:
 	mkdir -p $(DESTDIR)/$(MONODOC_SOURCESDIR)
 	install -m 644 $(srcdir)/muine-docs.source \
@@ -23,9 +29,8 @@ noinst_DATA = $(TARGETS)
 muine-docs.zip muine-docs.tree: $(srcdir)/en/*/*.xml $(srcdir)/en/*.xml
 	$(MDASSEMBLER) --ecma $(srcdir)/en -o muine-docs
 
-update:
-	$(MONODOCER) -assembly:$(top_builddir)/PluginLib/muine-plugin.dll -path:en
-	$(MONODOCER) -assembly:$(top_builddir)/DBusLib/muine-dbus.dll -path:en
+update: $(ASSEMBLIES)
+	$(MONODOCER) $(ASSEMBLIES_BUILD) -path:en -updateto:en -delete
 
 CLEANFILES = muine-docs.zip muine-docs.tree
 
