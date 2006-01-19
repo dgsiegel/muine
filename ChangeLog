@@ -1,3 +1,13 @@
+2006-01-19  Peter Johanson <peter@peterjohanson.com>
+
+	* src/PlaylistWindow.cs: Change SongChanged private method to accept a
+	'fire_event' boolean for whether to fire the SongChanged event or not.
+	Add an overload that sets fire_event=true, as this is the common case.
+	Make use of this overload to *not* fire a SongChanged from
+	OnSongChanged when we really just want to update the song info in the
+	GUI. Fixes the 'duplicate SongChanged event before last tick' bug.
+	*phew*.
+
 2006-01-18  Peter Johanson <peter@peterjohanson.com>
 
 	* configure.in:

@@ -1119,6 +1119,13 @@ namespace Muine
 		// Methods :: Private :: SongChanged
 		private void SongChanged (bool restart)
 		{
+			SongChanged (restart, true);
+		}
+
+		// Methods :: Private :: SongChanged
+		private void SongChanged (bool restart, bool fire_signal)
+		{
+			Console.WriteLine (System.Environment.StackTrace);
 			if (playlist.Model.Playing != IntPtr.Zero) {
 				Song song = Song.FromHandle (playlist.Model.Playing);
 
@@ -1149,7 +1156,7 @@ namespace Muine
 
                                 // Do this before actually loading the new song, so that the signals are
                                 // emitted in the right order: SongChangedEvent first, and then TickEvent.
-			        if (SongChangedEvent != null)
+			        if (fire_signal && SongChangedEvent != null)
 				        SongChangedEvent (song);
 
 				if (player.Song != song || restart)
@@ -1710,8 +1717,10 @@ namespace Muine
 
 				song_changed = true;
 				
+				// Use overload of SongChanged that won't fire the "SongChanged" event, since
+				// we really only want to update the pixbuf, labels, etc.
 				if (h == playlist.Model.Playing)
-					SongChanged (false);
+					SongChanged (false, false);
 
 				playlist.Model.Changed (h);
 			}
