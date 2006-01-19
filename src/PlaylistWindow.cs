@@ -1125,7 +1125,6 @@ namespace Muine
 		// Methods :: Private :: SongChanged
 		private void SongChanged (bool restart, bool fire_signal)
 		{
-			Console.WriteLine (System.Environment.StackTrace);
 			if (playlist.Model.Playing != IntPtr.Zero) {
 				Song song = Song.FromHandle (playlist.Model.Playing);
 

@@ -1,5 +1,9 @@
 2006-01-19  Peter Johanson <peter@peterjohanson.com>
 
+	* src/PlaylistWindow.cs: Remove extra Console.WriteLine that snuck in.
+
+2006-01-19  Peter Johanson <peter@peterjohanson.com>
+
 	* src/PlaylistWindow.cs: Change SongChanged private method to accept a
 	'fire_event' boolean for whether to fire the SongChanged event or not.
 	Add an overload that sets fire_event=true, as this is the common case.
