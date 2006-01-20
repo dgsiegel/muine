@@ -1,3 +1,23 @@
+0.8.4
+=====
+
+- Use musicbrainz + amazon for first album fetching attempts [Yi Qiang, Peter
+  Johanson]
+- If musicbrainz fails, use old amazon API, but now with Amazon devtag found in
+  GConf (needed for amazon API starting last year) [Martin Willis]
+- Add plugin API for adding, removing, and syncing files [James Willcox, Jorn
+  Baayen]
+- Inotify plugin (installed by default) [James Willcox]
+- New "iPod style" play/pause button [Jorn Baayen]
+- Various bugfixes [James WIllcox, Eric Lesh, Götz Waschk, Jorn Baayen, Peter 
+  Johanson]
+- Various docs/autotools updates [Peter Johanson]
+
+New translations:
+- Nepali [Pawan Chitrakar]
+- Slovak [Marcel Telka]
+- Ukrainian [Maxim Dziumanenko]
+
 0.8.3
 =====
 

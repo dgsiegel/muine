@@ -1,5 +1,11 @@
 2006-01-19  Peter Johanson <peter@peterjohanson.com>
 
+	* src/About.cs: Add new copyright year.
+	* NEWS:
+	* configure.in: Bump to 0.8.4pre1
+
+2006-01-19  Peter Johanson <peter@peterjohanson.com>
+
 	* doc/Makefile.am: Actually fix docs generation, not 1/2 fix it like
 	had previously been done.
 	* doc/en/*: Update all the documentation files. No new actual
