@@ -117,9 +117,6 @@ namespace Muine
 					GLib.Source.Remove (set_file_idle_id);
 
 				set_file_idle_id = GLib.Idle.Add (new GLib.IdleHandler (SetFileIdleFunc));
-
-				if (TickEvent != null)
-					TickEvent (0);
 			}
 
 			get { return song; }
@@ -239,6 +236,9 @@ namespace Muine
 
 			if (playing)
 				player_play (Raw);
+
+			if (TickEvent != null)
+				TickEvent (0);
 
 			return false;
 		}

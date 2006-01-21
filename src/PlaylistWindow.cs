@@ -1153,13 +1153,11 @@ namespace Muine
 
 				this.Title = String.Format (string_title_main, song.Title);
 
-                                // Do this before actually loading the new song, so that the signals are
-                                // emitted in the right order: SongChangedEvent first, and then TickEvent.
-			        if (fire_signal && SongChangedEvent != null)
-				        SongChangedEvent (song);
-
 				if (player.Song != song || restart)
 					player.Song = song;
+
+			        if (fire_signal && SongChangedEvent != null)
+				        SongChangedEvent (song);
 
 			} else {
 				cover_image.Song = null;

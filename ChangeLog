@@ -1,3 +1,12 @@
+2006-01-21  Peter Johanson <peter@peterjohanson.com>
+
+	* src/About.cs: Fix extra space in copyright string.
+	* src/Player.cs:
+	* src/PlaylistWindow.cs: Fix bug where Player.Position is equal to the
+	final position of the previous song during the SongChangedEvent,
+	instead of 0. Should finally resolve the issue with the muinescrobbler
+	plugin.
+
 2006-01-19  Peter Johanson <peter@peterjohanson.com>
 
 	* src/About.cs: Add new copyright year.

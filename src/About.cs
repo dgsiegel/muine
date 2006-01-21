@@ -34,7 +34,7 @@ namespace Muine
 			Catalog.GetString ("Muine");
 
 		private static readonly string string_copyright =
-			Catalog.GetString ("Copyright © 2003, 2004, 2005 , 2006 Jorn Baayen");
+			Catalog.GetString ("Copyright © 2003, 2004, 2005, 2006 Jorn Baayen");
 
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
