@@ -372,6 +372,9 @@ namespace Muine
 		//	* Replace with GnomeVfs#
 		//	* Can this be replaced or simplified with 
 		//	  System.Uri.ToString?
+		[DllImport ("libgnomevfs-2-0.dll")]
+		private static extern IntPtr gnome_vfs_get_uri_from_local_path (string str);
+		
 		/// <summary>
 		///	Convert a local pathname to a URI.
 		/// </summary>
@@ -384,7 +387,11 @@ namespace Muine
 		/// </returns>
 		public static string UriFromLocalPath (string uri)
 		{
-			return "file://" + uri;
+			IntPtr p = gnome_vfs_get_uri_from_local_path (uri);
+
+			return (p == IntPtr.Zero)
+				? null
+				: GLib.Marshaller.PtrToStringGFree (p);
 		}
 
 		// Methods :: Public ::: IsRemote
