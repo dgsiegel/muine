@@ -6,15 +6,15 @@ msgid ""
 ""
 msgstr "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-15 03:46+0100\n"
-"PO-Revision-Date: 2006-01-15 23:08+1030\n"
+"POT-Creation-Date: 2006-01-22 04:06+0100\n"
+"PO-Revision-Date: 2006-01-22 16:49+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b23\n"
+"X-Generator: LocFactoryEditor 1.6b31\n"
 
 #:../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
 msgid "_Play"
@@ -149,10 +149,10 @@ msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr "Chỗ Amazon nào cần dùng để lấy ảnh tập nhạc:\n"
-"us		Mỹ\n"
-"uk		Quốc Anh\n"
-"de		Đức\n"
-"jp		Nhật bản"
+"us\t\tMỹ\n"
+"uk\t\tQuốc Anh\n"
+"de\t\tĐức\n"
+"jp\t\tNhật bản"
 
 #:../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
@@ -214,8 +214,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #:../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003, 2004, 2005, 2006 Jorn Baayen"
+msgstr "Copyright © 2003, 2004, 2005, 2006 Jorn Baayen"
 
 #:../src/About.cs:40
 msgid "A music player"
@@ -349,7 +349,7 @@ msgstr "Lỗi sơ khởi thư mục cấu hình: {0}\n"
 "Nên thoát..."
 
 #:../src/FileUtils.cs:47
-#, csharp-format
+#,csharp-format
 msgid ""
 "Failed to initialize the temporary files folder: {0}\n"
 "\n"
