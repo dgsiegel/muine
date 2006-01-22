@@ -1,5 +1,11 @@
 2006-01-22  Peter Johanson <peter@peterjohanson.com>
 
+	* configure.in: Add vi to ALL_LINGUAS.
+	* NEWS: Add a bunch of translation updates/adds that I missed by not
+	scanning po/ChangeLog, and fix one attribution based on po/ChangeLog.
+
+2006-01-22  Peter Johanson <peter@peterjohanson.com>
+
 	* src/FileUtils.cs: Use gnome-vfs to get the URI from the local path,
 	instead of just prepending "file://". Fixes issues with special
 	characters like '?', '#', etc. in filenames. Patch from Brian Kerrick
