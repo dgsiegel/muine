@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-20 06:40+0300\n"
-"PO-Revision-Date: 2006-09-20 06:45+0300\n"
+"POT-Creation-Date: 2006-01-23 20:42+0200\n"
+"PO-Revision-Date: 2006-01-23 20:42+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -77,70 +77,74 @@ msgid "\"Add song\" window width"
 msgstr "\"Lisää kappale\"-ikkunan leveys"
 
 #: ../data/muine.schemas.in.h:5
+msgid "Amazon Dev Tag"
+msgstr "Amazonin kehittäjätagi"
+
+#: ../data/muine.schemas.in.h:6
 msgid "Amazon site to use for album images"
 msgstr "Amazon-sivusto, josta albumikuvat haetaan"
 
-#: ../data/muine.schemas.in.h:6
+#: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
 msgstr "Tuonnin oletuskansio"
 
-#: ../data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
 msgstr "Soittolistojen oletuskansio"
 
-#: ../data/muine.schemas.in.h:8
+#: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Kansiot, joiden muutoksia tarkkaillaan."
 
-#: ../data/muine.schemas.in.h:9
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
 msgstr "\"Lisää albumi\"-ikkunan leveys."
 
-#: ../data/muine.schemas.in.h:10
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
 msgstr "\"Lisää kappale\"-ikkunan korkeus."
 
-#: ../data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
 msgstr "Soittolista-ikkunan korkeus."
 
-#: ../data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Viimeksi käytetty kansio \"Tuo kansio\" ikkunassa."
 
-#: ../data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
 msgstr "Viimeisin käytetty kansio soittolistatiedoston valitsimissa."
 
-#: ../data/muine.schemas.in.h:14
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
 msgstr "Soittolistaikkunan korkeus"
 
-#: ../data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:16
 msgid "Playlist window width"
 msgstr "Soittolistaikkunan leveys"
 
-#: ../data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:17
 msgid "Repeat mode"
 msgstr "Toistotila"
 
-#: ../data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level"
 msgstr "Äänenvoimakkuus"
 
-#: ../data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Äänenvoimakkuus. 0 = hiljaisin, 100 = äänekkäin."
 
-#: ../data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
 msgstr "Tarkkailtavat kansiot"
 
-#: ../data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Käytetäänkö soittolistan uusintasoittoa."
 
-#: ../data/muine.schemas.in.h:21
+#: ../data/muine.schemas.in.h:22
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -148,17 +152,21 @@ msgstr ""
 "Mitä Amazon-sivustoa käytetään albumikuvien hakemiseen, \"us\", \"uk\", \"de"
 "\" tai \"jp\"."
 
-#: ../data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
 msgstr "\"Lisää albumi\"-ikkunan leveys."
 
-#: ../data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
 msgstr "\"Lisää kappale\"-ikkunan leveys."
 
-#: ../data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
 msgstr "Soittolistaikkunan leveys."
+
+#: ../data/muine.schemas.in.h:26
+msgid "Your Amazon Dev Tag for fetching album cover art"
+msgstr "Amazonin kehittäjätagisi, jolla kansikuvat haetaan"
 
 #: ../libmuine/player-gst.c:164
 msgid "Failed to create a GStreamer play object"
@@ -205,8 +213,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Copyright © 2003, 2006 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
@@ -228,9 +236,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: ../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Levyjen kannet haetaan amazon.com:ista."
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Levyjen kannet haetaan sivuilta amazon.com ja musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
