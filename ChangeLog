@@ -1,5 +1,11 @@
 2006-01-22  Peter Johanson <peter@peterjohanson.com>
 
+	* src/About.cs: Change copy right dates to a range, add myself to
+	authors list, and update cover fetching string to attribute
+	musicbrainz.org as well as amazon.com. Patch from floam on IRC.
+
+2006-01-22  Peter Johanson <peter@peterjohanson.com>
+
 	* configure.in: Add vi to ALL_LINGUAS.
 	* NEWS: Add a bunch of translation updates/adds that I missed by not
 	scanning po/ChangeLog, and fix one attribution based on po/ChangeLog.

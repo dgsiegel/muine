@@ -34,7 +34,7 @@ namespace Muine
 			Catalog.GetString ("Muine");
 
 		private static readonly string string_copyright =
-			Catalog.GetString ("Copyright © 2003, 2004, 2005, 2006 Jorn Baayen");
+			Catalog.GetString ("Copyright © 2003-2006 Jorn Baayen");
 
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
@@ -45,8 +45,9 @@ namespace Muine
 			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
 			Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>"),
+			Catalog.GetString ("Peter Johanson <peter@peterjohanson.com>"),
 			"",
-			Catalog.GetString ("Album covers are provided by amazon.com."),
+			Catalog.GetString ("Album covers are provided by amazon.com and musicbrainz.org."),
 		};
 		
 		// Documenters
