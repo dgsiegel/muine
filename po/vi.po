@@ -6,8 +6,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 04:06+0100\n"
-"PO-Revision-Date: 2006-01-22 16:49+1030\n"
+"POT-Creation-Date: 2006-01-23 20:24+0100\n"
+"PO-Revision-Date: 2006-01-24 16:40+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -214,8 +214,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #:../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005, 2006 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005, 2006 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Bản quyền © năm 2003-2006 Jorn Baayen"
 
 #:../src/About.cs:40
 msgid "A music player"
@@ -237,9 +237,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#:../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Các bìa tập nhạc do amazon.com cung cấp."
+#:../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#:../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Các bìa tập nhạc do <amazon.com> và <musicbrainz.org> cung cấp."
 
 #:../src/Actions.cs:36
 msgid "_File"
