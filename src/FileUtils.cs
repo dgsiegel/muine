@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 
 using Gnome.Vfs;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

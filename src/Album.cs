@@ -23,7 +23,7 @@ using System.Globalization;
 
 using Gdk;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

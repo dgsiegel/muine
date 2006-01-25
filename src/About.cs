@@ -20,7 +20,7 @@
 using Gtk;
 using Gdk;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

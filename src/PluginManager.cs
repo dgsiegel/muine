@@ -21,7 +21,7 @@ using System;
 using System.Reflection;
 using System.IO;
 
-using Mono.Posix;
+using Mono.Unix;
 
 using Muine.PluginLib;
 

@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

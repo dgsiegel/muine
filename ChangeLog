@@ -1,3 +1,10 @@
+2006-01-24  Peter Johanson <peter@peterjohanson.com>
+
+	* src/*: Convert to using Mono.Unix namespace as found in mono-1.1.x.
+	* configure.in: Update to depend on mono-1.1.x. All major distros are
+	shipping mono-1.1.x at this point (Debian has it in testing and
+	backports exist for stable).
+
 2006-01-22  Peter Johanson <peter@peterjohanson.com>
 
 	* src/About.cs: Change copy right dates to a range, add myself to

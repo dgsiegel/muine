@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.IO;
 using Gtk;
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

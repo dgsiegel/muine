@@ -25,7 +25,7 @@ using Gtk;
 using GLib;
 using Gnome.Vfs;
 
-using Mono.Posix;
+using Mono.Unix;
 
 using Muine.PluginLib;
 

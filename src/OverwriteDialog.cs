@@ -23,7 +23,7 @@ using System.IO;
 using Gtk;
 using GLib;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {

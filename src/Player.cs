@@ -20,7 +20,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Muine
 {
