@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 12:58-0500\n"
+"POT-Creation-Date: 2006-01-26 12:33-0500\n"
 "PO-Revision-Date: 2005-05-05 10:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -216,8 +216,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Copyright © 2003-2006 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
@@ -239,9 +239,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: ../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Album covers are provided by amazon.com."
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Album covers are provided by amazon.com and musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
