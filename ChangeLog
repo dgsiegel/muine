@@ -1,5 +1,10 @@
 2006-01-25  Peter Johanson <peter@peterjohanson.com>
 
+	* src/About.cs: No really, avoid the bug in Gnome.About. I mean it
+	this time.
+
+2006-01-25  Peter Johanson <peter@peterjohanson.com>
+
 	* src/About.cs: Fix odd bug with Gnome.About when being passed a
 	zero-length string array for the documenters variable. Will submit bug
 	upstream when a simple test case is created.

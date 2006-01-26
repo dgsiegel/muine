@@ -48,6 +48,7 @@ namespace Muine
 			Catalog.GetString ("Peter Johanson <peter@peterjohanson.com>"),
 			"",
 			Catalog.GetString ("Album covers are provided by amazon.com and musicbrainz.org."),
+			null,
 		};
 		
 		// Documenters
