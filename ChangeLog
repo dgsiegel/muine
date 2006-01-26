@@ -1,3 +1,9 @@
+2006-01-25  Peter Johanson <peter@peterjohanson.com>
+
+	* src/About.cs: Fix odd bug with Gnome.About when being passed a
+	zero-length string array for the documenters variable. Will submit bug
+	upstream when a simple test case is created.
+
 2006-01-24  Peter Johanson <peter@peterjohanson.com>
 
 	* src/*: Convert to using Mono.Unix namespace as found in mono-1.1.x.

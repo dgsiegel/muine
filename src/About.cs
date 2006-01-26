@@ -52,6 +52,7 @@ namespace Muine
 		
 		// Documenters
 		private static readonly string [] documenters = {
+			null,
 		};
 
 		// Icon
