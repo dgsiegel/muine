@@ -1,5 +1,11 @@
 2006-01-28  Peter Johanson <peter@peterjohanson.com>
 
+	* configure.in: Bump gtk-sharp dep to 2.4.0. Everyone should already
+	be using it anyways, and will prevent the one or two bug reports from
+	people using ancient gtk-sharp-1.9.x stuff.
+
+2006-01-28  Peter Johanson <peter@peterjohanson.com>
+
 	* src/Global.cs: Fix issues with trying to run a second instance
 	bringing down the whole lot. Done by 1) Doing Application.Init()
 	before any dbus stuff, so that dbus uses the right mainloop (afaict),
