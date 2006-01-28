@@ -1,3 +1,13 @@
+2006-01-28  Peter Johanson <peter@peterjohanson.com>
+
+	* src/Global.cs: Fix issues with trying to run a second instance
+	bringing down the whole lot. Done by 1) Doing Application.Init()
+	before any dbus stuff, so that dbus uses the right mainloop (afaict),
+	and 2) using SuppressFinalize on the remote object before returning
+	(work around dbus-sharp bug). Note: To use the dbus interface on
+	amd64, you need a fix for the dbus-sharp found at:
+	https://bugs.freedesktop.org/show_bug.cgi?id=4410
+
 2006-01-25  Peter Johanson <peter@peterjohanson.com>
 
 	* src/About.cs: No really, avoid the bug in Gnome.About. I mean it

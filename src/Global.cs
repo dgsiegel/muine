@@ -109,9 +109,7 @@ namespace Muine
 		/// </param>
 		public static void Main (string [] args)
 		{
-			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
-
-			new Gnome.Program ("muine", Defines.VERSION, Gnome.Modules.UI, args);
+			Application.Init ();
 
 			// Try to find a running Muine
 			try {
@@ -130,8 +128,15 @@ namespace Muine
 				
 				Gdk.Global.NotifyStartupComplete ();
 
+				// Nasty hack to fix problem with incorrectly generated IL in dbus-sharp. Idea from abock in
+				// banshee.
+				System.GC.SuppressFinalize(dbus_object);
 				return;
 			}
+
+			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+
+			new Gnome.Program ("muine", Defines.VERSION, Gnome.Modules.UI, args);
 
 			// Initialize D-Bus
 			//	We initialize here but don't connect to it until later.
