@@ -24,21 +24,22 @@
 #include <config.h>
 #include <string.h>
 #include "pointer-list-model.h"
+#include "macros.h"
 
 static GtkTreeModelFlags
-pointer_list_model_get_flags (GtkTreeModel *tree_model)
+pointer_list_model_get_flags (GtkTreeModel *UNUSED(tree_model))
 {
   return GTK_TREE_MODEL_ITERS_PERSIST | GTK_TREE_MODEL_LIST_ONLY;
 }
 
 static int
-pointer_list_model_get_n_columns (GtkTreeModel *tree_model)
+pointer_list_model_get_n_columns (GtkTreeModel *UNUSED(tree_model))
 {
   return 1;
 }
 
 static GType
-pointer_list_model_get_column_type (GtkTreeModel *tree_model, int index)
+pointer_list_model_get_column_type (GtkTreeModel *UNUSED(tree_model), int index)
 {
   switch (index) {
   case 0:
@@ -198,23 +199,23 @@ pointer_list_model_iter_n_children (GtkTreeModel *tree_model,
 }
 
 static gboolean
-pointer_list_model_iter_parent (GtkTreeModel *tree_model,
-			     GtkTreeIter  *iter,
-			     GtkTreeIter  *child)
+pointer_list_model_iter_parent (GtkTreeModel *UNUSED(tree_model),
+			     GtkTreeIter  *UNUSED(iter),
+			     GtkTreeIter  *UNUSED(child))
 {
   return FALSE;
 }
 
 static gboolean
-pointer_list_model_iter_has_child (GtkTreeModel *tree_model,
-				GtkTreeIter  *iter)
+pointer_list_model_iter_has_child (GtkTreeModel *UNUSED(tree_model),
+				GtkTreeIter  *UNUSED(iter))
 {
   return FALSE;
 }
 
 static gboolean
 pointer_list_model_row_draggable (GtkTreeDragSource *drag_source,
-                                GtkTreePath       *path)
+                                GtkTreePath       *UNUSED(path))
 {
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (drag_source), FALSE);
 
@@ -222,8 +223,8 @@ pointer_list_model_row_draggable (GtkTreeDragSource *drag_source,
 }
   
 static gboolean
-pointer_list_model_drag_data_delete (GtkTreeDragSource *drag_source,
-                                   GtkTreePath       *path)
+pointer_list_model_drag_data_delete (GtkTreeDragSource *UNUSED(drag_source),
+                                   GtkTreePath       *UNUSED(path))
 {
   return FALSE;
 }
@@ -252,9 +253,9 @@ pointer_list_model_drag_data_get (GtkTreeDragSource *drag_source,
 }
 
 static gboolean
-pointer_list_model_drag_data_received (GtkTreeDragDest   *drag_dest,
-                                       GtkTreePath       *dest,
-                                       GtkSelectionData  *selection_data)
+pointer_list_model_drag_data_received (GtkTreeDragDest   *UNUSED(drag_dest),
+                                       GtkTreePath       *UNUSED(dest),
+                                       GtkSelectionData  *UNUSED(selection_data))
 {
   return FALSE;
 }
@@ -336,7 +337,7 @@ pointer_list_model_drag_dest_init (GtkTreeDragDestIface *iface)
 }
 
 static void
-pointer_list_model_class_init (PointerListModelClass *klass)
+pointer_list_model_class_init (PointerListModelClass *UNUSED(klass))
 {
 }
 
@@ -367,7 +368,8 @@ pointer_list_model_get_type (void)
 	NULL,		/* class_data */
 	sizeof (PointerListModel),
 	0,              /* n_preallocs */
-	(GInstanceInitFunc) pointer_list_model_init
+	(GInstanceInitFunc) pointer_list_model_init,
+	NULL
       };
 	    
       static const GInterfaceInfo tree_model_info = {

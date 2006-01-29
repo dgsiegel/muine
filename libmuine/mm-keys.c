@@ -21,6 +21,7 @@
 #include <stdio.h>
 
 #include "mm-keys.h"
+#include "macros.h"
 
 static void mmkeys_class_init (MmKeysClass *klass);
 static void mmkeys_init       (MmKeys      *object);
@@ -59,6 +60,7 @@ mmkeys_get_type (void)
 				sizeof (MmKeys),
 				0,
 				(GInstanceInitFunc) mmkeys_init,
+				NULL
 			};
 
 		type = g_type_register_static (G_TYPE_OBJECT, "MmKeys",
@@ -204,7 +206,7 @@ grab_mmkey (int key_code, GdkWindow *root)
 }
 
 static GdkFilterReturn
-filter_mmkeys (GdkXEvent *xevent, GdkEvent *event, gpointer data)
+filter_mmkeys (GdkXEvent *xevent, GdkEvent *UNUSED(event), gpointer data)
 {
 	XEvent *xev;
 	XKeyEvent *key;

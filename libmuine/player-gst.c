@@ -28,6 +28,7 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 
+#include "macros.h"
 #include "player.h"
 
 static void player_class_init (PlayerClass     *klass);
@@ -88,6 +89,7 @@ player_get_type (void)
 				sizeof (Player),
 				0,
 				(GInstanceInitFunc) player_init,
+				NULL
 			};
 
 			type = g_type_register_static (G_TYPE_OBJECT,
@@ -137,7 +139,7 @@ player_class_init (PlayerClass *klass)
 }
 
 static void
-player_init (Player *player)
+player_init (Player *UNUSED(player))
 {
 }
 
@@ -254,7 +256,7 @@ eos_idle_cb (Player *player)
 }
 
 static void
-eos_cb (GstElement *sink, Player *player)
+eos_cb (GstElement *UNUSED(sink), Player *player)
 {
 	player->priv->eos_idle_id = g_idle_add ((GSourceFunc) eos_idle_cb, player);
 }
@@ -276,10 +278,10 @@ error_idle_cb (PlayerError *data)
 }
 
 static void
-error_cb (GstElement *element,
-	  GstElement *source,
+error_cb (GstElement *UNUSED(element),
+	  GstElement *UNUSED(source),
 	  GError     *error,
-          char       *debug,
+          char       *UNUSED(debug),
 	  Player     *player)
 {
 	PlayerError *data = g_new0 (PlayerError, 1);
@@ -314,7 +316,7 @@ iterate_cb (Player *player)
 }
 
 static void
-state_change_cb (GstElement *play, GstElementState old_state,
+state_change_cb (GstElement *UNUSED(play), GstElementState old_state,
 		 GstElementState new_state, Player *player)
 {
 	if (old_state == GST_STATE_PLAYING) {

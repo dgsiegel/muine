@@ -25,6 +25,7 @@
 #include <stdlib.h>
 
 #include "rb-cell-renderer-pixbuf.h"
+#include "macros.h"
 
 static void rb_cell_renderer_pixbuf_get_property  (GObject                    *object,
 						   guint                       param_id,
@@ -76,6 +77,7 @@ rb_cell_renderer_pixbuf_get_type (void)
 			sizeof (RBCellRendererPixbuf),
 			0,              /* n_preallocs */
 			(GInstanceInitFunc) rb_cell_renderer_pixbuf_init,
+			NULL
 		};
 
 		cell_pixbuf_type = g_type_register_static (GTK_TYPE_CELL_RENDERER, "RBCellRendererPixbuf", &cell_pixbuf_info, 0);
@@ -85,7 +87,7 @@ rb_cell_renderer_pixbuf_get_type (void)
 }
 
 static void
-rb_cell_renderer_pixbuf_init (RBCellRendererPixbuf *cellpixbuf)
+rb_cell_renderer_pixbuf_init (RBCellRendererPixbuf *UNUSED(cellpixbuf))
 {
 }
 
@@ -228,7 +230,7 @@ eel_create_colorized_pixbuf (GdkPixbuf *src,
 
 static void
 rb_cell_renderer_pixbuf_get_size (GtkCellRenderer *cell,
-				  GtkWidget       *widget,
+				  GtkWidget       *UNUSED(widget),
 				  GdkRectangle    *cell_area,
 				  gint            *x_offset,
 				  gint            *y_offset,
@@ -278,9 +280,9 @@ static void
 rb_cell_renderer_pixbuf_render (GtkCellRenderer    *cell,
 				GdkWindow          *window,
 				GtkWidget          *widget,
-				GdkRectangle       *background_area,
+				GdkRectangle       *UNUSED(background_area),
 				GdkRectangle       *cell_area,
-				GdkRectangle       *expose_area,
+				GdkRectangle       *UNUSED(expose_area),
 				guint               flags)
 
 {

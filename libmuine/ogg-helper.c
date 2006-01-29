@@ -24,9 +24,10 @@
 
 #include <libgnomevfs/gnome-vfs.h>
 #include "ogg-helper.h"
+#include "macros.h"
 
 size_t
-ogg_helper_read (void *ptr, size_t size, size_t nmemb, void *datasource)
+ogg_helper_read (void *ptr, size_t size, size_t UNUSED(nmemb), void *datasource)
 {
 	GnomeVFSResult res;
 	GnomeVFSFileSize bytes_read;
@@ -83,7 +84,7 @@ ogg_helper_close (void *datasource)
  * Thanks to Monty for the help
  */
 int
-ogg_helper_close_dummy (void *datasource)
+ogg_helper_close_dummy (void *UNUSED(datasource))
 {
 	return 0;
 }

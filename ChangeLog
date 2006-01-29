@@ -1,5 +1,12 @@
 2006-01-28  Peter Johanson <peter@peterjohanson.com>
 
+	A libmuine/macros.h:
+	* libmuine/*: Add new macro to mark function parameters as unused, and
+	use it to silence a bunch of errors/warnings. Fix a few other warnings
+	while we're at it (libmuine now compiles with -Wextra).
+
+2006-01-28  Peter Johanson <peter@peterjohanson.com>
+
 	* configure.in: Bump gtk-sharp dep to 2.4.0. Everyone should already
 	be using it anyways, and will prevent the one or two bug reports from
 	people using ancient gtk-sharp-1.9.x stuff.

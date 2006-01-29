@@ -39,6 +39,7 @@
 
 #include "ogg-helper.h"
 #include "metadata.h"
+#include "macros.h"
 
 struct _Metadata {
 	char *title;
@@ -722,7 +723,7 @@ typedef struct {
 } CallbackData;
 
 static FLAC__StreamDecoderReadStatus
-FLAC_read_callback (const FLAC__StreamDecoder *decoder, FLAC__byte buffer[], unsigned *bytes, void *client_data)
+FLAC_read_callback (const FLAC__StreamDecoder *UNUSED(decoder), FLAC__byte buffer[], unsigned *bytes, void *client_data)
 {
 	CallbackData *data = (CallbackData *) client_data;
 	GnomeVFSFileSize read;
@@ -741,8 +742,8 @@ FLAC_read_callback (const FLAC__StreamDecoder *decoder, FLAC__byte buffer[], uns
 }
 
 static FLAC__StreamDecoderWriteStatus
-FLAC_write_callback (const FLAC__StreamDecoder *decoder, const FLAC__Frame *frame,
-		     const FLAC__int32 *const buffer[], void *client_data)
+FLAC_write_callback (const FLAC__StreamDecoder *UNUSED(decoder), const FLAC__Frame *UNUSED(frame),
+		     const FLAC__int32 *const UNUSED(buffer[]), void *UNUSED(client_data))
 {
 	/* This callback should never be called, because we request that
 	 * FLAC only decodes metadata, never actual sound data. */
@@ -750,7 +751,7 @@ FLAC_write_callback (const FLAC__StreamDecoder *decoder, const FLAC__Frame *fram
 }
 
 static void
-FLAC_metadata_callback (const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data)
+FLAC_metadata_callback (const FLAC__StreamDecoder *UNUSED(decoder), const FLAC__StreamMetadata *metadata, void *client_data)
 {
 	CallbackData *data = (CallbackData *) client_data;
 
@@ -783,7 +784,8 @@ FLAC_metadata_callback (const FLAC__StreamDecoder *decoder, const FLAC__StreamMe
 }
 
 static void
-FLAC_error_callback (const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
+FLAC_error_callback (const FLAC__StreamDecoder *UNUSED(decoder), FLAC__StreamDecoderErrorStatus UNUSED(status),
+		     void *UNUSED(client_data))
 {
 }
 
