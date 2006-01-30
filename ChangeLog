@@ -1,3 +1,9 @@
+2006-01-29  Peter Johanson <peter@peterjohanson.com>
+
+	* src/PlaylistWindow.cs: Fix bug where 'clear played song' failed to
+	remove the cover image and song label information if it cleared the
+	whole list.
+
 2006-01-28  Peter Johanson <peter@peterjohanson.com>
 
 	A libmuine/macros.h:

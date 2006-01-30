@@ -719,8 +719,7 @@ namespace Muine
 				return;
 
 			if (had_last_eos) {
-				ClearPlaylist ();
-				PlaylistChanged ();
+				Clear ();
 				return;
 			}
 
