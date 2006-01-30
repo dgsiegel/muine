@@ -1,5 +1,9 @@
 2006-01-29  Peter Johanson <peter@peterjohanson.com>
 
+	* configure.in: Bump to 0.8.4 for a release.
+
+2006-01-29  Peter Johanson <peter@peterjohanson.com>
+
 	* NEWS: Small update to changes since 0.8.3
 	* libmuine/Makefile.am: Add macros.h from missing automake foo.
 
