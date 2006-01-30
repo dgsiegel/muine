@@ -1,5 +1,10 @@
 2006-01-29  Peter Johanson <peter@peterjohanson.com>
 
+	* NEWS: Small update to changes since 0.8.3
+	* libmuine/Makefile.am: Add macros.h from missing automake foo.
+
+2006-01-29  Peter Johanson <peter@peterjohanson.com>
+
 	* src/PlaylistWindow.cs: Fix bug where 'clear played song' failed to
 	remove the cover image and song label information if it cleared the
 	whole list.

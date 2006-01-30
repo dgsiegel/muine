@@ -35,6 +35,7 @@ endif
 libmuine_la_SOURCES =			\
 	$(xine_sources) 		\
 	$(gst_sources)			\
+	macros.h			\
 	player.h			\
 	metadata.c			\
 	metadata.h			\

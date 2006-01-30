@@ -9,8 +9,8 @@
   Baayen]
 - Inotify plugin (installed by default) [James Willcox]
 - New "iPod style" play/pause button [Jorn Baayen]
-- Various bugfixes [James WIllcox, Eric Lesh, Götz Waschk, Jorn Baayen, Peter 
-  Johanson]
+- Various bugfixes [James WIllcox, Eric Lesh, Götz Waschk, Jorn Baayen, Brian
+  Kerrick Nickel, Peter Johanson]
 - Various docs/autotools updates [Peter Johanson]
 
 New translations:
