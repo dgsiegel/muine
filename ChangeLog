@@ -1,3 +1,10 @@
+2006-01-30  Jorn Baayen <jorn@openedhand.com>
+
+	* AUTHORS:
+	* MAINTAINERS:
+
+	Added Peter.
+
 2006-01-29  Peter Johanson <peter@peterjohanson.com>
 
 	* configure.in: Bump to 0.8.4 for a release.
