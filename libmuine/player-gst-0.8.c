@@ -24,6 +24,7 @@
 #include <string.h>
 #include <math.h>
 #include <gst/gst.h>
+#include <gst/gconf/gconf.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 
@@ -33,9 +34,17 @@
 static void player_class_init (PlayerClass     *klass);
 static void player_init       (Player          *player);
 static void player_finalize   (GObject         *object);
-static gboolean bus_message_cb (GstBus *bus,
-				GstMessage *message,
-				gpointer data);
+static void eos_cb            (GstElement      *sink,
+		               Player          *player);
+static void error_cb          (GstElement      *element,
+	                       GstElement      *source,
+	                       GError          *error,
+                               char            *debug,
+	                       Player          *player);
+static void state_change_cb   (GstElement      *play,
+			       GstElementState  old_state,
+		               GstElementState  new_state,
+			       Player          *player);
 static gboolean tick_timeout  (Player          *player);
 
 enum {
@@ -53,6 +62,7 @@ struct _PlayerPriv {
 	int	    cur_volume;
 	double      volume_scale;
 
+	guint	    eos_idle_id;
 	guint       iterate_idle_id;
 	guint       tick_timeout_id;
 
@@ -148,6 +158,7 @@ player_construct (Player *player, char **error)
 	g_timer_stop (priv->timer);
 	priv->timer_add = 0;
 
+	priv->eos_idle_id = 0;
 	priv->tick_timeout_id = g_timeout_add (200, (GSourceFunc) tick_timeout, player);
 
 	priv->play = gst_element_factory_make ("playbin", "play");
@@ -157,7 +168,7 @@ player_construct (Player *player, char **error)
 		return;
 	}
 
-	sink = gst_element_factory_make ("gconfaudiosink", "sink");
+	sink = gst_gconf_get_default_audio_sink ();
 	if (!sink) {
 		*error = g_strdup (_("Could not render default GStreamer audio output sink"));
 
@@ -167,8 +178,20 @@ player_construct (Player *player, char **error)
 	g_object_set (G_OBJECT (priv->play), "audio-sink",
 		      sink, NULL);
 
-	gst_bus_add_watch (gst_pipeline_get_bus (GST_PIPELINE (priv->play)),
-			   bus_message_cb, player);
+	g_signal_connect (priv->play,
+			  "error",
+			  G_CALLBACK (error_cb),
+			  player);
+
+	g_signal_connect (priv->play,
+			  "eos",
+			  G_CALLBACK (eos_cb),
+			  player);
+
+	g_signal_connect (priv->play,
+			  "state_change",
+			  G_CALLBACK (state_change_cb),
+			  player);
 }
 
 static void
@@ -210,10 +233,7 @@ player_new (char **error)
 static gboolean
 tick_timeout (Player *player)
 {
-	GstState state;
-
-	gst_element_get_state (player->priv->play, &state, NULL, 0);
-	if (state != GST_STATE_PLAYING)
+	if (gst_element_get_state (player->priv->play) != GST_STATE_PLAYING)
 		return TRUE;
 
 	g_signal_emit (player, signals[TICK], 0, player_tell (player));
@@ -222,16 +242,72 @@ tick_timeout (Player *player)
 }
 
 static gboolean
+eos_idle_cb (Player *player)
+{
+	player->priv->timer_add += floor (g_timer_elapsed (player->priv->timer, NULL) + 0.5);
+	g_timer_stop (player->priv->timer);
+	g_timer_reset (player->priv->timer);
+
+	player->priv->eos_idle_id = 0;
+
+	g_signal_emit (player, signals[END_OF_STREAM], 0);
+
+	return FALSE;
+}
+
+static void
+eos_cb (GstElement *UNUSED(sink), Player *player)
+{
+	player->priv->eos_idle_id = g_idle_add ((GSourceFunc) eos_idle_cb, player);
+}
+
+typedef struct {
+	Player *player;
+	char *error;
+} PlayerError;
+
+static gboolean
+error_idle_cb (PlayerError *data)
+{
+	g_signal_emit (data->player, signals[ERROR], 0, data->error);
+
+	g_free (data->error);
+	g_free (data);
+
+	return FALSE;
+}
+
+static void
+error_cb (GstElement *UNUSED(element),
+	  GstElement *UNUSED(source),
+	  GError     *error,
+          char       *UNUSED(debug),
+	  Player     *player)
+{
+	PlayerError *data = g_new0 (PlayerError, 1);
+
+	/* Stop playing so we don't get repeated error messages. Might lead to
+	 * troubles with threads, not sure.
+	 */
+	player_stop (player);
+
+	data->player = player;
+	data->error = g_strdup (error->message);
+
+	g_idle_add ((GSourceFunc) error_idle_cb, data);
+}
+
+static gboolean
 iterate_cb (Player *player)
 {
 	gboolean res;
-	GstState state;
 
-	g_usleep (100);
-	
-	gst_element_get_state (player->priv->play, &state, NULL, 0);
-	
-	res = (state == GST_STATE_PLAYING);
+	if (!GST_FLAG_IS_SET (player->priv->play, GST_BIN_SELF_SCHEDULABLE)) {
+		res = gst_bin_iterate (GST_BIN (player->priv->play));
+	} else {
+		g_usleep (100);
+		res = (gst_element_get_state (player->priv->play) == GST_STATE_PLAYING);
+	}
 
 	if (!res)
 		player->priv->iterate_idle_id = 0;
@@ -239,57 +315,20 @@ iterate_cb (Player *player)
 	return res;
 }
 
-static gboolean
-bus_message_cb (GstBus *UNUSED(bus),
-		GstMessage *message,
-		gpointer data)
+static void
+state_change_cb (GstElement *UNUSED(play), GstElementState old_state,
+		 GstElementState new_state, Player *player)
 {
-	Player *player = (Player *) data;
-	char *debug;
-	GError *err;
-	GstState old_state, new_state;
-
-	switch (GST_MESSAGE_TYPE (message)) {
-	case GST_MESSAGE_ERROR:
-		gst_message_parse_error (message, &err, &debug);
-
-		/* Stop playing so we don't get repeated error messages. 
-		   Might lead to troubles with threads, not sure.
-		*/
-		player_stop (player);
-		
-		g_signal_emit (player, signals[ERROR], 0, g_strdup (err->message));
-		break;
-
-	case GST_MESSAGE_EOS:
-		player->priv->timer_add += floor (g_timer_elapsed (player->priv->timer, NULL) + 0.5);
-		g_timer_stop (player->priv->timer);
-		g_timer_reset (player->priv->timer);
-		
-		g_signal_emit (player, signals[END_OF_STREAM], 0);
-		break;
-
-	case GST_MESSAGE_STATE_CHANGED:
-		gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
-		
-		if (old_state == GST_STATE_PLAYING) {
-			if (player->priv->iterate_idle_id != 0) {
-				g_source_remove (player->priv->iterate_idle_id);
-				player->priv->iterate_idle_id = 0;
-			}
-		} else if (new_state == GST_STATE_PLAYING) {
-			if (player->priv->iterate_idle_id != 0)
-				g_source_remove (player->priv->iterate_idle_id);
-			player->priv->iterate_idle_id = g_idle_add ((GSourceFunc) iterate_cb, player);
+	if (old_state == GST_STATE_PLAYING) {
+		if (player->priv->iterate_idle_id != 0) {
+			g_source_remove (player->priv->iterate_idle_id);
+			player->priv->iterate_idle_id = 0;
 		}
-
-		break;
-
-	default:
-		break;
+	} else if (new_state == GST_STATE_PLAYING) {
+		if (player->priv->iterate_idle_id != 0)
+			g_source_remove (player->priv->iterate_idle_id);
+		player->priv->iterate_idle_id = g_idle_add ((GSourceFunc) iterate_cb, player);
 	}
-
-	return TRUE;
 }
 
 gboolean
@@ -337,6 +376,11 @@ void
 player_stop (Player *player)
 {
 	g_return_if_fail (IS_PLAYER (player));
+
+	if (player->priv->eos_idle_id > 0) {
+		g_source_remove (player->priv->eos_idle_id);
+		player->priv->eos_idle_id = 0;
+	}
 
 	g_free (player->priv->current_file);
 	player->priv->current_file = NULL;
@@ -425,12 +469,9 @@ player_seek (Player *player, int t)
 {
 	g_return_if_fail (IS_PLAYER (player));
 
-	gst_element_seek (player->priv->play, 1.0,
-			  GST_FORMAT_TIME,
-			  GST_SEEK_FLAG_FLUSH,
-			  GST_SEEK_TYPE_SET,
-			  t * GST_SECOND,
-			  0, 0);
+	gst_element_seek (player->priv->play, GST_SEEK_METHOD_SET |
+		          GST_SEEK_FLAG_FLUSH | GST_FORMAT_TIME,
+		          t * GST_SECOND);
 
 	g_timer_reset (player->priv->timer);
 	player->priv->timer_add = t;

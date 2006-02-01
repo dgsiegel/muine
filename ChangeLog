@@ -1,3 +1,14 @@
+2006-01-31  Peter Johanson <peter@peterjohanson.com>
+
+	A libmuine/player-gst-0.8.c: Copy player-gst.c to new location to
+	snapshot 0.8 gstreamer support.
+	* libmuine/player-gst.c: Update to use gstreamer-0.10 API. Based off
+	patch from Iain <iain@gnome.org>.
+	* libmuine/Makefile.am: automake updates to handle compiling either
+	gstreamer 0.10.x or 0.8.x support.
+	* configure.in: Add autoconf logic for selecting/detecting gstreamer
+	versions, and bump version to 0.8.4.99 now that 0.8.4 is out.
+
 2006-01-30  Jorn Baayen <jorn@openedhand.com>
 
 	* AUTHORS:
