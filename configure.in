@@ -179,7 +179,7 @@ MONODOC_SOURCESDIR=`pkg-config --variable=sourcesdir monodoc`
 AC_SUBST(MONODOC_SOURCESDIR)
 
 dnl Intl
-ALL_LINGUAS="az bg ca cs da de en_CA en_GB es et eu fi fr hr hu is ja ko lt ms nb ne nl no pl pt pt_BR ro ru rw sk sr sr@Latn sv uk vi zh_CN"
+ALL_LINGUAS="az bg ca cs da de en_CA en_GB es et eu fi fr hr hu is ja ko lt ms nb ne nl no pl pt pt_BR ro ru rw sk sr sr@Latn sv th uk vi zh_CN"
 GETTEXT_PACKAGE=muine
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])

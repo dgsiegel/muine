@@ -1,3 +1,7 @@
+2006-02-07  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
+
 2006-02-02  Peter Johanson <peter@peterjohanson.com>
 
 	* plugins/TrayIcon.cs: Missed one Mono.Posix -> Mono.Unix change.
