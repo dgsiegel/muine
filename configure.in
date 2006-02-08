@@ -42,7 +42,7 @@ else
    if test "x$enable_gstreamer" = "x0.8" -o "x$have_gstreamer" = "xno"; then
       have_gstreamer_old=yes
       have_gstreamer=no
-      audio_pkgconfig="gstreamer-0.8 >= $GSTREAMER_OLD_REQUIRED"
+      audio_pkgconfig="gstreamer-0.8 >= $GSTREAMER_OLD_REQUIRED gstreamer-gconf-0.8 >= $GSTREAMER_OLD_REQUIRED"
       AC_DEFINE(HAVE_GST_OLD, 1, gstreamer 0.8.x support)
    else
       audio_pkgconfig="gstreamer-0.10 >= $GSTREAMER_REQUIRED"
