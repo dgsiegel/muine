@@ -1,3 +1,7 @@
+2006-02-15  Peter Johanson <peter@peterjohanson.com>
+
+	* README: Update the website URL.
+
 2006-02-07  Peter Johanson <peter@peterjohanson.com>
 
 	* configure.in: D'oh. Broke the 0.8 build stuff by dropping the
