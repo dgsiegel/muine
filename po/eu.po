@@ -1,600 +1,583 @@
+# translation of eu.po to Basque
 # translation of eu.po to basque
 # Basque translation of Muine.
 # Copyright (C) 2004 THE Muine'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Muine package.
 # Mikel Olasagasti <hey_neken@mundurat.net>, 2004.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-23 13:51+0200\n"
-"PO-Revision-Date: 2004-03-16 23:07+0100\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
-"Language-Team: basque <itzulpena@euskalgnu.org>\n"
+"POT-Creation-Date: 2006-03-02 21:32+0100\n"
+"PO-Revision-Date: 2006-03-03 13:08+0100\n"
+"Last-Translator: Iñaki Larrañaga <dooteo@euskalgnu.org>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"\n"
 
-#: data/glade/AddWindow.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: data/glade/AddWindow.glade.h:2
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
 msgid "_Play"
 msgstr "_Erreproduzitu"
 
-#: data/glade/AddWindow.glade.h:3
+#: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
-msgstr "_Lerroan"
+msgstr "_Ilara"
 
-#: data/glade/AddWindow.glade.h:4
+#: ../data/glade/AddWindow.glade.h:3
 msgid "_Search:"
-msgstr "_Bilaketa:"
+msgstr "_Bilatu:"
 
-#: data/glade/ErrorDialog.glade.h:1
+#: ../data/glade/ErrorDialog.glade.h:1
 msgid "Error"
 msgstr "Errorea"
 
-#: data/glade/NoMusicFoundWindow.glade.h:1
-msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Ez da musikarik aurkitu</span>"
+#: ../data/glade/OverwriteDialog.glade.h:1
+msgid "Overwrite File?"
+msgstr "Gainidatzi fitxategia?"
 
-#: data/glade/NoMusicFoundWindow.glade.h:2
-msgid ""
-"Muine was unable to find your music collection. What would you like me to do?"
-msgstr "Muine-k ezin izan du musika kolekziorik aurkitu. Zer nahi duzu egitea?"
+#: ../data/glade/OverwriteDialog.glade.h:2
+msgid "_Overwrite"
+msgstr "_Gainidatzi"
 
-#: data/glade/NoMusicFoundWindow.glade.h:3
-msgid ""
-"Muine will create the folders Music and Music/Playlists in your home folder "
-"to store your music files. This option is highly recommended. You can always "
-"import other folders manually."
-msgstr ""
-"Muinek, zure musika fitxategiak gordetzeko, Music eta Music/Playlist "
-"karpetak sortuko ditu zure etxeko karpetan. Aukera hau oso gomendagarria da. "
-"Hala ere nahi duzunean beste karpetak eskuz inportatu ditzakezu ."
-
-#: data/glade/NoMusicFoundWindow.glade.h:4
-msgid "No Music Found"
-msgstr "Ez da musikarik aurkitu"
-
-#: data/glade/NoMusicFoundWindow.glade.h:5
-msgid ""
-"You will have to import your music manually. This is for experienced users "
-"only and therefore not generally recommended."
-msgstr ""
-"Musika eskuz inportatu beharko duzu. Hau esperientzia duten "
-"erabiltzaileentzat bakarrik da, eta oroar ez da gomendagarria."
-
-#: data/glade/NoMusicFoundWindow.glade.h:6
-msgid "_Create an empty music collection "
-msgstr "_Sortu musika bilduma hutsa "
-
-#: data/glade/NoMusicFoundWindow.glade.h:7
-msgid "_Nothing, I will manage my music myself"
-msgstr "_Ezer, nik kudeatuko dut nire musika"
-
-#: data/glade/PlaylistWindow.glade.h:1
-msgid "P_roperties"
-msgstr ""
-
-#: data/glade/PlaylistWindow.glade.h:2 src/AddAlbumWindow.cs:65
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
-msgstr "Erreproduzitu diska"
+msgstr "Erreproduzitu albuma"
 
-#: data/glade/PlaylistWindow.glade.h:3 src/AddSongWindow.cs:54
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:41
 msgid "Play Song"
-msgstr "Erreproduzitu kanta"
+msgstr "Erreproduzitu abestia"
 
-#: data/glade/PlaylistWindow.glade.h:4 src/NotificationAreaIcon.cs:99
-msgid "Play _Album..."
-msgstr "Erreproduzitu _diska..."
-
-#: data/glade/PlaylistWindow.glade.h:5 src/NotificationAreaIcon.cs:96
-msgid "Play _Song..."
-msgstr "Erreproduzitu _kanta..."
-
-#: data/glade/PlaylistWindow.glade.h:6
-msgid "R_epeat"
-msgstr "_Errepikatu"
-
-#: data/glade/PlaylistWindow.glade.h:7
-msgid "Remove _Played Songs"
-msgstr "Ezabatu _erreproduzitutako kantak"
-
-#: data/glade/PlaylistWindow.glade.h:8
-msgid "Skip _Backwards"
-msgstr "Saltatu _atzera"
-
-#: data/glade/PlaylistWindow.glade.h:9
-msgid "Skip _Forward"
-msgstr "Saltatu a_urrera"
-
-#: data/glade/PlaylistWindow.glade.h:10
-msgid "TMP"
-msgstr "TMP"
-
-#: data/glade/PlaylistWindow.glade.h:11
-msgid "_Clear"
-msgstr ""
-
-#: data/glade/PlaylistWindow.glade.h:12
-msgid "_Hide Window"
-msgstr "_Ezkutatu leihoa"
-
-#: data/glade/PlaylistWindow.glade.h:13
-msgid "_Import Folder..."
-msgstr "_Inportatu karpeta..."
-
-#: data/glade/PlaylistWindow.glade.h:14
-msgid "_Next"
-msgstr "_Hurrengoa"
-
-#: data/glade/PlaylistWindow.glade.h:15
-msgid "_Open Playlist..."
-msgstr "_Ireki kanta-zerrenda..."
-
-#: data/glade/PlaylistWindow.glade.h:16
-msgid "_Playlist"
-msgstr "_Kanta-zerrenda"
-
-#: data/glade/PlaylistWindow.glade.h:17
-msgid "_Previous"
-msgstr "_Aurrekoa"
-
-#: data/glade/PlaylistWindow.glade.h:18
-msgid "_Remove Song"
-msgstr "_Ezabatu kanta"
-
-#: data/glade/PlaylistWindow.glade.h:19
-msgid "_Save Playlist As..."
-msgstr "_Gorde kanta-zerrenda honela..."
-
-#: data/glade/PlaylistWindow.glade.h:20
-msgid "_Skip to..."
-msgstr "_Saltatu hona..."
-
-#: data/glade/PlaylistWindow.glade.h:21
-msgid "_Song"
-msgstr "_Kanta"
-
-#: data/glade/ProgressWindow.glade.h:1
-msgid "Loading:"
-msgstr "Kargatzen:"
-
-#: data/glade/SkipToWindow.glade.h:1
+#: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
 msgstr "Saltatu hona"
 
-#: data/glade/YesNoDialog.glade.h:1
-msgid "Question"
-msgstr "Galdera"
-
-#: data/muine.desktop.in.h:1
+#: ../data/muine.desktop.in.h:1
 msgid "Listen to your music"
 msgstr "Entzun zure musika"
 
-#: data/muine.desktop.in.h:2 src/PlaylistWindow.cs:616
+#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "Muine Musika Erreproduzitzailea"
+msgstr "Muine musika erreproduzitzailea"
 
-#: data/muine.schemas.in.h:1
-msgid "Add album window height."
-msgstr "Gehitu diska leihoaren altuera."
+#: ../data/muine.schemas.in.h:1
+msgid "\"Add album\" window height"
+msgstr "\"Gehitu albuma\" leihoaren altuera"
 
-#: data/muine.schemas.in.h:2
-msgid "Add album window width."
-msgstr "Gehitu diska leihoaren zabalera."
+#: ../data/muine.schemas.in.h:2
+msgid "\"Add album\" window width"
+msgstr "\"Gehitu albuma\" leihoaren zabalera"
 
-#: data/muine.schemas.in.h:3
-msgid "Add song window height."
-msgstr "Gehitu kanta leihoaren altuera."
+#: ../data/muine.schemas.in.h:3
+msgid "\"Add song\" window height"
+msgstr "\"Gehitu abestia\" leihoaren altuera"
 
-#: data/muine.schemas.in.h:4
-msgid "Add song window width."
-msgstr "Gehitu kanta leihoaren zabalera."
+#: ../data/muine.schemas.in.h:4
+msgid "\"Add song\" window width"
+msgstr "\"Gehitu abestia\" leihoaren zabalera"
 
-#: data/muine.schemas.in.h:5
-msgid "Default import folder."
-msgstr "Lehenetsitako inportazio-karpeta."
+#: ../data/muine.schemas.in.h:5
+#, fuzzy
+msgid "Amazon Dev Tag"
+msgstr "Amazon Dev etiketa"
 
-#: data/muine.schemas.in.h:6
-msgid "Default playlist folder."
-msgstr "Lehenetsitako kanta-zerrendaren karpeta"
+#: ../data/muine.schemas.in.h:6
+msgid "Amazon site to use for album images"
+msgstr "Amazon gunea irudien albumetan erabiltzeko"
 
-#: data/muine.schemas.in.h:7
-msgid "First start."
-msgstr "Lehen abiarazpena."
+#: ../data/muine.schemas.in.h:7
+msgid "Default import folder"
+msgstr "Lehenetsitako inportazio-karpeta"
 
-#: data/muine.schemas.in.h:8
+#: ../data/muine.schemas.in.h:8
+msgid "Default playlist folder"
+msgstr "Lehenetsitako abesti-zerrendaren karpeta"
+
+#: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Karpetak, aldaketak monitorizatzeko."
 
-#: data/muine.schemas.in.h:9
-msgid "Information window height."
-msgstr "Informazio leihoaren altuera."
+#: ../data/muine.schemas.in.h:10
+msgid "Height of the \"Add album\" window."
+msgstr "\"Gehitu albuma\" leihoaren altuera."
 
-#: data/muine.schemas.in.h:10
-msgid "Information window width."
-msgstr "Informazio leihoaren zabalera."
+#: ../data/muine.schemas.in.h:11
+msgid "Height of the \"Add song\" window."
+msgstr "\"Gehitu abestia\" leihoaren altuera."
 
-#: data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:12
+msgid "Height of the playlist window."
+msgstr "Abesti-zerrendaren leihoaren altuera."
+
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Azken karpeta, \"Inportatu karpeta\" leihoan erabilitakoa."
 
-#: data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
-msgstr "Azken karpeta, kanta-zerrenda fitxategi arakatzailean erabilitakoa."
+msgstr "Azken karpeta, abesti-zerrenda fitxategi arakatzailean erabilitakoa."
 
-#: data/muine.schemas.in.h:13
-msgid "Playlist window height."
-msgstr "Kanta-zerrendaren altuera."
+#: ../data/muine.schemas.in.h:15
+msgid "Playlist window height"
+msgstr "Abesti-zerrendaren leihoaren altuera."
 
-#: data/muine.schemas.in.h:14
-msgid "Playlist window width."
-msgstr "Kanta-zerrendaren zabalera."
+#: ../data/muine.schemas.in.h:16
+msgid "Playlist window width"
+msgstr "Abesti-zerrendaren leihoaren zabalera."
 
-#: data/muine.schemas.in.h:15
-msgid "Repeat mode."
-msgstr "Errepikatze modua."
+#: ../data/muine.schemas.in.h:17
+msgid "Repeat mode"
+msgstr "Errepikatze-modua"
 
-#: data/muine.schemas.in.h:16
-msgid "Volume level."
-msgstr "Ozentasun maila."
+#: ../data/muine.schemas.in.h:18
+msgid "Volume level"
+msgstr "Bolumen-maila"
 
-#: data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
-msgstr "Ozentasun maila. 0 = txikiena, 100 = altuena."
+msgstr "Bolumen-maila. 0 = txikiena, 100 = altuena."
 
-#: data/muine.schemas.in.h:18
-msgid "Watched folders."
+#: ../data/muine.schemas.in.h:20
+msgid "Watched folders"
 msgstr "Ikusitako karpetak."
 
-#: data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Kanta-zerrenda errepikatuko duen ala ez adierazten du."
+msgstr "Abesti-zerrenda errepikatuko duen ala ez."
 
-#: data/muine.schemas.in.h:20
-msgid "false if Muine has been started before."
-msgstr "faltsua Muine lehenago abiarazia izan bada."
+#: ../data/muine.schemas.in.h:22
+msgid ""
+"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
+"or \"jp\"."
+msgstr "Zein Amazon gune erabili albumen irudiak eskuratzeko: \"us\", \"uk\", \"de\" edo \"jp\"."
 
-#: libmuine/player-gst.c:157
-msgid "Failed to create GstPlay object"
+#: ../data/muine.schemas.in.h:23
+msgid "Width of the \"Add album\" window."
+msgstr "\"Gehitu albuma\" leihoaren zabalera."
+
+#: ../data/muine.schemas.in.h:24
+msgid "Width of the \"Add song\" window."
+msgstr "\"Gehitu abestia\" leihoaren zabalera."
+
+#: ../data/muine.schemas.in.h:25
+msgid "Width of the playlist window."
+msgstr "Abesti-zerrendaren leihoaren zabalera."
+
+#: ../data/muine.schemas.in.h:26
+msgid "Your Amazon Dev Tag for fetching album cover art"
 msgstr ""
 
-#: libmuine/player-gst.c:164
-msgid "Failed to create the required gnomevfssrc GStreamer element"
-msgstr ""
+#: ../libmuine/player-gst.c:155
+msgid "Failed to create a GStreamer play object"
+msgstr "Huts egin du GStreamer erreproduzitzeko objektua sortzean."
 
-#: libmuine/player-gst.c:173
+#: ../libmuine/player-gst.c:162
 msgid "Could not render default GStreamer audio output sink"
-msgstr ""
+msgstr "Ezin izan da GStreamer audioko sink.-irteera lehenetsia errendatu"
 
-#: libmuine/player-gst.c:182
-msgid "Could not find the volume element in the GstPlay pipeline"
+#: ../libmuine/player-xine.c:290
+#, c-format
+msgid ""
+"Couldn't load the '%s' audio driver\n"
+"Check that the device is not busy."
 msgstr ""
+"Ezin izan da '%s' audio-unitatea kargatu\n"
+"Egiaztatu gailua ez dagoela okupatuta."
 
-#: libmuine/player-xine.c:289
-msgid "Failed to set up an audio driver"
-msgstr ""
-
-#: libmuine/player-xine.c:358 libmuine/player-xine.c:363
+#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr ""
+msgstr "Ez dago \"%s\"(r)en plugin-ik erabilgarri"
 
-#: libmuine/player-xine.c:368
+#: ../libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Huts egin du \"%s\" erreproduzitzean"
 
-#: libmuine/player-xine.c:372
+#: ../libmuine/player-xine.c:398
 msgid "Internal error"
-msgstr ""
+msgstr "Barneko errorea"
 
-#: libmuine/player-xine.c:381
+#: ../libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
+msgstr "Ezin izan da \"%s\" erreproduzitu"
 
-#: src/About.cs:38
-msgid "Jorn Baayen (jbaayen@gnome.org)"
-msgstr ""
-
-#: src/About.cs:39
-msgid "Lee Willis (lee@leewillis.co.uk)"
-msgstr ""
-
-#. please use Vietnamese spelling, if the relevant characters occur in
-#. * your language.
-#: src/About.cs:42
-msgid "Viet Yen Nguyen (nguyen@cs.utwente.nl)"
-msgstr ""
-
-#: src/About.cs:44
-msgid "Album covers are provided by amazon.com."
-msgstr ""
-
-#: src/About.cs:54
+#: ../src/About.cs:31
 msgid "translator-credits"
 msgstr ""
+"Mikel Olasagasti <hey_neken@mundurat.net>\n"
+"Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
-#: src/About.cs:59
+#: ../src/About.cs:34
 msgid "Muine"
-msgstr ""
+msgstr "Muine"
 
-#. please use the UTF-8 copyright symbol in your translation ..
-#: src/About.cs:61
-msgid "Copyright (C) 2003, 2004 Jorn Baayen"
-msgstr ""
+#: ../src/About.cs:37
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Copyright-a © 2003-2006 Jorn Baayen"
 
-#: src/About.cs:62
-#, fuzzy
+#: ../src/About.cs:40
 msgid "A music player"
-msgstr "Muine Musika Erreproduzitzailea"
+msgstr "Musika erreproduzitzailea"
 
-#: src/AddAlbumWindow.cs:175 src/PlaylistWindow.cs:586
-#, csharp-format
-msgid "Performed by {0}"
-msgstr ""
+#: ../src/About.cs:44
+msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#. Space-separated list of prefixes that will be taken off the front
-#. * when sorting. For example, "The Beatles" will be sorted as "Beatles",
-#. * if "the" is included in this list. Also include the English "the"
-#. * if English is generally spoken in your country.
-#: src/Album.cs:93
-msgid "the dj"
-msgstr ""
+#: ../src/About.cs:45
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: src/Metadata.cs:165
-#, csharp-format
-msgid "Failed to load metadata: {0}"
-msgstr ""
+#: ../src/About.cs:46
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: src/Muine.cs:79
-#, csharp-format
-msgid ""
-"Failed to load the cover database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
+#: ../src/About.cs:47
+msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: src/Muine.cs:88
-#, csharp-format
-msgid ""
-"Failed to load the song database: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
 
-#: src/NotificationAreaIcon.cs:53
-#, fuzzy
-msgid "Muine music player"
-msgstr "Muine Musika Erreproduzitzailea"
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "amazon.com eta musicbrainz.org guneek eskaintzen dituzte albumen azalak."
 
-#: src/NotificationAreaIcon.cs:86
-#, fuzzy
-msgid "_Previous Song"
+#: ../src/Actions.cs:36
+msgid "_File"
+msgstr "_Fitxategia"
+
+#: ../src/Actions.cs:39
+msgid "_Song"
+msgstr "_Abestia"
+
+#: ../src/Actions.cs:42
+msgid "_Playlist"
+msgstr "_Abesti-zerrenda"
+
+#: ../src/Actions.cs:45
+msgid "_Help"
+msgstr "_Laguntza"
+
+#: ../src/Actions.cs:49
+msgid "_Import Folder..."
+msgstr "_Inportatu karpeta..."
+
+#: ../src/Actions.cs:52
+msgid "_Open..."
+msgstr "_Ireki..."
+
+#: ../src/Actions.cs:55
+msgid "_Save As..."
+msgstr "_Gorde honela..."
+
+#: ../src/Actions.cs:58
+msgid "Hide _Window"
+msgstr "Ezkutatu _leihoa"
+
+#: ../src/Actions.cs:61
+msgid "Show _Window"
+msgstr "Erakutsi _leihoa"
+
+#: ../src/Actions.cs:68
+msgid "_Previous"
 msgstr "_Aurrekoa"
 
-#: src/NotificationAreaIcon.cs:89
-#, fuzzy
-msgid "_Next Song"
-msgstr "_Kanta"
+#: ../src/Actions.cs:71
+msgid "_Next"
+msgstr "_Hurrengoa"
 
-#: src/NotificationAreaIcon.cs:106 src/PlaylistWindow.cs:249
-msgid "Show _Window"
-msgstr ""
+#: ../src/Actions.cs:74
+msgid "_Skip to..."
+msgstr "_Saltatu hona..."
 
-#: src/Player.cs:51
+#: ../src/Actions.cs:77
+msgid "Skip _Backwards"
+msgstr "Saltatu _atzera"
+
+#: ../src/Actions.cs:80
+msgid "Skip _Forward"
+msgstr "Saltatu a_urrera"
+
+#: ../src/Actions.cs:84
+msgid "Play _Song..."
+msgstr "Erreproduzitu _abestia..."
+
+#: ../src/Actions.cs:87
+msgid "Play _Album..."
+msgstr "Erreproduzitu _albuma..."
+
+#: ../src/Actions.cs:90
+msgid "_Remove Song"
+msgstr "_Kendu abestia"
+
+#: ../src/Actions.cs:93
+msgid "Remove _Played Songs"
+msgstr "Kendu _erreproduzitutako abestiak"
+
+#: ../src/Actions.cs:96
+msgid "_Clear"
+msgstr "_Garbitu"
+
+#: ../src/Actions.cs:99
+msgid "R_epeat"
+msgstr "_Errepikatu"
+
+#: ../src/Actions.cs:102
+msgid "Shu_ffle"
+msgstr "Au_sazkoa"
+
+#: ../src/Actions.cs:106
+msgid "_About"
+msgstr "Honi _buruz"
+
+#: ../src/AddAlbumWindow.cs:44 ../src/PlaylistWindow.cs:89
+#, csharp-format
+msgid "Performed by {0}"
+msgstr "{0}(e)k burututa"
+
+#: ../src/Album.cs:44
+msgid "the dj"
+msgstr "dj"
+
+#: ../src/FileUtils.cs:44
 #, csharp-format
 msgid ""
-"Error opening {0}:\n"
-"{1}"
+"Failed to initialize the configuration folder: {0}\n"
+"\n"
+"Exiting..."
 msgstr ""
+"Huts egin du konfigurazioko karpeta hasieratzean: {0}\n"
+"\n"
+"Irtetzen..."
 
-#: src/Player.cs:232
+#: ../src/FileUtils.cs:47
 #, csharp-format
 msgid ""
-"Audio backend error:\n"
-"{0}"
+"Failed to initialize the temporary files folder: {0}\n"
+"\n"
+"Exiting..."
 msgstr ""
+"Huts egin du aldi baterako karpeta hasieratzean: {0}\n"
+"\n"
+"Irtetzen..."
 
-#: src/PlaylistWindow.cs:247
-#, fuzzy
-msgid "Hide _Window"
-msgstr "_Ezkutatu leihoa"
+#: ../src/Global.cs:37
+#, csharp-format
+msgid "Failed to export D-Bus object: {0}"
+msgstr "Huts egin du D-BUS objektua esportatzean: {0}"
 
-#: src/PlaylistWindow.cs:268
+#: ../src/Global.cs:40
+#, csharp-format
+msgid "Failed to load the cover database: {0}"
+msgstr "Huts egin du azalen datu-basea kargatzean: {0}"
+
+#: ../src/Global.cs:43
+#, csharp-format
+msgid "Failed to load the song database: {0}"
+msgstr "Huts egin du abestien datu-basea kargatzean: {0}"
+
+#: ../src/Global.cs:46
+msgid "Error initializing Muine."
+msgstr "Errorea Muine hasieratzean."
+
+#: ../src/ImportDialog.cs:37
+msgid "Import Folder"
+msgstr "Inportatu karpeta"
+
+#: ../src/ImportDialog.cs:40
+msgid "_Import"
+msgstr "_Inportatu"
+
+#: ../src/Metadata.cs:34
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr "Huts egin du meta-datuak kargatzean: {0}"
+
+#: ../src/OpenDialog.cs:37
+msgid "Open Playlist"
+msgstr "Ireki abesti-zerrenda"
+
+#: ../src/OpenDialog.cs:40
+msgid "Playlist files"
+msgstr "Abesti-zerrenden fitxategiak"
+
+#: ../src/OverwriteDialog.cs:34
+#, csharp-format
+msgid "Overwrite \"{0}\"?"
+msgstr "Gainidatzi {0}?"
+
+#: ../src/OverwriteDialog.cs:37
+msgid ""
+"A file with this name already exists. If you choose to overwrite this file, "
+"the contents will be lost."
+msgstr ""
+"Izen bereko fitxategia badago lehendik ere. Fitxategi hau gainidaztea "
+"aukeratzen baduzu, edukia galdu egingo da."
+
+#: ../src/Player.cs:39
+msgid "Audio backend error:"
+msgstr "Audioaren motorreko errorea:"
+
+#: ../src/PlaylistWindow.cs:71
+msgid "Playlist.m3u"
+msgstr "Abesti-zerrenda.m3u"
+
+#: ../src/PlaylistWindow.cs:74
+msgid "<b>Playlist</b>"
+msgstr "<b>Abesti-zerrenda</b>"
+
+#: ../src/PlaylistWindow.cs:77
+msgid "<b>Playlist</b> (Repeating)"
+msgstr "<b>Abesti-zerrenda</b> (errepikatzen)"
+
+#: ../src/PlaylistWindow.cs:80
+msgid "<b>Playlist</b> (Less than one minute remaining)"
+msgstr "<b>Abesti-zerrenda</b> (minutu bat edo gutxiago falta da)"
+
+#: ../src/PlaylistWindow.cs:83
+#, csharp-format
+msgid "From \"{0}\""
+msgstr "\"{0}\"(e)tik"
+
+#: ../src/PlaylistWindow.cs:86
+msgid "Album unknown"
+msgstr "Album ezezaguna"
+
+#: ../src/PlaylistWindow.cs:93
+#, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Muine musika erreproduzitzailea"
+
+#: ../src/PlaylistWindow.cs:97
+msgid "Switch music playback on or off"
+msgstr "Musika erreproduzitzea aktibatzen edo desaktibatzen du"
+
+#: ../src/PlaylistWindow.cs:100
 msgid "Play the previous song"
-msgstr ""
+msgstr "Erreproduzitu aurreko abestia"
 
-#: src/PlaylistWindow.cs:270
+#: ../src/PlaylistWindow.cs:103
 msgid "Play the next song"
-msgstr ""
+msgstr "Erreproduzitu hurrengo abestia"
 
-#: src/PlaylistWindow.cs:272
-#, fuzzy
+#: ../src/PlaylistWindow.cs:106
 msgid "Add an album to the playlist"
-msgstr "Gehitu diska leihoaren altuera."
+msgstr "Gehitu albuma abesti-zerrendara"
 
-#: src/PlaylistWindow.cs:274
-#, fuzzy
+#: ../src/PlaylistWindow.cs:109
 msgid "Add a song to the playlist"
-msgstr "Gehitu kanta leihoaren altuera."
+msgstr "Gehitu abestia abesti-zerrendara"
 
-#: src/PlaylistWindow.cs:282
-#, fuzzy
+#: ../src/PlaylistWindow.cs:112
 msgid "Change the volume level"
-msgstr "Ozentasun maila."
+msgstr "Aldatu bolumen-maila"
 
-#: src/PlaylistWindow.cs:365 src/PlaylistWindow.cs:483
-#: src/PlaylistWindow.cs:507 src/PlaylistWindow.cs:521
-#, fuzzy
-msgid "Playlist"
-msgstr "_Kanta-zerrenda"
+#: ../src/PlaylistWindow.cs:115
+msgid "Drop an image here to use it as album cover"
+msgstr "Jaregin irudia hemen albumaren azal bezala erabiltzeko"
 
-#: src/PlaylistWindow.cs:401
+#: ../src/PlaylistWindow.cs:119
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
-"{0}\n"
-"\n"
-"Exiting..."
+"{0}"
 msgstr ""
+"Huts egin du audioaren motorra hasieratzean:\n"
+"{0}"
 
-#: src/PlaylistWindow.cs:500
+#: ../src/PlaylistWindow.cs:122
 #, csharp-format
-msgid "Playlist (Repeating {0} hour)"
-msgid_plural "Playlist (Repeating {0} hours)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to read {0}:"
+msgstr "Huts egin du {0} irakurtzean:"
 
-#: src/PlaylistWindow.cs:503
+#: ../src/PlaylistWindow.cs:125
 #, csharp-format
-msgid "Playlist (Repeating {0} minute)"
-msgid_plural "Playlist (Repeating {0} minutes)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to close {0}:"
+msgstr "Huts egin du {0} ixtean:"
 
-#: src/PlaylistWindow.cs:505
-msgid "Playlist (Repeating)"
-msgstr ""
-
-#: src/PlaylistWindow.cs:514
+#: ../src/PlaylistWindow.cs:128
 #, csharp-format
-msgid "Playlist ({0} hour remaining)"
-msgid_plural "Playlist ({0} hours remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Failed to write {0}:"
+msgstr "Huts egin du {0}(e)n idaztean:"
 
-#: src/PlaylistWindow.cs:517
+#: ../src/PlaylistWindow.cs:1035
 #, csharp-format
-msgid "Playlist ({0} minute remaining)"
-msgid_plural "Playlist ({0} minutes remaining)"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>Playlist</b> (Repeating {0} hour)"
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] "<b>Abesti-zerrenda</b> (ordu {0} errepikatzen)"
+msgstr[1] "<b>Abesti-zerrenda</b> ({0} ordu errepikatzen)"
 
-#: src/PlaylistWindow.cs:519
-msgid "Playlist (Less than one minute remaining)"
-msgstr ""
-
-#: src/PlaylistWindow.cs:582
+#: ../src/PlaylistWindow.cs:1040
 #, csharp-format
-msgid "From \"{0}\""
-msgstr ""
+msgid "<b>Playlist</b> (Repeating {0} minute)"
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] "<b>Abesti-zerrenda</b> (minutu {0} errepikatzen)"
+msgstr[1] "<b>Abesti-zerrenda</b> ({0} minutu errepikatzen)"
 
-#: src/PlaylistWindow.cs:584
-msgid "Album unknown"
-msgstr ""
-
-#: src/PlaylistWindow.cs:589
-msgid "Drop an image here to use it as album cover"
-msgstr ""
-
-#: src/PlaylistWindow.cs:600
-#, fuzzy, csharp-format
-msgid "{0} - Muine Music Player"
-msgstr "Muine Musika Erreproduzitzailea"
-
-#: src/PlaylistWindow.cs:636
-msgid "Pause music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:640 src/PlaylistWindow.cs:643
-msgid "P_ause"
-msgstr ""
-
-#: src/PlaylistWindow.cs:649
-msgid "Resume music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:653 src/PlaylistWindow.cs:656
-#: src/PlaylistWindow.cs:664 src/PlaylistWindow.cs:667
-#, fuzzy
-msgid "Pl_ay"
-msgstr "_Erreproduzitu"
-
-#: src/PlaylistWindow.cs:660
-msgid "Start music playback"
-msgstr ""
-
-#: src/PlaylistWindow.cs:722
+#: ../src/PlaylistWindow.cs:1045
 #, csharp-format
-msgid "Failed to open {0} for reading"
-msgstr ""
+msgid "<b>Playlist</b> ({0} hour remaining)"
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] "<b>Abesti-zerrenda</b> (ordu {0} falta da)"
+msgstr[1] "<b>Abesti-zerrenda</b> ({0} ordu falta dira)"
 
-#: src/PlaylistWindow.cs:791
+#: ../src/PlaylistWindow.cs:1050
 #, csharp-format
-msgid "Failed to open {0} for writing"
-msgstr ""
+msgid "<b>Playlist</b> ({0} minute remaining)"
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] "<b>Abesti-zerrenda</b> (minutu {0} falta da)"
+msgstr[1] "<b>Abesti-zerrenda</b> ({0} minutu falta dira)"
 
-#: src/PlaylistWindow.cs:1169
-#, fuzzy
-msgid "Import Folder"
-msgstr "_Inportatu karpeta..."
+#: ../src/PluginManager.cs:34
+#, csharp-format
+msgid "Error loading plug-in {0}: {1}"
+msgstr "Errorea {0} plugin-a kargatzean: {1}"
 
-#: src/PlaylistWindow.cs:1215
-#, fuzzy
-msgid "Open Playlist"
-msgstr "_Ireki kanta-zerrenda..."
+#: ../src/ProgressWindow.cs:33
+#, csharp-format
+msgid "Importing \"{0}\""
+msgstr "\"{0}\" inportatzen"
 
-#: src/PlaylistWindow.cs:1236
-#, fuzzy
+#: ../src/ProgressWindow.cs:36
+msgid "Loading:"
+msgstr "Kargatzen:"
+
+#: ../src/SaveDialog.cs:37
 msgid "Save Playlist"
-msgstr "_Gorde kanta-zerrenda honela..."
+msgstr "Gorde abesti-zerrenda"
 
-#: src/PlaylistWindow.cs:1251
-#, csharp-format
-msgid ""
-"File {0} will be overwritten.\n"
-"If you choose yes, the contents will be lost.\n"
-"\n"
-"Do you want to continue?"
-msgstr ""
+#: ../src/SaveDialog.cs:40
+msgid "Untitled"
+msgstr "Izengabea"
 
-#: src/ProgressWindow.cs:43
-#, fuzzy, csharp-format
-msgid "Importing {0}..."
-msgstr "_Inportatu karpeta..."
-
-#: src/StringUtils.cs:47
+#: ../src/StringUtils.cs:31
 msgid "Unknown"
-msgstr ""
+msgstr "Ezezaguna"
 
-#: src/StringUtils.cs:51
+#: ../src/StringUtils.cs:34
 #, csharp-format
 msgid "{0} and others"
-msgstr ""
+msgstr "{0} eta bestelakoak"
 
-#: src/StringUtils.cs:53
+#: ../src/StringUtils.cs:37
 #, csharp-format
 msgid "{0} and {1}"
-msgstr ""
+msgstr "{0} eta {1}"
 
-#~ msgid "_Clear Playlist"
-#~ msgstr "_Garbitu kanta-zerrenda"
+#: ../plugins/TrayIcon.cs:35
+msgid "Muine music player"
+msgstr "Muine musika erreproduzitzailea"
 
-#~ msgid "_Information"
-#~ msgstr "_Informazioa"
+#: ../plugins/TrayIcon.cs:40
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
 
-#~ msgid "<b>Groups</b>"
-#~ msgstr "<b>Taldeak</b>"
-
-#~ msgid "<b>Songs</b> (30 minutes in total)"
-#~ msgstr "<b>Kantak</b> (30 minutu guztiral)"
-
-#~ msgid "Groups"
-#~ msgstr "Taldeak"
-
-#~ msgid "_Add song"
-#~ msgstr "_Gehitu kanta"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientazioa"
-
-#~ msgid "The orientation of the tray."
-#~ msgstr "Erretiluaren orientazioa."
