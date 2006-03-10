@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-20 17:47+0200\n"
-"PO-Revision-Date: 2005-05-20 17:45+0100\n"
+"POT-Creation-Date: 2006-03-10 09:47+0100\n"
+"PO-Revision-Date: 2006-03-10 09:33+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,15 +40,11 @@ msgstr "Datei überschreiben?"
 msgid "_Overwrite"
 msgstr "Ü_berschreiben"
 
-#: ../data/glade/PlaylistWindow.glade.h:1
-msgid "Play"
-msgstr "Wiedergeben"
-
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddAlbumWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Album wiedergeben"
 
-#: ../data/glade/PlaylistWindow.glade.h:3 ../src/AddSongWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Titel wiedergeben"
 
@@ -81,70 +77,74 @@ msgid "\"Add song\" window width"
 msgstr "»Titel hinzufügen«-Fensterbreite"
 
 #: ../data/muine.schemas.in.h:5
+msgid "Amazon Dev Tag"
+msgstr "Amazon Dev-Tag (Entwicklerkennung)"
+
+#: ../data/muine.schemas.in.h:6
 msgid "Amazon site to use for album images"
 msgstr "Amazon-Seite, die für Albumcover benutzt wird"
 
-#: ../data/muine.schemas.in.h:6
+#: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
 msgstr "Importordner-Vorgabe"
 
-#: ../data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
 msgstr "Wiedergabelistenordner-Vorgabe"
 
-#: ../data/muine.schemas.in.h:8
+#: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Ordner, die auf Änderungen überwacht werden"
 
-#: ../data/muine.schemas.in.h:9
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
 msgstr "Höhe des »Album hinzufügen«-Fensters"
 
-#: ../data/muine.schemas.in.h:10
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
 msgstr "Höhe des »Titel hinzufügen«-Fensters"
 
-#: ../data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
 msgstr "Höhe des Wiedergabelistenfensters"
 
-#: ../data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Letzter benutzter Ordner des Dialogs »Ordner importieren«."
 
-#: ../data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
 msgstr "Letzter benutzter Ordner des Wiedergabelistendateiselektors."
 
-#: ../data/muine.schemas.in.h:14
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
 msgstr "Wiedergabelistenfenster-Höhe"
 
-#: ../data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:16
 msgid "Playlist window width"
 msgstr "Wiedergabelistenfenster-Breite"
 
-#: ../data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:17
 msgid "Repeat mode"
 msgstr "Wiederholungsmodus"
 
-#: ../data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level"
 msgstr "Lautstärke"
 
-#: ../data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Lautstärke 0 = minimal, 100 = maximal."
 
-#: ../data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
 msgstr "Überwachte Ordner"
 
-#: ../data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "»Wiedergabeliste wiederholen« an oder aus."
 
-#: ../data/muine.schemas.in.h:21
+#: ../data/muine.schemas.in.h:22
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -152,23 +152,27 @@ msgstr ""
 "Welche Amazon-Seite zum Holen von Albumcovern genutzt wird, »us«, »uk«, "
 "»de«, oder »jp«."
 
-#: ../data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
 msgstr "Breite des »Album hinzufügen«-Fensters"
 
-#: ../data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
 msgstr "Breite des »Titel hinzufügen«-Fensters"
 
-#: ../data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
 msgstr "Breite des Wiedergabelistenfensters"
 
-#: ../libmuine/player-gst.c:164
+#: ../data/muine.schemas.in.h:26
+msgid "Your Amazon Dev Tag for fetching album cover art"
+msgstr "Ihre Amazon Entwicklerkennung zum Abrufen von Albumcover-Bildern."
+
+#: ../libmuine/player-gst.c:155
 msgid "Failed to create a GStreamer play object"
 msgstr "GStreamer-Play-Objekt konnte nicht erzeugt werden"
 
-#: ../libmuine/player-gst.c:171
+#: ../libmuine/player-gst.c:162
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "Auf der GStreamer Vorgabe Audio-Output-Sink konnte nichts wiedergegeben "
@@ -211,8 +215,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Copyright © 2003-2006 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
@@ -234,9 +238,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: ../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Albumcover werden von amazon.com bereitgestellt."
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Albumcover werden von amazon.com und musicbrainz.org bereitgestellt."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -498,28 +506,28 @@ msgstr "{0} konnte nicht geschlossen werden:"
 msgid "Failed to write {0}:"
 msgstr "{0} konnte nicht geschrieben werden:"
 
-#: ../src/PlaylistWindow.cs:1004
+#: ../src/PlaylistWindow.cs:1035
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde wiederholend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden wiederholend)"
 
-#: ../src/PlaylistWindow.cs:1009
+#: ../src/PlaylistWindow.cs:1040
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Minute wiederholend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Minuten wiederholend)"
 
-#: ../src/PlaylistWindow.cs:1014
+#: ../src/PlaylistWindow.cs:1045
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde verbleibend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden verbleibend)"
 
-#: ../src/PlaylistWindow.cs:1019
+#: ../src/PlaylistWindow.cs:1050
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -570,6 +578,12 @@ msgstr "Muine Musik-Player"
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
+
+#~ msgid "_:"
+#~ msgstr "_Suchen:"
+
+#~ msgid "Play"
+#~ msgstr "Wiedergeben"
 
 #~ msgid "Only complete albums"
 #~ msgstr "Nur vollständige Alben"
@@ -676,13 +690,6 @@ msgstr "{0} - {1}"
 #~ msgstr ""
 #~ "Aktiviert Geschwindigkeits-Hacks für die »Album hinzufügen«-Liste. Siehe "
 #~ "auch »min_query_length« und »fake_length«."
-
-#~ msgid ""
-#~ "Enables speed hacks on the \"Add song\" list. See also min_query_length "
-#~ "and fake_length."
-#~ msgstr ""
-#~ "Aktiviert·Geschwindigkeits-Hacks·für·die·»Titel·hinzufügen«-Liste."
-#~ "·Siehe·auch·»min_query_length«·und·»fake_length«."
 
 #~ msgid ""
 #~ "The maximum number of results to show if searching for less than "
