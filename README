@@ -19,8 +19,8 @@ Requirements
 ============
 
 Mono >= 1.0
-Gtk# >= 1.9.1
-Gtk+ >= 2.4
+Gtk# >= 2.4.0
+Gtk+ >= 2.6
 vorbis >= 1.0
 FLAC >= 1.1.0
 gdbm
@@ -32,7 +32,11 @@ And optionally:
 
 And for playback either:
 
-  GStreamer 0.8           (Used by default)
+  GStreamer 0.10           (Used by default)
+
+or:
+
+  GStreamer 0.8           (Used by default if Gstreamer 0.10 is not found)
 
 or:
 

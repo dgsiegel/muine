@@ -1,3 +1,8 @@
+2006-03-13  Peter Johanson  <peter@peterjohanson.com>
+
+	* README: Updated a few dependancy details.
+	* doc/Makefile.am: Make parallel build safe.
+
 2006-02-15  Peter Johanson <peter@peterjohanson.com>
 
 	* README: Update the website URL.

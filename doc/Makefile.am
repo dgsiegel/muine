@@ -26,7 +26,9 @@ endif
 
 noinst_DATA = $(TARGETS)
 
-muine-docs.zip muine-docs.tree: $(srcdir)/en/*/*.xml $(srcdir)/en/*.xml
+muine-docs.zip: muine-docs.tree
+
+muine-docs.tree: $(srcdir)/en/*/*.xml $(srcdir)/en/*.xml
 	$(MDASSEMBLER) --ecma $(srcdir)/en -o muine-docs
 
 update: $(ASSEMBLIES)
