@@ -5,14 +5,14 @@
 # This file is distributed under the same license as the muine package.
 #
 # Piret Vacht <piraaja@airpost.net>, 2004-2005.
-# Priit Laes <amd@store20.com>, 2005
+# Priit Laes <amd@store20.com>, 2005, 2006
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-04 20:00+0000\n"
-"PO-Revision-Date: 2005-06-05 01:06+0300\n"
+"POT-Creation-Date: 2006-03-20 03:55+0100\n"
+"PO-Revision-Date: 2006-03-20 15:27+0300\n"
 "Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -46,15 +46,11 @@ msgid "_Overwrite"
 msgstr "_Kirjuta üle"
 
 #: ../data/glade/PlaylistWindow.glade.h:1
-msgid "Play"
-msgstr "Esita"
-
-#: ../data/glade/PlaylistWindow.glade.h:2
 #: ../src/AddAlbumWindow.cs:41
 msgid "Play Album"
 msgstr "Minu albumid"
 
-#: ../data/glade/PlaylistWindow.glade.h:3
+#: ../data/glade/PlaylistWindow.glade.h:2
 #: ../src/AddSongWindow.cs:41
 msgid "Play Song"
 msgstr "Minu lood"
@@ -89,90 +85,99 @@ msgid "\"Add song\" window width"
 msgstr "\"Minu lood\" akna laius"
 
 #: ../data/muine.schemas.in.h:5
+#, fuzzy
+msgid "Amazon Dev Tag"
+msgstr "Amazon Dev Tag"
+
+#: ../data/muine.schemas.in.h:6
 msgid "Amazon site to use for album images"
 msgstr "Amazon'i sait albumipiltide saamiseks"
 
-#: ../data/muine.schemas.in.h:6
+#: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
 msgstr "Impordi vaikimisi kaust"
 
-#: ../data/muine.schemas.in.h:7
+#: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
 msgstr "Vaikimisi esitusloendi kaust"
 
-#: ../data/muine.schemas.in.h:8
+#: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
 msgstr "Kaustad, mille muudatusi jälgitakse."
 
-#: ../data/muine.schemas.in.h:9
+#: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
 msgstr "Akna \"Lisa album\" kõrgus."
 
-#: ../data/muine.schemas.in.h:10
+#: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
 msgstr "Akna \"Lisa lugu\" kõrgus."
 
-#: ../data/muine.schemas.in.h:11
+#: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
 msgstr "Esitusloendi akna kõrgus."
 
-#: ../data/muine.schemas.in.h:12
+#: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Viimati kasutatud kaust \"Impordi kaust\" dialoog."
 
-#: ../data/muine.schemas.in.h:13
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
 msgstr "Viimati kasutatud kaust esitusloendi faili valijatest."
 
-#: ../data/muine.schemas.in.h:14
+#: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
 msgstr "Esitusloendi akna kõrgus"
 
-#: ../data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:16
 msgid "Playlist window width"
 msgstr "Esitusloendi akna laius"
 
-#: ../data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:17
 msgid "Repeat mode"
 msgstr "Korduvrežiim"
 
-#: ../data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:18
 msgid "Volume level"
 msgstr "Helitugevus"
 
-#: ../data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Helitugevus. 0 = madalaim, 100 = kõrgeim."
 
-#: ../data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
 msgstr "Jälgitavad kaustad"
 
-#: ../data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Kas eemaldada või mitte kordamis valik."
 
-#: ../data/muine.schemas.in.h:21
+#: ../data/muine.schemas.in.h:22
 msgid "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", or \"jp\"."
 msgstr "Millist Amazoni saiti kasutada albumi piltide saamiseks, \"us\", \"uk\", \"de\", või \"jp\"."
 
-#: ../data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
 msgstr "Akna \"Lisa album\" laius."
 
-#: ../data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
 msgstr "Akna \"Lisa lugu\" laius."
 
-#: ../data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
 msgstr "Esitusloendi akna laius."
 
-#: ../libmuine/player-gst.c:164
+#: ../data/muine.schemas.in.h:26
+msgid "Your Amazon Dev Tag for fetching album cover art"
+msgstr "Sinu Amazoni Dev Tag albumipiltide allalaadimiseks"
+
+#: ../libmuine/player-gst.c:155
 msgid "Failed to create a GStreamer play object"
 msgstr "Tõrge GStreamer'i esitusobjekti loomisel"
 
-#: ../libmuine/player-gst.c:171
+#: ../libmuine/player-gst.c:162
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Ei õnnestunud muuta GStreamer audio väljundit \"sink\""
 
@@ -208,20 +213,16 @@ msgstr "Ei õnnestunud esitada \"%s\""
 #: ../src/About.cs:31
 msgid "translator-credits"
 msgstr ""
-"Piret Vacht <piraaja@airpost.net>\n"
-"Priit Laes <amd@store20.com>\n"
-"\n"
-"GNOME'i Tõlkeprojekti Eesti meeskond.\n"
-"http://et-gnome.sourceforge.net\n"
-"Veateated, parandused: <gnome-et@linux.ee>"
+"Piret Vacht <piraaja@airpost.net>, 2004-2005.\n"
+"Priit Laes <amd@store20.com>, 2005-2006"
 
 #: ../src/About.cs:34
 msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Autoriõigus © 2003- 2005 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
@@ -243,9 +244,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: ../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Albumi pildid saadakse amazon.com-ist."
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Albumi pildid saadakse lehtedelt amazon.com ja musicbraiz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -502,28 +507,28 @@ msgstr "Tõrge {0} sulgemisel:"
 msgid "Failed to write {0}:"
 msgstr "Tõrge {0} kirjutamisel:"
 
-#: ../src/PlaylistWindow.cs:1004
+#: ../src/PlaylistWindow.cs:1035
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Esitusloend</b> (Korratakse {0} tundi)"
 msgstr[1] "<b>Esitusloend</b> (Korratakse {0} tundi)"
 
-#: ../src/PlaylistWindow.cs:1009
+#: ../src/PlaylistWindow.cs:1040
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Esitusloend</b> (Korratakse {0} minutit)"
 msgstr[1] "<b>Esitusloend</b> (Korratakse {0} minutit)"
 
-#: ../src/PlaylistWindow.cs:1014
+#: ../src/PlaylistWindow.cs:1045
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Esitusloend</b> ({0} tund on jäänud)"
 msgstr[1] "<b>Esitusloend</b> ({0} tundi on jäänud)"
 
-#: ../src/PlaylistWindow.cs:1019
+#: ../src/PlaylistWindow.cs:1050
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -575,6 +580,8 @@ msgstr "Muusikamängija Muine"
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
+#~ msgid "Play"
+#~ msgstr "Esita"
 #~ msgid "Only complete albums"
 #~ msgstr "Ainult täielikud albumid "
 #~ msgid "Only deal with complete albums in the interface."
