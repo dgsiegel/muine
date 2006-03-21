@@ -1,10 +1,19 @@
 CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 
 plugindir = $(libdir)/muine/plugins
+
+if ENABLE_INOTIFY
 plugin_DATA = InotifyPlugin.dll InotifyPlugin.dll.config
+else
+plugin_DATA =
+endif
 
 muinelibdir = $(pkglibdir)
+if ENABLE_INOTIFY
 muinelib_LTLIBRARIES = libinotifyglue.la
+else
+muinelib_LTLIBRARIES =
+endif
 
 libinotifyglue_la_SOURCES = inotify-glue.c inotify.h inotify-syscalls.h
 
@@ -52,7 +61,11 @@ InotifyPlugin.dll.config: $(srcdir)/InotifyPlugin.dll.config.in
 	< $^ > $@
 
 
+if ENABLE_INOTIFY
 all: DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll
+else
+all: DashboardPlugin.dll TrayIcon.dll
+endif
 
 EXTRA_DIST = $(DASHBOARD_PLUGIN_CSFILES) $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in TrayIcon.dll.config
 
