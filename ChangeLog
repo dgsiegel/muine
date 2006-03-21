@@ -1,5 +1,12 @@
 2006-03-20  Peter Johanson  <peter@peterjohanson.com>
 
+	* src/Actions.cs:
+	* src/PlaylistWindow.cs: Change visibility Action to be a true
+	ToggleAction, with check menu item, instead of switching between 'Show
+	Window' and 'Hide Window' text.
+
+2006-03-20  Peter Johanson  <peter@peterjohanson.com>
+
 	* src/Actions.cs: Add clear playlist shortcut (Sebastian Heinlein in
 	bug #319180), and change Previous mnemonic so as not to collide with
 	Play mnemonic (Wouter Bolsterlee in bug #312509).

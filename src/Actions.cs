@@ -54,10 +54,7 @@ namespace Muine
 		private static readonly string string_save =
 			Catalog.GetString ("_Save As...");
 
-		private static readonly string string_toggle_visible_hide =
-			Catalog.GetString ("Hide _Window");
-
-		private static readonly string string_toggle_visible_show =
+		private static readonly string string_toggle_visible =
 			Catalog.GetString ("Show _Window");
 
 		// Strings :: Menu :: Song
@@ -130,9 +127,6 @@ namespace Muine
 			new ActionEntry ("Save", Stock.SaveAs, string_save,
 				"<shift><control>S", null, null),
 
-			new ActionEntry ("ToggleVisible", null, "", // string set dynamically
-				"Escape", null, null),
-
 			new ActionEntry ("Quit", Stock.Quit, null,
 				"<control>Q", null, null),
 			
@@ -180,33 +174,12 @@ namespace Muine
 
 			new ToggleActionEntry ("ToggleRepeat", null, string_toggle_repeat,
 			       "<control>R", null, null, false),
+
+			new ToggleActionEntry ("ToggleVisible", null, string_toggle_visible,
+				"Escape", null, null, true),
+
 		};
 
-		// Static :: Properties
-		// Static :: Properties :: StringToggleVisibleHide (get;)
-		/// <summary>
-		/// 	The translated string used for the toggle visible
-		/// 	action when the window is currently shown.
-		/// </summary>
-		/// <returns>
-		///	A translated <see cref="String" />.
-		/// </return>
-		public static string StringToggleVisibleHide {
-			get { return string_toggle_visible_hide; }
-		}
-
-		// Static :: Properties :: StringToggleVisibleShow (get;)
-		/// <summary>
-		/// 	The translated string used for the toggle visible
-		/// 	action when the window is currently hidden.
-		/// </summary>
-		/// <returns>
-		///	A translated <see cref="String" />.
-		/// </return>
-		public static string StringToggleVisibleShow {
-			get { return string_toggle_visible_show; }
-		}
-		
 		// Static :: Properties :: Entries (get;)
 		/// <summary>
 		/// 	The defined actions.
@@ -363,6 +336,11 @@ namespace Muine
 		/// </param>
 		private void OnToggleVisible (object o, EventArgs args)
 		{
+			ToggleAction a = (ToggleAction) o;
+
+			if (a.Active == Global.Playlist.Visible)
+				return;
+
 			Global.Playlist.SetWindowVisible (!Global.Playlist.WindowVisible,
                                                           Gtk.Global.CurrentEventTime);
 		}
