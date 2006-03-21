@@ -65,7 +65,7 @@ namespace Muine
 			Catalog.GetString ("_Play");
 
 		private static readonly string string_previous =
-			Catalog.GetString ("_Previous");
+			Catalog.GetString ("P_revious");
 
 		private static readonly string string_next =
 			Catalog.GetString ("_Next");
@@ -164,7 +164,7 @@ namespace Muine
 				"<control>Delete", null, null),
 
 			new ActionEntry ("Clear", Stock.Clear, string_clear,
-				null, null, null),
+				"<control>L", null, null),
 
 			new ActionEntry ("Shuffle", "stock_shuffle", string_shuffle,
 				"<control>S", null, null),

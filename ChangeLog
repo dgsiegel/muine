@@ -1,3 +1,9 @@
+2006-03-20  Peter Johanson  <peter@peterjohanson.com>
+
+	* src/Actions.cs: Add clear playlist shortcut (Sebastian Heinlein in
+	bug #319180), and change Previous mnemonic so as not to collide with
+	Play mnemonic (Wouter Bolsterlee in bug #312509).
+
 2006-03-13  Peter Johanson  <peter@peterjohanson.com>
 
 	* README: Updated a few dependancy details.
