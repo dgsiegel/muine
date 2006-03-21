@@ -1,5 +1,11 @@
 2006-03-20  Peter Johanson  <peter@peterjohanson.com>
 
+	* configure.in:
+	* plugins/Makefile.am: Build inotify plugin conditional based on
+	detected platform, and configure argument. See bug #329716.
+
+2006-03-20  Peter Johanson  <peter@peterjohanson.com>
+
 	* src/Actions.cs:
 	* src/PlaylistWindow.cs: Change visibility Action to be a true
 	ToggleAction, with check menu item, instead of switching between 'Show
