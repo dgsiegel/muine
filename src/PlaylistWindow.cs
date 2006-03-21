@@ -451,7 +451,7 @@ namespace Muine
 			if (WindowVisible && playlist.Model.Playing != IntPtr.Zero)
 				playlist.Select (playlist.Model.Playing);
 			
-			((ToggleAction) Global.Actions ["ToggleVisible"]).Active = WindowVisible;
+			((ToggleAction) Global.Actions ["ToggleVisible"]).Active = Visible;
 		}
 
 		// Methods :: Public :: PlayFile (IPlayer)

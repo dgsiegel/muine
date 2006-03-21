@@ -1,3 +1,8 @@
+2006-03-21  Peter Johanson  <peter@peterjohanson.com>
+
+	* src/PlaylistWindow.cs: Fix small bug in the visibility action
+	changes.
+
 2006-03-20  Peter Johanson  <peter@peterjohanson.com>
 
 	* configure.in:
