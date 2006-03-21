@@ -1,7 +1,7 @@
 # Dutch translation of muine (een muziekspeler)
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the muine package.
-# Wouter Bolsterlee <uws+gnome@xs4all.nl>, 2005.
+# Wouter Bolsterlee <uws+gnome@xs4all.nl>, 2005, 2006
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006
 # Daniel van Eeden <daniel_e@dds.nl>, 2004.
 #
@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNOME Muine 0.8.3\n"
+"Project-Id-Version: GNOME Muine 0.8.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-12 12:14+0100\n"
-"PO-Revision-Date: 2006-01-12 14:44+0100\n"
+"POT-Creation-Date: 2006-03-21 08:23+0100\n"
+"PO-Revision-Date: 2006-03-21 08:27+0100\n"
 "Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "\"Nummer toevoegen\" vensterbreedte"
 
 #: ../data/muine.schemas.in.h:5
 msgid "Amazon Dev Tag"
-msgstr "Amazon dev tag"
+msgstr "Amazon dev-tag"
 
 #: ../data/muine.schemas.in.h:6
 msgid "Amazon site to use for album images"
@@ -153,7 +153,9 @@ msgstr "Of 'speellijst herhalen' wordt gebruikt of niet."
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
-msgstr "Welke site van Amazon wordt gebruikt voor het ophalen van albumhoesjes: \"us\" \"uk\" \"de\" of \"jp\"."
+msgstr ""
+"Welke site van Amazon wordt gebruikt voor het ophalen van albumhoesjes: \"us"
+"\" \"uk\" \"de\" of \"jp\"."
 
 #: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
@@ -169,14 +171,14 @@ msgstr "Breedte van het speellijstvenster."
 
 #: ../data/muine.schemas.in.h:26
 msgid "Your Amazon Dev Tag for fetching album cover art"
-msgstr "Uw Amazon dev tag voor het ophalen van albumhoesjes"
+msgstr "Uw Amazon dev-tag voor het ophalen van albumhoesjes"
 
-#: ../libmuine/player-gst.c:164
+#: ../libmuine/player-gst.c:155
 msgid "Failed to create a GStreamer play object"
 msgstr "Aanmaken Gstreamer play-object aanmaken is mislukt"
 
 # render - gebruiken?
-#: ../libmuine/player-gst.c:171
+#: ../libmuine/player-gst.c:162
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Kon de standaard GStreamer audiouitvoer niet gebruiken"
 
@@ -221,8 +223,8 @@ msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:37
-msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
-msgstr "Copyright © 2003, 2004, 2005 Jorn Baayen"
+msgid "Copyright © 2003-2006 Jorn Baayen"
+msgstr "Copyright © 2003-2006 Jorn Baayen"
 
 #: ../src/About.cs:40
 msgid "A music player"
@@ -244,9 +246,13 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
 msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
 
-#: ../src/About.cs:49
-msgid "Album covers are provided by amazon.com."
-msgstr "Albumhoesjes geleverd door amazon.com."
+#: ../src/About.cs:48
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:50
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Albumhoesjes geleverd door amazon.com en musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -508,28 +514,28 @@ msgid "Failed to write {0}:"
 msgstr "Schrijven van {0} is mislukt:"
 
 # meervoud van uur is hier uur en niet uren
-#: ../src/PlaylistWindow.cs:1036
+#: ../src/PlaylistWindow.cs:1035
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 
-#: ../src/PlaylistWindow.cs:1041
+#: ../src/PlaylistWindow.cs:1040
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} minuut herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} minuten herhalen)"
 
-#: ../src/PlaylistWindow.cs:1046
+#: ../src/PlaylistWindow.cs:1045
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Speellijst</b> ({0} uur resterend)"
 msgstr[1] "<b>Speellijst</b> ({0} uur resterend)"
 
-#: ../src/PlaylistWindow.cs:1051
+#: ../src/PlaylistWindow.cs:1050
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -583,265 +589,3 @@ msgstr "Muine muziekspeler"
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-# Afspelen?
-#~ msgid "Play"
-#~ msgstr "Afspelen"
-
-#~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
-#~ msgstr "<span weight=\"bold\" size=\"larger\">Geen muziek gevonden</span>"
-
-#~ msgid ""
-#~ "Muine was unable to find your music collection. What would you like me to "
-#~ "do?"
-#~ msgstr "Muine kon uw muziekverzameling niet vinden. Wat wilt u dat ik doe?"
-
-#~ msgid ""
-#~ "Muine will create the folders Music and Music/Playlists in your home "
-#~ "folder to store your music files. This option is highly recommended. You "
-#~ "can always import other folders manually."
-#~ msgstr ""
-#~ "Muine zal de mappen Music en Music/Playlists in uw persoonlijke map "
-#~ "aanmaken om uw muziek in te bewaren. Deze optie wordt sterk aanbevolen. U "
-#~ "kunt altijd handmatig andere mappen importeren."
-
-#~ msgid "No Music Found"
-#~ msgstr "Geen muziek gevonden"
-
-# gewoonlijk ipv normaliter?
-#~ msgid ""
-#~ "You will have to import your music manually. This is for experienced "
-#~ "users only and therefore not generally recommended."
-#~ msgstr ""
-#~ "U zult zelf uw muziek moeten importeren. Dit is alleen voor ervaren "
-#~ "gebruikers en wordt daarom normaliter afgeraden."
-
-#~ msgid "_Create an empty music collection"
-#~ msgstr "Een _lege muziekverzameling aanmaken"
-
-# ik ga zelf mijn muziek beheren
-#~ msgid "_Nothing, I will manage my music myself"
-#~ msgstr "_Niets, ik zal zelf mijn muziek beheren"
-
-#~ msgid "Enable speed hacks on the \"Add album\" list."
-#~ msgstr "Verhoogde snelheid op de lijst \"Album toevoegen\"."
-
-#~ msgid "Enable speed hacks on the \"Add song\" list."
-#~ msgstr "Verhoogde snelheid op de lijst \"Nummer toevoegen\"."
-
-#~ msgid "First start"
-#~ msgstr "Eerste begin"
-
-#~ msgid "Height of the information window."
-#~ msgstr "Hoogte van het informatievenster."
-
-#~ msgid "Information window height"
-#~ msgstr "Informatievenster hoogte"
-
-#~ msgid "Information window width"
-#~ msgstr "Informatievenster breedte"
-
-#~ msgid "Speed hacks"
-#~ msgstr "Verhoogde snelheid"
-
-#~ msgid "Width of the information window."
-#~ msgstr "Breedte van het informatievenster."
-
-#~ msgid "false if Muine has been started before."
-#~ msgstr "onwaar indien Muine al eerder is gestart."
-
-#~ msgid "A file {0} already exists."
-#~ msgstr "Een bestand {0} bestaat al."
-
-#~ msgid "Question"
-#~ msgstr "Vraag"
-
-#~ msgid "An error occurred:"
-#~ msgstr "Er was een fout:"
-
-#~ msgid "Failed to open {0} for reading"
-#~ msgstr "Openen van {0} voor lezen is mislukt"
-
-#~ msgid "Failed to open {0} for writing"
-#~ msgstr "Openen van {0} voor schrijven is mislukt"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid ""
-#~ "File {0} will be overwritten.\n"
-#~ "If you choose yes, the contents will be lost.\n"
-#~ "\n"
-#~ "Do you want to continue?"
-#~ msgstr ""
-#~ "Bestand {0} zal worden overschreven.\n"
-#~ "Indien u ja kiest, zal de inhoud verloren gaan.\n"
-#~ "\n"
-#~ "Wilt u doorgaan?"
-
-# afspelende/afspelen/spelend
-#~ msgid "Playing"
-#~ msgstr "Spelende"
-
-#~ msgid "_Hide Window"
-#~ msgstr "Venster _verbergen"
-
-#~ msgid "_Playing"
-#~ msgstr "_Spelende"
-
-# was eerst: afspelen pauzeren. Misschien is dit wel duidelijker
-#~ msgid "Toggle music playback"
-#~ msgstr "Afspelen schakelen"
-
-#~ msgid "P_roperties"
-#~ msgstr "_Eigenschappen"
-
-#~ msgid "TMP"
-#~ msgstr "TMP"
-
-#~ msgid "Failed to create the required gnomevfssrc GStreamer element"
-#~ msgstr "Aanmaken van vereiste gnomevfssrc GStreamer element is mislukt."
-
-#~ msgid "Could not find the volume element in the GstPlay pipeline"
-#~ msgstr "Kon het volume-element in de GstPlay pijplijn niet vinden"
-
-#~ msgid "_Previous Song"
-#~ msgstr "V_orige nummer"
-
-#~ msgid "_Next Song"
-#~ msgstr "_Volgende nummer"
-
-#~ msgid "P_ause"
-#~ msgstr "P_auzeren"
-
-#~ msgid "Resume music playback"
-#~ msgstr "Afspelen hervatten"
-
-#~ msgid "Failed to set up an audio driver"
-#~ msgstr "Instellen van geluidsstuurprogramma mislukt"
-
-# database openen mislukt:
-# openen database mislukt:
-#~ msgid "Failed to open database: {0}"
-#~ msgstr "Kon database: {0} niet openen"
-
-#~ msgid "<b>Groups</b>"
-#~ msgstr "<b>Groepen</b>"
-
-#~ msgid "<b>Songs</b> (30 minutes in total)"
-#~ msgstr "<b>Nummers</b> (30 minuten in totaal)"
-
-#~ msgid "Groups"
-#~ msgstr "Groepen"
-
-#~ msgid "_Add song"
-#~ msgstr "_Nummer toevoegen"
-
-#~ msgid "Play _Album"
-#~ msgstr "_Album afspelen"
-
-#~ msgid "Play _Song"
-#~ msgstr "_Nummer afspelen"
-
-#~ msgid "_Clear Playlist"
-#~ msgstr "Speellijst _wissen"
-
-#~ msgid "_Information"
-#~ msgstr "_Informatie"
-
-#~ msgid "Orientation"
-#~ msgstr "Oriëntatie"
-
-# betere vertaling voor tray?
-#~ msgid "The orientation of the tray."
-#~ msgstr "De oriëntatie van het blad."
-
-#~ msgid "Song _Information"
-#~ msgstr "Nummer _informatie"
-
-#~ msgid "TITLE"
-#~ msgstr "TITLE"
-
-#~ msgid "ERROR MESSAGE"
-#~ msgstr "ERROR MESSAGE"
-
-#~ msgid "Add _Song"
-#~ msgstr "_Nummer toevoegen"
-
-#~ msgid "_Fill queue with random songs from selected groups"
-#~ msgstr "Wachtrij _vullen met willekeurige nummers uit geselecteerde groepen"
-
-#~ msgid "_Groups"
-#~ msgstr "_Groepen"
-
-#~ msgid "Search for Music"
-#~ msgstr "Zoeken naar muziek"
-
-#~ msgid "Welcome to Muine"
-#~ msgstr "Welkom bij Muine"
-
-#~ msgid "Default \"Save Playlist As\" folder."
-#~ msgstr "Standaard map \"Speellijst opslaan als\"."
-
-#~ msgid "Last used folder from \"Save Playlist As\" dialog."
-#~ msgstr "Laatst gebruikte map uit dialoogvenster \"Speellijst opslaan als\"."
-
-#~ msgid "Playlist window visibility."
-#~ msgstr "Speellijst vensterzichtbaarheid."
-
-#~ msgid "Playlist window visible (true) or not (false)."
-#~ msgstr "Speellijst zichtbaar (true) of niet (false)."
-
-#~ msgid "Pixbuf"
-#~ msgstr "Pixbuf"
-
-#~ msgid "A GdkPixbuf to display"
-#~ msgstr "Een GdkPixbuf voor weergave"
-
-#~ msgid "Filename to load and display"
-#~ msgstr "Bestandsnaam te laden voor weergave"
-
-#~ msgid "Stock ID"
-#~ msgstr "Standaard ID"
-
-#~ msgid "Stock ID for a stock image to display"
-#~ msgstr "Standaard ID voor een weer te geven standaard afbeelding"
-
-#~ msgid "GdkPixbufAnimation to display"
-#~ msgstr "GdkPixbufAnimation voor weergave"
-
-#~ msgid "Image type"
-#~ msgstr "Afbeeldingstype"
-
-#~ msgid "The representation being used for image data"
-#~ msgstr "De gebruikte representatie voor afbeeldingen"
-
-#~ msgid "Size"
-#~ msgstr "Afmeting"
-
-#~ msgid "Blinking"
-#~ msgstr "Knipperend"
-
-#~ msgid "Whether or not the status icon is blinking"
-#~ msgstr "Of het statuspictogram knippert"
-
-# Of: geluidsvolume zachter
-#~ msgid "Volume _Down"
-#~ msgstr "_Zachter"
-
-#~ msgid "Volume _Up"
-#~ msgstr "_Harder"
-
-#~ msgid "_Actions"
-#~ msgstr "_Acties"
-
-#~ msgid "_Volume"
-#~ msgstr "_Geluidsvolume"
-
-#~ msgid "0 seconds"
-#~ msgstr "0 seconden"
-
-#~ msgid "_Skip to:"
-#~ msgstr "_Vooruit naar:"
-
-#~ msgid "seconds"
-#~ msgstr "seconden"
