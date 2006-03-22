@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Muine 0.8.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-21 08:23+0100\n"
-"PO-Revision-Date: 2006-03-21 08:27+0100\n"
+"POT-Creation-Date: 2006-03-22 11:31+0100\n"
+"PO-Revision-Date: 2006-03-22 11:23+0100\n"
 "Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,9 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
 msgid "_Play"
-msgstr "_Afspelen"
+msgstr "Afs_pelen"
 
 #: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
@@ -66,19 +66,19 @@ msgstr "Muine muziekspeler"
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
-msgstr "\"Album toevoegen\" vensterhoogte"
+msgstr "‘Album toevoegen’ vensterhoogte"
 
 #: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
-msgstr "\"Album toevoegen\" vensterbreedte"
+msgstr "‘Album toevoegen’ vensterbreedte"
 
 #: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
-msgstr "\"Nummer toevoegen\" vensterhoogte"
+msgstr "‘Nummer toevoegen’ vensterhoogte"
 
 #: ../data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
-msgstr "\"Nummer toevoegen\" vensterbreedte"
+msgstr "‘Nummer toevoegen’ vensterbreedte"
 
 #: ../data/muine.schemas.in.h:5
 msgid "Amazon Dev Tag"
@@ -102,11 +102,11 @@ msgstr "Mappen die bijgehouden worden voor veranderingen."
 
 #: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
-msgstr "Hoogte van het venster \"Album toevoegen\"."
+msgstr "Hoogte van het venster ‘Album toevoegen’."
 
 #: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
-msgstr "Hoogte van het venster \"Nummer toevoegen\"."
+msgstr "Hoogte van het venster ‘Nummer toevoegen’."
 
 #: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
@@ -114,7 +114,7 @@ msgstr "Hoogte van het speellijstvenster."
 
 #: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
-msgstr "Laatst gebruikte map uit dialoogvenster \"Map importeren\"."
+msgstr "Laatst gebruikte map uit dialoogvenster ‘Map importeren’."
 
 #: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
@@ -154,16 +154,16 @@ msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
 msgstr ""
-"Welke site van Amazon wordt gebruikt voor het ophalen van albumhoesjes: \"us"
-"\" \"uk\" \"de\" of \"jp\"."
+"Welke site van Amazon wordt gebruikt voor het ophalen van albumhoesjes: ‘us’ "
+"‘uk’ ‘de’ of ‘jp’."
 
 #: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
-msgstr "Breedte van het venster \"Album toevoegen\"."
+msgstr "Breedte van het venster ‘Album toevoegen’."
 
 #: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
-msgstr "Breedte van het venster \"Nummer toevoegen\"."
+msgstr "Breedte van het venster ‘Nummer toevoegen’."
 
 #: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
@@ -194,12 +194,12 @@ msgstr ""
 #: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
-msgstr "Geen plugin beschikbaar voor \"%s\""
+msgstr "Geen plugin beschikbaar voor ‘%s’"
 
 #: ../libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr "Afspelen \"%s\" is mislukt"
+msgstr "Afspelen ‘%s’ is mislukt"
 
 #: ../libmuine/player-xine.c:398
 msgid "Internal error"
@@ -208,7 +208,7 @@ msgstr "Interne fout"
 #: ../libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
-msgstr "Kon \"%s\" niet afspelen"
+msgstr "Kon ‘%s’ niet afspelen"
 
 #: ../src/About.cs:31
 msgid "translator-credits"
@@ -272,7 +272,7 @@ msgstr "_Hulp"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
-msgstr "Map _importeren..."
+msgstr "Map i_mporteren..."
 
 #: ../src/Actions.cs:52
 msgid "_Open..."
@@ -283,62 +283,58 @@ msgid "_Save As..."
 msgstr "Opslaan _als..."
 
 #: ../src/Actions.cs:58
-msgid "Hide _Window"
-msgstr "_Venster verbergen"
-
-#: ../src/Actions.cs:61
 msgid "Show _Window"
 msgstr "_Venster tonen"
 
-#: ../src/Actions.cs:68
-msgid "_Previous"
+#: ../src/Actions.cs:65
+msgid "P_revious"
 msgstr "V_orige"
 
-#: ../src/Actions.cs:71
+#: ../src/Actions.cs:68
 msgid "_Next"
 msgstr "_Volgende"
 
-#: ../src/Actions.cs:74
+#: ../src/Actions.cs:71
 msgid "_Skip to..."
-msgstr "_Vooruit naar..."
+msgstr "Vooruit _naar..."
 
-#: ../src/Actions.cs:77
+#: ../src/Actions.cs:74
 msgid "Skip _Backwards"
 msgstr "_Terug"
 
-#: ../src/Actions.cs:80
+#: ../src/Actions.cs:77
 msgid "Skip _Forward"
 msgstr "_Vooruit"
 
-#: ../src/Actions.cs:84
+#: ../src/Actions.cs:81
 msgid "Play _Song..."
 msgstr "_Nummer afspelen..."
 
-#: ../src/Actions.cs:87
+#: ../src/Actions.cs:84
 msgid "Play _Album..."
 msgstr "_Album afspelen..."
 
-#: ../src/Actions.cs:90
+#: ../src/Actions.cs:87
 msgid "_Remove Song"
-msgstr "Nummer ver_wijderen"
+msgstr "N_ummer verwijderen"
 
-#: ../src/Actions.cs:93
+#: ../src/Actions.cs:90
 msgid "Remove _Played Songs"
 msgstr "_Afgespeelde nummers verwijderen"
 
-#: ../src/Actions.cs:96
+#: ../src/Actions.cs:93
 msgid "_Clear"
 msgstr "_Wissen"
 
-#: ../src/Actions.cs:99
+#: ../src/Actions.cs:96
 msgid "R_epeat"
 msgstr "_Herhalen"
 
-#: ../src/Actions.cs:102
+#: ../src/Actions.cs:99
 msgid "Shu_ffle"
 msgstr "_Door elkaar"
 
-#: ../src/Actions.cs:106
+#: ../src/Actions.cs:103
 msgid "_About"
 msgstr "I_nfo"
 
@@ -416,7 +412,7 @@ msgstr "Speellijstbestanden"
 #: ../src/OverwriteDialog.cs:34
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
-msgstr "\"{0}\" Overschrijven?"
+msgstr "‘{0}’ overschrijven?"
 
 #: ../src/OverwriteDialog.cs:37
 msgid ""
@@ -450,7 +446,7 @@ msgstr "<b>Speellijst</b> (minder dan 1 minuut resterend)"
 #: ../src/PlaylistWindow.cs:83
 #, csharp-format
 msgid "From \"{0}\""
-msgstr "Van \"{0}\""
+msgstr "Van ‘{0}’"
 
 #: ../src/PlaylistWindow.cs:86
 msgid "Album unknown"
@@ -514,28 +510,28 @@ msgid "Failed to write {0}:"
 msgstr "Schrijven van {0} is mislukt:"
 
 # meervoud van uur is hier uur en niet uren
-#: ../src/PlaylistWindow.cs:1035
+#: ../src/PlaylistWindow.cs:1032
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} uur herhalen)"
 
-#: ../src/PlaylistWindow.cs:1040
+#: ../src/PlaylistWindow.cs:1037
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Speellijst</b> (gedurende {0} minuut herhalen)"
 msgstr[1] "<b>Speellijst</b> (gedurende {0} minuten herhalen)"
 
-#: ../src/PlaylistWindow.cs:1045
+#: ../src/PlaylistWindow.cs:1042
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Speellijst</b> ({0} uur resterend)"
 msgstr[1] "<b>Speellijst</b> ({0} uur resterend)"
 
-#: ../src/PlaylistWindow.cs:1050
+#: ../src/PlaylistWindow.cs:1047
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -550,7 +546,7 @@ msgstr "Fout bij laden van plug-in {0}: {1}"
 #: ../src/ProgressWindow.cs:33
 #, csharp-format
 msgid "Importing \"{0}\""
-msgstr "Importeren van \"{0}\""
+msgstr "Importeren van ‘{0}’"
 
 # Bezig met laden:
 # Nu aan het laden:
