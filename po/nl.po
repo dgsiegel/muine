@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: GNOME Muine 0.8.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-22 11:31+0100\n"
-"PO-Revision-Date: 2006-03-22 11:23+0100\n"
+"PO-Revision-Date: 2006-03-24 18:03+0100\n"
 "Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -292,7 +292,7 @@ msgstr "V_orige"
 
 #: ../src/Actions.cs:68
 msgid "_Next"
-msgstr "_Volgende"
+msgstr "Vol_gende"
 
 #: ../src/Actions.cs:71
 msgid "_Skip to..."
@@ -584,4 +584,3 @@ msgstr "Muine muziekspeler"
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
-
