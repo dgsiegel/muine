@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 18:26+0100\n"
-"PO-Revision-Date: 2006-03-10 18:28+0100\n"
+"POT-Creation-Date: 2006-03-25 16:33+0100\n"
+"PO-Revision-Date: 2006-03-25 16:33+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
 msgid "_Play"
 msgstr "_Reproducir"
 
@@ -147,7 +147,8 @@ msgstr "Carpetas monitorizadas"
 
 #: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
-msgstr "Indica si debe o no activar el modo repetición de lista de reproducción."
+msgstr ""
+"Indica si debe o no activar el modo repetición de lista de reproducción."
 
 #: ../data/muine.schemas.in.h:22
 msgid ""
@@ -253,7 +254,8 @@ msgstr "Peter Johanson <peter@peterjohanson.com>"
 
 #: ../src/About.cs:50
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
-msgstr "Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
+msgstr ""
+"Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -284,62 +286,58 @@ msgid "_Save As..."
 msgstr "_Guardar como…"
 
 #: ../src/Actions.cs:58
-msgid "Hide _Window"
-msgstr "_Ocultar ventana"
-
-#: ../src/Actions.cs:61
 msgid "Show _Window"
 msgstr "Mostrar _ventana"
 
-#: ../src/Actions.cs:68
-msgid "_Previous"
+#: ../src/Actions.cs:65
+msgid "P_revious"
 msgstr "_Anterior"
 
-#: ../src/Actions.cs:71
+#: ../src/Actions.cs:68
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: ../src/Actions.cs:74
+#: ../src/Actions.cs:71
 msgid "_Skip to..."
 msgstr "_Saltar a…"
 
-#: ../src/Actions.cs:77
+#: ../src/Actions.cs:74
 msgid "Skip _Backwards"
 msgstr "Saltar _atrás"
 
-#: ../src/Actions.cs:80
+#: ../src/Actions.cs:77
 msgid "Skip _Forward"
 msgstr "Saltar a_delante"
 
-#: ../src/Actions.cs:84
+#: ../src/Actions.cs:81
 msgid "Play _Song..."
 msgstr "Reproducir _canción…"
 
-#: ../src/Actions.cs:87
+#: ../src/Actions.cs:84
 msgid "Play _Album..."
 msgstr "Reproducir á_lbum…"
 
-#: ../src/Actions.cs:90
+#: ../src/Actions.cs:87
 msgid "_Remove Song"
 msgstr "_Eliminar canción"
 
-#: ../src/Actions.cs:93
+#: ../src/Actions.cs:90
 msgid "Remove _Played Songs"
 msgstr "Eliminar _canciones reproducidas"
 
-#: ../src/Actions.cs:96
+#: ../src/Actions.cs:93
 msgid "_Clear"
 msgstr "_Borrar"
 
-#: ../src/Actions.cs:99
+#: ../src/Actions.cs:96
 msgid "R_epeat"
 msgstr "R_epetir"
 
-#: ../src/Actions.cs:102
+#: ../src/Actions.cs:99
 msgid "Shu_ffle"
 msgstr "_Aleatorio"
 
-#: ../src/Actions.cs:106
+#: ../src/Actions.cs:103
 msgid "_About"
 msgstr "A_cerca de"
 
@@ -513,28 +511,28 @@ msgstr "Falló al cerrar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1035
+#: ../src/PlaylistWindow.cs:1032
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1040
+#: ../src/PlaylistWindow.cs:1037
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1045
+#: ../src/PlaylistWindow.cs:1042
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1050
+#: ../src/PlaylistWindow.cs:1047
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -586,3 +584,5 @@ msgstr "Reproductor de música Muine"
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
+#~ msgid "Hide _Window"
+#~ msgstr "_Ocultar ventana"
