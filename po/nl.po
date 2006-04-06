@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: GNOME Muine 0.8.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-22 11:31+0100\n"
-"PO-Revision-Date: 2006-03-24 18:03+0100\n"
+"PO-Revision-Date: 2006-04-06 09:533+0200\n"
 "Last-Translator: Wouter Bolsterlee <uws+gnome@xs4all.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -306,10 +306,14 @@ msgstr "_Terug"
 msgid "Skip _Forward"
 msgstr "_Vooruit"
 
+# Ik heb bewust deze mnemonic gekozen hier. Dit is namelijk ook de default
+# keybinding voor deze actie (en ook de Engelse mnemonic). (Wouter Bolsterlee)
 #: ../src/Actions.cs:81
 msgid "Play _Song..."
-msgstr "_Nummer afspelen..."
+msgstr "Nummer af_spelen..."
 
+# Ik heb bewust deze mnemonic gekozen hier. Dit is namelijk ook de default
+# keybinding voor deze actie (en ook de Engelse mnemonic). (Wouter Bolsterlee)
 #: ../src/Actions.cs:84
 msgid "Play _Album..."
 msgstr "_Album afspelen..."
