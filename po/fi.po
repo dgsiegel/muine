@@ -1,14 +1,14 @@
 # Finnish messages for muine
 # Copyright (C) 2004 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Ilkka Tuohela <hile@iki.fi>, 2004.
+# This file is distributed under the same license as the muine package.
+# Ilkka Tuohela <hile@iki.fi>, 2004-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-23 19:00+0200\n"
-"PO-Revision-Date: 2006-02-23 19:01+0200\n"
+"POT-Creation-Date: 2006-04-14 21:46+0300\n"
+"PO-Revision-Date: 2006-04-14 21:50+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:65
+#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
 msgid "_Play"
 msgstr "_Soita"
 
@@ -273,62 +273,58 @@ msgid "_Save As..."
 msgstr "_Tallenna nimellä..."
 
 #: ../src/Actions.cs:58
-msgid "Hide _Window"
-msgstr "Piilota _ikkuna"
-
-#: ../src/Actions.cs:61
 msgid "Show _Window"
 msgstr "Näytä ikkuna"
 
-#: ../src/Actions.cs:68
-msgid "_Previous"
+#: ../src/Actions.cs:65
+msgid "P_revious"
 msgstr "_Edellinen"
 
-#: ../src/Actions.cs:71
+#: ../src/Actions.cs:68
 msgid "_Next"
 msgstr "_Seuraava"
 
-#: ../src/Actions.cs:74
+#: ../src/Actions.cs:71
 msgid "_Skip to..."
 msgstr "_Siirry kohtaan..."
 
-#: ../src/Actions.cs:77
+#: ../src/Actions.cs:74
 msgid "Skip _Backwards"
 msgstr "Siirry _taaksepäin"
 
-#: ../src/Actions.cs:80
+#: ../src/Actions.cs:77
 msgid "Skip _Forward"
 msgstr "Siirry _eteenpäin"
 
-#: ../src/Actions.cs:84
+#: ../src/Actions.cs:81
 msgid "Play _Song..."
 msgstr "Soita _kappale..."
 
-#: ../src/Actions.cs:87
+#: ../src/Actions.cs:84
 msgid "Play _Album..."
 msgstr "Soita _levy...."
 
-#: ../src/Actions.cs:90
+#: ../src/Actions.cs:87
 msgid "_Remove Song"
 msgstr "_Poista kappale"
 
-#: ../src/Actions.cs:93
+#: ../src/Actions.cs:90
 msgid "Remove _Played Songs"
 msgstr "Poista _soitetut kappaleet"
 
-#: ../src/Actions.cs:96
+#: ../src/Actions.cs:93
 msgid "_Clear"
 msgstr "_Tyhjennä"
 
-#: ../src/Actions.cs:99
+#: ../src/Actions.cs:96
 msgid "R_epeat"
 msgstr "_Toista"
 
-#: ../src/Actions.cs:102
+#: ../src/Actions.cs:99
 msgid "Shu_ffle"
 msgstr "_Satunnaistoisto"
 
-#: ../src/Actions.cs:106
+#: ../src/Actions.cs:103
 msgid "_About"
 msgstr "_Tietoja"
 
@@ -502,28 +498,28 @@ msgstr "Ei voitu sulkea {0}:"
 msgid "Failed to write {0}:"
 msgstr "Ei voitu kirjoittaa {0}:"
 
-#: ../src/PlaylistWindow.cs:1035
+#: ../src/PlaylistWindow.cs:1032
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Soittolista</b> (toistotila, {0} tunti)"
 msgstr[1] "<b>Soittolista</b> (toistotila, {0} tuntia)"
 
-#: ../src/PlaylistWindow.cs:1040
+#: ../src/PlaylistWindow.cs:1037
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Soittolista</b> (toistotila {0} minuutti)"
 msgstr[1] "<b>Soittolista</b> (toistotila, {0} minuuttia)"
 
-#: ../src/PlaylistWindow.cs:1045
+#: ../src/PlaylistWindow.cs:1042
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Soittolista</b> ({0} tunti jäljellä)"
 msgstr[1] "<b>Soittolista</b> ({0} tuntia jäljellä)"
 
-#: ../src/PlaylistWindow.cs:1050
+#: ../src/PlaylistWindow.cs:1047
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -574,6 +570,9 @@ msgstr "Muine musiikkisoitin"
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
+
+#~ msgid "Hide _Window"
+#~ msgstr "Piilota _ikkuna"
 
 #~ msgid "*"
 #~ msgstr "**"
