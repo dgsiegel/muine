@@ -1,3 +1,7 @@
+2006-04-14  Amanpreet Singh Alam <apbrar@gmail.com>
+
+	*configure.in: "pa" Punjabi Language is added to ALL_LINGUAS
+
 2006-03-21  Peter Johanson  <peter@peterjohanson.com>
 
 	* src/PlaylistWindow.cs: Fix small bug in the visibility action

@@ -59,7 +59,7 @@ msgstr "ਆਪਣਾ ਸੰਗੀਤ ਚੁਣੋ"
 
 #: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
 msgid "Muine Music Player"
-msgstr "ਮੁਈਨੀ ਸੰਗੀਤ ਪਲੇਅਰ"
+msgstr "ਮੁਈਨ ਸੰਗੀਤ ਪਲੇਅਰ"
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
@@ -209,7 +209,7 @@ msgstr "ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ"
 
 #: ../src/About.cs:34
 msgid "Muine"
-msgstr "ਮੁਈਨੀ"
+msgstr "ਮੁਈਨ"
 
 #: ../src/About.cs:37
 msgid "Copyright © 2003-2006 Jorn Baayen"
@@ -375,7 +375,7 @@ msgstr "ਗੀਤ ਡਾਟਾਬੇਸ ਲੋਡ ਕਰਨ 'ਚ ਅਸਫ਼ਲ
 
 #: ../src/Global.cs:46
 msgid "Error initializing Muine."
-msgstr "ਮੁਈਨੀ ਸ਼ੁਰੂ ਕਰਨ 'ਚ ਗਲਤੀ ਹੈ।"
+msgstr "ਮੁਈਨ ਸ਼ੁਰੂ ਕਰਨ 'ਚ ਗਲਤੀ ਹੈ।"
 
 #: ../src/ImportDialog.cs:37
 msgid "Import Folder"
@@ -443,7 +443,7 @@ msgstr "ਐਲਬਮ ਅਣਜਾਣ"
 #: ../src/PlaylistWindow.cs:93
 #, csharp-format
 msgid "{0} - Muine Music Player"
-msgstr "{0} - ਮੁਈਨੀ ਸੰਗੀਤ ਪਲੇਅਰ"
+msgstr "{0} - ਮੁਈਨ ਸੰਗੀਤ ਪਲੇਅਰ"
 
 #: ../src/PlaylistWindow.cs:97
 msgid "Switch music playback on or off"
@@ -563,7 +563,7 @@ msgstr "{0} ਅਤੇ {1}"
 
 #: ../plugins/TrayIcon.cs:35
 msgid "Muine music player"
-msgstr "ਮੁਈਨੀ ਸੰਗੀਤ ਪਲੇਅਰ"
+msgstr "ਮੁਈਨ ਸੰਗੀਤ ਪਲੇਅਰ"
 
 #: ../plugins/TrayIcon.cs:40
 #, csharp-format
