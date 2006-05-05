@@ -22,7 +22,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 dbusservice_in_files = org.gnome.Muine.service.in
-dbusservicedir = $(libdir)/dbus-1.0/services
+dbusservicedir = $(datadir)/dbus-1/services
 dbusservice_DATA = $(dbusservice_in_files:.service.in=.service)
 
 EXTRA_DIST =			\

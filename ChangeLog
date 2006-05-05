@@ -1,3 +1,10 @@
+2006-05-04  Peter Johanson  <peter@peterjohanson.com>
+
+	* data/Makefile.am: Install the dbus .service file to the right
+	location.
+	* configure.in:
+	* doc/Makefile.am: Small tweaks/hacks to make distcheck work finally.
+
 2006-04-18  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Remove obsolete entry for no_NO

@@ -210,9 +210,6 @@ AM_CONDITIONAL(ENABLE_MONODOC, test "x$have_monodoc" = "xyes")
 AC_PATH_PROG(MDASSEMBLER, mdassembler)
 AC_PATH_PROG(MONODOCER, monodocer)
 
-MONODOC_SOURCESDIR=`pkg-config --variable=sourcesdir monodoc`
-AC_SUBST(MONODOC_SOURCESDIR)
-
 dnl Intl
 ALL_LINGUAS="az bg ca cs da de en_CA en_GB es et eu fi fr hr hu is ja ko lt ms nb ne nl pa pl pt pt_BR ro ru rw sk sr sr@Latn sv th uk vi zh_CN"
 GETTEXT_PACKAGE=muine
