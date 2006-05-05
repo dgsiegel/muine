@@ -1,3 +1,28 @@
+0.8.5
+=====
+
+- Gstreamer 0.10 support (configurable, 0.8 is still supported) [Iain, Peter
+  Johanson]
+- Small shortcut/mnemonics tweaks [Sebastian Heinlein, Wouter Bolsterlee, Peter
+  Johanson]
+- Various build and bugfixes [Peter Johanson]
+
+New translations:
+- Punjabi [Amanpreet Singh Alam]
+- Thai [Isriya Paireepairit]
+
+Updated Translations:
+- Basque [Inaki Larranaga]
+- Czech [Miloslav Trmac]
+- Dutch [Wouter Bolsterlee]
+- Estonian [Priit Laes]
+- Finnish [Ilkka Tuohela]
+- German [Frank Arnold]
+- Japanese [Takeshi AIHANA]
+- Spanish [Francisco Javier F. Serrador]
+- Swedish [Daniel Nylander]
+- Vietnamese [Clytie Siddall]
+
 0.8.4
 =====
 

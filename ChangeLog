@@ -1,5 +1,11 @@
 2006-05-04  Peter Johanson  <peter@peterjohanson.com>
 
+	* NEWS:
+	* configure.in: Updated news info, and bump version for a 0.8.5pre1
+	release.
+
+2006-05-04  Peter Johanson  <peter@peterjohanson.com>
+
 	* data/Makefile.am: Install the dbus .service file to the right
 	location.
 	* configure.in:
