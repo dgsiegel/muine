@@ -1,3 +1,8 @@
+2006-05-09  Peter Johanson  <peter@peterjohanson.com>
+
+	* libmuine/id3-vfs/id3-vfs.c: Handler large id3 tags properly. Fixes 
+	#162243. Patch by Jorn Baayen.
+
 2006-05-04  Peter Johanson  <peter@peterjohanson.com>
 
 	* NEWS:

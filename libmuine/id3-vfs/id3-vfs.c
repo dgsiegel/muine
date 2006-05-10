@@ -59,6 +59,7 @@ struct id3_vfs_file {
   struct id3_tag *primary;
   unsigned int ntags;
   struct vfstag *tags;
+  signed long tag_offset;
 };
 
 enum {
@@ -254,6 +255,8 @@ int search_tags(struct id3_vfs_file *file)
     }
   }
 
+  file->tag_offset = size;
+
   /* look for a tag at the end of the file (before any ID3v1 tag) */
 
   if (gnome_vfs_seek(file->iofile, GNOME_VFS_SEEK_END,
@@ -327,6 +330,8 @@ struct id3_vfs_file *new_file(GnomeVFSHandle *iofile, enum id3_vfs_mode mode)
 
   file->ntags   = 0;
   file->tags    = 0;
+
+  file->tag_offset = 0;
 
   file->primary = id3_tag_new();
   if (file->primary == 0)
@@ -494,7 +499,7 @@ id3_vfs_bitrate (struct id3_vfs_file *file, int *bitrate, int *samplerate,
   if (gnome_vfs_tell(iofile, &save_position) != GNOME_VFS_OK)
     return 0;
 
-  gnome_vfs_seek (iofile, GNOME_VFS_SEEK_START, 0);
+  gnome_vfs_seek (iofile, GNOME_VFS_SEEK_START, file->tag_offset);
 
   res = gnome_vfs_read (iofile, buffer, sizeof (buffer), &length_read);
   if( res != GNOME_VFS_OK || length_read < 512 )
@@ -511,24 +516,6 @@ id3_vfs_bitrate (struct id3_vfs_file *file, int *bitrate, int *samplerate,
     {
       found = 1;
       break;
-    }
-  }
-
-  /* If we haven't found anything, try again with 8 more kB */
-  if (is_wave == 0 && found == 0)
-  {
-    res = gnome_vfs_read (iofile, buffer, sizeof (buffer), &length_read);
-
-    if( res != GNOME_VFS_OK || length_read < 512 )
-      goto bitdone;
-
-    for (i = 0; i + 4 < length_read; i++)
-    {
-      if (mp3_bitrate_parse_header (buffer+i, length_read - i, bitrate, samplerate, time, version, vbr, channels))
-      {
-	      found = 1;
-	      break;
-      }
     }
   }
 
