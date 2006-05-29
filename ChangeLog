@@ -1,3 +1,9 @@
+2006-05-29  Peter Johanson  <peter@peterjohanson.com>
+
+	* plugins/egg-sharp.cs: Update to include implementation of some
+	previously missing pieces. Fixes the tray icon not reappearing after a
+	gnome-panel crash. Fixes bug #314097.
+
 2006-05-09  Peter Johanson  <peter@peterjohanson.com>
 
 	* libmuine/id3-vfs/id3-vfs.c: Handler large id3 tags properly. Fixes 

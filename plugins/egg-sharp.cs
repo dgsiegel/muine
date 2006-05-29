@@ -1,3 +1,25 @@
+/*
+ * Copyright (C) 2005 Todd Berman <tberman@off.net>, Ed Catmur <ed@catmur.co.uk>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public 
+ * License as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+// NOTE: throughout IntPtr is used for the Xlib long type, as this tends to 
+// have the correct width and does not require any configure checks.
+
 using System;
 using System.Runtime.InteropServices;
 
@@ -8,19 +30,78 @@ namespace Egg
 {
 	public class TrayIcon : Plug
 	{
-		int stamp;
+		uint stamp;
 		Orientation orientation;
 		
-		int selection_atom;
-		int manager_atom;
-		int system_tray_opcode_atom;
-		int orientation_atom;
+		IntPtr selection_atom;
+		IntPtr manager_atom;
+		IntPtr system_tray_opcode_atom;
+		IntPtr orientation_atom;
+		IntPtr message_data_atom;
 		IntPtr manager_window;
 		FilterFunc filter;
 		
 		public TrayIcon (string name)
 		{
 			Title = name;
+			Init ();
+		}
+		
+		public TrayIcon (string name, Gdk.Screen screen)
+		{
+			Title = name;
+			Screen = screen;
+			Init ();
+		}
+
+		[DllImport ("libc")]
+		private static extern IntPtr memcpy (ref XClientMessageEvent.DataUnion dest, IntPtr src, IntPtr len);
+
+		public uint SendMessage (uint timeout, string message)
+		{
+			if (manager_window == IntPtr.Zero)
+				return 0;
+
+			byte[] arr = System.Text.Encoding.UTF8.GetBytes (message);
+			IntPtr unmanaged_arr = Marshal.AllocHGlobal (arr.Length);
+			Marshal.Copy (arr, 0, unmanaged_arr, arr.Length);
+
+			SendManagerMessage (SystemTrayMessage.BeginMessage, (IntPtr) Id, timeout, (uint) arr.Length, ++stamp);
+
+			gdk_error_trap_push ();
+
+			for (int index = 0; index < message.Length; index += 20) {
+				XClientMessageEvent ev = new XClientMessageEvent ();
+
+				IntPtr display = gdk_x11_display_get_xdisplay (Display.Handle);
+
+				ev.type = XEventName.ClientMessage;
+				ev.window = (IntPtr) Id;
+				ev.format = 8;
+				ev.message_type = message_data_atom;
+
+				int len = Math.Min (arr.Length - index, 20);
+				memcpy (ref ev.data, (IntPtr)((int)unmanaged_arr + index), (IntPtr)len);
+
+				XSendEvent (display, manager_window, false, (IntPtr) EventMask.StructureNotifyMask, ref ev);
+				XSync (display, false);
+			}
+
+			gdk_error_trap_pop ();
+
+			return stamp;
+		}
+
+		public void CancelMessage (uint id)
+		{
+			if (id == 0)
+				return;
+
+			SendManagerMessage (SystemTrayMessage.CancelMessage, (IntPtr) Id, id, 0, 0);
+		}
+
+		private void Init ()
+		{
 			stamp = 1;
 			orientation = Orientation.Horizontal;
 			AddEvents ((int)EventMask.PropertyChangeMask);
@@ -36,31 +117,32 @@ namespace Egg
 			manager_atom = XInternAtom (xdisplay, "MANAGER", false);
 			system_tray_opcode_atom = XInternAtom (xdisplay, "_NET_SYSTEM_TRAY_OPCODE", false);
 			orientation_atom = XInternAtom (xdisplay, "_NET_SYSTEM_TRAY_ORIENTATION", false);
-			UpdateManagerWindow ();
-			//Screen.RootWindow.AddFilter (filter);
+			message_data_atom = XInternAtom (xdisplay, "_NET_SYSTEM_TRAY_MESSAGE_DATA", false);
+			UpdateManagerWindow (false);
+			SendDockRequest ();
+			Screen.RootWindow.AddFilter (filter);
 		}
 
 		protected override void OnUnrealized ()
 		{
 			if (manager_window != IntPtr.Zero)
 			{
-				//Gdk.Window gdkwin = Gdk.Window.LookupForDisplay (Display, (uint)manager_window);
-				//gdkwin.RemoveFilter (filter);
+				Gdk.Window gdkwin = Gdk.Window.ForeignNewForDisplay (Display, (uint)manager_window);
+				if (gdkwin != null)
+					gdkwin.RemoveFilter (filter);
 			}
 			
-			//Screen.RootWindow.RemoveFilter (filter);
+			Screen.RootWindow.RemoveFilter (filter);
 			base.OnUnrealized ();
 		}
 
-		private void UpdateManagerWindow ()
+		private void UpdateManagerWindow (bool dock_if_realized)
 		{
 			IntPtr xdisplay = gdk_x11_display_get_xdisplay (Display.Handle);
-			if (manager_window != IntPtr.Zero)
-			{
-				//Gdk.Window gdkwin = Gdk.Window.LookupForDisplay (Display, (uint)manager_window);
-				//gdkwin.RemoveFilter (filter);
-			}
 
+			if (manager_window != IntPtr.Zero)
+				return;
+			
 			XGrabServer (xdisplay);
 
 			manager_window = XGetSelectionOwner (xdisplay, selection_atom);
@@ -70,9 +152,11 @@ namespace Egg
 			XFlush (xdisplay);
 
 			if (manager_window != IntPtr.Zero) {
-				//Gdk.Window gdkwin = Gdk.Window.LookupForDisplay (Display, (uint)manager_window);
-				//gdkwin.AddFilter (filter);
-				SendDockRequest ();
+				Gdk.Window gdkwin = Gdk.Window.ForeignNewForDisplay (Display, (uint)manager_window);
+				if (gdkwin != null)
+					gdkwin.AddFilter (filter);
+				if (dock_if_realized && IsRealized)
+					SendDockRequest ();
 				GetOrientationProperty ();
 			}
 		}
@@ -91,27 +175,89 @@ namespace Egg
 			ev.window = window;
 			ev.message_type = (IntPtr)system_tray_opcode_atom;
 			ev.format = 32;
-			ev.ptr1 = gdk_x11_get_server_time (GdkWindow.Handle);
-			ev.ptr2 = (IntPtr)message;
-			ev.ptr3 = (IntPtr)data1;
-			ev.ptr4 = (IntPtr)data2;
-			ev.ptr5 = (IntPtr)data3;
+			ev.data.ptr1 = (IntPtr)gdk_x11_get_server_time (GdkWindow.Handle);
+			ev.data.ptr2 = (IntPtr)message;
+			ev.data.ptr3 = (IntPtr)data1;
+			ev.data.ptr4 = (IntPtr)data2;
+			ev.data.ptr5 = (IntPtr)data3;
 
 			display = gdk_x11_display_get_xdisplay (Display.Handle);
 			gdk_error_trap_push ();
-			XSendEvent (display, manager_window, false, EventMask.NoEventMask, ref ev);
+			XSendEvent (display, manager_window, false, (IntPtr)EventMask.NoEventMask, ref ev);
+			XSync (display, false);
 			gdk_error_trap_pop ();
 		}
 
 		private FilterReturn ManagerFilter (IntPtr xevent, Event evnt)
 		{
-			//TODO: Implement;
+			XAnyEvent xev = (XAnyEvent) Marshal.PtrToStructure (xevent, typeof(XAnyEvent));
+
+			if (xev.type == XEventName.ClientMessage){
+				XClientMessageEvent xclient = (XClientMessageEvent) Marshal.PtrToStructure (xevent, typeof(XClientMessageEvent));
+
+				if (xclient.message_type == manager_atom && xclient.data.ptr2 == selection_atom) {
+					UpdateManagerWindow (true);
+					return FilterReturn.Continue;
+				}
+			}
+
+			if (xev.window == manager_window) {
+				if (xev.type == XEventName.PropertyNotify){
+					XPropertyEvent xproperty = (XPropertyEvent) Marshal.PtrToStructure (xevent, typeof(XPropertyEvent));
+					if (xproperty.atom == orientation_atom) {
+						GetOrientationProperty();
+						return FilterReturn.Continue;
+					}
+				}
+
+				if (xev.type == XEventName.DestroyNotify) {
+					ManagerWindowDestroyed();
+				}
+			}
+
 			return FilterReturn.Continue;
+		}
+
+		private void ManagerWindowDestroyed ()
+		{
+			if (manager_window != IntPtr.Zero) {
+				Gdk.Window gdkwin = Gdk.Window.ForeignNewForDisplay (Display, (uint) manager_window);
+				if (gdkwin != null)
+					gdkwin.RemoveFilter (filter);
+				
+				manager_window = IntPtr.Zero;
+
+				UpdateManagerWindow (true);
+			}
 		}
 
 		private void GetOrientationProperty ()
 		{
-			//TODO: Implement;
+			IntPtr display;
+			IntPtr type;
+			int format;
+			IntPtr prop_return;
+			IntPtr nitems, bytes_after;
+			int error, result;
+
+			if (manager_window == IntPtr.Zero)
+				return;
+
+			display = gdk_x11_display_get_xdisplay (Display.Handle);
+			
+			gdk_error_trap_push ();
+			type = IntPtr.Zero;
+			result = XGetWindowProperty (display, manager_window, orientation_atom, (IntPtr) 0, (IntPtr) System.Int32.MaxValue, false, (IntPtr) XAtom.Cardinal, out type, out format, out nitems, out bytes_after, out prop_return);
+			error = gdk_error_trap_pop ();
+
+			if (error != 0 || result != 0)
+				return;
+
+			if (type == (IntPtr) XAtom.Cardinal)
+				orientation = ((SystemTrayOrientation) Marshal.ReadInt32 (prop_return) == SystemTrayOrientation.Horz) ? Orientation.Horizontal : Orientation.Vertical;
+
+			if (prop_return != IntPtr.Zero)
+				XFree (prop_return);
 		}
 
 		[DllImport ("gdk-x11-2.0")]
@@ -121,10 +267,10 @@ namespace Egg
 		[DllImport ("gdk-x11-2.0")]
 		static extern void gdk_error_trap_push ();
 		[DllImport ("gdk-x11-2.0")]
-		static extern void gdk_error_trap_pop ();
+		static extern int gdk_error_trap_pop ();
 		
-		[DllImport ("libX11", EntryPoint="XInternAtom")]
-		extern static int XInternAtom(IntPtr display, string atom_name, bool only_if_exists);
+		[DllImport ("libX11")]
+		extern static IntPtr XInternAtom(IntPtr display, string atom_name, bool only_if_exists);
 		[DllImport ("libX11")]
 		extern static void XGrabServer (IntPtr display);
 		[DllImport ("libX11")]
@@ -132,11 +278,17 @@ namespace Egg
 		[DllImport ("libX11")]
 		extern static int XFlush (IntPtr display);
 		[DllImport ("libX11")]
-		extern static IntPtr XGetSelectionOwner (IntPtr display, int atom);
+		extern static int XSync (IntPtr display, bool discard);
+		[DllImport ("libX11")]
+		extern static int XFree (IntPtr display);
+		[DllImport ("libX11")]
+		extern static IntPtr XGetSelectionOwner (IntPtr display, IntPtr atom);
 		[DllImport ("libX11")]
 		extern static IntPtr XSelectInput (IntPtr window, IntPtr display, EventMask mask);
-		[DllImport ("libX11", EntryPoint="XSendEvent")]
-		extern static int XSendEvent(IntPtr display, IntPtr window, bool propagate, EventMask event_mask, ref XClientMessageEvent send_event);
+		[DllImport ("libX11")]
+		extern static int XSendEvent(IntPtr display, IntPtr window, bool propagate, IntPtr event_mask, ref XClientMessageEvent send_event);
+		[DllImport("libX11")]
+		extern static int XGetWindowProperty(IntPtr display, IntPtr w, IntPtr property, IntPtr long_offset, IntPtr long_length, bool deleteProp, IntPtr req_type, out IntPtr actual_type_return, out int actual_format_return, out IntPtr nitems_return, out IntPtr bytes_after_return, out IntPtr prop_return);
 	}
 
 	[Flags]
@@ -171,15 +323,36 @@ namespace Egg
 
 	internal enum SystemTrayMessage
 	{
-		RequestDock,
-		BeginMessage,
-		CancelMessage
+		RequestDock = 0,
+		BeginMessage = 1,
+		CancelMessage = 2
 	}
 
 	internal enum SystemTrayOrientation
 	{
-		Horz,
-		Vert
+		Horz = 0,
+		Vert = 1
+	}
+
+  	[StructLayout(LayoutKind.Sequential)]
+	internal struct XAnyEvent {
+		internal XEventName	type;
+		internal IntPtr		serial;
+		internal bool		send_event;
+		internal IntPtr		display;
+		internal IntPtr		window;
+	}
+	
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct XPropertyEvent {
+		internal XEventName	type;
+		internal IntPtr		serial;
+		internal bool		send_event;
+		internal IntPtr		display;
+		internal IntPtr		window;
+		internal IntPtr		atom;
+		internal IntPtr		time;
+		internal int		state;
 	}
 	
 	[StructLayout(LayoutKind.Sequential)]
@@ -191,11 +364,16 @@ namespace Egg
 		internal IntPtr         window;
 		internal IntPtr         message_type;
 		internal int            format;
-		internal IntPtr         ptr1;
-		internal IntPtr         ptr2;
-		internal IntPtr         ptr3;
-		internal IntPtr         ptr4;
-		internal IntPtr         ptr5;
+ 		[StructLayout(LayoutKind.Sequential)]
+ 		internal struct DataUnion {
+
+ 			internal IntPtr ptr1;
+ 			internal IntPtr ptr2;
+ 			internal IntPtr ptr3;
+ 			internal IntPtr ptr4;
+ 			internal IntPtr ptr5;
+ 		}
+ 		internal DataUnion      data;
 	}
 
 	internal enum XEventName {
@@ -235,5 +413,11 @@ namespace Egg
 		TimerNotify             = 100,
 		
 		LASTEvent
+	}
+
+	internal enum XAtom {
+		Cardinal                = 6,
+
+		LASTAtom
 	}
 }
