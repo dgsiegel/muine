@@ -5,6 +5,9 @@
   Johanson]
 - Small shortcut/mnemonics tweaks [Sebastian Heinlein, Wouter Bolsterlee, Peter
   Johanson]
+- Fix bug with tray icon not re-appearing after a gnome-panel crash [Ed Catmur,
+  Peter Johanson]
+- Handle large id3 tags properly [Jorn Baayen]
 - Various build and bugfixes [Peter Johanson]
 
 New translations:

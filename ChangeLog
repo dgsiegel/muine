@@ -1,5 +1,10 @@
 2006-05-29  Peter Johanson  <peter@peterjohanson.com>
 
+	* NEWS: Update with bugs fixed since last pre-release.
+	* configure.in: Bump to 0.8.5pre2 for another pre-release.
+
+2006-05-29  Peter Johanson  <peter@peterjohanson.com>
+
 	* plugins/egg-sharp.cs: Update to include implementation of some
 	previously missing pieces. Fixes the tray icon not reappearing after a
 	gnome-panel crash. Fixes bug #314097.
