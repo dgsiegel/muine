@@ -1,3 +1,9 @@
+2006-06-02  Ryan Lortie  <desrt@desrt.ca>
+
+	* src/AddWindow.cs:
+	* src/PlaylistWindow.cs: Properly raise window when unhiding via
+	muine-shell.  Fixes bug #303333.
+
 2006-05-29  Peter Johanson  <peter@peterjohanson.com>
 
 	* NEWS: Update with bugs fixed since last pre-release.

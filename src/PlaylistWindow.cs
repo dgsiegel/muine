@@ -575,15 +575,12 @@ namespace Muine
 			window_visible = visible;
 
 			if (window_visible) {
-                                bool was_visible = Visible;
-                                
-				if (!was_visible && last_x >= 0 && last_y >= 0)
+				if (!Visible && last_x >= 0 && last_y >= 0)
 					Move (last_x, last_y);
 
 			        Show ();
 
-                                if (was_visible)
-                                        GdkWindow.Focus (time);
+				GdkWindow.Focus (time);
 
 			} else {
 				GetPosition (out last_x, out last_y);
