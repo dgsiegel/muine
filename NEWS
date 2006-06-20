@@ -8,6 +8,7 @@
 - Fix bug with tray icon not re-appearing after a gnome-panel crash [Ed Catmur,
   Peter Johanson]
 - Handle large id3 tags properly [Jorn Baayen]
+- Properly raise the window when unhiding [Ryan Lortie]
 - Various build and bugfixes [Peter Johanson]
 
 New translations:
@@ -20,7 +21,7 @@ Updated Translations:
 - Dutch [Wouter Bolsterlee]
 - Estonian [Priit Laes]
 - Finnish [Ilkka Tuohela]
-- German [Frank Arnold]
+- German [Frank Arnold, Hendrik Richter]
 - Japanese [Takeshi AIHANA]
 - Spanish [Francisco Javier F. Serrador]
 - Swedish [Daniel Nylander]
