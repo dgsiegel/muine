@@ -208,7 +208,7 @@ namespace Muine
 				menu_x = (int) args.Event.XRoot - (int) args.Event.X;
 				menu_y = (int) args.Event.YRoot - (int) args.Event.Y;
 
-				menu.Popup (null, null, new MenuPositionFunc (PositionMenu), IntPtr.Zero,
+				menu.Popup (null, null, new MenuPositionFunc (PositionMenu),
 				            args.Event.Button, args.Event.Time);
 				
 				break;
