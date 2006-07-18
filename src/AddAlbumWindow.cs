@@ -89,14 +89,9 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			// Requires Mono 1.1+:
-			// Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
-			// Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
-			// Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
-
-			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (OnAdded  );
-			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (OnChanged);
-			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (OnRemoved);
+			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
+			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
+			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
 
 			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
 
@@ -200,47 +195,6 @@ namespace Muine
 			default:
 				break;	
 			}
-		}
-
-		// Handlers :: OnAdded
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		/// <summary>
-		/// 	Handler called when an album is added.
-		/// </summary>		
-		/// <param name="album">
-		///	The <see cref="Album" /> that was added.
-		/// </param>
-		protected void OnAdded (Album album)
-		{
-			base.List.HandleAdded (album.Handle, 
-				album.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		// Handlers :: OnChanged
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		/// <summary>
-		/// 	Handler called when an album is changed.
-		/// </summary>
-		/// <param name="album">
-		///	The <see cref="Album" /> that was changed.
-		/// </param>
-		protected void OnChanged (Album album)
-		{
-			base.List.HandleChanged (album.Handle, 
-				album.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		// Handlers :: OnRemoved
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		/// <summary>
-		/// 	Handler called when an album is removed.
-		/// </summary>
-		/// <param name="album">
-		///	The <see cref="Album" /> that was removed.
-		/// </param>
-		protected void OnRemoved (Album album)
-		{
-			base.List.HandleRemoved (album.Handle);
 		}
 
 		// Delegate Functions		

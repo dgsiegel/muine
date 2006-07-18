@@ -1,3 +1,11 @@
+2006-07-17  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs: Enable a couple of minor things which were waiting
+	in the wings for dependency on Mono 1.1.  No new functionality or 
+	fixes, just cleanup.
+
 2006-06-19  Peter Johanson  <peter@peterjohanson.com>
 
 	* NEWS: Update with a few more changes for the 0.8.5 release.

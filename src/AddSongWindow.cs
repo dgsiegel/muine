@@ -75,14 +75,9 @@ namespace Muine
 			base.List.DragSource = source_entries;
 			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
 
-			// FIXME: Requires Mono 1.1+:
-			// Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
-			// Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
-			// Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
-
-			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (OnAdded  );
-			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (OnChanged);
-			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (OnRemoved);
+			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
+			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
+			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
 		}
 
 		// Handlers
@@ -127,49 +122,6 @@ namespace Muine
 			default:
 				break;	
 			}
-		}
-
-		// Handlers :: OnAdded
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		//	TODO: Change 'Song' parameter to 'song'
-		/// <summary>
-		/// 	Handler called when an song is added.
-		/// </summary>
-		/// <param name="song">
-		///	The <see cref="Song" /> that was added.
-		/// </param>
-		protected void OnAdded (Song Song)
-		{
-			base.List.HandleAdded (Song.Handle, 
-				Song.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		// Handlers :: OnSongChanged
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		//	TODO: Change 'Song' parameter to 'song'
-		/// <summary>
-		/// 	Handler called when an song is changed.
-		/// </summary>
-		/// <param name="song">
-		///	The <see cref="Song" /> that was changed.
-		/// </param>
-		protected void OnChanged (Song Song)
-		{
-			base.List.HandleChanged (Song.Handle, 
-				Song.FitsCriteria (base.Entry.SearchBits));
-		}
-
-		// Handlers :: OnSongRemoved
-		// 	FIXME: Remove if we depend on Mono 1.1+
-		/// <summary>
-		/// 	Handler called when an song is removed.
-		/// </summary>
-		/// <param name="song">
-		///	The <see cref="Song" /> that was removed.
-		/// </param>
-		protected void OnRemoved (Song Song)
-		{
-			base.List.HandleRemoved (Song.Handle);
 		}
 
 		// Delegate Functions

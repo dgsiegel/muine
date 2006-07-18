@@ -565,7 +565,6 @@ namespace Muine
 		}
 		
 		// Handlers :: OnAdded
-		// 	FIXME, UNUSED: Requires Mono 1.1+
 		/// <summary>
 		/// 	Handler called when an <see cref="Item" /> is added.
 		/// </summary>
@@ -578,7 +577,6 @@ namespace Muine
 		}
 
 		// Handlers :: OnChanged
-		// 	FIXME, UNUSED: Requires Mono 1.1+
 		/// <summary>
 		/// 	Handler called when an <see cref="Item" /> is changed.
 		/// </summary>
@@ -591,7 +589,6 @@ namespace Muine
 		}
 
 		// Handlers :: OnRemoved
-		// 	FIXME, UNUSED: Requires Mono 1.1+
 		/// <summary>
 		/// 	Handler called when an <see cref="Item" /> is removed.
 		/// </summary>
