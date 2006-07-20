@@ -1,3 +1,8 @@
+2006-07-20  Peter Johanson  <peter@peterjohanson.com>
+
+	* configure.in: Fix problem with setting enable_xine for both the
+	gstreamer and xine configure.in options. Reported by Iain on IRC.
+
 2006-07-17  Tamara Roberson  <foxxygirltamara@gmail.com>
 
 	* src/AddAlbumWindow.cs:
