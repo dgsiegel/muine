@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-25 16:33+0100\n"
+"POT-Creation-Date: 2006-07-31 13:11+0200\n"
 "PO-Revision-Date: 2006-03-25 16:33+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -271,7 +271,7 @@ msgstr "_Lista de reproducción"
 
 #: ../src/Actions.cs:45
 msgid "_Help"
-msgstr "A_yuda"
+msgstr "Ay_uda"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
@@ -511,28 +511,28 @@ msgstr "Falló al cerrar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1032
+#: ../src/PlaylistWindow.cs:1029
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1037
+#: ../src/PlaylistWindow.cs:1034
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1042
+#: ../src/PlaylistWindow.cs:1039
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1047
+#: ../src/PlaylistWindow.cs:1044
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
