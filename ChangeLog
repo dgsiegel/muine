@@ -1,3 +1,8 @@
+2006-08-08  Wouter Bolsterlee  <uws+gnome@xs4all.nl>
+
+	* configure.in: Put all language codes on one line to
+	fix the build with newer autotools.
+
 2006-08-05  Jovan Naumovski  <jovan@lugola.net>
 
 	* configure.in: Added 'mk' to ALL_LINGUAS.
@@ -5,8 +10,8 @@
 
 2006-07-24  Raivis Dejus  <orvils@gmail.com>
 
-        * configure.in: Added "lv" (Latvian) to ALL_LINGUAS.
-        * po/lv.po: Added Latvian Translation.
+	* configure.in: Added "lv" (Latvian) to ALL_LINGUAS.
+	* po/lv.po: Added Latvian Translation.
 
 2006-07-20  Peter Johanson  <peter@peterjohanson.com>
 
