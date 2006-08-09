@@ -110,6 +110,7 @@ namespace Muine
 		public static void Main (string [] args)
 		{
 			Application.Init ();
+			Gnome.Vfs.Vfs.Initialize ();
 
 			// Try to find a running Muine
 			try {

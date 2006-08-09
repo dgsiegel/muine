@@ -1,3 +1,8 @@
+2006-08-08  Peter Johanson  <peter@peterjohanson.com>
+
+	* src/Global.cs: Initialize gnome-vfs early to work around dbus
+	threading bug. Tracked down and fixed by Ryan Lortie.
+
 2006-08-08  Wouter Bolsterlee  <uws+gnome@xs4all.nl>
 
 	* configure.in: Put all language codes on one line to
