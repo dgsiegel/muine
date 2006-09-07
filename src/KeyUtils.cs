@@ -23,7 +23,7 @@ using Gdk;
 
 namespace Muine
 {
-	public sealed class KeyUtils
+	public static class KeyUtils
 	{
 		// Methods
 		// Methods :: Public

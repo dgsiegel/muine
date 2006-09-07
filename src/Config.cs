@@ -21,7 +21,7 @@ namespace Muine
 {
 	// TODO: Can we make this inherit from GConf.Client?
 	//	That would make this class nearly empty.
-	public sealed class Config 
+	public static class Config 
 	{
 		// Variables
 		private static GConf.Client gconf_client;

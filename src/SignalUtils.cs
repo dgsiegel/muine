@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 namespace Muine
 {
-	public sealed class SignalUtils 
+	public static class SignalUtils 
 	{
 		// Delegates
 	        public delegate void SignalDelegate    (IntPtr obj);

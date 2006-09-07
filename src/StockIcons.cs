@@ -26,7 +26,7 @@ using System.Reflection;
 
 namespace Muine
 {
-	public sealed class StockIcons
+	public static class StockIcons
 	{
 		// Variables
 		private static IconSize cover_size;

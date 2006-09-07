@@ -23,7 +23,7 @@ using Gtk;
 
 namespace Muine
 {
-	public sealed class DndUtils 
+	public static class DndUtils 
 	{
 		// Enums
 		// Enums :: Drag-and-Drop TargetType

@@ -24,7 +24,7 @@ using Mono.Unix;
 
 namespace Muine
 {
-	public sealed class StringUtils
+	public static class StringUtils
 	{
 		// Strings
 		private static readonly string string_unknown =

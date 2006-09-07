@@ -27,7 +27,7 @@ using Mono.Unix;
 
 namespace Muine
 {
-	public sealed class FileUtils
+	public static class FileUtils
 	{
 		// Constants
 		private const string playlist_filename = "playlist.m3u";
