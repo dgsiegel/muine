@@ -92,13 +92,13 @@ namespace Muine
 			search_label.MnemonicWidget = entry;
 
 			// Entry
-			entry.KeyPressEvent += new Gtk.KeyPressEventHandler (OnEntryKeyPressEvent);
-			entry.Changed       += new System.EventHandler      (OnEntryChanged);
+			entry.KeyPressEvent += OnEntryKeyPressEvent;
+			entry.Changed       += OnEntryChanged;
 			entry_container.Add (entry);
 						
 			// List
-			list.RowActivated      += new RowActivatedHandler (OnRowActivated);
-			list.Selection.Changed += new EventHandler        (OnSelectionChanged);
+			list.RowActivated      += OnRowActivated;
+			list.Selection.Changed += OnSelectionChanged;
 			scrolledwindow.Add (list);
 
 			entry.Show ();
@@ -342,7 +342,7 @@ namespace Muine
 		{
 			AssertHasGConfSize ();
 			
-			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);		
+			window.SizeAllocated += OnSizeAllocated;
 		}
 		
 		// Methods :: Private :: RestoreCursor

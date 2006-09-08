@@ -87,13 +87,13 @@ namespace Muine
 			base.List.AppendColumn (col);
 
 			base.List.DragSource = source_entries;
-			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
+			base.List.DragDataGet += OnDragDataGet;
 
-			Global.DB.AlbumAdded   += new SongDatabase.AlbumAddedHandler   (base.OnAdded  );
-			Global.DB.AlbumChanged += new SongDatabase.AlbumChangedHandler (base.OnChanged);
-			Global.DB.AlbumRemoved += new SongDatabase.AlbumRemovedHandler (base.OnRemoved);
+			Global.DB.AlbumAdded   += base.OnAdded;
+			Global.DB.AlbumChanged += base.OnChanged;
+			Global.DB.AlbumRemoved += base.OnRemoved;
 
-			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			Global.CoverDB.DoneLoading += OnCoversDoneLoading;
 
 			if (!Global.CoverDB.Loading)
 				EnableDragDest ();
@@ -110,7 +110,8 @@ namespace Muine
 			if (drag_dest_enabled)
 				return;
 
-			base.List.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			base.List.DragDataReceived += OnDragDataReceived;
+
 			Gtk.Drag.DestSet (base.List, DestDefaults.All,
 				CoverImage.DragEntries, Gdk.DragAction.Copy);
 

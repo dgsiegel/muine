@@ -65,7 +65,7 @@ namespace Muine
 
 			window.SetDefaultSize (width, height);
 
-			window.SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);
+			window.SizeAllocated += OnSizeAllocated;
 
 			cover_image = new CoverImage ();
 			((Container) gxml ["cover_image_container"]).Add (cover_image);

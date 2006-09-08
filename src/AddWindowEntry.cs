@@ -37,7 +37,7 @@ namespace Muine
 		{
 			ActivatesDefault = true;
 
-			Changed += new EventHandler (OnChanged);
+			Changed += OnChanged;
 		}
 
 		// Properties

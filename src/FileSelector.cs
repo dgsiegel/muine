@@ -77,7 +77,7 @@ namespace Muine
 
 			SetCurrentFolderUri (start_dir);
 
-			base.Response += new ResponseHandler (OnResponse);
+			base.Response += OnResponse;
 		}
 
 		// Handlers

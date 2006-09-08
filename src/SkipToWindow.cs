@@ -54,7 +54,7 @@ namespace Muine
 			geo_no_resize_height.MaxWidth = Int32.MaxValue;
 
 			player = p;
-			player.TickEvent += new TickEventHandler (OnTickEvent);
+			player.TickEvent += OnTickEvent;
 
 			OnTickEvent (player.Position);
 		}

@@ -69,8 +69,8 @@ namespace Muine
 			// Connect to player
 			this.player = player;
 			
-			player.SongChangedEvent  += new SongChangedEventHandler  (OnSongChangedEvent );
-			player.StateChangedEvent += new StateChangedEventHandler (OnStateChangedEvent);
+			player.SongChangedEvent  += OnSongChangedEvent ;
+			player.StateChangedEvent += OnStateChangedEvent;
 
 			// Install "Hide Window" menu item
 			player.UIManager.AddUi (player.UIManager.NewMergeId (), 
@@ -81,7 +81,7 @@ namespace Muine
 			player.UIManager.AddUiFromResource ("TrayIcon.xml");
 			
 			menu = (Menu) player.UIManager.GetWidget ("/Menu");
-			menu.Deactivated += new EventHandler (OnMenuDeactivated);
+			menu.Deactivated += OnMenuDeactivated;
 
 			// Init tooltips -- we init into "not playing" state
 			tooltips = new Tooltips ();
@@ -98,10 +98,10 @@ namespace Muine
 		{
 			icon = new Egg.TrayIcon (string_program);
 
-			icon.DestroyEvent += new DestroyEventHandler (OnDestroyEvent);
+			icon.DestroyEvent += OnDestroyEvent;
 
 			ebox = new EventBox ();
-			ebox.ButtonPressEvent += new ButtonPressEventHandler (OnButtonPressEvent);
+			ebox.ButtonPressEvent += OnButtonPressEvent;
 			
 			image = new Gtk.Image ();
 

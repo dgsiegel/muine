@@ -53,8 +53,8 @@ namespace Muine
 
 			popup = null;
 
-			base.ScrollEvent += new ScrollEventHandler (OnScrollEvent);
-			base.Toggled     += new EventHandler       (OnToggled    );
+			base.ScrollEvent += OnScrollEvent;
+			base.Toggled     += OnToggled;
 			
 			base.WidgetFlags |= WidgetFlags.NoWindow;
 		}
@@ -96,7 +96,7 @@ namespace Muine
 			// Popup
 			popup = new Window (WindowType.Popup);
 			popup.Screen = base.Screen;
-			popup.ButtonPressEvent += new ButtonPressEventHandler (OnPopupButtonPressEvent);
+			popup.ButtonPressEvent += OnPopupButtonPressEvent;
 
 			// Frame
 			Frame frame = new Frame ();
@@ -121,8 +121,8 @@ namespace Muine
 			// Scale
 			VScale scale = new VScale (adj);
 
-			scale.ValueChanged  += new EventHandler         (OnScaleValueChanged );
-			scale.KeyPressEvent += new KeyPressEventHandler (OnScaleKeyPressEvent);
+			scale.ValueChanged  += OnScaleValueChanged;
+			scale.KeyPressEvent += OnScaleKeyPressEvent;
 
 			scale.Adjustment.Upper = 100.0;
 			scale.Adjustment.Lower =   0.0;

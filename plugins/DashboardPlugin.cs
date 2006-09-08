@@ -35,7 +35,7 @@ public class DashboardPlugin : Plugin
 	{
 		this.player = player;
 		
-		player.SongChangedEvent += new SongChangedEventHandler (OnSongChangedEvent);
+		player.SongChangedEvent += OnSongChangedEvent;
 	}
 	
 	private void OnSongChangedEvent (ISong song)

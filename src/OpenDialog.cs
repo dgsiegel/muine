@@ -49,7 +49,7 @@ namespace Muine
 			filter.AddPattern ("*.m3u");
 			base.AddFilter (filter);
 
-			base.Response += new ResponseHandler (OnResponse);
+			base.Response += OnResponse;
 
 			base.Visible = true;
 		}

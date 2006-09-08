@@ -46,10 +46,8 @@ namespace Muine.DBusLib
 		{
 			this.player = player;
 		
-			player.SongChangedEvent +=
-				new SongChangedEventHandler (OnSongChangedEvent);
-			player.StateChangedEvent +=
-				new StateChangedEventHandler (OnStateChangedEvent);
+			player.SongChangedEvent  += OnSongChangedEvent ;
+			player.StateChangedEvent += OnStateChangedEvent;
 		}
 
 		[Method]

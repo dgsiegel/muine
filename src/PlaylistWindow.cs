@@ -234,14 +234,14 @@ namespace Muine
 			base.Add (main_vbox);
 
 			// Hook up window signals
-			base.WindowStateEvent += new WindowStateEventHandler (OnWindowStateEvent);
-			base.DeleteEvent      += new DeleteEventHandler      (OnDeleteEvent     );
-			base.DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			base.WindowStateEvent += OnWindowStateEvent;
+			base.DeleteEvent      += OnDeleteEvent;
+			base.DragDataReceived += OnDragDataReceived;
 
 			Gtk.Drag.DestSet (this, DestDefaults.All, drag_entries, Gdk.DragAction.Copy);
 
 			// Keep track of window visibility
-			base.VisibilityNotifyEvent += new VisibilityNotifyEventHandler (OnVisibilityNotifyEvent);
+			base.VisibilityNotifyEvent += OnVisibilityNotifyEvent;
 			AddEvents ((int) Gdk.EventMask.VisibilityNotifyMask);
 
 			// Set up various other UI bits
@@ -256,9 +256,9 @@ namespace Muine
 			SetupPlaylist ();
 
 			// Connect to song database signals
-			Global.DB.SongChanged           += new SongDatabase.SongChangedHandler (OnSongChanged);
-			Global.DB.SongRemoved           += new SongDatabase.SongRemovedHandler (OnSongRemoved);
-			Global.DB.WatchedFoldersChanged += new SongDatabase.WatchedFoldersChangedHandler (OnWatchedFoldersChanged);
+			Global.DB.SongChanged           += OnSongChanged;
+			Global.DB.SongRemoved           += OnSongRemoved;
+			Global.DB.WatchedFoldersChanged += OnWatchedFoldersChanged;
 
 			// Make sure the interface is up to date
 			SelectionChanged ();
@@ -547,8 +547,8 @@ namespace Muine
 			if (add_song_window == null) {
 				add_song_window = new AddSongWindow ();
 
-				add_song_window.QueueEvent += new AddSongWindow.QueueEventHandler (OnQueueSongsEvent);
-				add_song_window.PlayEvent  += new AddSongWindow.PlayEventHandler  (OnPlaySongsEvent );
+				add_song_window.QueueEvent += OnQueueSongsEvent;
+				add_song_window.PlayEvent  += OnPlaySongsEvent ;
 			}
 
 			AddChildWindowIfVisible (add_song_window);
@@ -561,8 +561,8 @@ namespace Muine
 			if (add_album_window == null) {
 				add_album_window = new AddAlbumWindow ();
 				
-				add_album_window.QueueEvent += new AddAlbumWindow.QueueEventHandler (OnQueueAlbumsEvent);
-				add_album_window.PlayEvent  += new AddAlbumWindow.PlayEventHandler  (OnPlayAlbumsEvent );
+				add_album_window.QueueEvent += OnQueueAlbumsEvent;
+				add_album_window.PlayEvent  += OnPlayAlbumsEvent ;
 			}
 
 			AddChildWindowIfVisible (add_album_window);
@@ -831,17 +831,17 @@ namespace Muine
 		private void SetupButtons ()
 		{
 			// Callbacks
-			toggle_play_button.Clicked += new EventHandler (OnTogglePlayButtonClicked);
-			previous_button   .Clicked += new EventHandler (OnPreviousButtonClicked );
-			next_button       .Clicked += new EventHandler (OnNextButtonClicked     );
-			add_song_button   .Clicked += new EventHandler (OnAddSongButtonClicked  );
-			add_album_button  .Clicked += new EventHandler (OnAddAlbumButtonClicked );
+			toggle_play_button.Clicked += OnTogglePlayButtonClicked;
+			previous_button   .Clicked += OnPreviousButtonClicked;
+			next_button       .Clicked += OnNextButtonClicked;
+			add_song_button   .Clicked += OnAddSongButtonClicked;
+			add_album_button  .Clicked += OnAddAlbumButtonClicked;
 
 			// Volume
 			volume_button = new VolumeButton ();
 			volume_button_container.Add (volume_button);
 			volume_button.Visible = true;
-			volume_button.VolumeChanged += new VolumeButton.VolumeChangedHandler (OnVolumeChanged);
+			volume_button.VolumeChanged += OnVolumeChanged;
 
 			// Tooltips
 			tooltips = new Tooltips ();
@@ -872,9 +872,9 @@ namespace Muine
 			col.SetCellDataFunc (text_renderer  , new TreeCellDataFunc (TextCellDataFunc  ));
 			playlist.AppendColumn (col);
 			
-			playlist.RowActivated         += new RowActivatedHandler               (OnPlaylistRowActivated    );
-			playlist.Selection.Changed    += new EventHandler                      (OnPlaylistSelectionChanged);
-			playlist.Model.PlayingChanged += new HandleModel.PlayingChangedHandler (OnPlaylistPlayingChanged  );
+			playlist.RowActivated         += OnPlaylistRowActivated;
+			playlist.Selection.Changed    += OnPlaylistSelectionChanged;
+			playlist.Model.PlayingChanged += OnPlaylistPlayingChanged;
 
 			playlist.EnableModelDragSource (Gdk.ModifierType.Button1Mask, playlist_source_entries,
 				Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
@@ -882,8 +882,8 @@ namespace Muine
 			playlist.EnableModelDragDest (playlist_dest_entries,
 				Gdk.DragAction.Copy);
 
-			playlist.DragDataGet      += new DragDataGetHandler      (OnPlaylistDragDataGet     );
-			playlist.DragDataReceived += new DragDataReceivedHandler (OnPlaylistDragDataReceived);
+			playlist.DragDataGet      += OnPlaylistDragDataGet;
+			playlist.DragDataReceived += OnPlaylistDragDataReceived;
 
 			playlist.Show ();
 
@@ -905,10 +905,10 @@ namespace Muine
 			}
 
 			// Setup Player
-			player.EndOfStreamEvent += new Player.EndOfStreamEventHandler (OnEndOfStreamEvent);
-			player.TickEvent        += new Player.TickEventHandler        (OnTickEvent       );
-			player.StateChanged     += new Player.StateChangedHandler     (OnStateChanged    );
-			player.InvalidSong      += new Player.InvalidSongHandler      (OnInvalidSong     );
+			player.EndOfStreamEvent += OnEndOfStreamEvent;
+			player.TickEvent        += OnTickEvent;
+			player.StateChanged     += OnStateChanged;
+			player.InvalidSong      += OnInvalidSong;
 
 			// Cover Image
 			cover_image = new CoverImage ();
@@ -916,7 +916,7 @@ namespace Muine
 			cover_image.ShowAll ();
 
 			// Playlist Label DnD
-			playlist_label_event_box.DragDataGet +=	new DragDataGetHandler (OnPlaylistLabelDragDataGet);
+			playlist_label_event_box.DragDataGet +=	OnPlaylistLabelDragDataGet;
 				
 			Gtk.Drag.SourceSet (playlist_label_event_box, Gdk.ModifierType.Button1Mask,
 				drag_entries, Gdk.DragAction.Move);
@@ -1414,7 +1414,7 @@ namespace Muine
 
 			SetDefaultSize (width, height);
 
-			SizeAllocated += new SizeAllocatedHandler (OnSizeAllocated);
+			SizeAllocated += OnSizeAllocated;
 
 			// Volume
 			Volume = (int) Config.Get (GConfKeyVolume, GConfDefaultVolume);

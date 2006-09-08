@@ -44,7 +44,7 @@ namespace Muine
 		: base (string_title, FileChooserAction.Save, GConfKeyDefaultPlaylistFolder)
 		{
 			base.CurrentName = string_save_default;
-			base.Response += new ResponseHandler (OnResponse);
+			base.Response += OnResponse;
 			base.Visible = true;
 		}
 

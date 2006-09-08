@@ -73,11 +73,11 @@ namespace Muine
 			base.List.AppendColumn (col);
 			
 			base.List.DragSource = source_entries;
-			base.List.DragDataGet += new DragDataGetHandler (OnDragDataGet);
+			base.List.DragDataGet += OnDragDataGet;
 
-			Global.DB.SongAdded   += new SongDatabase.SongAddedHandler   (base.OnAdded  );
-			Global.DB.SongChanged += new SongDatabase.SongChangedHandler (base.OnChanged);
-			Global.DB.SongRemoved += new SongDatabase.SongRemovedHandler (base.OnRemoved);
+			Global.DB.SongAdded   += base.OnAdded;
+			Global.DB.SongChanged += base.OnChanged;
+			Global.DB.SongRemoved += base.OnRemoved;
 		}
 
 		// Handlers

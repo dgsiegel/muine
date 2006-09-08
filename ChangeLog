@@ -1,5 +1,26 @@
 2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
+	* DBusLib/Player.cs:
+	* plugins/DashboardPlugin.cs:
+	* plugins/TrayIcon.cs:
+	* src/Actions.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/CoverImage.cs:
+	* src/FileSelector.cs:
+	* src/Global.cs:
+	* src/ImportDialog.cs:
+	* src/InfoWindow.cs:
+	* src/OpenDialog.cs:
+	* src/PlaylistWindow.cs:
+	* src/SaveDialog.cs:
+	* src/SkipToWindow.cs:
+	* src/VolumeButton.cs: Imply delegate type.
+
+2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
+
 	* AUTHORS:
 	* ChangeLog:
 	* po/*.po:

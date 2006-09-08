@@ -176,7 +176,7 @@ namespace Muine
 				Error (String.Format (string_coverdb_failed, e.Message));
 			}
 
-			cover_db.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			cover_db.DoneLoading += OnCoversDoneLoading;
 
 			// Load song database
 			try {
@@ -230,8 +230,8 @@ namespace Muine
 
 			// Hook up to the session manager
 			session_client = Gnome.Global.MasterClient ();
-			session_client.Die          += new EventHandler              (OnDieEvent         );
-			session_client.SaveYourself += new Gnome.SaveYourselfHandler (OnSaveYourselfEvent);
+			session_client.Die          += OnDieEvent;
+			session_client.SaveYourself += OnSaveYourselfEvent;
 
 			// Run!
 			Application.Run ();

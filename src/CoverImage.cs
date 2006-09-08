@@ -139,9 +139,9 @@ namespace Muine
 			
 			Add (image);
 
-			DragDataReceived += new DragDataReceivedHandler (OnDragDataReceived);
+			DragDataReceived += OnDragDataReceived;
 
-			Global.CoverDB.DoneLoading += new CoverDatabase.DoneLoadingHandler (OnCoversDoneLoading);
+			Global.CoverDB.DoneLoading += OnCoversDoneLoading;
 		}
 
 		// Destructor

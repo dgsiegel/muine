@@ -50,7 +50,7 @@ namespace Muine
 
 			base.DefaultResponse = ResponseType.Ok;
 
-			base.Response += new ResponseHandler (OnResponse);
+			base.Response += OnResponse;
 
 			// Load Start Directory
 			string start_dir = (string) Config.Get (GConfKeyImportFolder, 

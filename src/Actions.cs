@@ -221,25 +221,25 @@ namespace Muine
 			ui_manager.AddUiFromResource ("PlaylistWindow.xml");
 			
 			// Setup Callbacks
-			this ["Import"       ].Activated += new EventHandler (OnImport       );
-			this ["Open"         ].Activated += new EventHandler (OnOpen         );
-			this ["Save"         ].Activated += new EventHandler (OnSave         );
-			this ["ToggleVisible"].Activated += new EventHandler (OnToggleVisible);
-			this ["Quit"         ].Activated += new EventHandler (OnQuit         );
-			this ["Previous"     ].Activated += new EventHandler (OnPrevious     );
-			this ["Next"         ].Activated += new EventHandler (OnNext         );
-			this ["SkipTo"       ].Activated += new EventHandler (OnSkipTo       );
-			this ["SkipBackwards"].Activated += new EventHandler (OnSkipBackwards);
-			this ["SkipForward"  ].Activated += new EventHandler (OnSkipForward  );
-			this ["PlaySong"     ].Activated += new EventHandler (OnPlaySong     );
-			this ["PlayAlbum"    ].Activated += new EventHandler (OnPlayAlbum    );
-			this ["Remove"       ].Activated += new EventHandler (OnRemove       );
-			this ["RemovePlayed" ].Activated += new EventHandler (OnRemovePlayed );
-			this ["Clear"        ].Activated += new EventHandler (OnClear        );
-			this ["Shuffle"      ].Activated += new EventHandler (OnShuffle      );
-			this ["About"        ].Activated += new EventHandler (OnAbout        );
-			this ["TogglePlay"   ].Activated += new EventHandler (OnTogglePlay   );
-			this ["ToggleRepeat" ].Activated += new EventHandler (OnToggleRepeat );
+			this ["Import"       ].Activated += OnImport;
+			this ["Open"         ].Activated += OnOpen;
+			this ["Save"         ].Activated += OnSave;
+			this ["ToggleVisible"].Activated += OnToggleVisible;
+			this ["Quit"         ].Activated += OnQuit;
+			this ["Previous"     ].Activated += OnPrevious;
+			this ["Next"         ].Activated += OnNext;
+			this ["SkipTo"       ].Activated += OnSkipTo;
+			this ["SkipBackwards"].Activated += OnSkipBackwards;
+			this ["SkipForward"  ].Activated += OnSkipForward;
+			this ["PlaySong"     ].Activated += OnPlaySong;
+			this ["PlayAlbum"    ].Activated += OnPlayAlbum;
+			this ["Remove"       ].Activated += OnRemove;
+			this ["RemovePlayed" ].Activated += OnRemovePlayed;
+			this ["Clear"        ].Activated += OnClear;
+			this ["Shuffle"      ].Activated += OnShuffle;
+			this ["About"        ].Activated += OnAbout;
+			this ["TogglePlay"   ].Activated += OnTogglePlay;
+			this ["ToggleRepeat" ].Activated += OnToggleRepeat;
 		}
 
 		// Properties
