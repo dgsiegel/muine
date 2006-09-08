@@ -1,5 +1,9 @@
 2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
 
+	* po/ca.po: Add plural definition.
+
+2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
 	* PluginLib/IPlayer.cs:
 	* plugins/DashboardPlugin.cs:
 	* plugins/TrayIcon.cs:
