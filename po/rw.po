@@ -277,7 +277,7 @@ msgstr ""
 
 #: src/About.cs:47
 #, fuzzy
-msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgid "Tamara Roberson <tamara.roberson@gmail.com>"
 msgstr "com"
 
 #: src/About.cs:49

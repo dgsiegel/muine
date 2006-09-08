@@ -231,8 +231,8 @@ msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
 #: src/About.cs:47
-msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
-msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgid "Tamara Roberson <tamara.roberson@gmail.com>"
+msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
 #: src/About.cs:49
 msgid "Album covers are provided by amazon.com."

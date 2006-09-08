@@ -417,8 +417,8 @@ msgid "Switch music playback on or off"
 msgstr "Schimbaţi rularea melodiei cu închis sau deschis"
 
 #: src/About.cs:47
-msgid "Tamara Roberson <foxxygirltamara@gmail.com>"
-msgstr "Tamara Roberson <foxxygirltamara@gmail.com>"
+msgid "Tamara Roberson <tamara.roberson@gmail.com>"
+msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
 #: src/StringUtils.cs:31
 msgid "Unknown"

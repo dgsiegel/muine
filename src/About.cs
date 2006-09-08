@@ -44,7 +44,7 @@ namespace Muine
 			Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>"),
 			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
-			Catalog.GetString ("Tamara Roberson <foxxygirltamara@gmail.com>"),
+			Catalog.GetString ("Tamara Roberson <tamara.roberson@gmail.com>"),
 			Catalog.GetString ("Peter Johanson <peter@peterjohanson.com>"),
 			"",
 			Catalog.GetString ("Album covers are provided by amazon.com and musicbrainz.org."),

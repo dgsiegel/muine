@@ -1,8 +1,25 @@
-2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
+
+	* AUTHORS:
+	* ChangeLog:
+	* po/*.po:
+	* src/About.cs:
+	* src/Actions.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/AddWindowList.cs:
+	* src/Database.cs:
+	* src/ImportDialog.cs:
+	* src/Item.cs:
+	* src/OpenDialog.cs:
+	* src/SaveDialog.cs:
+	* src/SignalUtils.cs: Change my email address.
+
+2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* po/ca.po: Add plural definition.
 
-2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* PluginLib/IPlayer.cs:
 	* plugins/DashboardPlugin.cs:
@@ -24,7 +41,7 @@
 	* src/StringUtils.cs:  Tabs vs. Spaces spring cleaning (make sure
 	you are using tabs to indent).
 
-2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/Config.cs:
 	* src/DndUtils.cs:
@@ -60,7 +77,7 @@
 	* configure.in: Fix problem with setting enable_xine for both the
 	gstreamer and xine configure.in options. Reported by Iain on IRC.
 
-2006-07-17  Tamara Roberson  <foxxygirltamara@gmail.com>
+2006-07-17  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
@@ -639,14 +656,14 @@
 	property (why does HandleView have a new Model property in the first
 	place?). This makes muine work again.
 
-2005-03-16  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-03-16  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/HandleView.cs:
 	
 	s/this.Model/this.model -- builds (wrongly) with
 	Mono 1.0.x but not with Mono 1.1.x, now fixed.
 
-2005-03-15  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-03-15  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/About.cs:
 	* src/Actions.cs:
@@ -676,7 +693,7 @@
 	Internal documentation (first wave); some rearrangement;
 	added more TODOs.
 
-2005-03-12  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-03-12  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/About.cs:
 	* src/Actions.cs:
@@ -1610,26 +1627,26 @@
 
 	Various other small cleanups and fixes.
 
-2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-14  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/Metadata.cs:
 	
 	Making Metadata inherit from GLib.Object was a bad idea.
 	Now we just use a private IntPtr for the raw data.	
 
-2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-14  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/PlaylistWindow.cs:
 	
 	Fix a recently added bug that broke the save-playlist-on-exit feature.
 
-2005-01-14  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-14  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/Metadata.cs:
 	
 	Code cleanup. Split up the constructor.
 
-2005-01-13  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-13  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
@@ -1663,7 +1680,7 @@
 	Keep comments to translators on the line above the call to GetString,
 	this is to make sure they appear in the .po files.
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/Song.cs:
 	* src/StringUtils.cs:
@@ -1671,7 +1688,7 @@
 	Remove empty artist and performer listings which can sometimes occur
 	in metadata. This turns " and foo" into "foo".
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 	
 	* data/glade/PlaylistWindow.glade:
 	* data/ui/NotificationAreaIcon.xml:
@@ -1727,7 +1744,7 @@
 	structs, most notably SignalRequest. Added some documentation and TODO
 	notes (in individual files).
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* data/muine.schemas.in:
 	* src/AddAlbumWindow.cs:
@@ -1751,7 +1768,7 @@
 	Bumped version number, added gacutil check, and a --disable-gac-install
 	configure option, to be used for RPMs and such.
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/PlaylistWindow.cs:
 	
@@ -1762,7 +1779,7 @@
 	crashes now). I'll go through it tomorrow... I'm not even sure which
 	revision did it. Sorry.
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 	
 	* src/Actions.cs:
 	* src/ImportDialog.cs:
@@ -1774,19 +1791,19 @@
 	Split off the Import Folder, Open Playlist, and Save Playlist
 	dialogs into their own classes.
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/PlaylistWindow.cs:
 	
 	A couple more cleanups first...
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/PlaylistWindow.cs:
 	
 	Code cleanup. Getting ready for the great divide...
 
-2005-01-10  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-10  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* data/glade/PlaylistWindow.glade:
 	* src/Actions.cs:
@@ -1796,7 +1813,7 @@
 	making PlaylistWindow *bigger* through all this, but hopefully
 	it's cleaner. Sorry about the cut-and-paste error yesterday :-).
 
-2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-09  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
@@ -1849,7 +1866,7 @@
 
 	Only add border to amazon pixbuf if we got one.
 
-2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-09  Tamara Roberson  <tamara.roberson@gmail.com>
 	
 	* src/Actions.cs:
 	* src/Global.cs:
@@ -1870,7 +1887,7 @@
 	in SongWindow and AlbumWindow, not Items, as those
 	are what the signals provide.
 
-2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-09  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* data/glade/AddWindow.glade:
 	* src/AddAlbumWindow.cs:
@@ -1886,7 +1903,7 @@
 	Split AddWindowEntry and AddWindowList off of AddWindow.
 	Moved Song.FitsCriteria and Album.FitsCriteria to Item.
 
-2005-01-09  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-09  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/About.cs:
 	* src/AddAlbumWindow.cs:
@@ -2049,7 +2066,7 @@
 	- Clean up Global stuff to actually be global.
 	- GnomeProxy, SongDatabase and CoverGetter react to GConf changes
 
-2005-01-08  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-08  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* configure.in:
 	* src/AddAlbumWindow.cs:
@@ -2170,7 +2187,7 @@
 
 	Allow selecting multiple folders on import.
 
-2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* libmuine/pointer-list-view.c:
 	* libmuine/pointer-list-view.h:
@@ -2178,13 +2195,13 @@
 	
 	Implemented some functions in C#.
 
-2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/HandleView.cs:
 	
 	Some code cleanup.
 
-2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/Album.cs:
 	* src/Item.cs:
@@ -2193,7 +2210,7 @@
 	
 	Added Item, a base class for Album and Song.
 
-2005-01-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/CoverGetter.cs:
 	
@@ -2265,7 +2282,7 @@
 	Big reshuffle of cover image handling, squashing a few bugs along 
 	the way. Not quite finished yet; web fetching isn't hooked up yet.
 
-2005-01-06  Tamara Roberson  <foxxygirltamara@gmail.com>
+2005-01-06  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/About.cs:
 	* src/ActionThread.cs:
@@ -2848,7 +2865,7 @@
 
 	Remove duplicate deprecation markers.
 
-2004-12-31  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-31  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
@@ -2873,7 +2890,7 @@
 
 	Don't compile unused InfoWindow.cs and NoMusicFoundWindow.cs for now.
 
-2004-12-30  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-30  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:
@@ -2899,7 +2916,7 @@
 	Filenames are now properties of the Muine class. Based on a patch by
 	Tamara Roberson.
 
-2004-12-30  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-30  Tamara Roberson  <tamara.roberson@gmail.com>
             Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/AddAlbumWindow.cs:
@@ -3052,7 +3069,7 @@
 
 	Replace setting song.Dead to true with song.Kill ().
 
-2004-12-29  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-29  Tamara Roberson  <tamara.roberson@gmail.com>
             Jorn Baayen  <jbaayen@gnome.org>
 
 	* src/Makefile.am:
@@ -3105,7 +3122,7 @@
 
 	Tiny cleanup: refer to db instead of DB within the Muine class.
 
-2004-12-28  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-28  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/CoverDatabase.cs:
 	* src/DatabaseUtils.cs:
@@ -3155,7 +3172,7 @@
 
 	Remove obsoleted GConfClient property.
 
-2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-26  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/About.cs:
 	* src/Album.cs:
@@ -3189,7 +3206,7 @@
 	
 	Made FakeLength constant.
 
-2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-26  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/SignalUtils.cs:
 
@@ -3205,7 +3222,7 @@
 	SignalUtils.SignalConnect. Removed SignalDelegates and 
 	g_signal_connect_data.
 
-2004-12-26  Tamara Roberson  <foxxygirltamara@gmail.com>
+2004-12-26  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* src/AddAlbumWindow.cs:
 	* src/AddSongWindow.cs:

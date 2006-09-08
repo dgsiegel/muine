@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 Tamara Roberson <foxxygirltamara@gmail.com>
+ * Copyright (C) 2005 Tamara Roberson <tamara.roberson@gmail.com>
  *           (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
