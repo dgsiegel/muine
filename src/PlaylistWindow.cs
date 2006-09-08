@@ -247,7 +247,7 @@ namespace Muine
 			// Set up various other UI bits
 			// Player has to be first, others need the Player object
 			SetupPlayer (); 
-						    
+
 			// Setup Menus
 			base.AddAccelGroup (Global.Actions.UIManager.AccelGroup);
 			menu_bar_box.Add (Global.Actions.MenuBar);
@@ -341,18 +341,18 @@ namespace Muine
 			get { return ArrayFromList (playlist.SelectedHandles); }
 		}
 
-                // Properties :: AllSongs (get;) (IPlayer)
-                public ISong [] AllSongs {
-                        get {
-                                lock (Global.DB) {
-                                        ISong [] array = new ISong [Global.DB.Songs.Count];
-                                        // We copy, to avoid bothering plugins with locking
-                                        // issues.
-                                        Global.DB.Songs.Values.CopyTo (array, 0);
-                                        return array;
-                                }
-                        }
-                }
+		// Properties :: AllSongs (get;) (IPlayer)
+		public ISong [] AllSongs {
+			get {
+				lock (Global.DB) {
+					ISong [] array = new ISong [Global.DB.Songs.Count];
+					// We copy, to avoid bothering plugins with locking
+					// issues.
+					Global.DB.Songs.Values.CopyTo (array, 0);
+					return array;
+				}
+			}
+		}
 
 		// Properties :: UIManager (get;) (IPlayer)
 		public UIManager UIManager {
@@ -382,11 +382,11 @@ namespace Muine
 			get { return busy_level; }
 		}
 
-                // Properties :: WatchedFolders (set; get;) (IPlayer)
- 		public string [] WatchedFolders {
-                        set { Global.DB.WatchedFolders = value; }
- 			get { return Global.DB.WatchedFolders; }
- 		}
+		// Properties :: WatchedFolders (set; get;) (IPlayer)
+		public string [] WatchedFolders {
+			set { Global.DB.WatchedFolders = value; }
+			get { return Global.DB.WatchedFolders ; }
+		}
 
 		// Properties :: WindowVisible (get;) (IPlayer)
 		public bool WindowVisible {
@@ -430,7 +430,7 @@ namespace Muine
 				SongChanged (true); // make sure the UI is up to date
 
 			RestoreState ();
-                        SetWindowVisible (true, 0);
+			SetWindowVisible (true, 0);
 		}
 
 		// Methods :: Public :: Quit (IPlayer)
@@ -569,16 +569,16 @@ namespace Muine
 			add_album_window.Run (time);
 		}
 
-                // Methods :: Public :: SetWindowVisible (IPlayer)
-                public void SetWindowVisible (bool visible, uint time)
-                {
+		// Methods :: Public :: SetWindowVisible (IPlayer)
+		public void SetWindowVisible (bool visible, uint time)
+		{
 			window_visible = visible;
 
 			if (window_visible) {
 				if (!Visible && last_x >= 0 && last_y >= 0)
 					Move (last_x, last_y);
 
-			        Show ();
+				Show ();
 
 				GdkWindow.Focus (time);
 
@@ -586,9 +586,9 @@ namespace Muine
 				GetPosition (out last_x, out last_y);
 				Visible = false;
 			}
-                                
+
 			UpdateWindowVisibilityUI ();
-                }
+		}
 
 		// Methods :: Public :: AddSong (IPlayer)
 		public ISong AddSong (string path)
@@ -596,7 +596,7 @@ namespace Muine
 			return GetSingleSong (path, true);
 		}
 
-                // Methods :: Public :: SyncSong (IPlayer)
+		// Methods :: Public :: SyncSong (IPlayer)
 		public void SyncSong (string path)
 		{
 			lock (Global.DB) {
@@ -1142,15 +1142,15 @@ namespace Muine
 				song_label.Markup = String.Format (
 					"<span size=\"large\" weight=\"bold\">{0}</span>\n{1}",
 					StringUtils.EscapeForPango (song.Title),
-                                        StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
+					StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
 
 				this.Title = String.Format (string_title_main, song.Title);
 
 				if (player.Song != song || restart)
 					player.Song = song;
 
-			        if (fire_signal && SongChangedEvent != null)
-				        SongChangedEvent (song);
+				if (fire_signal && SongChangedEvent != null)
+				    SongChangedEvent (song);
 
 			} else {
 				cover_image.Song = null;
@@ -1165,8 +1165,8 @@ namespace Muine
 				if (skip_to_window != null)
 					skip_to_window.Hide ();
 
-			        if (SongChangedEvent != null)
-				        SongChangedEvent (null);
+				if (SongChangedEvent != null)
+				    SongChangedEvent (null);
 			}
 			
 			if (restart)
@@ -1341,8 +1341,8 @@ namespace Muine
 			// If we don't have it, try adding it
 			if (song == null)
 				song = AddSongToDB (file);
-                        else if (sync)
-                                Global.DB.SyncSong (song);
+			else if (sync)
+				Global.DB.SyncSong (song);
 
 			return song;
 		}
@@ -2108,7 +2108,7 @@ namespace Muine
 				if (player.Playing)
 					r.Pixbuf = playlist.RenderIcon ("muine-playing", IconSize.Menu, null);
 				else
- 					r.Pixbuf = playlist.RenderIcon ("muine-paused" , IconSize.Menu, null);
+					r.Pixbuf = playlist.RenderIcon ("muine-paused" , IconSize.Menu, null);
 
 			} else {
 				r.Pixbuf = empty_pixbuf;

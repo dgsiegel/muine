@@ -244,7 +244,7 @@ namespace Muine
 		/// </summary>
 		public static void Exit ()
 		{
-                        Environment.Exit (0);
+			Environment.Exit (0);
 		}
 
 		// Methods :: Private
@@ -288,8 +288,8 @@ namespace Muine
 				// If it's the first song, start playing it.
 				if (arg == args [0])
 					dbus_object.PlayFile (finfo.FullName);
-                                else // Else, queue.
-				        dbus_object.QueueFile (finfo.FullName);
+				else // Else, queue.
+					dbus_object.QueueFile (finfo.FullName);
 			}
 
 			return opened_file;

@@ -33,11 +33,11 @@ namespace Muine
 	public class InfoWindow : Window
 	{
 		// GConf
-	        private const string GConfKeyWidth = "/apps/muine/information_window/width";
-	        private const int GConfDefaultWidth = 350; 
+		private const string GConfKeyWidth = "/apps/muine/information_window/width";
+		private const int GConfDefaultWidth = 350; 
 
-	        private const string GConfKeyHeight = "/apps/muine/information_window/height";
-	        private const int GConfDefaultHeight = 300; 
+		private const string GConfKeyHeight = "/apps/muine/information_window/height";
+		private const int GConfDefaultHeight = 300; 
 
 		// Widgets
 		[Glade.Widget] private Window         window;

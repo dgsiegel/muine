@@ -30,11 +30,11 @@ namespace Muine
 	public class AddSongWindow : AddWindow
 	{
 		// GConf
-	        private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
-	        private const int GConfDefaultWidth = 500;
-	        
-	        private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
-	        private const int GConfDefaultHeight = 475;  
+		private const string GConfKeyWidth = "/apps/muine/add_song_window/width";
+		private const int GConfDefaultWidth = 500;
+
+		private const string GConfKeyHeight = "/apps/muine/add_song_window/height";
+		private const int GConfDefaultHeight = 475;  
 
 		// Strings
 		private static readonly string string_title = 

@@ -250,7 +250,7 @@ namespace Muine
 		public void Sort (CompareFunc func)
 		{
 			CompareFuncWrapper wrapper = new CompareFuncWrapper (func, this);
-	                pointer_list_model_sort (Raw, wrapper.NativeDelegate);
+			pointer_list_model_sort (Raw, wrapper.NativeDelegate);
 		}
 
 		// Methods :: Public :: First

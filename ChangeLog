@@ -1,3 +1,36 @@
+2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* PluginLib/IPlayer.cs:
+	* plugins/DashboardPlugin.cs:
+	* plugins/TrayIcon.cs:
+	* src/Actions.cs:
+	* src/AddSongWindow.cs:
+	* src/CellRendererText.cs:
+	* src/Config.cs:
+	* src/CoverGetter.cs:
+	* src/Global.cs:
+	* src/HandleModel.cs:
+	* src/HandleView.cs:
+	* src/ImportDialog.cs:
+	* src/InfoWindow.cs:
+	* src/OpenDialog.cs:
+	* src/PlaylistWindow.cs:
+	* src/SignalUtils.cs:
+	* src/SongDatabase.cs:
+	* src/StringUtils.cs:  Tabs vs. Spaces spring cleaning (make sure
+	you are using tabs to indent).
+
+2006-09-07  Tamara Roberson  <foxxygirltamara@gmail.com>
+
+	* src/Config.cs:
+	* src/DndUtils.cs:
+	* src/FileUtils.cs:
+	* src/Global.cs:
+	* src/KeyUtils.cs:
+	* src/SignalUtils.cs:
+	* src/StockIcons.cs:
+	* src/StringUtils.cs: Replace "sealed" class modifier with "static".
+
 2006-08-08  Peter Johanson  <peter@peterjohanson.com>
 
 	* src/Global.cs: Initialize gnome-vfs early to work around dbus

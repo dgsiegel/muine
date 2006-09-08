@@ -114,8 +114,8 @@ namespace Muine
 		// Methods :: Public :: EscapeForPango
 		public static string EscapeForPango (string s)
 		{
-                        s = s.Replace ("&", "&amp;");
-                        s = s.Replace ("<", "&lt;");
+			s = s.Replace ("&", "&amp;");
+			s = s.Replace ("<", "&lt;");
 
 			return s;
 		}

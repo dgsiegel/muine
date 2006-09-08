@@ -40,7 +40,7 @@ namespace Muine
 			Catalog.GetString ("{0} - {1}");
 
 		// Widgets
-                private Plug icon;
+		private Plug icon;
 		private EventBox ebox;
 		private Gtk.Image image;
 		private Tooltips tooltips;
@@ -57,14 +57,14 @@ namespace Muine
 
 		private bool playing = false;
 
-                // Plugin initializer
-                public override void Initialize (IPlayer player)
-                {
-                        // Initialize gettext
-                        Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+		// Plugin initializer
+		public override void Initialize (IPlayer player)
+		{
+			// Initialize gettext
+			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-                        // Load stock icons
-                        InitStockIcons ();
+			// Load stock icons
+			InitStockIcons ();
 
 			// Connect to player
 			this.player = player;
@@ -72,10 +72,10 @@ namespace Muine
 			player.SongChangedEvent  += new SongChangedEventHandler  (OnSongChangedEvent );
 			player.StateChangedEvent += new StateChangedEventHandler (OnStateChangedEvent);
 
-                        // Install "Hide Window" menu item
-                        player.UIManager.AddUi (player.UIManager.NewMergeId (), 
-                                                "/MenuBar/FileMenu/ExtraFileActions", "ToggleVisibleMenuItem",
-                                                "ToggleVisible", UIManagerItemType.Menuitem, false);
+			// Install "Hide Window" menu item
+			player.UIManager.AddUi (player.UIManager.NewMergeId (), 
+			                        "/MenuBar/FileMenu/ExtraFileActions", "ToggleVisibleMenuItem",
+			                        "ToggleVisible", UIManagerItemType.Menuitem, false);
 			
 			// Build menu
 			player.UIManager.AddUiFromResource ("TrayIcon.xml");
@@ -111,7 +111,7 @@ namespace Muine
 			UpdateImage ();
 			UpdateTooltip ();
 
-                        icon.ShowAll ();
+			icon.ShowAll ();
 		}
 
 		// Methods :: Private
@@ -172,15 +172,15 @@ namespace Muine
 				StringUtils.JoinHumanReadable (song.Artists), song.Title);
 		}
 
-                // Methods :: Private :: InitStockIcons
-                private void InitStockIcons ()
-                {
-                        string [] stock_icons = {
-                                "muine-tray-paused",
-                                "muine-tray-playing"
-                        };
-                        
-                        IconFactory factory = new IconFactory ();
+		// Methods :: Private :: InitStockIcons
+		private void InitStockIcons ()
+		{
+			string [] stock_icons = {
+				"muine-tray-paused",
+				"muine-tray-playing"
+			};
+
+			IconFactory factory = new IconFactory ();
 			factory.AddDefault ();
 
 			// Stock Icons
@@ -190,7 +190,7 @@ namespace Muine
 
 				factory.Add (name, iconset);
 			}
-                }
+		}
 
 		// Handlers
 		// Handlers :: OnButtonPressEvent

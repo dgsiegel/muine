@@ -127,7 +127,7 @@ namespace Muine
 			Gdk.ModifierType mod = 0;
 
 			if        ((e.State != 0) && ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
-			    	go = true;
+				go = true;
 				mod = Gdk.ModifierType.ControlMask;
 
 			} else if ((e.State != 0) && ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0)) {

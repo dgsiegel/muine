@@ -59,14 +59,13 @@ namespace Muine
 		private void OnResponse (object o, ResponseArgs args)
 		{
 			if (args.ResponseId != ResponseType.Ok) {
-			        base.Destroy ();
-
+				base.Destroy ();
 				return;
-                        }
+			}
 
 			string fn = base.Uri;
 
-                        base.Destroy ();
+			base.Destroy ();
 
 			if (!FileUtils.IsPlaylist (fn))
 				return;

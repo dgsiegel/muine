@@ -122,11 +122,11 @@ namespace Muine
 				HandleSignalRequest (rq);
 
 			} catch (InvalidOperationException e) {
-                                return;
+				return;
 			}
 		}
 
-                // Methods :: Public :: SyncSong
+		// Methods :: Public :: SyncSong
 		public void SyncSong (Song song)
 		{
 			SignalRequest rq;
@@ -171,15 +171,15 @@ namespace Muine
 			new AddFoldersThread (folders);
 		}
 
-                // Methods :: Public :: AddFolder
-                public void AddFolder (string folder)
-                {
-                        ArrayList list = new ArrayList ();
-                        list.Add (new DirectoryInfo (folder));
-                        new AddFoldersThread (list);
-                }
+		// Methods :: Public :: AddFolder
+		public void AddFolder (string folder)
+		{
+			ArrayList list = new ArrayList ();
+			list.Add (new DirectoryInfo (folder));
+			new AddFoldersThread (list);
+		}
 
-                // Methods :: Public :: RemoveFolder
+		// Methods :: Public :: RemoveFolder
 		public void RemoveFolder (string folder)
 		{
 			lock (this) {
@@ -592,7 +592,7 @@ namespace Muine
 			watched_folders = (string []) args.Value;
 
 			if (WatchedFoldersChanged != null)
-			        WatchedFoldersChanged ();
+				WatchedFoldersChanged ();
 
 			ArrayList new_dinfos = new ArrayList ();
 

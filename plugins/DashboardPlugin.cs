@@ -48,18 +48,18 @@ public class DashboardPlugin : Plugin
 		SendClue (song.Artists, song.Album, song.Title, has_focus);
 	}
 
-        private void SendClue (string [] artists, string album, string song_title, bool has_focus)
-        {
+	private void SendClue (string [] artists, string album, string song_title, bool has_focus)
+	{
 		TcpClient tcp_client = new TcpClient ();
 			
 		tcp_client.SendTimeout = 50;
 
-                try {
-                        tcp_client.Connect ("127.0.0.1", 5913);
+		try {
+			tcp_client.Connect ("127.0.0.1", 5913);
 
-                        NetworkStream network_stream = tcp_client.GetStream ();
+			NetworkStream network_stream = tcp_client.GetStream ();
 
-                        if (network_stream.CanWrite) {
+			if (network_stream.CanWrite) {
 				XmlDocument doc;
 				XmlElement cluepacket, elem;
 
@@ -68,24 +68,24 @@ public class DashboardPlugin : Plugin
 				/* Create the cluepacket */
 				cluepacket = doc.CreateElement ("CluePacket");
 				doc.AppendChild (cluepacket);
-	
+
 				/* Add standard stuff */
 				elem = doc.CreateElement ("Frontend");
 				elem.InnerText = "Muine";
 				cluepacket.AppendChild (elem);
-	
+
 				elem = doc.CreateElement ("Context");
 				elem.InnerText = "FIXME - What should go here";
 				cluepacket.AppendChild (elem);
-	
+
 				elem = doc.CreateElement ("Focused");
 				elem.InnerText = has_focus ? "True" : "False";
 				cluepacket.AppendChild (elem);
-	
+
 				elem = doc.CreateElement ("Additive");
 				elem.InnerText = "False";
 				cluepacket.AppendChild (elem);
-	
+
 				/* Add the artist clues */
 				foreach (string artist in artists) {
 					elem = doc.CreateElement ("Clue");
@@ -108,15 +108,16 @@ public class DashboardPlugin : Plugin
 				elem.SetAttribute ("Relevance", "10");
 				elem.InnerText = song_title;
 				cluepacket.AppendChild (elem);
-	
+
 				XmlTextWriter writer = new XmlTextWriter (network_stream, null);
 				doc.WriteTo (writer);
 				writer.Flush ();
 			}
 
 			tcp_client.Close ();
-                } catch {
-                        return;
-                }
-        }
+
+		} catch {
+			return;
+		}
+	}
 }

@@ -69,10 +69,9 @@ namespace Muine
 		{
 			// If response wasn't "Ok", do nothing
 			if (args.ResponseId != ResponseType.Ok) {
-                                base.Destroy ();
-
+				base.Destroy ();
 				return;
-                        }
+			}
 
 			// Save Start Directory
 			Config.Set (GConfKeyImportFolder, base.CurrentFolder);
@@ -91,9 +90,9 @@ namespace Muine
 
 			// Check if we have any Directories to add
 			if (new_dinfos.Count > 0)
-			        Global.DB.AddWatchedFolders (new_dinfos);
+				Global.DB.AddWatchedFolders (new_dinfos);
 
-                        base.Destroy ();
+			base.Destroy ();
 		}
 	}
 }

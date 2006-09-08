@@ -64,9 +64,9 @@ namespace Muine.PluginLib
 			get;
 		}
 
-                ISong [] AllSongs {
-                       get;
-                }
+		ISong [] AllSongs {
+			get;
+		}
 
 		void OpenPlaylist (string uri);
 
@@ -79,7 +79,7 @@ namespace Muine.PluginLib
 			get;
 		}
 
-                void SetWindowVisible (bool visible, uint time);
+		void SetWindowVisible (bool visible, uint time);
 	
 		Gtk.UIManager UIManager {
 			get;
@@ -97,7 +97,7 @@ namespace Muine.PluginLib
 		}
 
 		string [] WatchedFolders {
-                        set;
+			set;
 			get;
 		}
 
@@ -105,8 +105,8 @@ namespace Muine.PluginLib
 		void RemoveFolder (string folder);
 
 		ISong AddSong (string path);
-                void SyncSong (string path);
-                void SyncSong (ISong song);
+		void SyncSong (string path);
+		void SyncSong (ISong song);
 		void RemoveSong (string path);
 		void RemoveSong (ISong song);
 

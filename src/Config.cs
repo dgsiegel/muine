@@ -49,7 +49,7 @@ namespace Muine
 		/// </returns>
 		public static object Get (string key)
 		{
-		       return gconf_client.Get (key);
+			return gconf_client.Get (key);
 		}
 		
 		/// <summary>
@@ -66,17 +66,17 @@ namespace Muine
 		///	If that fails, <paramref name="default_val" /> is returned.
 		/// </returns>
 		public static object Get (string key, object default_val)
-	        {
-	                object val;
+		{
+			object val;
 
-	                try {
-	                        val = Get (key);
-	                } catch {
-	                        val = default_val;
-	                }
+			try {
+				val = Get (key);
+			} catch {
+				val = default_val;
+			}
 
-	                return val;
-	        }
+			return val;
+		}
 
 		// Methods :: Public :: Set
 		/// <summary>
@@ -88,10 +88,10 @@ namespace Muine
 		/// <param name="val">
 		///	The value.
 		/// </param>
-	        public static void Set (string key, object val)
-	        {
-	        	gconf_client.Set (key, val);        	
-	        }
+		public static void Set (string key, object val)
+		{
+			gconf_client.Set (key, val);        	
+		}
 
 		// Methods :: Public :: AddNotify
 		/// <summary>

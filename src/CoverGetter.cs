@@ -324,14 +324,14 @@ namespace Muine
 
 			Pixbuf pix = null;
 			try {
-	  			string sane_album_title = album.Name != null ? SanitizeString (album.Name) : String.Empty;
+				string sane_album_title = album.Name != null ? SanitizeString (album.Name) : String.Empty;
 				string sane_artist_name = album.Artists != null && album.Artists.Length > 0 ?
-								album.Artists[0].ToLower () :
-								String.Empty;
+					album.Artists[0].ToLower () :
+					String.Empty;
 				string asin = null;
 				string AmazonImageUri = "http://images.amazon.com/images/P/{0}.01._SCMZZZZZZZ_.jpg";
-	  			// remove "disc 1" and family
-	  			//	TODO: Make the regexes translatable? (e.g. "uno|dos|tres...", "les|los..)
+				// remove "disc 1" and family
+				//	TODO: Make the regexes translatable? (e.g. "uno|dos|tres...", "les|los..)
 				sane_album_title =  Regex.Replace (sane_album_title, 
 	  				@"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
 				// Remove "The " and "the " from artist names
@@ -365,7 +365,7 @@ namespace Muine
 						c.Select(MusicBrainz.MBS_Back); // go back one level so we can select the next album
 					}
 				}
-				    
+
 				pix = asin == null ? null : Download (String.Format (AmazonImageUri,asin));
 			} catch (DllNotFoundException e) {
 				// We catch this exception so we can always include the musicbrainz support
@@ -373,7 +373,7 @@ namespace Muine
 				musicbrainz_lib_missing = true;
 			}
 
-			 return pix;
+			return pix;
 		}
 		
 		// Methods :: Private :: DownloadFromAmazonViaAPI
@@ -424,8 +424,8 @@ namespace Muine
 			int max_pages = 2; // check no more than 2 pages
 			
 			//Getting the GConf Dev Tag
-		       	amazon_dev_tag = (string) Config.Get (GConfKeyAmazonDevTag, 
-				GConfDefaultAmazonDevTag);
+			amazon_dev_tag = (string) Config.Get (GConfKeyAmazonDevTag, 
+			  GConfDefaultAmazonDevTag);
 			
 			// If we're the default, don't bother searching
 			// as Amazon will reject the requests
@@ -469,7 +469,7 @@ namespace Muine
 			Pixbuf best_match = null;
 
 			while (current_page <= total_pages && current_page <= max_pages) {
-			       asearch.page = Convert.ToString (current_page);
+				asearch.page = Convert.ToString (current_page);
 
 				Amazon.ProductInfo pi;
 				
@@ -760,7 +760,7 @@ namespace Muine
 			///	A <see cref="Gdk.Pixbuf" /> of the modified cover.
 			/// </returns>
 			public GetWebThread (CoverGetter getter, string key, string url,
-					     GotCoverDelegate done_func)
+			  GotCoverDelegate done_func)
 			{
 				this.getter = getter;
 				this.key = key;

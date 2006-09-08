@@ -30,9 +30,9 @@ namespace Muine
 		/// <remarks>
 		///	The text is ellipsized with 3 ellipses (as per English).
 		/// </remarks>
-                public CellRendererText ()
-                {
-                        SetProperty ("ellipsize", new GLib.Value (3));
-                }
-        }
+		public CellRendererText ()
+		{
+			SetProperty ("ellipsize", new GLib.Value (3));
+		}
+	}
 }
