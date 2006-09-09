@@ -1,5 +1,9 @@
 2006-09-09  Tamara Roberson  <tamara.roberson@gmail.com>
 
+	* src/AddSongWindow.cs: Cleanup.
+	
+2006-09-09  Tamara Roberson  <tamara.roberson@gmail.com>
+
 	* src/AddAlbumWindow.cs: Cleanup.
 
 2006-09-09  Peter Johanson  <peter@peterjohanson.com>
