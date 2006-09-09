@@ -1,3 +1,7 @@
+2006-09-09  Tamara Roberson  <tamara.roberson@gmail.com>
+
+	* src/AddAlbumWindow.cs: Cleanup.
+
 2006-09-09  Peter Johanson  <peter@peterjohanson.com>
 
 	* src/ProgressWindow.cs: Fix one more mono 1.1.17 crasher.
