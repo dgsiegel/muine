@@ -341,8 +341,8 @@ namespace Muine
 			if (a.Active == Global.Playlist.Visible)
 				return;
 
-			Global.Playlist.SetWindowVisible (!Global.Playlist.WindowVisible,
-                                                          Gtk.Global.CurrentEventTime);
+			Global.Playlist.SetWindowVisible
+			  (!Global.Playlist.WindowVisible, Gtk.Global.CurrentEventTime);
 		}
 
 		// Handlers :: OnQuit

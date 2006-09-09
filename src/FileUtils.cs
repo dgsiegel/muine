@@ -82,25 +82,41 @@ namespace Muine
 			home_directory = Environment.GetEnvironmentVariable ("HOME");
 			
 			try {
-				config_directory = Path.Combine (Gnome.User.DirGet (), "muine");
+				config_directory =
+				  Path.Combine (Gnome.User.DirGet (), "muine");
+
 				CreateDirectory (config_directory);
 
 			} catch (Exception e) {
-				throw new Exception (String.Format (string_init_config_failed, e.Message));
+				string msg =
+				  String.Format (string_init_config_failed, e.Message);
+
+				throw new Exception (msg);
 			}
 
-			playlist_file = Path.Combine (config_directory, playlist_filename);
-			songsdb_file  = Path.Combine (config_directory, songsdb_filename );
-			coversdb_file = Path.Combine (config_directory, coversdb_filename);
-			user_plugin_directory = Path.Combine (config_directory, plugin_dirname);
+			playlist_file =
+			  Path.Combine (config_directory, playlist_filename);
+
+			songsdb_file =
+			  Path.Combine (config_directory, songsdb_filename );
+
+			coversdb_file =
+			  Path.Combine (config_directory, coversdb_filename);
+
+			user_plugin_directory =
+			  Path.Combine (config_directory, plugin_dirname);
 			
 			try {
-				temp_directory = Path.Combine (System.IO.Path.GetTempPath (),
-								"muine-" + Environment.UserName);
+				string path = System.IO.Path.GetTempPath ();
+				string name = ("muine-" + Environment.UserName);
+				temp_directory = Path.Combine (path, name);
 				CreateDirectory (temp_directory);
 
 			} catch (Exception e) {
-				throw new Exception (String.Format (string_init_temp_failed, e.Message));
+				string msg =
+				  String.Format (string_init_temp_failed, e.Message);
+
+				throw new Exception (msg);
 			}
 		}
 
@@ -350,7 +366,8 @@ namespace Muine
 		//	* Can this be replaced or simplified with 
 		//	  System.Uri.LocalPath?
 		[DllImport ("libgnomevfs-2-0.dll")]
-		private static extern IntPtr gnome_vfs_get_local_path_from_uri (string str);
+		private static extern IntPtr gnome_vfs_get_local_path_from_uri
+		  (string str);
 
 		/// <summary>
 		/// 	Convert a URI to a local pathname.
@@ -362,9 +379,13 @@ namespace Muine
 		{
 			IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
 
-			return (p == IntPtr.Zero)
-				? null
-				: GLib.Marshaller.PtrToStringGFree (p);
+			string path;
+			if (p == IntPtr.Zero)
+				path = null;
+			else
+				path = GLib.Marshaller.PtrToStringGFree (p);
+			
+			return path;
 		}
 
 		// Methods :: Public :: UriFromLocalPath
@@ -373,7 +394,8 @@ namespace Muine
 		//	* Can this be replaced or simplified with 
 		//	  System.Uri.ToString?
 		[DllImport ("libgnomevfs-2-0.dll")]
-		private static extern IntPtr gnome_vfs_get_uri_from_local_path (string str);
+		private static extern IntPtr gnome_vfs_get_uri_from_local_path
+		  (string str);
 		
 		/// <summary>
 		///	Convert a local pathname to a URI.
@@ -385,13 +407,17 @@ namespace Muine
 		/// <returns>
 		///	A URI.
 		/// </returns>
-		public static string UriFromLocalPath (string uri)
+		public static string UriFromLocalPath (string path)
 		{
-			IntPtr p = gnome_vfs_get_uri_from_local_path (uri);
+			IntPtr uri_ptr = gnome_vfs_get_uri_from_local_path (path);
 
-			return (p == IntPtr.Zero)
-				? null
-				: GLib.Marshaller.PtrToStringGFree (p);
+			string uri;
+			if (uri_ptr == IntPtr.Zero)
+				uri = null;
+			else
+				uri = GLib.Marshaller.PtrToStringGFree (uri_ptr);
+			
+			return uri;
 		}
 
 		// Methods :: Public ::: IsRemote
@@ -411,7 +437,10 @@ namespace Muine
 		/// </returns>
 		public static bool IsRemote (string uri)
 		{
-			return (uri [0] != '/' && !uri.StartsWith ("file://"));
+			bool is_rooted = (uri [0] == '/');
+			bool is_file_uri = uri.StartsWith ("file://");
+			
+			return (!is_rooted && !is_file_uri);
 		}
 	}
 }

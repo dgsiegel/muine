@@ -32,12 +32,12 @@ namespace Muine
 		// Strings
 		// Strings :: Prefixes
 		/// <summary>
-		///	Space-separated list of prefixes that will be taken off the front
-		///	when sorting.
+		/// Space-separated list of prefixes that will be taken off the front
+		/// when sorting.
 		/// </summary>
 		/// <remarks>
 		///	For example, "The Beatles" will be sorted as "Beatles",
-		///	if "the" is included in this list. Also include the English "the"
+		/// if "the" is included in this list. Also include the English "the"
 		///	if English is generally spoken in your country.
 		/// </summary>
 		private static readonly string string_prefixes = 
@@ -427,13 +427,19 @@ namespace Muine
 			string [] p_artists = new string [artists.Count];
 
 			for (int i = 0; i < artists.Count; i ++) {
-				p_artists [i] = ((string) artists [i]).ToLower ();
+				string artist_tmp = (string) artists [i];
+				string artist = artist_tmp.ToLower ();
+
+				p_artists [i] = artist;
 				
 				foreach (string prefix in prefixes) {
-					if (!p_artists [i].StartsWith (prefix + " "))
+					bool has_prefix = artist.StartsWith (prefix + " ");
+					if (!has_prefix)
 						continue;
 
-					p_artists [i] = StringUtils.PrefixToSuffix (p_artists [i], prefix);
+					p_artists [i] =
+					  StringUtils.PrefixToSuffix (artist, prefix);
+
 					break;
 				}
 			}
@@ -444,13 +450,19 @@ namespace Muine
 			string [] p_performers = new string [performers.Count];
 
 			for (int i = 0; i < performers.Count; i ++) {
-				p_performers [i] = ((string) performers [i]).ToLower ();
-				
+				string performer_tmp = (string) performers [i];
+				string performer = performer_tmp.ToLower ();
+
+				p_performers [i] = performer;				
+			
 				foreach (string prefix in prefixes) {
-					if (!p_performers [i].StartsWith (prefix + " "))
+					bool has_prefix = performer.StartsWith (prefix + " ");
+					if (!has_prefix)
 						continue;
 
-					p_performers [i] = StringUtils.PrefixToSuffix (p_performers [i], prefix);
+					p_performers [i] =
+					  StringUtils.PrefixToSuffix (performer, prefix);
+
 					break;
 				}
 			}
@@ -465,8 +477,8 @@ namespace Muine
 			else
 				key = String.Format ("{0} {1} {2} {3}", a, p, year, name);
 
-			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, 
-				CompareOptions.IgnoreCase);
+			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey
+			  (key, CompareOptions.IgnoreCase);
 		}
 
 		// Methods :: Protected :: GenerateSearchKey (Item)

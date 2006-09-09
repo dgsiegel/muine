@@ -41,7 +41,8 @@ namespace Muine
 
 		// Constructor
 		public OpenDialog () 
-		: base (string_title, FileChooserAction.Open, GConfKeyDefaultPlaylistFolder)
+		  : base (string_title, FileChooserAction.Open,
+		  GConfKeyDefaultPlaylistFolder)
 		{
 			FileFilter filter = new FileFilter ();
 			filter.Name = string_filter;

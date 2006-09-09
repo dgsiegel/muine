@@ -1,3 +1,47 @@
+2006-09-08  Tamara Roberson  <tamara.roberson@gmail.com>
+
+	* src/About.cs:
+	* src/Actions.cs:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/AddWindowList.cs:
+	* src/Album.cs:
+	* src/Config.cs:
+	* src/CoverDatabase.cs:
+	* src/CoverGetter.cs:
+	* src/CoverImage.cs:
+	* src/Database.cs:
+	* src/DndUtils.cs:
+	* src/ErrorDialog.cs:
+	* src/FileSelector.cs:
+	* src/FileUtils.cs:
+	* src/Global.cs:
+	* src/GnomeProxy.cs:
+	* src/HandleModel.cs:
+	* src/HandleView.cs:
+	* src/ImportDialog.cs:
+	* src/InfoWindow.cs:
+	* src/Metadata.cs:
+	* src/NoMusicFoundWindow.cs:
+	* src/OpenDialog.cs:
+	* src/OverwriteDialog.cs:
+	* src/Player.cs:
+	* src/PlaylistWindow.cs:
+	* src/PluginManager.cs:
+	* src/ProgressWindow.cs:
+	* src/SaveDialog.cs:
+	* src/SignalUtils.cs:
+	* src/SkipToWindow.cs:
+	* src/Song.cs:
+	* src/SongDatabase.cs:
+	* src/StockIcons.cs:
+	* src/StringUtils.cs:
+	* src/VolumeButton.cs: Cleanup.  Some pretty-printing and a lot of
+	splitting nested functions.  Only a handful of places now have lines over
+	80 characters (counting tabs as 4 characters).  Cut-and-paste code was not
+	affected.
+
 2006-09-07  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* DBusLib/Player.cs:

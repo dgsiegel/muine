@@ -49,7 +49,8 @@ namespace Muine
 		/// <param name="s2">
 		///	The <see cref="String" /> to be used as the secondary text.
 		/// </param>
-		public ErrorDialog (PlaylistWindow playlist, string s1, string s2) : this (s1, s2)
+		public ErrorDialog (PlaylistWindow playlist, string s1, string s2)
+		  : this (s1, s2)
 		{
 			window.TransientFor = playlist;
 		}
@@ -65,14 +66,18 @@ namespace Muine
 		/// </param>
 		public ErrorDialog (string s1, string s2)
 		{
-			Glade.XML gxml = new Glade.XML (null, "ErrorDialog.glade", "window", null);
+			Glade.XML gxml =
+			  new Glade.XML (null, "ErrorDialog.glade", "window", null);
+
 			gxml.Autoconnect (this);
 
-			string full_text = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-				StringUtils.EscapeForPango (s1),
-				StringUtils.EscapeForPango (s2));
+			string fmt =
+			  "<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}";
 
-			label.Markup = full_text;
+			string s1_esc = StringUtils.EscapeForPango (s1);
+			string s2_esc = StringUtils.EscapeForPango (s2);
+
+			label.Markup = String.Format (fmt, s1_esc, s2_esc);
 
 			window.Run ();
 			window.Destroy ();

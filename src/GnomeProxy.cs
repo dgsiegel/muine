@@ -27,21 +27,27 @@ namespace Muine
 		// GConf
 		private const string GConfProxyPath = "/system/http_proxy";
 
+		// GConf :: Use
 		private const string GConfKeyUse = GConfProxyPath + "/use_http_proxy";
 		private const bool   GConfDefaultUse = false;
 
+		// GConf :: Host
 		private const string GConfKeyHost = GConfProxyPath + "/host";
 		private const string GConfDefaultHost = "";
 
+		// GConf :: Port
 		private const string GConfKeyPort = GConfProxyPath + "/port";
 		private const int    GConfDefaultPort = 8080;
 
+		// GConf :: UseAuth
 		private const string GConfKeyUseAuth = GConfProxyPath + "/use_authentication";
 		private const bool   GConfDefaultUseAuth = false;
 
+		// GConf :: User
 		private const string GConfKeyUser = GConfProxyPath + "/authentication_user";
 		private const string GConfDefaultUser = "";
 
+		// GConf :: Pass
 		private const string GConfKeyPass = GConfProxyPath + "/authentication_password";
 		private const string GConfDefaultPass = "";
 
@@ -105,7 +111,8 @@ namespace Muine
 				return;
 
 			// Host / Proxy
-			string host = (string) Config.Get (GConfKeyHost, GConfDefaultHost);
+			string host =
+			  (string) Config.Get (GConfKeyHost, GConfDefaultHost);
 
 			int port = (int) Config.Get (GConfKeyPort, GConfDefaultPort);
 			
@@ -118,13 +125,17 @@ namespace Muine
 			}
 
 			// Authentication
-			bool use_auth = (bool) Config.Get (GConfKeyUseAuth, GConfDefaultUseAuth);
+			bool use_auth =
+			  (bool) Config.Get (GConfKeyUseAuth, GConfDefaultUseAuth);
 
 			if (!use_auth)
 				return;
 
-			string user   = (string) Config.Get (GConfKeyUser, GConfDefaultUser);
-			string passwd = (string) Config.Get (GConfKeyPass, GConfDefaultPass);
+			string user =
+			  (string) Config.Get (GConfKeyUser, GConfDefaultUser);
+
+			string passwd =
+			  (string) Config.Get (GConfKeyPass, GConfDefaultPass);
 					
 			try {
 				proxy.Credentials = new NetworkCredential (user, passwd);

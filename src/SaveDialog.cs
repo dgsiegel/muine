@@ -40,8 +40,9 @@ namespace Muine
 			Catalog.GetString ("Untitled");
 
 		// Constructor
-		public SaveDialog () 
-		: base (string_title, FileChooserAction.Save, GConfKeyDefaultPlaylistFolder)
+		public SaveDialog ()
+		  : base (string_title, FileChooserAction.Save,
+		    GConfKeyDefaultPlaylistFolder)
 		{
 			base.CurrentName = string_save_default;
 			base.Response += OnResponse;

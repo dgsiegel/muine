@@ -37,22 +37,34 @@ namespace Muine
 
 		// Drag-and-Drop Targets
 		public static readonly TargetEntry TargetUriList = 
-			new TargetEntry ("text/uri-list", 0, (uint) TargetType.UriList);
+			new TargetEntry
+			  ("text/uri-list", 0,
+			   (uint) TargetType.UriList);
 			
 		public static readonly TargetEntry TargetGnomeIconList = 
-			new TargetEntry ("x-special/gnome-icon-list", 0, (uint) TargetType.UriList);
+			new TargetEntry
+			  ("x-special/gnome-icon-list", 0,
+			   (uint) TargetType.UriList);
 			
 		public static readonly TargetEntry TargetNetscapeUrl = 
-			new TargetEntry ("_NETSCAPE_URL", 0, (uint) TargetType.Uri);
+			new TargetEntry
+			  ("_NETSCAPE_URL", 0,
+			   (uint) TargetType.Uri);
 			
 		public static readonly TargetEntry TargetMuineAlbumList = 
-			new TargetEntry ("MUINE_ALBUM_LIST", TargetFlags.App, (uint) TargetType.AlbumList);
+			new TargetEntry
+			  ("MUINE_ALBUM_LIST", TargetFlags.App,
+			   (uint) TargetType.AlbumList);
 
 		public static readonly TargetEntry TargetMuineSongList = 
-			new TargetEntry ("MUINE_SONG_LIST", TargetFlags.App, (uint) TargetType.SongList);
+			new TargetEntry
+			  ("MUINE_SONG_LIST", TargetFlags.App,
+			   (uint) TargetType.SongList);
 			
 		public static readonly TargetEntry TargetMuineTreeModelRow = 
-			new TargetEntry ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget, (uint) TargetType.ModelRow);
+			new TargetEntry
+			  ("MUINE_TREE_MODEL_ROW", TargetFlags.Widget,
+			   (uint) TargetType.ModelRow);
 
 		// Methods
 		// Methods :: Public

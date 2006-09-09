@@ -87,9 +87,14 @@ namespace Muine
 		// Methods :: Private :: UpdateLabel
 		private void UpdateLabel (int pos)
 		{
-			String position   = StringUtils.SecondsToString (pos);
-			String total_time = StringUtils.SecondsToString (player.PlayingSong.Duration);
-			song_position.Text = String.Format ("{0} / {1}", position, total_time);
+			string position =
+			  StringUtils.SecondsToString (pos);
+
+			string total_time =
+			  StringUtils.SecondsToString (player.PlayingSong.Duration);
+
+			song_position.Text =
+			  String.Format ("{0} / {1}", position, total_time);
 		}
 
 		// Handlers
@@ -122,8 +127,11 @@ namespace Muine
 			if (set_position_timeout_id > 0)
 				GLib.Source.Remove (set_position_timeout_id);
 
-			set_position_timeout_id = GLib.Timeout.Add (set_position_timeout,
-				new GLib.TimeoutHandler (SetPositionTimeoutFunc));
+			GLib.TimeoutHandler func =
+			  new GLib.TimeoutHandler (SetPositionTimeoutFunc);
+
+			set_position_timeout_id =
+			  GLib.Timeout.Add (set_position_timeout, func);
 
 			UpdateLabel ((int) song_slider.Value);
 		}
@@ -143,7 +151,9 @@ namespace Muine
 				return;
 
 			geo_no_resize_height.MaxHeight = args.Requisition.Height;
-			window.SetGeometryHints (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
+
+			window.SetGeometryHints
+			  (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
 		}
 
 		// Handlers :: OnCloseButtonClicked

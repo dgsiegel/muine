@@ -46,8 +46,9 @@ namespace Muine
 		/// <param name="gconf_path">
 		///	The GConf path which holds the starting directory.
 		/// </param>
-		public FileSelector (string title, FileChooserAction action, string gconf_path) 
-		: base (title, Global.Playlist, action, "gnome-vfs")
+		public FileSelector
+		  (string title, FileChooserAction action, string gconf_path) 
+		  : base (title, Global.Playlist, action, "gnome-vfs")
 		{
 			this.gconf_path = gconf_path;
 
@@ -70,7 +71,8 @@ namespace Muine
 			
 			base.DefaultResponse = ResponseType.Ok;
 
-			string start_dir = (string) Config.Get (gconf_path, GConfDefaultStartDir);
+			string start_dir =
+			  (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
 			start_dir = start_dir.Replace ("~",
 				FileUtils.UriFromLocalPath (FileUtils.HomeDirectory));

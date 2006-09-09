@@ -129,18 +129,19 @@ namespace Muine
 				
 				Gdk.Global.NotifyStartupComplete ();
 
-				// Nasty hack to fix problem with incorrectly generated IL in dbus-sharp. Idea from abock in
-				// banshee.
+				// Nasty hack to fix problem with incorrectly generated IL in
+				// dbus-sharp. Idea from abock in banshee.
 				System.GC.SuppressFinalize(dbus_object);
 				return;
 			}
 
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
 
-			new Gnome.Program ("muine", Defines.VERSION, Gnome.Modules.UI, args);
+			new Gnome.Program
+			  ("muine", Defines.VERSION, Gnome.Modules.UI, args);
 
 			// Initialize D-Bus
-			//	We initialize here but don't connect to it until later.
+			//   We initialize here but don't connect to it until later.
 			try {
 				dbus_object = new DBusLib.Player ();
 
@@ -360,18 +361,19 @@ namespace Muine
 		// Handlers :: OnSaveYourselfEvent
 		//	TODO: Actually set the restart command to something useful.
 		/// <summary>
-		///	Handler called on <see cref="Gnome.Client.SaveYourself" /> event.
+		///   Handler called on <see cref="Gnome.Client.SaveYourself" /> event.
 		/// </summary>
 		/// <param name="o">
-		/// 	The calling object.
+		///   The calling object.
 		/// </param>
 		/// <param name="args">
-		///	The <see cref="Gnome.SaveYourselfArgs" />.
+		///   The <see cref="Gnome.SaveYourselfArgs" />.
 		/// </param>		
 		/// <remarks>
-		///	This doesn't do anything useful yet.
+		///   This doesn't do anything useful yet.
 		/// </remarks>
-		private static void OnSaveYourselfEvent (object o, Gnome.SaveYourselfArgs args)
+		private static void OnSaveYourselfEvent
+		  (object o, Gnome.SaveYourselfArgs args)
 		{
 			string [] argv = { "muine" };
 

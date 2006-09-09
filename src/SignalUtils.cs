@@ -35,68 +35,76 @@ namespace Muine
 		// Methods :: Public :: SignalConnect
 		// Methods :: Public :: SignalConnect :: Plain
 		[DllImport ("libgobject-2.0-0.dll")]
-		private static extern uint g_signal_connect_data (IntPtr obj, string name,
-								  SignalDelegate cb, IntPtr data,
-								  IntPtr p, int flags);
+		private static extern uint g_signal_connect_data
+		  (IntPtr obj, string name, SignalDelegate cb, IntPtr data, IntPtr p,
+		   int flags);
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegate cb)
 		{
 			return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
 		}
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegate cb, 
-		                                  IntPtr data, IntPtr p, int flags)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegate cb, IntPtr data, IntPtr p,
+		   int flags)
 		{
 			return g_signal_connect_data (obj, name, cb, data, p, flags);
 		}
 
 		// Methods :: Public :: SignalConnect :: Ptr
 		[DllImport ("libgobject-2.0-0.dll")]
-		private static extern uint g_signal_connect_data (IntPtr obj, string name,
-								  SignalDelegatePtr cb, IntPtr data,
-								  IntPtr p, int flags);
+		private static extern uint g_signal_connect_data
+		  (IntPtr obj, string name, SignalDelegatePtr cb, IntPtr data, 
+		   IntPtr p, int flags);
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegatePtr cb)
 		{
 			return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
 		}
 	        
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegatePtr cb, 
-		                                  IntPtr data, IntPtr p, int flags)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegatePtr cb, IntPtr data,
+		   IntPtr p, int flags)
 		{
 			return g_signal_connect_data (obj, name, cb, data, p, flags);
 		}
 
 		// Methods :: Public :: SignalConnect :: Int
 		[DllImport ("libgobject-2.0-0.dll")]
-		private static extern uint g_signal_connect_data (IntPtr obj, string name,
-								  SignalDelegateInt cb, IntPtr data,
-								  IntPtr p, int flags);
+		private static extern uint g_signal_connect_data
+		  (IntPtr obj, string name, SignalDelegateInt cb, IntPtr data,
+		   IntPtr p, int flags);
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegateInt cb)
 		{
 			return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
 		}
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegateInt cb, 
-		                                    IntPtr data, IntPtr p, int flags)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegateInt cb, IntPtr data,
+		   IntPtr p, int flags)
 		{
 			return g_signal_connect_data (obj, name, cb, data, p, flags);
 		}
 
 		// Methods :: Public :: SignalConnect :: Str
 		[DllImport ("libgobject-2.0-0.dll")]
-		private static extern uint g_signal_connect_data (IntPtr obj, string name,
-								  SignalDelegateStr cb, IntPtr data,
-								  IntPtr p, int flags);
+		private static extern uint g_signal_connect_data
+		  (IntPtr obj, string name, SignalDelegateStr cb, IntPtr data,
+		   IntPtr p, int flags);
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegateStr cb)
 		{
 			return SignalConnect (obj, name, cb, IntPtr.Zero, IntPtr.Zero, 0);
 		}
 
-		public static uint SignalConnect (IntPtr obj, string name, SignalDelegateStr cb, 
-		                                    IntPtr data, IntPtr p, int flags)
+		public static uint SignalConnect
+		  (IntPtr obj, string name, SignalDelegateStr cb, IntPtr data,
+		   IntPtr p, int flags)
 		{
 			return g_signal_connect_data (obj, name, cb, data, p, flags);
 		}

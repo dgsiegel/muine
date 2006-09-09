@@ -55,8 +55,13 @@ namespace Muine
 		/// </summary>
 		public Gtk.TargetEntry [] DragSource {
 			set {
-				base.EnableModelDragSource (Gdk.ModifierType.Button1Mask, value,
-					Gdk.DragAction.Copy | Gdk.DragAction.Link | Gdk.DragAction.Ask);
+				Gdk.DragAction act =
+				  ( Gdk.DragAction.Copy
+				  | Gdk.DragAction.Link
+				  | Gdk.DragAction.Ask);
+
+				base.EnableModelDragSource
+				  (Gdk.ModifierType.Button1Mask, value, act);
 			}
 		}
 

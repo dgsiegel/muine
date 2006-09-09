@@ -78,7 +78,8 @@ namespace Muine
 				// Add menu variant if we have it
 				Assembly a = Assembly.GetCallingAssembly ();
 
-				Stream menu_stream = a.GetManifestResourceStream (name + "-16.png");
+				Stream menu_stream =
+				  a.GetManifestResourceStream (name + "-16.png");
 
 				if (menu_stream != null) {
 					IconSource source = new IconSource ();

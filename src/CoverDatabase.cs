@@ -65,7 +65,11 @@ namespace Muine
 			// Hack to get the GtkStyle
 			Gtk.Label label = new Gtk.Label ("");
 			label.EnsureStyle ();
-			downloading_pixbuf = label.RenderIcon ("muine-cover-downloading", StockIcons.CoverSize, null);
+
+			downloading_pixbuf =
+			  label.RenderIcon
+			    ("muine-cover-downloading", StockIcons.CoverSize, null);
+
 			label.Destroy ();
 
 			getter = new CoverGetter (this);
@@ -302,8 +306,11 @@ namespace Muine
 			/// </remarks>
 			protected override void ThreadFunc ()
 			{
+				Database.DecodeFunctionDelegate func =
+				  new Database.DecodeFunctionDelegate (DecodeFunction);
+
 				lock (Global.CoverDB)
-					db.Load (new Database.DecodeFunctionDelegate (DecodeFunction));
+					db.Load (func);
 
 				thread_done = true;
 			}
@@ -338,7 +345,8 @@ namespace Muine
 				return true;
 			}
 
-			// Delegate Functions :: DecodeFunction (Database.DecodeFunctionDelegate)
+			// Delegate Functions :: DecodeFunction
+			//   (Database.DecodeFunctionDelegate)
 			/// <summary>
 			///	Delegate to decode the data in the database.
 			/// </summary>
@@ -384,7 +392,11 @@ namespace Muine
 					if (being_checked) {
 						// false, as we don't want to write to the db
 						// while we're loading
-						pixbuf = Global.CoverDB.Getter.GetAmazon ((Album) item, false);
+						Album album = (Album) item;
+
+						pixbuf =
+						  Global.CoverDB.Getter.GetAmazon (album, false);
+
 						Global.CoverDB.Covers.Add (key, null);
 					}
 					

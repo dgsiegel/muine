@@ -30,9 +30,11 @@ namespace Muine
 	public class AddAlbumWindow : AddWindow
 	{
 		// GConf
+		// GConf :: Width
 		private const string GConfKeyWidth = "/apps/muine/add_album_window/width";
 		private const int GConfDefaultWidth = 500;
 
+		// GConf :: Height
 		private const string GConfKeyHeight = "/apps/muine/add_album_window/height";
 		private const int GConfDefaultHeight = 475; 
 
@@ -53,7 +55,9 @@ namespace Muine
 
 		// Widgets
 		private CellRenderer pixbuf_renderer = new CellRendererPixbuf ();
-		private Gdk.Pixbuf nothing_pixbuf = new Gdk.Pixbuf (null, "muine-nothing.png");
+
+		private Gdk.Pixbuf nothing_pixbuf =
+		  new Gdk.Pixbuf (null, "muine-nothing.png");
 
 		// Variables
 		private bool drag_dest_enabled = false;
@@ -77,13 +81,20 @@ namespace Muine
 						
 			base.List.Model.SortFunc = new HandleModel.CompareFunc (SortFunc);
 
+			// Column
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
 			col.Spacing = 4;
+
 			col.PackStart (pixbuf_renderer  , false);
 			col.PackStart (base.TextRenderer, true );
-			col.SetCellDataFunc (pixbuf_renderer  , new TreeCellDataFunc (PixbufCellDataFunc));
-			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (TextCellDataFunc  ));
+			
+			TreeCellDataFunc func1 = new TreeCellDataFunc (PixbufCellDataFunc);
+			TreeCellDataFunc func2 = new TreeCellDataFunc (TextCellDataFunc  );
+			
+			col.SetCellDataFunc (pixbuf_renderer  , func1);
+			col.SetCellDataFunc (base.TextRenderer, func2);
+
 			base.List.AppendColumn (col);
 
 			base.List.DragSource = source_entries;
@@ -162,6 +173,10 @@ namespace Muine
 		private void OnDragDataGet (object o, DragDataGetArgs args)
 		{
 			List albums = base.List.SelectedHandles;
+			
+			string target;
+			Gdk.Atom atom;
+			byte [] bytes;
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
@@ -171,25 +186,33 @@ namespace Muine
 					IntPtr p = new IntPtr (i);
 					Album a = Album.FromHandle (p);
 
-					foreach (Song s in a.Songs)
-						files += FileUtils.UriFromLocalPath (s.Filename) + "\r\n";
+					foreach (Song s in a.Songs) {
+						string uri = FileUtils.UriFromLocalPath (s.Filename);
+						files += (uri + "\r\n");
+					}
 				}
-		
-				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-					8, System.Text.Encoding.UTF8.GetBytes (files));
-							
+
+				target = DndUtils.TargetUriList.Target;
+				atom = Gdk.Atom.Intern (target, false);
+				bytes = System.Text.Encoding.UTF8.GetBytes (files);
+				args.SelectionData.Set (atom, 8, bytes);
+
 				break;
 
 			case (uint) DndUtils.TargetType.AlbumList:
-				string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineAlbumList.Target);
+				target = DndUtils.TargetMuineAlbumList.Target;
+			
+				string ptrs = String.Format ("\t{0}\t", target);
 				
 				foreach (int p in albums) {
 					IntPtr s = new IntPtr (p);
-					ptrs += s.ToString () + "\r\n";
+					string s_s = s.ToString ();
+					ptrs += s_s + "\r\n";
 				}
 				
-				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineAlbumList.Target, false),
-					8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+				atom = Gdk.Atom.Intern (target, false);
+				bytes = System.Text.Encoding.ASCII.GetBytes (ptrs); 
+				args.SelectionData.Set (atom, 8, bytes);
 							
 				break;
 
@@ -238,11 +261,14 @@ namespace Muine
 		/// <param name="iter">
 		///	A <see cref="Gtk.TreeIter" />.
 		/// </param>
-		private void PixbufCellDataFunc (TreeViewColumn col, CellRenderer cell,
-						 TreeModel model, TreeIter iter)
+		private void PixbufCellDataFunc
+		  (TreeViewColumn col, CellRenderer cell, TreeModel model,
+		   TreeIter iter)
 		{
 			CellRendererPixbuf r = (CellRendererPixbuf) cell;
-			Album album = Album.FromHandle (base.List.Model.HandleFromIter (iter));
+			
+			IntPtr handle = base.List.Model.HandleFromIter (iter);
+			Album album = Album.FromHandle (handle);
 
 			if (album.CoverImage != null)
 				r.Pixbuf = album.CoverImage;
@@ -272,21 +298,35 @@ namespace Muine
 		/// <param name="iter">
 		///	A <see cref="Gtk.TreeIter" />.
 		/// </param>
-		private void TextCellDataFunc (TreeViewColumn col, CellRenderer cell,
-					       TreeModel model, TreeIter iter)
+		private void TextCellDataFunc
+		  (TreeViewColumn col, CellRenderer cell, TreeModel model,
+		   TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Album album = Album.FromHandle (base.List.Model.HandleFromIter (iter));
+			
+			IntPtr handle = base.List.Model.HandleFromIter (iter);
+			Album album = Album.FromHandle (handle);
 
 			string performers = "";
-			if (album.Performers.Length > 0)
-				performers = StringUtils.EscapeForPango (String.Format (string_artists, 
-					StringUtils.JoinHumanReadable (album.Performers, 2)));
+			if (album.Performers.Length > 0) {
+				string performers_tmp =
+				  StringUtils.JoinHumanReadable (album.Performers, 2);
+			
+				string performers_tmp2 =
+				  String.Format (string_artists, performers_tmp);
+			
+				performers = StringUtils.EscapeForPango (performers_tmp2);
+			}
 
-			r.Markup = String.Format ("<b>{0}</b>\n{1}\n\n{2}",
-				StringUtils.EscapeForPango (album.Name),
-				StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (album.Artists, 3)),
-				performers);
+			string fmt = "<b>{0}</b>\n{1}\n\n{2}";
+			string album_s = StringUtils.EscapeForPango (album.Name);
+
+			string artists_tmp =
+			  StringUtils.JoinHumanReadable (album.Artists, 3);
+			  
+			string artists = StringUtils.EscapeForPango (artists_tmp);
+
+			r.Markup = String.Format (fmt, album_s, artists, performers);
 		}
 	}
 }

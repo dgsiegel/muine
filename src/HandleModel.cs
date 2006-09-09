@@ -25,7 +25,8 @@ using Gtk;
 
 namespace Muine
 {
-	public class HandleModel : GLib.Object, TreeModel, TreeDragSource, TreeDragDest
+	public class HandleModel
+	  : GLib.Object, TreeModel, TreeDragSource, TreeDragDest
 	{
 		// Events
 		public delegate void PlayingChangedHandler (IntPtr handle);
@@ -56,26 +57,35 @@ namespace Muine
 		private static extern IntPtr pointer_list_model_get_type ();
 
 		public static new GLib.GType GType { 
-			get { return new GLib.GType (pointer_list_model_get_type ()); }
+			get {
+				IntPtr gtype_ptr = pointer_list_model_get_type ();
+				GLib.GType gtype = new GLib.GType (gtype_ptr);
+				return gtype;
+			}
 		}
 
 		// Properties :: SortFunc (set;)
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_set_sorting (IntPtr raw, CompareFuncNative sort_func);
+		private static extern void pointer_list_model_set_sorting
+		  (IntPtr raw, CompareFuncNative sort_func);
 
 		public CompareFunc SortFunc {
 			set {
-				CompareFuncWrapper wrapper = new CompareFuncWrapper (value, this);
+				CompareFuncWrapper wrapper =
+				  new CompareFuncWrapper (value, this);
+
 				pointer_list_model_set_sorting (Raw, wrapper.NativeDelegate);
 			}
 		}
 
 		// Properties :: Playing (set; get;)
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_set_current (IntPtr raw, IntPtr pointer);
+		private static extern void pointer_list_model_set_current
+		  (IntPtr raw, IntPtr pointer);
 
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_get_current (IntPtr raw);
+		private static extern IntPtr pointer_list_model_get_current
+		  (IntPtr raw);
 
 		public IntPtr Playing {
 			set {
@@ -92,16 +102,17 @@ namespace Muine
 
 		// Properties :: Contents (get;)
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_get_pointers (IntPtr raw);
+		private static extern IntPtr pointer_list_model_get_pointers
+		  (IntPtr raw);
 
 		public GLib.List Contents {
 			get {
-				GLib.List ret = new GLib.List (pointer_list_model_get_pointers (Raw), 
-					typeof (int));
+				IntPtr list_ptr = pointer_list_model_get_pointers (Raw);
+				Type int_type = typeof (int);
+				GLib.List list = new GLib.List (list_ptr, int_type);
+				list.Managed = true;
 
-				ret.Managed = true;
-
-				return ret;
+				return list;
 			}
 		}
 
@@ -138,7 +149,8 @@ namespace Muine
 		// Methods :: Public
 		// Methods :: Public :: Append
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_add (IntPtr raw, IntPtr pointer);
+		private static extern void pointer_list_model_add
+		  (IntPtr raw, IntPtr pointer);
 
 		public void Append (IntPtr handle)
 		{
@@ -147,17 +159,19 @@ namespace Muine
 
 		// Methods :: Public :: Insert
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_insert (IntPtr raw, IntPtr pointer, 
-								      IntPtr ins, uint pos);
+		private static extern void pointer_list_model_insert
+		  (IntPtr raw, IntPtr pointer, IntPtr ins, uint pos);
 
-		public void Insert (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
+		public void Insert
+		  (IntPtr handle, IntPtr ins, TreeViewDropPosition pos)
 		{
 			pointer_list_model_insert (Raw, handle, ins, (uint) pos);
 		}
 
 		// Methods :: Public :: Contains
 		[DllImport("libmuine")]
-		private static extern bool pointer_list_model_contains (IntPtr raw, IntPtr pointer);
+		private static extern bool pointer_list_model_contains
+		  (IntPtr raw, IntPtr pointer);
 
 		public bool Contains (IntPtr handle)
 		{
@@ -173,7 +187,8 @@ namespace Muine
 		
 		// Methods :: Public :: Remove
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_remove (IntPtr raw, IntPtr pointer);
+		private static extern void pointer_list_model_remove
+		  (IntPtr raw, IntPtr pointer);
 
 		public void Remove (IntPtr handle)
 		{
@@ -182,7 +197,8 @@ namespace Muine
 
 		// Methods :: Public :: RemoveDelta
 		[DllImport("libmuine")]
-		private static extern void pointer_list_model_remove_delta (IntPtr raw, IntPtr delta);
+		private static extern void pointer_list_model_remove_delta
+		  (IntPtr raw, IntPtr delta);
 
 		public void RemoveDelta (GLib.List delta)
 		{
@@ -207,8 +223,8 @@ namespace Muine
 
 		// Methods :: Public :: HandleFromIter
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_iter_get_pointer (IntPtr raw, 
-										  ref TreeIter iter);
+		private static extern IntPtr pointer_list_model_iter_get_pointer
+		  (IntPtr raw, ref TreeIter iter);
 
 		public IntPtr HandleFromIter (TreeIter iter)
 		{
@@ -225,9 +241,8 @@ namespace Muine
 
 		// Methods :: Public :: IterFromHandle
 		[DllImport("libmuine")]
-		private static extern IntPtr pointer_list_model_pointer_get_iter (IntPtr raw, 
-										  IntPtr pointer, 
-										  out TreeIter iter);
+		private static extern IntPtr pointer_list_model_pointer_get_iter
+		  (IntPtr raw, IntPtr pointer, out TreeIter iter);
 
 		public TreeIter IterFromHandle (IntPtr handle)
 		{
@@ -321,7 +336,8 @@ namespace Muine
 				return (int) _managed (a, b);
 			}
 
-			public CompareFuncWrapper (CompareFunc managed, object o) : base (o)
+			public CompareFuncWrapper (CompareFunc managed, object o)
+			  : base (o)
 			{
 				NativeDelegate = new CompareFuncNative (NativeCallback);
 				_managed = managed;

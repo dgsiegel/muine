@@ -57,7 +57,8 @@ namespace Muine
 		};
 
 		// Icon
-		private static readonly Gdk.Pixbuf pixbuf = new Gdk.Pixbuf (null, "muine-about.png");
+		private static readonly Gdk.Pixbuf pixbuf =
+		  new Gdk.Pixbuf (null, "muine-about.png");
 	
 		// Variables
 		private static string translators;
@@ -80,8 +81,8 @@ namespace Muine
 		///	The parent window
 		/// </param>
 		public About (Gtk.Window parent) 
-		: base (string_muine, Defines.VERSION, string_copyright, string_description,
-			authors, documenters, translators, pixbuf)
+		  : base (string_muine, Defines.VERSION, string_copyright,
+		    string_description, authors, documenters, translators, pixbuf)
 		{
 			TransientFor = parent;
 

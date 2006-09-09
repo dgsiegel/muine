@@ -41,11 +41,14 @@ namespace Muine
 		{
 			this.player = player;
 
-			string path = Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
+			string path =
+			  Environment.GetEnvironmentVariable ("MUINE_PLUGIN_PATH");
 
-			if (path != null)
-				foreach (string dir in path.Split (':'))
+			if (path != null) {
+				string [] path_parts = path.Split (':');
+				foreach (string dir in path_parts)
 					FindAssemblies (dir);
+			}
 
 			FindAssemblies (FileUtils.SystemPluginDirectory);
 			FindAssemblies (FileUtils.UserPluginDirectory);
@@ -56,8 +59,11 @@ namespace Muine
 		// Methods :: Private :: ScanAssemblyForPlugins
 		private void ScanAssemblyForPlugins (Assembly a)
 		{
-			foreach (Type t in a.GetTypes ()) {
-				if (!t.IsSubclassOf (typeof (Plugin)) || t.IsAbstract)
+			Type [] types = a.GetTypes ();
+			foreach (Type t in types) {
+				Type plugin_type = typeof (Plugin);
+				bool is_plugin = t.IsSubclassOf (plugin_type);
+				if (!is_plugin || t.IsAbstract)
 					continue;
 
 				Plugin plugin = (Plugin) Activator.CreateInstance (t);
@@ -84,7 +90,8 @@ namespace Muine
 					ScanAssemblyForPlugins (a);
 
 				} catch (Exception e) {
-					Console.WriteLine (string_error_load, file.Name, e.Message);
+					Console.WriteLine
+					  (string_error_load, file.Name, e.Message);
 				}
 			}
 		}

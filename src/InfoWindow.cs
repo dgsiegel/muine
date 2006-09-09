@@ -129,10 +129,14 @@ namespace Muine
 			track.Xalign = 0.0F;
 			track.Show ();
 
+			AttachOptions opts =
+			  ( AttachOptions.Expand
+			  | AttachOptions.Shrink
+			  | AttachOptions.Fill );
+
 			tracks_table.Attach (track, 1, 2,
 				tracks_table.NRows - 1, tracks_table.NRows,
-				AttachOptions.Expand | AttachOptions.Shrink | AttachOptions.Fill,
-				0, 0, 0);
+				opts, 0, 0, 0);
 		}
 
 

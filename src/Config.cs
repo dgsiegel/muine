@@ -103,7 +103,8 @@ namespace Muine
 		/// <param name="notify">
 		///	The <see cref="GConf.NotifyEventHandler" />.
 		/// </param>
-		public static void AddNotify (string key, GConf.NotifyEventHandler notify)
+		public static void AddNotify
+		  (string key, GConf.NotifyEventHandler notify)
 		{
 			gconf_client.AddNotify (key, notify);
 		}

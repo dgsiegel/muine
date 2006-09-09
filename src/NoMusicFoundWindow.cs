@@ -36,7 +36,10 @@ namespace Muine
 		// Constructor
 		public NoMusicFoundWindow (Window parent)
 		{
-			Glade.XML gxml = new Glade.XML (null, "NoMusicFoundWindow.glade", "window", null);
+			Glade.XML gxml =
+			  new Glade.XML
+			    (null, "NoMusicFoundWindow.glade", "window", null);
+
 			gxml.Autoconnect (this);
 
 			window.TransientFor = parent;
@@ -54,8 +57,11 @@ namespace Muine
 				homeDirectory += "/";
 			
 			// retrieve information about $HOME/Music and $HOME/Music/Playlists
-			DirectoryInfo musicdir     = new DirectoryInfo (homeDirectory + "Music/"          );
-			DirectoryInfo playlistsdir = new DirectoryInfo (homeDirectory + "Music/Playlists/");
+			DirectoryInfo musicdir =
+			  new DirectoryInfo (homeDirectory + "Music/");
+
+			DirectoryInfo playlistsdir =
+			  new DirectoryInfo (homeDirectory + "Music/Playlists/");
 
 			if (!musicdir.Exists) 
 				musicdir.Create ();

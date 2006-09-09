@@ -420,12 +420,14 @@ namespace Muine
 
 			new_folders.Add (folder);
 
-			watched_folders = (string []) new_folders.ToArray (typeof (string));
+			Type string_type = typeof (string);
+			watched_folders = (string []) new_folders.ToArray (string_type);
 		}
 
 		// Methods :: Private :: HandleDirectory
-		// 	Directory walking
-		private bool HandleDirectory (DirectoryInfo info, Queue queue, BooleanBox canceled_box)
+		// <summary>Directory walking</summary>
+		private bool HandleDirectory
+		  (DirectoryInfo info, Queue queue, BooleanBox canceled_box)
 		{
 			// Files
 			FileInfo [] finfos;		
@@ -586,7 +588,8 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnWatchedFoldersChanged
-		private void OnWatchedFoldersChanged (object o, GConf.NotifyEventArgs args)
+		private void OnWatchedFoldersChanged
+		  (object o, GConf.NotifyEventArgs args)
 		{
 			string [] old_watched_folders = watched_folders;
 			watched_folders = (string []) args.Value;
@@ -596,10 +599,13 @@ namespace Muine
 
 			ArrayList new_dinfos = new ArrayList ();
 
-			Array.Sort (old_watched_folders); // Needed for the binary search
+			// Sort old folders
+			//   Needed for the binary search
+			Array.Sort (old_watched_folders); 
 
 			foreach (string s in watched_folders) {
-				if (Array.BinarySearch (old_watched_folders, s) >= 0)
+				int idx = Array.BinarySearch (old_watched_folders, s);
+				if (idx > -1)
 					continue;
 
 				DirectoryInfo dinfo = new DirectoryInfo (s);
@@ -769,16 +775,21 @@ namespace Muine
 					if (!finfo.Exists) {
 						rq = Global.DB.StartRemoveSong (song);
 
-					} else if (FileUtils.MTimeToTicks (song.MTime) < finfo.LastWriteTimeUtc.Ticks) {
-						try {
-							Metadata metadata = new Metadata (song.Filename);
-							rq = Global.DB.StartSyncSong (song, metadata);
-
-						} catch {
+					} else {
+						long ticks = FileUtils.MTimeToTicks (song.MTime);
+						if (ticks < finfo.LastWriteTimeUtc.Ticks) {
 							try {
-								rq = Global.DB.StartRemoveSong (song);
+								Metadata metadata =
+								  new Metadata (song.Filename);
 
-							} catch (InvalidOperationException e) {
+								rq = Global.DB.StartSyncSong (song, metadata);
+
+							} catch {
+								try {
+									rq = Global.DB.StartRemoveSong (song);
+
+								} catch (InvalidOperationException e) {
+								}
 							}
 						}
 					}

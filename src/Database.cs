@@ -247,7 +247,7 @@ namespace Muine
 		///	Location to store the unpacked value.
 		/// </param>
 		/// <returns>
-		///	An <see cref="IntPtr" /> to where the end of the value is stored.
+		/// An <see cref="IntPtr" /> to where the end of the value is stored.
 		/// </returns>
 		public static IntPtr UnpackInt (IntPtr p, out int i)
 		{
@@ -257,7 +257,8 @@ namespace Muine
 		// Static :: Methods :: Unpack :: UnpackPixbuf
 		//	TODO: Return a Gdk.Pixbuf in the out parameter.
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_pixbuf (IntPtr p, out IntPtr pixbuf);
+		private static extern IntPtr db_unpack_pixbuf
+		  (IntPtr p, out IntPtr pixbuf);
 
 		/// <summary>
 		///	Unpack a <see cref="Gdk.Pixuf" /> from the database.
@@ -282,7 +283,8 @@ namespace Muine
 		//	TODO: Merge the second overload into the first one since
 		//	that is the only place that uses it.
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_unpack_string (IntPtr p, out IntPtr str_ptr);
+		private static extern IntPtr db_unpack_string
+		  (IntPtr p, out IntPtr str_ptr);
 
 		/// <summary>
 		///	Unpack a <see cref="String" /> from the database.
@@ -362,7 +364,8 @@ namespace Muine
 
 		// Constructor
 		[DllImport ("libmuine")]
-		private static extern IntPtr db_open (string filename, int version, out IntPtr error);
+		private static extern IntPtr db_open
+		  (string filename, int version, out IntPtr error);
 
 		/// <summary>
 		///	Creates a new <see cref="Database" /> object.
@@ -382,8 +385,10 @@ namespace Muine
 
 			db_ptr = db_open (filename, version, out error_ptr); 
 
-			if (db_ptr == IntPtr.Zero)
-				throw new Exception (GLib.Marshaller.PtrToStringGFree (error_ptr));
+			if (db_ptr == IntPtr.Zero) {
+				string msg = GLib.Marshaller.PtrToStringGFree (error_ptr);
+				throw new Exception (msg);
+			}
 		}
 
 		// Properties
@@ -420,8 +425,9 @@ namespace Muine
 			
 		// Methods :: Public :: Store
 		[DllImport ("libmuine")]
-		private static extern void db_store (IntPtr db_ptr, string key, bool overwrite,
-						     IntPtr data, int data_size);
+		private static extern void db_store
+		  (IntPtr db_ptr, string key, bool overwrite, IntPtr data,
+		   int data_size);
 
 		/// <summary>
 		///	Store a key-value pair in the database. If the key
@@ -456,7 +462,8 @@ namespace Muine
 		/// <param name="overwrite">
 		///	Whether to overwrite if the key already exists.
 		/// </param>
-		public void Store (string key, IntPtr data, int data_size, bool overwrite)
+		public void Store
+		  (string key, IntPtr data, int data_size, bool overwrite)
 		{
 			db_store (db_ptr, key, overwrite, data, data_size);
 		} 

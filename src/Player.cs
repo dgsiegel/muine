@@ -98,11 +98,12 @@ namespace Muine
 		// Properties
 		// Properties :: Song (set; get;)
 		[DllImport ("libmuine")]
-		private static extern bool player_set_file (IntPtr player, string filename,
-							    out IntPtr error_ptr);
+		private static extern bool player_set_file
+		  (IntPtr player, string filename, out IntPtr error_ptr);
 
 		[DllImport ("libmuine")]
-		private static extern void player_set_replaygain (IntPtr player, double gain, double peak);
+		private static extern void player_set_replaygain
+		  (IntPtr player, double gain, double peak);
 
 		public Song Song {
 			set {
@@ -116,7 +117,10 @@ namespace Muine
 				if (set_file_idle_id > 0)
 					GLib.Source.Remove (set_file_idle_id);
 
-				set_file_idle_id = GLib.Idle.Add (new GLib.IdleHandler (SetFileIdleFunc));
+				GLib.IdleHandler func =
+				  new GLib.IdleHandler (SetFileIdleFunc);
+
+				set_file_idle_id = GLib.Idle.Add (func);
 			}
 
 			get { return song; }
@@ -147,7 +151,8 @@ namespace Muine
 
 		// Properties :: Volume (set; get;)
 		[DllImport ("libmuine")]
-		private static extern void player_set_volume (IntPtr player, int volume);
+		private static extern void player_set_volume
+		  (IntPtr player, int volume);
 
 		[DllImport ("libmuine")]
 		private static extern int player_get_volume (IntPtr player);

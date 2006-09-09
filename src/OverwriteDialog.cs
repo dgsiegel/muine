@@ -44,16 +44,31 @@ namespace Muine
 		// Constructor
 		public OverwriteDialog (Window parent, string fn)
 		{
-			Glade.XML gxml = new Glade.XML (null, "OverwriteDialog.glade", "window", null);
+			Glade.XML gxml =
+			  new Glade.XML (null, "OverwriteDialog.glade", "window", null);
+
 			gxml.Autoconnect (this);
 
-			string primary_text = String.Format (string_primary_text,
-				FileUtils.MakeHumanReadable (fn));
+			string fn_readable = FileUtils.MakeHumanReadable (fn);
 
-			label.Markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}",
-				StringUtils.EscapeForPango (primary_text),
-				StringUtils.EscapeForPango (string_secondary_text));
+			string primary_text =
+			  String.Format (string_primary_text, fn_readable);
 
+			// Label
+			string fmt =
+			  "<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}";
+
+			string primary_text_esc =
+			  StringUtils.EscapeForPango (primary_text);
+
+			string string_secondary_text_esc =
+			  StringUtils.EscapeForPango (string_secondary_text);
+
+			label.Markup =
+			  String.Format
+			    (fmt, primary_text_esc, string_secondary_text_esc);
+
+			//
 			window.TransientFor = parent;
 		}
 

@@ -40,7 +40,9 @@ namespace Muine
 			Catalog.GetString ("_Import");
 
 		// Constructor
-		public ImportDialog () : base (string_title, Global.Playlist, FileChooserAction.SelectFolder)
+		public ImportDialog ()
+		  : base (string_title, Global.Playlist,
+		    FileChooserAction.SelectFolder)
 		{
 			base.LocalOnly      = true;
 			base.SelectMultiple = true;

@@ -49,15 +49,20 @@ namespace Muine
 		// Constructor
 		public ProgressWindow (Window parent)
 		{
-			Glade.XML gxml = new Glade.XML (null, "ProgressWindow.glade", "window", null);
+			Glade.XML gxml =
+			  new Glade.XML (null, "ProgressWindow.glade", "window", null);
+
 			gxml.Autoconnect (this);
 
 			window.TransientFor = parent;
 
 			window.SetDefaultSize (300, -1);
 
-			loading_label.Markup = String.Format ("<b>{0}</b>",
-				StringUtils.EscapeForPango (string_loading));
+			string string_loading_esc =
+			  StringUtils.EscapeForPango (string_loading);
+
+			loading_label.Markup =
+			  String.Format ("<b>{0}</b>", string_loading_esc);
 
 			title_format = string_title;
 
@@ -112,7 +117,9 @@ namespace Muine
 				return;
 
 			geo_no_resize_height.MaxHeight = args.Requisition.Height;
-			window.SetGeometryHints (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
+
+			window.SetGeometryHints
+			  (window, geo_no_resize_height, Gdk.WindowHints.MaxSize);
 		}
 	}
 }

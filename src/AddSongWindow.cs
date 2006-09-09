@@ -59,7 +59,7 @@ namespace Muine
 		{
 			base.Title = string_title;
 
-			base.SetGConfSize (GConfKeyWidth , GConfDefaultWidth, 
+			base.SetGConfSize (GConfKeyWidth, GConfDefaultWidth, 
 				GConfKeyHeight, GConfDefaultHeight);
 
 			base.Items = Global.DB.Songs.Values;
@@ -69,7 +69,9 @@ namespace Muine
 			TreeViewColumn col = new TreeViewColumn ();
 			col.Sizing = TreeViewColumnSizing.Fixed;
 			col.PackStart (base.TextRenderer, true);
-			col.SetCellDataFunc (base.TextRenderer, new TreeCellDataFunc (CellDataFunc));
+			
+			TreeCellDataFunc func = new TreeCellDataFunc (CellDataFunc);
+			col.SetCellDataFunc (base.TextRenderer, func);
 			base.List.AppendColumn (col);
 			
 			base.List.DragSource = source_entries;
@@ -92,30 +94,42 @@ namespace Muine
 		{
 			List songs = base.List.SelectedHandles;
 
+			string target;
+			Gdk.Atom atom;
+			byte [] bytes;
+
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
 				string files = "";
 
 				foreach (int p in songs) {
 					IntPtr s = new IntPtr (p);
-					files += FileUtils.UriFromLocalPath (Song.FromHandle (s).Filename) + "\r\n";
+					Song song = Song.FromHandle (s);
+					string uri = FileUtils.UriFromLocalPath (song.Filename);
+					files += (uri + "\r\n");
 				}
-		
-				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetUriList.Target, false),
-					8, System.Text.Encoding.UTF8.GetBytes (files));
+
+				target = DndUtils.TargetUriList.Target;
+				atom = Gdk.Atom.Intern (target, false);
+				bytes = System.Text.Encoding.UTF8.GetBytes (files); 
+				args.SelectionData.Set (atom, 8, bytes);
 							
 				break;	
 				
 			case (uint) DndUtils.TargetType.SongList:
-				string ptrs = String.Format ("\t{0}\t", DndUtils.TargetMuineSongList.Target);
+				target = DndUtils.TargetMuineSongList.Target;
+			
+				string ptrs = String.Format ("\t{0}\t", target);
 				
 				foreach (int p in songs) {
 					IntPtr s = new IntPtr (p);
-					ptrs += s.ToString () + "\r\n";
+					string s_s = s.ToString ();
+					ptrs += (s_s + "\r\n");
 				}
 				
-				args.SelectionData.Set (Gdk.Atom.Intern (DndUtils.TargetMuineSongList.Target, false),
-					8, System.Text.Encoding.ASCII.GetBytes (ptrs));
+				atom = Gdk.Atom.Intern (target, false);
+				bytes = System.Text.Encoding.ASCII.GetBytes (ptrs);
+				args.SelectionData.Set (atom, 8, bytes);
 
 				break;
 
@@ -125,7 +139,7 @@ namespace Muine
 		}
 
 		// Delegate Functions
-		// Delegate Functions :: SortFunc		
+		// Delegate Functions :: SortFunc
 		/// <summary>
 		/// 	Delegate used in sorting the song list.
 		/// </summary>		
@@ -164,15 +178,24 @@ namespace Muine
 		/// <param name="iter">
 		///	A <see cref="Gtk.TreeIter" />.
 		/// </param>
-		private void CellDataFunc (TreeViewColumn col, CellRenderer cell,
-					   TreeModel model, TreeIter iter)
+		private void CellDataFunc
+		  (TreeViewColumn col, CellRenderer cell, TreeModel model,
+		   TreeIter iter)
 		{
 			CellRendererText r = (CellRendererText) cell;
-			Song song = Song.FromHandle (base.List.Model.HandleFromIter (iter));
+			IntPtr handle = base.List.Model.HandleFromIter (iter);
+			Song song = Song.FromHandle (handle);
 
-			r.Markup = String.Format ("<b>{0}</b>\n{1}",
-				StringUtils.EscapeForPango (song.Title),
-				StringUtils.EscapeForPango (StringUtils.JoinHumanReadable (song.Artists)));
+			string fmt = "<b>{0}</b>\n{1}";
+
+			string title = StringUtils.EscapeForPango (song.Title);
+			
+			string artists_tmp =
+			  StringUtils.JoinHumanReadable (song.Artists);
+			
+			string artists = StringUtils.EscapeForPango (artists_tmp);
+
+			r.Markup = String.Format (fmt, title, artists);
 		}
 	}
 }

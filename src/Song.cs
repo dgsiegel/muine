@@ -32,7 +32,9 @@ namespace Muine
 	{
 		// Static
 		// Static :: Variables
-		private static Hashtable pointers = Hashtable.Synchronized (new Hashtable ());
+		private static Hashtable pointers =
+		  Hashtable.Synchronized (new Hashtable ());
+
 		private static IntPtr cur_ptr = IntPtr.Zero;
 
 		// Static :: Methods
@@ -341,7 +343,8 @@ namespace Muine
 				if (Global.CoverDB.Covers [akey] == null)
 					Global.CoverDB.SetCover (akey, cover_image);
 
-			} else if (!HasAlbum) { // See if there is a cover for this single song
+			// See if there is a cover for this single song
+			} else if (!HasAlbum) { 
 				cover_image = (Pixbuf) Global.CoverDB.Covers [filename];
 			}
 			
@@ -352,8 +355,11 @@ namespace Muine
 				// as album cover image if it belongs to an album 
 				string key = HasAlbum ? AlbumKey : filename;
 
-				if (Global.CoverDB.Covers [key] == null)
-					cover_image = Global.CoverDB.Getter.GetEmbedded (key, metadata.AlbumArt);
+				if (Global.CoverDB.Covers [key] == null) {
+					cover_image =
+					  Global.CoverDB.Getter.GetEmbedded
+					    (key, metadata.AlbumArt);
+				}
 
 				// Album itself will pick up change when this 
 				// song is added to it
@@ -407,7 +413,8 @@ namespace Muine
 
 			string key = String.Format ("{0} {1} {2}", title, a, p);
 				
-			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey (key, CompareOptions.IgnoreCase);
+			return CultureInfo.CurrentUICulture.CompareInfo.GetSortKey
+			  (key, CompareOptions.IgnoreCase);
 		}
 
 		// Methods :: Protected :: GenerateSearchKey (Item)
@@ -416,7 +423,8 @@ namespace Muine
 			string a = String.Join (" ", artists);
 			string p = String.Join (" ", performers);
 				
-			string key = String.Format ("{0} {1} {2} {3}", title, a, p, album);
+			string key =
+			  String.Format ("{0} {1} {2} {3}", title, a, p, album);
 
 			return StringUtils.SearchKey (key);
 		}

@@ -126,19 +126,27 @@ namespace Muine
 			bool go  = false;		
 			Gdk.ModifierType mod = 0;
 
-			if        ((e.State != 0) && ((e.State & Gdk.ModifierType.ControlMask) != 0)) {
+			bool has_state = (e.State != 0);
+			bool has_ctrl  = ((e.State & Gdk.ModifierType.ControlMask) != 0);
+			bool has_alt   = ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0);
+			bool has_shift = ((e.State & Gdk.ModifierType.ShiftMask  ) != 0);
+			
+			bool has_mod = KeyUtils.HaveModifier (e);
+			bool is_mod  = KeyUtils.IsModifier   (e);
+
+			if        (has_state && has_ctrl) {
 				go = true;
 				mod = Gdk.ModifierType.ControlMask;
 
-			} else if ((e.State != 0) && ((e.State & Gdk.ModifierType.Mod1Mask   ) != 0)) {
+			} else if (has_state && has_alt) {
 				go = true;
 				mod = Gdk.ModifierType.Mod1Mask;
 
-			} else if ((e.State != 0) && ((e.State & Gdk.ModifierType.ShiftMask  ) != 0)) {
+			} else if (has_state && has_shift) {
 				go = true;
 				mod = Gdk.ModifierType.ShiftMask;
 
-			} else if (!KeyUtils.HaveModifier (e) && !KeyUtils.IsModifier (e)) {
+			} else if (!has_mod && !is_mod) {
 				go = true;
 				mod = 0;
 			}
@@ -147,7 +155,9 @@ namespace Muine
 				return false;
 
 			Gdk.GC saved_gc = Style.BaseGC (StateType.Selected);
-			Style.SetBaseGC (StateType.Selected, Style.BaseGC (StateType.Active));
+			
+			Gdk.GC active_gc = Style.BaseGC (StateType.Active);
+			Style.SetBaseGC (StateType.Selected, active_gc);
 
 			GrabFocus ();
 
@@ -165,7 +175,8 @@ namespace Muine
 		{
 			// Objects
 			// Objects :: Selected
-			// 	We use a GLib.List here for consistency with HandleModel.Contents
+			//   We use a GLib.List here for consistency with
+			//   HandleModel.Contents
 			private List selected = new List (typeof (int));
 
 			// Properties

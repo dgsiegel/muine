@@ -80,13 +80,18 @@ namespace Muine
 		/// </remarks>
 		public AddWindow () : base (IntPtr.Zero)
 		{
-			Glade.XML gxml = new Glade.XML (null, "AddWindow.glade", "window", null);
+			Glade.XML gxml =
+			  new Glade.XML (null, "AddWindow.glade", "window", null);
+
 			gxml.Autoconnect (this);
 
 			Raw = window.Handle;
 
-			play_button_image.SetFromStock  ("stock_media-play", IconSize.Button);
-			queue_button_image.SetFromStock ("stock_timer"     , IconSize.Button);
+			play_button_image.SetFromStock
+			  ("stock_media-play", IconSize.Button);
+
+			queue_button_image.SetFromStock
+			  ("stock_timer", IconSize.Button);
 
 			// Label
 			search_label.MnemonicWidget = entry;
@@ -166,7 +171,9 @@ namespace Muine
 		public void Run (uint time)
 		{
 			if (first_time || entry.Text.Length > 0) {
-				window.GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
+				window.GdkWindow.Cursor =
+				  new Gdk.Cursor (Gdk.CursorType.Watch);
+
 				window.GdkWindow.Display.Flush ();
 
 				ignore_change = true;
@@ -233,7 +240,8 @@ namespace Muine
 		// Methods :: Protected :: Search
 		//	TODO: Make private; make void (not called from a GLib loop).
 		/// <summary>
-		/// 	Execute a search according to the terms currently in the entry box.
+		///   Execute a search according to the terms currently in the entry
+		///   box.
 		/// </summary>
 		/// <returns>
 		///	False.
@@ -573,7 +581,8 @@ namespace Muine
 		/// </param>
 		protected void OnAdded (Item item)
 		{
-			list.HandleAdded (item.Handle, item.FitsCriteria (entry.SearchBits));
+			bool fits = item.FitsCriteria (entry.SearchBits);
+			list.HandleAdded (item.Handle, fits);
 		}
 
 		// Handlers :: OnChanged
@@ -585,7 +594,8 @@ namespace Muine
 		/// </param>
 		protected void OnChanged (Item item)
 		{
-			list.HandleChanged (item.Handle, item.FitsCriteria (entry.SearchBits));
+			bool fits = item.FitsCriteria (entry.SearchBits);
+			list.HandleChanged (item.Handle, fits);
 		}
 
 		// Handlers :: OnRemoved

@@ -61,9 +61,16 @@ namespace Muine
 
 		public string Title {
 			get {
-				IntPtr p = metadata_get_title (raw);
-
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p).Trim ();
+				IntPtr title_ptr = metadata_get_title (raw);
+				
+				string title = "";
+				
+				if (title_ptr != IntPtr.Zero) {
+					string title_tmp = Marshal.PtrToStringAnsi (title_ptr);
+					title = title_tmp.Trim ();
+				}
+				
+				return title;
 			}
 		}
 
@@ -73,7 +80,8 @@ namespace Muine
 		private static extern int metadata_get_artist_count (IntPtr metadata);
 
 		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_artist (IntPtr metadata, int index);
+		private static extern IntPtr metadata_get_artist
+		  (IntPtr metadata, int index);
 
 		public string [] Artists {
 			get {
@@ -82,25 +90,30 @@ namespace Muine
 				int count = metadata_get_artist_count (raw);
 
 				for (int i = 0; i < count; i++) {
-					string tmp = Marshal.PtrToStringAnsi (metadata_get_artist (raw, i)).Trim ();
+					IntPtr artist_ptr = metadata_get_artist (raw, i);
+					string artist_tmp = Marshal.PtrToStringAnsi (artist_ptr);
+					string artist = artist_tmp.Trim ();
 
-					if (tmp.Length <= 0)
+					if (artist.Length <= 0)
 						continue;
 
-					strings.Add (tmp);
+					strings.Add (artist);
 				}
 
-				return (string []) strings.ToArray (typeof (string));
+				Type string_type = typeof (string);
+				return (string []) strings.ToArray (string_type);
 			}
 		}
 
 		// Properties :: Performers (get;)
 		//	FIXME: Refactor Artists and Performers properties
 		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_performer (IntPtr metadata, int index);
+		private static extern IntPtr metadata_get_performer
+		  (IntPtr metadata, int index);
 
 		[DllImport ("libmuine")]
-		private static extern int metadata_get_performer_count (IntPtr metadata);
+		private static extern int metadata_get_performer_count
+		  (IntPtr metadata);
 
 		public string [] Performers {
 			get {
@@ -109,15 +122,21 @@ namespace Muine
 				int count = metadata_get_performer_count (raw);
 
 				for (int i = 0; i < count; i++) {
-					string tmp = Marshal.PtrToStringAnsi (metadata_get_performer (raw, i)).Trim ();
+					IntPtr performer_ptr = metadata_get_performer (raw, i);
 
-					if (tmp.Length <= 0)
+					string performer_tmp =
+					  Marshal.PtrToStringAnsi (performer_ptr);
+
+					string performer = performer_tmp.Trim ();
+
+					if (performer.Length <= 0)
 						continue;
 
-					strings.Add (tmp);
+					strings.Add (performer);
 				}
 
-				return (string []) strings.ToArray (typeof (string));
+				Type string_type = typeof (string);
+				return (string []) strings.ToArray (string_type);
 			}			
 		}
 
@@ -127,9 +146,17 @@ namespace Muine
 
 		public string Album {
 			get { 
-				IntPtr p = metadata_get_album (raw);
+				IntPtr album_ptr = metadata_get_album (raw);
 				
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p).Trim ();
+				string album;
+				if (album_ptr == IntPtr.Zero) {
+					album = "";
+				} else {
+					string album_tmp = Marshal.PtrToStringAnsi (album_ptr);
+					album = album_tmp.Trim ();
+				}
+				
+				return album;
 			}
 		}
 
@@ -142,10 +169,10 @@ namespace Muine
 				if (album_art != null)
 					return album_art;
 					
-				IntPtr p = metadata_get_album_art (raw);
+				IntPtr album_art_ptr = metadata_get_album_art (raw);
 
-				if (p != IntPtr.Zero)
-					album_art = new Pixbuf (p);
+				if (album_art_ptr != IntPtr.Zero)
+					album_art = new Pixbuf (album_art_ptr);
 
 				return album_art;
 			}
@@ -181,9 +208,14 @@ namespace Muine
 
 		public string Year {
 			get {
-				IntPtr p = metadata_get_year (raw);
+				IntPtr year_ptr = metadata_get_year (raw);
 				
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
+				string year = "";
+				
+				if (year_ptr != IntPtr.Zero)
+					year = Marshal.PtrToStringAnsi (year_ptr);
+				
+				return year;
 			}
 		}
 
@@ -201,9 +233,13 @@ namespace Muine
 
 		public string MimeType {
 			get {
-				IntPtr p = metadata_get_mime_type (raw);
+				IntPtr type_ptr = metadata_get_mime_type (raw);
 				
-				return (p == IntPtr.Zero) ? "" : Marshal.PtrToStringAnsi (p);
+				string type = "";
+				if (type_ptr != IntPtr.Zero)
+					Marshal.PtrToStringAnsi (type_ptr);
+				
+				return type;
 			}
 		}
 

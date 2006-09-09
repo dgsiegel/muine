@@ -34,9 +34,12 @@ namespace Muine
 	public class CoverGetter
 	{
 		// GConf
+		// GConf :: AmazonLocale
 		private const string GConfKeyAmazonLocale     = "/apps/muine/amazon_locale";
 		private const string GConfDefaultAmazonLocale = "us";
-		private const string GConfKeyAmazonDevTag = "/apps/muine/amazon_dev_tag";
+		
+		// GConf :: AmazonDevTag
+		private const string GConfKeyAmazonDevTag     = "/apps/muine/amazon_dev_tag";
 		private	const string GConfDefaultAmazonDevTag = "amazondevtag";
 
 		// Delegates
@@ -210,7 +213,8 @@ namespace Muine
 		/// <returns>
 		///	A <see cref="Gdk.Pixbuf" /> of the temporary cover.
 		/// </returns>
-		public Pixbuf GetWeb (string key, string url, GotCoverDelegate done_func)
+		public Pixbuf GetWeb
+		  (string key, string url, GotCoverDelegate done_func)
 		{
 			db.RemoveCover (key);
 			new GetWebThread (this, key, url, done_func);
@@ -324,52 +328,96 @@ namespace Muine
 
 			Pixbuf pix = null;
 			try {
-				string sane_album_title = album.Name != null ? SanitizeString (album.Name) : String.Empty;
-				string sane_artist_name = album.Artists != null && album.Artists.Length > 0 ?
-					album.Artists[0].ToLower () :
-					String.Empty;
+				// Sane album title
+				string sane_album_title;
+				if (album.Name != null)
+					sane_album_title = SanitizeString (album.Name);
+				else
+					sane_album_title = String.Empty;
+
+				// Sane artist name
+				string sane_artist_name;
+				if (album.Artists != null && album.Artists.Length > 0)
+					sane_artist_name = album.Artists [0].ToLower ();
+				else
+					sane_artist_name = String.Empty;
+
+				//
 				string asin = null;
-				string AmazonImageUri = "http://images.amazon.com/images/P/{0}.01._SCMZZZZZZZ_.jpg";
+				
+				// TODO: Move to constant
+				string AmazonImageUri =
+				  "http://images.amazon.com/images/P/{0}.01._SCMZZZZZZZ_.jpg";
+
+
 				// remove "disc 1" and family
-				//	TODO: Make the regexes translatable? (e.g. "uno|dos|tres...", "les|los..)
+				//  TODO: Make the regexes translatable?
+				//  (e.g. "uno|dos|tres...", "les|los..)
 				sane_album_title =  Regex.Replace (sane_album_title, 
 	  				@"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
-				// Remove "The " and "the " from artist names
 
+				// Remove "The " and "the " from artist names
 				sane_artist_name = Regex.Replace (sane_artist_name,
 					@"^the\s+", "");
 				
 				MusicBrainz c = new MusicBrainz ();
 				
-				// set the depth of the query (see http://wiki.musicbrainz.org/ClientHOWTO)
+				// set the depth of the query
+				//   (see http://wiki.musicbrainz.org/ClientHOWTO)
 				c.SetDepth(4);
 
 				string [] album_name = new string [] { sane_album_title };
 
-				if (c.Query (MusicBrainz.MBQ_FindAlbumByName, album_name)) {
-					int num_albums = c.GetResultInt (MusicBrainz.MBE_GetNumAlbums);
+				bool match =
+				  c.Query (MusicBrainz.MBQ_FindAlbumByName, album_name);
+
+				if (match) {
+					int num_albums =
+					  c.GetResultInt (MusicBrainz.MBE_GetNumAlbums);
 					
 					string fetched_artist_name;
 					for (int i = 1; i <= num_albums; i++) {
 						c.Select (MusicBrainz.MBS_SelectAlbum, i);
+
 						// gets the artist from the first track of the album
-						c.GetResultData (MusicBrainz.MBE_AlbumGetArtistName, 1,  out fetched_artist_name);
+						c.GetResultData
+						  (MusicBrainz.MBE_AlbumGetArtistName, 1,
+						   out fetched_artist_name);
+
 						// Remove "The " here as well
-						fetched_artist_name = fetched_artist_name != null ?
-							Regex.Replace (fetched_artist_name.ToLower (), @"^the\s+", "") :
-							String.Empty;
+						if (fetched_artist_name != null) {
+							string tmp = fetched_artist_name.ToLower ();
+
+							fetched_artist_name =
+							  Regex.Replace (tmp, @"^the\s+", "");
+
+						} else {
+							fetched_artist_name = String.Empty;
+						}
+
 						if (fetched_artist_name == sane_artist_name) {
-							c.GetResultData (MusicBrainz.MBE_AlbumGetAmazonAsin, out asin);
+							c.GetResultData
+							  (MusicBrainz.MBE_AlbumGetAmazonAsin, out asin);
+
 							break;
 						}
-						c.Select(MusicBrainz.MBS_Back); // go back one level so we can select the next album
+
+						// go back one level so we can select the next album
+						c.Select(MusicBrainz.MBS_Back); 
 					}
 				}
 
-				pix = asin == null ? null : Download (String.Format (AmazonImageUri,asin));
+				if (asin == null) {
+					pix = null;
+				} else {
+					string uri = String.Format (AmazonImageUri, asin);
+					pix = Download (uri);
+				}
+				
 			} catch (DllNotFoundException e) {
-				// We catch this exception so we can always include the musicbrainz support
-				// but not have a strict compile/runtime requirement on it.
+				// We catch this exception so we can always include the
+				// musicbrainz support but not have a strict compile/runtime
+				// requirement on it.
 				musicbrainz_lib_missing = true;
 			}
 
@@ -378,11 +426,12 @@ namespace Muine
 		
 		// Methods :: Private :: DownloadFromAmazonViaAPI
 		/// <summary>
-		///	Get the cover URL from amazon usig the Amazon API (required valid dev tag in GConf)
+		///   Get the cover URL from amazon usig the Amazon API (required
+		///   valid dev tag in GConf)
 		/// </summary>
 		/// <remarks>
-		///	This should only be called from <see cref="GetWebThread" />
-		/// 	and <see cref="DownloadFromAmazon" />. Normally, 
+		///   This should only be called from <see cref="GetWebThread" />
+		///   and <see cref="DownloadFromAmazon" />. Normally, 
 		///	<see cref="GetWeb" /> should be used instead.
 		/// </remarks>
 		/// <param name="album">
@@ -403,7 +452,8 @@ namespace Muine
 			if (amazon_dev_tag_missing)
 				return null;
 
-			Amazon.AmazonSearchService search_service = new Amazon.AmazonSearchService ();
+			Amazon.AmazonSearchService search_service =
+			  new Amazon.AmazonSearchService ();
 
 			string sane_album_title = SanitizeString (album.Name);
 
@@ -481,7 +531,8 @@ namespace Muine
 				if (proxy.Use)
 					search_service.Proxy = proxy.Proxy;
 				
-				// This may throw an exception, we catch it in the calling function
+				// This may throw an exception, we catch it in the calling
+				//   function
 				pi = search_service.ArtistSearchRequest (asearch);
 
 				int num_results = pi.Details.Length;
@@ -493,10 +544,16 @@ namespace Muine
 
 				for (int i = 0; i < num_results; i++) {
 					// Ignore bracketed text on the result from Amazon
-					string sane_product_name = SanitizeString (pi.Details[i].ProductName);
+					
+					Amazon.Details details = pi.Details [i];
+
+					string sane_product_name =
+					  SanitizeString (details.ProductName);
 
 					// Compare the two strings statistically
-					string [] product_name_array = sane_product_name.Split (' ');
+					string [] product_name_array =
+					  sane_product_name.Split (' ');
+
 					Array.Sort (product_name_array);
 
 					int match_count = 0;
@@ -533,13 +590,14 @@ namespace Muine
 					double total_match_percent = match_percent + backward_match_percent;
 					if (total_match_percent <= best_match_percent)
 						continue; // look for a better match
-						
+
 					Pixbuf pix;
 								
 					try {
 						pix = Download (url);
 						if (pix == null && amazon_locale != "us") {
-							// Manipulate the image URL since Amazon sometimes return it wrong :(
+							// Manipulate the image URL since Amazon sometimes
+							// return it wrong :(
 							// http://www.amazon.com/gp/browse.html/103-1953981-2427826?node=3434651#misc-image
 							url = Regex.Replace (url, "[.]0[0-9][.]", ".01.");
 							pix = Download (url);
@@ -638,19 +696,33 @@ namespace Muine
 			if (cover.Height > target_size || cover.Width > target_size) {
 				int new_width, new_height;
 
+				double target_size_d = (double) target_size;
+
 				if (cover.Height > cover.Width) {
-					new_width = (int) Math.Round ((double) target_size / (double) cover.Height * cover.Width);
+					double height_d = (double) cover.Height;
+					double area = (height_d * cover.Width);
+
+					new_width = (int) Math.Round (target_size_d / area);
 					new_height = target_size;
+
 				} else {
-					new_height = (int) Math.Round ((double) target_size / (double) cover.Width * cover.Height);
+					double width_d = (double) cover.Width;
+					double area = (width_d * cover.Height);
+
+					new_height = (int) Math.Round (target_size_d / area);
 					new_width = target_size;
 				}
 
-				cover = cover.ScaleSimple (new_width, new_height, InterpType.Bilinear);
+				cover =
+				  cover.ScaleSimple
+				    (new_width, new_height, InterpType.Bilinear);
 			}
 
 			// create the background + black border pixbuf
-			border = new Pixbuf (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
+			border =
+			  new Pixbuf
+			    (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
+
 			border.Fill (0x000000ff);
 
 			// put the cover image on the border area
@@ -665,7 +737,7 @@ namespace Muine
 		//	TODO: We should probably also trim the string at the 
 		//	end.
 		/// <summary>
-		///	Sanitize the string for use in <see cref="DownloadFromAmazon" />.
+		/// Sanitize the string for use in <see cref="DownloadFromAmazon" />.
 		/// </summary>
 		/// <remarks>
 		///	The string is made lower-case, all text within 
@@ -701,7 +773,8 @@ namespace Muine
 		/// <param name="args">
 		///	The <see cref="GConf.NotifyEventArgs" />.
 		/// </param>
-		private void OnAmazonLocaleChanged (object o, GConf.NotifyEventArgs args)
+		private void OnAmazonLocaleChanged
+		  (object o, GConf.NotifyEventArgs args)
 		{
 			amazon_locale = (string) args.Value;
 		}
@@ -717,16 +790,19 @@ namespace Muine
 		/// <param name="args">
 		///	The <see cref="GConf.NotifyEventArgs" />.
 		/// </param>
-		private void OnAmazonDevTagChanged (object o, GConf.NotifyEventArgs args)
+		private void OnAmazonDevTagChanged
+		  (object o, GConf.NotifyEventArgs args)
 		{
 			amazon_dev_tag = (string) args.Value;
+
 			// Tag is 'missing' if set to the default value
-			amazon_dev_tag_missing = amazon_dev_tag == GConfDefaultAmazonDevTag;
+			amazon_dev_tag_missing =
+			  (amazon_dev_tag == GConfDefaultAmazonDevTag);
 		}
 
 		// Internal Classes
 		// Internal Classes :: GetWebThread
-		// 	FIXME: Split off? This is big.
+		//   FIXME: Split off? This is big.
 		private class GetWebThread
 		{
 			// Delegates
@@ -970,7 +1046,8 @@ namespace Muine
 
 						string key = album.Key;
 						
-						// Check if cover has been modified while we were downloading
+						// Check if cover has been modified while we were
+						//   downloading
 						if (Global.CoverDB.Covers [key] != null)
 							continue;
 

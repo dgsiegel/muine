@@ -189,7 +189,8 @@ namespace Muine
 				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
 
 			} else {
-				image.SetFromStock ("muine-default-cover", StockIcons.CoverSize);
+				image.SetFromStock
+				  ("muine-default-cover", StockIcons.CoverSize);
 			}
 
 			// DnD Entries
@@ -201,7 +202,8 @@ namespace Muine
 				entries = null;
 
 			// DnD Destination
-			Gtk.Drag.DestSet (this, DestDefaults.All, entries, Gdk.DragAction.Copy);
+			Gtk.Drag.DestSet
+			  (this, DestDefaults.All, entries, Gdk.DragAction.Copy);
 		}
 
 		// Handlers

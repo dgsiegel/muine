@@ -81,7 +81,8 @@ namespace Muine
 		// Methods :: Public :: PrefixToSuffix
 		public static string PrefixToSuffix (string str, string prefix)
 		{
-			return String.Format ("{0} {1}", str.Remove (0, prefix.Length + 1), prefix);
+			string str_no_prefix = str.Remove (0, prefix.Length + 1);
+			return String.Format ("{0} {1}", str_no_prefix, prefix);
 		}
 
 		// Methods :: Public :: SearchKey

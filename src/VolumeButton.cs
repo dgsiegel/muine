@@ -26,7 +26,7 @@ namespace Muine
 	public class VolumeButton : ToggleButton
 	{
 		// Constants
-		// 	TODO: GDK_CURRENT_TIME doesn't seem to have an equiv in gtk# yet.
+		//   TODO: GDK_CURRENT_TIME doesn't seem to have an equiv in Gtk# yet.
 		private const uint CURRENT_TIME = 0;
 
 		// Events
@@ -262,7 +262,8 @@ namespace Muine
 		}
 
 		// Handlers :: OnPopupButtonPressEvent
-		private void OnPopupButtonPressEvent (object obj, ButtonPressEventArgs args)
+		private void OnPopupButtonPressEvent
+		  (object obj, ButtonPressEventArgs args)
 		{
 			if (popup == null)
 				return;
