@@ -96,7 +96,7 @@ namespace Muine
 
 		// Handlers
 		// Handlers :: OnWindowResponse
-		public void OnWindowResponse (object o, EventArgs a)
+		public void OnWindowResponse (object o, ResponseArgs a)
 		{
 			window.Visible = false;
 			canceled = true;

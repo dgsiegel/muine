@@ -1,5 +1,9 @@
 2006-09-09  Peter Johanson  <peter@peterjohanson.com>
 
+	* src/ProgressWindow.cs: Fix one more mono 1.1.17 crasher.
+
+2006-09-09  Peter Johanson  <peter@peterjohanson.com>
+
 	* src/SkipToWindow.cs: Fix crasher with mono 1.1.17 and higher related
 	to method signature mismatch for glade hooked up callbacks.
 
