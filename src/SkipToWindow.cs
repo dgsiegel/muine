@@ -137,7 +137,7 @@ namespace Muine
 		}
 
 		// Handlers :: OnWindowDeleteEvent
-		public void OnWindowDeleteEvent (object o, EventArgs a)
+		public void OnWindowDeleteEvent (object o, DeleteEventArgs a)
 		{
 			window.Visible = false;			
 			DeleteEventArgs args = (DeleteEventArgs) a;
