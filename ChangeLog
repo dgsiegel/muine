@@ -1,5 +1,11 @@
 2006-09-09  Tamara Roberson  <tamara.roberson@gmail.com>
 
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs: Oops, we need to be using our own
+	tweaked CellRendererText class until we depend on Gtk# 2.6+.
+
+2006-09-09  Tamara Roberson  <tamara.roberson@gmail.com>
+
 	* src/AddWindow.cs: Cleanup.  Changed organization style to use
 	#region instead of just comments so those with fancy editors can
 	take advantage of code folding.

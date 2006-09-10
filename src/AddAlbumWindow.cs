@@ -250,7 +250,7 @@ namespace Muine
 		}
 
 		// Methods :: Private :: SetText
-		private void SetText (Gtk.CellRendererText cell, Gtk.TreeIter iter)
+		private void SetText (Muine.CellRendererText cell, Gtk.TreeIter iter)
 		{			
 			// Album
 			Album album = GetAlbum (iter);
@@ -365,7 +365,7 @@ namespace Muine
 		  (Gtk.TreeViewColumn col, Gtk.CellRenderer cell, Gtk.TreeModel model,
 		   Gtk.TreeIter iter)
 		{
-			Gtk.CellRendererText cell_txt = (Gtk.CellRendererText) cell;
+			Muine.CellRendererText cell_txt = (Muine.CellRendererText) cell;
 			SetText (cell_txt, iter);
 		}		
 	}
