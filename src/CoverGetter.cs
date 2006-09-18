@@ -697,19 +697,15 @@ namespace Muine
 				int new_width, new_height;
 
 				double target_size_d = (double) target_size;
+				double width_d  = (double) cover.Width;
+				double height_d = (double) cover.Height;
 
 				if (cover.Height > cover.Width) {
-					double height_d = (double) cover.Height;
-					double area = (height_d * cover.Width);
-
-					new_width = (int) Math.Round (target_size_d / area);
+					new_width = (int) Math.Round (target_size_d * (width_d / height_d));
 					new_height = target_size;
 
 				} else {
-					double width_d = (double) cover.Width;
-					double area = (width_d * cover.Height);
-
-					new_height = (int) Math.Round (target_size_d / area);
+					new_height = (int) Math.Round (target_size_d * (height_d / width_d));
 					new_width = target_size;
 				}
 
