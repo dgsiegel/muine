@@ -133,8 +133,12 @@ namespace Muine
 					   Inotify.EventType.Create | Inotify.EventType.MovedFrom |
 					   Inotify.EventType.MovedTo);
 
-			foreach (string dir in Directory.GetDirectories (folder))
+			foreach (string dir in Directory.GetDirectories (folder)) {
+				if (dir.EndsWith("lost+found"))
+					continue;
+
 				Watch (dir);
+			}
 		}
 	}
 }

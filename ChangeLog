@@ -1,3 +1,8 @@
+2006-09-29  Wouter Bolsterlee  <wbolster@gnome.org>
+
+	* plugins/InotifyPlugin.cs: Do not try to monitor
+	lost+found directories. Fixes bug #350706.
+
 2006-09-17  Peter Johanson  <peter@peterjohanson.com>
 
 	* src/CoverGetter.cs: Fix AddBorder broken by Tamara's sprawling
