@@ -1,3 +1,7 @@
+2006-09-30  Wouter Bolsterlee  <wbolster@gnome.org>
+
+	* README: Rewrite and update.
+
 2006-09-29  Wouter Bolsterlee  <wbolster@gnome.org>
 
 	* plugins/InotifyPlugin.cs: Do not try to monitor

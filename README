@@ -1,43 +1,64 @@
-Muine is an innovative music player. It has a simple interface designed to
-allow the user to easily construct a playlist from albums and/or single songs.
-Its goal is to be simply a music player, not to become a robust music
-management application.
+What is Muine?
+==============
 
-Our website is here:
+Muine is an innovative music player, featuring a simple, intuitive interface.
+It is designed to allow users to easily construct a playlist from albums and/or
+single songs. Its goal is to be simply a music player, not to become a robust
+music management application. This doesn't mean Muine has no features! Some
+feature highlights:
 
+ * Ogg/Vorbis, FLAC, AAC and MP3 music playback support
+ * Automatic album cover fetching via MusicBrainz and Amazon
+ * Support for embedded album images in ID3v2 tags
+ * ReplayGain support
+ * Support for multiple artist and performer tags per song
+ * Plug-in support
+ * Translations into many languages
+
+Muine is targeted at the GNOME desktop and uses GTK+ for the interface. Most of
+the code is written in C#, with some additions/bindings/glue in plain C. Muine
+was originally written by Jorn Baayen, but now maintained mostly by others.
+
+
+Learn more about Muine
+======================
+
+Our website (including Wiki) can be found here:
   http://www.muine-player.org/
 
-We have a mailinglist, muine-list@gnome.org. More information can be found here:
-  
+Additionally, see the files MAINTAINERS, AUTHORS, HACKING and PLUGINS in the
+Muine package for more information about Muine (and development).
+
+We have a mailing list, which can be reached at the following address:
+  muine-list@gnome.org
+More information (archives, subscription, etc) can be found here:
   http://mail.gnome.org/mailman/listinfo/muine-list
 
-Bugs should be reported at bugzilla.gnome.org, product Muine.
+Bugs should be reported at bugzilla.gnome.org, product Muine:
+  http://bugzilla.gnome.org/enter_bug.cgi?product=muine
 
-Our IRC channel is #muine on irc.gimp.org.
+Our IRC channel is #muine on irc.gnome.org. Don't expect an immediate reply.
+Just drop your message and wait patiently. We're all busy people :)
 
-Requirements
-============
+Thanks for using Muine!
 
-Mono >= 1.0
-Gtk# >= 2.4.0
-Gtk+ >= 2.6
-vorbis >= 1.0
-FLAC >= 1.1.0
-gdbm
 
-And optionally:
+Build and Installation Requirements
+===================================
 
-  libid3tag >= 0.15.0b    (For MP3 support)
-  faad2                   (For AAC support)
+Basic requirements:
+  Mono >= 1.1
+  Gtk# >= 2.4.0
+  Gtk+ >= 2.6
+  gdbm
 
-And for playback either:
+Audio support:
+  vorbis >= 1.0
+  FLAC >= 1.1.0
+  libid3tag >= 0.15        (optionally, for MP3 support)
+  faad2                    (optionally, for AAC support)
 
-  GStreamer 0.10           (Used by default)
-
-or:
-
-  GStreamer 0.8           (Used by default if Gstreamer 0.10 is not found)
-
-or:
-
+Playback support (one of the options below):
+  GStreamer 0.10           (used by default)
+  GStreamer 0.8            (used by default if Gstreamer 0.10 is not found)
   xine-lib >= 1.0.0rc3b
