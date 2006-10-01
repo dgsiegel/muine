@@ -1,3 +1,8 @@
+2006-10-01  Wouter Bolsterlee  <wbolster@gnome.org>
+
+	* src/Metadata.cs: Don't segfault on malformed id3v2
+	tags. Fixes bug #172482.
+
 2006-09-30  Wouter Bolsterlee  <wbolster@gnome.org>
 
 	* README: Rewrite and update.

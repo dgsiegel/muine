@@ -91,13 +91,12 @@ namespace Muine
 
 				for (int i = 0; i < count; i++) {
 					IntPtr artist_ptr = metadata_get_artist (raw, i);
-					string artist_tmp = Marshal.PtrToStringAnsi (artist_ptr);
-					string artist = artist_tmp.Trim ();
+					string artist = Marshal.PtrToStringAnsi (artist_ptr);
 
-					if (artist.Length <= 0)
+					if (artist == null || artist.Length <= 0)
 						continue;
 
-					strings.Add (artist);
+					strings.Add (artist.Trim());
 				}
 
 				Type string_type = typeof (string);
@@ -123,16 +122,12 @@ namespace Muine
 
 				for (int i = 0; i < count; i++) {
 					IntPtr performer_ptr = metadata_get_performer (raw, i);
+					string performer = Marshal.PtrToStringAnsi (performer_ptr);
 
-					string performer_tmp =
-					  Marshal.PtrToStringAnsi (performer_ptr);
-
-					string performer = performer_tmp.Trim ();
-
-					if (performer.Length <= 0)
+					if (performer == null || performer.Length <= 0)
 						continue;
 
-					strings.Add (performer);
+					strings.Add (performer.Trim());
 				}
 
 				Type string_type = typeof (string);
