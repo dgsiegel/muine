@@ -587,7 +587,8 @@ assign_metadata_vorbiscomment (Metadata *metadata,
 			       vorbis_comment *comment)
 {
 	char *raw, *version, *title;
-	int count, i;
+	int count, i, total_i;
+	int count_performers, count_composers, count_conductors, count_ensembles;
 
 	version = get_vorbis_comment_value (comment, "version", 0);
 
@@ -612,12 +613,29 @@ assign_metadata_vorbiscomment (Metadata *metadata,
 		metadata->artists[i] = get_vorbis_comment_value (comment, "artist", i);
 	}
 
-	count = vorbis_comment_query_count (comment, "performer");
+	/* Put some additional metadata in the list of performers to make searching
+	 * for these vorbis comment fields work as expected. This is really useful
+	 * for extensively tagged classical music. */
+	count_performers = vorbis_comment_query_count (comment, "performer");
+	count_composers = vorbis_comment_query_count (comment, "composer");
+	count_conductors = vorbis_comment_query_count (comment, "conductor");
+	count_ensembles = vorbis_comment_query_count (comment, "ensemble");
+	count = count_performers + count_composers + count_conductors + count_ensembles;
 	metadata->performers = g_new0 (char *, count + 1);
 	metadata->performers[count] = NULL;
 	metadata->performers_count = count;
-	for (i = 0; i < count; i++) {
-		metadata->performers[i] = get_vorbis_comment_value (comment, "performer", i);
+	total_i = 0;
+	for (i = 0; i < count_performers; i++) {
+		metadata->performers[total_i++] = get_vorbis_comment_value (comment, "performer", i);
+	}
+	for (i = 0; i < count_composers; i++) {
+		metadata->performers[total_i++] = get_vorbis_comment_value (comment, "composer", i);
+	}
+	for (i = 0; i < count_conductors; i++) {
+		metadata->performers[total_i++] = get_vorbis_comment_value (comment, "conductor", i);
+	}
+	for (i = 0; i < count_ensembles; i++) {
+		metadata->performers[total_i++] = get_vorbis_comment_value (comment, "ensemble", i);
 	}
 
 	metadata->album = get_vorbis_comment_value (comment, "album", 0);

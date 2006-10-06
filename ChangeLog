@@ -1,3 +1,11 @@
+2006-10-06  Wouter Bolsterlee  <wbolster@gnome.org>
+
+	* libmuine/metadata.c: (assign_metadata_vorbiscomment):
+	Load extra metadata into performers metadata field.
+	Although this is not the most elegant solution, it is
+	the least intrusive approach using the current codebase.
+	Fixes bug #339557.
+
 2006-10-01  Wouter Bolsterlee  <wbolster@gnome.org>
 
 	* src/Metadata.cs: Don't segfault on malformed id3v2
