@@ -1,3 +1,15 @@
+2006-10-13  Wouter Bolsterlee  <wbolster@gnome.org>
+
+	* libmuine/metadata.c: (assign_metadata_mp3),
+	(assign_metadata_mp4), (assign_metadata_ogg),
+	(assign_metadata_flac), (metadata_load):
+	* libmuine/player-gst-0.8.c: (player_set_file):
+	* libmuine/player-gst.c: (player_set_file):
+	* libmuine/player-xine.c: (player_set_file):
+	Don't abuse gnome-vfs API and rename some variables to a
+	sane name. Fixes bug #351435, patch by Christian
+	Neumair.
+
 2006-10-06  Wouter Bolsterlee  <wbolster@gnome.org>
 
 	* libmuine/metadata.c: (assign_metadata_vorbiscomment):

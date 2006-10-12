@@ -439,7 +439,7 @@ player_set_file (Player *player,
 		 char      **error)
 {
   PlayerPriv *priv;
-  char *escaped;
+  char *uri;
 
   g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
@@ -447,14 +447,19 @@ player_set_file (Player *player,
 
   *error = NULL;
 
-  escaped = gnome_vfs_escape_path_string (file);
-  if (!player_open (player, escaped, error))
+  uri = gnome_vfs_get_uri_from_local_path (file);
+  if (uri == NULL)
     {
-      g_free (escaped);
+      *error = g_strdup ("Failed to convert filename to URI.");
+      return FALSE;
+    }
+  else if (!player_open (player, uri, error))
+    {
+      g_free (uri);
       return FALSE;
     }
 
-  g_free (escaped);
+  g_free (uri);
 
   return TRUE;
 }

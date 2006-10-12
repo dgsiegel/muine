@@ -340,7 +340,7 @@ get_mp3_comment_value (struct id3_tag *tag,
 }
 
 static Metadata *
-assign_metadata_mp3 (const char *filename,
+assign_metadata_mp3 (const char *uri,
 		     GnomeVFSFileInfo *info,
 		     char **error_message_return)
 {
@@ -352,7 +352,7 @@ assign_metadata_mp3 (const char *filename,
 	char *track_number_raw;
 	char *disc_number_raw;
 
-	file = id3_vfs_open (filename, ID3_FILE_MODE_READONLY);
+	file = id3_vfs_open (uri, ID3_FILE_MODE_READONLY);
 	if (file == NULL) {
 		*error_message_return = g_strdup ("Failed to open file for reading");
 		return NULL;
@@ -456,7 +456,7 @@ mp4_seek_callback (void *user_data, uint64_t position)
 }
 
 static Metadata *
-assign_metadata_mp4 (const char *filename,
+assign_metadata_mp4 (const char *uri,
 		     char **error_message_return)
 {
 	Metadata *m = NULL;
@@ -472,7 +472,7 @@ assign_metadata_mp4 (const char *filename,
 	long samples;
 	float f = 1024.0;
 
-	if (gnome_vfs_open (&fh, filename, GNOME_VFS_OPEN_READ) != GNOME_VFS_OK) {
+	if (gnome_vfs_open (&fh, uri, GNOME_VFS_OPEN_READ) != GNOME_VFS_OK) {
                 *error_message_return = g_strdup ("Failed to open file for reading");
                 return NULL;
         }
@@ -688,7 +688,7 @@ assign_metadata_vorbiscomment (Metadata *metadata,
 }
 
 static Metadata *
-assign_metadata_ogg (const char *filename,
+assign_metadata_ogg (const char *uri,
 		     char **error_message_return)
 {
 	Metadata *metadata = NULL;
@@ -698,7 +698,7 @@ assign_metadata_ogg (const char *filename,
 	OggVorbis_File vf;
 	vorbis_comment *comment;
 
-	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	res = gnome_vfs_open (&handle, uri, GNOME_VFS_OPEN_READ);
 	if (res != GNOME_VFS_OK) {
 		*error_message_return = g_strdup ("Failed to open file for reading");
 		return NULL;
@@ -808,7 +808,7 @@ FLAC_error_callback (const FLAC__StreamDecoder *UNUSED(decoder), FLAC__StreamDec
 }
 
 static Metadata *
-assign_metadata_flac (const char *filename,
+assign_metadata_flac (const char *uri,
 		      char **error_message_return)
 {
 	Metadata *metadata = NULL;
@@ -818,7 +818,7 @@ assign_metadata_flac (const char *filename,
 	FLAC__StreamDecoder *flac_decoder;
 	CallbackData *callback_data;
 
-	res = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	res = gnome_vfs_open (&handle, uri, GNOME_VFS_OPEN_READ);
 	if (res != GNOME_VFS_OK) {
 		*error_message_return = g_strdup ("Failed to open file for reading");
 		return NULL;
@@ -879,33 +879,37 @@ metadata_load (const char *filename,
 {
 	Metadata *m = NULL;
 	GnomeVFSFileInfo *info;
-	char *escaped;
+	char *uri;
 
 	g_return_val_if_fail (filename != NULL, NULL);
 
-	escaped = gnome_vfs_escape_path_string (filename);
+	uri = gnome_vfs_get_uri_from_local_path (filename);
+	if (uri == NULL) {
+		*error_message_return = g_strdup ("Failed to convert filename to URI.");
+		return NULL;
+	}
 
 	info = gnome_vfs_file_info_new ();
-	gnome_vfs_get_file_info (escaped, info,
-				 GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-
-	if (info->mime_type == NULL)
+	if (gnome_vfs_get_file_info (uri, info,
+				     GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FOLLOW_LINKS) != GNOME_VFS_OK) {
+		*error_message_return = g_strdup ("Failed to get file info.");
+	} else if (info->mime_type == NULL)
 		*error_message_return = g_strdup ("Unknown format");
 	else if (!strcmp (info->mime_type, "application/x-ogg") ||
 		 !strcmp (info->mime_type, "application/ogg"))
-		m = assign_metadata_ogg (escaped, error_message_return);
+		m = assign_metadata_ogg (uri, error_message_return);
 #if HAVE_ID3TAG
 	else if (!strcmp (info->mime_type, "audio/x-mp3") ||
 	         !strcmp (info->mime_type, "audio/mpeg"))
-		m = assign_metadata_mp3 (escaped, info, error_message_return);
+		m = assign_metadata_mp3 (uri, info, error_message_return);
 #endif /* HAVE_ID3TAG */
 	else if (!strcmp (info->mime_type, "application/x-flac") ||
 		 !strcmp (info->mime_type, "audio/x-flac"))
-		m = assign_metadata_flac (escaped, error_message_return);
+		m = assign_metadata_flac (uri, error_message_return);
 #if HAVE_FAAD
 	else if (!strcmp (info->mime_type, "application/x-m4a") ||
 		 !strcmp (info->mime_type, "audio/x-m4a"))
-		m = assign_metadata_mp4 (filename, error_message_return);
+		m = assign_metadata_mp4 (uri, error_message_return);
 #endif /* HAVE_FAAD */
 	else
 		*error_message_return = g_strdup ("Unknown format");
@@ -919,7 +923,7 @@ metadata_load (const char *filename,
 
 	gnome_vfs_file_info_unref (info);
 
-	g_free (escaped);
+	g_free (uri);
 
 	return m;
 }

@@ -297,8 +297,6 @@ player_set_file (Player     *player,
 		 const char *file,
 		 char      **error)
 {
-	char *escaped;
-
 	g_return_val_if_fail (IS_PLAYER (player), FALSE);
 
 	*error = NULL;
@@ -308,14 +306,16 @@ player_set_file (Player     *player,
 	if (!file)
 		return FALSE;
 
+	player->priv->current_file = gnome_vfs_get_uri_from_local_path (file);
+	if (player->priv->current_file == NULL)
+	  {
+	    *error = g_strdup ("Failed to convert filename to URI.");
+	    return FALSE;
+	  }
+
 	g_timer_stop (player->priv->timer);
 	g_timer_reset (player->priv->timer);
 	player->priv->timer_add = 0;
-
-	escaped = gnome_vfs_escape_path_string (file);
-	// FIXME get rid of this one when the switch to gnome-vfs is made
-	player->priv->current_file = g_strdup_printf ("file://%s", escaped);
-	g_free (escaped);
 
 	g_object_set (G_OBJECT (player->priv->play), "uri",
 		      player->priv->current_file, NULL);
