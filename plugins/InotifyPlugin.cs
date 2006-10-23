@@ -125,7 +125,22 @@ namespace Muine
 
 		private void Watch (string folder)
 		{
+			/* Do not monitor non existing directories */
 			if (!Directory.Exists (folder))
+				return;
+
+			/* Do not monitor lost+found directories, since these
+			 * are not accesible to mortal users. */
+			if (folder.EndsWith("lost+found"))
+				return;
+
+			/* Do not monitor trash folders */
+			if (folder.EndsWith(".Trash"))
+				return;
+
+			/* Do not monitor per-user trash folders, eg. on removable
+			 * devices. These are * named ".Trash-username" */
+			if (Path.GetFileName(folder).StartsWith(".Trash-"))
 				return;
 
 			Inotify.Subscribe (folder, new Inotify.InotifyCallback (OnInotifyEvent),
@@ -134,9 +149,6 @@ namespace Muine
 					   Inotify.EventType.MovedTo);
 
 			foreach (string dir in Directory.GetDirectories (folder)) {
-				if (dir.EndsWith("lost+found"))
-					continue;
-
 				Watch (dir);
 			}
 		}

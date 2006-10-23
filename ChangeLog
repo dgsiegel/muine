@@ -1,3 +1,10 @@
+2006-10-23  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
+
+	* plugins/InotifyPlugin.cs:
+	Do not try to monitor Trash directories (in addition to
+	lost+found directories) in the inotify plugin. Part of
+	a fix for #305783.
+
 2006-10-13  Wouter Bolsterlee  <wbolster@gnome.org>
 
 	* libmuine/metadata.c: (assign_metadata_mp3),
