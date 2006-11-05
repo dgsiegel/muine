@@ -74,7 +74,7 @@ MUINE_RESOURCES =												\
 	-resource:$(top_srcdir)/data/images/muine-default-cover.png,muine-default-cover.png		\
 	-resource:$(top_srcdir)/data/images/muine-cover-downloading.png,muine-cover-downloading.png	\
 	-resource:$(top_srcdir)/data/images/muine-about.png,muine-about.png				\
-	-resource:$(top_srcdir)/data/images/muine.png,muine.png						
+	-resource:$(top_srcdir)/data/images/muine-32.png,muine.png						
 
 # FIXME MONO_XMLSERIALIZER_THS=no works around Ximian Bugzilla #58194
 AmazonSearchService.cs: AmazonSearchService.wsdl

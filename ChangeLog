@@ -1,3 +1,30 @@
+2006-11-05  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
+
+	Let's Tango!
+
+	* data/images/muine-16.png:
+	* data/images/muine-22.png:
+	* data/images/muine-24.png:
+	* data/images/muine-32.png:
+	* data/images/muine-scalable.svg:
+
+	Tango icons, made by Hylke Bons (h.bons@student.rug.nl)
+	and Andreas Nilsson (nisses.mail@home.se).
+
+	* data/images/muine.png:
+
+	Removed, since no longer used.
+
+	* data/images/Makefile.am:
+	* data/muine.desktop.in:
+
+	Install and use the icons
+
+	* src/Makefile.am:
+
+	Use muine-32.png as window icon instead of the now
+	removed muine.png.
+
 2006-10-23  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
 
 	* plugins/InotifyPlugin.cs:
