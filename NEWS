@@ -1,3 +1,40 @@
+0.8.6
+=====
+
+The "Parecía muerto, pero reapareció" release.
+
+- Muine now has Tango style icons [Hylke Bons, Andreas Nilsson,
+  Wouter Bolsterlee]
+- Fixed crasher bug with latest Mono [Peter Johanson]
+- Fixed Gnome-VFS and D-Bus threading issues [Ryan Lortie]
+- Do not monitor trash and lost+found directories [Wouter Bolsterlee]
+- Fixed crasher on malformed ID3 info [Rafael Rodrigues Rezende]
+- Load extra metadata from Ogg/Vorbis files [Wouter Bolsterlee]
+- Various Gnome-VFS related code cleanups [Christian Neumair]
+- Various code cleanups and changes [Tamara Roberson]
+
+Main contributors: Wouter Bolsterlee, Peter Johanson and Tamara Roberson.
+Thanks to all bug reporters and patch contributors!
+
+Bugs marked as fixed during this release cycle:
+  #156276, #165143, #172482, #304446, #305989, #309458, #314323, #320801,
+  #324997, #329925, #339557, #343376, #347703, #350438, #350706, #351435,
+  #355585, #356470, #357213, #357357, #359947, #370788
+
+New translations:
+- Macedonian [Jovan Naumovski]
+
+Updated translations:
+- Basque [Inaki Larranaga]
+- British (English) [David Lodge]
+- Bulgarian [Alexander Shopov]
+- French [Haïkel Guémar]
+- Hungarian [Gabor Kelemen]
+- Nepali [Pawan Chitrakar]
+- Russian [Valek Filippov]
+- Spanish [Francisco Javier F. Serrador]
+- Thai [Theppitak Karoonboonyanan]
+
 0.8.5
 =====
 
@@ -102,7 +139,7 @@ Updated translations:
 - Only list complete albums in album list [Jorn Baayen, Peter Oliver]
 - Use fixed width tree columns, causes huge performance improvements and
   thanks to this we can now show all songs in the "Add Song" window
-   						   [Jorn Baayen]
+  [Jorn Baayen]
 - AAC support using faad2 [Peter Johanson]
 - Search improvements; searching for "rem" will now also yield "R.E.M.",
                                                    [Jorn Baayen]
