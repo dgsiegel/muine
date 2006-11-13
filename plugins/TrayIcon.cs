@@ -96,7 +96,7 @@ namespace Muine
 		// Methods :: Public :: Init
 		public void Init ()
 		{
-			icon = new Egg.TrayIcon (string_program);
+			icon = new NotificationArea (string_program);
 
 			icon.DestroyEvent += OnDestroyEvent;
 

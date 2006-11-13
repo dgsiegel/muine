@@ -22,7 +22,7 @@ DASHBOARD_PLUGIN_CSFILES =		\
 
 TRAY_ICON_CSFILES =			\
 	$(srcdir)/TrayIcon.cs		\
-	$(srcdir)/egg-sharp.cs
+	$(srcdir)/NotificationArea.cs
 
 TRAY_ICON_EXTRA_CSFILES =		\
 	$(top_builddir)/src/Defines.cs	\

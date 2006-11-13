@@ -1,3 +1,15 @@
+2006-11-13  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
+
+	* plugins/Makefile.am:
+	* plugins/NotificationArea.cs:
+	* plugins/TrayIcon.cs:
+
+	Ported (copy/pasted) trayicon code from Banshee. It
+	seems newer and contains the previous muine-specific
+	patches to the trayicon code. Amongst possible other
+	things, this makes the muine trayicon transparent. Fixes
+	bug #343698.
+
 2006-11-10  Peter Johanson  <peter@peterjohanson.com>
 
 	* NEWS: Add item about new Latvian translation.
