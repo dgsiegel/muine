@@ -1,3 +1,8 @@
+2006-11-16  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
+
+	* POTFILES.in: Add missing source file (no new strings).
+	Fixes bug #375964.
+
 2006-09-25  Pawan Chitrakar  <pchitrakar@gmail.com>
 
 	* ne.po: Updated Nepali Translation

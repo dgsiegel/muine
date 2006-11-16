@@ -9,6 +9,7 @@ data/glade/ProgressWindow.glade
 data/glade/SkipToWindow.glade
 data/muine.desktop.in
 data/muine.schemas.in
+libmuine/player-gst-0.8.c
 libmuine/player-gst.c
 libmuine/player-xine.c
 src/About.cs
