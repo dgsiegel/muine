@@ -1,3 +1,9 @@
+2006-12-08  Luis Medinas  <metalgod@gentoo.org>
+
+	* libmuine/metadata.c: (metadata_load):
+
+	Added support for audio/mp4. Patch from Iain <iain@gnome.org>
+
 2006-11-13  Wouter Bolsterlee  <wbolster@cvs.gnome.org>
 
 	* plugins/Makefile.am:

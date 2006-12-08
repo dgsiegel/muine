@@ -908,7 +908,8 @@ metadata_load (const char *filename,
 		m = assign_metadata_flac (uri, error_message_return);
 #if HAVE_FAAD
 	else if (!strcmp (info->mime_type, "application/x-m4a") ||
-		 !strcmp (info->mime_type, "audio/x-m4a"))
+		 !strcmp (info->mime_type, "audio/x-m4a") ||
+		 !strcmp (info->mime_type, "audio/mp4"))
 		m = assign_metadata_mp4 (uri, error_message_return);
 #endif /* HAVE_FAAD */
 	else
