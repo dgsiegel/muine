@@ -6,4 +6,4 @@ Name: Muine
 Description: Muine - GNOME music player
 Requires: dbus-sharp
 Version: @VERSION@
-Libs: -r:${libdir}/mono/muine/muine-dbus.dll
+Libs: -r:${libdir}/muine/muine-dbus.dll

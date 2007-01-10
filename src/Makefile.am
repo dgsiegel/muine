@@ -54,13 +54,15 @@ MUINE_GENERATED_CSFILES =			\
 	AmazonSearchService.cs			\
 	Defines.cs
 
-MUINE_ASSEMBLIES =					\
-	-r:$(top_builddir)/PluginLib/muine-plugin.dll	\
-	-r:$(top_builddir)/DBusLib/muine-dbus.dll	\
-	-r:System.Web.Services				\
+MUINE_ASSEMBLIES =							\
+	-r:$(top_builddir)/PluginLib/muine-plugin.dll			\
+	-r:$(top_builddir)/DBusLib/muine-dbus.dll			\
+	-r:$(top_builddir)/deps/dbus-sharp/NDesk.DBus.dll		\
+	-r:$(top_builddir)/deps/dbus-sharp-glib/NDesk.DBus.GLib.dll	\
+	-r:System.Web.Services						\
 	-r:Mono.Posix
 	
-MUINE_RESOURCES =												\
+MUINE_RESOURCES =											\
 	-resource:$(top_srcdir)/data/glade/PlaylistWindow.glade,PlaylistWindow.glade			\
 	-resource:$(top_srcdir)/data/glade/SkipToWindow.glade,SkipToWindow.glade			\
 	-resource:$(top_srcdir)/data/glade/ErrorDialog.glade,ErrorDialog.glade				\
@@ -99,7 +101,7 @@ Defines.cs: $(srcdir)/Defines.cs.in
 	    < $^ > $@
 
 $(TARGET): $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll
-	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS) $(DBUSSHARP_LIBS)
+	$(CSC) -out:$@ $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS)
 
 all: $(TARGET)
 

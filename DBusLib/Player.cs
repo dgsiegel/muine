@@ -21,28 +21,29 @@
 using System;
 using System.Collections;
 
-using DBus;
+using NDesk.DBus;
 
 using Muine.PluginLib;
 
 namespace Muine.DBusLib
 {
 	[Interface ("org.gnome.Muine.Player")]
-	public class Player
+	public class Player : Muine.DBusLib.IPlayer
 	{
-		public static Player FindInstance ()
+		public static Muine.DBusLib.IPlayer FindInstance ()
 		{
-			Connection conn = Bus.GetSessionBus ();
+			// XXX: Move these strings to someplace useful.
+			if(!Bus.Session.NameHasOwner("org.gnome.Muine")) {
+				return null;
+			}
+			ObjectPath opath = new ObjectPath ("/org/gnome/Muine/Player");
 			
-			Service service = Service.Get (conn, "org.gnome.Muine");
-			
-			return (Player) service.GetObject
-				(typeof (Player), "/org/gnome/Muine/Player");
+			return Bus.Session.GetObject<Muine.DBusLib.IPlayer> ("org.gnome.Muine", opath);
 		}
 
-		private IPlayer player = null;
+		private Muine.PluginLib.IPlayer player = null;
 
-		public void HookUp (IPlayer player)
+		public void HookUp (Muine.PluginLib.IPlayer player)
 		{
 			this.player = player;
 		
@@ -50,43 +51,36 @@ namespace Muine.DBusLib
 			player.StateChangedEvent += OnStateChangedEvent;
 		}
 
-		[Method]
 		public virtual bool GetPlaying ()
 		{
 			return player.Playing;
 		}
 	
-		[Method]
 		public virtual void SetPlaying (bool playing)
 		{
 			player.Playing = playing;
 		}
 
-		[Method]
 		public virtual bool HasNext ()
 		{
 			return player.HasNext;
 		}
 
-		[Method]
 		public virtual void Next ()
 		{
 			player.Next ();
 		}
 
-		[Method]
 		public virtual bool HasPrevious ()
 		{
 			return player.HasPrevious;
 		}
 
-		[Method]
 		public virtual void Previous ()
 		{
 			player.Previous ();
 		}
 
-		[Method]
 		public virtual string GetCurrentSong ()
 		{
 			string value = "";
@@ -97,73 +91,61 @@ namespace Muine.DBusLib
 			return value;
 		}
 
-		[Method]
 		public virtual bool GetWindowVisible ()
 		{
 			return player.WindowVisible;
 		}
 	
-		[Method]
 		public virtual void SetWindowVisible (bool visible, uint time)
 		{
 			player.SetWindowVisible (visible, time);
 		}
 
-		[Method]
 		public virtual int GetVolume ()
 		{
 			return player.Volume;
 		}
 
-		[Method]
 		public virtual void SetVolume (int volume)
 		{
 			player.Volume = volume;
 		}
 
-		[Method]
 		public virtual int GetPosition ()
 		{
 			return player.Position;
 		}
 
-		[Method]
 		public virtual void SetPosition (int pos)
 		{
 			player.Position = pos;
 		}
 
-		[Method]
 		public virtual void PlayAlbum (uint time)
 		{
 			player.PlayAlbum (time);
 		}
 
-		[Method]
 		public virtual void PlaySong (uint time)
 		{
 			player.PlaySong (time);
 		}
 
-		[Method]
 		public virtual void OpenPlaylist (string uri)
 		{
 			player.OpenPlaylist (uri);
 		}
 
-		[Method]
 		public virtual void PlayFile (string uri)
 		{
 			player.PlayFile (uri);
 		}
 
-		[Method]
 		public virtual void QueueFile (string uri)
 		{
 			player.QueueFile (uri);
 		}
 
-		[Method]
 		public virtual bool WriteAlbumCoverToFile (string file)
 		{
 			if (player.PlayingSong == null ||
@@ -179,7 +161,6 @@ namespace Muine.DBusLib
 			return true;
 		}
 
-		[Method]
 		public virtual byte [] GetAlbumCover ()
 		{
 			if (player.PlayingSong == null ||
@@ -192,13 +173,12 @@ namespace Muine.DBusLib
 			return pixdata.Serialize ();
 		}
 
-		[Method]
 		public virtual void Quit ()
 		{
 			player.Quit ();
 		}
 
-		[Signal] public event SongChangedHandler SongChanged;
+		public event SongChangedHandler SongChanged;
 
 		private void OnSongChangedEvent (ISong song)
 		{
@@ -211,7 +191,7 @@ namespace Muine.DBusLib
 				SongChanged (value);
 		}
 
-		[Signal] public event StateChangedHandler StateChanged;
+		public event StateChangedHandler StateChanged;
 
 		private void OnStateChangedEvent (bool playing)
 		{
@@ -249,7 +229,4 @@ namespace Muine.DBusLib
 			return value;
 		}
 	}
-
-	public delegate void SongChangedHandler (string song_data);
-	public delegate void StateChangedHandler (bool playing);
 }

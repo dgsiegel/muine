@@ -3,7 +3,7 @@ AC_INIT(src/Global.cs)
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_SYSTEM
 
-AM_INIT_AUTOMAKE(muine, 0.8.6)
+AM_INIT_AUTOMAKE(muine, 0.8.6.99)
 
 AM_MAINTAINER_MODE
 
@@ -27,7 +27,6 @@ GTK_REQUIRED=2.6
 ICON_THEME_REQUIRED=2.10
 MONO_REQUIRED=1.1
 GTKSHARP_REQUIRED=2.4.0
-DBUSSHARP_REQUIRED=0.21
 MONODOC_REQUIRED=1.1.9
 
 dnl Audio backend stuff
@@ -76,9 +75,6 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  glade-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED)
-
-PKG_CHECK_MODULES(DBUSSHARP,
-                  dbus-sharp >= $DBUSSHARP_REQUIRED)
 
 dnl check for OS
 case "$target" in
@@ -176,9 +172,9 @@ AM_CONDITIONAL(HAVE_FAAD, test "x$have_faad2" = "xyes")
 AC_SUBST(FAAD_LIBS)
 
 dnl Check for Mono
-AC_PATH_PROG(MCS, mcs)
+AC_PATH_PROG(MCS, gmcs)
 if test x$MCS = x; then
-        AC_MSG_ERROR(You need mcs)
+        AC_MSG_ERROR(You need gmcs)
 fi
 AC_PATH_PROG(MONO, mono)
 if test x$MONO = x; then
@@ -233,6 +229,10 @@ PluginLib/Makefile
 DBusLib/Makefile
 src/Makefile
 plugins/Makefile
+deps/Makefile
+deps/dbus-sharp/Makefile
+deps/dbus-sharp-glib/Makefile
+deps/dbus-sharp-glib/NDesk.DBus.GLib.dll.config
 doc/Makefile
 m4/Makefile
 po/Makefile.in

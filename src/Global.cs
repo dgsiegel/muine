@@ -24,8 +24,6 @@ using Gtk;
 using GLib;
 using Gdk;
 
-using DBus;
-
 using Mono.Unix;
 
 namespace Muine
@@ -51,7 +49,7 @@ namespace Muine
 		private static PlaylistWindow playlist;
 		private static Actions        actions;
 
-		private static DBusLib.Player dbus_object = null;
+		private static DBusLib.IPlayer dbus_object = null;
 		private static Gnome.Client   session_client;
 		
 		// Properties
@@ -109,6 +107,11 @@ namespace Muine
 		/// </param>
 		public static void Main (string [] args)
 		{
+			try {
+				NDesk.DBus.BusG.Init ();
+			} catch {
+			}
+
 			Application.Init ();
 			Gnome.Vfs.Vfs.Initialize ();
 
@@ -203,7 +206,10 @@ namespace Muine
 			// 	Hook up D-Bus object before loading any songs into the
 			//	playlist, to make sure that the song change gets emitted
 			//	to the bus 
-			dbus_object.HookUp (playlist);
+			Muine.DBusLib.Player exported_dbus_object = dbus_object as Muine.DBusLib.Player;
+			if (exported_dbus_object != null) {
+				exported_dbus_object.HookUp (playlist);
+			}
 		
 			// PluginManager
 			//	Initialize plug-ins (also before loading any songs, to make

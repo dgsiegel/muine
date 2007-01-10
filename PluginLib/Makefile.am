@@ -22,14 +22,5 @@ EXTRA_DIST = $(PLUGIN_LIB_CSFILES)
 
 CLEANFILES = $(ASSEMBLY) muine.snk
 
-install-data-local:
-	@if test -n '$(TARGET)'; then						\
-	  echo "$(GACUTIL) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS)";	\
-	  $(GACUTIL) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS) || exit 1;	\
-	fi
-
-uninstall-local:
-	@if test -n '$(TARGET)'; then						\
-	  echo "$(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS)";	\
-	  $(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS) || exit 1;	\
-	fi
+muinelibdir = $(pkglibdir)
+muinelib_DATA = $(TARGET)

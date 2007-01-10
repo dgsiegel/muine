@@ -1,3 +1,41 @@
+2007-01-09  Peter Johanson  <peter@peterjohanson.com>
+
+	* Makefile.am:
+	
+	Add new deps dir to the build list.
+
+	* PluginLib/Makefile.am: 
+	* configure.in:
+
+	Remove reference to old dbus-sharp.
+
+	* data/muine-dbus.pc.in:
+	* data/muine-plugin.pc.in:
+
+	Move all the muine libs into $(libdir)/muine instead of the GAC.
+
+	* deps/Makefile.am:
+
+	New automake file to build both dbus-sharp and dbus-sharp-glib imports.
+
+	* deps/dbus-sharp/*:
+	
+	Import of dbus-sharp from git.ndesk.org
+
+	* deps/dbus-sharp-glib/*:
+	
+	Import of dbus-sharp-glib from git.ndesk.org
+
+	* DBusLib/AssemblyInfo.cs:
+	* DBusLib/IPlayer.cs:
+	* DBusLib/Makefile.am:
+	* DBusLib/Player.cs:
+	* src/DBusService.cs:
+	* src/Global.cs:
+	* src/Makefile.am: 
+
+	Ported to work with new import copy of the NDesk dbus-sharp library.
+
 2006-12-14  Pema Geyleg  <pgeyleg@gmail.com>
 
 	* configure.in: Added 'dz' to ALL_LINGUAS

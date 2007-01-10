@@ -1,6 +1,7 @@
 SUBDIRS = 		\
 	data		\
 	libmuine	\
+	deps		\
 	PluginLib	\
 	DBusLib		\
 	src		\

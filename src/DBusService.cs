@@ -21,7 +21,8 @@
 
 using System;
 
-using DBus;
+using NDesk.DBus;
+using org.freedesktop.DBus;
 
 namespace Muine
 {
@@ -51,10 +52,6 @@ namespace Muine
 			}
 		}
 
-		// Objects
-		private Service service;
-		private Connection conn; // TODO: Why is this global?
-		
 		// Constructor
 		/// <summary>
 		///	Create a new <see cref="DBusService" />.
@@ -72,8 +69,10 @@ namespace Muine
 		/// </remarks>
 		private DBusService ()
 		{
-			conn = Bus.GetSessionBus ();
-			service = new Service (conn, "org.gnome.Muine");
+			try {
+				// XXX: Check the result of requesting the name.
+				Bus.Session.RequestName("org.gnome.Muine");
+			} catch { }
 		}
 
 		// Methods
@@ -94,7 +93,7 @@ namespace Muine
 		/// </param>
 		public void RegisterObject (object obj, string path)
 		{
-			service.RegisterObject (obj, path);
+			Bus.Session.Register ("/org/gnome/Muine/", new ObjectPath (path), obj);
 		}
 	}
 }
