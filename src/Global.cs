@@ -131,10 +131,6 @@ namespace Muine
 					dbus_object.SetWindowVisible (true, 0);
 				
 				Gdk.Global.NotifyStartupComplete ();
-
-				// Nasty hack to fix problem with incorrectly generated IL in
-				// dbus-sharp. Idea from abock in banshee.
-				System.GC.SuppressFinalize(dbus_object);
 				return;
 			}
 

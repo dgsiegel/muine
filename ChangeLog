@@ -1,3 +1,8 @@
+2007-01-10  Alp Toker  <alp@atoker.com>
+
+	* src/Global.cs: Remove GC.SuppressFinalize() hack left over from
+	old dbus-sharp use.
+
 2007-01-09  Peter Johanson  <peter@peterjohanson.com>
 
 	* Makefile.am:
