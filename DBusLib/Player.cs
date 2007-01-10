@@ -27,7 +27,6 @@ using Muine.PluginLib;
 
 namespace Muine.DBusLib
 {
-	[Interface ("org.gnome.Muine.Player")]
 	public class Player : Muine.DBusLib.IPlayer
 	{
 		public static Muine.DBusLib.IPlayer FindInstance ()

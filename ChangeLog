@@ -1,5 +1,11 @@
 2007-01-10  Alp Toker  <alp@atoker.com>
 
+	* deps/dbus-sharp/*: Update dbus-sharp sources with fix for events
+	on interfaces.
+	* DBusLib/Player.cs: Remove workaround for fixed dbus-sharp bug.
+
+2007-01-10  Alp Toker  <alp@atoker.com>
+
 	* src/Global.cs: Remove GC.SuppressFinalize() hack left over from
 	old dbus-sharp use.
 
