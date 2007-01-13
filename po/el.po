@@ -2,23 +2,22 @@
 # Greek translation of PACKAGE.
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-#
 # Athanasios Lefteris <alefteris@gmail.com>, 2007.
 # Kostas Papadimas <pkst@gnome.org>, 2007.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: muine.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-01 15:07+0100\n"
-"PO-Revision-Date: 2007-01-13 09:25+0200\n"
+"PO-Revision-Date: 2007-01-13 11:59+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../data/glade/AddWindow.glade.h:1
 #: ../src/Actions.cs:62
@@ -213,7 +212,7 @@ msgstr "Δεν είναι δυνατή η αναπαραγωγή \"%s\""
 
 #: ../src/About.cs:31
 msgid "translator-credits"
-msgstr "μνεία μεταφραστών"
+msgstr "Athanasios Lefteris <alefteris@gmail.com>"
 
 #: ../src/About.cs:34
 msgid "Muine"
