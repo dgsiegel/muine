@@ -17,9 +17,6 @@ endif
 
 libinotifyglue_la_SOURCES = inotify-glue.c inotify.h inotify-syscalls.h
 
-DASHBOARD_PLUGIN_CSFILES =		\
-	$(srcdir)/DashboardPlugin.cs
-
 TRAY_ICON_CSFILES =			\
 	$(srcdir)/TrayIcon.cs		\
 	$(srcdir)/NotificationArea.cs
@@ -47,9 +44,6 @@ INOTIFY_EXTRA_ASSEMBLIES =		\
 
 ASSEMBLIES = -r:$(top_builddir)/PluginLib/muine-plugin.dll
 	
-DashboardPlugin.dll: $(DASHBOARD_PLUGIN_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll
-	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(DASHBOARD_PLUGIN_CSFILES) $(ASSEMBLIES)
-
 TrayIcon.dll: $(TRAY_ICON_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll
 	$(CSC) -target:library $(LIBFLAGS) -out:$@ $(TRAY_ICON_CSFILES) $(TRAY_ICON_EXTRA_CSFILES) $(ASSEMBLIES) $(TRAY_ICON_EXTRA_ASSEMBLIES) $(TRAY_ICON_RESOURCES)
 
@@ -62,11 +56,11 @@ InotifyPlugin.dll.config: $(srcdir)/InotifyPlugin.dll.config.in
 
 
 if ENABLE_INOTIFY
-all: DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll
+all: TrayIcon.dll InotifyPlugin.dll
 else
-all: DashboardPlugin.dll TrayIcon.dll
+all: TrayIcon.dll
 endif
 
-EXTRA_DIST = $(DASHBOARD_PLUGIN_CSFILES) $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in TrayIcon.dll.config
+EXTRA_DIST = $(TRAY_ICON_CSFILES) $(INOTIFY_CSFILES) TrayIcon.xml muine-tray-playing.png muine-tray-paused.png InotifyPlugin.dll.config.in TrayIcon.dll.config
 
-CLEANFILES = DashboardPlugin.dll TrayIcon.dll InotifyPlugin.dll InotifyPlugin.dll.config
+CLEANFILES = TrayIcon.dll InotifyPlugin.dll InotifyPlugin.dll.config
