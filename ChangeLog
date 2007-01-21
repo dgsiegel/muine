@@ -1,3 +1,8 @@
+2007-01-20  Peter Johanson  <peter@peterjohanson.com>
+
+	* DBusLib/Player.cs: Fix bug #396624. We now return a 0 length byte
+	array if no cover art is found, to work around a NDesk dbus-sharp bug.
+
 2007-01-19  Peter Johanson  <peter@peterjohanson.com>
 
 	* deps/dbus-sharp/Makefile: Remove accidentally added Makefile.

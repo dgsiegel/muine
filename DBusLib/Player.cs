@@ -164,7 +164,7 @@ namespace Muine.DBusLib
 		{
 			if (player.PlayingSong == null ||
 			    player.PlayingSong.CoverImage == null)
-				return null;
+				return new byte[0];
 
 			Gdk.Pixdata pixdata = new Gdk.Pixdata ();
 			pixdata.FromPixbuf (player.PlayingSong.CoverImage, true);
