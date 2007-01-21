@@ -34,7 +34,6 @@ Depends on other components:
 
 o Monitor imported folders using FileWatcher
   Depends on Mono, Ximian Bugzilla #58234
-o Use storage
 o Support OGM files
   These will work once GStreamer supports them
 o Fix the bug where keysyms that are assigned while muine is running aren't
@@ -47,7 +46,7 @@ o Make SM work fully
   Depends on popt support in Gtk#, Ximian Bugzilla #68889
 o Switch metadata and playback all over to GStreamer. But, GST should
   be a bit more reliable first.
-o Use Gst# and Egg# when they become "properly available".
+o Use Gst# when it becomes "properly available".
 o Remove drop into row stuff
   Depends on Gnome Bugzilla #163129
 o Fix drag-into-itself madness in add album window
@@ -70,11 +69,12 @@ o Use stock Gtk pixbuf colouring
   Once we have Gtk 2.6 support in Gtk# and a new Gtk release
 o Remove EllipsizingLabel and CellRendererText hack classes
   Once we have Gtk 2.6 support in Gtk#
+o Use Gtk.StatusIcon
+  Once we have Gtk 2.10 support in Gtk#
 o Re-enable fixed-height-mode in HandleView
   Depends on Gnome Bugzilla #165017, #165034
 o Remove amazon cover fetching
   Once there is a tagger which can do this for us
-o Use TrayIcon.cs once it is done (handles panel crashes etc)
 o Diacritic mark-insensitive searching
   Requires .NET 2.0, see also
   http://weblogs.asp.net/michkap/archive/2005/02/19/376617.aspx

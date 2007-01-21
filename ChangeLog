@@ -1,5 +1,10 @@
 2007-01-20  Peter Johanson  <peter@peterjohanson.com>
 
+	* TODO: Add item about using Gtk.StatusIcon eventually, and clean up a
+	few items that are moot/changed since they were added.
+
+2007-01-20  Peter Johanson  <peter@peterjohanson.com>
+
 	* DBusLib/Player.cs: Fix bug #396624. We now return a 0 length byte
 	array if no cover art is found, to work around a NDesk dbus-sharp bug.
 
