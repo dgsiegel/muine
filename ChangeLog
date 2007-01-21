@@ -1,5 +1,22 @@
 2007-01-20  Peter Johanson  <peter@peterjohanson.com>
 
+	* configure.in:
+
+	Depend on Gtk# 2.6.
+
+	* TODO:
+	* src/AddAlbumWindow.cs:
+	* src/AddSongWindow.cs:
+	* src/AddWindow.cs:
+	* src/CellRendererText.cs:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs: 
+
+	Remove our CellRendererText hack, and use the real
+	CellRendererText.Ellipsize property.
+
+2007-01-20  Peter Johanson  <peter@peterjohanson.com>
+
 	* TODO: Add item about using Gtk.StatusIcon eventually, and clean up a
 	few items that are moot/changed since they were added.
 

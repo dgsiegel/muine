@@ -68,8 +68,8 @@ namespace Muine
 		private AddWindowEntry entry = new AddWindowEntry ();
 		private AddWindowList  list  = new AddWindowList  ();
 
-		private Gtk.CellRenderer text_renderer =
-		  new Muine.CellRendererText ();
+		private Gtk.CellRendererText text_renderer =
+		  new Gtk.CellRendererText ();
 #endregion Widgets
 
 
@@ -105,6 +105,8 @@ namespace Muine
 			this.queue_button_image.SetFromStock
 			  ("stock_timer", Gtk.IconSize.Button);
 
+			// Cell Renderer
+			this.text_renderer.Ellipsize = Pango.EllipsizeMode.End;
 			// Label
 			this.search_label.MnemonicWidget = this.entry;
 

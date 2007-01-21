@@ -159,10 +159,10 @@ namespace Muine
 		[Glade.Widget] private Box            menu_bar_box  ;
 		[Glade.Widget] private ScrolledWindow scrolledwindow;
 
-		private Tooltips     tooltips       ;
-		private Gdk.Pixbuf   empty_pixbuf   ;
-		private CellRenderer pixbuf_renderer;
-		private CellRenderer text_renderer  ;
+		private Tooltips         tooltips       ;
+		private Gdk.Pixbuf       empty_pixbuf   ;
+		private CellRenderer     pixbuf_renderer;
+		private CellRendererText text_renderer  ;
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
@@ -891,7 +891,8 @@ namespace Muine
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
 			pixbuf_renderer = new ColoredCellRendererPixbuf ();
-			text_renderer   = new Muine.CellRendererText ();
+			text_renderer   = new Gtk.CellRendererText ();
+			text_renderer.Ellipsize = Pango.EllipsizeMode.End;
 
 			// Column			
 			TreeViewColumn col = new TreeViewColumn ();

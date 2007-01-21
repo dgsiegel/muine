@@ -11,7 +11,6 @@ o Write a simple manual
 o Proper RTL support
 o Split out PlaylistWindow
 o Ditch ColoredCellRendererPixbuf when we use Gtk 2.8
-o Ditch CellRendererText once Gtk# supports Gtk 2.6 API
 
 Tough:
 ======
@@ -67,7 +66,7 @@ o Set Window.IconName on windows
   Once we have Gtk 2.6 support in Gtk#
 o Use stock Gtk pixbuf colouring
   Once we have Gtk 2.6 support in Gtk# and a new Gtk release
-o Remove EllipsizingLabel and CellRendererText hack classes
+o Remove EllipsizingLabel hack class
   Once we have Gtk 2.6 support in Gtk#
 o Use Gtk.StatusIcon
   Once we have Gtk 2.10 support in Gtk#
