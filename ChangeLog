@@ -1,3 +1,15 @@
+2007-01-21  Peter Johanson  <peter@peterjohanson.com>
+
+	* plugins:
+	* src:
+	* deps:
+	* deps/dbus-sharp-glib:
+	* deps/dbus-sharp:
+	* libmuine:
+	* libmuine/id3-vfs:
+
+	Add a bunch of items to svn:ignore.
+
 2007-01-20  Peter Johanson  <peter@peterjohanson.com>
 
 	* configure.in:
