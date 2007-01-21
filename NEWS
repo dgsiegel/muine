@@ -1,3 +1,16 @@
+0.8.7
+=====
+
+- Switch to using the fully managed NDesk dbus-sharp [Peter Johanson, Alp Toker]
+- Switch to using Gtk# 2.6 or newer [Peter Johanson]
+- Make the tray icon transparent [Wouter Bolsterlee]
+- Various bug fixes and cleanup [Iain, Peter Johanson]
+
+New translations:
+- Arabic [Djihed Afifi]
+- Dzongkha [Pema Geyleg]
+- Greek [Athanasios Lefteris, Kostas Papadimas]
+
 0.8.6
 =====
 

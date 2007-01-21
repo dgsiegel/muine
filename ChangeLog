@@ -1,5 +1,12 @@
 2007-01-21  Peter Johanson  <peter@peterjohanson.com>
 
+	* NEWS:
+	* configure.in:
+
+	Update with latest news, and bump to 0.8.7 for a new release.
+
+2007-01-21  Peter Johanson  <peter@peterjohanson.com>
+
 	* plugins:
 	* src:
 	* deps:
