@@ -1,3 +1,7 @@
+2007-01-23  Alp Toker  <alp@atoker.com>
+
+	* data/muine-dbus.pc.in: Remove old dbus-sharp from Requires.
+
 2007-01-21  Peter Johanson  <peter@peterjohanson.com>
 
 	* NEWS:
