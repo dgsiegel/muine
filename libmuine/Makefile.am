@@ -32,14 +32,9 @@ if HAVE_GST
 gst_sources = player-gst.c
 endif
 
-if HAVE_GST_OLD
-gst_old_sources = player-gst-0.8.c
-endif
-
 libmuine_la_SOURCES =			\
 	$(xine_sources) 		\
 	$(gst_sources)			\
-	$(gst_old_sources)		\
 	macros.h			\
 	player.h			\
 	metadata.c			\

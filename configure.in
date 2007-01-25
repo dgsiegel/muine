@@ -3,7 +3,7 @@ AC_INIT(src/Global.cs)
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_SYSTEM
 
-AM_INIT_AUTOMAKE(muine, 0.8.7)
+AM_INIT_AUTOMAKE(muine, 0.8.7.99)
 
 AM_MAINTAINER_MODE
 
@@ -22,7 +22,6 @@ dnl Version dependencies
 
 LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.10.0
-GSTREAMER_OLD_REQUIRED=0.8.0
 GTK_REQUIRED=2.6
 ICON_THEME_REQUIRED=2.10
 MONO_REQUIRED=1.1
@@ -38,22 +37,12 @@ if test "x$enable_xine" = "xyes"; then
    have_xine=yes
    AC_DEFINE(HAVE_XINE, 1, xine support)
 else
-   PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.10 >= $GSTREAMER_REQUIRED, have_gstreamer=yes, have_gstreamer=no)
-   if test "x$enable_gstreamer" = "x0.8" -o "x$have_gstreamer" = "xno"; then
-      have_gstreamer_old=yes
-      have_gstreamer=no
-      audio_pkgconfig="gstreamer-0.8 >= $GSTREAMER_OLD_REQUIRED gstreamer-gconf-0.8 >= $GSTREAMER_OLD_REQUIRED"
-      AC_DEFINE(HAVE_GST_OLD, 1, gstreamer 0.8.x support)
-   else
-      audio_pkgconfig="gstreamer-0.10 >= $GSTREAMER_REQUIRED"
-      AC_DEFINE(HAVE_GST, 1, gstreamer 0.10.x support)
-   fi
-   have_xine=no
+   audio_pkgconfig="gstreamer-0.10 >= $GSTREAMER_REQUIRED"
+   AC_DEFINE(HAVE_GST, 1, gstreamer 0.10.x support)
 fi
 
 AM_CONDITIONAL(HAVE_XINE, test "x$have_xine" = "xyes")
 AM_CONDITIONAL(HAVE_GST, test "x$have_gstreamer" = "xyes")
-AM_CONDITIONAL(HAVE_GST_OLD, test "x$have_gstreamer_old" = "xyes")
 
 dnl Pkgconfig
 PKG_CHECK_MODULES(MUINE,

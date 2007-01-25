@@ -1,3 +1,13 @@
+2007-01-24  Peter Johanson  <peter@peterjohanson.com>
+
+	* configure.in:
+	* deps/dbus-sharp/Makefile.in:
+	* libmuine/Makefile.am:
+	* libmuine/player-gst-0.8.c:
+
+	Remove the old Gstreamer 0.8 support, and bump to 0.8.7.99 post
+	release.
+
 2007-01-23  Alp Toker  <alp@atoker.com>
 
 	* data/muine-dbus.pc.in: Remove old dbus-sharp from Requires.
