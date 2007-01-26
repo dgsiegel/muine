@@ -1,5 +1,13 @@
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
 
+	* data/glade/SkipToWindow.glade:
+	* src/SkipToWindow.cs:
+
+	Make Left and Right move the slider in the Skip To window. Fixes
+	#379478.
+
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
 	* configure.in: Fix breakage introduced when removing the gstreamer
 	0.8 support.
 

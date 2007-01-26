@@ -135,6 +135,25 @@ namespace Muine
 
 			UpdateLabel ((int) song_slider.Value);
 		}
+		
+		// Handlers :: OnSongSliderKeyPressEvent
+		[GLib.ConnectBefore]
+		public void OnSongSliderKeyPressEvent (object obj, KeyPressEventArgs args)
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Left:
+				Global.Playlist.SkipBackwards ();
+				args.RetVal = true;
+				break;
+			case Gdk.Key.Right:
+				Global.Playlist.SkipForward ();
+				args.RetVal = true;
+				break;
+
+			default:
+				break;
+			}
+		}
 
 		// Handlers :: OnWindowDeleteEvent
 		public void OnWindowDeleteEvent (object o, DeleteEventArgs a)
