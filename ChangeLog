@@ -1,5 +1,13 @@
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
 
+	* src/About.cs:
+
+	Switch to using Gtk.AboutDialog. Patch from Tamara Roberson
+	<tamara.roberson@gmail.com>, with some small tweaks by me. Fixes
+	#355035.
+
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
 	* data/glade/SkipToWindow.glade:
 	* src/SkipToWindow.cs:
 

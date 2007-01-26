@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+using System;
 using Gtk;
 using Gdk;
 
@@ -24,7 +25,7 @@ using Mono.Unix;
 
 namespace Muine
 {
-	public class About : Gnome.About
+	public class About : Gtk.AboutDialog
 	{
 		// Strings
 		private static readonly string string_translators = 
@@ -34,10 +35,13 @@ namespace Muine
 			Catalog.GetString ("Muine");
 
 		private static readonly string string_copyright =
-			Catalog.GetString ("Copyright © 2003-2006 Jorn Baayen");
+			Catalog.GetString ("Copyright © 2003-2007 Jorn Baayen");
 
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
+
+		private static readonly string string_website =
+			"http://www.muine-player.org/";
 		
 		// Authors
 		private static readonly string [] authors = {
@@ -80,13 +84,29 @@ namespace Muine
 		/// <param name="parent">
 		///	The parent window
 		/// </param>
-		public About (Gtk.Window parent) 
-		  : base (string_muine, Defines.VERSION, string_copyright,
-		    string_description, authors, documenters, translators, pixbuf)
+		public About (Gtk.Window parent) : base ()
 		{
-			TransientFor = parent;
+			base.Authors           = authors;
+			base.Copyright         = string_copyright;
+			base.Comments          = string_description;
+			base.Documenters       = documenters;
+			base.Logo              = pixbuf;
+			base.Name              = string_muine;
+			base.TranslatorCredits = translators;
+			base.Version           = Defines.VERSION;
+			base.Website           = string_website;
 
-			Show ();
+			base.TransientFor = parent;
+
+			base.Response += OnResponse;
+
+			base.Show ();
+		}
+
+		// Handlers :: OnResponse
+		private void OnResponse (object obj, EventArgs args)
+		{
+			base.Hide ();
 		}
 	}
 }
