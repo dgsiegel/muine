@@ -38,6 +38,7 @@ if test "x$enable_xine" = "xyes"; then
    AC_DEFINE(HAVE_XINE, 1, xine support)
 else
    audio_pkgconfig="gstreamer-0.10 >= $GSTREAMER_REQUIRED"
+   have_gstreamer=yes
    AC_DEFINE(HAVE_GST, 1, gstreamer 0.10.x support)
 fi
 

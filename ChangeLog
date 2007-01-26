@@ -1,3 +1,8 @@
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
+	* configure.in: Fix breakage introduced when removing the gstreamer
+	0.8 support.
+
 2007-01-24  Peter Johanson  <peter@peterjohanson.com>
 
 	* configure.in:
