@@ -1,3 +1,8 @@
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
+	* LINGUAS: Added new style LINGUAS file, to make translation stuff
+	self contained in po/. Fixes #358478.
+
 2007-01-13  Kostas Papadimas <pkst@gnome.org>
 
 	* el.po: Updated Greek Translation

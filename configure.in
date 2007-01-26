@@ -7,7 +7,7 @@ AM_INIT_AUTOMAKE(muine, 0.8.7.99)
 
 AM_MAINTAINER_MODE
 
-AC_PROG_INTLTOOL([0.21])
+IT_PROG_INTLTOOL([0.35.0])
 
 AC_PROG_CC
 AC_ISC_POSIX
@@ -197,7 +197,6 @@ AC_PATH_PROG(MDASSEMBLER, mdassembler)
 AC_PATH_PROG(MONODOCER, monodocer)
 
 dnl Intl
-ALL_LINGUAS="ar az bg ca cs da de el dz en_CA en_GB es et eu fi fr hr hu is ja ko lt lv mk ms nb ne nl pa pl pt pt_BR ro ru rw sk sr sr@Latn sv th uk vi zh_CN"
 GETTEXT_PACKAGE=muine
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])

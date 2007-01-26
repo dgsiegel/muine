@@ -1,5 +1,12 @@
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
 
+	* configure.in:
+	
+	Bump to using intltool 0.35.0 or newer, and new style po/LINGUAS
+	support. Fixes #358478.
+
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
 	* TODO: Remove item about switching to Gtk about dialog.
 
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
