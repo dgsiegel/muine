@@ -1,5 +1,9 @@
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
 
+	* TODO: Remove item about switching to Gtk about dialog.
+
+2007-01-25  Peter Johanson  <peter@peterjohanson.com>
+
 	* src/About.cs:
 
 	Switch to using Gtk.AboutDialog. Patch from Tamara Roberson
