@@ -1,3 +1,10 @@
+2007-01-26  Peter Johanson  <peter@peterjohanson.com>
+
+	* LINGUAS:
+	* it.po:
+
+	New Italian translation by Marco Dalla Vecchia <marco.dave@tin.it>.
+
 2007-01-25  Peter Johanson  <peter@peterjohanson.com>
 
 	* LINGUAS: Added new style LINGUAS file, to make translation stuff
