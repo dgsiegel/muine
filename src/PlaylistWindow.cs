@@ -20,7 +20,6 @@
 using System;
 using System.Collections;
 using System.IO;
-using Bacon;
 
 using Gtk;
 using GLib;
