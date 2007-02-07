@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
 export MONO_GAC_PREFIX=$MONO_GAC_PREFIX:@prefix@
 
-exec @mono@ @mono_flags@ @pkglibdir@/@target@ "$@"
+exec -a "muine" @mono@ @mono_flags@ @pkglibdir@/@target@ "$@"

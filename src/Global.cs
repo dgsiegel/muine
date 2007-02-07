@@ -19,6 +19,8 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 using Gtk;
 using GLib;
@@ -109,8 +111,11 @@ namespace Muine
 		{
 			try {
 				NDesk.DBus.BusG.Init ();
-			} catch {
-			}
+			} catch {}
+
+			try {
+				Global.SetProcessName ("muine");
+			} catch {}
 
 			Application.Init ();
 			Gnome.Vfs.Vfs.Initialize ();
@@ -380,6 +385,19 @@ namespace Muine
 			string [] argv = { "muine" };
 
 			session_client.SetRestartCommand (1, argv);
+		}
+
+		[DllImport ("libc")]
+		private static extern int prctl (int option,  
+						 byte[] arg2,
+						 ulong arg3,
+						 ulong arg4,
+						 ulong arg5);
+		public static void SetProcessName (string name)
+		{
+			if (prctl (15, Encoding.ASCII.GetBytes (name + "\0"), 0, 0, 0) != 0) {
+				throw new ApplicationException ("Error setting process name: " + Mono.Unix.Native.Stdlib.GetLastError ());
+			}
 		}
 	}
 }
