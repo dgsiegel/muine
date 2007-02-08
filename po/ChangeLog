@@ -1,3 +1,8 @@
+2007-02-08  David Lodge <dave@cirt.net>
+
+	* en_GB.po: Updated English (British) translation
+	* POTFILES.in: Removed libmuine/player-gst-0.8 from POTFILES.in
+
 2007-02-05  Artur Flinta  <aflinta@gmail.com>
 
 	* pl.po: Updated Polish translation by GNOME PL Team.

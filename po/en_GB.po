@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-11 23:05+0100\n"
-"PO-Revision-Date: 2006-09-11 23:05-0000\n"
+"POT-Creation-Date: 2007-02-08 07:13+0000\n"
+"PO-Revision-Date: 2007-02-08 07:14-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,46 +206,46 @@ msgstr "Internal error"
 msgid "Could not play \"%s\""
 msgstr "Could not play \"%s\""
 
-#: ../src/About.cs:31
+#: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
 "David Lodge <dave@cirt.net>\n"
 "Jorn Baayen <jbaayen@gnome.org>\n"
 "Gareth Owen <gowen72@yahoo.com>"
 
-#: ../src/About.cs:34
+#: ../src/About.cs:35
 msgid "Muine"
 msgstr "Muine"
 
-#: ../src/About.cs:37
-msgid "Copyright © 2003-2006 Jorn Baayen"
-msgstr "Copyright © 2003-2006 Jorn Baayen"
+#: ../src/About.cs:38
+msgid "Copyright © 2003-2007 Jorn Baayen"
+msgstr "Copyright © 2003-2007 Jorn Baayen"
 
-#: ../src/About.cs:40
+#: ../src/About.cs:41
 msgid "A music player"
 msgstr "A music player"
 
-#: ../src/About.cs:44
+#: ../src/About.cs:48
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: ../src/About.cs:45
+#: ../src/About.cs:49
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: ../src/About.cs:46
+#: ../src/About.cs:50
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: ../src/About.cs:47
+#: ../src/About.cs:51
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
 msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
-#: ../src/About.cs:48
+#: ../src/About.cs:52
 msgid "Peter Johanson <peter@peterjohanson.com>"
 msgstr "Peter Johanson <peter@peterjohanson.com>"
 
-#: ../src/About.cs:50
+#: ../src/About.cs:54
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
 msgstr "Album covers are provided by amazon.com and musicbrainz.org."
 
@@ -500,28 +500,28 @@ msgstr "Failed to close {0}:"
 msgid "Failed to write {0}:"
 msgstr "Failed to write {0}:"
 
-#: ../src/PlaylistWindow.cs:1082
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Playlist</b> (Repeating {0} hour)"
 msgstr[1] "<b>Playlist</b> (Repeating {0} hours)"
 
-#: ../src/PlaylistWindow.cs:1087
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Playlist</b> (Repeating {0} minute)"
 msgstr[1] "<b>Playlist</b> (Repeating {0} minutes)"
 
-#: ../src/PlaylistWindow.cs:1092
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Playlist</b> ({0} hour remaining)"
 msgstr[1] "<b>Playlist</b> ({0} hours remaining)"
 
-#: ../src/PlaylistWindow.cs:1097
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
