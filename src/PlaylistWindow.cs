@@ -24,6 +24,7 @@ using System.IO;
 using Gtk;
 using GLib;
 using Gnome.Vfs;
+using Bacon;
 
 using Mono.Unix;
 
