@@ -1,3 +1,11 @@
+2007-02-11  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* data/muine-dbus.pc.in:
+	* data/muine-plugin.pc.in:
+
+	Fix paths in pkgconfig files. Fixes bug #400156, patch
+	by Götz Waschk.
+
 2007-02-08  Peter Johanson  <peter@peterjohanson.com>
 
 	* src/PlaylistWindow.cs:
