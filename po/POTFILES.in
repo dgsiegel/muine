@@ -31,4 +31,5 @@ src/ProgressWindow.cs
 src/SaveDialog.cs
 src/SongDatabase.cs
 src/StringUtils.cs
+src/VolumeButton.cs
 plugins/TrayIcon.cs
