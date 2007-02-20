@@ -1,3 +1,18 @@
+2007-02-20  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* src/VolumeButton.cs:
+
+	Don't show volume popup window when using scrollwheel on
+	the volume button. Fixes bug #410071.
+
+2007-02-20  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* data/glade/SkipToWindow.glade:
+	* src/SkipToWindow.cs:
+
+	The slider on "skip to" window should respond to
+	mousewheel events. Fixes bug #410067.
+
 2007-02-11  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* data/muine-dbus.pc.in:

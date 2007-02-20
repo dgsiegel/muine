@@ -308,13 +308,11 @@ namespace Bacon
                 return false;
             }
             
-            /*if(evnt.Direction == Gdk.ScrollDirection.Up) {
+            if(evnt.Direction == Gdk.ScrollDirection.Up) {
                 AdjustVolume(1);
             } else if(evnt.Direction == Gdk.ScrollDirection.Down) {
                 AdjustVolume(-1);
-            }*/
-            
-            ShowDock(evnt);
+            }
             
             return true;
         }
