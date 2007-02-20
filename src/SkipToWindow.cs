@@ -155,6 +155,18 @@ namespace Muine
 			}
 		}
 
+		// Handlers :: OnScrollEvent
+		[GLib.ConnectBefore]
+			private void OnScrollEvent(object o, ScrollEventArgs args)
+		{
+			if(args.Event.Direction == Gdk.ScrollDirection.Up) {
+				Global.Playlist.SkipBackwards ();
+			} else if(args.Event.Direction == Gdk.ScrollDirection.Down) {
+				Global.Playlist.SkipForward ();
+			}
+			args.RetVal = true;
+		}
+
 		// Handlers :: OnWindowDeleteEvent
 		public void OnWindowDeleteEvent (object o, DeleteEventArgs a)
 		{
