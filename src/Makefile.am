@@ -53,11 +53,18 @@ MUINE_GENERATED_CSFILES =			\
 	AmazonSearchService.cs			\
 	Defines.cs
 
+if EXTERNAL_DBUS
+DBUS_ASSEMBLIES = $(DBUS_LIBS)
+else
+DBUS_ASSEMBLIES =							\
+	-r:$(top_builddir)/deps/dbus-sharp/NDesk.DBus.dll		\
+	-r:$(top_builddir)/deps/dbus-sharp-glib/NDesk.DBus.GLib.dll
+endif
+
 MUINE_ASSEMBLIES =							\
 	-r:$(top_builddir)/PluginLib/muine-plugin.dll			\
 	-r:$(top_builddir)/DBusLib/muine-dbus.dll			\
-	-r:$(top_builddir)/deps/dbus-sharp/NDesk.DBus.dll		\
-	-r:$(top_builddir)/deps/dbus-sharp-glib/NDesk.DBus.GLib.dll	\
+	$(DBUS_ASSEMBLIES)						\
 	-r:System.Web.Services						\
 	-r:Mono.Posix
 	

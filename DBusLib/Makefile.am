@@ -9,9 +9,16 @@ CLIENT_LIB_CSFILES =			\
 	$(srcdir)/Player.cs		\
 	$(srcdir)/AssemblyInfo.cs
 
+if EXTERNAL_DBUS
+DBUS_ASSEMBLIES = $(DBUS_LIBS)
+else
+DBUS_ASSEMBLIES =							\
+	-r:$(top_builddir)/deps/dbus-sharp/NDesk.DBus.dll
+endif
+
 CLIENT_LIB_ASSEMBLIES = 						\
 	-r:$(top_builddir)/PluginLib/muine-plugin.dll			\
-	-r:$(top_builddir)/deps/dbus-sharp/NDesk.DBus.dll
+	$(DBUS_ASSEMBLIES)
 
 muine.snk: $(top_srcdir)/muine.snk
 	cp $(top_srcdir)/muine.snk .

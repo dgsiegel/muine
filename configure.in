@@ -66,6 +66,15 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED)
 
+dnl external ndesk-dbus
+
+PKG_CHECK_MODULES(DBUS, ndesk-dbus-1.0 >= 0.4 \
+	ndesk-dbus-glib-1.0 >= 0.3, have_external_dbus="yes", have_external_dbus="no")
+if test "x$have_external_dbus" != "xyes"; then
+	AC_MSG_RESULT([using internal copy])
+fi
+AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
+
 dnl check for OS
 case "$target" in
 	*-*-linux*)

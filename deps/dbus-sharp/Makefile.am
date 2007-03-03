@@ -32,6 +32,7 @@ DBUSSHARP_CSFILES =				\
 DBUSSHARP_ASSEMBLIES =		\
 	-r:Mono.Posix
 
+if !EXTERNAL_DBUS
 $(ASSEMBLY): $(DBUSSHARP_CSFILES)
 	$(CSC) -t:library -unsafe $(LIBFLAGS) -out:$@ $(DBUSSHARP_CSFILES) $(DBUSSHARP_ASSEMBLIES)
 
@@ -39,6 +40,7 @@ all: $(ASSEMBLY)
 
 dbussharpdir = $(pkglibdir)
 dbussharp_DATA = $(TARGET)
+endif
 
 EXTRA_DIST = $(DBUSSHARP_CSFILES)
 
