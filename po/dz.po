@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-12 22:18+0100\n"
-"PO-Revision-Date: 2006-12-13 23:56+0530\n"
-"Last-Translator: yangka <yanang_ka@hotmail.com>\n"
+"POT-Creation-Date: 2007-02-13 15:30+0000\n"
+"PO-Revision-Date: 2007-03-26 14:41+0530\n"
+"Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +63,7 @@ msgid "Listen to your music"
 msgstr "ཁྱོད་རའི་སྙན་ཆ་ལུ་ཉན།"
 
 #: ../data/muine.desktop.in.h:2
-#: ../src/PlaylistWindow.cs:72
+#: ../src/PlaylistWindow.cs:73
 msgid "Muine Music Player"
 msgstr "མུའིན་སྙན་ཆ་གཏང་མི།"
 
@@ -171,12 +171,10 @@ msgstr "གཏང་ཐོ་ཝིནཌོ་འདི་གི་རྒྱ་
 msgid "Your Amazon Dev Tag for fetching album cover art"
 msgstr "ཁྱོད་ཀྱི་ཨེ་མེ་ཛཱོན་ཌེབ་ངོ་རྟགས་གློ་མཛོད་ཁེབས་རི་མོ་དོན་ལུ།"
 
-#: ../libmuine/player-gst-0.8.c:166
 #: ../libmuine/player-gst.c:155
 msgid "Failed to create a GStreamer play object"
 msgstr "ཇི་སི་ཊི་མར་གཏང་དངོས་པོ་ཅིག་གསར་བསྐྲུན་འབད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།"
 
-#: ../libmuine/player-gst-0.8.c:173
 #: ../libmuine/player-gst.c:162
 msgid "Could not render default GStreamer audio output sink"
 msgstr "སྔོན་སྒྲིག་ཇི་སི་ཊི་མར་རྣར་ཉན་ཨའུཊི་པུཊི་འཁྱུ་གཞོང་ལྷག་སྟོན་འབད་མ་ཚུགསཔ།"
@@ -210,43 +208,43 @@ msgstr "ནང་འཁོད་འཛོལ་བ།"
 msgid "Could not play \"%s\""
 msgstr "གཏང་མ་ཚུགསཔ \"%s\""
 
-#: ../src/About.cs:31
+#: ../src/About.cs:32
 msgid "translator-credits"
 msgstr "སྐད་བསྒྱུར་པ་-ངོ་བསྟོད་ཚུ།"
 
-#: ../src/About.cs:34
+#: ../src/About.cs:35
 msgid "Muine"
 msgstr "མུའིན།"
 
-#: ../src/About.cs:37
-msgid "Copyright © 2003-2006 Jorn Baayen"
-msgstr "འདྲ་བཤུས་དབང་ཆ © ༢༠༠༣-༢༠༠༦ Jorn Baayen"
+#: ../src/About.cs:38
+msgid "Copyright © 2003-2007 Jorn Baayen"
+msgstr "འདྲ་བཤུས་དབང་ཆ © ༢༠༠༣-༢༠༠༦ ཇོརན་བཱ་ཡིན་"
 
-#: ../src/About.cs:40
+#: ../src/About.cs:41
 msgid "A music player"
 msgstr "སྙན་ཆ་ཅིག་གཏང་མི།"
 
-#: ../src/About.cs:44
+#: ../src/About.cs:48
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: ../src/About.cs:45
+#: ../src/About.cs:49
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: ../src/About.cs:46
+#: ../src/About.cs:50
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: ../src/About.cs:47
+#: ../src/About.cs:51
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
 msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
-#: ../src/About.cs:48
+#: ../src/About.cs:52
 msgid "Peter Johanson <peter@peterjohanson.com>"
 msgstr "Peter Johanson <peter@peterjohanson.com>"
 
-#: ../src/About.cs:50
+#: ../src/About.cs:54
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
 msgstr "གླུ་མཛོད་ཁེབས་ཚུ་ amazon.com and musicbrainz.org.གིས་བྱིན་ཡོདཔ་ཨིན།"
 
@@ -335,7 +333,7 @@ msgid "_About"
 msgstr "སྐོར་ལས།(_A)"
 
 #: ../src/AddAlbumWindow.cs:43
-#: ../src/PlaylistWindow.cs:93
+#: ../src/PlaylistWindow.cs:94
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "གིས་ལཱ་འགན་འགྲུབ་ཡོདཔ {0}"
@@ -419,65 +417,65 @@ msgstr "ཡིག་སྣོད་མིང་དེ་ཧེ་མ་ལས་
 msgid "Audio backend error:"
 msgstr "རྣར་ཉན་རྒྱབ་མཐའ་འཛོལ་བ།:"
 
-#: ../src/PlaylistWindow.cs:75
+#: ../src/PlaylistWindow.cs:76
 msgid "Playlist.m3u"
 msgstr "གླུ་ཐོ་m3u"
 
-#: ../src/PlaylistWindow.cs:78
+#: ../src/PlaylistWindow.cs:79
 msgid "<b>Playlist</b>"
 msgstr "<b>གཏང་ཐོ།</b>"
 
-#: ../src/PlaylistWindow.cs:81
+#: ../src/PlaylistWindow.cs:82
 msgid "<b>Playlist</b> (Repeating)"
 msgstr "<b>གླུ་ཐོ</b> (ཡང་བསྐྱར་འབད་དོ།)"
 
-#: ../src/PlaylistWindow.cs:84
+#: ../src/PlaylistWindow.cs:85
 msgid "<b>Playlist</b> (Less than one minute remaining)"
 msgstr "<b>གླུ་ཐོ</b> (སྐར་མ་ལྷག་ལུས་མི་གཅིག་ལས་ཉུང་མི།)"
 
-#: ../src/PlaylistWindow.cs:87
+#: ../src/PlaylistWindow.cs:88
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "ལས \"{0}\""
 
-#: ../src/PlaylistWindow.cs:90
+#: ../src/PlaylistWindow.cs:91
 msgid "Album unknown"
 msgstr "གླུ་མཛོད་མ་ཤེསཔ།"
 
-#: ../src/PlaylistWindow.cs:97
+#: ../src/PlaylistWindow.cs:98
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "{0} -མུའིན་སྙན་ཆ་གཏང་མི།"
 
-#: ../src/PlaylistWindow.cs:101
+#: ../src/PlaylistWindow.cs:102
 msgid "Switch music playback on or off"
 msgstr "སྙན་ཆ་གླུ་གཞས་གཏང་ནི་ཨོན་ཡང་ན་ཨོཕ་སོར་བསྒྱུར་འབད།"
 
-#: ../src/PlaylistWindow.cs:104
+#: ../src/PlaylistWindow.cs:105
 msgid "Play the previous song"
 msgstr "ཧེ་མམ་གྱི་ཞབས་ཁྲ་འདི་གཏང་།"
 
-#: ../src/PlaylistWindow.cs:107
+#: ../src/PlaylistWindow.cs:108
 msgid "Play the next song"
 msgstr "ཤུལ་མམ་གྱི་ཞབས་ཁྲ་འདི་གཏང་།"
 
-#: ../src/PlaylistWindow.cs:110
+#: ../src/PlaylistWindow.cs:111
 msgid "Add an album to the playlist"
 msgstr "གླུ་ཐོ་འདི་ལུ་གླུ་མཛོད་ཅིག་ཁ་སྐོང་རྐྱབས།"
 
-#: ../src/PlaylistWindow.cs:113
+#: ../src/PlaylistWindow.cs:114
 msgid "Add a song to the playlist"
 msgstr "གླུ་ཐོ་འདི་ལུ་ཞབས་ཁྲ་ཅིག་ཁ་སྐོང་རྐྱབས།"
 
-#: ../src/PlaylistWindow.cs:116
+#: ../src/PlaylistWindow.cs:117
 msgid "Change the volume level"
 msgstr "སྐད་ཚད་གནས་རིམ་འདི་སོར།"
 
-#: ../src/PlaylistWindow.cs:119
+#: ../src/PlaylistWindow.cs:120
 msgid "Drop an image here to use it as album cover"
 msgstr "གཟུགས་བརྙན་ཅིག་འདི་ནང་གླུ་མཛོད་ཁེབས་སྦེ་ལག་ལེན་འཐབ་ནི་ལུ་བཀོག་བཞག"
 
-#: ../src/PlaylistWindow.cs:123
+#: ../src/PlaylistWindow.cs:124
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -486,43 +484,43 @@ msgstr ""
 "རྣར་ཉན་རྒྱབ་མཐའ་འདི་འགོ་འབྱེད་འབད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།:\n"
 "{0}"
 
-#: ../src/PlaylistWindow.cs:126
+#: ../src/PlaylistWindow.cs:127
 #, csharp-format
 msgid "Failed to read {0}:"
 msgstr "ལྷག་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ {0}:"
 
-#: ../src/PlaylistWindow.cs:129
+#: ../src/PlaylistWindow.cs:130
 #, csharp-format
 msgid "Failed to close {0}:"
 msgstr "ཁ་བསྡམས་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ {0}:"
 
-#: ../src/PlaylistWindow.cs:132
+#: ../src/PlaylistWindow.cs:133
 #, csharp-format
 msgid "Failed to write {0}:"
 msgstr "འབྲི་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ {0}:"
 
-#: ../src/PlaylistWindow.cs:1082
+#: ../src/PlaylistWindow.cs:1084
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>གླུ་ཐོ</b> (ཆུ་ཚོད་ {0} ཡང་བསྐྱར་འབད་དོ)"
 msgstr[1] "<b>གླུ་ཐོ</b> (ཆུ་ཚོད་ཚུ་ {0} བསྐྱར་འབད་དོ།)"
 
-#: ../src/PlaylistWindow.cs:1087
+#: ../src/PlaylistWindow.cs:1089
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>གླུ་ཐོ</b> (སྐར་མ་ཚུ {0} ཡང་བསྐྱར་འབད་དོ)"
 msgstr[1] "<b>གླུ་ཐོ</b> (སྐར་མ་ཚུ {0} ཡང་བསྐྱར་འབད་དོ།)"
 
-#: ../src/PlaylistWindow.cs:1092
+#: ../src/PlaylistWindow.cs:1094
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>གླུ་ཐོ</b> ({0} ཆུ་ཚོད་ཚུ་ལྷག་ལུས་མི།)"
 msgstr[1] "<b>གླུ་ཐོ</b> ({0} ཆུ་ཚོད་ཚུ་ལྷག་ལུས་མི།)"
 
-#: ../src/PlaylistWindow.cs:1097
+#: ../src/PlaylistWindow.cs:1099
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -564,6 +562,14 @@ msgstr "{0} དང་གཞན་ཚུ།"
 #, csharp-format
 msgid "{0} and {1}"
 msgstr "{0} དང་ {1}"
+
+#: ../src/VolumeButton.cs:492
+msgid "Muted"
+msgstr "སྐད་མེད་བཟོས་པ་"
+
+#: ../src/VolumeButton.cs:494
+msgid "Full Volume"
+msgstr "སྐད་ཤུགས་"
 
 #: ../plugins/TrayIcon.cs:35
 msgid "Muine music player"
