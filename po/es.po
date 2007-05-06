@@ -1,24 +1,22 @@
-# translation of es.po to Spanish
-# Spanish translation of es
-# traducción de es.po al Spanish
+# Spanish translation of muine
 # Copyright (C) 2004 muine's COPYRIGHT HOLDER
-# Copyright (C) 2004 Sergio Rubio <sergio.rubio@hispalinux.es>
 # This file is distributed under the same license as the PACKAGE package.
+#
 # Sergio Rubio <sergio.rubio@hispalinux.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006.
-#
+# Jorge González <jorgegonz@svn.gnome.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: muine.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-31 13:11+0200\n"
-"PO-Revision-Date: 2006-03-25 16:33+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"POT-Creation-Date: 2007-02-13 15:30+0000\n"
+"PO-Revision-Date: 2007-05-06 17:21+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
@@ -45,11 +43,11 @@ msgstr "¿Sobreescribir el archivo?"
 msgid "_Overwrite"
 msgstr "_Sobreescribir"
 
-#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
 msgid "Play Album"
 msgstr "Reproducir álbum"
 
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:41
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
 msgid "Play Song"
 msgstr "Reproducir canción"
 
@@ -61,7 +59,7 @@ msgstr "Saltar a"
 msgid "Listen to your music"
 msgstr "Escuchar tu música"
 
-#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:68
+#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:73
 msgid "Muine Music Player"
 msgstr "Reproductor de música Muine"
 
@@ -147,8 +145,7 @@ msgstr "Carpetas monitorizadas"
 
 #: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
-msgstr ""
-"Indica si debe o no activar el modo repetición de lista de reproducción."
+msgstr "Indica si debe o no activar el modo repetición de lista de reproducción."
 
 #: ../data/muine.schemas.in.h:22
 msgid ""
@@ -214,48 +211,48 @@ msgstr "Error interno"
 msgid "Could not play \"%s\""
 msgstr "No se pudo reproducir «%s»"
 
-#: ../src/About.cs:31
+#: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
+"Jorge González <jorgegonz@svn.gnome.org>\n"
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Sergio Rubio <sergio.rubio@hispalinux.es>"
 
-#: ../src/About.cs:34
+#: ../src/About.cs:35
 msgid "Muine"
 msgstr "Muine"
 
-#: ../src/About.cs:37
-msgid "Copyright © 2003-2006 Jorn Baayen"
-msgstr "Copyright © 2003-2006 Jorn Baayern"
+#: ../src/About.cs:38
+msgid "Copyright © 2003-2007 Jorn Baayen"
+msgstr "Copyright © 2003-2007 Jorn Baayen"
 
-#: ../src/About.cs:40
+#: ../src/About.cs:41
 msgid "A music player"
 msgstr "Un reproductor de música"
 
-#: ../src/About.cs:44
+#: ../src/About.cs:48
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: ../src/About.cs:45
+#: ../src/About.cs:49
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: ../src/About.cs:46
+#: ../src/About.cs:50
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: ../src/About.cs:47
+#: ../src/About.cs:51
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
 msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
-#: ../src/About.cs:48
+#: ../src/About.cs:52
 msgid "Peter Johanson <peter@peterjohanson.com>"
 msgstr "Peter Johanson <peter@peterjohanson.com>"
 
-#: ../src/About.cs:50
+#: ../src/About.cs:54
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
-msgstr ""
-"Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
+msgstr "Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -341,7 +338,7 @@ msgstr "_Aleatorio"
 msgid "_About"
 msgstr "A_cerca de"
 
-#: ../src/AddAlbumWindow.cs:44 ../src/PlaylistWindow.cs:89
+#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:94
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Ejecutado por {0}"
@@ -429,65 +426,65 @@ msgstr ""
 msgid "Audio backend error:"
 msgstr "Error del backend de sonido:"
 
-#: ../src/PlaylistWindow.cs:71
+#: ../src/PlaylistWindow.cs:76
 msgid "Playlist.m3u"
 msgstr "Lista de reproducción.m3u"
 
-#: ../src/PlaylistWindow.cs:74
+#: ../src/PlaylistWindow.cs:79
 msgid "<b>Playlist</b>"
 msgstr "<b>Lista de reproducción</b>"
 
-#: ../src/PlaylistWindow.cs:77
+#: ../src/PlaylistWindow.cs:82
 msgid "<b>Playlist</b> (Repeating)"
 msgstr "<b>Lista de reproducción</b> (repitiendo)"
 
-#: ../src/PlaylistWindow.cs:80
+#: ../src/PlaylistWindow.cs:85
 msgid "<b>Playlist</b> (Less than one minute remaining)"
 msgstr "<b>Lista de reproducción</b> (queda menos de un minuto)"
 
-#: ../src/PlaylistWindow.cs:83
+#: ../src/PlaylistWindow.cs:88
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Desde «{0}»"
 
-#: ../src/PlaylistWindow.cs:86
+#: ../src/PlaylistWindow.cs:91
 msgid "Album unknown"
 msgstr "Álbum desconocido"
 
-#: ../src/PlaylistWindow.cs:93
+#: ../src/PlaylistWindow.cs:98
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "Reproductor de Música Muine - {0}"
 
-#: ../src/PlaylistWindow.cs:97
+#: ../src/PlaylistWindow.cs:102
 msgid "Switch music playback on or off"
 msgstr "Enciende o apaga la reproducción de música"
 
-#: ../src/PlaylistWindow.cs:100
+#: ../src/PlaylistWindow.cs:105
 msgid "Play the previous song"
 msgstr "Reproduce la canción anterior"
 
-#: ../src/PlaylistWindow.cs:103
+#: ../src/PlaylistWindow.cs:108
 msgid "Play the next song"
 msgstr "Reproduce la canción siguiente"
 
-#: ../src/PlaylistWindow.cs:106
+#: ../src/PlaylistWindow.cs:111
 msgid "Add an album to the playlist"
 msgstr "Añadir un álbum a la lista de reproducción"
 
-#: ../src/PlaylistWindow.cs:109
+#: ../src/PlaylistWindow.cs:114
 msgid "Add a song to the playlist"
 msgstr "Añadir una canción a la lista de reproducción"
 
-#: ../src/PlaylistWindow.cs:112
+#: ../src/PlaylistWindow.cs:117
 msgid "Change the volume level"
 msgstr "Cambia el nivel de volumen"
 
-#: ../src/PlaylistWindow.cs:115
+#: ../src/PlaylistWindow.cs:120
 msgid "Drop an image here to use it as album cover"
 msgstr "Suelte una imagen aquí para usarla como cubierta del álbum"
 
-#: ../src/PlaylistWindow.cs:119
+#: ../src/PlaylistWindow.cs:124
 #, csharp-format
 msgid ""
 "Failed to initialize the audio backend:\n"
@@ -496,43 +493,43 @@ msgstr ""
 "Falló al inicializar el backend de sonido:\n"
 "{0}"
 
-#: ../src/PlaylistWindow.cs:122
+#: ../src/PlaylistWindow.cs:127
 #, csharp-format
 msgid "Failed to read {0}:"
 msgstr "Falló al leer {0}:"
 
-#: ../src/PlaylistWindow.cs:125
+#: ../src/PlaylistWindow.cs:130
 #, csharp-format
 msgid "Failed to close {0}:"
 msgstr "Falló al cerrar {0}:"
 
-#: ../src/PlaylistWindow.cs:128
+#: ../src/PlaylistWindow.cs:133
 #, csharp-format
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1029
+#: ../src/PlaylistWindow.cs:1084
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1034
+#: ../src/PlaylistWindow.cs:1089
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1039
+#: ../src/PlaylistWindow.cs:1094
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1044
+#: ../src/PlaylistWindow.cs:1099
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -575,6 +572,14 @@ msgstr "{0} y otros"
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
 
+#: ../src/VolumeButton.cs:492
+msgid "Muted"
+msgstr "Silenciado"
+
+#: ../src/VolumeButton.cs:494
+msgid "Full Volume"
+msgstr "Volumen total"
+
 #: ../plugins/TrayIcon.cs:35
 msgid "Muine music player"
 msgstr "Reproductor de música Muine"
@@ -584,5 +589,3 @@ msgstr "Reproductor de música Muine"
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#~ msgid "Hide _Window"
-#~ msgstr "_Ocultar ventana"
