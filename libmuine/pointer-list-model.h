@@ -43,9 +43,9 @@ struct _PointerListModel {
 
   GCompareFunc     sort_func;
 
-  GSequencePtr     current_pointer;
+  GOldSequencePtr     current_pointer;
 
-  GSequence       *pointers;
+  GOldSequence       *pointers;
   GHashTable      *reverse_map;
 };
 

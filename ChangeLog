@@ -1,5 +1,18 @@
 2007-06-05  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* libmuine/gsequence.c: (g_old_sequence_new),
+	* libmuine/gsequence.h:
+	* libmuine/pointer-list-model.c: (pointer_list_model_get_iter),
+	* libmuine/pointer-list-model.h:
+
+	Renamed all occurences of GSequence* to GOldSequence*
+	and all occurences of g_sequence_* to g_old_sequence_*.
+	This is a very ugly work-around to fix the build with
+	newer GLib > 2.12 which has an incompatible GSequence
+	API.
+
+2007-06-05  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/glade/PlaylistWindow.glade:
 
 	Only show scrollbar in playlist window if needed.

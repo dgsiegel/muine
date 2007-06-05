@@ -55,17 +55,17 @@ pointer_list_model_get_iter (GtkTreeModel *tree_model,
 			  GtkTreePath  *path)
 {
   PointerListModel *model;
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   int i;
 
   model = (PointerListModel *) tree_model;
   
   i = gtk_tree_path_get_indices (path)[0];
 
-  if (i >= g_sequence_get_length (model->pointers))
+  if (i >= g_old_sequence_get_length (model->pointers))
     return FALSE;
 
-  ptr = g_sequence_get_ptr_at_pos (model->pointers, i);
+  ptr = g_old_sequence_get_ptr_at_pos (model->pointers, i);
 
   iter->stamp = model->stamp;
   iter->user_data = ptr;
@@ -84,11 +84,11 @@ pointer_list_model_get_path (GtkTreeModel *tree_model,
 
   g_return_val_if_fail (model->stamp == iter->stamp, NULL);
 
-  if (g_sequence_ptr_is_end (iter->user_data))
+  if (g_old_sequence_ptr_is_end (iter->user_data))
     return NULL;
   
   path = gtk_tree_path_new ();
-  gtk_tree_path_append_index (path, g_sequence_ptr_get_position (iter->user_data));
+  gtk_tree_path_append_index (path, g_old_sequence_ptr_get_position (iter->user_data));
 
   return path;
 }
@@ -106,7 +106,7 @@ pointer_list_model_get_value (GtkTreeModel *tree_model,
 
   g_return_if_fail (model->stamp == iter->stamp);
 
-  val = g_sequence_ptr_get_data (iter->user_data);
+  val = g_old_sequence_ptr_get_data (iter->user_data);
   
   switch (column)
     {
@@ -128,17 +128,17 @@ pointer_list_model_iter_nth_child (GtkTreeModel *tree_model,
 				int           n)
 {
   PointerListModel *model;
-  GSequencePtr child;
+  GOldSequencePtr child;
 
   if (parent)
     return FALSE;
 
   model = (PointerListModel *) tree_model;
 
-  if (n >= g_sequence_get_length (model->pointers))
+  if (n >= g_old_sequence_get_length (model->pointers))
     return FALSE;
 
-  child = g_sequence_get_ptr_at_pos (model->pointers, n);
+  child = g_old_sequence_get_ptr_at_pos (model->pointers, n);
 
   iter->stamp = model->stamp;
   iter->user_data = child;
@@ -156,9 +156,9 @@ pointer_list_model_iter_next (GtkTreeModel *tree_model,
 
   g_return_val_if_fail (model->stamp == iter->stamp, FALSE);
 
-  iter->user_data = g_sequence_ptr_next (iter->user_data);
+  iter->user_data = g_old_sequence_ptr_next (iter->user_data);
 
-  return !g_sequence_ptr_is_end (iter->user_data);
+  return !g_old_sequence_ptr_is_end (iter->user_data);
 }
 
 static gboolean
@@ -173,11 +173,11 @@ pointer_list_model_iter_children (GtkTreeModel *tree_model,
   
   model = (PointerListModel *) tree_model;
   
-  if (g_sequence_get_length (model->pointers) == 0)
+  if (g_old_sequence_get_length (model->pointers) == 0)
     return FALSE;
 
   iter->stamp = model->stamp;
-  iter->user_data = g_sequence_get_begin_ptr (model->pointers);
+  iter->user_data = g_old_sequence_get_begin_ptr (model->pointers);
   
   return TRUE;
 }
@@ -191,7 +191,7 @@ pointer_list_model_iter_n_children (GtkTreeModel *tree_model,
   model = (PointerListModel *) tree_model;
   
   if (iter == NULL)
-    return g_sequence_get_length (model->pointers);
+    return g_old_sequence_get_length (model->pointers);
 
   g_return_val_if_fail (model->stamp == iter->stamp, -1);
 
@@ -294,7 +294,7 @@ pointer_list_model_row_drop_possible (GtkTreeDragDest  *drag_dest,
 
   indices = gtk_tree_path_get_indices (dest_path);
 
-  if (indices[0] <= g_sequence_get_length (model->pointers))
+  if (indices[0] <= g_old_sequence_get_length (model->pointers))
     retval = TRUE;
 
  out:
@@ -344,7 +344,7 @@ pointer_list_model_class_init (PointerListModelClass *UNUSED(klass))
 static void
 pointer_list_model_init (PointerListModel *model)
 {
-  model->pointers = g_sequence_new (NULL);
+  model->pointers = g_old_sequence_new (NULL);
   model->reverse_map = g_hash_table_new (NULL, NULL);
   model->stamp = g_random_int ();
   model->sort_func = NULL;
@@ -421,17 +421,17 @@ pointer_list_model_add (PointerListModel *model, gpointer pointer)
 {
   GtkTreeIter iter;
   GtkTreePath *path;
-  GSequencePtr new_ptr;
+  GOldSequencePtr new_ptr;
 
   if (g_hash_table_lookup (model->reverse_map, pointer))
     return FALSE;
   
   if (model->sort_func != NULL)
-    new_ptr = g_sequence_insert_sorted (model->pointers, pointer,
+    new_ptr = g_old_sequence_insert_sorted (model->pointers, pointer,
   				        (GCompareDataFunc) model->sort_func,
 				        NULL);
   else
-    new_ptr = g_sequence_append (model->pointers, pointer);
+    new_ptr = g_old_sequence_append (model->pointers, pointer);
   
   g_hash_table_insert (model->reverse_map, pointer, new_ptr);
 	
@@ -451,7 +451,7 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
 {
   GtkTreeIter iter;
   GtkTreePath *path;
-  GSequencePtr new_ptr, before_ptr;
+  GOldSequencePtr new_ptr, before_ptr;
   gboolean is_end;
 
   if (g_hash_table_lookup (model->reverse_map, pointer))
@@ -460,9 +460,9 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
   before_ptr = g_hash_table_lookup (model->reverse_map, ins);
   g_assert (before_ptr != NULL);
 
-  is_end = g_sequence_ptr_is_end (g_sequence_ptr_next (before_ptr));
+  is_end = g_old_sequence_ptr_is_end (g_old_sequence_ptr_next (before_ptr));
 
-  new_ptr = g_sequence_append (model->pointers, pointer);
+  new_ptr = g_old_sequence_append (model->pointers, pointer);
 
   switch (pos) {
     case GTK_TREE_VIEW_DROP_BEFORE:
@@ -471,7 +471,7 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
     case GTK_TREE_VIEW_DROP_AFTER:
     case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
       if (!is_end)
-        before_ptr = g_sequence_ptr_next (before_ptr);
+        before_ptr = g_old_sequence_ptr_next (before_ptr);
       else
         before_ptr = NULL;
 
@@ -479,7 +479,7 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
   }
 
   if (before_ptr != NULL)
-    g_sequence_ptr_move_before (new_ptr, before_ptr);
+    g_old_sequence_ptr_move_before (new_ptr, before_ptr);
 
   g_hash_table_insert (model->reverse_map, pointer, new_ptr);
 
@@ -496,7 +496,7 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
 void
 pointer_list_model_remove_iter (PointerListModel *model, GtkTreeIter *iter)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   GtkTreePath *path;
   
   path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), iter);
@@ -505,8 +505,8 @@ pointer_list_model_remove_iter (PointerListModel *model, GtkTreeIter *iter)
   if (ptr == model->current_pointer)
     model->current_pointer = NULL;
 
-  g_hash_table_remove (model->reverse_map, g_sequence_ptr_get_data (ptr));
-  g_sequence_remove (ptr);
+  g_hash_table_remove (model->reverse_map, g_old_sequence_ptr_get_data (ptr));
+  g_old_sequence_remove (ptr);
   
   model->stamp++;
 
@@ -532,10 +532,10 @@ pointer_list_model_clear (PointerListModel *model)
 
   model->current_pointer = NULL;
   
-  while (g_sequence_get_length (model->pointers) > 0)
+  while (g_old_sequence_get_length (model->pointers) > 0)
     {
       iter.stamp = model->stamp;
-      iter.user_data = g_sequence_get_begin_ptr (model->pointers);
+      iter.user_data = g_old_sequence_get_begin_ptr (model->pointers);
       pointer_list_model_remove_iter (model, &iter);
     }
 }
@@ -543,30 +543,30 @@ pointer_list_model_clear (PointerListModel *model)
 void
 pointer_list_model_sort (PointerListModel *model, GCompareDataFunc sort_func)
 {
-  GSequence *pointers;
-  GSequencePtr *old_order;
+  GOldSequence *pointers;
+  GOldSequencePtr *old_order;
   GtkTreePath *path;
   int *new_order;
   int length;
   int i;
 
   pointers = model->pointers;
-  length = g_sequence_get_length (pointers);
+  length = g_old_sequence_get_length (pointers);
 
   if (length <= 1)
     return;
   
-  /* Generate old order of GSequencePtrs. */
-  old_order = g_new (GSequencePtr, length);
+  /* Generate old order of GOldSequencePtrs. */
+  old_order = g_new (GOldSequencePtr, length);
   for (i = 0; i < length; ++i)
-    old_order[i] = g_sequence_get_ptr_at_pos (pointers, i);
+    old_order[i] = g_old_sequence_get_ptr_at_pos (pointers, i);
 
-  g_sequence_sort (pointers, sort_func, NULL);
+  g_old_sequence_sort (pointers, sort_func, NULL);
 
   /* Generate new order. */
   new_order = g_new (int, length);
   for (i = 0; i < length; ++i)
-    new_order[i] = g_sequence_ptr_get_position (old_order[i]);
+    new_order[i] = g_old_sequence_ptr_get_position (old_order[i]);
 
   path = gtk_tree_path_new ();
   
@@ -594,7 +594,7 @@ pointer_list_model_pointer_get_iter (PointerListModel *model,
 			       gpointer pointer,
 			       GtkTreeIter   *iter)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
 
   ptr = g_hash_table_lookup (model->reverse_map, pointer);
   if (!ptr)
@@ -614,20 +614,20 @@ pointer_list_model_iter_get_pointer (PointerListModel *model, GtkTreeIter *iter)
 {
   g_return_val_if_fail (model->stamp == iter->stamp, NULL);
   
-  return g_sequence_ptr_get_data (iter->user_data);
+  return g_old_sequence_ptr_get_data (iter->user_data);
 }
 
 GList *
 pointer_list_model_get_pointers (PointerListModel *model)
 {
   GList *list = NULL;
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
 
-  ptr = g_sequence_get_begin_ptr (model->pointers);
-  while (!g_sequence_ptr_is_end (ptr))
+  ptr = g_old_sequence_get_begin_ptr (model->pointers);
+  while (!g_old_sequence_ptr_is_end (ptr))
     {
-      list = g_list_prepend (list, g_sequence_ptr_get_data (ptr));
-      ptr = g_sequence_ptr_next (ptr);
+      list = g_list_prepend (list, g_old_sequence_ptr_get_data (ptr));
+      ptr = g_old_sequence_ptr_next (ptr);
     }
 
   return g_list_reverse (list);
@@ -641,19 +641,19 @@ pointer_list_model_contains (PointerListModel *model,
 }
 
 static void
-remove_ptr (PointerListModel *model, GSequencePtr ptr)
+remove_ptr (PointerListModel *model, GOldSequencePtr ptr)
 {
   GtkTreePath *path;
   
   path = gtk_tree_path_new ();
-  gtk_tree_path_append_index (path, g_sequence_ptr_get_position (ptr));
+  gtk_tree_path_append_index (path, g_old_sequence_ptr_get_position (ptr));
 
   if (ptr == model->current_pointer)
     model->current_pointer = NULL;
   
-  g_hash_table_remove (model->reverse_map, g_sequence_ptr_get_data (ptr));
+  g_hash_table_remove (model->reverse_map, g_old_sequence_ptr_get_data (ptr));
   
-  g_sequence_remove (ptr);
+  g_old_sequence_remove (ptr);
 
   model->stamp++;
   
@@ -667,9 +667,9 @@ pointer_list_model_remove_delta (PointerListModel *model, GList *pointers)
   GHashTable *hash;
   GList *l, *remove = NULL;
   gpointer pointer;
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   
-  if (g_sequence_get_length (model->pointers) == 0)
+  if (g_old_sequence_get_length (model->pointers) == 0)
     return;
 
   if (!pointers)
@@ -683,14 +683,14 @@ pointer_list_model_remove_delta (PointerListModel *model, GList *pointers)
   for (l = pointers; l; l = l->next)
     g_hash_table_insert (hash, l->data, GINT_TO_POINTER (TRUE));
  
-  ptr = g_sequence_get_begin_ptr (model->pointers);
-  while (!g_sequence_ptr_is_end (ptr))
+  ptr = g_old_sequence_get_begin_ptr (model->pointers);
+  while (!g_old_sequence_ptr_is_end (ptr))
     {
-      pointer = g_sequence_ptr_get_data (ptr);
+      pointer = g_old_sequence_ptr_get_data (ptr);
       if (!g_hash_table_lookup (hash, pointer))
 	remove = g_list_prepend (remove, ptr);
       
-      ptr = g_sequence_ptr_next (ptr);
+      ptr = g_old_sequence_ptr_next (ptr);
     }
 
   for (l = remove; l; l = l->next)
@@ -705,17 +705,17 @@ pointer_list_model_get_current (PointerListModel *model)
 {
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
 
-  if (g_sequence_get_length (model->pointers) == 0)
+  if (g_old_sequence_get_length (model->pointers) == 0)
     return NULL;
 
   if (model->current_pointer == NULL)
     return NULL;
   
-  return g_sequence_ptr_get_data (model->current_pointer);
+  return g_old_sequence_ptr_get_data (model->current_pointer);
 }
 
 static void
-row_changed (PointerListModel *model, GSequencePtr ptr)
+row_changed (PointerListModel *model, GOldSequencePtr ptr)
 {
   GtkTreeIter iter;
   GtkTreePath *path;
@@ -736,7 +736,7 @@ row_changed (PointerListModel *model, GSequencePtr ptr)
 gboolean
 pointer_list_model_set_current (PointerListModel *model, gpointer pointer)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   int len;
   
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), FALSE);
@@ -749,7 +749,7 @@ pointer_list_model_set_current (PointerListModel *model, gpointer pointer)
       return TRUE;
     }
   
-  len = g_sequence_get_length (model->pointers);
+  len = g_old_sequence_get_length (model->pointers);
   
   if (len == 0)
     return FALSE;
@@ -768,12 +768,12 @@ pointer_list_model_set_current (PointerListModel *model, gpointer pointer)
 gpointer
 pointer_list_model_next (PointerListModel *model)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
 
-  ptr = g_sequence_ptr_next (model->current_pointer);
-  if (g_sequence_ptr_is_end (ptr))
+  ptr = g_old_sequence_ptr_next (model->current_pointer);
+  if (g_old_sequence_ptr_is_end (ptr))
     return NULL;
 
   if (ptr)
@@ -783,20 +783,20 @@ pointer_list_model_next (PointerListModel *model)
       row_changed (model, model->current_pointer);
     }
 
-  return g_sequence_ptr_get_data (model->current_pointer);
+  return g_old_sequence_ptr_get_data (model->current_pointer);
 }
 
 gpointer
 pointer_list_model_prev (PointerListModel *model)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
 
   if (!pointer_list_model_has_prev (model))
     return NULL;
 
-  ptr = g_sequence_ptr_prev (model->current_pointer);
+  ptr = g_old_sequence_ptr_prev (model->current_pointer);
   if (ptr)
     {
       row_changed (model, model->current_pointer);
@@ -804,20 +804,20 @@ pointer_list_model_prev (PointerListModel *model)
       row_changed (model, model->current_pointer);
     }
 
-  return g_sequence_ptr_get_data (model->current_pointer);
+  return g_old_sequence_ptr_get_data (model->current_pointer);
 }
 
 gpointer
 pointer_list_model_first (PointerListModel *model)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
 
-  if (g_sequence_get_length (model->pointers) == 0)
+  if (g_old_sequence_get_length (model->pointers) == 0)
     return NULL;
   
-  ptr = g_sequence_get_begin_ptr (model->pointers);
+  ptr = g_old_sequence_get_begin_ptr (model->pointers);
   if (ptr)
     {
       row_changed (model, model->current_pointer);
@@ -825,22 +825,22 @@ pointer_list_model_first (PointerListModel *model)
       row_changed (model, model->current_pointer);
     }
 
-  return g_sequence_ptr_get_data (model->current_pointer);
+  return g_old_sequence_ptr_get_data (model->current_pointer);
 }
 
 gpointer
 pointer_list_model_last (PointerListModel *model)
 {
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
   
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), NULL);
 
-  if (g_sequence_get_length (model->pointers) == 0)
+  if (g_old_sequence_get_length (model->pointers) == 0)
     return NULL;
   
-  ptr = g_sequence_get_end_ptr (model->pointers);
+  ptr = g_old_sequence_get_end_ptr (model->pointers);
   if (ptr)
-    ptr = g_sequence_ptr_prev (ptr);
+    ptr = g_old_sequence_ptr_prev (ptr);
   if (ptr)
     {
       row_changed (model, model->current_pointer);
@@ -848,7 +848,7 @@ pointer_list_model_last (PointerListModel *model)
       row_changed (model, model->current_pointer);
     }
 
-  return g_sequence_ptr_get_data (model->current_pointer);
+  return g_old_sequence_ptr_get_data (model->current_pointer);
 }
 
 gboolean
@@ -858,7 +858,7 @@ pointer_list_model_has_prev (PointerListModel *model)
 
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), FALSE);
 
-  len = g_sequence_get_length (model->pointers);
+  len = g_old_sequence_get_length (model->pointers);
 
   if (len == 0)
     return FALSE;
@@ -866,18 +866,18 @@ pointer_list_model_has_prev (PointerListModel *model)
   if (!model->current_pointer)
     return FALSE;
 
-  return (g_sequence_ptr_get_position (model->current_pointer) > 0);
+  return (g_old_sequence_ptr_get_position (model->current_pointer) > 0);
 }
 
 gboolean
 pointer_list_model_has_next (PointerListModel *model)
 {
   int len;
-  GSequencePtr ptr;
+  GOldSequencePtr ptr;
 
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), FALSE);
 
-  len = g_sequence_get_length (model->pointers);
+  len = g_old_sequence_get_length (model->pointers);
 
   if (len == 0)
     return FALSE;
@@ -885,9 +885,9 @@ pointer_list_model_has_next (PointerListModel *model)
   if (!model->current_pointer)
     return FALSE;
 
-  ptr = g_sequence_ptr_next (model->current_pointer);
+  ptr = g_old_sequence_ptr_next (model->current_pointer);
 
-  return !g_sequence_ptr_is_end (ptr);
+  return !g_old_sequence_ptr_is_end (ptr);
 }
 
 gboolean
@@ -897,7 +897,7 @@ pointer_list_model_has_first (PointerListModel *model)
 
   g_return_val_if_fail (IS_POINTER_LIST_MODEL (model), FALSE);
 
-  len = g_sequence_get_length (model->pointers);
+  len = g_old_sequence_get_length (model->pointers);
 
   return (len > 0);
 }
