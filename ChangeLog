@@ -1,3 +1,9 @@
+2007-08-08  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* deps/dbus-sharp/Makefile.in:
+
+	Remove, since this seems a generated file.
+
 2007-06-05  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* libmuine/gsequence.c: (g_old_sequence_new),
