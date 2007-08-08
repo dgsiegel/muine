@@ -353,12 +353,14 @@ namespace Muine
 				// remove "disc 1" and family
 				//  TODO: Make the regexes translatable?
 				//  (e.g. "uno|dos|tres...", "les|los..)
-				sane_album_title =  Regex.Replace (sane_album_title, 
-	  				@"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
+				string sane_album_title_regex  = @"[,:]?\s*";
+				sane_album_title_regex += @"(cd|dis[ck])\s*";
+				sane_album_title_regex += @"(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$";
+				sane_album_title =  Regex.Replace (sane_album_title, sane_album_title_regex, String.Empty);
 
 				// Remove "The " and "the " from artist names
-				sane_artist_name = Regex.Replace (sane_artist_name,
-					@"^the\s+", "");
+				string sane_artist_name_regex = @"^the\s+";
+				sane_artist_name = Regex.Replace (sane_artist_name, sane_artist_name_regex, String.Empty);
 				
 				MusicBrainz c = new MusicBrainz ();
 				
@@ -387,9 +389,8 @@ namespace Muine
 						// Remove "The " here as well
 						if (fetched_artist_name != null) {
 							string tmp = fetched_artist_name.ToLower ();
-
-							fetched_artist_name =
-							  Regex.Replace (tmp, @"^the\s+", "");
+							string fetched_artist_name_regex = @"^the\s+";
+							fetched_artist_name = Regex.Replace (tmp, fetched_artist_name_regex, String.Empty);
 
 						} else {
 							fetched_artist_name = String.Empty;
@@ -459,8 +460,10 @@ namespace Muine
 
 			// remove "disc 1" and family
 			//	TODO: Make the regex translatable? (e.g. "uno|dos|tres...")
-			sane_album_title =  Regex.Replace (sane_album_title, 
-				@"[,:]?\s*(cd|dis[ck])\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$", "");
+			string sane_album_title_regex = @"[,:]?\s*";
+			sane_album_title_regex += @"(cd|dis[ck])\s*";
+			sane_album_title_regex += @"\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*$";
+			sane_album_title =  Regex.Replace (sane_album_title, sane_album_title_regex, String.Empty); 
 
 			string [] album_title_array = sane_album_title.Split (' ');
 			Array.Sort (album_title_array);
@@ -604,7 +607,7 @@ namespace Muine
 						}
 
 					} catch (WebException e) {
-						throw e;
+						throw;
 
 					} catch (Exception e) {
 						pix = null;
@@ -749,8 +752,8 @@ namespace Muine
 		private string SanitizeString (string s)
 		{
 			s = s.ToLower ();
-			s = Regex.Replace (s, "\\(.*\\)", "");
-			s = Regex.Replace (s, "\\[.*\\]", "");
+			s = Regex.Replace (s, "\\(.*\\)", String.Empty);
+			s = Regex.Replace (s, "\\[.*\\]", String.Empty);
 			s = s.Replace ("-", " ");
 			s = s.Replace ("_", " ");
 			s = Regex.Replace (s, " +", " ");

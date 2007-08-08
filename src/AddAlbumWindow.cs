@@ -209,7 +209,7 @@ namespace Muine
 		private void ProcessDragDataGetUriList
 		  (GLib.List albums, Gtk.DragDataGetArgs args)
 		{
-			string data = "";
+			string data = String.Empty;
 
 			foreach (int album_ptr_i in albums) {
 				Album album = GetAlbum (album_ptr_i);
@@ -261,8 +261,13 @@ namespace Muine
 			string artists    = GetArtists    (album);
 
 			// Format
-			string fmt = "<b>{0}</b>\n{1}\n\n{2}";
-			cell.Markup = String.Format (fmt, name, artists, performers);
+			string markup = String.Format ("<b>{0}</b>", name);
+			markup += Environment.NewLine;
+			markup += artists;
+			markup += Environment.NewLine;
+			markup += Environment.NewLine;
+			markup += performers;
+			cell.Markup = markup;
 		}
 
 

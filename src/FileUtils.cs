@@ -41,10 +41,14 @@ namespace Muine
 		// Strings
 		//	TODO: Rename to string_error_config and string_error_temp.
 		private static readonly string string_init_config_failed = 
-			Catalog.GetString ("Failed to initialize the configuration folder: {0}\n\nExiting...");
+			Catalog.GetString ("Failed to initialize the configuration folder: {0}");
 
 		private static readonly string string_init_temp_failed =
-			Catalog.GetString ("Failed to initialize the temporary files folder: {0}\n\nExiting...");
+			Catalog.GetString ("Failed to initialize the temporary files folder: {0}");
+		
+		private static readonly string string_exiting =
+			Catalog.GetString ("Exiting...");
+
 
 		// Variables
 		private static string home_directory;
@@ -88,10 +92,11 @@ namespace Muine
 				CreateDirectory (config_directory);
 
 			} catch (Exception e) {
-				string msg =
-				  String.Format (string_init_config_failed, e.Message);
-
-				throw new Exception (msg);
+				string msg = string_init_config_failed;
+				msg += Environment.NewLine;
+				msg += Environment.NewLine;
+				msg += string_exiting;
+				throw new Exception (msg, e);
 			}
 
 			playlist_file =
@@ -113,10 +118,11 @@ namespace Muine
 				CreateDirectory (temp_directory);
 
 			} catch (Exception e) {
-				string msg =
-				  String.Format (string_init_temp_failed, e.Message);
-
-				throw new Exception (msg);
+				string msg = string_init_temp_failed;
+				msg += Environment.NewLine;
+				msg += Environment.NewLine;
+				msg += string_exiting;
+				throw new Exception (msg, e);
 			}
 		}
 

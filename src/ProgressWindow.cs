@@ -35,8 +35,7 @@ namespace Muine
 		private static readonly string string_loading =
 			Catalog.GetString ("Loading:");
 
-		private static string title_format;
-				
+
 		// Widgets
 		[Glade.Widget] private Window window;
 		[Glade.Widget] private Label  loading_label;
@@ -64,8 +63,6 @@ namespace Muine
 			loading_label.Markup =
 			  String.Format ("<b>{0}</b>", string_loading_esc);
 
-			title_format = string_title;
-
 			geo_no_resize_height = new Gdk.Geometry ();
 			geo_no_resize_height.MaxWidth = Int32.MaxValue;
 		}
@@ -78,7 +75,7 @@ namespace Muine
 			if (canceled)
 				return true;
 
-			window.Title = String.Format (title_format, folder);
+			window.Title = String.Format (string_title, folder);
 
 			if (file != null)
 				file_label.Text = file;

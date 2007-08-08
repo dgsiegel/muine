@@ -60,7 +60,7 @@ namespace Muine
 		/// </summary>
 		public void Clear ()
 		{
-			base.Text = "";
+			base.Text = String.Empty;
 		}
 
 		// Handlers

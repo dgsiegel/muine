@@ -63,7 +63,7 @@ namespace Muine
 			covers = new Hashtable ();
 
 			// Hack to get the GtkStyle
-			Gtk.Label label = new Gtk.Label ("");
+			Gtk.Label label = new Gtk.Label (String.Empty);
 			label.EnsureStyle ();
 
 			downloading_pixbuf =

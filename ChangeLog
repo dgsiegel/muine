@@ -1,3 +1,38 @@
+2007-08-08  Tamara Roberson  <tamara.roberson@gmail.com>
+
+	* plugins/TrayIcon.cs:
+	* DBusLib/Player.cs:
+	* src/Metadata.cs:
+	* src/AddWindow.cs:
+	* src/CoverGetter.cs:
+	* src/PluginManager.cs:
+	* src/ProgressWindow.cs:
+	* src/FileUtils.cs:
+	* src/AddAlbumWindow.cs:
+	* src/CoverDatabase.cs:
+	* src/OverwriteDialog.cs:
+	* src/AddSongWindow.cs:
+	* src/ErrorDialog.cs:
+	* src/About.cs:
+	* src/StringUtils.cs:
+	* src/PlaylistWindow.cs:
+	* src/AddWindowEntry.cs:
+	* src/Makefile.am:
+
+	Ran Gendarme against Muine with default rules.  Mostly this
+	was simply String.Empty and Environment.NewLine recommendations,
+	which were applied in most cases (except DnD and const). This 
+	also picked up a recommendation to compile with -target:winexe
+	to hint to not pop up a console window (only .Net uses this though
+	AFAIK, not Mono).  Also caught a couple of exception stack trace
+	hiding, although there is probably more.
+
+	Please note: Three translatable strings were changed slightly and
+	one was added.  Actually, I think the one that was added should be
+	removed but it's just there to keep the same behavior.
+
+	No behavior should change in this patch, if it does, it's a bug.
+
 2007-08-08  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	Update to newer GSequence API. Partly fixes bug #464825.

@@ -63,7 +63,7 @@ namespace Muine
 			get {
 				IntPtr title_ptr = metadata_get_title (raw);
 				
-				string title = "";
+				string title = String.Empty;
 				
 				if (title_ptr != IntPtr.Zero) {
 					string title_tmp = Marshal.PtrToStringAnsi (title_ptr);
@@ -145,7 +145,7 @@ namespace Muine
 				
 				string album;
 				if (album_ptr == IntPtr.Zero) {
-					album = "";
+					album = String.Empty;
 				} else {
 					string album_tmp = Marshal.PtrToStringAnsi (album_ptr);
 					album = album_tmp.Trim ();
@@ -205,7 +205,7 @@ namespace Muine
 			get {
 				IntPtr year_ptr = metadata_get_year (raw);
 				
-				string year = "";
+				string year = String.Empty;
 				
 				if (year_ptr != IntPtr.Zero)
 					year = Marshal.PtrToStringAnsi (year_ptr);
@@ -230,7 +230,7 @@ namespace Muine
 			get {
 				IntPtr type_ptr = metadata_get_mime_type (raw);
 				
-				string type = "";
+				string type = String.Empty;
 				if (type_ptr != IntPtr.Zero)
 					Marshal.PtrToStringAnsi (type_ptr);
 				

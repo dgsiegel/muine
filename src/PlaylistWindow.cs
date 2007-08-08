@@ -121,7 +121,7 @@ namespace Muine
 
 		// Strings :: Errors
 		private static readonly string string_error_audio =
-			Catalog.GetString ("Failed to initialize the audio backend:\n{0}");
+			Catalog.GetString ("Failed to initialize the audio backend");
 
 		private static readonly string string_error_read =
 			Catalog.GetString ("Failed to read {0}:");
@@ -944,8 +944,7 @@ namespace Muine
 				player = new Player ();
 
 			} catch (Exception e) {
-				string msg = String.Format (string_error_audio, e.Message);
-				throw new Exception (msg);
+				throw new Exception (string_error_audio, e);
 			}
 
 			// Setup Player
@@ -1051,7 +1050,7 @@ namespace Muine
 		private void UpdateTimeLabels (int time)
 		{
 			if (playlist.Model.Playing == IntPtr.Zero) {
-				time_label.Text = "";
+				time_label.Text = String.Empty; 
 				playlist_label.Markup = string_playlist;
 				return;
 			}
@@ -1198,12 +1197,18 @@ namespace Muine
 				else
 					tip = string_album_unknown;
 
-				if (song.Performers.Length > 0)
-					tip += "\n\n" + String.Format (string_performers, 
-						StringUtils.JoinHumanReadable (song.Performers));
+				if (song.Performers.Length > 0) {
+					tip += Environment.NewLine;
+					tip += Environment.NewLine;
+					string performers_readable = StringUtils.JoinHumanReadable (song.Performers);
+					tip += String.Format (string_performers, performers_readable); 
+				}
 					
-				if (song.CoverImage == null && !Global.CoverDB.Loading)
-					tip += "\n\n" + string_tooltip_cover;
+				if (song.CoverImage == null && !Global.CoverDB.Loading) {
+					tip += Environment.NewLine;
+					tip += Environment.NewLine;
+					tip += string_tooltip_cover;
+				}
 				
 				tooltips.SetTip (cover_image, tip, null);
 				
@@ -1215,10 +1220,10 @@ namespace Muine
 
 				string artists = StringUtils.EscapeForPango (artists_tmp);
 
-				string fmt =
-				  "<span size=\"large\" weight=\"bold\">{0}</span>\n{1}";
-
-				song_label.Markup = String.Format (fmt, title, artists);
+				string markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>", title);
+				markup += Environment.NewLine;
+				markup += artists;
+				song_label.Markup = markup;
 
 				// Title
 				this.Title = String.Format (string_title_main, song.Title);
@@ -1234,8 +1239,8 @@ namespace Muine
 
 				tooltips.SetTip (cover_image, null, null);
 
-				song_label.Markup = "";
-				time_label  .Text = "";
+				song_label.Markup = String.Empty;
+				time_label.Text   = String.Empty;
 
 				this.Title = string_program;
 
@@ -1336,7 +1341,7 @@ namespace Muine
 				// DOS-to-UNIX
 				line.Replace ('\\', '/');
 
-				string basename = "";
+				string basename = String.Empty;
 
 				try {
 					basename = System.IO.Path.GetFileName (line);
@@ -1880,7 +1885,7 @@ namespace Muine
 
 			switch (args.Info) {
 			case (uint) DndUtils.TargetType.UriList:
-				string files = "";
+				string files = String.Empty;
 
 				foreach (int p in songs) {
 					IntPtr s = new IntPtr (p);
@@ -1971,9 +1976,9 @@ namespace Muine
 			string head;
 			
 			if      (is_tree_model) head = tree_model_row;
-			else if (is_song_list ) head = song_list     ;
-			else if (is_album_list) head = album_list    ;
-			else                    head = ""            ;
+			else if (is_song_list ) head = song_list;
+			else if (is_album_list) head = album_list;
+			else                    head = String.Empty;
 
 			data = data.Substring (head.Length);
 
@@ -2256,8 +2261,11 @@ namespace Muine
 			string title = StringUtils.EscapeForPango (song.Title);
 			string artists_tmp = StringUtils.JoinHumanReadable (song.Artists);
 			string artists = StringUtils.EscapeForPango (artists_tmp);
-			string fmt = "<b>{0}</b>\n{1}";
-			r.Markup = String.Format (fmt, title, artists);
+
+			string markup = String.Format ("<b>{0}</b>", title);
+			markup += Environment.NewLine;
+			markup += artists;
+			r.Markup = markup;
 		}
 
 		// Delegate Functions :: ShuffleFunc		

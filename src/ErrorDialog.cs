@@ -71,13 +71,14 @@ namespace Muine
 
 			gxml.Autoconnect (this);
 
-			string fmt =
-			  "<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}";
-
 			string s1_esc = StringUtils.EscapeForPango (s1);
 			string s2_esc = StringUtils.EscapeForPango (s2);
 
-			label.Markup = String.Format (fmt, s1_esc, s2_esc);
+			string markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>", s1_esc);
+			markup += Environment.NewLine;
+			markup += Environment.NewLine;
+			markup += s2_esc; 
+			label.Markup = markup;
 
 			window.Run ();
 			window.Destroy ();

@@ -131,8 +131,10 @@ namespace Muine
 			string artists = GetArtists (song);
 
 			// Format
-			string fmt = "<b>{0}</b>\n{1}";
-			cell.Markup = String.Format (fmt, title, artists);
+			string markup = String.Format ("<b>{0}</b>", title);
+			markup += Environment.NewLine;
+			markup += artists;
+			cell.Markup = markup;
 		}
 
 		// Methods :: Private :: ProcessDragDataGetSongList
@@ -156,7 +158,7 @@ namespace Muine
 		private void ProcessDragDataGetUriList
 		  (GLib.List songs, Gtk.DragDataGetArgs args)
 		{
-			string data = "";
+			string data = String.Empty; 
 
 			foreach (int song_ptr_i in songs) {
 				Song song = GetSong (song_ptr_i);

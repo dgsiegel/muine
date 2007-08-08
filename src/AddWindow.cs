@@ -175,7 +175,7 @@ namespace Muine
 				this.window.GdkWindow.Display.Flush ();
 
 				this.ignore_change = true;
-				this.entry.Text = "";
+				this.entry.Text = String.Empty;
 				this.ignore_change = false;
 
 				GLib.IdleHandler func = new GLib.IdleHandler (ResetFunc);

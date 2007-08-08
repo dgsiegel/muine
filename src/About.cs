@@ -50,7 +50,7 @@ namespace Muine
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
 			Catalog.GetString ("Tamara Roberson <tamara.roberson@gmail.com>"),
 			Catalog.GetString ("Peter Johanson <peter@peterjohanson.com>"),
-			"",
+			String.Empty,
 			Catalog.GetString ("Album covers are provided by amazon.com and musicbrainz.org."),
 			null,
 		};

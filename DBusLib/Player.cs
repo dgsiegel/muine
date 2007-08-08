@@ -82,12 +82,12 @@ namespace Muine.DBusLib
 
 		public virtual string GetCurrentSong ()
 		{
-			string value = "";
+			string str = String.Empty;
 		
 			if (player.PlayingSong != null)
-				value = SongToString (player.PlayingSong);
+				str = SongToString (player.PlayingSong);
 		
-			return value;
+			return str;
 		}
 
 		public virtual bool GetWindowVisible ()
@@ -181,13 +181,13 @@ namespace Muine.DBusLib
 
 		private void OnSongChangedEvent (ISong song)
 		{
-			string value = "";
+			string str = String.Empty;
 		
 			if (song != null)
-				value = SongToString (song);
+				str = SongToString (song);
 
 			if (SongChanged != null)
-				SongChanged (value);
+				SongChanged (str);
 		}
 
 		public event StateChangedHandler StateChanged;
@@ -200,32 +200,34 @@ namespace Muine.DBusLib
 
 		private string SongToString (ISong song)
 		{
-			string value = "";
+			string nl = Environment.NewLine;
 
-			value += "uri: " + song.Filename + "\n";
-			value += "title: " + song.Title + "\n";
+			string str = String.Empty;
+
+			str += "uri: " + song.Filename + nl;
+			str += "title: " + song.Title + nl;
 
 			foreach (string s in song.Artists)
-				value += "artist: " + s + "\n";
+				str += "artist: " + s + nl;
 			
 			foreach (string s in song.Performers)
-				value += "performer: " + s + "\n";
+				str += "performer: " + s + nl;
 
 			if (song.Album.Length > 0)
-				value += "album: " + song.Album + "\n";
+				str += "album: " + song.Album + nl;
 
 			if (song.Year.Length > 0)
-				value += "year: " + song.Year + "\n";
+				str += "year: " + song.Year + nl;
 
 			if (song.TrackNumber >= 0)
-				value += "track_number: " + song.TrackNumber + "\n";
+				str += "track_number: " + song.TrackNumber + nl;
 			
 			if (song.DiscNumber >= 0)
-				value += "disc_number: " + song.DiscNumber + "\n";
+				str += "disc_number: " + song.DiscNumber + nl;
 
-			value += "duration: " + song.Duration;
+			str += "duration: " + song.Duration;
 
-			return value;
+			return str;
 		}
 	}
 }

@@ -55,18 +55,18 @@ namespace Muine
 			  String.Format (string_primary_text, fn_readable);
 
 			// Label
-			string fmt =
-			  "<span size=\"large\" weight=\"bold\">{0}</span>\n\n{1}";
-
 			string primary_text_esc =
 			  StringUtils.EscapeForPango (primary_text);
 
 			string string_secondary_text_esc =
 			  StringUtils.EscapeForPango (string_secondary_text);
 
-			label.Markup =
-			  String.Format
-			    (fmt, primary_text_esc, string_secondary_text_esc);
+			string fmt = "<span size=\"large\" weight=\"bold\">{0}</span>";
+			string markup = String.Format (fmt, primary_text_esc);
+			markup += Environment.NewLine;
+			markup += Environment.NewLine;
+			markup += string_secondary_text_esc;
+			label.Markup = markup;
 
 			//
 			window.TransientFor = parent;

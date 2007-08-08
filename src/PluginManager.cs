@@ -74,7 +74,7 @@ namespace Muine
 		// Methods :: Private :: FindAssemblies
 		private void FindAssemblies (string dir)
 		{
-			if (dir == null || dir == "")
+			if (dir == null || dir == String.Empty)
 				return;
 
 			DirectoryInfo info = new DirectoryInfo (dir);

@@ -53,7 +53,7 @@ namespace Muine
 		private int menu_x;
 		private int menu_y;
 		
-		private string tooltip = "";
+		private string tooltip = String.Empty; 
 
 		private bool playing = false;
 

@@ -92,7 +92,7 @@ namespace Muine
 			string lower = key.ToLower ();
 
 			bool different = false;
-			string stripped = "";
+			string stripped = String.Empty;
 
 			foreach (char c in lower) {
 				if (Char.IsLetterOrDigit (c) || Char.IsWhiteSpace (c) ||
