@@ -1,5 +1,24 @@
 2007-08-08  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	Update to newer GSequence API. Partly fixes bug #464825.
+	Initial patch by Scott Robinson, but slightly changed
+	because we cannot depend on Glib > 2.13 as of yet (no
+	stable release!).
+
+	* libmuine/gsequence.c: 
+	* libmuine/gsequence.h:
+
+	Copied from Glib trunk with minor modifications to make
+	it build: removed galias references and changed glib.h
+	include statement.
+
+	* libmuine/pointer-list-model.c:
+	* libmuine/pointer-list-model.h:
+
+	Change to Glib GSequence API.
+
+2007-08-08  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* deps/dbus-sharp/Makefile.in:
 
 	Remove, since this seems a generated file.

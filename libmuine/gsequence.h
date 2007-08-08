@@ -1,5 +1,6 @@
 /* GLIB - Library of useful routines for C programming
- * Copyright (C) 2002  Soeren Sandmann (sandmann@daimi.au.dk)
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007
+ * Soeren Sandmann (sandmann@daimi.au.dk)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -8,7 +9,7 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
@@ -17,75 +18,104 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <glib.h>
+#include <glib/gtypes.h>
 
-#ifndef __GSEQUENCE_H__
-#define __GSEQUENCE_H__
+#ifndef __G_SEQUENCE_H__
+#define __G_SEQUENCE_H__
 
-typedef struct _GOldSequence      GOldSequence;
-typedef struct _GOldSequenceNode *GOldSequencePtr;
+typedef struct _GSequence      GSequence;
+typedef struct _GSequenceNode  GSequenceIter;
 
-/* GOldSequence */
-GOldSequence *  g_old_sequence_new                (GDestroyNotify           data_destroy);
-void         g_old_sequence_free               (GOldSequence               *seq);
-void         g_old_sequence_sort               (GOldSequence               *seq,
-					    GCompareDataFunc         cmp_func,
-					    gpointer                 cmp_data);
-GOldSequencePtr g_old_sequence_append             (GOldSequence               *seq,
-					    gpointer                 data);
-GOldSequencePtr g_old_sequence_prepend            (GOldSequence               *seq,
-					    gpointer                 data);
-GOldSequencePtr g_old_sequence_insert             (GOldSequencePtr             ptr,
-					    gpointer                 data);
-void         g_old_sequence_remove             (GOldSequencePtr             ptr);
-GOldSequencePtr g_old_sequence_insert_sorted      (GOldSequence               *seq,
-					    gpointer                 data,
-					    GCompareDataFunc         cmp_func,
-					    gpointer                 cmp_data);
-void         g_old_sequence_insert_sequence    (GOldSequencePtr             ptr,
-					    GOldSequence               *other_seq);
-void         g_old_sequence_concatenate        (GOldSequence               *seq1,
-					    GOldSequence               *seq);
-void         g_old_sequence_remove_range       (GOldSequencePtr             begin,
-					    GOldSequencePtr             end,
-					    GOldSequence              **removed);
-gint	     g_old_sequence_get_length         (GOldSequence               *seq);
-GOldSequencePtr g_old_sequence_get_end_ptr        (GOldSequence               *seq);
-GOldSequencePtr g_old_sequence_get_begin_ptr      (GOldSequence               *seq);
-GOldSequencePtr g_old_sequence_get_ptr_at_pos     (GOldSequence               *seq,
-					    gint                     pos);
+typedef gint (* GSequenceIterCompareFunc) (GSequenceIter *a,
+                                           GSequenceIter *b,
+                                           gpointer       data);
 
-/* GOldSequencePtr */
-gboolean     g_old_sequence_ptr_is_end         (GOldSequencePtr             ptr);
-gboolean     g_old_sequence_ptr_is_begin       (GOldSequencePtr             ptr);
-gint         g_old_sequence_ptr_get_position   (GOldSequencePtr             ptr);
-GOldSequencePtr g_old_sequence_ptr_next           (GOldSequencePtr             ptr);
-GOldSequencePtr g_old_sequence_ptr_prev           (GOldSequencePtr             ptr);
-GOldSequencePtr g_old_sequence_ptr_move           (GOldSequencePtr             ptr,
-					    guint                    leap);
-void         g_old_sequence_ptr_sort_changed   (GOldSequencePtr	     ptr,
-					    GCompareDataFunc	     cmp_func,
-					    gpointer		     cmp_data);
-gpointer     g_old_sequence_ptr_get_data       (GOldSequencePtr             ptr);
-void         g_old_sequence_ptr_set_data       (GOldSequencePtr             ptr,
-					    gpointer                 data);
-void         g_old_sequence_ptr_move_before    (GOldSequencePtr             ptr,
-		                            GOldSequencePtr             before);
 
-/* search */
+/* GSequence */
+GSequence *    g_sequence_new                (GDestroyNotify            data_destroy);
+void           g_sequence_free               (GSequence                *seq);
+gint           g_sequence_get_length         (GSequence                *seq);
+void           g_sequence_foreach            (GSequence                *seq,
+                                              GFunc                     func,
+                                              gpointer                  user_data);
+void           g_sequence_foreach_range      (GSequenceIter            *begin,
+                                              GSequenceIter            *end,
+                                              GFunc                     func,
+                                              gpointer                  user_data);
+void           g_sequence_sort               (GSequence                *seq,
+                                              GCompareDataFunc          cmp_func,
+                                              gpointer                  cmp_data);
+void           g_sequence_sort_iter          (GSequence                *seq,
+                                              GSequenceIterCompareFunc  cmp_func,
+                                              gpointer                  cmp_data);
 
-/* return TRUE if you want to be called again with two
- * smaller segments
- */
-typedef gboolean (* GOldSequenceSearchFunc) (GOldSequencePtr begin,
-					  GOldSequencePtr end,
-					  gpointer     data);
 
-void         g_old_sequence_search             (GOldSequence               *seq,
-					    GOldSequenceSearchFunc      f,
-					    gpointer                 data);
+/* Getting iters */
+GSequenceIter *g_sequence_get_begin_iter     (GSequence                *seq);
+GSequenceIter *g_sequence_get_end_iter       (GSequence                *seq);
+GSequenceIter *g_sequence_get_iter_at_pos    (GSequence                *seq,
+                                              gint                      pos);
+GSequenceIter *g_sequence_append             (GSequence                *seq,
+                                              gpointer                  data);
+GSequenceIter *g_sequence_prepend            (GSequence                *seq,
+                                              gpointer                  data);
+GSequenceIter *g_sequence_insert_before      (GSequenceIter            *iter,
+                                              gpointer                  data);
+void           g_sequence_move               (GSequenceIter            *src,
+                                              GSequenceIter            *dest);
+void           g_sequence_swap               (GSequenceIter            *a,
+                                              GSequenceIter            *b);
+GSequenceIter *g_sequence_insert_sorted      (GSequence                *seq,
+                                              gpointer                  data,
+                                              GCompareDataFunc          cmp_func,
+                                              gpointer                  cmp_data);
+GSequenceIter *g_sequence_insert_sorted_iter (GSequence                *seq,
+                                              gpointer                  data,
+                                              GSequenceIterCompareFunc  iter_cmp,
+                                              gpointer                  cmp_data);
+void           g_sequence_sort_changed       (GSequenceIter            *iter,
+                                              GCompareDataFunc          cmp_func,
+                                              gpointer                  cmp_data);
+void           g_sequence_sort_changed_iter  (GSequenceIter            *iter,
+                                              GSequenceIterCompareFunc  iter_cmp,
+                                              gpointer                  cmp_data);
+void           g_sequence_remove             (GSequenceIter            *iter);
+void           g_sequence_remove_range       (GSequenceIter            *begin,
+                                              GSequenceIter            *end);
+void           g_sequence_move_range         (GSequenceIter            *dest,
+                                              GSequenceIter            *begin,
+                                              GSequenceIter            *end);
+GSequenceIter *g_sequence_search             (GSequence                *seq,
+                                              gpointer                  data,
+                                              GCompareDataFunc          cmp_func,
+                                              gpointer                  cmp_data);
+GSequenceIter *g_sequence_search_iter        (GSequence                *seq,
+                                              gpointer                  data,
+                                              GSequenceIterCompareFunc  iter_cmp,
+                                              gpointer                  cmp_data);
 
-/* debug */
-gint         g_old_sequence_calc_tree_height   (GOldSequence               *seq);
 
-#endif /* __GSEQUENCE_H__ */
+/* Dereferencing */
+gpointer       g_sequence_get                (GSequenceIter            *iter);
+void           g_sequence_set                (GSequenceIter            *iter,
+                                              gpointer                  data);
+
+/* Operations on GSequenceIter * */
+gboolean       g_sequence_iter_is_begin      (GSequenceIter            *iter);
+gboolean       g_sequence_iter_is_end        (GSequenceIter            *iter);
+GSequenceIter *g_sequence_iter_next          (GSequenceIter            *iter);
+GSequenceIter *g_sequence_iter_prev          (GSequenceIter            *iter);
+gint           g_sequence_iter_get_position  (GSequenceIter            *iter);
+GSequenceIter *g_sequence_iter_move          (GSequenceIter            *iter,
+                                              gint                      delta);
+GSequence *    g_sequence_iter_get_sequence  (GSequenceIter            *iter);
+
+
+/* Search */
+gint           g_sequence_iter_compare       (GSequenceIter            *a,
+                                              GSequenceIter            *b);
+GSequenceIter *g_sequence_range_get_midpoint (GSequenceIter            *begin,
+                                              GSequenceIter            *end);
+
+
+#endif /* __G_SEQUENCE_H__ */
