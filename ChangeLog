@@ -1,3 +1,9 @@
+2007-08-09  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* NEWS:
+
+	Updated for upcoming release (work in progress).
+
 2007-08-08  Tamara Roberson  <tamara.roberson@gmail.com>
 
 	* plugins/TrayIcon.cs:

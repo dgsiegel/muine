@@ -1,3 +1,35 @@
+0.8.8
+=====
+
+FIXME: This NEWS entry was written on August 08, 2007. Changes made after that
+date are NOT covered in this entry. Please update before releasing.
+
+- Removed obsolete GStreamer 0.8 support [Peter Johanson]
+- Use Gtk.AboutDialog [Tamara Roberson, Peter Johanson]
+- Update to recent Flac API [Peter Johanson]
+- Use Bacon volume widget [Aaron Bockover, Peter Johanson, Wouter Bolsterlee]
+- Use external NDesk dbus [Sebastian Dröge, Luis Medinas]
+- Tiny interface changes, e.g. scrollbar and mousewheel [Wouter Bolsterlee]
+- Update to new GSequence API [Scott Robinson, Wouter Bolsterlee]
+- Gendarme-driven code cleanup [Tamara Roberson]
+
+New translations:
+- Italian [Marco Dalla Vecchia]
+
+Updated translations:
+- Arabic [Djihed Afifi]
+- British English [David Lodge]
+- Danish [Peter Bach]
+- Dutch [Wouter Bolsterlee]
+- Dzongkha [Pema Geyleg]
+- Finnish [Ilkka Tuohela]
+- French [Jonathan Ernst, Stéphane Raimbault]
+- Japanese [Takeshi Aihana]
+- Polish [Artur Flinta]
+- Portuguese [Filipe Gomes]
+- Spanish [Jorge Gonzalez]
+- Swedish [Daniel Nylander
+
 0.8.7
 =====
 
