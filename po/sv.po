@@ -1,16 +1,14 @@
 # Swedish messages for muine.
-# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
-# Daniel Nylander <po@danielnylander.se>, 2006.
-#
-# $Id: sv.po,v 1.12 2006/09/08 01:04:40 roberst Exp $
+# Daniel Nylander <po@danielnylander.se>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-13 16:26+0100\n"
-"PO-Revision-Date: 2007-02-13 16:29+0100\n"
+"POT-Creation-Date: 2007-08-09 09:25+0200\n"
+"PO-Revision-Date: 2007-08-09 09:25+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -348,25 +346,17 @@ msgstr "the dj"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
-msgid ""
-"Failed to initialize the configuration folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Misslyckades med att initiera konfigurationsmappen: {0}\n"
-"\n"
-"Avslutar..."
+msgid "Failed to initialize the configuration folder: {0}"
+msgstr "Misslyckades med att initiera konfigurationsmappen: {0}"
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
-msgid ""
-"Failed to initialize the temporary files folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Misslyckades med att initiera mapp för temporära filer: {0}\n"
-"\n"
-"Avslutar..."
+msgid "Failed to initialize the temporary files folder: {0}"
+msgstr "Misslyckades med att initiera mapp för temporära filer: {0}"
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
+msgstr "Avslutar..."
 
 #: ../src/Global.cs:37
 #, csharp-format
@@ -480,13 +470,8 @@ msgid "Drop an image here to use it as album cover"
 msgstr "Släpp en bild här för att använda den som albumomslag"
 
 #: ../src/PlaylistWindow.cs:124
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}"
-msgstr ""
-"Misslyckades med att initiera i ljudbakänden:\n"
-"{0}"
+msgid "Failed to initialize the audio backend"
+msgstr "Misslyckades med att initiera ljudbakänden"
 
 #: ../src/PlaylistWindow.cs:127
 #, csharp-format
@@ -503,28 +488,28 @@ msgstr "Misslyckades med att stänga {0}:"
 msgid "Failed to write {0}:"
 msgstr "Misslyckades med att skriva {0}:"
 
-#: ../src/PlaylistWindow.cs:1084
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Spellista</b> (upprepar {0} timme)"
 msgstr[1] "<b>Spellista</b> (upprepar {0} timmar)"
 
-#: ../src/PlaylistWindow.cs:1089
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Spellista</b> (upprepar {0} minut)"
 msgstr[1] "<b>Spellista</b> (upprepar {0} minuter)"
 
-#: ../src/PlaylistWindow.cs:1094
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Spellista</b> ({0} timme återstår)"
 msgstr[1] "<b>Spellista</b> ({0} timmar återstår)"
 
-#: ../src/PlaylistWindow.cs:1099
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -567,11 +552,11 @@ msgstr "{0} med flera"
 msgid "{0} and {1}"
 msgstr "{0} och {1}"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Muted"
 msgstr "Tyst"
 
-#: ../src/VolumeButton.cs:494
+#: ../src/VolumeButton.cs:492
 msgid "Full Volume"
 msgstr "Full volym"
 
@@ -778,8 +763,6 @@ msgstr "{0} - {1}"
 #~ msgstr "_Importera mapp..."
 #~ msgid "_Remove"
 #~ msgstr "_Ta bort"
-#~ msgid "Loading..."
-#~ msgstr "Läser in..."
 #~ msgid "Repeat _mode"
 #~ msgstr "Upprepnings_läge"
 #~ msgid "Shuf_fle mode"
