@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-13 15:30+0000\n"
-"PO-Revision-Date: 2007-05-06 17:21+0200\n"
+"POT-Creation-Date: 2007-08-08 23:02+0100\n"
+"PO-Revision-Date: 2007-08-19 11:41+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -349,25 +349,17 @@ msgstr "el dj"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
-msgid ""
-"Failed to initialize the configuration folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Falló al inicializar la carpeta de configuración: {0}\n"
-"\n"
-"Saliendo…"
+msgid "Failed to initialize the configuration folder: {0}"
+msgstr "Falló al inicializar la carpeta de configuración: {0}"
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
-msgid ""
-"Failed to initialize the temporary files folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Falló al inicializar la carpeta de archivos temporales: {0}\n"
-"\n"
-"Saliendo…"
+msgid "Failed to initialize the temporary files folder: {0}"
+msgstr "Falló al inicializar la carpeta de archivos temporales: {0}"
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
+msgstr "Saliendo..."
 
 #: ../src/Global.cs:37
 #, csharp-format
@@ -485,13 +477,8 @@ msgid "Drop an image here to use it as album cover"
 msgstr "Suelte una imagen aquí para usarla como cubierta del álbum"
 
 #: ../src/PlaylistWindow.cs:124
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}"
-msgstr ""
-"Falló al inicializar el backend de sonido:\n"
-"{0}"
+msgid "Failed to initialize the audio backend"
+msgstr "Falló al inicializar el backend de sonido:"
 
 #: ../src/PlaylistWindow.cs:127
 #, csharp-format
@@ -508,28 +495,28 @@ msgstr "Falló al cerrar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1084
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1089
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1094
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1099
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -572,11 +559,11 @@ msgstr "{0} y otros"
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Muted"
 msgstr "Silenciado"
 
-#: ../src/VolumeButton.cs:494
+#: ../src/VolumeButton.cs:492
 msgid "Full Volume"
 msgstr "Volumen total"
 
