@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: muine 0.8.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-04 05:00+0100\n"
-"PO-Revision-Date: 2007-08-07 14:09+0200\n"
+"PO-Revision-Date: 2007-08-20 18:25+0200\n"
 "Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Error"
 
 #: ../data/glade/OverwriteDialog.glade.h:1
 msgid "Overwrite File?"
-msgstr ""
+msgstr "Remplaçar lo fichièr\\?"
 
 #: ../data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
@@ -199,7 +199,7 @@ msgstr "Error intèrna"
 #: ../libmuine/player-xine.c:407
 #, c-format
 msgid "Could not play \"%s\""
-msgstr ""
+msgstr "Impossible de legir \"%s\""
 
 #: ../src/About.cs:32
 msgid "translator-credits"
@@ -209,19 +209,19 @@ msgstr ""
 
 #: ../src/About.cs:35
 msgid "Muine"
-msgstr ""
+msgstr "Muine"
 
 #: ../src/About.cs:38
 msgid "Copyright © 2003-2007 Jorn Baayen"
-msgstr ""
+msgstr "Copyright © 2003-2007 Jorn Baayen"
 
 #: ../src/About.cs:41
 msgid "A music player"
-msgstr ""
+msgstr "Un legidor de musica"
 
 #: ../src/About.cs:48
 msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr ""
+msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
 #: ../src/About.cs:49
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: ../src/About.cs:50
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
-msgstr ""
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
 #: ../src/About.cs:51
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
@@ -237,7 +237,7 @@ msgstr ""
 
 #: ../src/About.cs:52
 msgid "Peter Johanson <peter@peterjohanson.com>"
-msgstr ""
+msgstr "Peter Johanson <peter@peterjohanson.com>"
 
 #: ../src/About.cs:54
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
@@ -261,7 +261,7 @@ msgstr "_Ajuda"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
-msgstr ""
+msgstr "_Importar un repertòri..."
 
 #: ../src/Actions.cs:52
 msgid "_Open..."
@@ -373,7 +373,7 @@ msgstr ""
 
 #: ../src/ImportDialog.cs:37
 msgid "Import Folder"
-msgstr ""
+msgstr "Importar un repertòri"
 
 #: ../src/ImportDialog.cs:40
 msgid "_Import"
