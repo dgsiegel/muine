@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 17:13+0300\n"
+"POT-Creation-Date: 2007-09-13 11:04+0300\n"
 "PO-Revision-Date: 2006-04-14 21:50+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -339,25 +339,17 @@ msgstr "DJ"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
-msgid ""
-"Failed to initialize the configuration folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Asetuskansion alustus epäonnistui: {0}\n"
-"\n"
-"Suljetaan..."
+msgid "Failed to initialize the configuration folder: {0}"
+msgstr "Asetuskansion alustus epäonnistui: {0}"
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
-msgid ""
-"Failed to initialize the temporary files folder: {0}\n"
-"\n"
-"Exiting..."
-msgstr ""
-"Väliaikaistiedostojen kansion alustus epäonnistui: {0}\n"
-"\n"
-"Suljetaan..."
+msgid "Failed to initialize the temporary files folder: {0}"
+msgstr "Väliaikaistiedostojen kansion alustus epäonnistui: {0}"
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
+msgstr "Suljetaan..."
 
 #: ../src/Global.cs:37
 #, csharp-format
@@ -475,13 +467,8 @@ msgid "Drop an image here to use it as album cover"
 msgstr "Tiputa tähän kuva käyttääksesi sitä levynkantena"
 
 #: ../src/PlaylistWindow.cs:124
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}"
-msgstr ""
-"Äänijärjestelmän alustus epäonnistui:\n"
-"{0}"
+msgid "Failed to initialize the audio backend"
+msgstr "Äänijärjestelmän alustus epäonnistui"
 
 #: ../src/PlaylistWindow.cs:127
 #, csharp-format
@@ -498,28 +485,28 @@ msgstr "Ei voitu sulkea {0}:"
 msgid "Failed to write {0}:"
 msgstr "Ei voitu kirjoittaa {0}:"
 
-#: ../src/PlaylistWindow.cs:1084
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Soittolista</b> (toistotila, {0} tunti)"
 msgstr[1] "<b>Soittolista</b> (toistotila, {0} tuntia)"
 
-#: ../src/PlaylistWindow.cs:1089
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Soittolista</b> (toistotila {0} minuutti)"
 msgstr[1] "<b>Soittolista</b> (toistotila, {0} minuuttia)"
 
-#: ../src/PlaylistWindow.cs:1094
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Soittolista</b> ({0} tunti jäljellä)"
 msgstr[1] "<b>Soittolista</b> ({0} tuntia jäljellä)"
 
-#: ../src/PlaylistWindow.cs:1099
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
