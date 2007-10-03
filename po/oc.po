@@ -203,9 +203,7 @@ msgstr "Impossible de legir \"%s\""
 
 #: ../src/About.cs:32
 msgid "translator-credits"
-msgstr ""
-"La còla occitana de revirada d'Ubuntu, 2006 - ubuntu-l10n-"
-"oci@lists.ubuntu.com"
+msgstr "Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>"
 
 #: ../src/About.cs:35
 msgid "Muine"
