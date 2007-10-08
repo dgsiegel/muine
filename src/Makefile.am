@@ -32,6 +32,7 @@ MUINE_CSFILES =					\
 	$(srcdir)/GnomeProxy.cs			\
 	$(srcdir)/CoverImage.cs			\
 	$(srcdir)/MmKeys.cs			\
+	$(srcdir)/GnomeMMKeys.cs		\
 	$(srcdir)/FileUtils.cs			\
 	$(srcdir)/SignalUtils.cs		\
 	$(srcdir)/Database.cs			\

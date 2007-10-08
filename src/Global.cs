@@ -218,7 +218,9 @@ namespace Muine
 			new PluginManager (playlist);
 
 			// Hook up multimedia keys
-			new MmKeys (playlist);
+			if (!GnomeMMKeys.Initialize ()) {
+				new MmKeys (playlist);
+			}
 
 			// Process command line options
 			bool opened_file = ProcessCommandLine (args);
@@ -252,6 +254,9 @@ namespace Muine
 		/// </summary>
 		public static void Exit ()
 		{
+			if (GnomeMMKeys.IsLoaded) {
+				GnomeMMKeys.Shutdown ();
+			}
 			Environment.Exit (0);
 		}
 

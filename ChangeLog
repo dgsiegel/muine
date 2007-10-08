@@ -1,3 +1,10 @@
+2007-10-08  Peter Johanson  <peter@peterjohanson.com>
+
+	* src/GnomeMMKeys.cs: Import the gnome MM key support from banshee.
+	* src/Global.cs: Try the gnome MM key support first, otherwise fall
+	back and try the old MM key handling method.
+	* src/Makefile.am: Add new file to the file list.
+
 2007-08-09  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* NEWS:
