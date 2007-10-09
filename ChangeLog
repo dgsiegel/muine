@@ -1,5 +1,12 @@
 2007-10-08  Peter Johanson  <peter@peterjohanson.com>
 
+	* deps/dbus-sharp-glib/*:
+	* deps/dbus-sharp/*:
+
+	Update the imports of dbus-sharp and dbus-sharp-glib.
+
+2007-10-08  Peter Johanson  <peter@peterjohanson.com>
+
 	* src/GnomeMMKeys.cs: Import the gnome MM key support from banshee.
 	* src/Global.cs: Try the gnome MM key support first, otherwise fall
 	back and try the old MM key handling method.

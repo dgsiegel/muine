@@ -15,16 +15,21 @@ DBUSSHARP_CSFILES =				\
 	$(srcdir)/DProxy.cs			\
 	$(srcdir)/ExportObject.cs		\
 	$(srcdir)/Introspection.cs		\
+	$(srcdir)/IntrospectionSchema.cs	\
 	$(srcdir)/Mapper.cs			\
+	$(srcdir)/MatchRule.cs			\
 	$(srcdir)/Message.cs			\
 	$(srcdir)/MessageFilter.cs		\
 	$(srcdir)/MessageReader.cs		\
 	$(srcdir)/MessageWriter.cs		\
+	$(srcdir)/PendingCall.cs		\
 	$(srcdir)/Protocol.cs			\
 	$(srcdir)/Server.cs			\
 	$(srcdir)/Signature.cs			\
-	$(srcdir)/SocketTransport.cs			\
+	$(srcdir)/SocketTransport.cs		\
 	$(srcdir)/Transport.cs			\
+	$(srcdir)/TypeDefiner.cs		\
+	$(srcdir)/TypeImplementer.cs		\
 	$(srcdir)/UnixNativeTransport.cs	\
 	$(srcdir)/UnixTransport.cs		\
 	$(srcdir)/Wrapper.cs
