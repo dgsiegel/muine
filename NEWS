@@ -1,9 +1,6 @@
 0.8.8
 =====
 
-FIXME: This NEWS entry was written on August 08, 2007. Changes made after that
-date are NOT covered in this entry. Please update before releasing.
-
 - Removed obsolete GStreamer 0.8 support [Peter Johanson]
 - Use Gtk.AboutDialog [Tamara Roberson, Peter Johanson]
 - Update to recent Flac API [Peter Johanson]
@@ -12,12 +9,16 @@ date are NOT covered in this entry. Please update before releasing.
 - Tiny interface changes, e.g. scrollbar and mousewheel [Wouter Bolsterlee]
 - Update to new GSequence API [Scott Robinson, Wouter Bolsterlee]
 - Gendarme-driven code cleanup [Tamara Roberson]
+- Support for MM keys on newer GNOME versions (yanked from Banshee) [Peter
+  Johanson]
+- Updated NDesk managed DBus import [Peter Johanson]
 
 New translations:
 - Italian [Marco Dalla Vecchia]
 
 Updated translations:
 - Arabic [Djihed Afifi]
+- Basque [Inaki Larranaga Murgoitio]
 - British English [David Lodge]
 - Danish [Peter Bach]
 - Dutch [Wouter Bolsterlee]
@@ -25,10 +26,11 @@ Updated translations:
 - Finnish [Ilkka Tuohela]
 - French [Jonathan Ernst, Stéphane Raimbault]
 - Japanese [Takeshi Aihana]
+- Norwegian bokmål [Kjartan Maraas]
 - Polish [Artur Flinta]
 - Portuguese [Filipe Gomes]
 - Spanish [Jorge Gonzalez]
-- Swedish [Daniel Nylander
+- Swedish [Daniel Nylander]
 
 0.8.7
 =====
