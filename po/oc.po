@@ -1,24 +1,21 @@
-# translation of oc.po to Occitan
+# Translation of oc.po to Occitan
 # Occitan translation of muine.
 # Copyright (C) 2004-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the muine package.
 #
-# Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
-#
-# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
+# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2006-2008
 msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-04 05:00+0100\n"
-"PO-Revision-Date: 2007-11-20 14:32+0100\n"
+"POT-Creation-Date: 2007-12-27 13:28+0100\n"
+"PO-Revision-Date: 2007-12-30 21:03+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
 msgid "_Play"
@@ -38,7 +35,7 @@ msgstr "Error"
 
 #: ../data/glade/OverwriteDialog.glade.h:1
 msgid "Overwrite File?"
-msgstr "Remplaçar lo fichièr\\?"
+msgstr "Remplaçar lo fichièr ?"
 
 #: ../data/glade/OverwriteDialog.glade.h:2
 msgid "_Overwrite"
@@ -46,11 +43,11 @@ msgstr "_Remplaçar"
 
 #: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
 msgid "Play Album"
-msgstr ""
+msgstr "Legir l'albom"
 
 #: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
 msgid "Play Song"
-msgstr ""
+msgstr "Legir una cançon"
 
 #: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
@@ -58,7 +55,7 @@ msgstr ""
 
 #: ../data/muine.desktop.in.h:1
 msgid "Listen to your music"
-msgstr ""
+msgstr "Escotar vòstra musica"
 
 #: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:73
 msgid "Muine Music Player"
@@ -66,19 +63,19 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
-msgstr ""
+msgstr "Nautor de la fenèstra \"Apondre un albom\""
 
 #: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
-msgstr ""
+msgstr "Largor de la fenèstra \"Apondre un albom\""
 
 #: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
-msgstr ""
+msgstr "Nautor de la fenèstra \"Apondre una fenèstra\""
 
 #: ../data/muine.schemas.in.h:4
 msgid "\"Add song\" window width"
-msgstr ""
+msgstr "Largor de la fenèstra \"Apondre una fenèstra\""
 
 #: ../data/muine.schemas.in.h:5
 msgid "Amazon Dev Tag"
@@ -90,11 +87,11 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
-msgstr ""
+msgstr "Repertòri d'importacion per defaut"
 
 #: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
-msgstr ""
+msgstr "Repertòri de tièra de lectura per defaut"
 
 #: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
@@ -102,15 +99,15 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
-msgstr ""
+msgstr "Nautor de la fenèstra \"Apondre un albom\"."
 
 #: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
-msgstr ""
+msgstr "Nautor de la fenèstra \"Apondre una cançon\"."
 
 #: ../data/muine.schemas.in.h:12
 msgid "Height of the playlist window."
-msgstr ""
+msgstr "Nautor de la fenèstra de la tièra de lectura."
 
 #: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
@@ -122,11 +119,11 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
-msgstr ""
+msgstr "Nautor de la fenèstra de la tièra de lectura"
 
 #: ../data/muine.schemas.in.h:16
 msgid "Playlist window width"
-msgstr ""
+msgstr "Largor de la fenèstra de la tièra de lectura"
 
 #: ../data/muine.schemas.in.h:17
 msgid "Repeat mode"
@@ -134,7 +131,7 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:18
 msgid "Volume level"
-msgstr ""
+msgstr "Volum"
 
 #: ../data/muine.schemas.in.h:19
 msgid "Volume level. 0 = lowest, 100 = highest."
@@ -142,7 +139,7 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
-msgstr ""
+msgstr "Repertòris susvelhats"
 
 #: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
@@ -156,15 +153,15 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
-msgstr ""
+msgstr "Largor de la tièra de fenèstra \"Apondre un albom\"."
 
 #: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
-msgstr ""
+msgstr "Largor de la tièra de fenèstra \"Apondre una cançon\"."
 
 #: ../data/muine.schemas.in.h:25
 msgid "Width of the playlist window."
-msgstr ""
+msgstr "Largor de la tièra de fenèstra de la tièra de lectura."
 
 #: ../data/muine.schemas.in.h:26
 msgid "Your Amazon Dev Tag for fetching album cover art"
@@ -193,7 +190,7 @@ msgstr ""
 #: ../libmuine/player-xine.c:394
 #, c-format
 msgid "Failed playing \"%s\""
-msgstr ""
+msgstr "Impossible de legir \"%s\""
 
 #: ../libmuine/player-xine.c:398
 msgid "Internal error"
@@ -206,7 +203,7 @@ msgstr "Impossible de legir \"%s\""
 
 #: ../src/About.cs:32
 msgid "translator-credits"
-msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
 #: ../src/About.cs:35
 msgid "Muine"
@@ -226,7 +223,7 @@ msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
 #: ../src/About.cs:49
 msgid "Lee Willis <lee@leewillis.co.uk>"
-msgstr ""
+msgstr "Lee Willis <lee@leewillis.co.uk>"
 
 #: ../src/About.cs:50
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
@@ -234,7 +231,7 @@ msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
 #: ../src/About.cs:51
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
-msgstr ""
+msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
 #: ../src/About.cs:52
 msgid "Peter Johanson <peter@peterjohanson.com>"
@@ -250,11 +247,11 @@ msgstr "_Fichièr"
 
 #: ../src/Actions.cs:39
 msgid "_Song"
-msgstr ""
+msgstr "_Cançon"
 
 #: ../src/Actions.cs:42
 msgid "_Playlist"
-msgstr ""
+msgstr "Tièra de _lectura"
 
 #: ../src/Actions.cs:45
 msgid "_Help"
@@ -282,7 +279,7 @@ msgstr "_Precedent"
 
 #: ../src/Actions.cs:68
 msgid "_Next"
-msgstr "Seguent"
+msgstr "_Seguent"
 
 #: ../src/Actions.cs:71
 msgid "_Skip to..."
@@ -298,19 +295,19 @@ msgstr ""
 
 #: ../src/Actions.cs:81
 msgid "Play _Song..."
-msgstr ""
+msgstr "Legir una _cançon..."
 
 #: ../src/Actions.cs:84
 msgid "Play _Album..."
-msgstr ""
+msgstr "Legir l'_albom..."
 
 #: ../src/Actions.cs:87
 msgid "_Remove Song"
-msgstr ""
+msgstr "_Suprimir la cançon"
 
 #: ../src/Actions.cs:90
 msgid "Remove _Played Songs"
-msgstr ""
+msgstr "Suprimir las cançons _legidas"
 
 #: ../src/Actions.cs:93
 msgid "_Clear"
@@ -318,7 +315,7 @@ msgstr "_Netejar"
 
 #: ../src/Actions.cs:96
 msgid "R_epeat"
-msgstr ""
+msgstr "R_epetir"
 
 #: ../src/Actions.cs:99
 msgid "Shu_ffle"
@@ -339,18 +336,16 @@ msgstr ""
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
-msgid ""
-"Failed to initialize the configuration folder: {0}\n"
-"\n"
-"Exiting..."
+msgid "Failed to initialize the configuration folder: {0}"
 msgstr ""
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
-msgid ""
-"Failed to initialize the temporary files folder: {0}\n"
-"\n"
-"Exiting..."
+msgid "Failed to initialize the temporary files folder: {0}"
+msgstr ""
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
 msgstr ""
 
 #: ../src/Global.cs:37
@@ -387,16 +382,16 @@ msgstr ""
 
 #: ../src/OpenDialog.cs:37
 msgid "Open Playlist"
-msgstr ""
+msgstr "Dobrir una tièra de lectura"
 
 #: ../src/OpenDialog.cs:40
 msgid "Playlist files"
-msgstr ""
+msgstr "Fichièrs de tièra de lectura"
 
 #: ../src/OverwriteDialog.cs:34
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
-msgstr ""
+msgstr "Remplaçar \"{0}\" ?"
 
 #: ../src/OverwriteDialog.cs:37
 msgid ""
@@ -414,7 +409,7 @@ msgstr ""
 
 #: ../src/PlaylistWindow.cs:79
 msgid "<b>Playlist</b>"
-msgstr ""
+msgstr "<b>Tièra de lectura</b>"
 
 #: ../src/PlaylistWindow.cs:82
 msgid "<b>Playlist</b> (Repeating)"
@@ -431,7 +426,7 @@ msgstr ""
 
 #: ../src/PlaylistWindow.cs:91
 msgid "Album unknown"
-msgstr ""
+msgstr "Albom desconegut"
 
 #: ../src/PlaylistWindow.cs:98
 #, csharp-format
@@ -444,19 +439,19 @@ msgstr ""
 
 #: ../src/PlaylistWindow.cs:105
 msgid "Play the previous song"
-msgstr ""
+msgstr "Legir la cançon precedenta"
 
 #: ../src/PlaylistWindow.cs:108
 msgid "Play the next song"
-msgstr ""
+msgstr "Legir la cançon seguenta"
 
 #: ../src/PlaylistWindow.cs:111
 msgid "Add an album to the playlist"
-msgstr ""
+msgstr "Apondre un albom a la tièra de lectura"
 
 #: ../src/PlaylistWindow.cs:114
 msgid "Add a song to the playlist"
-msgstr ""
+msgstr "Apondre una cançon a la tièra de lectura"
 
 #: ../src/PlaylistWindow.cs:117
 msgid "Change the volume level"
@@ -467,43 +462,40 @@ msgid "Drop an image here to use it as album cover"
 msgstr ""
 
 #: ../src/PlaylistWindow.cs:124
-#, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}"
+msgid "Failed to initialize the audio backend"
 msgstr ""
 
 #: ../src/PlaylistWindow.cs:127
 #, csharp-format
 msgid "Failed to read {0}:"
-msgstr ""
+msgstr "Impossible de legir {0} :"
 
 #: ../src/PlaylistWindow.cs:130
 #, csharp-format
 msgid "Failed to close {0}:"
-msgstr ""
+msgstr "Impossible de tampar {0} :"
 
 #: ../src/PlaylistWindow.cs:133
 #, csharp-format
 msgid "Failed to write {0}:"
-msgstr ""
+msgstr "Impossible d'escriure {0} :"
 
-#: ../src/PlaylistWindow.cs:1084
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgstr ""
 
-#: ../src/PlaylistWindow.cs:1089
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgstr ""
 
-#: ../src/PlaylistWindow.cs:1094
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgstr ""
 
-#: ../src/PlaylistWindow.cs:1099
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgstr ""
@@ -516,7 +508,7 @@ msgstr ""
 #: ../src/ProgressWindow.cs:33
 #, csharp-format
 msgid "Importing \"{0}\""
-msgstr ""
+msgstr "Importacion de \"{0}\""
 
 #: ../src/ProgressWindow.cs:36
 msgid "Loading:"
