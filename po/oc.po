@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-27 13:28+0100\n"
+"POT-Creation-Date: 2008-02-02 21:54+0100\n"
 "PO-Revision-Date: 2007-12-30 21:03+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
 msgid "_Play"
@@ -483,22 +483,30 @@ msgstr "Impossible d'escriure {0} :"
 #: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
-msgstr ""
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
-msgstr ""
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
-msgstr ""
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
-msgstr ""
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/PluginManager.cs:34
 #, csharp-format
@@ -552,4 +560,3 @@ msgstr ""
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
-
