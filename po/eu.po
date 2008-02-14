@@ -1,18 +1,18 @@
-# translation of eu.po to Basque
+# translation of muine.HEAD.po to Basque
 # Basque translation of Muine.
 # Copyright (C) 2004 THE Muine'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Muine package.
 #
 # Mikel Olasagasti <hey_neken@mundurat.net>, 2004.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2006.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2006, 2008.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: muine.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-09 21:22+0200\n"
-"PO-Revision-Date: 2007-08-09 21:23+0200\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"POT-Creation-Date: 2008-02-14 16:08+0100\n"
+"PO-Revision-Date: 2008-02-12 23:32+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -188,7 +188,7 @@ msgid ""
 "Check that the device is not busy."
 msgstr ""
 "Ezin izan da '%s' audio-unitatea kargatu\n"
-"Egiaztatu gailua ez dagoela okupatuta."
+"Egiaztatu gailua ez dagoela lanpetuta."
 
 #: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
 #, c-format
@@ -249,7 +249,8 @@ msgstr "Peter Johanson <peter@peterjohanson.com>"
 
 #: ../src/About.cs:54
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
-msgstr "amazon.com eta musicbrainz.org guneek eskaintzen dituzte albumen azalak."
+msgstr ""
+"amazon.com eta musicbrainz.org guneek eskaintzen dituzte albumen azalak."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -572,4 +573,3 @@ msgstr "Muine musika erreproduzitzailea"
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
-
