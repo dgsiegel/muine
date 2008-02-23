@@ -43,7 +43,7 @@ msgstr "_Remplaçar"
 
 #: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
 msgid "Play Album"
-msgstr "Legir l'albom"
+msgstr "Legir l'album"
 
 #: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
 msgid "Play Song"
@@ -63,11 +63,11 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:1
 msgid "\"Add album\" window height"
-msgstr "Nautor de la fenèstra \"Apondre un albom\""
+msgstr "Nautor de la fenèstra \"Apondre un album\""
 
 #: ../data/muine.schemas.in.h:2
 msgid "\"Add album\" window width"
-msgstr "Largor de la fenèstra \"Apondre un albom\""
+msgstr "Largor de la fenèstra \"Apondre un album\""
 
 #: ../data/muine.schemas.in.h:3
 msgid "\"Add song\" window height"
@@ -99,7 +99,7 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
-msgstr "Nautor de la fenèstra \"Apondre un albom\"."
+msgstr "Nautor de la fenèstra \"Apondre un album\"."
 
 #: ../data/muine.schemas.in.h:11
 msgid "Height of the \"Add song\" window."
@@ -153,7 +153,7 @@ msgstr ""
 
 #: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
-msgstr "Largor de la tièra de fenèstra \"Apondre un albom\"."
+msgstr "Largor de la tièra de fenèstra \"Apondre un album\"."
 
 #: ../data/muine.schemas.in.h:24
 msgid "Width of the \"Add song\" window."
@@ -299,7 +299,7 @@ msgstr "Legir una _cançon..."
 
 #: ../src/Actions.cs:84
 msgid "Play _Album..."
-msgstr "Legir l'_albom..."
+msgstr "Legir l'_album..."
 
 #: ../src/Actions.cs:87
 msgid "_Remove Song"
@@ -426,7 +426,7 @@ msgstr ""
 
 #: ../src/PlaylistWindow.cs:91
 msgid "Album unknown"
-msgstr "Albom desconegut"
+msgstr "Album desconegut"
 
 #: ../src/PlaylistWindow.cs:98
 #, csharp-format
@@ -447,7 +447,7 @@ msgstr "Legir la cançon seguenta"
 
 #: ../src/PlaylistWindow.cs:111
 msgid "Add an album to the playlist"
-msgstr "Apondre un albom a la tièra de lectura"
+msgstr "Apondre un album a la tièra de lectura"
 
 #: ../src/PlaylistWindow.cs:114
 msgid "Add a song to the playlist"
