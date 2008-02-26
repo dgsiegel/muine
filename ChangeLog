@@ -1,3 +1,9 @@
+2008-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* configure.in:
+	
+	Bug 518829 – Detect FLAC using pkgconfig file instead of header.
+
 2007-10-22  Peter Johanson  <peter@peterjohanson.com>
 
 	* configure.in: Remove the now-uneeded --enable-gstreamer flag.
