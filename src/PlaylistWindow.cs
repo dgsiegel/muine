@@ -176,7 +176,7 @@ namespace Muine
 		[Glade.Widget] private Button       add_song_button   ;
 		[Glade.Widget] private Button       add_album_button  ;		
 
-		private VolumeButton volume_button;
+		private Bacon.VolumeButton volume_button;
 
 		// Widgets :: Player
 		[Glade.Widget] private Label song_label;
@@ -869,7 +869,7 @@ namespace Muine
 			add_album_button  .Clicked += OnAddAlbumButtonClicked;
 
 			// Volume
-			volume_button = new VolumeButton ();
+			volume_button = new Bacon.VolumeButton ();
 			volume_button_container.Add (volume_button);
 			volume_button.Visible = true;
 			volume_button.VolumeChanged += OnVolumeChanged;

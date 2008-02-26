@@ -1,5 +1,12 @@
 2008-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* src/PlaylistWindow.cs:
+
+	Bug 518828 – Disambiguate Bacon.VolumeButton from
+	Gtk.VolumeButton
+
+2008-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* configure.in:
 	
 	Bug 518829 – Detect FLAC using pkgconfig file instead of header.
