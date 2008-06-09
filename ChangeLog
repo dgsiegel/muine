@@ -1,3 +1,11 @@
+2008-06-09  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* libmuine/player-gst.c (player_finalize), (bus_message_cb):
+
+	Removed iterate_cb() function that didn't do anything
+	but causing thousands of wakeups per second (according
+	to powertop).
+
 2008-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* src/PlaylistWindow.cs:

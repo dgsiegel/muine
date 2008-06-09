@@ -53,7 +53,6 @@ struct _PlayerPriv {
 	int	    cur_volume;
 	double      volume_scale;
 
-	guint       iterate_idle_id;
 	guint       tick_timeout_id;
 
 	GTimer     *timer;
@@ -180,8 +179,6 @@ player_finalize (GObject *object)
 
 	g_timer_destroy (player->priv->timer);
 
-	if (player->priv->iterate_idle_id > 0)
-		g_source_remove (player->priv->iterate_idle_id);
 	if (player->priv->tick_timeout_id > 0)
 		g_source_remove (player->priv->tick_timeout_id);
 
@@ -222,24 +219,6 @@ tick_timeout (Player *player)
 }
 
 static gboolean
-iterate_cb (Player *player)
-{
-	gboolean res;
-	GstState state;
-
-	g_usleep (100);
-	
-	gst_element_get_state (player->priv->play, &state, NULL, 0);
-	
-	res = (state == GST_STATE_PLAYING);
-
-	if (!res)
-		player->priv->iterate_idle_id = 0;
-
-	return res;
-}
-
-static gboolean
 bus_message_cb (GstBus *UNUSED(bus),
 		GstMessage *message,
 		gpointer data)
@@ -247,7 +226,6 @@ bus_message_cb (GstBus *UNUSED(bus),
 	Player *player = (Player *) data;
 	char *debug;
 	GError *err;
-	GstState old_state, new_state;
 
 	switch (GST_MESSAGE_TYPE (message)) {
 	case GST_MESSAGE_ERROR:
@@ -270,19 +248,7 @@ bus_message_cb (GstBus *UNUSED(bus),
 		break;
 
 	case GST_MESSAGE_STATE_CHANGED:
-		gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
-		
-		if (old_state == GST_STATE_PLAYING) {
-			if (player->priv->iterate_idle_id != 0) {
-				g_source_remove (player->priv->iterate_idle_id);
-				player->priv->iterate_idle_id = 0;
-			}
-		} else if (new_state == GST_STATE_PLAYING) {
-			if (player->priv->iterate_idle_id != 0)
-				g_source_remove (player->priv->iterate_idle_id);
-			player->priv->iterate_idle_id = g_idle_add ((GSourceFunc) iterate_cb, player);
-		}
-
+		/* Do nothing */
 		break;
 
 	default:
