@@ -59,10 +59,10 @@ enum {
 };
 
 
-GtkType
+GType
 rb_cell_renderer_pixbuf_get_type (void)
 {
-	static GtkType cell_pixbuf_type = 0;
+	static GType cell_pixbuf_type = 0;
 
 	if (!cell_pixbuf_type)
 	{

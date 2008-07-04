@@ -1,5 +1,15 @@
 2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* libmuine/rb-cell-renderer-pixbuf.c
+	* libmuine/rb-cell-renderer-pixbuf.h:
+
+	Allow building against recent GTK+ with
+	-DGTK_DISABLE_DEPRECATED, i.e. use GType instead of
+	GtkType and replace GTK_CHECK_* macros with
+	G_TYPE_CHECK_* counterparts.
+
+2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* libmuine/pointer-list-model.c:
 	* libmuine/pointer-list-model.h:
 
