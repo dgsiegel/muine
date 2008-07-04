@@ -1,5 +1,13 @@
 2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* src/CoverGetter.cs:
+	* src/SongDatabase.cs:
+
+	Don't assign error variables if they're not used anyway.
+	This silences a few compiler warnings.
+
+2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* libmuine/mm-keys.h:
 	* libmuine/rb-cell-renderer-pixbuf.h:
 

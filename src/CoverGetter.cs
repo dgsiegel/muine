@@ -415,7 +415,7 @@ namespace Muine
 					pix = Download (uri);
 				}
 				
-			} catch (DllNotFoundException e) {
+			} catch (DllNotFoundException) {
 				// We catch this exception so we can always include the
 				// musicbrainz support but not have a strict compile/runtime
 				// requirement on it.
@@ -606,10 +606,10 @@ namespace Muine
 							pix = Download (url);
 						}
 
-					} catch (WebException e) {
+					} catch (WebException) {
 						throw;
 
-					} catch (Exception e) {
+					} catch (Exception) {
 						pix = null;
 					}
 
@@ -1034,13 +1034,13 @@ namespace Muine
 						try {
 							pixbuf = getter.DownloadFromAmazon (album);
 
-						} catch (WebException e) {
+						} catch (WebException) {
 							// Temporary web problem (Timeout etc.) - re-queue
 							Thread.Sleep (60000); // wait for a minute first
 							queue.Enqueue (album);
 							continue;
 
-						} catch (Exception e) {
+						} catch (Exception) {
 						}
 
 						string key = album.Key;

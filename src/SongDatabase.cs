@@ -121,7 +121,7 @@ namespace Muine
 				rq = StartAddSong (song);
 				HandleSignalRequest (rq);
 
-			} catch (InvalidOperationException e) {
+			} catch (InvalidOperationException) {
 				return;
 			}
 		}
@@ -135,7 +135,7 @@ namespace Muine
 				rq = StartSyncSong (song, metadata);
 				HandleSignalRequest (rq);
 
-			} catch (InvalidOperationException e) {
+			} catch (InvalidOperationException) {
 				return;
 			}
 		}
@@ -155,7 +155,7 @@ namespace Muine
 				rq = StartRemoveSong (song);
 				HandleSignalRequest (rq);
 
-			} catch (InvalidOperationException e) {
+			} catch (InvalidOperationException) {
 				return;
 			}
 		}
@@ -257,7 +257,7 @@ namespace Muine
 				try {
 					Songs.Add (song.Filename, song);
 
-				} catch (ArgumentException e) { // already exists
+				} catch (ArgumentException) { // already exists
 					throw new InvalidOperationException ();
 				}
 
@@ -459,7 +459,7 @@ namespace Muine
 				SignalRequest rq;				
 				try {
 					rq = StartAddSong (song);
-				} catch (InvalidOperationException e) {
+				} catch (InvalidOperationException) {
 					continue;
 				}
 
@@ -787,8 +787,7 @@ namespace Muine
 							} catch {
 								try {
 									rq = Global.DB.StartRemoveSong (song);
-
-								} catch (InvalidOperationException e) {
+								} catch (InvalidOperationException) {
 								}
 							}
 						}
