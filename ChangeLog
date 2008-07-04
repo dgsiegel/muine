@@ -1,5 +1,14 @@
 2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* libmuine/mm-keys.h:
+	* libmuine/rb-cell-renderer-pixbuf.h:
+
+	Include <gtk/gtk.h> directly to allow compilation in the
+	most strict mode against GTK+ trunk. Also include
+	gstdio.h instead of gstdio.h.
+
+2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* libmuine/rb-cell-renderer-pixbuf.c
 	* libmuine/rb-cell-renderer-pixbuf.h:
 

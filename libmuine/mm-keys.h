@@ -20,10 +20,11 @@
 
 #include <X11/Xlib.h>
 #include <X11/XF86keysym.h>
+
+#include <glib/gstdio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <stdio.h>
-#include <gtk/gtktogglebutton.h>
+#include <gtk/gtk.h>
 
 #ifndef __MM_KEYS_H
 #define __MM_KEYS_H
