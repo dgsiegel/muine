@@ -22,16 +22,15 @@
 #ifndef __POINTER_LIST_MODEL_H__
 #define __POINTER_LIST_MODEL_H__
 
-#include <gtk/gtktreemodel.h>
-#include <gtk/gtktreeview.h>
+#include <gtk/gtk.h>
 #include "gsequence.h"
 
 #define TYPE_POINTER_LIST_MODEL		 (pointer_list_model_get_type ())
-#define POINTER_LIST_MODEL(obj)		 (GTK_CHECK_CAST ((obj), TYPE_POINTER_LIST_MODEL, PointerListModel))
-#define POINTER_LIST_MODEL_CLASS(klass)	 (GTK_CHECK_CLASS_CAST ((klass), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
-#define IS_POINTER_LIST_MODEL(obj)	  (GTK_CHECK_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
-#define IS_POINTER_LIST_MODEL_CLASS(klass)  (GTK_CHECK_CLASS_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
-#define POINTER_LIST_MODEL_GET_CLASS(obj)   (GTK_CHECK_GET_CLASS ((obj), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
+#define POINTER_LIST_MODEL(obj)		 (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_POINTER_LIST_MODEL, PointerListModel))
+#define POINTER_LIST_MODEL_CLASS(klass)	 (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
+#define IS_POINTER_LIST_MODEL(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
+#define IS_POINTER_LIST_MODEL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
+#define POINTER_LIST_MODEL_GET_CLASS(obj)   (G_TYPE_CHECK_GET_CLASS ((obj), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
 
 typedef struct _PointerListModel PointerListModel;
 typedef struct _PointerListModelClass PointerListModelClass;

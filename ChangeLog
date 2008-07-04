@@ -1,3 +1,12 @@
+2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* libmuine/pointer-list-model.c:
+	* libmuine/pointer-list-model.h:
+
+	Include <gtk/gtk.h> directly (this is recommended by
+	upstream) and convert some gtk type checking macros to
+	the corresponding glib ones.
+
 2008-06-09  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* libmuine/player-gst.c (player_finalize), (bus_message_cb):

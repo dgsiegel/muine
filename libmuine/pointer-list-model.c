@@ -20,9 +20,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <gtk/gtktreednd.h>
 #include <config.h>
+
 #include <string.h>
+
+#include <gtk/gtk.h>
+
 #include "pointer-list-model.h"
 #include "macros.h"
 
