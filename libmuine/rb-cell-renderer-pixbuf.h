@@ -35,7 +35,7 @@ extern "C" {
 #define RB_CELL_RENDERER_PIXBUF_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), RB_TYPE_CELL_RENDERER_PIXBUF, RBCellRendererPixbufClass))
 #define RB_IS_CELL_RENDERER_PIXBUF(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), RB_TYPE_CELL_RENDERER_PIXBUF))
 #define RB_IS_CELL_RENDERER_PIXBUF_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), RB_TYPE_CELL_RENDERER_PIXBUF))
-#define RB_CELL_RENDERER_PIXBUF_GET_CLASS(obj)  (G_TYPE_CHECK_GET_CLASS ((obj), RB_TYPE_CELL_RENDERER_PIXBUF, RBCellRendererPixbufClass))
+#define RB_CELL_RENDERER_PIXBUF_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), RB_TYPE_CELL_RENDERER_PIXBUF, RBCellRendererPixbufClass))
 
 typedef struct _RBCellRendererPixbuf RBCellRendererPixbuf;
 typedef struct _RBCellRendererPixbufClass RBCellRendererPixbufClass;

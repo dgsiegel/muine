@@ -1,5 +1,13 @@
 2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* libmuine/pointer-list-model.h:
+	* libmuine/rb-cell-renderer-pixbuf.h:
+
+	Use G_TYPE_INSTANCE_GET_CLASS instead of
+	G_TYPE_CHECK_GET_CLASS.
+
+2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* src/CoverGetter.cs:
 	* src/SongDatabase.cs:
 

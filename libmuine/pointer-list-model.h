@@ -30,7 +30,7 @@
 #define POINTER_LIST_MODEL_CLASS(klass)	 (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
 #define IS_POINTER_LIST_MODEL(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
 #define IS_POINTER_LIST_MODEL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((obj), TYPE_POINTER_LIST_MODEL))
-#define POINTER_LIST_MODEL_GET_CLASS(obj)   (G_TYPE_CHECK_GET_CLASS ((obj), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
+#define POINTER_LIST_MODEL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_POINTER_LIST_MODEL, PointerListModelClass))
 
 typedef struct _PointerListModel PointerListModel;
 typedef struct _PointerListModelClass PointerListModelClass;
