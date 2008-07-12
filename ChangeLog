@@ -1,5 +1,15 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/images/muine-16.png:
+	* data/images/muine-22.png:
+	* data/images/muine-24.png:
+	* data/images/muine-32.png:
+
+	New pixel-fit renderings of the new icon for various
+	sizes, all contributed by Hylke Bons.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/images/muine-48.png:
 	* data/images/Makefile.am:
 
