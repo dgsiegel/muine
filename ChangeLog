@@ -1,5 +1,11 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* NEWS:
+	
+	Initial preparations for the upcoming release.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/images/muine-scalable.svg:
 
 	Updated icon by Hylke Bons. The icon is pretty much the
