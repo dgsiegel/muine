@@ -1,9 +1,0 @@
-Makefile
-Makefile.in
-DashboardPlugin.dll
-DashboardPlugin.dll.mdb
-TrayIcon.dll
-TrayIcon.dll.mdb
-InotifyPlugin.dll
-InotifyPlugin.dll.mdb
-InotifyPlugin.dll.config
