@@ -18,18 +18,12 @@ EXTRA_DIST =			\
 	HACKING			\
 	PLUGINS			\
 	MAINTAINERS		\
-	intltool-extract.in	\
-	intltool-merge.in	\
-	intltool-update.in	\
 	muine.spec.in		\
 	muine.spec		\
 	muine.snk		\
 	$(NULL)
 
 DISTCLEANFILES = 		\
-	intltool-extract 	\
-	intltool-merge 		\
-	intltool-update		\
 	$(NULL)
 
 # vim: set ts=8 sw=8 noet:
