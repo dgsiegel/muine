@@ -1,5 +1,12 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/images/muine-scalable.svg:
+
+	Updated icon by Hylke Bons. The icon is pretty much the
+	same, but has seen a Tango style update.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* MAINTAINERS:
 
 	Add myself to MAINTAINERS. Peter Johanson agreed with
