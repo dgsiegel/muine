@@ -1,3 +1,10 @@
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* MAINTAINERS:
+
+	Add myself to MAINTAINERS. Peter Johanson agreed with
+	this.
+
 2008-07-04  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* libmuine/pointer-list-model.h:
