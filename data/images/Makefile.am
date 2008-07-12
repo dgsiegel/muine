@@ -55,4 +55,12 @@ uninstall-icons:
 
 EXTRA_DIST = \
 	$(noinst_DATA) \
-	muine-16.png muine-22.png muine-24.png muine-32.png muine-48.png muine-scalable.svg
+	muine-16.png \
+	muine-16.svg \
+	muine-22.png \
+	muine-24.png \
+	muine-24.svg \
+	muine-32.png \
+	muine-32.svg \
+	muine-48.png \
+	muine-scalable.svg

@@ -1,5 +1,19 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/images/Makefile.am:
+
+	Ship pixel-fit icon source files by adding them to
+	EXTRA_DIST.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	reviewed by: <delete if not using a buddy>
+
+	* data/images/Makefile.am:
+	* plugins/Makefile.am:
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/images/muine-16.svg:
 	* data/images/muine-24.svg:
 	* data/images/muine-32.svg:
