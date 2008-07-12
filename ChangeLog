@@ -1,5 +1,14 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/images/muine-16.svg:
+	* data/images/muine-24.svg:
+	* data/images/muine-32.svg:
+
+	Added pixel-fit source files for the new renderings
+	added in the previous commit.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/images/muine-16.png:
 	* data/images/muine-22.png:
 	* data/images/muine-24.png:
