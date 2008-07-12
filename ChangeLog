@@ -1,5 +1,14 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/images/muine-48.png:
+	* data/images/Makefile.am:
+
+	Added new prerendered 48×48 pixel icon from the SVG
+	source. This one will be used by newer Nautilus
+	versions.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* NEWS:
 	
 	Initial preparations for the upcoming release.
