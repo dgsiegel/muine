@@ -1,6 +1,12 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* configure.in:
+
+	Update version number to 0.8.9.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* configure.in:
 	* Makefile.am
 
 	 Bumped intltool requirement to 0.40 and no longer ship
