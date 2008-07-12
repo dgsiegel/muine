@@ -45,6 +45,7 @@ AM_CONDITIONAL(HAVE_XINE, test "x$have_xine" = "xyes")
 AM_CONDITIONAL(HAVE_GST, test "x$have_gstreamer" = "xyes")
 
 dnl Pkgconfig
+PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES(MUINE,
 		  gconf-2.0 \
 		  gdk-pixbuf-2.0 \
