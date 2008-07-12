@@ -1,5 +1,11 @@
 2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* NEWS:
+
+	Update for the upcoming release.
+
+2008-07-12  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/images/Makefile.am:
 
 	Ship pixel-fit icon source files by adding them to

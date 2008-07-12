@@ -1,12 +1,19 @@
 0.8.9
 =====
 
-XXX: THIS RELEASE IS A WORK IN PROGRESS
-
-- Updated Tango-style icon [Hylke Bons]
+- Updated Tango-style icons [Hylke Bons]
+- Improved FLAC detection [Wouter Bolsterlee]
+- Don't wakeup the CPU unnecessarily [Wouter Bolsterlee]
+- Build fixes for newer Glib and GTK+ [Wouter Bolsterlee]
 
 Updated translations:
-- TODO
+- Basque [Inaki Larranaga Murgoitio]
+- Brazilian Portuguese [Jonh Wendell ]
+- French [Ivan Buresi, Robert-André Mauchin]
+- Japanese [Takeshi AIHANA]
+- Nepali [Pawan Chitrakar]
+- Occitan [Yannig Marchegay]
+- Polish [Artur Flinta]
 
 0.8.8
 =====
