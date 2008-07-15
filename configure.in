@@ -7,6 +7,7 @@ AM_INIT_AUTOMAKE(muine, 0.8.9)
 
 AM_MAINTAINER_MODE
 
+# Note: for 'make dist' you need at least intltool 0.4.0, see #537352.
 IT_PROG_INTLTOOL([0.37.1])
 
 AC_PROG_CC
