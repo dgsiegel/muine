@@ -1,3 +1,12 @@
+2008-07-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	Bug 544773 – Desktop file does not validate
+
+	* data/muine.desktop.in:
+
+	Remove obsolete "Application" category and the Encoding
+	line as well.
+
 2008-07-15  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* configure.in:
