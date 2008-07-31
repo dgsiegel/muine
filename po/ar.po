@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arabic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-21 12:55+0100\n"
+"POT-Creation-Date: 2008-07-31 11:08+0100\n"
 "PO-Revision-Date: 2007-04-14 18:49+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabeyes <doc@arabeyes.org>\n"
@@ -190,12 +190,12 @@ msgstr "عرض نافذة جنبلس"
 msgid "Your Amazon Dev Tag for fetching album cover art"
 msgstr ""
 
-#: ../libmuine/player-gst.c:155
+#: ../libmuine/player-gst.c:154
 #, fuzzy
 msgid "Failed to create a GStreamer play object"
 msgstr "فشل إنشاء دليل مؤقت"
 
-#: ../libmuine/player-gst.c:162
+#: ../libmuine/player-gst.c:161
 #, fuzzy
 msgid "Could not render default GStreamer audio output sink"
 msgstr "لا يمكن انشاء ملف خرْج لـGStreamer"
@@ -380,21 +380,19 @@ msgstr ""
 
 #: ../src/FileUtils.cs:44
 #, fuzzy, csharp-format
-msgid ""
-"Failed to initialize the configuration folder: {0}\n"
-"\n"
-"Exiting..."
+msgid "Failed to initialize the configuration folder: {0}"
 msgstr "لم يتمكن توتم من تشغيل محرّك الإعداد."
 
 #: ../src/FileUtils.cs:47
 #, fuzzy, csharp-format
-msgid ""
-"Failed to initialize the temporary files folder: {0}\n"
-"\n"
-"Exiting..."
+msgid "Failed to initialize the temporary files folder: {0}"
 msgstr ""
 "لم يمكن مسح المجلد المؤقت:\n"
 "%s"
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
+msgstr ""
 
 #: ../src/Global.cs:37
 #, fuzzy, csharp-format
@@ -530,10 +528,8 @@ msgid "Drop an image here to use it as album cover"
 msgstr ""
 
 #: ../src/PlaylistWindow.cs:124
-#, fuzzy, csharp-format
-msgid ""
-"Failed to initialize the audio backend:\n"
-"{0}"
+#, fuzzy
+msgid "Failed to initialize the audio backend"
 msgstr "لا يمكن بدأ المنتهى الخلفي لـ libusb - %s"
 
 #: ../src/PlaylistWindow.cs:127
@@ -551,28 +547,28 @@ msgstr "فشل طرد {0}"
 msgid "Failed to write {0}:"
 msgstr "فشل طرد {0}"
 
-#: ../src/PlaylistWindow.cs:1084
+#: ../src/PlaylistWindow.cs:1083
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/PlaylistWindow.cs:1089
+#: ../src/PlaylistWindow.cs:1088
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/PlaylistWindow.cs:1094
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/PlaylistWindow.cs:1099
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -634,4 +630,3 @@ msgstr "أنه مشغل الموسيقى"
 #, fuzzy, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} من {1}"
-
