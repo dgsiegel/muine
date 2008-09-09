@@ -1,34 +1,33 @@
-# Copyright (C) 2001-2004 Free Software Foundation, Inc.
+# Copyright (C) 2001-2008 Free Software Foundation, Inc.
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aktualną wersję tego pliku możesz odnaleźć w repozytorium cvs.gnome.pl
-# (:pserver:anonymous@cvs.gnome.pl:/gnomepl, puste hasło)
+# Aviary.pl
 # Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas na adres:
-# translators@gnome.pl
+# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
+# gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-07 21:57+0100\n"
-"PO-Revision-Date: 2008-02-06 18:44+0100\n"
+"POT-Creation-Date: 2008-02-07 20:57+0000\n"
+"PO-Revision-Date: 2008-09-09 23:11+0100\n"
 "Last-Translator: Tomasz Dominikowski <dominikowski@gmail.com>\n"
-"Language-Team: Tomasz Dominikowski (Aviary.pl) <dominikowski@gmail.com>\n"
+"Language-Team: Aviary.pl <gnomepl@aviary.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: Poland\n"
 
-#: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
+#: ../data/glade/AddWindow.glade.h:1
+#: ../src/Actions.cs:62
 msgid "_Play"
 msgstr "_Odtwarzaj"
 
 #: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
-msgstr "_Kolejkuj"
+msgstr "Za_kolejkuj"
 
 #: ../data/glade/AddWindow.glade.h:3
 msgid "_Search:"
@@ -46,17 +45,19 @@ msgstr "Nadpisać plik?"
 msgid "_Overwrite"
 msgstr "_Nadpisz"
 
-#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:1
+#: ../src/AddAlbumWindow.cs:40
 msgid "Play Album"
 msgstr "Odtwarzaj album"
 
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:2
+#: ../src/AddSongWindow.cs:40
 msgid "Play Song"
 msgstr "Odtwarzaj utwór"
 
 #: ../data/glade/SkipToWindow.glade.h:1
 msgid "Skip to"
-msgstr "Przeskocz do"
+msgstr "Przejdź do"
 
 #: ../data/muine.desktop.in.h:1
 msgid "Listen to your music"
@@ -64,7 +65,8 @@ msgstr "Odtwarza kolekcje muzyczne"
 
 # translator note: it should be a generic name
 # (following Gnome HIG)
-#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:73
+#: ../data/muine.desktop.in.h:2
+#: ../src/PlaylistWindow.cs:73
 msgid "Muine Music Player"
 msgstr "Odtwarzacz muzyki Muine"
 
@@ -94,15 +96,15 @@ msgstr "Serwer Amazon używany do pobierania zdjęć albumów"
 
 #: ../data/muine.schemas.in.h:7
 msgid "Default import folder"
-msgstr "Domyślny folder importu"
+msgstr "Domyślny katalog importu"
 
 #: ../data/muine.schemas.in.h:8
 msgid "Default playlist folder"
-msgstr "Domyślny folder listy odtwarzania"
+msgstr "Domyślny katalog listy odtwarzania"
 
 #: ../data/muine.schemas.in.h:9
 msgid "Folders that are monitored for changes."
-msgstr "Monitorowane foldery."
+msgstr "Monitorowane katalogi."
 
 #: ../data/muine.schemas.in.h:10
 msgid "Height of the \"Add album\" window."
@@ -118,11 +120,11 @@ msgstr "Wysokość okna listy odtwarzania."
 
 #: ../data/muine.schemas.in.h:13
 msgid "Last used folder from \"Import folder\" dialog."
-msgstr "Ostatnio używany folder z okna \"Importuj folder\"."
+msgstr "Ostatnio używany katalog z okna \"Importowanie katalogu\"."
 
 #: ../data/muine.schemas.in.h:14
 msgid "Last used folder from the playlist file selectors."
-msgstr "Ostatnio używany folder do wyboru listy odtwarzania."
+msgstr "Ostatnio używany katalog do wyboru listy odtwarzania."
 
 #: ../data/muine.schemas.in.h:15
 msgid "Playlist window height"
@@ -146,19 +148,15 @@ msgstr "Poziom głośności. 0 = najniższy, 100 = najwyższy."
 
 #: ../data/muine.schemas.in.h:20
 msgid "Watched folders"
-msgstr "Monitorowane foldery"
+msgstr "Monitorowane katalogi"
 
 #: ../data/muine.schemas.in.h:21
 msgid "Whether or not to enable repeat playlist mode."
 msgstr "Uaktywnia lub blokuje tryb powtarzania listy odtwarzania."
 
 #: ../data/muine.schemas.in.h:22
-msgid ""
-"Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
-"or \"jp\"."
-msgstr ""
-"Określa, którego serwera Amazon należy użyć do pobierania zdjęć albumów, \"us"
-"\", \"uk\", \"de\", lub \"jp\"."
+msgid "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", or \"jp\"."
+msgstr "Określa którego serwera Amazon należy użyć do pobierania zdjęć albumów, \"us\", \"uk\", \"de\", lub \"jp\"."
 
 #: ../data/muine.schemas.in.h:23
 msgid "Width of the \"Add album\" window."
@@ -193,7 +191,8 @@ msgstr ""
 "Nie można wczytać sterownika dźwięku \"%s\"\n"
 "Sprawdź, czy urządzenie nie jest zajęte."
 
-#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
+#: ../libmuine/player-xine.c:384
+#: ../libmuine/player-xine.c:389
 #, c-format
 msgid "No plugin available for \"%s\""
 msgstr "Brak dostępnej wtyczki dla \"%s\""
@@ -214,7 +213,9 @@ msgstr "Nie można odtworzyć \"%s\""
 
 #: ../src/About.cs:32
 msgid "translator-credits"
-msgstr "Tomasz Dominikowski (Aviary.pl) <dominikowski@gmail.com>"
+msgstr ""
+"Aviary.pl <gnomepl@aviary.pl>, 2008\n"
+"Tomasz Dominikowski <tdominikowski@aviary.pl>, 2006 - 2008"
 
 #: ../src/About.cs:35
 msgid "Muine"
@@ -266,11 +267,11 @@ msgstr "_Lista odtwarzania"
 
 #: ../src/Actions.cs:45
 msgid "_Help"
-msgstr "P_omoc"
+msgstr "Pomo_c"
 
 #: ../src/Actions.cs:49
 msgid "_Import Folder..."
-msgstr "_Importuj folder..."
+msgstr "_Importuj katalog..."
 
 #: ../src/Actions.cs:52
 msgid "_Open..."
@@ -294,15 +295,15 @@ msgstr "_Następny"
 
 #: ../src/Actions.cs:71
 msgid "_Skip to..."
-msgstr "Przeskocz _do..."
+msgstr "Przejdź _do..."
 
 #: ../src/Actions.cs:74
 msgid "Skip _Backwards"
-msgstr "Przeskocz _wstecz"
+msgstr "Przejdź _wstecz"
 
 #: ../src/Actions.cs:77
 msgid "Skip _Forward"
-msgstr "Przeskocz n_aprzód"
+msgstr "Przejdź n_aprzód"
 
 #: ../src/Actions.cs:81
 msgid "Play _Song..."
@@ -326,7 +327,7 @@ msgstr "_Wyczyść"
 
 #: ../src/Actions.cs:96
 msgid "R_epeat"
-msgstr "Powta_rzaj"
+msgstr "Powta_rzanie"
 
 #: ../src/Actions.cs:99
 msgid "Shu_ffle"
@@ -336,7 +337,8 @@ msgstr "Odtwarzanie _losowe"
 msgid "_About"
 msgstr "_O programie"
 
-#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:94
+#: ../src/AddAlbumWindow.cs:43
+#: ../src/PlaylistWindow.cs:94
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Wykonywane przez {0}"
@@ -348,12 +350,12 @@ msgstr "the dj"
 #: ../src/FileUtils.cs:44
 #, csharp-format
 msgid "Failed to initialize the configuration folder: {0}"
-msgstr "Nie można zainicjować folderu konfiguracji: {0}"
+msgstr "Nie można zainicjować katalogu konfiguracji: {0}"
 
 #: ../src/FileUtils.cs:47
 #, csharp-format
 msgid "Failed to initialize the temporary files folder: {0}"
-msgstr "Nie można zainicjować folderu plików tymczasowych: {0}"
+msgstr "Nie można zainicjować katalogu plików tymczasowych: {0}"
 
 #: ../src/FileUtils.cs:50
 msgid "Exiting..."
@@ -380,7 +382,7 @@ msgstr "Błąd podczas uruchamiania Muine."
 
 #: ../src/ImportDialog.cs:37
 msgid "Import Folder"
-msgstr "Importuje folder"
+msgstr "Importowanie katalogu"
 
 #: ../src/ImportDialog.cs:40
 msgid "_Import"
@@ -405,12 +407,8 @@ msgid "Overwrite \"{0}\"?"
 msgstr "Nadpisać \"{0}\"?"
 
 #: ../src/OverwriteDialog.cs:37
-msgid ""
-"A file with this name already exists. If you choose to overwrite this file, "
-"the contents will be lost."
-msgstr ""
-"Plik o tej nazwie już istnieje. Nadpisanie tego pliku spowoduje utratę jego "
-"zawartości."
+msgid "A file with this name already exists. If you choose to overwrite this file, the contents will be lost."
+msgstr "Plik o tej nazwie już istnieje. Nadpisanie tego pliku spowoduje utratę jego zawartości."
 
 #: ../src/Player.cs:39
 msgid "Audio backend error:"
@@ -580,18 +578,15 @@ msgstr "{0} - {1}"
 
 #~ msgid "*"
 #~ msgstr "*"
-
 #~ msgid "<span weight=\"bold\" size=\"larger\">No music was found</span>"
 #~ msgstr ""
 #~ "<span weight=\"bold\" size=\"larger\">Brak utworów muzycznych</span>"
-
 #~ msgid ""
 #~ "Muine was unable to find your music collection. What would you like me to "
 #~ "do?"
 #~ msgstr ""
 #~ "Program muine nie może odnaleźć kolekcji muzycznej. Co chcesz teraz "
 #~ "zrobić?"
-
 #~ msgid ""
 #~ "Muine will create the folders Music and Music/Playlists in your home "
 #~ "folder to store your music files. This option is highly recommended. You "
@@ -600,86 +595,60 @@ msgstr "{0} - {1}"
 #~ "Program Muine utworzy foldery Music i Music/Playlists w folderze domowym "
 #~ "aby zapisać w nich utwory muzyczne. Opcja ta jest bardzo zalecana. Można "
 #~ "też zaimportować ręcznie inne foldery."
-
 #~ msgid "No Music Found"
 #~ msgstr "Nie znaleziono utworów"
-
 #~ msgid ""
 #~ "You will have to import your music manually. This is for experienced "
 #~ "users only and therefore not generally recommended."
 #~ msgstr ""
 #~ "Kolekcja muzyki musi zostać zaimportowana ręcznie. Jest to opcja dla "
 #~ "doświadczonych użytkowników i generalnie niezalecana."
-
 #~ msgid "_Create an empty music collection"
 #~ msgstr "_Utworzć pustą kolekcję muzyczną"
-
 #~ msgid "_Nothing, I will manage my music myself"
 #~ msgstr "_Nic, zarządzanie kolekcją będzie wykonane ręcznie"
-
 #~ msgid "P_roperties"
 #~ msgstr "Wł_aściwości"
-
 #~ msgid "TMP"
 #~ msgstr "TMP"
-
 #~ msgid "_Hide Window"
 #~ msgstr "_Ukryj okno"
-
 #~ msgid "Question"
 #~ msgstr "Pytanie"
-
 #~ msgid "First start"
 #~ msgstr "Pierwsze uruchomienie"
-
 #~ msgid "Height of the information window."
 #~ msgstr "Wysokość okna informacyjnego."
-
 #~ msgid "Information window height"
 #~ msgstr "Wysokość okna informacyjnego"
-
 #~ msgid "Information window width"
 #~ msgstr "Szerokość okna informacyjnego"
-
 #~ msgid "Width of the information window."
 #~ msgstr "Szerokość okna informacyjnego."
-
 #~ msgid "false if Muine has been started before."
 #~ msgstr "Jeżeli nie ustawione, program Muine był już wcześniej uruchomiony."
-
 #~ msgid "Failed to create the required gnomevfssrc GStreamer element"
 #~ msgstr "Nie można utworzyć wymaganego elementu GStreamera gnomevfssrc"
-
 #~ msgid "Could not find the volume element in the GstPlay pipeline"
 #~ msgstr "Nie można odnaleźć elementu głośności w potoku GstPlay"
-
 #~ msgid "_Previous Song"
 #~ msgstr "_Poprzedni utwór"
-
 #~ msgid "_Next Song"
 #~ msgstr "_Następny utwór"
-
 #~ msgid "Hide _Window"
 #~ msgstr "Ukryj _okno"
-
 #~ msgid "Pause music playback"
 #~ msgstr "Wstrzymuje odtwarzanie"
-
 #~ msgid "P_ause"
 #~ msgstr "Wstrzym_aj"
-
 #~ msgid "Resume music playback"
 #~ msgstr "Wznawia odtwarzanie"
-
 #~ msgid "Pl_ay"
 #~ msgstr "_Odtwarzaj"
-
 #~ msgid "Failed to open {0} for reading"
 #~ msgstr "Nie można otworzyć {0} do odczytu"
-
 #~ msgid "Failed to open {0} for writing"
 #~ msgstr "Nie można otworzyć {0} do zapisu"
-
 #~ msgid ""
 #~ "File {0} will be overwritten.\n"
 #~ "If you choose yes, the contents will be lost.\n"
@@ -690,3 +659,4 @@ msgstr "{0} - {1}"
 #~ "Potwierdzenie spowoduje utratę jego zawartości.\n"
 #~ "\n"
 #~ "Kontynuować?"
+
