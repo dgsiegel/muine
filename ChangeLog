@@ -1,3 +1,16 @@
+2008-09-23  Luis Medinas  <lmedinas@gnome.org>
+
+	* configure.in:
+	* plugins/Makefile.am:
+	* plugins/inotify-glue.c (inotify_glue_watch),
+	(inotify_glue_ignore):
+	* plugins/inotify-syscalls.h:
+	* plugins/inotify.h:
+
+	Use system inotify instead of the built one. Patch 
+	from Adrian Bunk <bunk@stusta.de> minor by me. 
+	Closes bgo #553155.
+
 2008-07-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	Bug 544773 – Desktop file does not validate

@@ -15,7 +15,7 @@ else
 muinelib_LTLIBRARIES =
 endif
 
-libinotifyglue_la_SOURCES = inotify-glue.c inotify.h inotify-syscalls.h
+libinotifyglue_la_SOURCES = inotify-glue.c
 
 TRAY_ICON_CSFILES =			\
 	$(srcdir)/TrayIcon.cs		\
