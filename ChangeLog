@@ -1,16 +1,16 @@
 2008-09-28  Iain Holmes  <iain@gnome.org>
 
-        Bug 336248 – Notifications using libnotify
+	Bug 336248 – Notifications using libnotify
 
-        * data/muine.schemas.in: Add key to turn on notifications.
-        Off by default
+	* data/muine.schemas.in: Add key to turn on notifications.
+	Off by default
 
-        * plugins/Makefile.am: Actually install the TrayIcon plugin
+	* plugins/Makefile.am: Actually install the TrayIcon plugin
 
-        * plugins/TrayIcon.cs: Add Notifications using libnotify, if present
-        and turned on.
+	* plugins/TrayIcon.cs: Add Notifications using libnotify, if present
+	and turned on.
 
-        * plugins/TrayIcon.dll.config: Add map for libnotify and gobject
+	* plugins/TrayIcon.dll.config: Add map for libnotify and gobject
 
 2008-09-28  Luis Medinas  <lmedinas@gnome.org>
 
