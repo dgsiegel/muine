@@ -19,6 +19,7 @@
 
 using System;
 
+using GConf;
 using Gtk;
 using Gdk;
 
@@ -57,6 +58,11 @@ namespace Muine
 
 		private bool playing = false;
 
+		// GConf settings (mouse button behaviour)
+		private GConf.Client gconf_client;
+		private bool old_mouse_behaviour;
+		private const string old_behaviour_key = "/apps/muine/plugins/trayicon/old_behaviour";
+
 		// Plugin initializer
 		public override void Initialize (IPlayer player)
 		{
@@ -79,6 +85,19 @@ namespace Muine
 			
 			// Build menu
 			player.UIManager.AddUiFromResource ("TrayIcon.xml");
+
+			// Setup GConf
+			gconf_client = new GConf.Client();
+			gconf_client.AddNotify (old_behaviour_key, BehaviourNotify);
+			try {
+				old_mouse_behaviour = (bool) gconf_client.Get(old_behaviour_key);
+			} catch {
+				old_mouse_behaviour = false;
+                                gconf_client.Set(old_behaviour_key, false);
+			}
+
+			// Maybe prevent 'delete' event from closing window by intercepting it
+			player.Window.WidgetEvent += new WidgetEventHandler (OnWindowEvent);
 			
 			menu = (Menu) player.UIManager.GetWidget ("/Menu");
 			menu.Deactivated += OnMenuDeactivated;
@@ -203,6 +222,12 @@ namespace Muine
 			{
 			case 1:
 			case 3:
+				if (!old_mouse_behaviour && args.Event.Button == 1)
+				{
+					player.SetWindowVisible (!player.WindowVisible, args.Event.Time);
+					break;
+				}
+
 				icon.State = StateType.Active;
 
 				menu_x = (int) args.Event.XRoot - (int) args.Event.X;
@@ -214,7 +239,10 @@ namespace Muine
 				break;
 
 			case 2:
-				player.SetWindowVisible (!player.WindowVisible, args.Event.Time);
+				if (old_mouse_behaviour)
+					player.SetWindowVisible (!player.WindowVisible, args.Event.Time);
+				else
+					player.Playing = !player.Playing;
 
 				break;
 
@@ -256,6 +284,20 @@ namespace Muine
 			this.playing = playing;
 
 			UpdateImage ();
+		}
+
+		private void OnWindowEvent (object o, WidgetEventArgs args)
+		{
+			if (args.Event.Type == EventType.Delete && !old_mouse_behaviour)
+			{
+				player.SetWindowVisible (false, 0);
+				args.RetVal = true;
+			}
+		}
+
+		private void BehaviourNotify (object sender, NotifyEventArgs args)
+		{
+			old_mouse_behaviour = (bool) args.Value;
 		}
 	}
 }

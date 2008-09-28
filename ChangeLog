@@ -1,4 +1,13 @@
-2008-09-28  Luis Medinas  <metalgod@gnome.org>
+2008-09-28  Luis Medinas  <lmedinas@gnome.org>
+
+	* plugins/TrayIcon.cs:
+	* plugins/TrayIcon.xml:
+
+	Improve tray icon usuability. Fixes bgo #312110 and #378019.
+	Patch from Ryan Lortie (desrt) <desrt@desrt.ca> minor
+	change on menu from me.
+
+2008-09-28  Luis Medinas  <lmedinas@gnome.org>
 
 	* data/muine.schemas.in:
 	* src/PlaylistWindow.cs:

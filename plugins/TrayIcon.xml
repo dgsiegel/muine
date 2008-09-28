@@ -8,6 +8,6 @@
     <menuitem action="PlaySong" />
     <menuitem action="PlayAlbum" />
     <separator />
-    <menuitem action="ToggleVisible" />
+    <menuitem action="Quit" />
   </popup>
 </ui>
