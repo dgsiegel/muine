@@ -1,10 +1,18 @@
+0.8.10
+======
+
+- FIXME
+
+Updated translations:
+- FIXME
+
 0.8.9
 =====
 
 - Updated Tango-style icons [Hylke Bons]
 - Improved FLAC detection [Wouter Bolsterlee]
 - Don't wakeup the CPU unnecessarily [Wouter Bolsterlee]
-- Build fixes for newer Glib and GTK+ [Wouter Bolsterlee]
+- Build fixes for newer GLib and GTK+ [Wouter Bolsterlee]
 
 Updated translations:
 - Basque [Inaki Larranaga Murgoitio]

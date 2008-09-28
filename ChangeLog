@@ -1,3 +1,8 @@
+2008-09-28  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* NEWS: Add some template stuff for the upcoming 0.8.10
+	release NEWS items.
+
 2008-09-28  Diego Escalante Urrelo  <diegoe@gnome.org>
 
 	Bug 308208 – Play Album window does not show all albums
