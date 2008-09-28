@@ -167,5 +167,16 @@
 	<long>Your Amazon Dev Tag for fetching album cover art</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/muine/show_notifications</key>
+      <applyto>/apps/muine/show_notifications</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Show Notifications</short>
+	<long>Whether or not the tray icon shows song change notifications</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

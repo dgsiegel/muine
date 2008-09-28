@@ -3,9 +3,9 @@ CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 plugindir = $(libdir)/muine/plugins
 
 if ENABLE_INOTIFY
-plugin_DATA = InotifyPlugin.dll InotifyPlugin.dll.config
+plugin_DATA = TrayIcon.dll TrayIcon.dll.config InotifyPlugin.dll InotifyPlugin.dll.config
 else
-plugin_DATA =
+plugin_DATA = TrayIcon.dll TrayIcon.dll.config
 endif
 
 muinelibdir = $(pkglibdir)

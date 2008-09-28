@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Runtime.InteropServices;
 
 using GConf;
 using Gtk;
@@ -40,6 +41,17 @@ namespace Muine
 		private static readonly string string_tooltip_format = 
 			Catalog.GetString ("{0} - {1}");
 
+		// Strings :: Notification Format
+		//	song artists - song title
+		private static readonly string string_notification_summary_format = 
+			Catalog.GetString ("Now playing: {0}");
+
+		// Strings :: Notification Format
+		//	Album name
+		private static readonly string string_notification_message_format = 
+			Catalog.GetString ("by {0}");
+
+                private const string GConfKeyShowNotifications = "/apps/muine/show_notifications";
 		// Widgets
 		private Plug icon;
 		private EventBox ebox;
@@ -56,6 +68,8 @@ namespace Muine
 		
 		private string tooltip = String.Empty; 
 
+		private static bool showNotifications = false;
+
 		private bool playing = false;
 
 		// GConf settings (mouse button behaviour)
@@ -68,6 +82,11 @@ namespace Muine
 		{
 			// Initialize gettext
 			Catalog.Init ("muine", Defines.GNOME_LOCALE_DIR);
+
+                        GConf.Client gconf_client = new GConf.Client ();
+                        gconf_client.AddNotify (GConfKeyShowNotifications, 
+                                                new GConf.NotifyEventHandler (OnShowNotificationsChanged));
+                        showNotifications = (bool) gconf_client.Get (GConfKeyShowNotifications);
 
 			// Load stock icons
 			InitStockIcons ();
@@ -265,12 +284,28 @@ namespace Muine
 			Init ();
 		}
 
+                // Handlers :: OnShowNotificationsChanged
+                private void OnShowNotificationsChanged (object o, GConf.NotifyEventArgs args)
+                {
+                        showNotifications = (bool) args.Value;
+                }
+
 		// Handlers :: OnSongChangedEvent
 		private void OnSongChangedEvent (ISong song)
 		{
 			tooltip = (song == null) ? null : CreateTooltip (song);
 
 			UpdateTooltip ();
+
+			if (showNotifications && (song != null)) {
+				Notify(
+						String.Format(string_notification_summary_format, song.Title),
+						String.Format(
+							string_notification_message_format,
+							StringUtils.JoinHumanReadable (song.Artists)),
+						song.CoverImage,
+						ebox);
+			}
 		}
 
 		// Handlers :: OnStateChangedEvent
@@ -286,14 +321,71 @@ namespace Muine
 			UpdateImage ();
 		}
 
-		private void OnWindowEvent (object o, WidgetEventArgs args)
+		/* Libnotify bindings */
+
+		[DllImport("notify")]
+		private static extern bool notify_init(string app_name);
+
+		[DllImport("notify")]
+		private static extern void notify_uninit();
+
+		[DllImport("notify")]
+		private static extern IntPtr notify_notification_new(string summary, string message,
+				string icon, IntPtr widget);
+
+		[DllImport("notify")]
+		private static extern void notify_notification_set_timeout(IntPtr notification,
+				int timeout);
+		
+		[DllImport("notify")]
+		private static extern void notify_notification_set_urgency(IntPtr notification,
+				int urgency);
+
+		[DllImport("notify")]
+		private static extern void notify_notification_set_icon_from_pixbuf(IntPtr notification, IntPtr icon);
+
+		[DllImport("notify")]
+		private static extern bool notify_notification_show(IntPtr notification, IntPtr error);
+
+		[DllImport("gobject-2.0")]
+		private static extern void g_object_unref(IntPtr o);
+
+		public static void Notify(string summary, string message,
+				Pixbuf cover, Widget widget)
 		{
-			if (args.Event.Type == EventType.Delete && !old_mouse_behaviour)
-			{
-				player.SetWindowVisible (false, 0);
-				args.RetVal = true;
+                        if (!showNotifications)
+				return;
+
+			try {
+				if(!notify_init("Muine"))
+					return;
+
+				summary = StringUtils.EscapeForPango(summary);
+				message = StringUtils.EscapeForPango(message);
+
+				IntPtr notif = notify_notification_new(summary, message, null, widget.Handle);
+				notify_notification_set_timeout(notif, 4000);
+				notify_notification_set_urgency(notif, 0);
+				if (cover != null) {
+					cover = cover.ScaleSimple(42, 42, InterpType.Bilinear);
+					notify_notification_set_icon_from_pixbuf(notif, cover.Handle);
+				}
+				notify_notification_show(notif, IntPtr.Zero);
+				g_object_unref(notif);
+				notify_uninit();
+
+			} catch (Exception) {
+				showNotifications = false;
 			}
 		}
+
+		private void OnWindowEvent (object o, WidgetEventArgs args)
+                {
+			if (args.Event.Type == EventType.Delete && !old_mouse_behaviour) {
+                                player.SetWindowVisible (false, 0);
+                                args.RetVal = true;
+                        }
+                }
 
 		private void BehaviourNotify (object sender, NotifyEventArgs args)
 		{
