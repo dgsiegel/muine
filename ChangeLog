@@ -1,5 +1,12 @@
 2008-09-28  Luis Medinas  <lmedinas@gnome.org>
 
+	* NEWS:
+	* configure.in:
+	
+	Update NEWS and bump release to 0.8.10.
+
+2008-09-28  Luis Medinas  <lmedinas@gnome.org>
+
 	* configure.in:
 
 	Fix id3lib dependency check on configure.

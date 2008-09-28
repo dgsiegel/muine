@@ -1,15 +1,14 @@
 0.8.10
 ======
 
-IMPORTANT FIXME: This file was last updated on 20080928. Please update the
-listings below before releasing!
-
 - Notifications using libnotify [Wouter Bolsterlee, Iain Holmes]
 - Improve tray icon usuability [Ryan Lortie, Luis Medinas]
 - Make handling of full albums configurable [Diego Escalante Urrelo]
 - Remember window position between restarts [Adolfo Blásquez]
 - Fix .desktop file validation [Wouter Bolsterlee]
 - Use system inotify headers [Adrian Bunk, Luis Medinas]
+- Missing libid3tag checks in configure [Peter Adolphs]
+- Remove internal NDesk-DBus from the tree [Luis Medinas]
 
 Updated translations:
 - Arabic [Djihed Afifi]
