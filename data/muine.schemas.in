@@ -24,6 +24,28 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/muine/playlist_window/pos_x</key>
+      <applyto>/apps/muine/playlist_window/pos_x</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Playlist window horizontal position</short>
+        <long>Horizontal position of the playlist window.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/muine/playlist_window/pos_y</key>
+      <applyto>/apps/muine/playlist_window/pos_y</applyto>
+      <owner>muine</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Playlist window vertical position</short>
+        <long>Vertical position of the playlist window.</long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/apps/muine/add_song_window/width</key>
       <applyto>/apps/muine/add_song_window/width</applyto>
       <owner>muine</owner>

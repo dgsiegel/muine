@@ -59,6 +59,12 @@ namespace Muine
 		// GConf :: Height
 		private const string GConfKeyHeight = "/apps/muine/playlist_window/height";
 		private const int    GConfDefaultHeight = 450;
+		
+		private const string GConfKeyPosX = "/apps/muine/playlist_window/pos_x";
+		private const int    GConfDefaultPosX = 0; 
+
+		private const string GConfKeyPosY = "/apps/muine/playlist_window/pos_y";
+		private const int    GConfDefaultPosY = 0;
 
 		// GConf :: Volume
 		private const string GConfKeyVolume = "/apps/muine/volume";
@@ -452,6 +458,7 @@ namespace Muine
 		// Methods :: Public :: Quit (IPlayer)
 		public void Quit ()
 		{
+			SaveWindowPosition ();
 			Global.Exit ();
 		}
 
@@ -1501,7 +1508,12 @@ namespace Muine
 			int width  = (int) Config.Get (GConfKeyWidth , GConfDefaultWidth );
 			int height = (int) Config.Get (GConfKeyHeight, GConfDefaultHeight);
 
+			// Window position
+			int pos_x = (int) Config.Get (GConfKeyPosX, GConfDefaultPosX);
+			int pos_y = (int) Config.Get (GConfKeyPosY, GConfDefaultPosY);
+
 			SetDefaultSize (width, height);
+			Move (pos_x, pos_y);
 
 			SizeAllocated += OnSizeAllocated;
 
@@ -1516,6 +1528,18 @@ namespace Muine
 
 			Config.AddNotify (GConfKeyRepeat,
 				new GConf.NotifyEventHandler (OnConfigRepeatChanged));
+		}
+		
+		//Methods:: Private :: SaveWindowPosition
+		private void SaveWindowPosition ()
+		{
+			// Get Window position
+			int pos_x, pos_y;
+			GetPosition (out pos_x, out pos_y);
+
+			// Save it to GConf
+			Config.Set (GConfKeyPosX , pos_x );
+			Config.Set (GConfKeyPosY, pos_y);
 		}
 
 		// Handlers
