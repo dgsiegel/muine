@@ -62,7 +62,6 @@
 	Use system inotify instead of the built one. Patch 
 	from Adrian Bunk <bunk@stusta.de> minor by me. 
 	Closes bgo #553155.
->>>>>>> 353a02122355e2d3779cfe7c6b1fb0ab9aa87506:ChangeLog
 
 2008-07-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
