@@ -1,6 +1,13 @@
 2008-09-28  Luis Medinas  <lmedinas@gnome.org>
 
 	* configure.in:
+
+	Fix id3lib dependency check on configure.
+	Patch from Peter Adolphs closes bgo #491057.
+
+2008-09-28  Luis Medinas  <lmedinas@gnome.org>
+
+	* configure.in:
 	* Makefile.am:
 	
 	Remove internal NDesk-DBus-sharp. Fixes bgo #553292.
