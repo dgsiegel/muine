@@ -1,3 +1,18 @@
+2008-09-28  Diego Escalante Urrelo  <diegoe@gnome.org>
+
+	Bug 308208 – Play Album window does not show all albums
+
+	* b/data/muine.schemas.in
+	* src/Album.cs
+	* src/SongDatabase.cs:
+
+	Revert an old commit removing only_complete_albums functionality.
+
+	You can now choose wheter muine should or should not show incomplete
+	albums using a gconf key: /apps/muine/only_complete_albums.
+	This is the	old-old-really-old behaviour of muine of including every
+	album in the list no matter it is not complete.
+
 2008-09-28  Iain Holmes  <iain@gnome.org>
 
 	Bug 336248 – Notifications using libnotify

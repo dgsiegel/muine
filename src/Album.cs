@@ -212,7 +212,12 @@ namespace Muine
 		///	True if album is complete, False otherwise.
 		/// </returns>
 		public override bool Public {
-			get { return complete; }
+			get {
+				if (Global.DB.OnlyCompleteAlbums)
+					return complete;
+				else
+					return true;
+			}
 		}
 
 		// Properties :: Key (get;)
