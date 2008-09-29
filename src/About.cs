@@ -34,8 +34,10 @@ namespace Muine
 		private static readonly string string_muine =
 			Catalog.GetString ("Muine");
 
-		private static readonly string string_copyright =
-			Catalog.GetString ("Copyright © 2003-2007 Jorn Baayen");
+		private static readonly string [] string_copyright = {
+			Catalog.GetString ("Copyright © 2003–2007 Jorn Baayen"),
+			Catalog.GetString ("Copyright © 2006–2008 Various contributors"),
+		};
 
 		private static readonly string string_description =
 			Catalog.GetString ("A music player");
@@ -50,6 +52,9 @@ namespace Muine
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
 			Catalog.GetString ("Tamara Roberson <tamara.roberson@gmail.com>"),
 			Catalog.GetString ("Peter Johanson <peter@peterjohanson.com>"),
+			Catalog.GetString ("Wouter Bolsterlee <wbolster@gnome.org>"),
+			Catalog.GetString ("Luis Medinas <lmedinas@gnome.org>"),
+			Catalog.GetString ("Iain Holmes  <iain@gnome.org>"),
 			String.Empty,
 			Catalog.GetString ("Album covers are provided by amazon.com and musicbrainz.org."),
 			null,
@@ -87,7 +92,7 @@ namespace Muine
 		public About (Gtk.Window parent) : base ()
 		{
 			base.Authors           = authors;
-			base.Copyright         = string_copyright;
+			base.Copyright         = String.Join("\n", string_copyright);
 			base.Comments          = string_description;
 			base.Documenters       = documenters;
 			base.Logo              = pixbuf;

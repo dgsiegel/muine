@@ -1,3 +1,11 @@
+2008-09-29  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	Bug 553296 – Update Copyrights
+
+	* src/About.cs: Add some people to the credits dialog
+	and add a "various contributors" copyright statement to
+	the main about dialog.
+
 2008-09-28  Luis Medinas  <lmedinas@gnome.org>
 
 	* NEWS:
