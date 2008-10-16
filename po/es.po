@@ -4,15 +4,15 @@
 #
 # Sergio Rubio <sergio.rubio@hispalinux.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 200, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: muine.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-08 23:02+0100\n"
-"PO-Revision-Date: 2007-08-19 11:41+0200\n"
+"POT-Creation-Date: 2008-09-29 08:58+0000\n"
+"PO-Revision-Date: 2008-10-16 23:28+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +59,7 @@ msgstr "Saltar a"
 msgid "Listen to your music"
 msgstr "Escuchar tu música"
 
-#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:73
+#: ../data/muine.desktop.in.h:2 ../src/PlaylistWindow.cs:79
 msgid "Muine Music Player"
 msgstr "Reproductor de música Muine"
 
@@ -112,42 +112,77 @@ msgid "Height of the playlist window."
 msgstr "Altura de la ventana de la lista de reproducción."
 
 #: ../data/muine.schemas.in.h:13
+msgid "Horizontal position of the playlist window."
+msgstr "Posición horizontal de la ventana de la lista de reproducción."
+
+#: ../data/muine.schemas.in.h:14
 msgid "Last used folder from \"Import folder\" dialog."
 msgstr "Última carpeta usada desde el diálogo «Importar carpeta»."
 
-#: ../data/muine.schemas.in.h:14
+#: ../data/muine.schemas.in.h:15
 msgid "Last used folder from the playlist file selectors."
 msgstr "Última carpeta usada los selectores de lista de reproducción."
 
-#: ../data/muine.schemas.in.h:15
+#: ../data/muine.schemas.in.h:16
+msgid "Only complete albums"
+msgstr "Sólo los álbumes completos"
+
+#: ../data/muine.schemas.in.h:17
+msgid "Only deal with complete albums in the interface."
+msgstr "Mostrar en la interfaz sólo los álbumes completos."
+
+#: ../data/muine.schemas.in.h:18
 msgid "Playlist window height"
 msgstr "Altura de la ventana de la lista de reproducción"
 
-#: ../data/muine.schemas.in.h:16
+#: ../data/muine.schemas.in.h:19
+msgid "Playlist window horizontal position"
+msgstr "Posición horizontal de la ventana de la lista de reproducción"
+
+#: ../data/muine.schemas.in.h:20
+msgid "Playlist window vertical position"
+msgstr "Posición vertical de la ventana de la lista de reproducción"
+
+#: ../data/muine.schemas.in.h:21
 msgid "Playlist window width"
 msgstr "Anchura de la ventana de la lista de reproducción"
 
-#: ../data/muine.schemas.in.h:17
+#: ../data/muine.schemas.in.h:22
 msgid "Repeat mode"
 msgstr "Modo de repetición"
 
-#: ../data/muine.schemas.in.h:18
+#: ../data/muine.schemas.in.h:23
+msgid "Show Notifications"
+msgstr "Mostrar notificaciones"
+
+#: ../data/muine.schemas.in.h:24
+msgid "Vertical position of the playlist window."
+msgstr "Posición vertical de la ventana de la lista de reproducción."
+
+#: ../data/muine.schemas.in.h:25
 msgid "Volume level"
 msgstr "Nivel de volumen"
 
-#: ../data/muine.schemas.in.h:19
+#: ../data/muine.schemas.in.h:26
 msgid "Volume level. 0 = lowest, 100 = highest."
 msgstr "Nivel de volumen. 0 = el más bajo, 100 = el más alto."
 
-#: ../data/muine.schemas.in.h:20
+#: ../data/muine.schemas.in.h:27
 msgid "Watched folders"
 msgstr "Carpetas monitorizadas"
 
-#: ../data/muine.schemas.in.h:21
-msgid "Whether or not to enable repeat playlist mode."
-msgstr "Indica si debe o no activar el modo repetición de lista de reproducción."
+#: ../data/muine.schemas.in.h:28
+msgid "Whether or not the tray icon shows song change notifications"
+msgstr ""
+"Indica si el icono de la bandeja muestra las notificaciones de cambio de "
+"canción"
 
-#: ../data/muine.schemas.in.h:22
+#: ../data/muine.schemas.in.h:29
+msgid "Whether or not to enable repeat playlist mode."
+msgstr ""
+"Indica si debe o no activar el modo repetición de lista de reproducción."
+
+#: ../data/muine.schemas.in.h:30
 msgid ""
 "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", "
 "or \"jp\"."
@@ -155,27 +190,27 @@ msgstr ""
 "Qué sitio Amazon se usará para obtener las imágenes del álbum, \"us\", \"uk"
 "\", \"de\", o \"jp\"."
 
-#: ../data/muine.schemas.in.h:23
+#: ../data/muine.schemas.in.h:31
 msgid "Width of the \"Add album\" window."
 msgstr "Anchura de la ventana «Añadir álbum»."
 
-#: ../data/muine.schemas.in.h:24
+#: ../data/muine.schemas.in.h:32
 msgid "Width of the \"Add song\" window."
 msgstr "Anchura de la ventana «Añadir canción»."
 
-#: ../data/muine.schemas.in.h:25
+#: ../data/muine.schemas.in.h:33
 msgid "Width of the playlist window."
 msgstr "Anchura de la ventana de la lista de reproducción."
 
-#: ../data/muine.schemas.in.h:26
+#: ../data/muine.schemas.in.h:34
 msgid "Your Amazon Dev Tag for fetching album cover art"
 msgstr "Su etiqueta Amazon Dev Tag para obtener arte de cubiertas"
 
-#: ../libmuine/player-gst.c:155
+#: ../libmuine/player-gst.c:154
 msgid "Failed to create a GStreamer play object"
 msgstr "Falló al crear el objeto de reproducción GStreamer"
 
-#: ../libmuine/player-gst.c:162
+#: ../libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "No se pudo renderizar el sumidero de salida de sonido predeterminado de "
@@ -223,36 +258,53 @@ msgid "Muine"
 msgstr "Muine"
 
 #: ../src/About.cs:38
-msgid "Copyright © 2003-2007 Jorn Baayen"
-msgstr "Copyright © 2003-2007 Jorn Baayen"
+msgid "Copyright © 2003–2007 Jorn Baayen"
+msgstr "Copyright © 2003–2007 Jorn Baayen"
 
-#: ../src/About.cs:41
+#: ../src/About.cs:39
+msgid "Copyright © 2006–2008 Various contributors"
+msgstr "Copyright © 2006–2008 Varios contribuidores"
+
+#: ../src/About.cs:43
 msgid "A music player"
 msgstr "Un reproductor de música"
 
-#: ../src/About.cs:48
+#: ../src/About.cs:50
 msgid "Jorn Baayen <jbaayen@gnome.org>"
 msgstr "Jorn Baayen <jbaayen@gnome.org>"
 
-#: ../src/About.cs:49
+#: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
 msgstr "Lee Willis <lee@leewillis.co.uk>"
 
-#: ../src/About.cs:50
+#: ../src/About.cs:52
 msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
 
-#: ../src/About.cs:51
+#: ../src/About.cs:53
 msgid "Tamara Roberson <tamara.roberson@gmail.com>"
 msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
 
-#: ../src/About.cs:52
+#: ../src/About.cs:54
 msgid "Peter Johanson <peter@peterjohanson.com>"
 msgstr "Peter Johanson <peter@peterjohanson.com>"
 
-#: ../src/About.cs:54
+#: ../src/About.cs:55
+msgid "Wouter Bolsterlee <wbolster@gnome.org>"
+msgstr "Wouter Bolsterlee <wbolster@gnome.org>"
+
+#: ../src/About.cs:56
+msgid "Luis Medinas <lmedinas@gnome.org>"
+msgstr "Luis Medinas <lmedinas@gnome.org>"
+
+#: ../src/About.cs:57
+msgid "Iain Holmes  <iain@gnome.org>"
+msgstr "Iain Holmes  <iain@gnome.org>"
+
+#: ../src/About.cs:59
 msgid "Album covers are provided by amazon.com and musicbrainz.org."
-msgstr "Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
+msgstr ""
+"Las cubiertas de los álbumes se suministran por amazon.com y musicbrainz.org."
 
 #: ../src/Actions.cs:36
 msgid "_File"
@@ -338,7 +390,7 @@ msgstr "_Aleatorio"
 msgid "_About"
 msgstr "A_cerca de"
 
-#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:94
+#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:100
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Ejecutado por {0}"
@@ -418,105 +470,105 @@ msgstr ""
 msgid "Audio backend error:"
 msgstr "Error del backend de sonido:"
 
-#: ../src/PlaylistWindow.cs:76
+#: ../src/PlaylistWindow.cs:82
 msgid "Playlist.m3u"
 msgstr "Lista de reproducción.m3u"
 
-#: ../src/PlaylistWindow.cs:79
+#: ../src/PlaylistWindow.cs:85
 msgid "<b>Playlist</b>"
 msgstr "<b>Lista de reproducción</b>"
 
-#: ../src/PlaylistWindow.cs:82
+#: ../src/PlaylistWindow.cs:88
 msgid "<b>Playlist</b> (Repeating)"
 msgstr "<b>Lista de reproducción</b> (repitiendo)"
 
-#: ../src/PlaylistWindow.cs:85
+#: ../src/PlaylistWindow.cs:91
 msgid "<b>Playlist</b> (Less than one minute remaining)"
 msgstr "<b>Lista de reproducción</b> (queda menos de un minuto)"
 
-#: ../src/PlaylistWindow.cs:88
+#: ../src/PlaylistWindow.cs:94
 #, csharp-format
 msgid "From \"{0}\""
 msgstr "Desde «{0}»"
 
-#: ../src/PlaylistWindow.cs:91
+#: ../src/PlaylistWindow.cs:97
 msgid "Album unknown"
 msgstr "Álbum desconocido"
 
-#: ../src/PlaylistWindow.cs:98
+#: ../src/PlaylistWindow.cs:104
 #, csharp-format
 msgid "{0} - Muine Music Player"
 msgstr "Reproductor de Música Muine - {0}"
 
-#: ../src/PlaylistWindow.cs:102
+#: ../src/PlaylistWindow.cs:108
 msgid "Switch music playback on or off"
 msgstr "Enciende o apaga la reproducción de música"
 
-#: ../src/PlaylistWindow.cs:105
+#: ../src/PlaylistWindow.cs:111
 msgid "Play the previous song"
 msgstr "Reproduce la canción anterior"
 
-#: ../src/PlaylistWindow.cs:108
+#: ../src/PlaylistWindow.cs:114
 msgid "Play the next song"
 msgstr "Reproduce la canción siguiente"
 
-#: ../src/PlaylistWindow.cs:111
+#: ../src/PlaylistWindow.cs:117
 msgid "Add an album to the playlist"
 msgstr "Añadir un álbum a la lista de reproducción"
 
-#: ../src/PlaylistWindow.cs:114
+#: ../src/PlaylistWindow.cs:120
 msgid "Add a song to the playlist"
 msgstr "Añadir una canción a la lista de reproducción"
 
-#: ../src/PlaylistWindow.cs:117
+#: ../src/PlaylistWindow.cs:123
 msgid "Change the volume level"
 msgstr "Cambia el nivel de volumen"
 
-#: ../src/PlaylistWindow.cs:120
+#: ../src/PlaylistWindow.cs:126
 msgid "Drop an image here to use it as album cover"
 msgstr "Suelte una imagen aquí para usarla como cubierta del álbum"
 
-#: ../src/PlaylistWindow.cs:124
+#: ../src/PlaylistWindow.cs:130
 msgid "Failed to initialize the audio backend"
 msgstr "Falló al inicializar el backend de sonido:"
 
-#: ../src/PlaylistWindow.cs:127
+#: ../src/PlaylistWindow.cs:133
 #, csharp-format
 msgid "Failed to read {0}:"
 msgstr "Falló al leer {0}:"
 
-#: ../src/PlaylistWindow.cs:130
+#: ../src/PlaylistWindow.cs:136
 #, csharp-format
 msgid "Failed to close {0}:"
 msgstr "Falló al cerrar {0}:"
 
-#: ../src/PlaylistWindow.cs:133
+#: ../src/PlaylistWindow.cs:139
 #, csharp-format
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1083
+#: ../src/PlaylistWindow.cs:1090
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1088
+#: ../src/PlaylistWindow.cs:1095
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1093
+#: ../src/PlaylistWindow.cs:1100
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1098
+#: ../src/PlaylistWindow.cs:1105
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -567,12 +619,21 @@ msgstr "Silenciado"
 msgid "Full Volume"
 msgstr "Volumen total"
 
-#: ../plugins/TrayIcon.cs:35
+#: ../plugins/TrayIcon.cs:37
 msgid "Muine music player"
 msgstr "Reproductor de música Muine"
 
-#: ../plugins/TrayIcon.cs:40
+#: ../plugins/TrayIcon.cs:42
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
+#: ../plugins/TrayIcon.cs:47
+#, csharp-format
+msgid "Now playing: {0}"
+msgstr "Reproduciendo: {0}"
+
+#: ../plugins/TrayIcon.cs:52
+#, csharp-format
+msgid "by {0}"
+msgstr "por {0}"
