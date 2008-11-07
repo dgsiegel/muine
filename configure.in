@@ -27,6 +27,7 @@ GTK_REQUIRED=2.6
 ICON_THEME_REQUIRED=2.10
 MONO_REQUIRED=1.1
 GTKSHARP_REQUIRED=2.6.0
+TAGLIBSHARP_REQUIRED=2.0.3
 MONODOC_REQUIRED=1.1.9
 
 dnl Audio backend stuff
@@ -66,6 +67,9 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  glade-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gconf-sharp-2.0 >= $GTKSHARP_REQUIRED \
 		  gnome-vfs-sharp-2.0 >= $GTKSHARP_REQUIRED)
+
+PKG_CHECK_MODULES(TAGLIBSHARP,
+                 taglib-sharp >= $TAGLIBSHARP_REQUIRED)
 
 dnl ndesk-dbus
 PKG_CHECK_MODULES(DBUS, ndesk-dbus-1.0 >= 0.4 \
@@ -109,59 +113,6 @@ dnl Check for GDBM
 AC_CHECK_HEADER(gdbm.h,,AC_MSG_ERROR(you need gdbm))
 GDBM_LIBS="-lgdbm"
 AC_SUBST(GDBM_LIBS)
-
-dnl Check for Ogg Vorbis
-MM_PATH_OGG(, AC_MSG_ERROR(You need Ogg))
-AC_SUBST(OGG_CFLAGS)
-AC_SUBST(OGG_LIBS)
-
-MM_PATH_VORBIS(, AC_MSG_ERROR(You need Vorbis))
-AC_SUBST(VORBIS_CFLAGS)
-AC_SUBST(VORBIS_LIBS)
-AC_SUBST(VORBISFILE_CFLAGS)
-AC_SUBST(VORBISFILE_LIBS)
-
-dnl Check for FLAC
-PKG_CHECK_MODULES(FLAC, flac)
-AC_SUBST(FLAC_CFLAGS)
-AC_SUBST(FLAC_LIBS)
-
-dnl Check for libid3tag
-AC_ARG_ENABLE(id3tag, [  --disable-id3tag        Disable MP3 support],have_id3tag=${enableval},have_id3tag=yes)
-if test "x$have_id3tag" = "xyes"; then
-	PKG_CHECK_MODULES(ID3TAG, id3tag >= 0.15, id3tag_detect=yes, id3tag_detect=no)
-	if test "x$id3tag_detect" = "xyes"; then
-		AC_CHECK_HEADER(id3tag.h, id3tag_detect=yes, id3tag_detect=no)
-	fi
-	if test "x$id3tag_detect" = "xyes"; then
-		ID3TAG_LIBS="-lid3tag -lz"
-		AC_DEFINE(HAVE_ID3TAG, 1, id3tag support)
-	else
-		AC_DEFINE(HAVE_ID3TAG, 0, id3tag support)
-	fi
-else
-	AC_DEFINE(HAVE_ID3TAG, 0, id3tag support)
-fi
-
-AM_CONDITIONAL(HAVE_ID3TAG, test "x$id3tag_detect" = "xyes")
-AC_SUBST(ID3TAG_LIBS)
-
-dnl Check for FAAD 
-AC_ARG_ENABLE(faad2, [  --disable-faad2         Disable AAC support],,enable_faad2=yes)
-if test "x$enable_faad2" = "xyes"; then
-	AC_CHECK_HEADER(mp4ff.h, faad2_detect=yes, faad_detect=no)
-	if test "x$faad2_detect" = "xyes"; then
-		FAAD_LIBS="-lmp4ff -lfaad"
-		AC_DEFINE(HAVE_FAAD, 1, faad2 support)
-	else
-		AC_DEFINE(HAVE_FAAD, 0, faad2 support)
-	fi
-else
-	AC_DEFINE(HAVE_FAAD, 0, faad2 support)
-fi
-
-AM_CONDITIONAL(HAVE_FAAD, test "x$have_faad2" = "xyes")
-AC_SUBST(FAAD_LIBS)
 
 dnl Check for Mono
 AC_PATH_PROG(MCS, gmcs)
@@ -215,12 +166,10 @@ data/glade/Makefile
 data/images/Makefile
 data/ui/Makefile
 libmuine/Makefile
-libmuine/id3-vfs/Makefile
 PluginLib/Makefile
 DBusLib/Makefile
 src/Makefile
 plugins/Makefile
 doc/Makefile
-m4/Makefile
 po/Makefile.in
 ])

@@ -8,7 +8,6 @@ SUBDIRS = 		\
 	src		\
 	plugins		\
 	doc		\
-	m4		\
 	po		\
 	$(NULL)
 

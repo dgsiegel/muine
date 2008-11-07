@@ -1,3 +1,21 @@
+2008-11-07  Priit Laes <plaes@svn.gnome.org>
+
+	Bug 474090 – Switch to taglib-sharp
+
+	* TODO:
+	* README:
+	* Makefile.am:
+	* Configure.in:
+	* src/Makefile.am:
+	* src/Metadata.cs:
+	R m4/*:
+	R libmuine/id3-vfs/*:
+	R libmuine/metadata.[ch]:
+	R libmuine/ogg-helper.[ch]:
+
+	Use taglib-sharp for metadata loading. Based on the patch by
+	Vianney le Clément.
+
 2008-09-29  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	Bug 553296 – Update Copyrights

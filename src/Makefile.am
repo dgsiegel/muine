@@ -2,6 +2,7 @@ CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 
 TARGET = muine.exe
 WRAPPER = muine
+MUINE_LIBS = $(GTKSHARP_LIBS) $(TAGLIBSHARP_LIBS)
 
 MUINE_CSFILES =					\
 	$(srcdir)/AddSongWindow.cs		\
@@ -108,7 +109,7 @@ Defines.cs: $(srcdir)/Defines.cs.in
 	    < $^ > $@
 
 $(TARGET): $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(top_builddir)/PluginLib/muine-plugin.dll $(top_builddir)/DBusLib/muine-dbus.dll
-	$(CSC) -target:winexe -out:$@ $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(GTKSHARP_LIBS)
+	$(CSC) -target:winexe -out:$@ $(MUINE_CSFILES) $(MUINE_GENERATED_CSFILES) $(MUINE_ASSEMBLIES) $(MUINE_RESOURCES) $(MUINE_LIBS)
 
 all: $(TARGET)
 

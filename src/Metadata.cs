@@ -17,13 +17,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-using System;
-using System.Runtime.InteropServices;
-using System.Collections;
-
-using Gdk;
-
 using Mono.Unix;
+
+using TagLib;
+using TagLib.Id3v2;
+using TagLib.Mpeg4;
 
 namespace Muine
 {
@@ -33,233 +31,229 @@ namespace Muine
 		private static readonly string string_error_load =
 			Catalog.GetString ("Failed to load metadata: {0}");
 
-		// Objects
-		private IntPtr raw = IntPtr.Zero;
-		private Pixbuf album_art = null;
+		private TagLib.File file = null;
+		private Gdk.Pixbuf album_art = null;
+		private double peak = 0.0, gain = 0.0;
+		private bool peak_set = false, gain_set = false;
 
 		// Constructor
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_load (string filename,
-					                    out IntPtr error_message_return);
-		
 		public Metadata (string filename)
 		{
-			IntPtr error_ptr;
-			
-			raw = metadata_load (filename, out error_ptr);
-
-			if (error_ptr != IntPtr.Zero) {
-				string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
-				throw new Exception (String.Format (string_error_load, error));
+			file = TagLib.File.Create (filename);
+			if (file == null || file.Tag == null || file.Properties.MediaTypes != TagLib.MediaTypes.Audio) {
+				throw new System.Exception (System.String.Format (string_error_load, filename));
 			}
 		}
 
 		// Properties
 		// Properties :: Title (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_title (IntPtr metadata);
 
 		public string Title {
-			get {
-				IntPtr title_ptr = metadata_get_title (raw);
-				
-				string title = String.Empty;
-				
-				if (title_ptr != IntPtr.Zero) {
-					string title_tmp = Marshal.PtrToStringAnsi (title_ptr);
-					title = title_tmp.Trim ();
-				}
-				
-				return title;
-			}
+			get { return file.Tag.Title != null ? file.Tag.Title : ""; }
 		}
 
 		// Properties :: Artists (get;)
 		//	FIXME: Refactor Artists and Performers properties
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_artist_count (IntPtr metadata);
-
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_artist
-		  (IntPtr metadata, int index);
 
 		public string [] Artists {
-			get {
-				ArrayList strings = new ArrayList ();
-
-				int count = metadata_get_artist_count (raw);
-
-				for (int i = 0; i < count; i++) {
-					IntPtr artist_ptr = metadata_get_artist (raw, i);
-					string artist = Marshal.PtrToStringAnsi (artist_ptr);
-
-					if (artist == null || artist.Length <= 0)
-						continue;
-
-					strings.Add (artist.Trim());
-				}
-
-				Type string_type = typeof (string);
-				return (string []) strings.ToArray (string_type);
-			}
+			get { return file.Tag.AlbumArtists; }
 		}
 
 		// Properties :: Performers (get;)
 		//	FIXME: Refactor Artists and Performers properties
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_performer
-		  (IntPtr metadata, int index);
-
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_performer_count
-		  (IntPtr metadata);
 
 		public string [] Performers {
-			get {
-				ArrayList strings = new ArrayList ();
-
-				int count = metadata_get_performer_count (raw);
-
-				for (int i = 0; i < count; i++) {
-					IntPtr performer_ptr = metadata_get_performer (raw, i);
-					string performer = Marshal.PtrToStringAnsi (performer_ptr);
-
-					if (performer == null || performer.Length <= 0)
-						continue;
-
-					strings.Add (performer.Trim());
-				}
-
-				Type string_type = typeof (string);
-				return (string []) strings.ToArray (string_type);
-			}			
+			get { return file.Tag.Performers; }
 		}
 
 		// Properties :: Album (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_album (IntPtr metadata);
 
 		public string Album {
-			get { 
-				IntPtr album_ptr = metadata_get_album (raw);
-				
-				string album;
-				if (album_ptr == IntPtr.Zero) {
-					album = String.Empty;
-				} else {
-					string album_tmp = Marshal.PtrToStringAnsi (album_ptr);
-					album = album_tmp.Trim ();
-				}
-				
-				return album;
-			}
+			get { return file.Tag.Album != null ? file.Tag.Album : ""; }
 		}
 
 		// Properties :: AlbumArt (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_album_art (IntPtr metadata);
+		public Gdk.Pixbuf AlbumArt {
+			get {
+				if (album_art == null) {
+					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
 
-		public Pixbuf AlbumArt {
-			get { 
-				if (album_art != null)
-					return album_art;
-					
-				IntPtr album_art_ptr = metadata_get_album_art (raw);
+					if (id3v2_tag != null) {
+						// Try to get a cover image first.
+						foreach (AttachedPictureFrame f in id3v2_tag.GetFrames ("APIC")) {
+							if (f.Type == PictureType.FrontCover) {
+								album_art = GetPixbuf (f.Data);
+								if (album_art != null)
+									return album_art;
+							}
+						}
 
-				if (album_art_ptr != IntPtr.Zero)
-					album_art = new Pixbuf (album_art_ptr);
+						// Take any image we can get.
+						foreach (AttachedPictureFrame f in id3v2_tag.GetFrames ("APIC")) {
+							album_art = GetPixbuf (f.Data);
 
+							if (album_art != null)
+								return album_art;
+						}
+					}
+
+					/*
+					FIXME!!! API changes...
+					TagLib.Mpeg4.AppleTag apple_tag = (TagLib.Mpeg4.AppleTag) file.GetTag (TagTypes.Apple);
+					if (apple_tag != null) {
+						foreach (AppleDataBox b in apple_tag.DataBoxes ("covr")) {
+							if (b.Flags == (uint) AppleDataBox.FlagTypes.ContainsJpegData ||
+							    b.Flags == (uint) AppleDataBox.FlagTypes.ContainsPngData) {
+								album_art = GetPixbuf (b.Data);
+
+								if (album_art != null)
+									return album_art;
+							}
+						}
+					}
+					*/
+				}
 				return album_art;
 			}
 		}
 
 		// Properties :: TrackNumber (get;)
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_track_number (IntPtr metadata);
 		
 		public int TrackNumber {
-			get { return metadata_get_track_number (raw); }
+			get { return (int) file.Tag.Track; }
 		}
 
 		// Properties :: TotalTracks (get;)
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_total_tracks (IntPtr metadata);
 		
 		public int TotalTracks {
-			get { return metadata_get_total_tracks (raw); }
+			get { return (int) file.Tag.TrackCount; }
 		}
 
 		// Properties :: DiscNumber (get;)
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_disc_number (IntPtr metadata);
 
 		public int DiscNumber {
-			get { return metadata_get_disc_number (raw); }
+			get { return (int) file.Tag.Disc; }
 		}
 
 		// Properties :: Year (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_year (IntPtr metadata);
 
 		public string Year {
-			get {
-				IntPtr year_ptr = metadata_get_year (raw);
-				
-				string year = String.Empty;
-				
-				if (year_ptr != IntPtr.Zero)
-					year = Marshal.PtrToStringAnsi (year_ptr);
-				
-				return year;
-			}
+			get { return file.Tag.Year.ToString ();}
 		}
 
 		// Properties :: Duration (get;)
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_duration (IntPtr metadata);
 
 		public int Duration {
-			get { return metadata_get_duration (raw); }
+			get { return file.Properties.Duration.Seconds; }
 		}
 
 		// Properties :: MimeType (get;)
-		[DllImport ("libmuine")]
-		private static extern IntPtr metadata_get_mime_type (IntPtr metadata);
 
 		public string MimeType {
-			get {
-				IntPtr type_ptr = metadata_get_mime_type (raw);
-				
-				string type = String.Empty;
-				if (type_ptr != IntPtr.Zero)
-					Marshal.PtrToStringAnsi (type_ptr);
-				
-				return type;
-			}
+			get { return file.MimeType != null ? file.MimeType : ""; }
 		}
 
 		// Properties :: MTime (get;)
-		[DllImport ("libmuine")]
-		private static extern int metadata_get_mtime (IntPtr metadata);
 
 		public int MTime {
-			get { return metadata_get_mtime (raw); }
+			get {
+				Mono.Unix.Native.Stat buf;
+				Mono.Unix.Native.Syscall.stat (file.Name, out buf);
+				return (int) buf.st_mtime;
+			}
 		}
 
 		// Properties :: Gain (get;)
-		[DllImport ("libmuine")]
-		private static extern double metadata_get_gain (IntPtr metadata);
 
 		public double Gain {
-			get { return metadata_get_gain (raw); }
+			get {
+				if (!gain_set)
+				{
+					gain_set = true;
+
+					TagLib.Ogg.XiphComment xiph_comment = (TagLib.Ogg.XiphComment) file.GetTag (TagTypes.Xiph);
+					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+
+					if (id3v2_tag != null) {
+						foreach (RelativeVolumeFrame f in id3v2_tag.GetFrames ("RVA2")) {
+							gain = f.GetVolumeAdjustment (ChannelType.MasterVolume);
+							return gain;
+						}
+					}
+
+					if (xiph_comment != null) {
+						string [] names = {"replaygain_track_gain", "replaygain_album_gain", "rg_audiophile", "rg_radio"};
+						foreach (string name in names) {
+							string [] l = xiph_comment.GetField (name);
+							if (l != null && l.Length != 0)
+								foreach (string s in l)
+									try {
+										gain = System.Double.Parse (s);
+										return gain;
+									} catch {}
+						}
+					}
+				}
+
+				return gain;
+			}
 		}
 
 		// Properties :: Peak (get;)
-		[DllImport ("libmuine")]
-		private static extern double metadata_get_peak (IntPtr metadata);
 		
 		public double Peak {
-			get { return metadata_get_peak (raw); }
+			get {
+				if (!peak_set)
+				{
+					peak_set = true;
+
+					TagLib.Ogg.XiphComment xiph_comment = (TagLib.Ogg.XiphComment) file.GetTag (TagTypes.Xiph);
+					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+
+					if (id3v2_tag != null) {
+						foreach (RelativeVolumeFrame f in id3v2_tag.GetFrames ("RVA2")) {
+							peak = f.GetPeakVolume (ChannelType.MasterVolume);
+							return peak;
+						}
+					}
+
+					if (xiph_comment != null) {
+						string [] names = {"replaygain_track_peak", "replaygain_album_peak", "rg_peak"};
+						foreach (string name in names) {
+							string [] l = xiph_comment.GetField (name);
+							if (l != null && l.Length != 0)
+								foreach (string s in l)
+									try {
+										peak = System.Double.Parse (s);
+										return peak;
+									} catch {}
+						}
+					}
+				}
+
+				return peak;
+			}
+		}
+
+		private Gdk.Pixbuf GetPixbuf (ByteVector data)
+		{
+			bool bail = false;
+			Gdk.Pixbuf output;
+			Gdk.PixbufLoader loader = new Gdk.PixbufLoader ();
+
+			try {
+				if (!loader.Write (data.Data))
+					bail = true;
+			} catch {bail = true;}
+
+			try {
+				if (!loader.Close ())
+					bail = true;
+			} catch {bail = true;}
+
+			output = (!bail) ? loader.Pixbuf : null;
+
+			return output;
 		}
 	}
 }

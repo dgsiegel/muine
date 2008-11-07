@@ -22,7 +22,6 @@ o Gapless transition/crossfading
   it's a tough one. Well, we could emit EOS a bit earlier than usual
   and have a fancy adder somewhere in the pipeline that does the mixing
   when a new song comes in ..
-o Figure out how to get the peak value from the ID3 RVA2 tag.
 o Improve first time dialog once again ..
   Perhaps a system-wide music folder gconf key, where sound-juicer dumps the
   music, and muine monitors it .. 

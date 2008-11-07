@@ -48,17 +48,11 @@ Build and Installation Requirements
 
 Basic requirements:
   Mono >= 1.1
-  Gtk# >= 2.4.0
+  Gtk# >= 2.6
   Gtk+ >= 2.6
+  Taglib-Sharp >= 2.0.3
   gdbm
-
-Audio support:
-  vorbis >= 1.0
-  FLAC >= 1.1.0
-  libid3tag >= 0.15        (optionally, for MP3 support)
-  faad2                    (optionally, for AAC support)
 
 Playback support (one of the options below):
   GStreamer 0.10           (used by default)
-  GStreamer 0.8            (used by default if Gstreamer 0.10 is not found)
   xine-lib >= 1.0.0rc3b

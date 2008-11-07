@@ -1,19 +1,8 @@
-if HAVE_ID3TAG
-id3_vfs_dir = id3-vfs
-id3_vfs_lib = id3-vfs/libid3-vfs.la
-endif
-
-SUBDIRS = $(id3_vfs_dir)
-
 INCLUDES =							\
 	-I$(top_srcdir)						\
         -DG_LOG_DOMAIN=\"libmuine\"				\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"		\
 	$(MUINE_CFLAGS)						\
-	$(OGG_CFLAGS)						\
-	$(ID3TAG_CFLAGS)					\
-	$(VORBIS_CFLAGS)					\
-	$(VORBISFILE_CFLAGS)					\
 	$(WARN_CFLAGS)						\
 	-DG_DISABLE_DEPRECATED					\
 	-DGTK_DISABLE_DEPRECATED				\
@@ -37,10 +26,6 @@ libmuine_la_SOURCES =			\
 	$(gst_sources)			\
 	macros.h			\
 	player.h			\
-	metadata.c			\
-	metadata.h			\
-	ogg-helper.c			\
-	ogg-helper.h			\
 	gsequence.c			\
 	gsequence.h			\
 	pointer-list-model.c		\
@@ -51,5 +36,5 @@ libmuine_la_SOURCES =			\
 	db.h				\
 	mm-keys.c			\
 	mm-keys.h
-	
-libmuine_la_LIBADD = $(id3_vfs_lib) $(MUINE_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(GDBM_LIBS) $(ID3TAG_LIBS) $(FLAC_LIBS) $(FAAD_LIBS)
+
+libmuine_la_LIBADD = $(MUINE_LIBS) $(GDBM_LIBS)
