@@ -1,5 +1,20 @@
 2008-11-07  Priit Laes <plaes@svn.gnome.org>
 
+	Bug 559631 – [PATCH] Drop glade implementation for error dialogs.
+
+	* TODO:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/ErrorDialog.cs:
+	* src/OverwriteDialog.cs:
+	* data/glade/Makefile.am:
+	R data/glade/ErrorDialog.glade:
+	R data/glade/OverwriteDialog.glade:
+
+	Use GtkMessageDialog instead of glade-based dialogs.
+
+2008-11-07  Priit Laes <plaes@svn.gnome.org>
+
 	Bug 474090 – Switch to taglib-sharp
 
 	* TODO:

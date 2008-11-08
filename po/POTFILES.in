@@ -2,8 +2,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/glade/AddWindow.glade
-data/glade/ErrorDialog.glade
-data/glade/OverwriteDialog.glade
 data/glade/PlaylistWindow.glade
 data/glade/ProgressWindow.glade
 data/glade/SkipToWindow.glade

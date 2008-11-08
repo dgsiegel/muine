@@ -3,8 +3,6 @@ noinst_DATA =					\
 	AddWindow.glade				\
 	SkipToWindow.glade			\
 	NoMusicFoundWindow.glade		\
-	ErrorDialog.glade			\
-	OverwriteDialog.glade			\
 	ProgressWindow.glade			\
 	InfoWindow.glade			\
 	PlaylistFilling.glade			\

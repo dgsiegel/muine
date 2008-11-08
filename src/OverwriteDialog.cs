@@ -30,6 +30,9 @@ namespace Muine
 	public class OverwriteDialog
 	{
 		// Strings
+		private static readonly string window_title =
+			Catalog.GetString ("Overwrite File?");
+
 		private static readonly string string_primary_text =
 			Catalog.GetString ("Overwrite \"{0}\"?");
 
@@ -38,8 +41,7 @@ namespace Muine
 			"If you choose to overwrite this file, the contents will be lost.");
 
 		// Widgets
-		[Glade.Widget] private Dialog window;
-		[Glade.Widget] private Label  label;
+		private MessageDialog window;
 
 		// Constructor
 		public OverwriteDialog (Window parent, string fn)
@@ -61,15 +63,19 @@ namespace Muine
 			string string_secondary_text_esc =
 			  StringUtils.EscapeForPango (string_secondary_text);
 
+
 			string fmt = "<span size=\"large\" weight=\"bold\">{0}</span>";
 			string markup = String.Format (fmt, primary_text_esc);
-			markup += Environment.NewLine;
-			markup += Environment.NewLine;
-			markup += string_secondary_text_esc;
-			label.Markup = markup;
 
-			//
-			window.TransientFor = parent;
+			window = new Gtk.MessageDialog (parent, DialogFlags.DestroyWithParent,
+							MessageType.Question, ButtonsType.None, true, markup);
+
+			window.AddButton (Gtk.Stock.Cancel, ResponseType.Cancel);
+			window.AddButton (Catalog.GetString ("_Overwrite"), ResponseType.Yes);
+
+			window.Title = window_title;
+			window.SecondaryText = string_secondary_text_esc;
+
 		}
 
 		// Methods

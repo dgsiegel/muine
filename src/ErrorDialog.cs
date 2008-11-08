@@ -29,8 +29,7 @@ namespace Muine
 	public class ErrorDialog
 	{
 		// Widgets
-		[Glade.Widget] private Dialog window;
-		[Glade.Widget] private Label  label;
+		private MessageDialog window;
 
 		// Constructor
 		//	TODO: Shouldn't the ErrorDialog be able to be
@@ -66,19 +65,16 @@ namespace Muine
 		/// </param>
 		public ErrorDialog (string s1, string s2)
 		{
-			Glade.XML gxml =
-			  new Glade.XML (null, "ErrorDialog.glade", "window", null);
-
-			gxml.Autoconnect (this);
-
 			string s1_esc = StringUtils.EscapeForPango (s1);
 			string s2_esc = StringUtils.EscapeForPango (s2);
 
 			string markup = String.Format ("<span size=\"large\" weight=\"bold\">{0}</span>", s1_esc);
-			markup += Environment.NewLine;
-			markup += Environment.NewLine;
-			markup += s2_esc; 
-			label.Markup = markup;
+
+			window = new Gtk.MessageDialog (null, DialogFlags.DestroyWithParent,
+							MessageType.Error, ButtonsType.Close, true, markup);
+
+			window.SecondaryText = s2_esc;
+			window.Title = Catalog.GetString("Error");
 
 			window.Run ();
 			window.Destroy ();
