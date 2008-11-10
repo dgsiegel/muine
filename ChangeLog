@@ -1,3 +1,14 @@
+2008-11-10  Luis Medinas  <lmedinas@gnome.org>
+
+	* TODO:
+	* configure.in:
+	* libmuine/Makefile.am:
+	* src/Makefile.am:
+	* src/PlaylistWindow.cs:
+
+	Ditch ColorCellRendererPixbuf and CellRendererText.
+	Closes bgo #387152.
+
 2008-11-09  Luis Medinas  <lmedinas@gnome.org>
 
         * data/glade/AddWindow.glade:

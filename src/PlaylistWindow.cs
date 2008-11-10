@@ -898,7 +898,7 @@ namespace Muine
 
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
-			pixbuf_renderer = new ColoredCellRendererPixbuf ();
+			pixbuf_renderer = new Gtk.CellRendererPixbuf ();
 			text_renderer   = new Gtk.CellRendererText ();
 			text_renderer.Ellipsize = Pango.EllipsizeMode.End;
 
@@ -2261,7 +2261,7 @@ namespace Muine
 		  (TreeViewColumn col, CellRenderer cell, TreeModel model,
 		   TreeIter iter)
 		{
-			ColoredCellRendererPixbuf r = (ColoredCellRendererPixbuf) cell;
+			Gtk.CellRendererPixbuf r = (Gtk.CellRendererPixbuf) cell;
 			IntPtr handle = playlist.Model.HandleFromIter (iter);
 
 			if (handle == playlist.Model.Playing) {

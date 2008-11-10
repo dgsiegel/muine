@@ -26,7 +26,6 @@ MUINE_CSFILES =					\
 	$(srcdir)/HandleView.cs			\
 	$(srcdir)/HandleModel.cs		\
 	$(srcdir)/StockIcons.cs			\
-	$(srcdir)/ColoredCellRendererPixbuf.cs	\
 	$(srcdir)/CoverDatabase.cs		\
 	$(srcdir)/CoverGetter.cs		\
 	$(srcdir)/MusicBrainz.cs		\

@@ -10,7 +10,6 @@ o Fill in the gaps in the API docs
 o Write a simple manual
 o Proper RTL support
 o Split out PlaylistWindow
-o Ditch ColoredCellRendererPixbuf when we use Gtk 2.8
 
 Tough:
 ======
@@ -59,8 +58,6 @@ o Use Hashtable/dictionary in D-Bus song info code
   Depends on Freedesktop Bugzilla #2175
 o Set Window.IconName on windows
   Once we have Gtk 2.6 support in Gtk#
-o Use stock Gtk pixbuf colouring
-  Once we have Gtk 2.6 support in Gtk# and a new Gtk release
 o Use Gtk.StatusIcon
   Once we have Gtk 2.10 support in Gtk#
 o Re-enable fixed-height-mode in HandleView
