@@ -1,3 +1,11 @@
+2008-11-09  Luis Medinas  <lmedinas@gnome.org>
+
+        * data/glade/AddWindow.glade:
+        * src/AddWindow.cs:
+
+        Fix for bgo #560077 non-working buttons on Add Song/Album windows.
+        Patch from Priit Laes <amd@store20.com>.
+
 2008-11-07  Priit Laes <plaes@svn.gnome.org>
 
 	Bug 559631 – [PATCH] Drop glade implementation for error dialogs.

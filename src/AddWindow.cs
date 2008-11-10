@@ -23,7 +23,7 @@ using System.Collections;
 
 namespace Muine
 {
-	public abstract class AddWindow : Gtk.Window
+	public abstract class AddWindow : Gtk.Dialog
 	{
 #region Enums
 #region Enums.ResponseType
@@ -116,6 +116,9 @@ namespace Muine
 			this.entry_container.Add (this.entry);
 
 			// List
+			this.Response               += OnWindowResponse;
+			this.DeleteEvent            += OnWindowDeleteEvent;
+
 			this.list.RowActivated      += OnRowActivated;
 			this.list.Selection.Changed += OnSelectionChanged;
 			scrolledwindow.Add (this.list);

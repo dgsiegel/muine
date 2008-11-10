@@ -19,8 +19,6 @@
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
   <property name="has_separator">False</property>
-  <signal name="response" handler="OnWindowResponse" last_modification_time="Tue, 04 Jan 2005 17:48:15 GMT"/>
-  <signal name="delete_event" handler="OnWindowDeleteEvent" last_modification_time="Tue, 04 Jan 2005 17:48:11 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox1">
