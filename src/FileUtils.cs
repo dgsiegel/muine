@@ -366,66 +366,6 @@ namespace Muine
 			dinfo.Create ();
 		}
 
-		// Methods :: Public :: LocalPathFromUri
-		// 	TODO: 
-		//	* Replace with GnomeVfs#
-		//	* Can this be replaced or simplified with 
-		//	  System.Uri.LocalPath?
-		[DllImport ("libgnomevfs-2-0.dll")]
-		private static extern IntPtr gnome_vfs_get_local_path_from_uri
-		  (string str);
-
-		/// <summary>
-		/// 	Convert a URI to a local pathname.
-		/// </summary>
-		/// <returns>
-		///	A pathname.
-		/// </returns>
-		public static string LocalPathFromUri (string uri)
-		{
-			IntPtr p = gnome_vfs_get_local_path_from_uri (uri);
-
-			string path;
-			if (p == IntPtr.Zero)
-				path = null;
-			else
-				path = GLib.Marshaller.PtrToStringGFree (p);
-			
-			return path;
-		}
-
-		// Methods :: Public :: UriFromLocalPath
-		//	TODO: 
-		//	* Replace with GnomeVfs#
-		//	* Can this be replaced or simplified with 
-		//	  System.Uri.ToString?
-		[DllImport ("libgnomevfs-2-0.dll")]
-		private static extern IntPtr gnome_vfs_get_uri_from_local_path
-		  (string str);
-		
-		/// <summary>
-		///	Convert a local pathname to a URI.
-		/// </summary>
-		/// <remarks>
-		///	The local pathname should begin with '/'.
-		///	The returned URI will begin with "file://".
-		/// </remarks>
-		/// <returns>
-		///	A URI.
-		/// </returns>
-		public static string UriFromLocalPath (string path)
-		{
-			IntPtr uri_ptr = gnome_vfs_get_uri_from_local_path (path);
-
-			string uri;
-			if (uri_ptr == IntPtr.Zero)
-				uri = null;
-			else
-				uri = GLib.Marshaller.PtrToStringGFree (uri_ptr);
-			
-			return uri;
-		}
-
 		// Methods :: Public ::: IsRemote
 		// 	TODO: 
 		//	* Make portable

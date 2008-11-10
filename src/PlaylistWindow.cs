@@ -1915,7 +1915,7 @@ namespace Muine
 					IntPtr s = new IntPtr (p);
 					
 					Song song = Song.FromHandle (s);
-					string uri = FileUtils.UriFromLocalPath (song.Filename);
+					string uri = Gnome.Vfs.Uri.GetUriFromLocalPath (song.Filename);
 					
 					files += (uri + "\r\n");
 				}
@@ -2088,7 +2088,7 @@ namespace Muine
 				ArrayList new_dinfos = new ArrayList ();
 
 				foreach (string s in bits) {
-					string fn = FileUtils.LocalPathFromUri (s);
+					string fn = Gnome.Vfs.Uri.GetLocalPathFromUri (s);
 
 					if (fn == null)
 						continue;
@@ -2193,7 +2193,7 @@ namespace Muine
 
 				SavePlaylist (file, false, false);
 				
-				string uri = FileUtils.UriFromLocalPath (file);
+				string uri = Gnome.Vfs.Uri.GetUriFromLocalPath (file);
 
 				string target = DndUtils.TargetUriList.Target;
 				Gdk.Atom atom = Gdk.Atom.Intern (target, false);
@@ -2222,7 +2222,7 @@ namespace Muine
 			bool success = false;
 
 			foreach (string s in bits) {
-				string fn = FileUtils.LocalPathFromUri (s);
+				string fn = Gnome.Vfs.Uri.GetLocalPathFromUri (s);
 
 				if (fn == null)
 					continue;

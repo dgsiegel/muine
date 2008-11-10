@@ -96,14 +96,11 @@ namespace Muine
 								return album_art;
 						}
 					}
-
-					/*
-					FIXME!!! API changes...
 					TagLib.Mpeg4.AppleTag apple_tag = (TagLib.Mpeg4.AppleTag) file.GetTag (TagTypes.Apple);
 					if (apple_tag != null) {
 						foreach (AppleDataBox b in apple_tag.DataBoxes ("covr")) {
-							if (b.Flags == (uint) AppleDataBox.FlagTypes.ContainsJpegData ||
-							    b.Flags == (uint) AppleDataBox.FlagTypes.ContainsPngData) {
+							if (b.Flags == (uint) AppleDataBox.FlagType.ContainsJpegData ||
+							    b.Flags == (uint) AppleDataBox.FlagType.ContainsPngData) {
 								album_art = GetPixbuf (b.Data);
 
 								if (album_art != null)
@@ -111,7 +108,6 @@ namespace Muine
 							}
 						}
 					}
-					*/
 				}
 				return album_art;
 			}

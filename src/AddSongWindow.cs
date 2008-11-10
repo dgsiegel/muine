@@ -21,6 +21,8 @@ using System;
 using System.Collections;
 using Mono.Unix;
 
+using Gnome.Vfs;
+
 namespace Muine
 {
 	public class AddSongWindow : AddWindow
@@ -162,7 +164,7 @@ namespace Muine
 
 			foreach (int song_ptr_i in songs) {
 				Song song = GetSong (song_ptr_i);
-				string uri = FileUtils.UriFromLocalPath (song.Filename);
+				string uri = Gnome.Vfs.Uri.GetUriFromLocalPath (song.Filename);
 				data += (uri + "\r\n");
 			}
 

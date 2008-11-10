@@ -75,7 +75,7 @@ namespace Muine
 			  (string) Config.Get (gconf_path, GConfDefaultStartDir);
 
 			start_dir = start_dir.Replace ("~",
-				FileUtils.UriFromLocalPath (FileUtils.HomeDirectory));
+				Gnome.Vfs.Uri.GetUriFromLocalPath (FileUtils.HomeDirectory));
 
 			SetCurrentFolderUri (start_dir);
 

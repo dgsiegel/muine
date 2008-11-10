@@ -1,3 +1,25 @@
+2008-11-10  Priit Laes <plaes@svn.gnome.org>
+
+	Bug 560115 – [PATCH] Use Gnome.Vfs#
+
+	* TODO:
+	* src/FileUtils.cs:
+	* src/CoverImage.cs:
+	* src/FileSelector.cs:
+	* src/AddSongWindow.cs:
+	* src/PlaylistWindow.cs:
+	* src/AddAlbumWindow.cs:
+
+	Drop P/Invoked gnome-vfs functions. Use Gnome.Vfs# API directly.
+
+
+2008-11-10  Priit Laes <plaes@svn.gnome.org>
+
+	Bug 474090 – Switch to taglib-sharp
+
+	* src/Metadata.cs: Add cover reading for Apple MPEG4 files.
+
+
 2008-11-10  Luis Medinas  <lmedinas@gnome.org>
 
 	* TODO:

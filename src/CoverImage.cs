@@ -94,7 +94,7 @@ namespace Muine
 				
 			case (uint) DndUtils.TargetType.UriList:
 				uri_list = DndUtils.SplitSelectionData (data);
-				fn = FileUtils.LocalPathFromUri (uri_list [0]);
+				fn = Gnome.Vfs.Uri.GetLocalPathFromUri (uri_list [0]);
 
 				if (fn == null)
 					break;
