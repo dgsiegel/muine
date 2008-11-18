@@ -1,3 +1,18 @@
+2008-11-18  Luis Medinas  <lmedinas@gnome.org>
+
+	* configure.in:
+	* libmuine/Makefile.am:
+	* libmuine/gsequence.c:
+	* libmuine/gsequence.h:
+	* libmuine/pointer-list-model.c (pointer_list_model_insert):
+	* libmuine/pointer-list-model.h:
+	* src/HandleView.cs:
+	* src/PlaylistWindow.cs:
+
+	Update to the new gsequence API, closes bgo #464825. 
+	Also bump glib to 2.14.
+	Patch from Jorn Baayen and Wouter Bolsterlee.
+
 2008-11-10  Priit Laes <plaes@svn.gnome.org>
 
 	Bug 560115 – [PATCH] Use Gnome.Vfs#

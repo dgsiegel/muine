@@ -23,6 +23,7 @@ dnl Version dependencies
 
 LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.10.0
+GLIB_REQUIRED=2.14
 GTK_REQUIRED=2.8
 ICON_THEME_REQUIRED=2.10
 MONO_REQUIRED=1.1
@@ -52,6 +53,7 @@ PKG_CHECK_MODULES(MUINE,
 		  gconf-2.0 \
 		  gdk-pixbuf-2.0 \
 		  gnome-vfs-2.0 \
+                  glib-2.0 >= $GLIB_REQUIRED \
 		  gtk+-2.0 >= $GTK_REQUIRED \
 		  gnome-icon-theme >= $ICON_THEME_REQUIRED \
 		  $audio_pkgconfig)

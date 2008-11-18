@@ -26,8 +26,6 @@ libmuine_la_SOURCES =			\
 	$(gst_sources)			\
 	macros.h			\
 	player.h			\
-	gsequence.c			\
-	gsequence.h			\
 	pointer-list-model.c		\
 	pointer-list-model.h		\
 	db.c				\

@@ -482,7 +482,7 @@ pointer_list_model_insert (PointerListModel *model, gpointer pointer,
   }
 
   if (before_ptr != NULL)
-    g_sequence_move (new_ptr, g_sequence_iter_prev (before_ptr));
+    g_sequence_move (new_ptr, before_ptr);
 
   g_hash_table_insert (model->reverse_map, pointer, new_ptr);
 

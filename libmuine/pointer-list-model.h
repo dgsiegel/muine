@@ -23,7 +23,7 @@
 #define __POINTER_LIST_MODEL_H__
 
 #include <gtk/gtk.h>
-#include "gsequence.h"
+#include <glib.h>
 
 #define TYPE_POINTER_LIST_MODEL		 (pointer_list_model_get_type ())
 #define POINTER_LIST_MODEL(obj)		 (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_POINTER_LIST_MODEL, PointerListModel))

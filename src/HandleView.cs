@@ -36,12 +36,10 @@ namespace Muine
 			this.model = new HandleModel ();
 			((TreeView) this).Model = model;
 
-			RulesHint      = true;
-			EnableSearch   = false;
-			HeadersVisible = false;
-
-			// FIXME: Re-enable when Gnome Bugzilla #165017, #165034 are fixed
-			// SetProperty ("fixed_height_mode", new GLib.Value (true));
+			RulesHint       = true;
+			EnableSearch    = false;
+			HeadersVisible  = false;
+                        FixedHeightMode = true;
 		}
 
 		// Properties
