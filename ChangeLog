@@ -10,8 +10,8 @@
 	* src/PlaylistWindow.cs:
 
 	Update to the new gsequence API, closes bgo #464825. 
-	Also bump glib to 2.14.
-	Patch from Jorn Baayen and Wouter Bolsterlee.
+	Also bump glib to 2.14. Patch from Scott Robinson with
+	changes by Wouter Bolsterlee and Jorn Baayen.
 
 2008-11-10  Priit Laes <plaes@svn.gnome.org>
 
