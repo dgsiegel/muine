@@ -24,7 +24,7 @@
 #include <string.h>
 #include <math.h>
 #include <gst/gst.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
+
 #include <glib/gi18n.h>
 
 #include "macros.h"
@@ -272,7 +272,7 @@ player_set_file (Player     *player,
 	if (!file)
 		return FALSE;
 
-	player->priv->current_file = gnome_vfs_get_uri_from_local_path (file);
+	player->priv->current_file = g_filename_to_uri (file, NULL, NULL);
 	if (player->priv->current_file == NULL)
 	  {
 	    *error = g_strdup ("Failed to convert filename to URI.");

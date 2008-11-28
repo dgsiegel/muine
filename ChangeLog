@@ -1,3 +1,9 @@
+2008-11-28  Diego Escalante Urrelo  <diegoe@gnome.org>
+
+	* libmuine/player-gst.c:
+	Remove gnome-vfs usage. Note that player-xine still uses it.
+	Closes bgo #562365.
+
 2008-11-18  Luis Medinas  <lmedinas@gnome.org>
 
 	* configure.in:
