@@ -22,7 +22,6 @@
 #include <string.h>
 #include <math.h>
 #include <xine.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 
 #include "player.h"
@@ -380,17 +379,17 @@ player_open (Player     *player,
       switch (xine_error)
 	{
 	case XINE_ERROR_NO_INPUT_PLUGIN:
-	  unesc = gnome_vfs_unescape_string_for_display (uri);
+	  unesc = g_uri_unescape_string (uri, NULL);
 	  *error = g_strdup_printf (_("No plugin available for \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
 	case XINE_ERROR_NO_DEMUX_PLUGIN:
-	  unesc = gnome_vfs_unescape_string_for_display (uri);
+	  unesc = g_uri_unescape_string (uri, NULL);
 	  *error = g_strdup_printf (_("No plugin available for \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
 	case XINE_ERROR_DEMUX_FAILED:
-	  unesc = gnome_vfs_unescape_string_for_display (uri);
+	  unesc = g_uri_unescape_string (uri, NULL);
 	  *error = g_strdup_printf (_("Failed playing \"%s\""), unesc);
 	  g_free (unesc);
 	  break;
@@ -403,7 +402,7 @@ player_open (Player     *player,
     }
   else if (!xine_get_stream_info (priv->stream, XINE_STREAM_INFO_AUDIO_HANDLED))
     {
-      unesc = gnome_vfs_unescape_string_for_display (uri);
+      unesc = g_uri_unescape_string (uri, NULL);
       *error = g_strdup_printf (_("Could not play \"%s\""), unesc);
       g_free (unesc);
       return FALSE;
@@ -447,7 +446,7 @@ player_set_file (Player *player,
 
   *error = NULL;
 
-  uri = gnome_vfs_get_uri_from_local_path (file);
+  uri = g_filename_to_uri (file, NULL, NULL);
   if (uri == NULL)
     {
       *error = g_strdup ("Failed to convert filename to URI.");
