@@ -182,6 +182,7 @@ player_finalize (GObject *object)
 	if (player->priv->tick_timeout_id > 0)
 		g_source_remove (player->priv->tick_timeout_id);
 
+	gst_element_set_state (GST_ELEMENT (player->priv->play), GST_STATE_NULL);
 	g_object_unref (player->priv->play);
 
 	g_free (player->priv);

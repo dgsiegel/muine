@@ -1,3 +1,10 @@
+2008-12-02  Priit Laes <plaes@svn.gnome.org>
+
+	Bug 562901 – [PATCH] Fix gstreamer-critical warning when closing muine
+
+	* libmuine/gst-player.c: (player_finalize): Set element to NULL state
+	before disposal to allow it to clean up.
+
 2008-11-28  Diego Escalante Urrelo  <diegoe@gnome.org>
 
 	* configure.in:
