@@ -1,3 +1,9 @@
+2008-12-03  Luis Medinas  <lmedinas@gnome.org>
+
+	* configure.in:
+	
+	Bump version to 0.8.11 in preparation for the new release.
+
 2008-12-03  Priit Laes <plaes@svn.gnome.org>
 
 	* autogen.sh: Drop ACLOCAL_FLAGS that were needed to include m4
