@@ -1,3 +1,8 @@
+2008-12-03  Priit Laes <plaes@svn.gnome.org>
+
+	* autogen.sh: Drop ACLOCAL_FLAGS that were needed to include m4
+	directory. Fixes autogen, because m4 directory does not exist anymore.
+
 2008-12-02  Priit Laes <plaes@svn.gnome.org>
 
 	Bug 562901 – [PATCH] Fix gstreamer-critical warning when closing muine
