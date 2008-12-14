@@ -56,7 +56,7 @@ namespace Muine
 		//	FIXME: Refactor Artists and Performers properties
 
 		public string [] Artists {
-			get { return file.Tag.AlbumArtists; }
+			get { return file.Tag.Artists; }
 		}
 
 		// Properties :: Performers (get;)
