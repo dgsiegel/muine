@@ -1,3 +1,9 @@
+2008-12-15  daniel g. siegel <dgsiegel@gmail.com>
+
+	* src/Metadata.cs: 
+	  use Duration.TotalSeconds to get the correct duration of a song,
+	  fixes bug #564578
+
 2008-12-14  iain <iain@gnome.org>
 
 	* src/Metadata.cs:

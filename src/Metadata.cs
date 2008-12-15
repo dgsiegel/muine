@@ -140,7 +140,7 @@ namespace Muine
 		// Properties :: Duration (get;)
 
 		public int Duration {
-			get { return file.Properties.Duration.Seconds; }
+			get { return (int) file.Properties.Duration.TotalSeconds; }
 		}
 
 		// Properties :: MimeType (get;)
