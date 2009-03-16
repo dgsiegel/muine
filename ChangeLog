@@ -1,3 +1,29 @@
+2009-03-17  Tobias Mueller <tobiasmue@gnome.org>
+
+	* plugins/TrayIcon.cs DBusLib/AssemblyInfo.cs DBusLib/Player.cs 
+	PluginLib/AssemblyInfo.cs PluginLib/Plugin.cs PluginLib/ISong.cs 
+	PluginLib/IPlayer.cs src/HandleModel.cs src/AddWindowList.cs 
+	src/SaveDialog.cs src/Metadata.cs src/AddWindow.cs src/OpenDialog.cs 
+	src/InfoWindow.cs src/HandleView.cs src/MusicBrainz.cs 
+	src/CoverGetter.cs src/PluginManager.cs src/SongDatabase.cs 
+	src/ProgressWindow.cs src/Item.cs src/SignalUtils.cs src/Album.cs 
+	src/Actions.cs src/FileUtils.cs src/NoMusicFoundWindow.cs 
+	src/AddAlbumWindow.cs src/ThreadBase.cs src/CoverDatabase.cs 
+	src/MmKeys.cs src/OverwriteDialog.cs src/AddSongWindow.cs 
+	src/GnomeProxy.cs src/ErrorDialog.cs src/KeyUtils.cs src/About.cs 
+	src/DBusService.cs src/StockIcons.cs src/FileSelector.cs 
+	src/CoverImage.cs src/DndUtils.cs src/StringUtils.cs 
+	src/PlaylistWindow.cs src/ImportDialog.cs src/Player.cs 
+	src/Global.cs src/SkipToWindow.cs src/AddWindowEntry.cs 
+	src/Database.cs src/Config.cs src/Song.cs libmuine/player.h 
+	libmuine/mm-keys.c libmuine/db.c libmuine/mm-keys.h 
+	libmuine/player-gst.c libmuine/pointer-list-model.c 
+	libmuine/macros.h libmuine/db.h libmuine/pointer-list-model.h 
+	libmuine/player-xine.c COPYING:
+	
+	Change the FSFs address.
+	Fixes bug #539501
+
 2008-12-15  daniel g. siegel <dgsiegel@gmail.com>
 
 	* src/Metadata.cs: 
