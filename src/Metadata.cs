@@ -76,7 +76,10 @@ namespace Muine
 		public Gdk.Pixbuf AlbumArt {
 			get {
 				if (album_art == null) {
-					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+					TagLib.Id3v2.Tag id3v2_tag = null;
+					try {
+						id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+					} catch {}
 
 					if (id3v2_tag != null) {
 						// Try to get a cover image first.
@@ -96,7 +99,11 @@ namespace Muine
 								return album_art;
 						}
 					}
-					TagLib.Mpeg4.AppleTag apple_tag = (TagLib.Mpeg4.AppleTag) file.GetTag (TagTypes.Apple);
+					TagLib.Mpeg4.AppleTag apple_tag = null;
+					try {
+						apple_tag = (TagLib.Mpeg4.AppleTag) file.GetTag (TagTypes.Apple);
+					} catch {}
+
 					if (apple_tag != null) {
 						foreach (AppleDataBox b in apple_tag.DataBoxes ("covr")) {
 							if (b.Flags == (uint) AppleDataBox.FlagType.ContainsJpegData ||
@@ -165,10 +172,13 @@ namespace Muine
 			get {
 				if (!gain_set)
 				{
+					TagLib.Id3v2.Tag id3v2_tag = null;
 					gain_set = true;
-
 					TagLib.Ogg.XiphComment xiph_comment = (TagLib.Ogg.XiphComment) file.GetTag (TagTypes.Xiph);
-					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+
+					try {
+						id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+					} catch {}
 
 					if (id3v2_tag != null) {
 						foreach (RelativeVolumeFrame f in id3v2_tag.GetFrames ("RVA2")) {
@@ -202,9 +212,13 @@ namespace Muine
 				if (!peak_set)
 				{
 					peak_set = true;
+					TagLib.Id3v2.Tag id3v2_tag = null;
 
 					TagLib.Ogg.XiphComment xiph_comment = (TagLib.Ogg.XiphComment) file.GetTag (TagTypes.Xiph);
-					TagLib.Id3v2.Tag id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+
+					try {
+						id3v2_tag = (TagLib.Id3v2.Tag) file.GetTag (TagTypes.Id3v2);
+					} catch {}
 
 					if (id3v2_tag != null) {
 						foreach (RelativeVolumeFrame f in id3v2_tag.GetFrames ("RVA2")) {
