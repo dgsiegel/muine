@@ -52,8 +52,6 @@ namespace Bacon
         private const int SCALE_SIZE = 100;
         private const int CLICK_TIMEOUT = 250;
     
-        private Tooltips tooltips = new Tooltips();
-        
         private Window dock;
         private VolumeScale slider;
         private Image image;
@@ -495,7 +493,7 @@ namespace Bacon
                     (slider.Adjustment.Upper - slider.Adjustment.Lower) * 100.0));
             }
             
-            tooltips.SetTip(this, tip, null);
+	    this.TooltipText = tip;
         }
         
         private bool AdjustVolume(int direction) 

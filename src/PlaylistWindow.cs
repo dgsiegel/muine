@@ -166,7 +166,6 @@ namespace Muine
 		[Glade.Widget] private Box            menu_bar_box  ;
 		[Glade.Widget] private ScrolledWindow scrolledwindow;
 
-		private Tooltips           tooltips       ;
 		private Gdk.Pixbuf         empty_pixbuf   ;
 		private CellRendererPixbuf pixbuf_renderer;
 		private CellRendererText   text_renderer  ;
@@ -882,13 +881,12 @@ namespace Muine
 			volume_button.VolumeChanged += OnVolumeChanged;
 
 			// Tooltips
-			tooltips = new Tooltips ();
-			tooltips.SetTip (toggle_play_button, string_tooltip_toggle_play, null);
-			tooltips.SetTip (previous_button   , string_tooltip_previous   , null);
-			tooltips.SetTip (next_button       , string_tooltip_next       , null);
-			tooltips.SetTip (add_album_button  , string_tooltip_add_album  , null);
-			tooltips.SetTip (add_song_button   , string_tooltip_add_song   , null);
-			tooltips.SetTip (volume_button     , string_tooltip_volume     , null);
+			next_button.TooltipText	       = string_tooltip_next;
+			volume_button.TooltipText      = string_tooltip_volume;
+			add_song_button.TooltipText    = string_tooltip_add_song;
+			previous_button.TooltipText    = string_tooltip_previous;
+			add_album_button.TooltipText   = string_tooltip_add_album;
+			toggle_play_button.TooltipText = string_tooltip_toggle_play;
 		}
 
 		// Methods :: Private :: SetupPlaylist
@@ -1195,11 +1193,12 @@ namespace Muine
 		private void SongChanged (bool restart, bool fire_signal)
 		{
 			if (playlist.Model.Playing != IntPtr.Zero) {
+				string tip;
 				Song song = Song.FromHandle (playlist.Model.Playing);
 
 				cover_image.Song = song;
 
-				string tip;
+				cover_image.HasTooltip = true;
 
 				if (song.Album.Length > 0)
 					tip = String.Format (string_from_album, song.Album);
@@ -1219,7 +1218,7 @@ namespace Muine
 					tip += string_tooltip_cover;
 				}
 				
-				tooltips.SetTip (cover_image, tip, null);
+				cover_image.TooltipText = tip;
 				
 				// Song label
 				string title = StringUtils.EscapeForPango (song.Title);
@@ -1246,7 +1245,7 @@ namespace Muine
 			} else {
 				cover_image.Song = null;
 
-				tooltips.SetTip (cover_image, null, null);
+				cover_image.HasTooltip = false;
 
 				song_label.Markup = String.Empty;
 				time_label.Text   = String.Empty;
