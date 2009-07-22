@@ -183,10 +183,10 @@ namespace Muine
 		{
 			// Image
 			if (song != null && song.CoverImage != null) {
-				image.FromPixbuf = song.CoverImage;
+				image.Pixbuf = song.CoverImage;
 
 			} else if (song != null && Global.CoverDB.Loading) {
-				image.FromPixbuf = Global.CoverDB.DownloadingPixbuf;
+				image.Pixbuf = Global.CoverDB.DownloadingPixbuf;
 
 			} else {
 				image.SetFromStock

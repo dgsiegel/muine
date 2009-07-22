@@ -96,7 +96,7 @@ namespace Muine
 			base.Comments          = string_description;
 			base.Documenters       = documenters;
 			base.Logo              = pixbuf;
-			base.Name              = string_muine;
+			base.ProgramName       = string_muine;
 			base.TranslatorCredits = translators;
 			base.Version           = Defines.VERSION;
 			base.Website           = string_website;

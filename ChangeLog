@@ -2,6 +2,12 @@
 
 	Bug 573172 – [PATCH] Get rid of deprecated APIs
 
+	* src/About.cs, src/CoverImage.cs: Fix more deprecation warnings.
+
+2009-02-25  Priit Laes  <plaes@plaes.org>
+
+	Bug 573172 – [PATCH] Get rid of deprecated APIs
+
 	* src/PlaylistWindow.cs, src/VolumeButton.cs: Port to newer GtkTooltip API.
 
 2009-07-22  Priit Laes  <plaes@plaes.org>
