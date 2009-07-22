@@ -1,3 +1,10 @@
+2009-07-22  Iain Lane <laney@ubuntu.com>
+
+	* configure.in:
+	* src/HandleModel.cs:
+	Update EmitRowReordered to new Gtk# 2.12.9 API, fixes bug #584702. 
+	Require at least gtk-sharp-2.12.9.
+
 2009-03-17  Tobias Mueller <tobiasmue@gnome.org>
 
 	* plugins/TrayIcon.cs DBusLib/AssemblyInfo.cs DBusLib/Player.cs 
