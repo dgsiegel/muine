@@ -1,3 +1,7 @@
+2009-07-22  Priit Laes  <plaes@plaes.org>
+
+	* configure.in: Change gtk-sharp version from 2.19.2 to 2.12.9 :(
+
 2009-07-22  Iain Lane <laney@ubuntu.com>
 
 	* configure.in:
