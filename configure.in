@@ -21,7 +21,6 @@ AM_PATH_GLIB_2_0
 
 dnl Version dependencies
 
-LIBXINE_REQUIRED=1.0.0
 GSTREAMER_REQUIRED=0.10.0
 GLIB_REQUIRED=2.14
 GTK_REQUIRED=2.8
@@ -31,22 +30,6 @@ GTKSHARP_REQUIRED=2.12.9
 TAGLIBSHARP_REQUIRED=2.0.3
 MONODOC_REQUIRED=1.1.9
 
-dnl Audio backend stuff
-AC_ARG_ENABLE(xine, [  --enable-xine=[no/yes]    compile with libxine support.],,enable_xine=no)
-
-if test "x$enable_xine" = "xyes"; then
-   audio_pkgconfig="libxine >= $LIBXINE_REQUIRED"
-   have_xine=yes
-   AC_DEFINE(HAVE_XINE, 1, xine support)
-else
-   audio_pkgconfig="gstreamer-0.10 >= $GSTREAMER_REQUIRED"
-   have_gstreamer=yes
-   AC_DEFINE(HAVE_GST, 1, gstreamer 0.10.x support)
-fi
-
-AM_CONDITIONAL(HAVE_XINE, test "x$have_xine" = "xyes")
-AM_CONDITIONAL(HAVE_GST, test "x$have_gstreamer" = "xyes")
-
 dnl Pkgconfig
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES(MUINE,
@@ -55,7 +38,7 @@ PKG_CHECK_MODULES(MUINE,
 		  glib-2.0 >= $GLIB_REQUIRED \
 		  gtk+-2.0 >= $GTK_REQUIRED \
 		  gnome-icon-theme >= $ICON_THEME_REQUIRED \
-		  $audio_pkgconfig)
+		  gstreamer-0.10 >= $GSTREAMER_REQUIRED)
 AC_SUBST(MUINE_CFLAGS)
 AC_SUBST(MUINE_LIBS)
 

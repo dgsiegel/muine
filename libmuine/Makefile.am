@@ -1,6 +1,6 @@
 INCLUDES =							\
 	-I$(top_srcdir)						\
-        -DG_LOG_DOMAIN=\"libmuine\"				\
+	-DG_LOG_DOMAIN=\"libmuine\"				\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"		\
 	$(MUINE_CFLAGS)						\
 	$(WARN_CFLAGS)						\
@@ -13,19 +13,10 @@ INCLUDES =							\
 muinelibdir = $(pkglibdir)
 muinelib_LTLIBRARIES = libmuine.la
 
-if HAVE_XINE
-xine_sources = player-xine.c
-endif
-
-if HAVE_GST
-gst_sources = player-gst.c
-endif
-
 libmuine_la_SOURCES =			\
-	$(xine_sources) 		\
-	$(gst_sources)			\
 	macros.h			\
 	player.h			\
+	player-gst.c		\
 	pointer-list-model.c		\
 	pointer-list-model.h		\
 	db.c				\
