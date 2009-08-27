@@ -24,6 +24,9 @@ EXTRA_DIST =			\
 DISTCLEANFILES = 		\
 	$(NULL)
 
+DISTCHECK_CONFIGURE_FLAGS = \
+	--disable-schemas-install
+
 ChangeLog:
 	@if test -f $(top_srcdir)/.git/HEAD; then \
 		git log --stat > $@; \

@@ -8,7 +8,6 @@ data/glade/SkipToWindow.glade
 data/muine.desktop.in
 data/muine.schemas.in
 libmuine/player-gst.c
-libmuine/player-xine.c
 src/About.cs
 src/Actions.cs
 src/AddAlbumWindow.cs
