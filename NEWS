@@ -1,3 +1,33 @@
+0.x.xx
+======
+
+- Various deprecation cleanups [Diego Escalante Urrelo, Jorn Baayen,
+				Luis Medinas, Priit Laes, Wouter Bolsterlee]
+- Use GLib's GSequence API [Scott Robinson, Jorn Baayen, Wouter Bolsterlee]
+- Use GtkMessageDialog instead of Glade-based ones [Priit Laes]
+- Use Gnome.Vfs# instead of P/Invoked functions [Priit Laes]
+- Use taglib-sharp for metadata reading [Vianney le Clément, Priit Laes]
+- Drop gnome-vfs usage [Diego Escalante Urrelo]
+- Drop custom cellrenderers [Luis Medinas, Priit Laes]
+- Drop xine backend [Priit Laes]
+- Various bugs fixes and cleanups [Iain, Iain Lane, Daniel G. Siegel]
+
+Bugs marked as fixed during this release cycle:
+  #553296, #474090, #559631, #560077, #387152, #560115, #464825, #562365,
+  #562901, #564578, #539501, #584702, #573172, #572841, #559892
+
+Updated translations:
+- Basque [Iñaki Larrañaga Murgoitio]
+- Brazilian Portuguese [César Veiga, Vladimir Melo]
+- Finnish [Ilkka Tuohela]
+- German [Mario Blättermann]
+- Japanese [Takeshi AIHANA]
+- Lithuanian [Žygimantas Beručka]
+- Polish [Tomasz Dominikowski]
+- Simplified Chinese [Aron Xu]
+- Spanish [Jorge González]
+- Swedish [Daniel Nylander]
+
 0.8.10
 ======
 
