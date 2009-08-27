@@ -24,4 +24,13 @@ EXTRA_DIST =			\
 DISTCLEANFILES = 		\
 	$(NULL)
 
+ChangeLog:
+	@if test -f $(top_srcdir)/.git/HEAD; then \
+		git log --stat > $@; \
+	fi
+
+dist: ChangeLog
+
+.PHONY: ChangeLog
+
 # vim: set ts=8 sw=8 noet:
