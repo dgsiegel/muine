@@ -19,6 +19,8 @@ libmuine_la_SOURCES =			\
 	player-gst.c		\
 	pointer-list-model.c		\
 	pointer-list-model.h		\
+        rb-cell-renderer-pixbuf.c       \
+        rb-cell-renderer-pixbuf.h       \
 	db.c				\
 	db.h				\
 	mm-keys.c			\

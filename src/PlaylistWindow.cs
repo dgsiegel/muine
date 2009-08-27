@@ -166,9 +166,9 @@ namespace Muine
 		[Glade.Widget] private Box            menu_bar_box  ;
 		[Glade.Widget] private ScrolledWindow scrolledwindow;
 
-		private Gdk.Pixbuf         empty_pixbuf   ;
-		private CellRendererPixbuf pixbuf_renderer;
-		private CellRendererText   text_renderer  ;
+		private Gdk.Pixbuf                empty_pixbuf   ;
+		private CellRendererText          text_renderer  ;
+		private ColoredCellRendererPixbuf pixbuf_renderer;
 		
 		// Widgets :: Containers
 		[Glade.Widget] private Container volume_button_container;
@@ -896,8 +896,11 @@ namespace Muine
 
 			playlist.Selection.Mode = SelectionMode.Multiple;
 
+			/* Stock Cell Renderer
 			pixbuf_renderer = new Gtk.CellRendererPixbuf ();
                         pixbuf_renderer.FollowState = true;
+			*/
+			pixbuf_renderer = new ColoredCellRendererPixbuf ();
 
 			text_renderer   = new Gtk.CellRendererText ();
 			text_renderer.Ellipsize = Pango.EllipsizeMode.End;
@@ -2262,7 +2265,11 @@ namespace Muine
 		  (TreeViewColumn col, CellRenderer cell, TreeModel model,
 		   TreeIter iter)
 		{
+			/*
 			Gtk.CellRendererPixbuf r = (Gtk.CellRendererPixbuf) cell;
+			*/
+			ColoredCellRendererPixbuf r = (ColoredCellRendererPixbuf) cell;
+
 			IntPtr handle = playlist.Model.HandleFromIter (iter);
 
 			if (handle == playlist.Model.Playing) {
