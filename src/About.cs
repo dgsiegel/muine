@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2003, 2004, 2005 Jorn Baayen <jorn.baayen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -47,7 +47,7 @@ namespace Muine
 		
 		// Authors
 		private static readonly string [] authors = {
-			Catalog.GetString ("Jorn Baayen <jbaayen@gnome.org>"),
+			Catalog.GetString ("Jorn Baayen <jorn.baayen@gmail.com>"),
 			Catalog.GetString ("Lee Willis <lee@leewillis.co.uk>"),
 			Catalog.GetString ("Việt Yên Nguyễn <nguyen@cs.utwente.nl>"),
 			Catalog.GetString ("Tamara Roberson <tamara.roberson@gmail.com>"),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 Jorn Baayen <jbaayen@gnome.org>
+ * Copyright (C) 2005 Jorn Baayen <jorn.baayen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
