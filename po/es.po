@@ -4,13 +4,14 @@
 #
 # Sergio Rubio <sergio.rubio@hispalinux.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 200, 2008.
+# Jorge González <jorgegonz@svn.gnome.org>, 200, 200, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: muine.HEAD.es\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-29 08:58+0000\n"
-"PO-Revision-Date: 2008-10-16 23:28+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=muine&component=general\n"
+"POT-Creation-Date: 2009-08-29 18:34+0000\n"
+"PO-Revision-Date: 2009-08-30 11:15+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,23 +32,11 @@ msgstr "_Encolar"
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../data/glade/ErrorDialog.glade.h:1
-msgid "Error"
-msgstr "Error"
-
-#: ../data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File?"
-msgstr "¿Sobreescribir el archivo?"
-
-#: ../data/glade/OverwriteDialog.glade.h:2
-msgid "_Overwrite"
-msgstr "_Sobreescribir"
-
-#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:42
 msgid "Play Album"
 msgstr "Reproducir álbum"
 
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:42
 msgid "Play Song"
 msgstr "Reproducir canción"
 
@@ -216,36 +205,6 @@ msgstr ""
 "No se pudo renderizar el sumidero de salida de sonido predeterminado de "
 "GStreamer"
 
-#: ../libmuine/player-xine.c:290
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"No se pudo cargar el controlador\n"
-"de sonido de %s\n"
-"Compruebe que el dispositivo no\n"
-"esté ocupado."
-
-#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "No hay un complemento disponible para «%s»"
-
-#: ../libmuine/player-xine.c:394
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "Falló al reproducir «%s»"
-
-#: ../libmuine/player-xine.c:398
-msgid "Internal error"
-msgstr "Error interno"
-
-#: ../libmuine/player-xine.c:407
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "No se pudo reproducir «%s»"
-
 #: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
@@ -270,8 +229,9 @@ msgid "A music player"
 msgstr "Un reproductor de música"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+#| msgid "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -390,7 +350,7 @@ msgstr "_Aleatorio"
 msgid "_About"
 msgstr "A_cerca de"
 
-#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:100
+#: ../src/AddAlbumWindow.cs:45 ../src/PlaylistWindow.cs:100
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "Ejecutado por {0}"
@@ -398,6 +358,10 @@ msgstr "Ejecutado por {0}"
 #: ../src/Album.cs:44
 msgid "the dj"
 msgstr "el dj"
+
+#: ../src/ErrorDialog.cs:77
+msgid "Error"
+msgstr "Error"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
@@ -440,7 +404,7 @@ msgstr "Importar carpeta"
 msgid "_Import"
 msgstr "_Importar"
 
-#: ../src/Metadata.cs:34
+#: ../src/Metadata.cs:32
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Falló al cargar los metadatos: {0}"
@@ -454,17 +418,25 @@ msgid "Playlist files"
 msgstr "Archivos de la lista de reproducción"
 
 #: ../src/OverwriteDialog.cs:34
+msgid "Overwrite File?"
+msgstr "¿Sobreescribir el archivo?"
+
+#: ../src/OverwriteDialog.cs:37
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
 msgstr "¿Desea sobreescribir «{0}»?"
 
-#: ../src/OverwriteDialog.cs:37
+#: ../src/OverwriteDialog.cs:40
 msgid ""
 "A file with this name already exists. If you choose to overwrite this file, "
 "the contents will be lost."
 msgstr ""
 "Ya existe un archivo con este nombre. Si elije sobreescribir este archivo, "
 "se perderá su contenido."
+
+#: ../src/OverwriteDialog.cs:74
+msgid "_Overwrite"
+msgstr "_Sobreescribir"
 
 #: ../src/Player.cs:39
 msgid "Audio backend error:"
@@ -547,28 +519,28 @@ msgstr "Falló al cerrar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falló al escribir {0}:"
 
-#: ../src/PlaylistWindow.cs:1090
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1095
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reproducción</b> (repitiendo {0} minuto)"
 msgstr[1] "<b>Lista de reproducción</b> (repitiendo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1100
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reproducción</b> (quedan {0} hora)"
 msgstr[1] "<b>Lista de reproducción</b> (quedan {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1105
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -611,11 +583,11 @@ msgstr "{0} y otros"
 msgid "{0} and {1}"
 msgstr "{0} y {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "Silenciado"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "Volumen total"
 
@@ -637,3 +609,24 @@ msgstr "Reproduciendo: {0}"
 #, csharp-format
 msgid "by {0}"
 msgstr "por {0}"
+
+#~ msgid ""
+#~ "Couldn't load the '%s' audio driver\n"
+#~ "Check that the device is not busy."
+#~ msgstr ""
+#~ "No se pudo cargar el controlador\n"
+#~ "de sonido de %s\n"
+#~ "Compruebe que el dispositivo no\n"
+#~ "esté ocupado."
+
+#~ msgid "No plugin available for \"%s\""
+#~ msgstr "No hay un complemento disponible para «%s»"
+
+#~ msgid "Failed playing \"%s\""
+#~ msgstr "Falló al reproducir «%s»"
+
+#~ msgid "Internal error"
+#~ msgstr "Error interno"
+
+#~ msgid "Could not play \"%s\""
+#~ msgstr "No se pudo reproducir «%s»"
