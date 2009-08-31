@@ -1,14 +1,14 @@
 # Swedish messages for muine.
-# Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
-# Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008.
+# Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: muine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-01 00:25+0200\n"
-"PO-Revision-Date: 2008-10-01 08:06+0100\n"
+"POT-Creation-Date: 2009-09-01 00:30+0200\n"
+"PO-Revision-Date: 2009-09-01 00:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -29,25 +29,13 @@ msgstr "_Kölägg"
 msgid "_Search:"
 msgstr "_Sök:"
 
-#: ../data/glade/ErrorDialog.glade.h:1
-msgid "Error"
-msgstr "Fel"
-
-#: ../data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File?"
-msgstr "Skriv över fil?"
-
-#: ../data/glade/OverwriteDialog.glade.h:2
-msgid "_Overwrite"
-msgstr "_Skriv över"
-
 #: ../data/glade/PlaylistWindow.glade.h:1
-#: ../src/AddAlbumWindow.cs:40
+#: ../src/AddAlbumWindow.cs:42
 msgid "Play Album"
 msgstr "Spela album"
 
 #: ../data/glade/PlaylistWindow.glade.h:2
-#: ../src/AddSongWindow.cs:40
+#: ../src/AddSongWindow.cs:42
 msgid "Play Song"
 msgstr "Spela låt"
 
@@ -208,35 +196,6 @@ msgstr "Misslyckades med att skapa ett GStreamer-spelobjekt"
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Kunde inte rendera GStreamer-standardutgången för ljudutmatning"
 
-#: ../libmuine/player-xine.c:290
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"Kunde inte läsa in ljuddrivrutinen \"%s\"\n"
-"Kontrollera att enheten inte är upptagen."
-
-#: ../libmuine/player-xine.c:384
-#: ../libmuine/player-xine.c:389
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "Ingen insticksmodul tillgänglig för \"%s\""
-
-#: ../libmuine/player-xine.c:394
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "Misslyckades med att spela \"%s\""
-
-#: ../libmuine/player-xine.c:398
-msgid "Internal error"
-msgstr "Internt fel"
-
-#: ../libmuine/player-xine.c:407
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "Kunde inte spela \"%s\""
-
 #: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
@@ -263,8 +222,8 @@ msgid "A music player"
 msgstr "En musikspelare"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -382,7 +341,7 @@ msgstr "_Blanda"
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/AddAlbumWindow.cs:43
+#: ../src/AddAlbumWindow.cs:45
 #: ../src/PlaylistWindow.cs:100
 #, csharp-format
 msgid "Performed by {0}"
@@ -391,6 +350,10 @@ msgstr "Spelad av {0}"
 #: ../src/Album.cs:44
 msgid "the dj"
 msgstr "the dj"
+
+#: ../src/ErrorDialog.cs:77
+msgid "Error"
+msgstr "Fel"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
@@ -433,7 +396,7 @@ msgstr "Importera mapp"
 msgid "_Import"
 msgstr "_Importera"
 
-#: ../src/Metadata.cs:34
+#: ../src/Metadata.cs:32
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "Misslyckades med att läsa in metadata: {0}"
@@ -447,13 +410,21 @@ msgid "Playlist files"
 msgstr "Spellistefiler"
 
 #: ../src/OverwriteDialog.cs:34
+msgid "Overwrite File?"
+msgstr "Skriv över fil?"
+
+#: ../src/OverwriteDialog.cs:37
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
 msgstr "Skriv över \"{0}\"?"
 
-#: ../src/OverwriteDialog.cs:37
+#: ../src/OverwriteDialog.cs:40
 msgid "A file with this name already exists. If you choose to overwrite this file, the contents will be lost."
 msgstr "En fil med samma namn finns redan. Om du väljer att skriva över denna fil kommer dess innehåll att förloras."
+
+#: ../src/OverwriteDialog.cs:74
+msgid "_Overwrite"
+msgstr "_Skriv över"
 
 #: ../src/Player.cs:39
 msgid "Audio backend error:"
@@ -536,28 +507,28 @@ msgstr "Misslyckades med att stänga {0}:"
 msgid "Failed to write {0}:"
 msgstr "Misslyckades med att skriva {0}:"
 
-#: ../src/PlaylistWindow.cs:1090
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Spellista</b> (upprepar {0} timme)"
 msgstr[1] "<b>Spellista</b> (upprepar {0} timmar)"
 
-#: ../src/PlaylistWindow.cs:1095
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Spellista</b> (upprepar {0} minut)"
 msgstr[1] "<b>Spellista</b> (upprepar {0} minuter)"
 
-#: ../src/PlaylistWindow.cs:1100
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Spellista</b> ({0} timme återstår)"
 msgstr[1] "<b>Spellista</b> ({0} timmar återstår)"
 
-#: ../src/PlaylistWindow.cs:1105
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -600,11 +571,11 @@ msgstr "{0} med flera"
 msgid "{0} and {1}"
 msgstr "{0} och {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "Tyst"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "Full volym"
 
@@ -627,6 +598,20 @@ msgstr "Spelar nu: {0}"
 msgid "by {0}"
 msgstr "av {0}"
 
+#~ msgid ""
+#~ "Couldn't load the '%s' audio driver\n"
+#~ "Check that the device is not busy."
+#~ msgstr ""
+#~ "Kunde inte läsa in ljuddrivrutinen \"%s\"\n"
+#~ "Kontrollera att enheten inte är upptagen."
+#~ msgid "No plugin available for \"%s\""
+#~ msgstr "Ingen insticksmodul tillgänglig för \"%s\""
+#~ msgid "Failed playing \"%s\""
+#~ msgstr "Misslyckades med att spela \"%s\""
+#~ msgid "Internal error"
+#~ msgstr "Internt fel"
+#~ msgid "Could not play \"%s\""
+#~ msgstr "Kunde inte spela \"%s\""
 #~ msgid "Play"
 #~ msgstr "Spela"
 #~ msgid "Copyright © 2003, 2004, 2005 Jorn Baayen"
