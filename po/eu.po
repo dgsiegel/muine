@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-16 13:47+0100\n"
-"PO-Revision-Date: 2009-03-16 13:50+0100\n"
+"POT-Creation-Date: 2009-09-04 11:38+0200\n"
+"PO-Revision-Date: 2009-09-04 11:38+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
 #: ../data/glade/AddWindow.glade.h:1 ../src/Actions.cs:62
@@ -164,8 +164,8 @@ msgstr "Ikusitako karpetak."
 #: ../data/muine.schemas.in.h:28
 msgid "Whether or not the tray icon shows song change notifications"
 msgstr ""
-"Erretiluko ikonoak kantuz aldatzearen jakinarazpena erakutsi behar duen "
-"ala ez."
+"Erretiluko ikonoak kantuz aldatzearen jakinarazpena erakutsi behar duen ala "
+"ez."
 
 #: ../data/muine.schemas.in.h:29
 msgid "Whether or not to enable repeat playlist mode."
@@ -203,34 +203,6 @@ msgstr "Huts egin du GStreamer erreproduzitzeko objektua sortzean."
 msgid "Could not render default GStreamer audio output sink"
 msgstr "Ezin izan da GStreamer audioko sink.-irteera lehenetsia errendatu"
 
-#: ../libmuine/player-xine.c:289
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"Ezin izan da '%s' audio-unitatea kargatu\n"
-"Egiaztatu gailua ez dagoela lanpetuta."
-
-#: ../libmuine/player-xine.c:383 ../libmuine/player-xine.c:388
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "Ez dago \"%s\"(r)en plugin-ik erabilgarri"
-
-#: ../libmuine/player-xine.c:393
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "Huts egin du \"%s\" erreproduzitzean"
-
-#: ../libmuine/player-xine.c:397
-msgid "Internal error"
-msgstr "Barneko errorea"
-
-#: ../libmuine/player-xine.c:406
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "Ezin izan da \"%s\" erreproduzitu"
-
 #: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
@@ -254,8 +226,8 @@ msgid "A music player"
 msgstr "Musika erreproduzitzailea"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -542,28 +514,28 @@ msgstr "Huts egin du {0} ixtean:"
 msgid "Failed to write {0}:"
 msgstr "Huts egin du {0}(e)n idaztean:"
 
-#: ../src/PlaylistWindow.cs:1092
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Abesti-zerrenda</b> (ordu {0} errepikatzen)"
 msgstr[1] "<b>Abesti-zerrenda</b> ({0} ordu errepikatzen)"
 
-#: ../src/PlaylistWindow.cs:1097
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Abesti-zerrenda</b> (minutu {0} errepikatzen)"
 msgstr[1] "<b>Abesti-zerrenda</b> ({0} minutu errepikatzen)"
 
-#: ../src/PlaylistWindow.cs:1102
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Abesti-zerrenda</b> (ordu {0} falta da)"
 msgstr[1] "<b>Abesti-zerrenda</b> ({0} ordu falta dira)"
 
-#: ../src/PlaylistWindow.cs:1107
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -606,11 +578,11 @@ msgstr "{0} eta bestelakoak"
 msgid "{0} and {1}"
 msgstr "{0} eta {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "Mutututa"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "Bolumen osoa"
 
