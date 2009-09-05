@@ -2,14 +2,15 @@
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the Muine package.
 # Matthias Debus <psic4t@netbands.de>, 2004.
-# Mario Blättermann <mariobl@gnome.org>, 2008.
+# Mario Blättermann <mariobl@gnome.org>, 2008, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Muine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-29 13:02+0100\n"
-"PO-Revision-Date: 2008-11-29 13:09+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=muine&component=general\n"
+"POT-Creation-Date: 2009-08-29 18:34+0000\n"
+"PO-Revision-Date: 2009-09-05 18:23+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -198,40 +199,14 @@ msgstr "GStreamer-Play-Objekt konnte nicht erzeugt werden"
 #: ../libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
 msgstr ""
-"Auf der GStreamer Vorgabe Audio-Output-Sink konnte nichts wiedergegeben "
-"werden."
-
-#: ../libmuine/player-xine.c:289
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"Konnte den »%s«-Audio-Treiber nicht laden.\n"
-"Überprüfen Sie, dass das Gerät nicht in Benutzung ist."
-
-#: ../libmuine/player-xine.c:383 ../libmuine/player-xine.c:388
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "Kein Plugin für »%s« verfügbar"
-
-#: ../libmuine/player-xine.c:393
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "Konnte »%s« nicht wiedergeben"
-
-#: ../libmuine/player-xine.c:397
-msgid "Internal error"
-msgstr "Interner Fehler"
-
-#: ../libmuine/player-xine.c:406
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "Konnte »%s« nicht wiedergeben"
+"Auf der vorgegebenen Audio-Ausgabequelle von GStreamer konnte nichts "
+"wiedergegeben werden."
 
 #: ../src/About.cs:32
 msgid "translator-credits"
-msgstr "Matthias Debus <psic4t@netbands.de>"
+msgstr ""
+"Matthias Debus <psic4t@netbands.de>\n"
+"Mario Blättermann <mariobl@gnome.org>"
 
 #: ../src/About.cs:35
 msgid "Muine"
@@ -250,8 +225,8 @@ msgid "A music player"
 msgstr "Ein Musik-Player"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -319,11 +294,11 @@ msgstr "_Fenster anzeigen"
 
 #: ../src/Actions.cs:65
 msgid "P_revious"
-msgstr "V_orheriger Song"
+msgstr "V_orheriger Titel"
 
 #: ../src/Actions.cs:68
 msgid "_Next"
-msgstr "_Nächster Song"
+msgstr "_Nächster Titel"
 
 #: ../src/Actions.cs:71
 msgid "_Skip to..."
@@ -390,7 +365,8 @@ msgstr "Der Konfigurationsordner konnte nicht initialisiert werden: {0}"
 #: ../src/FileUtils.cs:47
 #, csharp-format
 msgid "Failed to initialize the temporary files folder: {0}"
-msgstr "Der Ordner für temporäre Dateien konnte nicht initialisiert werden: {0}"
+msgstr ""
+"Der Ordner für temporäre Dateien konnte nicht initialisiert werden: {0}"
 
 #: ../src/FileUtils.cs:50
 msgid "Exiting..."
@@ -426,7 +402,7 @@ msgstr "_Importieren"
 #: ../src/Metadata.cs:32
 #, csharp-format
 msgid "Failed to load metadata: {0}"
-msgstr "Konnte metadata: {0} nicht laden"
+msgstr "Metadaten konnten nicht geladen werden: {0}"
 
 #: ../src/OpenDialog.cs:37
 msgid "Open Playlist"
@@ -517,7 +493,8 @@ msgstr "Lautstärke anpassen"
 
 #: ../src/PlaylistWindow.cs:126
 msgid "Drop an image here to use it as album cover"
-msgstr "Ziehen Sie ein Bild auf diese Fläche, um es als Albumcover zu verwenden"
+msgstr ""
+"Ziehen Sie ein Bild auf diese Fläche, um es als Albumcover zu verwenden"
 
 #: ../src/PlaylistWindow.cs:130
 msgid "Failed to initialize the audio backend"
@@ -538,28 +515,28 @@ msgstr "{0} konnte nicht geschlossen werden:"
 msgid "Failed to write {0}:"
 msgstr "{0} konnte nicht geschrieben werden:"
 
-#: ../src/PlaylistWindow.cs:1092
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde wiederholend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden wiederholend)"
 
-#: ../src/PlaylistWindow.cs:1097
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Minute wiederholend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Minuten wiederholend)"
 
-#: ../src/PlaylistWindow.cs:1102
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Wiedergabeliste</b> ({0} Stunde verbleibend)"
 msgstr[1] "<b>Wiedergabeliste</b> ({0} Stunden verbleibend)"
 
-#: ../src/PlaylistWindow.cs:1107
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -586,7 +563,7 @@ msgstr "Wiedergabeliste speichern"
 
 #: ../src/SaveDialog.cs:40
 msgid "Untitled"
-msgstr "Unbetitelt"
+msgstr "Unbenannt"
 
 #: ../src/StringUtils.cs:31
 msgid "Unknown"
@@ -602,11 +579,11 @@ msgstr "{0} und andere"
 msgid "{0} and {1}"
 msgstr "{0} und {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "Stummgeschaltet"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "Volle Lautstärke"
 
@@ -628,6 +605,25 @@ msgstr "Derzeit läuft: {0}"
 #, csharp-format
 msgid "by {0}"
 msgstr "von {0}"
+
+#~ msgid ""
+#~ "Couldn't load the '%s' audio driver\n"
+#~ "Check that the device is not busy."
+#~ msgstr ""
+#~ "Konnte den »%s«-Audio-Treiber nicht laden.\n"
+#~ "Überprüfen Sie, dass das Gerät nicht in Benutzung ist."
+
+#~ msgid "No plugin available for \"%s\""
+#~ msgstr "Kein Plugin für »%s« verfügbar"
+
+#~ msgid "Failed playing \"%s\""
+#~ msgstr "Konnte »%s« nicht wiedergeben"
+
+#~ msgid "Internal error"
+#~ msgstr "Interner Fehler"
+
+#~ msgid "Could not play \"%s\""
+#~ msgstr "Konnte »%s« nicht wiedergeben"
 
 #~ msgid "Hide _Window"
 #~ msgstr "_Fenster verbergen"
@@ -651,16 +647,17 @@ msgstr "von {0}"
 #~ "folder to store your music files. This option is highly recommended. You "
 #~ "can always import other folders manually."
 #~ msgstr ""
-#~ "Muine wird die Ordner »Music« und »Music/Playlists« in Ihrem Homeverzeichnis "
-#~ "anlegen, um Ihre Musikdateien zu speichern. Diese Option ist unbedingt zu "
-#~ "empfehlen. Sie können jederzeit weitere Ordner manuell hinzufügen."
+#~ "Muine wird die Ordner »Music« und »Music/Playlists« in Ihrem "
+#~ "Homeverzeichnis anlegen, um Ihre Musikdateien zu speichern. Diese Option "
+#~ "ist unbedingt zu empfehlen. Sie können jederzeit weitere Ordner manuell "
+#~ "hinzufügen."
 
 #~ msgid "No Music Found"
 #~ msgstr "Keine Musik gefunden"
 
 #~ msgid ""
-#~ "You will have to import your music manually. This is for experienced users "
-#~ "only and therefore not generally recommended."
+#~ "You will have to import your music manually. This is for experienced "
+#~ "users only and therefore not generally recommended."
 #~ msgstr ""
 #~ "Sie müssen Ihre Musiksamlung manuell importieren. Diese Option ist für "
 #~ "erfahrene User gedacht und daher nicht generell zu empfehlen."
@@ -748,8 +745,8 @@ msgstr "von {0}"
 
 #~ msgid ""
 #~ "The minimum number of characters to do a full search. Less than this, and "
-#~ "only fake_length results are shown. Only used if enable_speed_hacks is set "
-#~ "to \"true\"."
+#~ "only fake_length results are shown. Only used if enable_speed_hacks is "
+#~ "set to \"true\"."
 #~ msgstr ""
 #~ "Die minimale Anzahl von Zeichen die zur Ausführung einer vollen Suche "
 #~ "verwendet werden. Werden weniger als diese angegeben, werden nur "
