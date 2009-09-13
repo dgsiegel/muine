@@ -1,5 +1,5 @@
-0.x.xx
-======
+0.9.0
+=====
 
 - Various deprecation cleanups [Diego Escalante Urrelo, Jorn Baayen,
 				Luis Medinas, Priit Laes, Wouter Bolsterlee]
@@ -8,7 +8,6 @@
 - Use Gnome.Vfs# instead of P/Invoked functions [Priit Laes]
 - Use taglib-sharp for metadata reading [Vianney le Clément, Priit Laes]
 - Drop gnome-vfs usage [Diego Escalante Urrelo]
-- Drop custom cellrenderers [Luis Medinas, Priit Laes]
 - Drop xine backend [Priit Laes]
 - Various bugs fixes and cleanups [Iain, Iain Lane, Daniel G. Siegel]
 
