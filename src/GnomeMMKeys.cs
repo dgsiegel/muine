@@ -37,11 +37,11 @@ namespace Muine
     public class GnomeMMKeys : IDisposable
     {
         private const string BusName = "org.gnome.SettingsDaemon";
-        private const string ObjectPath = "/org/gnome/SettingsDaemon";
+        private const string ObjectPath = "/org/gnome/SettingsDaemon/MediaKeys";
         
         private delegate void MediaPlayerKeyPressedHandler(string application, string key);
         
-        [Interface("org.gnome.SettingsDaemon")]
+        [Interface("org.gnome.SettingsDaemon.MediaKeys")]
         private interface ISettingsDaemon
         {
             void GrabMediaPlayerKeys(string application, uint time);
