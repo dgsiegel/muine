@@ -40,7 +40,6 @@ namespace Muine
 		public ColoredCellRendererPixbuf () : base (IntPtr.Zero)
 		{
 			base.Raw = rb_cell_renderer_pixbuf_new ();
-                        System.Console.WriteLine("hi");
 		}
 
 		// Destructor
