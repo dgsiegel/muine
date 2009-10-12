@@ -878,6 +878,7 @@ namespace Muine
 			volume_button = new Bacon.VolumeButton ();
 			volume_button_container.Add (volume_button);
 			volume_button.Visible = true;
+			volume_button.Relief = ReliefStyle.None;
 			volume_button.VolumeChanged += OnVolumeChanged;
 
 			// Tooltips
@@ -2273,7 +2274,7 @@ namespace Muine
 			IntPtr handle = playlist.Model.HandleFromIter (iter);
 
 			if (handle == playlist.Model.Playing) {
-				string icon = (player.Playing) ? "muine-playing" : "muine-paused";				
+				string icon = (player.Playing) ? "player_play" : "player_pause";
 				r.Pixbuf = playlist.RenderIcon (icon, IconSize.Menu, null);
 
 			} else {

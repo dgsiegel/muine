@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using Mono.Unix;
 
+using Gtk;
 using Gnome.Vfs;
 
 namespace Muine
@@ -58,13 +59,12 @@ namespace Muine
 		private Gtk.CellRenderer pixbuf_renderer =
 		  new Gtk.CellRendererPixbuf ();
 
-		private Gdk.Pixbuf nothing_pixbuf =
-		  new Gdk.Pixbuf (null, "muine-nothing.png");
-
 
 		// Variables
 		private bool drag_dest_enabled = false;
 		private int pixbuf_column_width = CoverDatabase.CoverSize + (5 * 2);
+		private Gdk.Pixbuf nothing_pixbuf;
+		private Gtk.IconTheme icontheme;
 
 
 		// Constructor
@@ -73,6 +73,8 @@ namespace Muine
 		public AddAlbumWindow ()
 		{
 			base.Title = string_title;
+			icontheme = IconTheme.GetForScreen(Screen);
+			nothing_pixbuf = icontheme.LoadIcon("media-optical", CoverDatabase.CoverSize, 0);
 
 			base.SetGConfSize
 			  (GConfKeyWidth , GConfDefaultWidth,
@@ -193,7 +195,7 @@ namespace Muine
 			if (Global.CoverDB.Loading)
 				return Global.CoverDB.DownloadingPixbuf;
 
-			return nothing_pixbuf;			
+			return nothing_pixbuf;
 		}
 
 		// Methods :: Private :: GetPerformers

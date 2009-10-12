@@ -76,8 +76,6 @@ MUINE_RESOURCES =											\
 	-resource:$(top_srcdir)/data/glade/AddWindow.glade,AddWindow.glade				\
 	-resource:$(top_srcdir)/data/glade/ProgressWindow.glade,ProgressWindow.glade			\
 	-resource:$(top_srcdir)/data/ui/PlaylistWindow.xml,PlaylistWindow.xml				\
-	-resource:$(top_srcdir)/data/images/muine-playing.png,muine-playing.png				\
-	-resource:$(top_srcdir)/data/images/muine-paused.png,muine-paused.png				\
 	-resource:$(top_srcdir)/data/images/muine-nothing.png,muine-nothing.png				\
 	-resource:$(top_srcdir)/data/images/muine-default-cover.png,muine-default-cover.png		\
 	-resource:$(top_srcdir)/data/images/muine-cover-downloading.png,muine-cover-downloading.png	\

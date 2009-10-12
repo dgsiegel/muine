@@ -34,9 +34,7 @@ namespace Muine
 		// Variables :: Stock Icons
 		private static readonly string [] stock_icons = {
 			"muine-default-cover",
-			"muine-cover-downloading",
-			"muine-playing",
-			"muine-paused"
+			"muine-cover-downloading"
 		};
 
 		// Variables :: Themed Icons
@@ -53,7 +51,9 @@ namespace Muine
                         "stock_volume-max",
 			"stock_shuffle",
 			"stock_timer",
-			"gnome-mime-audio"
+			"gnome-mime-audio",
+			"player_play",
+			"player_pause"
 		};
 
 		// Properties
