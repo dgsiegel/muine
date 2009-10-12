@@ -29,6 +29,7 @@ namespace Muine
 	{
 		// Variables
 		private HandleModel model;
+		private Random random;
 
 		// Constructor
 		public HandleView ()
@@ -39,7 +40,8 @@ namespace Muine
 			RulesHint       = true;
 			EnableSearch    = false;
 			HeadersVisible  = false;
-                        FixedHeightMode = true;
+			FixedHeightMode = true;
+			this.random = new Random();
 		}
 
 		// Properties
@@ -116,6 +118,25 @@ namespace Muine
 
 			SetCursor (path, Columns [0], false);
 		}
+
+		
+		// Methods :: Public :: SelectRandom
+		public void SelectRandom ()
+		{
+			int selected = random.Next(Model.Length);
+			
+			TreeIter iter;
+			if (!Model.IterNthChild (out iter, selected))
+			{
+				SelectFirst ();
+			}
+			else
+			{
+				SetCursor (Model.GetPath(iter), Columns [0], true);
+			}
+			ScrollToCell (Model.GetPath(iter), Columns [0], true, 0.5f, 0.5f);
+		}
+
 
 		// Methods :: Public :: ForwardKeyPress
 		// 	Hack to forward key press events to the treeview

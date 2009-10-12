@@ -31,7 +31,8 @@ namespace Muine
 			Close       = Gtk.ResponseType.Close,
 			DeleteEvent = Gtk.ResponseType.DeleteEvent,
 			Play        = 1,
-			Queue       = 2
+			Queue       = 2,
+			QueueRandom = 3
 		};
 #endregion Enums.ResponseType
 #endregion Enums
@@ -52,6 +53,8 @@ namespace Muine
 
 #region Constants
 		private const uint search_timeout = 100;
+				private const string GConfKeyRandom = "/apps/muine/queue_random";
+				private const bool GConfDefaultRandom = true;
 #endregion Constants
 
 
@@ -63,6 +66,8 @@ namespace Muine
 		[Glade.Widget] private Gtk.Image          play_button_image;
 		[Glade.Widget] private Gtk.Button         queue_button;
 		[Glade.Widget] private Gtk.Image          queue_button_image;
+		[Glade.Widget] private Gtk.Button         queuerandom_button;
+		[Glade.Widget] private Gtk.Image          queuerandom_button_image;
 		[Glade.Widget] private Gtk.ScrolledWindow scrolledwindow;
 		
 		private AddWindowEntry entry = new AddWindowEntry ();
@@ -103,7 +108,10 @@ namespace Muine
 			  ("stock_media-play", Gtk.IconSize.Button);
 
 			this.queue_button_image.SetFromStock
-			  ("stock_timer", Gtk.IconSize.Button);
+			  ("gtk-add", Gtk.IconSize.Button);
+
+			this.queuerandom_button_image.SetFromStock
+			  ("stock_shuffle", Gtk.IconSize.Button);
 
 			// Cell Renderer
 			this.text_renderer.Ellipsize = Pango.EllipsizeMode.End;
@@ -510,6 +518,19 @@ namespace Muine
 				list.SelectNext ();
 
 				break;
+			case (int) ResponseType.QueueRandom:
+				list.SelectRandom ();
+
+				bool queue  = (bool) Config.Get (GConfKeyRandom, GConfDefaultRandom);
+
+				if (queue)
+					if (QueueEvent != null)
+						QueueEvent (list.Selected);
+				
+				entry.GrabFocus ();
+				
+				break;
+
 				
 			default:
 				throw new ArgumentException ();

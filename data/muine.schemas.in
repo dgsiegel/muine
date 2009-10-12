@@ -189,5 +189,16 @@
 	<long>Whether or not the tray icon shows song change notifications</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/muine/queue_random</key>
+      <applyto>/apps/muine/queue_random</applyto>
+      <owner>muine</owner>
+      <type>bool</type>
+      <default>1</default>
+      <locale name="C">
+        <short>Queue Albums when pressing the Random button</short>
+	<long>Whether or not queue the album when pressing the Random button</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>
