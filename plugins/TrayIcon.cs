@@ -26,6 +26,8 @@ using Gdk;
 
 using Mono.Unix;
 
+using Notifications;
+
 using Muine.PluginLib;
 
 namespace Muine
@@ -51,7 +53,7 @@ namespace Muine
 		private static readonly string string_notification_message_format = 
 			Catalog.GetString ("by {0}");
 
-                private const string GConfKeyShowNotifications = "/apps/muine/show_notifications";
+		private const string GConfKeyShowNotifications = "/apps/muine/show_notifications";
 		// Widgets
 		private Plug icon;
 		private EventBox ebox;
@@ -61,6 +63,7 @@ namespace Muine
 
 		// Objects
 		private IPlayer player;
+		private static Notification notif;
 
 		// Variables
 		private int menu_x;
@@ -284,11 +287,11 @@ namespace Muine
 			Init ();
 		}
 
-                // Handlers :: OnShowNotificationsChanged
-                private void OnShowNotificationsChanged (object o, GConf.NotifyEventArgs args)
-                {
-                        showNotifications = (bool) args.Value;
-                }
+		// Handlers :: OnShowNotificationsChanged
+		private void OnShowNotificationsChanged (object o, GConf.NotifyEventArgs args)
+		{
+			showNotifications = (bool) args.Value;
+		}
 
 		// Handlers :: OnSongChangedEvent
 		private void OnSongChangedEvent (ISong song)
@@ -321,62 +324,35 @@ namespace Muine
 			UpdateImage ();
 		}
 
-		/* Libnotify bindings */
-
-		[DllImport("notify")]
-		private static extern bool notify_init(string app_name);
-
-		[DllImport("notify")]
-		private static extern void notify_uninit();
-
-		[DllImport("notify")]
-		private static extern IntPtr notify_notification_new(string summary, string message,
-				string icon, IntPtr widget);
-
-		[DllImport("notify")]
-		private static extern void notify_notification_set_timeout(IntPtr notification,
-				int timeout);
-		
-		[DllImport("notify")]
-		private static extern void notify_notification_set_urgency(IntPtr notification,
-				int urgency);
-
-		[DllImport("notify")]
-		private static extern void notify_notification_set_icon_from_pixbuf(IntPtr notification, IntPtr icon);
-
-		[DllImport("notify")]
-		private static extern bool notify_notification_show(IntPtr notification, IntPtr error);
-
-		[DllImport("gobject-2.0")]
-		private static extern void g_object_unref(IntPtr o);
-
 		public static void Notify(string summary, string message,
 				Pixbuf cover, Widget widget)
 		{
-                        if (!showNotifications)
+			if (!showNotifications)
 				return;
 
-			try {
-				if(!notify_init("Muine"))
-					return;
 
-				summary = StringUtils.EscapeForPango(summary);
-				message = StringUtils.EscapeForPango(message);
-
-				IntPtr notif = notify_notification_new(summary, message, null, widget.Handle);
-				notify_notification_set_timeout(notif, 4000);
-				notify_notification_set_urgency(notif, 0);
-				if (cover != null) {
-					cover = cover.ScaleSimple(42, 42, InterpType.Bilinear);
-					notify_notification_set_icon_from_pixbuf(notif, cover.Handle);
-				}
-				notify_notification_show(notif, IntPtr.Zero);
-				g_object_unref(notif);
-				notify_uninit();
-
-			} catch (Exception) {
-				showNotifications = false;
+			summary = StringUtils.EscapeForPango(summary);
+			message = StringUtils.EscapeForPango(message);
+			if (cover != null) {
+				cover = cover.ScaleSimple(42, 42, InterpType.Bilinear);
 			}
+
+			if (notif == null) {
+				if (cover != null) {
+					notif = new Notification(summary, message, cover);
+				} else {
+					notif = new Notification(summary, message);
+				}
+			} else {
+				notif.Summary = summary;
+				notif.Body = message;
+				notif.IconName = "media-optical";
+				if (cover != null) {
+					notif.Icon = cover;
+				}
+			}
+
+			notif.Show();
 		}
 
 		private void OnWindowEvent (object o, WidgetEventArgs args)
