@@ -28,6 +28,7 @@ using System.Collections;
 using Gdk;
 
 using musicbrainz;
+using Cairo;
 
 namespace Muine
 {
@@ -171,7 +172,7 @@ namespace Muine
 		public Pixbuf GetFolderImage (string key, string folder)
 		{
 			foreach (string fn in cover_filenames) {
-				FileInfo cover = new FileInfo (Path.Combine (folder, fn));
+				FileInfo cover = new FileInfo (System.IO.Path.Combine (folder, fn));
 				
 				if (!cover.Exists)
 					continue;
@@ -690,7 +691,6 @@ namespace Muine
 		/// </returns>
 		public Pixbuf AddBorder (Pixbuf cover)
 		{
-			Pixbuf border;
 
 			// 1px border, so -2
 			int target_size = CoverDatabase.CoverSize - 2;
@@ -712,23 +712,12 @@ namespace Muine
 					new_width = target_size;
 				}
 
-				cover =
-				  cover.ScaleSimple
-				    (new_width, new_height, InterpType.Bilinear);
+				cover = cover.ScaleSimple (new_width, new_height, InterpType.Bilinear);
 			}
 
-			// create the background + black border pixbuf
-			border =
-			  new Pixbuf
-			    (Colorspace.Rgb, true, 8, cover.Width + 2, cover.Height + 2);
-
-			border.Fill (0x000000ff);
-
-			// put the cover image on the border area
-			cover.CopyArea (0, 0, cover.Width, cover.Height, border, 1, 1);
-
-			// done
-			return border;
+			Pixbuf cover_round = CairoExtension.RoundOff (cover);
+			(cover as IDisposable).Dispose ();
+			return cover_round;
 		}
 
 		// Methods :: Private

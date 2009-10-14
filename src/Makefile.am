@@ -2,7 +2,7 @@ CSC = $(MCS) $(MCS_FLAGS) $(CSFLAGS)
 
 TARGET = muine.exe
 WRAPPER = muine
-MUINE_LIBS = $(GTKSHARP_LIBS) $(TAGLIBSHARP_LIBS)
+MUINE_LIBS = $(GTKSHARP_LIBS) $(TAGLIBSHARP_LIBS) $(CAIROSHARP_LIBS) -unsafe
 
 MUINE_CSFILES =					\
 	$(srcdir)/AddSongWindow.cs		\
@@ -49,7 +49,8 @@ MUINE_CSFILES =					\
 	$(srcdir)/Actions.cs			\
 	$(srcdir)/ImportDialog.cs		\
 	$(srcdir)/OpenDialog.cs			\
-	$(srcdir)/SaveDialog.cs
+	$(srcdir)/SaveDialog.cs			\
+	$(srcdir)/CairoRoundOff.cs
 
 MUINE_GENERATED_CSFILES =			\
 	AmazonSearchService.cs			\
