@@ -1,14 +1,14 @@
 # muine ja.po.
-# Copyright (C) 2004-2008 Free Software Foundation, Inc.
+# Copyright (C) 2004-2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the muine package.
-# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004-2008.
+# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: muine trunk\n"
+"Project-Id-Version: muine master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-04 18:15+0900\n"
-"PO-Revision-Date: 2008-10-04 18:02+0900\n"
+"POT-Creation-Date: 2009-10-18 23:25+0900\n"
+"PO-Revision-Date: 2009-10-18 23:09+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -28,23 +28,11 @@ msgstr "キューに入れる(_Q)"
 msgid "_Search:"
 msgstr "検索(_S)"
 
-#: ../data/glade/ErrorDialog.glade.h:1
-msgid "Error"
-msgstr "エラー"
-
-#: ../data/glade/OverwriteDialog.glade.h:1
-msgid "Overwrite File?"
-msgstr "ファイルを上書きしますか？"
-
-#: ../data/glade/OverwriteDialog.glade.h:2
-msgid "_Overwrite"
-msgstr "上書き(_O)"
-
-#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:1 ../src/AddAlbumWindow.cs:42
 msgid "Play Album"
 msgstr "アルバムの演奏"
 
-#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:40
+#: ../data/glade/PlaylistWindow.glade.h:2 ../src/AddSongWindow.cs:42
 msgid "Play Song"
 msgstr "曲の演奏"
 
@@ -209,39 +197,9 @@ msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "デフォルトの GStreamer オーディオ出力 Sink をレンダリングできませんでした。"
 
-#: ../libmuine/player-xine.c:290
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"オーディオ・ドライバ '%s' を読み込めませんでした\n"
-"ドライバが動作中でないことを確認して下さい。"
-
-#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "\"%s\" に対して利用可能なプラグインがありません"
-
-#: ../libmuine/player-xine.c:394
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "\"%s\" の演奏に失敗しました"
-
-#: ../libmuine/player-xine.c:398
-msgid "Internal error"
-msgstr "Muine 内部のエラー"
-
-#: ../libmuine/player-xine.c:407
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "\"%s\" を演奏できませんでした"
-
 #: ../src/About.cs:32
 msgid "translator-credits"
-msgstr ""
-"相花 毅 <takeshi.aihana@gmail.com>\n"
-"日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
+msgstr "相花 毅 <takeshi.aihana@gmail.com>"
 
 #: ../src/About.cs:35
 msgid "Muine"
@@ -260,8 +218,8 @@ msgid "A music player"
 msgstr "音楽プレイヤー"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -379,7 +337,7 @@ msgstr "シャッフル(_F)"
 msgid "_About"
 msgstr "情報(_A)"
 
-#: ../src/AddAlbumWindow.cs:43 ../src/PlaylistWindow.cs:100
+#: ../src/AddAlbumWindow.cs:45 ../src/PlaylistWindow.cs:100
 #, csharp-format
 msgid "Performed by {0}"
 msgstr "演奏は {0}"
@@ -387,6 +345,10 @@ msgstr "演奏は {0}"
 #: ../src/Album.cs:44
 msgid "the dj"
 msgstr "the dj"
+
+#: ../src/ErrorDialog.cs:77
+msgid "Error"
+msgstr "エラー"
 
 #: ../src/FileUtils.cs:44
 #, csharp-format
@@ -429,7 +391,7 @@ msgstr "フォルダのインポート"
 msgid "_Import"
 msgstr "インポート(_I)"
 
-#: ../src/Metadata.cs:34
+#: ../src/Metadata.cs:32
 #, csharp-format
 msgid "Failed to load metadata: {0}"
 msgstr "メタデータ {0} の読み込みに失敗しました"
@@ -443,17 +405,25 @@ msgid "Playlist files"
 msgstr "演奏一覧のファイル"
 
 #: ../src/OverwriteDialog.cs:34
+msgid "Overwrite File?"
+msgstr "ファイルを上書きしますか？"
+
+#: ../src/OverwriteDialog.cs:37
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
 msgstr "\"{0}\" を上書きしますか？"
 
-#: ../src/OverwriteDialog.cs:37
+#: ../src/OverwriteDialog.cs:40
 msgid ""
 "A file with this name already exists. If you choose to overwrite this file, "
 "the contents will be lost."
 msgstr ""
 "既に同じ名前のファイルが存在してます。ファイルを上書きすると、以前の内容が失"
 "われます。"
+
+#: ../src/OverwriteDialog.cs:74
+msgid "_Overwrite"
+msgstr "上書き(_O)"
 
 #: ../src/Player.cs:39
 msgid "Audio backend error:"
@@ -536,28 +506,28 @@ msgstr "{0} のクローズに失敗しました:"
 msgid "Failed to write {0}:"
 msgstr "{0} の書き込みに失敗しました:"
 
-#: ../src/PlaylistWindow.cs:1090
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
 msgstr[0] "<b>演奏一覧</b> (リピート {0}時間)"
 msgstr[1] "<b>演奏一覧</b> (リピート {0}時間)"
 
-#: ../src/PlaylistWindow.cs:1095
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>演奏一覧</b> (リピート {0}分)"
 msgstr[1] "<b>演奏一覧</b> (リピート {0}分)"
 
-#: ../src/PlaylistWindow.cs:1100
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>演奏一覧</b> (残り {0}時間)"
 msgstr[1] "<b>演奏一覧</b> (残り {0}時間)"
 
-#: ../src/PlaylistWindow.cs:1105
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
@@ -600,11 +570,11 @@ msgstr "{0} とその他"
 msgid "{0} and {1}"
 msgstr "{0} と {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "ミュート"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "最大音量"
 
