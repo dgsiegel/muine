@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: muine.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-15 18:03-0500\n"
-"PO-Revision-Date: 2008-05-19 11:57-0300\n"
-"Last-Translator: César Veiga <tombs@linuxmail.org>\n"
+"POT-Creation-Date: 2009-11-27 08:45-0200\n"
+"PO-Revision-Date: 2009-11-25 23:00-0300\n"
+"Last-Translator: Djavan Fagundes <dnoway@gmail.com>\n"
 "Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,7 +118,7 @@ msgstr "Apenas álbuns completos"
 
 #: ../data/muine.schemas.in.h:17
 msgid "Only deal with complete albums in the interface."
-msgstr "Apenas lidar com álbuns completos na interface"
+msgstr "Apenas lidar com álbuns completos na interface."
 
 #: ../data/muine.schemas.in.h:18
 msgid "Playlist window height"
@@ -201,34 +201,6 @@ msgid "Could not render default GStreamer audio output sink"
 msgstr ""
 "Não foi possível renderizar o elemento de saída de áudio padrão do GStreamer"
 
-#: ../libmuine/player-xine.c:290
-#, c-format
-msgid ""
-"Couldn't load the '%s' audio driver\n"
-"Check that the device is not busy."
-msgstr ""
-"Não foi possível carregar o driver de áudio '%s'\n"
-"Verifique se o dispositivo não está ocupado."
-
-#: ../libmuine/player-xine.c:384 ../libmuine/player-xine.c:389
-#, c-format
-msgid "No plugin available for \"%s\""
-msgstr "Nenhum plug-in disponível para \"%s\""
-
-#: ../libmuine/player-xine.c:394
-#, c-format
-msgid "Failed playing \"%s\""
-msgstr "Falha ao reproduzir \"%s\""
-
-#: ../libmuine/player-xine.c:398
-msgid "Internal error"
-msgstr "Erro interno"
-
-#: ../libmuine/player-xine.c:407
-#, c-format
-msgid "Could not play \"%s\""
-msgstr "Não foi possível reproduzir \"%s\""
-
 #: ../src/About.cs:32
 msgid "translator-credits"
 msgstr ""
@@ -255,8 +227,8 @@ msgid "A music player"
 msgstr "Um reprodutor de músicas"
 
 #: ../src/About.cs:50
-msgid "Jorn Baayen <jbaayen@gnome.org>"
-msgstr "Jorn Baayen <jbaayen@gnome.org>"
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
 
 #: ../src/About.cs:51
 msgid "Lee Willis <lee@leewillis.co.uk>"
@@ -543,33 +515,33 @@ msgstr "Falha ao fechar {0}:"
 msgid "Failed to write {0}:"
 msgstr "Falha ao salvar {0}:"
 
-#: ../src/PlaylistWindow.cs:1090
+#: ../src/PlaylistWindow.cs:1093
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} hour)"
 msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
-msgstr[0] "Lista de reprodução (Repetindo {0} hora)"
+msgstr[0] "<b>Lista de reprodução</b> (Repetindo {0} hora)"
 msgstr[1] "<b>Lista de reprodução</b> (Repetindo {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1095
+#: ../src/PlaylistWindow.cs:1098
 #, csharp-format
 msgid "<b>Playlist</b> (Repeating {0} minute)"
 msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
 msgstr[0] "<b>Lista de reprodução</b> (Repetindo {0} minuto)"
 msgstr[1] "<b>Lista de reprodução</b> (Repetindo {0} minutos)"
 
-#: ../src/PlaylistWindow.cs:1100
+#: ../src/PlaylistWindow.cs:1103
 #, csharp-format
 msgid "<b>Playlist</b> ({0} hour remaining)"
 msgid_plural "<b>Playlist</b> ({0} hours remaining)"
 msgstr[0] "<b>Lista de reprodução</b> (restando {0} hora)"
 msgstr[1] "<b>Lista de reprodução</b> (restando {0} horas)"
 
-#: ../src/PlaylistWindow.cs:1105
+#: ../src/PlaylistWindow.cs:1108
 #, csharp-format
 msgid "<b>Playlist</b> ({0} minute remaining)"
 msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
 msgstr[0] "<b>Lista de reprodução</b> (restando {0} minutos)"
-msgstr[1] "Lista de reprodução (restando {0} minutos)"
+msgstr[1] "<b>Lista de reprodução</b> (restando {0} minutos)"
 
 #: ../src/PluginManager.cs:34
 #, csharp-format
@@ -607,32 +579,51 @@ msgstr "{0} e outros"
 msgid "{0} and {1}"
 msgstr "{0} e {1}"
 
-#: ../src/VolumeButton.cs:490
+#: ../src/VolumeButton.cs:488
 msgid "Muted"
 msgstr "Mudo"
 
-#: ../src/VolumeButton.cs:492
+#: ../src/VolumeButton.cs:490
 msgid "Full Volume"
 msgstr "Volume total"
 
-#: ../plugins/TrayIcon.cs:37
+#: ../plugins/TrayIcon.cs:39
 msgid "Muine music player"
 msgstr "Reprodutor de músicas Muine"
 
-#: ../plugins/TrayIcon.cs:42
+#: ../plugins/TrayIcon.cs:44
 #, csharp-format
 msgid "{0} - {1}"
 msgstr "{0} - {1}"
 
-#: ../plugins/TrayIcon.cs:47
+#: ../plugins/TrayIcon.cs:49
 #, csharp-format
 msgid "Now playing: {0}"
 msgstr "Reproduzindo agora: {0}"
 
-#: ../plugins/TrayIcon.cs:52
+#: ../plugins/TrayIcon.cs:54
 #, csharp-format
 msgid "by {0}"
 msgstr "Por {0}"
+
+#~ msgid ""
+#~ "Couldn't load the '%s' audio driver\n"
+#~ "Check that the device is not busy."
+#~ msgstr ""
+#~ "Não foi possível carregar o driver de áudio '%s'\n"
+#~ "Verifique se o dispositivo não está ocupado."
+
+#~ msgid "No plugin available for \"%s\""
+#~ msgstr "Nenhum plug-in disponível para \"%s\""
+
+#~ msgid "Failed playing \"%s\""
+#~ msgstr "Falha ao reproduzir \"%s\""
+
+#~ msgid "Internal error"
+#~ msgstr "Erro interno"
+
+#~ msgid "Could not play \"%s\""
+#~ msgstr "Não foi possível reproduzir \"%s\""
 
 #~ msgid "Play"
 #~ msgstr "Reproduzir"
