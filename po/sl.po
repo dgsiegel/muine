@@ -1,0 +1,606 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Muine\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=muine&component=general\n"
+"POT-Creation-Date: 2009-11-15 00:57+0000\n"
+"PO-Revision-Date: 2010-01-31 16:04+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/glade/AddWindow.glade.h:1
+#: ../src/Actions.cs:62
+msgid "_Play"
+msgstr "_Predvajaj"
+
+# Morda bi tukaj uporabil seznam predvajanja, saj ni nikjer drugje vrste ....
+#: ../data/glade/AddWindow.glade.h:2
+msgid "_Queue"
+msgstr "Daj v _vrsto"
+
+#: ../data/glade/AddWindow.glade.h:3
+msgid "_Search:"
+msgstr "_Išči:"
+
+#: ../data/glade/PlaylistWindow.glade.h:1
+#: ../src/AddAlbumWindow.cs:42
+msgid "Play Album"
+msgstr "Predvajanje albuma"
+
+#: ../data/glade/PlaylistWindow.glade.h:2
+#: ../src/AddSongWindow.cs:42
+msgid "Play Song"
+msgstr "Predvajanje skladbe"
+
+#: ../data/glade/SkipToWindow.glade.h:1
+msgid "Skip to"
+msgstr "Preskoči na"
+
+#: ../data/muine.desktop.in.h:1
+msgid "Listen to your music"
+msgstr "Poslušajte svojo glasbo"
+
+#: ../data/muine.desktop.in.h:2
+#: ../src/PlaylistWindow.cs:79
+msgid "Muine Music Player"
+msgstr "Muine predvajalnik glasbe"
+
+#: ../data/muine.schemas.in.h:1
+msgid "\"Add album\" window height"
+msgstr "Višina okna \"Dodaj album\""
+
+#: ../data/muine.schemas.in.h:2
+msgid "\"Add album\" window width"
+msgstr "Širina okna \"Dodaj album\""
+
+#: ../data/muine.schemas.in.h:3
+msgid "\"Add song\" window height"
+msgstr "Višina okna \"Dodaj skladbo\""
+
+#: ../data/muine.schemas.in.h:4
+msgid "\"Add song\" window width"
+msgstr "Širina okna \"Dodaj skladbo\""
+
+#: ../data/muine.schemas.in.h:5
+msgid "Amazon Dev Tag"
+msgstr "Amazon razvijalna oznaka"
+
+#: ../data/muine.schemas.in.h:6
+msgid "Amazon site to use for album images"
+msgstr "Amazon stran za slike albumov"
+
+#: ../data/muine.schemas.in.h:7
+msgid "Default import folder"
+msgstr "Privzeta mapa uvoza"
+
+#: ../data/muine.schemas.in.h:8
+msgid "Default playlist folder"
+msgstr "Privzeta mapa seznama predvajanja"
+
+#: ../data/muine.schemas.in.h:9
+msgid "Folders that are monitored for changes."
+msgstr "Mape nadzirane za spremembe."
+
+#: ../data/muine.schemas.in.h:10
+msgid "Height of the \"Add album\" window."
+msgstr "Višina okna \"Dodaj album\"."
+
+#: ../data/muine.schemas.in.h:11
+msgid "Height of the \"Add song\" window."
+msgstr "Višina okna \"Dodaj skladbo\"."
+
+#: ../data/muine.schemas.in.h:12
+msgid "Height of the playlist window."
+msgstr "Višina okna seznama predvajanja."
+
+#: ../data/muine.schemas.in.h:13
+msgid "Horizontal position of the playlist window."
+msgstr "Vodoraven položaj okna seznama predvajanja."
+
+#: ../data/muine.schemas.in.h:14
+msgid "Last used folder from \"Import folder\" dialog."
+msgstr "Zadnjič uporabljena mapa iz pogovornega okna \"Uvozi mapo\"."
+
+#: ../data/muine.schemas.in.h:15
+msgid "Last used folder from the playlist file selectors."
+msgstr "Zadnjič uporabljena mapa iz izbirnikov datoteke seznama predvajanj."
+
+#: ../data/muine.schemas.in.h:16
+msgid "Only complete albums"
+msgstr "Le končani albumi"
+
+#: ../data/muine.schemas.in.h:17
+msgid "Only deal with complete albums in the interface."
+msgstr "V vmesniku se ukvarjaj le s celotnimi albumi."
+
+#: ../data/muine.schemas.in.h:18
+msgid "Playlist window height"
+msgstr "Višina okna seznama predvajanja"
+
+#: ../data/muine.schemas.in.h:19
+msgid "Playlist window horizontal position"
+msgstr "Vodoraven položaj okna seznama predvajanja "
+
+#: ../data/muine.schemas.in.h:20
+msgid "Playlist window vertical position"
+msgstr "Navpičen položaj okna seznama predvajanja"
+
+#: ../data/muine.schemas.in.h:21
+msgid "Playlist window width"
+msgstr "Širina okna seznama predvajanja"
+
+#: ../data/muine.schemas.in.h:22
+msgid "Repeat mode"
+msgstr "Ponavljajoči način"
+
+#: ../data/muine.schemas.in.h:23
+msgid "Show Notifications"
+msgstr "Pokaži obvestila"
+
+#: ../data/muine.schemas.in.h:24
+msgid "Vertical position of the playlist window."
+msgstr "Navpičen položaj okna seznama predvajanja."
+
+#: ../data/muine.schemas.in.h:25
+msgid "Volume level"
+msgstr "Raven glasnosti"
+
+#: ../data/muine.schemas.in.h:26
+msgid "Volume level. 0 = lowest, 100 = highest."
+msgstr "Raven glasnosti. 0 = najnižja, 100 = najvišja"
+
+#: ../data/muine.schemas.in.h:27
+msgid "Watched folders"
+msgstr "Opazovane mape"
+
+#: ../data/muine.schemas.in.h:28
+msgid "Whether or not the tray icon shows song change notifications"
+msgstr "Ali naj ikona sistemske vrstice prikaže obvestila ob spremembi skladb?"
+
+#: ../data/muine.schemas.in.h:29
+msgid "Whether or not to enable repeat playlist mode."
+msgstr "Ali naj bo omogočen način ponavljanja seznama predvajanja?"
+
+#: ../data/muine.schemas.in.h:30
+msgid "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", or \"jp\"."
+msgstr "Katera Amazonova stran naj bo uporabljena za pridobivanje slik albumov, \"us\", \"uk\", \"de\" ali \"jp\"."
+
+#: ../data/muine.schemas.in.h:31
+msgid "Width of the \"Add album\" window."
+msgstr "Širina okna \"Dodaj album\"."
+
+#: ../data/muine.schemas.in.h:32
+msgid "Width of the \"Add song\" window."
+msgstr "Širina okna \"Dodaj skladbo\"."
+
+#: ../data/muine.schemas.in.h:33
+msgid "Width of the playlist window."
+msgstr "Širina okna seznama predvajanja."
+
+#: ../data/muine.schemas.in.h:34
+msgid "Your Amazon Dev Tag for fetching album cover art"
+msgstr "Vaša Amazon razvijalska oznaka za pridobivanje naslovnic albumov"
+
+#: ../libmuine/player-gst.c:154
+msgid "Failed to create a GStreamer play object"
+msgstr "Ustvarjanje predmeta predvajanja GStreamer je spodletelo"
+
+#: ../libmuine/player-gst.c:161
+msgid "Could not render default GStreamer audio output sink"
+msgstr "Ni mogoče izrisati privzetega Gstreamer korita izhoda zvoka"
+
+#: ../src/About.cs:32
+msgid "translator-credits"
+msgstr "Andrej Žnidaršič <andrej.znidarsic@gmail.com>"
+
+#: ../src/About.cs:35
+msgid "Muine"
+msgstr "Muine"
+
+#: ../src/About.cs:38
+msgid "Copyright © 2003–2007 Jorn Baayen"
+msgstr "Avtorske pravice © 2003–2007 Jorn Baayen "
+
+#: ../src/About.cs:39
+msgid "Copyright © 2006–2008 Various contributors"
+msgstr "Avtorske pravice © 2006–2008 različni sodelavci"
+
+#: ../src/About.cs:43
+msgid "A music player"
+msgstr "Predvajalnik glasbe"
+
+#: ../src/About.cs:50
+msgid "Jorn Baayen <jorn.baayen@gmail.com>"
+msgstr "Jorn Baayen <jorn.baayen@gmail.com>"
+
+#: ../src/About.cs:51
+msgid "Lee Willis <lee@leewillis.co.uk>"
+msgstr "Lee Willis <lee@leewillis.co.uk>"
+
+#: ../src/About.cs:52
+msgid "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+msgstr "Việt Yên Nguyễn <nguyen@cs.utwente.nl>"
+
+#: ../src/About.cs:53
+msgid "Tamara Roberson <tamara.roberson@gmail.com>"
+msgstr "Tamara Roberson <tamara.roberson@gmail.com>"
+
+#: ../src/About.cs:54
+msgid "Peter Johanson <peter@peterjohanson.com>"
+msgstr "Peter Johanson <peter@peterjohanson.com>"
+
+#: ../src/About.cs:55
+msgid "Wouter Bolsterlee <wbolster@gnome.org>"
+msgstr "Wouter Bolsterlee <wbolster@gnome.org>"
+
+#: ../src/About.cs:56
+msgid "Luis Medinas <lmedinas@gnome.org>"
+msgstr "Luis Medinas <lmedinas@gnome.org>"
+
+#: ../src/About.cs:57
+msgid "Iain Holmes  <iain@gnome.org>"
+msgstr "Iain Holmes  <iain@gnome.org>"
+
+#: ../src/About.cs:59
+msgid "Album covers are provided by amazon.com and musicbrainz.org."
+msgstr "Naslovnice albumov zagotavljata amazon.com in musicbrainz.org"
+
+#: ../src/Actions.cs:36
+msgid "_File"
+msgstr "_Datoteka"
+
+#: ../src/Actions.cs:39
+msgid "_Song"
+msgstr "_Skladba"
+
+#: ../src/Actions.cs:42
+msgid "_Playlist"
+msgstr "Seznam _predvajanja"
+
+#: ../src/Actions.cs:45
+msgid "_Help"
+msgstr "Pomo_č"
+
+#: ../src/Actions.cs:49
+msgid "_Import Folder..."
+msgstr "_Uvozi mapo ..."
+
+#: ../src/Actions.cs:52
+msgid "_Open..."
+msgstr "_Odpri ..."
+
+#: ../src/Actions.cs:55
+msgid "_Save As..."
+msgstr "Shrani _kot ..."
+
+#: ../src/Actions.cs:58
+msgid "Show _Window"
+msgstr "Pokaži _okno"
+
+#: ../src/Actions.cs:65
+msgid "P_revious"
+msgstr "P_redhodna"
+
+#: ../src/Actions.cs:68
+msgid "_Next"
+msgstr "_Naslednja"
+
+#: ../src/Actions.cs:71
+msgid "_Skip to..."
+msgstr "_Skoči na..."
+
+#: ../src/Actions.cs:74
+msgid "Skip _Backwards"
+msgstr "Skoči na_zaj"
+
+#: ../src/Actions.cs:77
+msgid "Skip _Forward"
+msgstr "Skoči n_aprej"
+
+#: ../src/Actions.cs:81
+msgid "Play _Song..."
+msgstr "Predvajaj _skladbo ..."
+
+#: ../src/Actions.cs:84
+msgid "Play _Album..."
+msgstr "Predvajaj _album ..."
+
+#: ../src/Actions.cs:87
+msgid "_Remove Song"
+msgstr "O_dstrani skladbo"
+
+#: ../src/Actions.cs:90
+msgid "Remove _Played Songs"
+msgstr "Odstrani p_redvajane skladbe"
+
+#: ../src/Actions.cs:93
+msgid "_Clear"
+msgstr "_Počisti"
+
+#: ../src/Actions.cs:96
+msgid "R_epeat"
+msgstr "Po_novi"
+
+#: ../src/Actions.cs:99
+msgid "Shu_ffle"
+msgstr "Preme_šaj"
+
+#: ../src/Actions.cs:103
+msgid "_About"
+msgstr "O pro_gramu"
+
+#: ../src/AddAlbumWindow.cs:45
+#: ../src/PlaylistWindow.cs:100
+#, csharp-format
+msgid "Performed by {0}"
+msgstr "Izvajalec {0}"
+
+#: ../src/Album.cs:44
+msgid "the dj"
+msgstr "dj"
+
+#: ../src/ErrorDialog.cs:77
+msgid "Error"
+msgstr "Napaka"
+
+#: ../src/FileUtils.cs:44
+#, csharp-format
+msgid "Failed to initialize the configuration folder: {0}"
+msgstr "Zagon nastavitvene mape je spodletel: {0}"
+
+#: ../src/FileUtils.cs:47
+#, csharp-format
+msgid "Failed to initialize the temporary files folder: {0}"
+msgstr "Zagon mape začasnih datotek je spodletel: {0}"
+
+#: ../src/FileUtils.cs:50
+msgid "Exiting..."
+msgstr "Končevanje ..."
+
+#: ../src/Global.cs:37
+#, csharp-format
+msgid "Failed to export D-Bus object: {0}"
+msgstr "Izvoz predmeta D-Bus je spodletel: {0}"
+
+#: ../src/Global.cs:40
+#, csharp-format
+msgid "Failed to load the cover database: {0}"
+msgstr "Nalaganje podatkovne zbirke naslovnic je spodletelo: {0}"
+
+#: ../src/Global.cs:43
+#, csharp-format
+msgid "Failed to load the song database: {0}"
+msgstr "Nalaganje podatkovne zbirke skladb je spodletelo: {0}"
+
+#: ../src/Global.cs:46
+msgid "Error initializing Muine."
+msgstr "Napaka med zaganjanjem programa."
+
+#: ../src/ImportDialog.cs:37
+msgid "Import Folder"
+msgstr "Uvoz mape"
+
+#: ../src/ImportDialog.cs:40
+msgid "_Import"
+msgstr "_Uvozi"
+
+#: ../src/Metadata.cs:32
+#, csharp-format
+msgid "Failed to load metadata: {0}"
+msgstr "Nalaganje metapodatkov je spodletelo: {0}"
+
+#: ../src/OpenDialog.cs:37
+msgid "Open Playlist"
+msgstr "Odpri seznam predvajanja"
+
+#: ../src/OpenDialog.cs:40
+msgid "Playlist files"
+msgstr "Datoteke seznamov predvajanja"
+
+#: ../src/OverwriteDialog.cs:34
+msgid "Overwrite File?"
+msgstr "Prepis datoteke?"
+
+#: ../src/OverwriteDialog.cs:37
+#, csharp-format
+msgid "Overwrite \"{0}\"?"
+msgstr "Prepis \"{0}\"?"
+
+#: ../src/OverwriteDialog.cs:40
+msgid "A file with this name already exists. If you choose to overwrite this file, the contents will be lost."
+msgstr "Datoteka s tem imenom že obstaja. V primeru, da datoteko prepišete, bo vsebina izgubljena."
+
+#: ../src/OverwriteDialog.cs:74
+msgid "_Overwrite"
+msgstr "_Prepiši"
+
+#: ../src/Player.cs:39
+msgid "Audio backend error:"
+msgstr "Napaka zaledja zvoka:"
+
+#: ../src/PlaylistWindow.cs:82
+msgid "Playlist.m3u"
+msgstr "Seznam predvajanja.m3u"
+
+#: ../src/PlaylistWindow.cs:85
+msgid "<b>Playlist</b>"
+msgstr "<b>Seznam predvajanja</b>"
+
+#: ../src/PlaylistWindow.cs:88
+msgid "<b>Playlist</b> (Repeating)"
+msgstr "<b>Seznam predvajanja</b> (ponavljajoč)"
+
+#: ../src/PlaylistWindow.cs:91
+msgid "<b>Playlist</b> (Less than one minute remaining)"
+msgstr "<b>Seznam predvajanja</b> (preostaja manj kot ena minuta)"
+
+#: ../src/PlaylistWindow.cs:94
+#, csharp-format
+msgid "From \"{0}\""
+msgstr "Od  \"{0}\""
+
+#: ../src/PlaylistWindow.cs:97
+msgid "Album unknown"
+msgstr "Neznan album"
+
+#: ../src/PlaylistWindow.cs:104
+#, csharp-format
+msgid "{0} - Muine Music Player"
+msgstr "{0} - Muine predvajalnik glasbe"
+
+#: ../src/PlaylistWindow.cs:108
+msgid "Switch music playback on or off"
+msgstr "Preklopi predvajanje glasbe"
+
+#: ../src/PlaylistWindow.cs:111
+msgid "Play the previous song"
+msgstr "Predvajanje predhodne skladbe"
+
+#: ../src/PlaylistWindow.cs:114
+msgid "Play the next song"
+msgstr "Predvajanje naslednje skladbe"
+
+#: ../src/PlaylistWindow.cs:117
+msgid "Add an album to the playlist"
+msgstr "Dodajanje albuma na seznam predvajanja"
+
+#: ../src/PlaylistWindow.cs:120
+msgid "Add a song to the playlist"
+msgstr "Dodajanje skladbe na seznam predvajanja"
+
+#: ../src/PlaylistWindow.cs:123
+msgid "Change the volume level"
+msgstr "Sprememba glasnosti"
+
+#: ../src/PlaylistWindow.cs:126
+msgid "Drop an image here to use it as album cover"
+msgstr "Spustite sliko sem za uporabo kot naslovnica albuma"
+
+#: ../src/PlaylistWindow.cs:130
+msgid "Failed to initialize the audio backend"
+msgstr "Zagon zaledja zvoka je spodletel"
+
+#: ../src/PlaylistWindow.cs:133
+#, csharp-format
+msgid "Failed to read {0}:"
+msgstr "Branje {0} je spodletelo:"
+
+#: ../src/PlaylistWindow.cs:136
+#, csharp-format
+msgid "Failed to close {0}:"
+msgstr "Zapiranje {0} je spodletelo:"
+
+#: ../src/PlaylistWindow.cs:139
+#, csharp-format
+msgid "Failed to write {0}:"
+msgstr "Zapisovanje {0} je spodletelo:"
+
+#: ../src/PlaylistWindow.cs:1093
+#, csharp-format
+msgid "<b>Playlist</b> (Repeating {0} hour)"
+msgid_plural "<b>Playlist</b> (Repeating {0} hours)"
+msgstr[0] "<b>Seznam predvajanja</b> (ponavljanje {0} ur)"
+msgstr[1] "<b>Seznam predvajanja</b> (ponavljanje {0} ure)"
+msgstr[2] "<b>Seznam predvajanja</b> (ponavljanje {0} ur)"
+msgstr[3] "<b>Seznam predvajanja</b> (ponavljanje {0} ur)"
+
+#: ../src/PlaylistWindow.cs:1098
+#, csharp-format
+msgid "<b>Playlist</b> (Repeating {0} minute)"
+msgid_plural "<b>Playlist</b> (Repeating {0} minutes)"
+msgstr[0] "<b>Seznam predvajanja</b> (ponavljanje {0} minut)"
+msgstr[1] "<b>Seznam predvajanja</b> (ponavljanje {0} minute)"
+msgstr[2] "<b>Seznam predvajanja</b> (ponavljanje {0} minut)"
+msgstr[3] "<b>Seznam predvajanja</b> (ponavljanje {0} minut)"
+
+#: ../src/PlaylistWindow.cs:1103
+#, csharp-format
+msgid "<b>Playlist</b> ({0} hour remaining)"
+msgid_plural "<b>Playlist</b> ({0} hours remaining)"
+msgstr[0] "<b>Seznam predvajanja</b> ({0} ur preostalo)"
+msgstr[1] "<b>Seznam predvajanja</b> ({0} ura preostala)"
+msgstr[2] "<b>Seznam predvajanja</b> ({0} uri preostali)"
+msgstr[3] "<b>Seznam predvajanja</b> ({0} ure preostale)"
+
+#: ../src/PlaylistWindow.cs:1108
+#, csharp-format
+msgid "<b>Playlist</b> ({0} minute remaining)"
+msgid_plural "<b>Playlist</b> ({0} minutes remaining)"
+msgstr[0] "<b>Seznam predvajanja</b> ({0} minut preostalo)"
+msgstr[1] "<b>Seznam predvajanja</b> ({0} minuta preostala)"
+msgstr[2] "<b>Seznam predvajanja</b> ({0} minuti preostali)"
+msgstr[3] "<b>Seznam predvajanja</b> ({0} minute preostale)"
+
+#: ../src/PluginManager.cs:34
+#, csharp-format
+msgid "Error loading plug-in {0}: {1}"
+msgstr "Nalaganje vstavka {0} je spodletelo: {1}"
+
+#: ../src/ProgressWindow.cs:33
+#, csharp-format
+msgid "Importing \"{0}\""
+msgstr "Uvažanje  \"{0}\""
+
+#: ../src/ProgressWindow.cs:36
+msgid "Loading:"
+msgstr "Nalaganje:"
+
+#: ../src/SaveDialog.cs:37
+msgid "Save Playlist"
+msgstr "Shrani seznam predvajanja"
+
+#: ../src/SaveDialog.cs:40
+msgid "Untitled"
+msgstr "Neimenovano"
+
+#: ../src/StringUtils.cs:31
+msgid "Unknown"
+msgstr "Neznano"
+
+#: ../src/StringUtils.cs:34
+#, csharp-format
+msgid "{0} and others"
+msgstr "{0} in ostali"
+
+#: ../src/StringUtils.cs:37
+#, csharp-format
+msgid "{0} and {1}"
+msgstr "{0} in {1}"
+
+#: ../src/VolumeButton.cs:488
+msgid "Muted"
+msgstr "Nemo"
+
+#: ../src/VolumeButton.cs:490
+msgid "Full Volume"
+msgstr "Polna glasnost"
+
+#: ../plugins/TrayIcon.cs:39
+msgid "Muine music player"
+msgstr "Muine predvajalnik glasbe"
+
+#: ../plugins/TrayIcon.cs:44
+#, csharp-format
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#: ../plugins/TrayIcon.cs:49
+#, csharp-format
+msgid "Now playing: {0}"
+msgstr "Sedaj se predvaja: {0}"
+
+#: ../plugins/TrayIcon.cs:54
+#, csharp-format
+msgid "by {0}"
+msgstr "izvajalec {0}"
+
