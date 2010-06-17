@@ -1,13 +1,15 @@
+# Slovenian translations for muine.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the muine package.
+#
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Muine\n"
+"Project-Id-Version: muine master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=muine&component=general\n"
 "POT-Creation-Date: 2009-11-15 00:57+0000\n"
-"PO-Revision-Date: 2010-01-31 16:04+0100\n"
+"PO-Revision-Date: 2010-06-17 09:15+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +25,13 @@ msgstr ""
 msgid "_Play"
 msgstr "_Predvajaj"
 
-# Morda bi tukaj uporabil seznam predvajanja, saj ni nikjer drugje vrste ....
 #: ../data/glade/AddWindow.glade.h:2
 msgid "_Queue"
-msgstr "Daj v _vrsto"
+msgstr "Daj na _seznam predvajanja"
 
 #: ../data/glade/AddWindow.glade.h:3
 msgid "_Search:"
-msgstr "_Išči:"
+msgstr "_Poišči:"
 
 #: ../data/glade/PlaylistWindow.glade.h:1
 #: ../src/AddAlbumWindow.cs:42
@@ -117,7 +118,7 @@ msgstr "Zadnjič uporabljena mapa iz izbirnikov datoteke seznama predvajanj."
 
 #: ../data/muine.schemas.in.h:16
 msgid "Only complete albums"
-msgstr "Le končani albumi"
+msgstr "Le celotni albumi"
 
 #: ../data/muine.schemas.in.h:17
 msgid "Only deal with complete albums in the interface."
@@ -141,7 +142,7 @@ msgstr "Širina okna seznama predvajanja"
 
 #: ../data/muine.schemas.in.h:22
 msgid "Repeat mode"
-msgstr "Ponavljajoči način"
+msgstr "Način ponavljanja"
 
 #: ../data/muine.schemas.in.h:23
 msgid "Show Notifications"
@@ -173,7 +174,7 @@ msgstr "Ali naj bo omogočen način ponavljanja seznama predvajanja?"
 
 #: ../data/muine.schemas.in.h:30
 msgid "Which Amazon site to use for fetching album images, \"us\", \"uk\", \"de\", or \"jp\"."
-msgstr "Katera Amazonova stran naj bo uporabljena za pridobivanje slik albumov, \"us\", \"uk\", \"de\" ali \"jp\"."
+msgstr "Katera stran Amazon naj se uporabi za pridobivanje slik albumov, \"us\", \"uk\", \"de\" ali \"jp\"."
 
 #: ../data/muine.schemas.in.h:31
 msgid "Width of the \"Add album\" window."
@@ -189,11 +190,11 @@ msgstr "Širina okna seznama predvajanja."
 
 #: ../data/muine.schemas.in.h:34
 msgid "Your Amazon Dev Tag for fetching album cover art"
-msgstr "Vaša Amazon razvijalska oznaka za pridobivanje naslovnic albumov"
+msgstr "Vaša razvijalska oznaka Amazon za pridobivanje naslovnic albumov"
 
 #: ../libmuine/player-gst.c:154
 msgid "Failed to create a GStreamer play object"
-msgstr "Ustvarjanje predmeta predvajanja GStreamer je spodletelo"
+msgstr "Ustvarjanje GStreamer predmeta predvajanja je spodletelo"
 
 #: ../libmuine/player-gst.c:161
 msgid "Could not render default GStreamer audio output sink"
@@ -297,7 +298,7 @@ msgstr "_Naslednja"
 
 #: ../src/Actions.cs:71
 msgid "_Skip to..."
-msgstr "_Skoči na..."
+msgstr "Pre_skoči na ..."
 
 #: ../src/Actions.cs:74
 msgid "Skip _Backwards"
@@ -365,7 +366,7 @@ msgstr "Zagon mape začasnih datotek je spodletel: {0}"
 
 #: ../src/FileUtils.cs:50
 msgid "Exiting..."
-msgstr "Končevanje ..."
+msgstr "Končanje ..."
 
 #: ../src/Global.cs:37
 #, csharp-format
@@ -409,16 +410,16 @@ msgstr "Datoteke seznamov predvajanja"
 
 #: ../src/OverwriteDialog.cs:34
 msgid "Overwrite File?"
-msgstr "Prepis datoteke?"
+msgstr "Ali naj se datoteka prepiše?"
 
 #: ../src/OverwriteDialog.cs:37
 #, csharp-format
 msgid "Overwrite \"{0}\"?"
-msgstr "Prepis \"{0}\"?"
+msgstr "Ali naj se prepiše \"{0}\"?"
 
 #: ../src/OverwriteDialog.cs:40
 msgid "A file with this name already exists. If you choose to overwrite this file, the contents will be lost."
-msgstr "Datoteka s tem imenom že obstaja. V primeru, da datoteko prepišete, bo vsebina izgubljena."
+msgstr "Datoteka s tem imenom že obstaja. V primeru, da datoteko prepišete, bo vsebina prepisane datoteke izgubljena."
 
 #: ../src/OverwriteDialog.cs:74
 msgid "_Overwrite"
@@ -438,7 +439,7 @@ msgstr "<b>Seznam predvajanja</b>"
 
 #: ../src/PlaylistWindow.cs:88
 msgid "<b>Playlist</b> (Repeating)"
-msgstr "<b>Seznam predvajanja</b> (ponavljajoč)"
+msgstr "<b>Seznam predvajanja</b> (ponavljajoče)"
 
 #: ../src/PlaylistWindow.cs:91
 msgid "<b>Playlist</b> (Less than one minute remaining)"
@@ -597,10 +598,9 @@ msgstr "{0} - {1}"
 #: ../plugins/TrayIcon.cs:49
 #, csharp-format
 msgid "Now playing: {0}"
-msgstr "Sedaj se predvaja: {0}"
+msgstr "Predvaja se: {0}"
 
 #: ../plugins/TrayIcon.cs:54
 #, csharp-format
 msgid "by {0}"
 msgstr "izvajalec {0}"
-
